@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Chapter 3: Data format, loading into R, and first analysis</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/readable.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<meta name="robots" content="noindex" />
+<style type="text/css">
+
+/* padding for bootstrap navbar */
+body {
+  padding-top: 50px;
+  padding-bottom: 40px;
+}
+@media (max-width: 979px) {
+  body {
+    padding-top: 0;
+  }
+}
+
+/* offset scroll position for anchor links (for fixed navbar)  */
+@media (min-width: 980px) {
+  .section h2 {
+    padding-top: 52px;
+    margin-top: -52px;
+  }
+  .section h3 {
+    padding-top: 52px;
+    margin-top: -52px;
+  }
+}
+
+
+/* don't use link color in navbar */
+.dropdown-menu>li>a {
+  color: black;
+}
+
+</style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+</head>
+
+<body>
+
+<div class="container">
+
+
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="brand" href="index.html"><b>Population Genetics in R</b></a>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <li><a href="TOC.html">Home</a></li>
+          <li class="dropdown">
+            <a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+               <li><a href="Foreword.html">i. Preface</a></li>
+               <li><a href="C1_Introduction.html">1. Introduction</a></li>
+               <li><a href="C2_Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
+               <li><a href="C3_Data_format_loading.html">3. First steps</a></li>
+               <li><a href="C4_Population_Hierarchies.html">4. Population hierarchies</a></li>
+               <li><a href="C5_Locus_Stats.html">5. Locus-based statistics and missing data</a></li>
+               <li><a href="C6_Genotypic_EvenRichDiv.html">6. Genotypic evenness, richness, and diversity</a></li>
+               <li><a href="C7_Linkage_disequilibrium.html">7. Linkage disequilibrium</a></li>
+               <li><a href="C8_Pop_Structure.html">8. Population structure</a></li>
+               <li><a href="C9_AMOVA.html">9. AMOVA</a></li>
+               <li><a href="C10_DAPC.html">10. Discriminant analysis of principal components (DAPC)</a></li>
+               </ul>
+            </li>
+          <li class="dropdown">
+            <a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>
+            <ul class = "dropdown-menu">
+               <li><a href="A1_Data_sets.html">A1. Data sets</a></li>
+               <li><a href="A2_Function_Glossary.html">A2. Function glossary</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+</div>
+
+<div class="container">
+<div class="row">
+<div class="span10 offset1">
+
+<div id="header">
+<h1 class="title">Chapter 3: Data format, loading into R, and first analysis</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#loading-data">Loading data</a></li>
+<li><a href="#looking-at-allele-frequencies">Looking at allele frequencies</a></li>
+<li><a href="#calculating-genotypic-diversity">Calculating genotypic diversity</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<p>This chapter introduces basic use of and navigation in <em>poppr</em> as well as good practices when starting an analysis. We will start by loading data into R and <em>poppr</em> and glance at the genotypic diversity observed in populations and allelic frequencies observed in your loci by population. Both of these are good first steps to eliminate data entry errors, check for missing/rare data and make sure all loci conform to expectations given your analyses.</p>
+<div id="loading-data" class="section level2">
+<h2>Loading data</h2>
+<p>We will use AFLP data for a population of the diploid plant pathogen <em>Aphanomyces euteiches</em> to get started <a href="http://grunwaldlab.cgrb.oregonstate.edu/hierarchical-analysis-diversity-selfing-and-genetic-differentiation-populations-oomycete-aphanomyces">(<a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134">Grünwald &amp; Hoheisel, 2006</a>)</a>. This data can also be downloaded from <a href="http://dx.doi.org/10.6084/m9.figshare.877104">figshare</a> by copying the link from the <code>Download</code> button. A total of 187 pathogen isolates were sampled hierarchically in two regions in Oregon (N = 97) and Washington (N = 90), respectively. Let’s first load the data:</p>
+<pre class="r"><code>library(poppr) # Load poppr package</code></pre>
+<pre><code>## Loading required package: adegenet
+## Loading required package: ade4
+##    ==========================
+##     adegenet 1.4-1 is loaded
+##    ==========================
+## 
+##  - to start, type &#39;?adegenet&#39;
+##  - to browse adegenet website, type &#39;adegenetWeb()&#39;
+##  - to post questions/comments: adegenet-forum@lists.r-forge.r-project.org
+## 
+## 
+## This is poppr version 1.1.0.99</code></pre>
+<pre class="r"><code>data(Aeut)     # Load A. euteiches data stored within poppr
+
+# Optional, load the data from figshare:
+Aeut.figshare &lt;- read.genalex(&quot;http://files.figshare.com/1314228/rootrot.csv&quot;)</code></pre>
+<p>Let’s make sure the data is loaded appropriately:</p>
+<pre class="r"><code>Aeut          # The data set in poppr</code></pre>
+<pre><code>## 
+##    #####################
+##    ### Genind object ### 
+##    #####################
+## - genotypes of individuals - 
+## 
+## S4 class:  genind
+## @call: read.genalex(genalex = &quot;rootrot.csv&quot;)
+## 
+## @tab:  187 x 56 matrix of genotypes
+## 
+## @ind.names: vector of  187 individual names
+## @loc.names: vector of  56 locus names
+## @loc.nall: NULL
+## @loc.fac: NULL
+## @all.names: NULL
+## @ploidy:  2
+## @type:  PA
+## 
+## Optionnal contents: 
+## @pop:  factor giving the population of each individual
+## @pop.names:  factor giving the population of each individual
+## 
+## @other: a list containing: population_hierarchy</code></pre>
+<pre class="r"><code>Aeut.figshare # the data set from the internet</code></pre>
+<pre><code>## 
+## This is a genclone object
+## -------------------------
+## Genotype information:
+## 
+##    119 multilocus genotypes
+##    187 diploid individuals
+##     56 dominant loci
+## 
+## Population information:
+## 
+##      1 hierarchical level - Pop
+##     18 populations defined - Athena_1 Athena_2 Athena_3 ... Mt. Vernon_6 
+## Mt. Vernon_7 Mt. Vernon_8</code></pre>
+<p>As we can see, the data has the expected 56 loci and <span class="math">\(N\)</span> = 187 individuals.</p>
+</div>
+<div id="looking-at-allele-frequencies" class="section level2">
+<h2>Looking at allele frequencies</h2>
+<p>A good first step after loading data is to look for missing data, rare alleles and overall quality of your data:</p>
+<pre class="r"><code>data(nancycats)
+locus_table(nancycats)</code></pre>
+<pre><code>## 
+##  allele = Number of observed alleles
+##  1-D = Simpson index
+##  Hexp = Nei&#39;s 1978 expected heterozygosity
+## ------------------------------------------</code></pre>
+<pre><code>##        summary
+## locus   allele   1-D  Hexp Evenness
+##   fca8   16.00  0.87  0.92     0.76
+##   fca23  11.00  0.79  0.87     0.68
+##   fca43  10.00  0.80  0.88     0.79
+##   fca45   9.00  0.76  0.86     0.67
+##   fca77  12.00  0.87  0.95     0.86
+##   fca78   8.00  0.69  0.79     0.64
+##   fca90  12.00  0.82  0.89     0.77
+##   fca96  12.00  0.76  0.83     0.64
+##   fca37  18.00  0.61  0.64     0.42
+##   mean   12.00  0.77  0.85     0.69</code></pre>
+<pre class="r"><code>info_table(nancycats, plot = TRUE, percent = FALSE) # Search for missing data.</code></pre>
+<p><img src="C3_Data_format_loading_files/figure-html/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="700px" /></p>
+<pre><code>##           Locus
+## Population  fca8 fca23 fca43 fca45 fca77 fca78 fca90 fca96 fca37  Mean
+##      1      2.00     .     .     .     .     .     .     .     .  0.22
+##      2         .     .     .     .     .     .     .     .     .     .
+##      3         .     .     .     .     .     .     .     .     .     .
+##      4         .     .     .     .     .     .     .     .     .     .
+##      5         .     .     .     .     .     .     .     .     .     .
+##      6         .     .     .     .     .     .     .     .     .     .
+##      7      5.00     .     .     .     .     .     .     .     .  0.56
+##      8         .     .     .     .     .     .     .     .     .     .
+##      9         .     .     .     .     .     .     .     .     .     .
+##      10        .     .     .     .     .     .     .     .     .     .
+##      11     3.00     .     .  8.00     .     .     .  1.00     .  1.33
+##      12     3.00     .     .     .     .     .     .     .     .  0.33
+##      13        .     .     .     .     .     .     .     .     .     .
+##      14     7.00     .     .     .     .     .     .     .     .  0.78
+##      15        .     .     .     .     .     .     .     .     .     .
+##      16        .     .     .     .     .     .     .     .     .     .
+##      17        .     .     . 13.00     .     .     .  8.00     .  2.33
+##      Total 20.00     .     . 21.00     .     .     .  9.00     .  5.56</code></pre>
+<p>If your data consists of polyploid SSR markers, you would code the unobserved alleles as “0”. An example for this is the <em>Phyophthora infestans</em> data set from (<a href="">Goss et al. 2014</a>), which is a subset of a tetraploid data set. In this example, each row represents an isolate and each column represents a locus:</p>
+<pre class="r"><code>data(Pinf)
+Pinf</code></pre>
+<pre><code>## 
+## This is a genclone object
+## -------------------------
+## Genotype information:
+## 
+##    72 multilocus genotypes
+##    86 tetraploid individuals
+##    11 codominant loci
+## 
+## Population information:
+## 
+##     2 hierarchical levels - Continent Country
+##     2 populations defined - South America North America</code></pre>
+<pre class="r"><code>tail(genind2df(Pinf, sep = &quot;/&quot;))</code></pre>
+<pre><code>##                  pop            Pi02             D13            Pi33
+## PiPE22 South America 000/000/160/160 000/000/142/144 000/000/203/203
+## PiPE23 South America 000/000/160/160 000/000/140/140 000/000/203/203
+## PiPE24 South America 000/000/160/160 000/000/142/144 000/000/203/203
+## PiPE25 South America 000/000/160/160 000/000/142/144 000/000/203/203
+## PiPE26 South America 000/000/162/162 000/000/142/142 000/000/203/203
+## PiPE27 South America 000/000/154/160 000/000/136/138 000/000/203/203
+##                   Pi04            Pi4B            Pi16             G11
+## PiPE22 000/000/166/170 000/000/213/217 000/000/176/178 000/152/162/200
+## PiPE23 000/000/166/170 000/000/213/217 000/000/176/178 000/152/160/200
+## PiPE24 000/000/166/170 000/000/213/217 000/000/176/178 000/152/162/200
+## PiPE25 000/000/166/170 000/000/213/217 000/000/176/178 000/152/162/200
+## PiPE26 000/000/166/170 000/000/205/217 000/000/176/178 000/000/156/166
+## PiPE27 000/000/166/170 000/000/213/217 000/000/176/178 000/152/170/200
+##                   Pi56            Pi63            Pi70            Pi89
+## PiPE22 000/000/176/176 000/148/151/157 000/000/189/192 000/000/179/179
+## PiPE23 000/000/176/176 000/148/151/157 000/000/189/192 000/000/179/179
+## PiPE24 000/000/176/176 000/148/151/157 000/000/189/192 000/000/179/179
+## PiPE25 000/000/176/176 000/148/151/157 000/000/189/192 000/000/179/179
+## PiPE26 000/000/176/176 000/000/157/157 000/000/192/195 000/000/179/181
+## PiPE27 000/000/176/176 000/148/151/157 000/000/189/192 000/000/179/179</code></pre>
+<p>To observe the different levels of ploidy in your data, use the function <code>info_table</code> with the argument <code>type = &quot;ploidy&quot;</code>:</p>
+<pre class="r"><code>Pinf.ploidy &lt;- info_table(Pinf, type = &quot;ploidy&quot;, plot = TRUE)</code></pre>
+<p><img src="C3_Data_format_loading_files/figure-html/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="700px" /></p>
+<pre class="r"><code>tail(Pinf.ploidy)</code></pre>
+<pre><code>##         Loci
+## Samples  Pi02 D13 Pi33 Pi04 Pi4B Pi16 G11 Pi56 Pi63 Pi70 Pi89
+##   PiPE22    2   2    2    2    2    2   3    2    3    2    2
+##   PiPE23    2   2    2    2    2    2   3    2    3    2    2
+##   PiPE24    2   2    2    2    2    2   3    2    3    2    2
+##   PiPE25    2   2    2    2    2    2   3    2    3    2    2
+##   PiPE26    2   2    2    2    2    2   2    2    2    2    2
+##   PiPE27    2   2    2    2    2    2   3    2    3    2    2</code></pre>
+<p>You are now able to assess the quality of your data and examine allelic diversity in your populations. In the next section we will learn how to calculate genotypic diversity.</p>
+</div>
+<div id="calculating-genotypic-diversity" class="section level2">
+<h2>Calculating genotypic diversity</h2>
+<p>Let us get a first impression of the diversity found in this data using the summary function, <code>poppr</code>:</p>
+<pre class="r"><code>poppr(Aeut)</code></pre>
+<pre><code>## | Athena 
+## | Mt. Vernon 
+## | Total</code></pre>
+<pre><code>##          Pop   N MLG eMLG   SE    H    G  Hexp   E.5    Ia  rbarD File
+## 1     Athena  97  70 66.0 1.25 4.06 42.2 0.986 0.721  2.91 0.0724 Aeut
+## 2 Mt. Vernon  90  50 50.0 0.00 3.67 28.7 0.976 0.726 13.30 0.2816 Aeut
+## 3      Total 187 119 68.5 2.99 4.56 69.0 0.991 0.720 14.37 0.2706 Aeut</code></pre>
+<p>We can see statistics printed for each individual and the total population. The fields you see in the output include:</p>
+<ul>
+<li><code>Pop</code> - Population name.</li>
+<li><code>N</code> - Number of individuals observed.</li>
+<li><code>MLG</code> - Number of multilocus genotypes (MLG) observed.</li>
+<li><code>eMLG</code> - The number of expected MLG at the smallest sample size ≥ 10 based on rarefaction (<a href="http://www.jstor.org/discover/10.2307/1934145?uid=3739856&uid=2&uid=4&uid=3739256&sid=21103760010461">Hurlbert, 1971</a>).</li>
+<li><code>SE</code> - Standard error based on eMLG.</li>
+<li><code>H</code> - Shannon-Wiener Index of MLG diversity (<a href="http://cm.bell-labs.com/cm/ms/what/shannonday/shannon1948.pdf">Shannon, 2001</a>).</li>
+<li><code>G</code> - Stoddart and Taylor’s Index of MLG diversity (<a href="http://www.genetics.org/content/118/4/705">Stoddart &amp; Taylor, 1988</a>).</li>
+<li><code>Hexp</code> - Nei’s expected heterozygosity (denoted elsewhere as D) (<a href="http://www.genetics.org/content/89/3/583.abstract">Nei, 1978</a>).</li>
+<li><code>E.5</code> - Evenness, E5 (<a href="">Pielou, 1975</a>; <a href="">Ludwig &amp; Reynolds, 1988</a>; <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738">Grünwald et al. 2003</a>).</li>
+<li><code>Ia</code> - The index of association, <span class="math">\(I_A\)</span> (<a href="http://www.genetics.org/content/96/2/523">Brown et al. 1980</a>; <a href="http://www.pnas.org/content/90/10/4384">Smith et al. 1993</a>).</li>
+<li><code>rbarD</code> - The standardized index of association, <span class="math">\(\bar{r}_d\)</span> (<a href="http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract">Agapow &amp; Burt, 2001</a>).</li>
+</ul>
+<p>What does all this mean? Both populations have a similar number of individuals (<span class="math">\(N\)</span> = 90 and 97) sampled. However, one population has 50 and the other 70 <span class="math">\(MLG\)</span> while both populations together have combined 119 <span class="math">\(MLG\)</span>. Genotypic diversity (either <span class="math">\(H\)</span> or <span class="math">\(G\)</span>) is higher in population 1 than population 2, while evenness is similar. Let’s ignore <span class="math">\(I_A\)</span> and <span class="math">\(\bar{r}_d\)</span> for now, as these are measures of linkage disequilibrium that will be covered in <a href="C7_Linkage_disequilibrium.html">Chapter 7</a>.</p>
+<p>Next, let’s calculate <span class="math">\(MLG\)</span> for each population, e.g. “Athena” and “Mt. Vernon” populations:</p>
+<pre class="r"><code>A.tab &lt;- mlg.table(Aeut)</code></pre>
+<pre><code>## | Athena</code></pre>
+<p><img src="C3_Data_format_loading_files/figure-html/unnamed-chunk-71.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="700px" /></p>
+<pre><code>## | Mt. Vernon</code></pre>
+<p><img src="C3_Data_format_loading_files/figure-html/unnamed-chunk-72.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="700px" /></p>
+<p>The figures provide histograms to see how evenly <span class="math">\(MLGs\)</span> are distributed within each population. Both populations have genotypes that occur a few times and only a few genotypes that occur more than 5 times (as expected from the high <span class="math">\(E_5\)</span> discussed above). Feel free to explore the actual published data to see how this work was interpreted previously (<a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134">Grünwald &amp; Hoheisel, 2006</a>).</p>
+<p>This concludes our first introduction on how to count genotypes and determine genotypic diversity, evenness and richness in populations. In the <a href="C4_Population_Hierarchies">next chapter</a> we will learn how to subset and clone-correct populations.</p>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<p> 
+P-M Agapow, A Burt, (2001) Indices of multilocus linkage disequilibrium. <em>Molecular Ecology Notes</em> <strong>1</strong> (1-2) 101-102 <a href="http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract">http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract</a>
+</p><p> 
+AHD Brown, MW Feldman, E Nevo, (1980) Multilocus structure of natural populations of Hordeum spontaneum. <em>Genetics</em> <strong>96</strong> (2) 523-536 <a href="http://www.genetics.org/content/96/2/523">http://www.genetics.org/content/96/2/523</a>
+</p><p> 
+EM Goss, JF Tabima, DEL Cooke, S Restrepo, WE Fry, GA Forbes, VJ Fieland, M Cardenas, NJ Grünwald, (2014) The Irish famine pathogen Phytophthora infestans originated in central Mexico rather than the Andes. <em>Proceedings of the National Academy of Sciences</em> <strong>##</strong> (3) in press-NA
+</p><p> 
+NJ Grünwald, SB Goodwin, MG Milgroom, WE Fry, (2003) Analysis of genotypic diversity data for populations of microorganisms. <em>Phytopathology</em> <strong>93</strong> (6) 738-746 <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738</a>
+</p><p> 
+NJ Grünwald, G-A Hoheisel, (2006) Hierarchical analysis of diversity, selfing, and genetic differentiation in populations of the oomycete Aphanomyces euteiches. <em>Phytopathology</em> <strong>96</strong> (10) 1134-1141 <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134</a>
+</p><p> 
+SH Hurlbert, (1971) The nonconcept of species diversity: a critique and alternative parameters. <em>Ecology</em> <strong>52</strong> (4) 577-586 <a href="http://www.jstor.org/discover/10.2307/1934145?uid=3739856&uid=2&uid=4&uid=3739256&sid=21103760010461">http://www.jstor.org/discover/10.2307/1934145?uid=3739856&amp;uid=2&amp;uid=4&amp;uid=3739256&amp;sid=21103760010461</a>
+</p><p> 
+JA Ludwig, JF Reynolds, (1988) Statistical ecology: a primer in methods and computing.
+</p><p> 
+M Nei, (1978) Estimation of average heterozygosity and genetic distance from a small number of individuals. <em>Genetics</em> <strong>89</strong> (3) 583-590 <a href="http://www.genetics.org/content/89/3/583.abstract">http://www.genetics.org/content/89/3/583.abstract</a>
+</p><p> 
+EC Pielou, (1975) Ecological diversity.
+</p><p> 
+CE Shannon, (2001) A mathematical theory of communication. <em>ACM SIGMOBILE Mobile Computing and Communications Review</em> <strong>5</strong> (1) 3-55 <a href="http://cm.bell-labs.com/cm/ms/what/shannonday/shannon1948.pdf">http://cm.bell-labs.com/cm/ms/what/shannonday/shannon1948.pdf</a>
+</p><p> 
+JM Smith, NH Smith, M O’Rourke, BG Spratt, (1993) How clonal are bacteria. <em>Proceedings of the National Academy of Sciences</em> <strong>90</strong> (10) 4384-4388 <a href="http://www.pnas.org/content/90/10/4384">http://www.pnas.org/content/90/10/4384</a>
+</p><p> 
+JA Stoddart, JF Taylor, (1988) Genotypic diversity: estimation and prediction in samples. <em>Genetics</em> <strong>118</strong> (4) 705-711 <a href="http://www.genetics.org/content/118/4/705">http://www.genetics.org/content/118/4/705</a>
+</p>
+
+
+
+</div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with --self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "libs/mathjax-2.3.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
