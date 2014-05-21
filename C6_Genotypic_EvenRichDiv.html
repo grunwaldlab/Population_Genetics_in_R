@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>6: Genotypic richness, diversity, and evenness</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/readable.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<meta name="robots" content="noindex" />
+<style type="text/css">
+
+/* padding for bootstrap navbar */
+body {
+  padding-top: 50px;
+  padding-bottom: 40px;
+}
+@media (max-width: 979px) {
+  body {
+    padding-top: 0;
+  }
+}
+
+/* offset scroll position for anchor links (for fixed navbar)  */
+@media (min-width: 980px) {
+  .section h2 {
+    padding-top: 52px;
+    margin-top: -52px;
+  }
+  .section h3 {
+    padding-top: 52px;
+    margin-top: -52px;
+  }
+}
+
+
+/* don't use link color in navbar */
+.dropdown-menu>li>a {
+  color: black;
+}
+
+</style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+</head>
+
+<body>
+
+<div class="container">
+
+
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="brand" href="index.html"><b>Population Genetics in R</b></a>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <li><a href="TOC.html">Home</a></li>
+          <li class="dropdown">
+            <a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+               <li><a href="Foreword.html">i. Preface</a></li>
+               <li><a href="C1_Introduction.html">1. Introduction</a></li>
+               <li><a href="C2_Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
+               <li><a href="C3_Data_format_loading.html">3. First steps</a></li>
+               <li><a href="C4_Population_Hierarchies.html">4. Population hierarchies</a></li>
+               <li><a href="C5_Locus_Stats.html">5. Locus-based statistics and missing data</a></li>
+               <li><a href="C6_Genotypic_EvenRichDiv.html">6. Genotypic evenness, richness, and diversity</a></li>
+               <li><a href="C7_Linkage_disequilibrium.html">7. Linkage disequilibrium</a></li>
+               <li><a href="C8_Pop_Structure.html">8. Population structure</a></li>
+               <li><a href="C9_AMOVA.html">9. AMOVA</a></li>
+               <li><a href="C10_DAPC.html">10. Discriminant analysis of principal components (DAPC)</a></li>
+               </ul>
+            </li>
+          <li class="dropdown">
+            <a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>
+            <ul class = "dropdown-menu">
+               <li><a href="A1_Data_sets.html">A1. Data sets</a></li>
+               <li><a href="A2_Function_Glossary.html">A2. Function glossary</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+</div>
+
+<div class="container">
+<div class="row">
+<div class="span10 offset1">
+
+<div id="header">
+<h1 class="title">6: Genotypic richness, diversity, and evenness</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#genotypic-richness">Genotypic richness</a></li>
+<li><a href="#genotypic-diversity">Genotypic diversity</a></li>
+<li><a href="#genotypic-evenness">Genotypic evenness</a></li>
+<li><a href="#conclusions">Conclusions</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>In Chapter 3, we introduced basic summary statistics that can be calculated using <em>poppr</em>. For this chapter, we want to specifically focus on how to evaluate genotypic richness, diversity, and evenness in your data. In this example, we’ll examine the monpop microsatellite data for 13 loci of 694 individuals of the haploid fungal pathogen <em>Monilinia fructicola</em> that infects peach flowers and fruits in commercial orchards.</p>
+<p>For this example, we can explore the hypothesis that the population that infects flowers and yields blighted blossoms (BB) is from a more genetically diverse pool (being a product of overwintering, sexual recombination), than the population that infects and causes fruit rots (FR), which is likely a product of asexual production from existing infections in the orchard. As such, we can ask the following questions:</p>
+<ul>
+<li>Is genotypic richness of BB populations higher than for FR populations?</li>
+<li>Is genotypic diversity of BB populations higher for FR populations?</li>
+<li>Is genotypic evenness higher for BB populations than for FR populations?</li>
+</ul>
+<p>For the analysis, we need to read in the data, specify the hierarchical levels in the data, and then set the hierarchical level to symptom so that we can calculate genotypic richness, diversity, and evenness for BB as compared to FR for the entire data set:</p>
+<pre class="r"><code>library(poppr)
+monpop &lt;- read.genalex(&quot;monpop.csv&quot;)
+splithierarchy(monpop) &lt;- ~Tree/Year/Symptom
+setpop(monpop) &lt;- ~Symptom
+monpop</code></pre>
+<pre><code>## 
+## This is a genclone object
+## -------------------------
+## Genotype information:
+## 
+##    264 multilocus genotypes
+##    694 haploid individuals
+##     13 codominant loci
+## 
+## Population information:
+## 
+##      3 hierarchical levels - Tree Year Symptom
+##      2 populations defined - BB FR</code></pre>
+<p>To calculate genotypic richness, diversity, and evenness, we can use the <code>poppr</code> function:</p>
+<pre class="r"><code>poppr(monpop)</code></pre>
+<pre><code>## | BB 
+## | FR 
+## | Total</code></pre>
+<pre><code>##     Pop   N MLG eMLG   SE    H    G  Hexp   E.5    Ia  rbarD   File
+## 1    BB 113  94 94.0 0.00 4.40 61.7 0.993 0.755 0.591 0.0493 monpop
+## 2    FR 581 191 66.6 4.17 4.58 53.4 0.983 0.543 0.809 0.0679 monpop
+## 3 Total 694 264 73.6 4.33 4.89 65.0 0.986 0.486 0.729 0.0611 monpop</code></pre>
+<p>This shows us several summary statistics:</p>
+<ul>
+<li><code>Pop</code> - Population name.</li>
+<li><code>N</code> - Number of individuals observed.</li>
+<li><code>MLG</code> - Number of multilocus genotypes (MLG) observed.</li>
+<li><code>eMLG</code> - The number of expected MLG at the smallest sample size ≥ 10 based on rarefaction (<a href="http://www.jstor.org/discover/10.2307/1934145?uid=3739856&uid=2&uid=4&uid=3739256&sid=21103760010461">Hurlbert, 1971</a>).</li>
+<li><code>SE</code> - Standard error based on eMLG.</li>
+<li><code>H</code> - Shannon-Wiener Index of MLG diversity (<a href="http://cm.bell-labs.com/cm/ms/what/shannonday/shannon1948.pdf">Shannon, 2001</a>).</li>
+<li><code>G</code> - Stoddart and Taylor’s Index of MLG diversity (<a href="http://www.genetics.org/content/118/4/705">Stoddart &amp; Taylor, 1988</a>).</li>
+<li><code>Hexp</code> - Unbiased genotypic diversity (<a href="http://www.genetics.org/content/89/3/583.abstract">Nei, 1978</a>).</li>
+<li><code>E.5</code> - Evenness, E5 (<a href="">Pielou, 1975</a>; <a href="">Ludwig &amp; Reynolds, 1988</a>; <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738">Grünwald et al. 2003</a>).</li>
+<li><code>Ia</code> - The index of association, <span class="math">\(I_A\)</span> (<a href="http://www.genetics.org/content/96/2/523">Brown et al. 1980</a>; <a href="http://www.pnas.org/content/90/10/4384">Smith et al. 1993</a>).</li>
+<li><code>rbarD</code> - The standardized index of association, <span class="math">\(\bar{r}_d\)</span> (<a href="http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract">Agapow &amp; Burt, 2001</a>).</li>
+</ul>
+</div>
+<div id="genotypic-richness" class="section level2">
+<h2>Genotypic richness</h2>
+<p>The number of observed <span class="math">\(MLGs\)</span> is equivalent to genotypic richness. We expect that the BB population would have a higher genotypic richness than the FR population. However, looking at the raw number of MLGs for each symptom type, it shows us the opposite: there are 94 MLGs for BB and 191 MLGs for FR. This discrepancy has to do with the sample size, where we <span class="math">\(N\)</span> = 113 for BB and <span class="math">\(N\)</span> = 581 for FR. The more appropriate comparison is the <span class="math">\(eMLG\)</span> value, which is an approximation of the number of genotypes that would be observed at the smallest sample size (<span class="math">\(N\)</span> = 113) based on rarefaction. For BB (<span class="math">\(N\)</span>=113) the <span class="math">\(eMLG\)</span> = 94 and for FR (where <span class="math">\(N\)</span> is set to 113) the <span class="math">\(eMLG\)</span> = 66.6. Thus, genotypic richness is indeed higher in the BB populations than the FR population when considering equal sample sizes.</p>
+<pre class="r"><code>library(vegan)
+mon.tab &lt;- mlg.table(monpop, bar = FALSE)
+min_sample &lt;- min(rowSums(mon.tab))
+rarecurve(mon.tab, sample = min_sample, xlab = &quot;Sample Size&quot;, ylab = &quot;Expected MLGs&quot;)
+title(&quot;Rarefaction of Fruit Rot and Blossom Blight&quot;)</code></pre>
+<p><img src="C6_Genotypic_EvenRichDiv_files/figure-html/rarecurve.png" title="plot of chunk rarecurve" alt="plot of chunk rarecurve" width="700px" /></p>
+</div>
+<div id="genotypic-diversity" class="section level2">
+<h2>Genotypic diversity</h2>
+<p>Diversity measures incorporate both genotypic richness and abundance. There are three measures of genotypic diversity employed by ‘poppr’, the Shannon-Weiner Index (H), Stoddart and Taylor’s Index (G), and what we call unbiased genotypic diversity (Hexp), which is an analog of expected heterozygosity. In our example, comparing the diversity of BB to FR shows that H is greater for FR (4.58 vs. 4.40), but lower for G (53.4 vs. 61.7). Thus, our expectation that diversity is lower for FR than BB is rejected in the case of H, which is likely due to the sensitivity of the Shannon-Weiner Index to genotypic richness in the uneven sample sizes, and accepted in the case of G. To be fair, the sample size used to calculate these diversity measures is different and is therefore not an appropriate comparison.</p>
+<p>Unlike H and G, genotypic diversity measure, Hexp, is calculated using genotype frequencies and scaled according to sample size, with a range from 0 to 1. This measure provides an estimation of the probability of two randomly selected genotypes are different. In the data above, it shows us that the genotypic diversity of the BB is higher (0.993) than that of FR (0.983), thus we have a higher probability that two randomly selected BB individuals have a different genotype as compared to the FR population.</p>
+</div>
+<div id="genotypic-evenness" class="section level2">
+<h2>Genotypic evenness</h2>
+<p>Evenness is a measure of the distribution of genotype abundances, wherein a population with equally abundant genotypes yields a value equal to 1 and a population dominated by a single genotype is closer to zero. In the example above, the BB population has <span class="math">\(E.5\)</span> = 0.755 and the FR population has <span class="math">\(E.5\)</span> = 0.543. This indicates that the MLGs observed in the BB population are closer to equal abundance than those in the FR population. Indeed, when we look at a distribution of the <span class="math">\(MLGs\)</span> for each symptom type it shows us there are many more unique BB symptoms as compared to the FR symptoms.</p>
+<pre class="r"><code>mon.tab &lt;- mlg.table(monpop)</code></pre>
+<pre><code>## | BB</code></pre>
+<p><img src="C6_Genotypic_EvenRichDiv_files/figure-html/unnamed-chunk-41.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="700px" /></p>
+<pre><code>## | FR</code></pre>
+<p><img src="C6_Genotypic_EvenRichDiv_files/figure-html/unnamed-chunk-42.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="700px" /></p>
+</div>
+<div id="conclusions" class="section level2">
+<h2>Conclusions</h2>
+<p>Calculating measures of genotypic richness, diversity, and evenness is straightforward to do in <em>poppr</em>. In our example, we were able to perform these calculations with one command. However, the ease of calculating these measures is not an indication of the ease of interpretation, particularly when it comes to measures of diversity. There are a large number of diversity measures available and the measures provided here are those we found most useful.</p>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<p> 
+P-M Agapow, A Burt, (2001) Indices of multilocus linkage disequilibrium. <em>Molecular Ecology Notes</em> <strong>1</strong> (1-2) 101-102 <a href="http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract">http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract</a>
+</p><p> 
+AHD Brown, MW Feldman, E Nevo, (1980) Multilocus structure of natural populations of Hordeum spontaneum. <em>Genetics</em> <strong>96</strong> (2) 523-536 <a href="http://www.genetics.org/content/96/2/523">http://www.genetics.org/content/96/2/523</a>
+</p><p> 
+NJ Grünwald, SB Goodwin, MG Milgroom, WE Fry, (2003) Analysis of genotypic diversity data for populations of microorganisms. <em>Phytopathology</em> <strong>93</strong> (6) 738-746 <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738</a>
+</p><p> 
+SH Hurlbert, (1971) The nonconcept of species diversity: a critique and alternative parameters. <em>Ecology</em> <strong>52</strong> (4) 577-586 <a href="http://www.jstor.org/discover/10.2307/1934145?uid=3739856&uid=2&uid=4&uid=3739256&sid=21103760010461">http://www.jstor.org/discover/10.2307/1934145?uid=3739856&amp;uid=2&amp;uid=4&amp;uid=3739256&amp;sid=21103760010461</a>
+</p><p> 
+JA Ludwig, JF Reynolds, (1988) Statistical ecology: a primer in methods and computing.
+</p><p> 
+M Nei, (1978) Estimation of average heterozygosity and genetic distance from a small number of individuals. <em>Genetics</em> <strong>89</strong> (3) 583-590 <a href="http://www.genetics.org/content/89/3/583.abstract">http://www.genetics.org/content/89/3/583.abstract</a>
+</p><p> 
+EC Pielou, (1975) Ecological diversity.
+</p><p> 
+CE Shannon, (2001) A mathematical theory of communication. <em>ACM SIGMOBILE Mobile Computing and Communications Review</em> <strong>5</strong> (1) 3-55 <a href="http://cm.bell-labs.com/cm/ms/what/shannonday/shannon1948.pdf">http://cm.bell-labs.com/cm/ms/what/shannonday/shannon1948.pdf</a>
+</p><p> 
+JM Smith, NH Smith, M O’Rourke, BG Spratt, (1993) How clonal are bacteria. <em>Proceedings of the National Academy of Sciences</em> <strong>90</strong> (10) 4384-4388 <a href="http://www.pnas.org/content/90/10/4384">http://www.pnas.org/content/90/10/4384</a>
+</p><p> 
+JA Stoddart, JF Taylor, (1988) Genotypic diversity: estimation and prediction in samples. <em>Genetics</em> <strong>118</strong> (4) 705-711 <a href="http://www.genetics.org/content/118/4/705">http://www.genetics.org/content/118/4/705</a>
+</p>
+
+
+
+</div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with --self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "libs/mathjax-2.3.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

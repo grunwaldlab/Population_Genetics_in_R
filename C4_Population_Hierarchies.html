@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>4: Populations hierarchies: subsetting and clone correction</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/readable.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<meta name="robots" content="noindex" />
+<style type="text/css">
+
+/* padding for bootstrap navbar */
+body {
+  padding-top: 50px;
+  padding-bottom: 40px;
+}
+@media (max-width: 979px) {
+  body {
+    padding-top: 0;
+  }
+}
+
+/* offset scroll position for anchor links (for fixed navbar)  */
+@media (min-width: 980px) {
+  .section h2 {
+    padding-top: 52px;
+    margin-top: -52px;
+  }
+  .section h3 {
+    padding-top: 52px;
+    margin-top: -52px;
+  }
+}
+
+
+/* don't use link color in navbar */
+.dropdown-menu>li>a {
+  color: black;
+}
+
+</style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+</head>
+
+<body>
+
+<div class="container">
+
+
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="brand" href="index.html"><b>Population Genetics in R</b></a>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <li><a href="TOC.html">Home</a></li>
+          <li class="dropdown">
+            <a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+               <li><a href="Foreword.html">i. Preface</a></li>
+               <li><a href="C1_Introduction.html">1. Introduction</a></li>
+               <li><a href="C2_Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
+               <li><a href="C3_Data_format_loading.html">3. First steps</a></li>
+               <li><a href="C4_Population_Hierarchies.html">4. Population hierarchies</a></li>
+               <li><a href="C5_Locus_Stats.html">5. Locus-based statistics and missing data</a></li>
+               <li><a href="C6_Genotypic_EvenRichDiv.html">6. Genotypic evenness, richness, and diversity</a></li>
+               <li><a href="C7_Linkage_disequilibrium.html">7. Linkage disequilibrium</a></li>
+               <li><a href="C8_Pop_Structure.html">8. Population structure</a></li>
+               <li><a href="C9_AMOVA.html">9. AMOVA</a></li>
+               <li><a href="C10_DAPC.html">10. Discriminant analysis of principal components (DAPC)</a></li>
+               </ul>
+            </li>
+          <li class="dropdown">
+            <a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>
+            <ul class = "dropdown-menu">
+               <li><a href="A1_Data_sets.html">A1. Data sets</a></li>
+               <li><a href="A2_Function_Glossary.html">A2. Function glossary</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+</div>
+
+<div class="container">
+<div class="row">
+<div class="span10 offset1">
+
+<div id="header">
+<h1 class="title">4: Populations hierarchies: subsetting and clone correction</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#data-used-in-this-example">Data used in this example</a></li>
+<li><a href="#working-with-hierarchical-data">Working with hierarchical data</a></li>
+<li><a href="#importing-data-labeled-according-to-a-hierarchy">Importing data labeled according to a hierarchy</a></li>
+<li><a href="#assigning-hierarchical-levels">Assigning hierarchical levels</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>Populations are best sampled hierarchically on a range of scales from subpopulations (e.g. fields, valleys, ranges) to regions (e.g. valleys, states, countries or continents). This approach is useful because population structure and evolutionary processes may not be discernible <em>a priori</em>. Most of the times we do not know if population are differentiated locally, regionally or globally. Thus, a combination of targeted local sampling with sampling over larger scales is necessary to detect population structure over different scales, without using intense sampling throughout the entire range.</p>
+<p>The methods implemented in <em>poppr</em> allow specification of which hierarchies you want to analyze. This is a rapid way of working with subsets of your data without having to perform any data manipulation or changing the input file. In this tutorial, we’ll show you how to define the hierarchical structure of your data, following which, we’ll show you how to specify the hierarchical levels that you moigh want to analyze.</p>
+</div>
+<div id="data-used-in-this-example" class="section level2">
+<h2>Data used in this example</h2>
+<p>For this example, we will use the <code>monpop</code> data set. This microsatellite data consists of 13 loci for 694 individuals of the haploid fungal pathogen <em>Monilinia fructicola</em> that infects peach flowers and fruits in commercial orchards. The monpop population came from four trees within a single orchard (trees 26, 45, and 7). Each tree was sampled in 2009, 2010, and/or 2011. Additionally, each sample was noted as to whether it came from a blossom or a fruit. This example data set is included with the <em>poppr</em> package.</p>
+</div>
+<div id="working-with-hierarchical-data" class="section level2">
+<h2>Working with hierarchical data</h2>
+<p>The steps for working with hierarchical data include:</p>
+<ol style="list-style-type: decimal">
+<li>Import data set with samples labeled according to hierarchy</li>
+<li>Define the hierarchical levels for the data</li>
+<li>Setting the hierarchical level(s) that you want to have analyzed</li>
+</ol>
+</div>
+<div id="importing-data-labeled-according-to-a-hierarchy" class="section level2">
+<h2>Importing data labeled according to a hierarchy</h2>
+<p>The easiest way to work with hierarchical data is to label each sample accordingly, using an underscore “_” to separate each category. This was already done for the monpop data, where each sample was coded with which tree, year, and symptom it came from in the following format: “Tree_Year_Symptom”.</p>
+<p>Let’s import the hierarchically, labeled example data:</p>
+<pre class="r"><code>library(poppr)
+monpop &lt;- read.genalex(&quot;monpop.csv&quot;)
+monpop</code></pre>
+<pre><code>## 
+## This is a genclone object
+## -------------------------
+## Genotype information:
+## 
+##    264 multilocus genotypes
+##    694 haploid individuals
+##     13 codominant loci
+## 
+## Population information:
+## 
+##      1 hierarchical level - Pop
+##     12 populations defined - 7_09_BB 26_09_BB 26_09_FR ... 45_10_FR 
+## 26_11_BB 26_11_FR</code></pre>
+<p>Genotype information shows us that the data contains 264 multilocus genotypes among 694 haploid individuals with 13 loci. <u>Population information</u> has two items, the hierarchical levels and the populations defined. You can think of hierarchical levels as the index names for each of the hierarchical levels within your data (so for our date it should be Tree, Year, and Symptom). By default, however, no hierarchical levels are defined and so this is “Pop”, which is the entire dataset of 694 individuals. Because we labeled each sample according to hierarchical level, populations defined shows us our data has 12 groups defined: 7_09_BB, 26_09_BB, 26_09_FR, 7_09_FR, 26_10_BB, 45_10_BB, 79_10_BB, 79_10_FR, 26_10_FR, 45_10_FR, 26_11_BB, 26_11_FR.</p>
+</div>
+<div id="assigning-hierarchical-levels" class="section level2">
+<h2>Assigning hierarchical levels</h2>
+<p>We imported the data that has three hierarchical levels “Tree_Year_Symptom”. In order to analyze our data according to any combination of those three hierarchical levels, we need to tell <em>poppr</em> that the 12 groups should be split by tree, year, and symptom. Thus, the first step is to split our data according to hierarchy so that we can access each of the three hierarchical levels in the data. The <code>splithierarchy</code> command is used to index the three hierarchical levels:</p>
+<pre class="r"><code>splithierarchy(monpop) &lt;- ~Tree/Year/Symptom
+monpop</code></pre>
+<pre><code>## 
+## This is a genclone object
+## -------------------------
+## Genotype information:
+## 
+##    264 multilocus genotypes
+##    694 haploid individuals
+##     13 codominant loci
+## 
+## Population information:
+## 
+##      3 hierarchical levels - Tree Year Symptom
+##     12 populations defined - 7_09_BB 26_09_BB 26_09_FR ... 45_10_FR 
+## 26_11_BB 26_11_FR</code></pre>
+<p>After splitting the data populations are specified by hierarchical level: “Tree Year Symptom”.</p>
+<p>Next, we analyze the data according to Tree and Year:</p>
+<pre class="r"><code>setpop(monpop) &lt;- ~Tree/Year
+monpop</code></pre>
+<pre><code>## 
+## This is a genclone object
+## -------------------------
+## Genotype information:
+## 
+##    264 multilocus genotypes
+##    694 haploid individuals
+##     13 codominant loci
+## 
+## Population information:
+## 
+##      3 hierarchical levels - Tree Year Symptom
+##      6 populations defined - 7_9 26_9 26_10 45_10 79_10 26_11</code></pre>
+<p>To analyze the data according to Symptom:</p>
+<pre class="r"><code>setpop(monpop) &lt;- ~Symptom
+monpop</code></pre>
+<pre><code>## 
+## This is a genclone object
+## -------------------------
+## Genotype information:
+## 
+##    264 multilocus genotypes
+##    694 haploid individuals
+##     13 codominant loci
+## 
+## Population information:
+## 
+##      3 hierarchical levels - Tree Year Symptom
+##      2 populations defined - BB FR</code></pre>
+<p>Order of the levels that you define is important, so if we wanted to define the symptoms according to tree, we would use the following:</p>
+<pre class="r"><code>setpop(monpop) &lt;- ~Symptom/Tree
+monpop</code></pre>
+<pre><code>## 
+## This is a genclone object
+## -------------------------
+## Genotype information:
+## 
+##    264 multilocus genotypes
+##    694 haploid individuals
+##     13 codominant loci
+## 
+## Population information:
+## 
+##      3 hierarchical levels - Tree Year Symptom
+##      8 populations defined - BB_7 BB_26 FR_26 ... BB_79 FR_79 FR_45</code></pre>
+<p>This was a brief introduction to the easiest way to create hierarchical levels and apply them in <em>poppr</em> to more rapidly analyze your data. By indexing the hierarchical levels of your data, you can set the hierarchical level(s) you want to have analyzed in a single command line. This approach avoids having to create new sub-sets of the data for each analysis and simultaneously reduces the chance of error when manipulating data sets by hand.</p>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+</div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with --self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "libs/mathjax-2.3.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

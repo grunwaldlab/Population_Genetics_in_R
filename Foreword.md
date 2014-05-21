@@ -1,0 +1,10 @@
+Foreword
+================
+
+We had a great time writing this primer thanks to the ready availability of many open source tools. This primer was written using open source tools including [Markdown](http://daringfireball.net/projects/markdown/), [Rstudio IDE](http://www.rstudio.com/ide/), [Knitr](http://yihui.name/knitr/), the [R](http://www.r-project.org) statistical computing and graphing language, [knitcitations](https://github.com/cboettig/knitcitations), [poppr](http://cran.r-project.org/web/packages/poppr/index.html) and other dependent R packages.
+
+If you find errors or lacking information please let us know. We are actively working to improve this primer and *poppr*. We are also delighted to hear about features in *poppr* you might want to see, although we cannot promise that we can implement these. At the same time we have already implemented several user suggested features that much improved *poppr*. 
+
+*Nik Grunwald, Sydney Everhart, and Zhian Kamvar*
+
+Corvallis, Oregon, USA; 2014

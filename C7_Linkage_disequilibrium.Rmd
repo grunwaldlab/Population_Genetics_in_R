@@ -1,0 +1,107 @@
+```{r,message=FALSE,echo=FALSE}
+  html <- TRUE
+  library(knitcitations)
+  bib <- read.bibtex("bibtexlib.bib")
+  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, cache = TRUE)
+  if (html) opts_chunk$set(out.width = "700px", dpi = 300) 
+  # use this to set knitr options: 
+  # http://yihui.name/knitr/options #chunk_options
+```
+---
+title: "7: Linkage disequilibrium"
+---
+
+In this chapter we will formally test if populations are in linkage
+disequilibrium or not. This test is useful to determine if populations are
+clonal (where significant disequilibrium is expected due to linkage among loci) or sexual (where linkage among loci is not expected). The null hypothesis tested is that alleles
+observed at different loci are not linked if populations are sexual while
+alleles recombine freely  into new genotypes during the process of sexual
+reproduction. In molecular ecology we typically use the index of association or
+related indices to test this phenomenon.
+
+The index of association
+-----
+
+The index of association ($I_A$) was originally proposed by Brown et al. `r citep(bib[c("brown1980multilocus")])` and implemented in the *poppr* R package `r citep(bib[c("kamvar2014poppr")])` using a permutation approach to assess if loci are linked as described previously by Agapow and Burt `r citep(bib[c("agapow2001indices")])`. Agapow and Burt also described the index $\bar{r}_d$ that accounts for the number of loci sampled that is less biased and will be used here. 
+
+```{r}
+library(poppr)
+data(Pinf)
+MX <- popsub(Pinf, "North America")  #subset population to North America
+```
+```{r, eval=FALSE}
+ia(MX, sample=999)   # include 999 permutations, where Ia is also calculated for the observed data, thus enabling a null distribution of 1000 observations
+```
+```{r, MXia, echo=FALSE}
+cat("|================================================================| 100%\n")
+# the function options for ia() include:
+# ia(pop, sample = 0, method = 1, quiet = FALSE, missing = "ignore", hist = TRUE)
+set.seed(20154) 
+MXia <- ia(MX, sample=999, quiet=TRUE)
+MXia
+```
+
+> **For advanced users:** To reproduce results use the function `set.seed()` before invoking `ia()`.
+
+We observe 48 individuals and see that $P = `r round(MXia[4], 3)`$ for $\bar{r}_d = `r round(MXia[3], 3)`$. We thus reject the null hypothesis of no linkage among markers. Notice, however, that the observed $\bar{r}_d$ falls on the right tail of the resampled distribution and the P value is close to $P = 0.01$. Could this population have clones? We can find out by displaying the data.
+
+```{r}
+MX
+```
+
+Indeed we observe 43 multilocus genotypes out of 48 samples. We are looking at partial clonality and thus need to use clone-corrected (also called clone-censored) data:
+
+```{r}
+MX.cc <- clonecorrect(MX, hier = ~Continent/Country, keep = 2) # remove clones from Mexican population
+```
+```{r, eval=FALSE}
+ia(MX.cc, sample = 999)   # include 999 permutations
+```
+```{r, MXiacc, echo=FALSE}
+cat("|================================================================| 100%\n")
+set.seed(20154)
+ia(MX.cc, sample = 999, quiet = TRUE)
+```
+
+Now $\bar{r}_d$ is located more centrally in the distribution expected from unlinked loci. Note that $P$ has improved and we fail to reject the null hypothesis of no linkage among markers. Thus it spears that populations in Mexico are partially sexual. 
+
+Next let's use the same process to evaluate the South American population:
+
+```{r}
+SA <- popsub(Pinf, "South America")
+```
+```{r, eval=FALSE}
+ia(SA, sample = 999)   # include 999 permutations
+```
+```{r, SAia, echo=FALSE}
+cat("|================================================================| 100%\n")
+# the function options for ia() include:
+# ia(pop, sample = 0, method = 1, quiet = FALSE, missing = "ignore", hist = TRUE)
+set.seed(20154) 
+SAia <- ia(SA, sample=999, quiet=TRUE)
+SAia
+```
+
+Here we find significant support for the hypothesis that alleles are linked across loci with $P < 0.001$. The observed $\bar{r}_d = `r round(SAia[3], 3)`$ and falls outside of the distribution expected under no linkage. Let's look at the clone-corrected data and make sure this is not an artifact of clonality:
+
+```{r}
+SA.cc <- clonecorrect(SA, hier = ~Continent/Country, keep = 2)
+```
+```{r, eval=FALSE}
+ia(SA.cc, sample=999)   # include 999 permutations
+```
+```{r, SAiacc, echo=FALSE}
+cat("|================================================================| 100%\n")
+set.seed(9999)
+ia(SA.cc, sample=999, quiet=TRUE)
+```
+
+Both clone-corrected ($N = 29$) and uncorrected data ($N = 38$) reject the hypothesis of no linkage among markers. We thus have support for populations in Mexico being sexual while those in South America are clonal. 
+
+This approach has been applied to provide support for Mexico as the putative center of origin of the potato late blight pathogen *P. infestans* `r citep(bib[c("goss2014irish")])`. At the center of origin this organism is expected to reproduce sexually, while South American populations are clonal. 
+
+References
+----------
+```{r,echo=FALSE, results='asis', cache = FALSE}
+  bibliography(style = "html", bulleted=FALSE)
+```
