@@ -1,5 +1,3 @@
-
----
 Population Genetics in R
 ---
 
