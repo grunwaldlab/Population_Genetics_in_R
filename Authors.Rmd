@@ -13,8 +13,8 @@ output: html_document
 </small></TD>
  </TR>
   <TR>
-   <TD VALIGN=TOP><div style="width: 150px" ><img src="images/IMG_3734.jpg" height="400px" width="300px"/></div></TD>
-   <TD VALIGN=TOP><small>**Zhian Kamvar**.</small></TD>
+   <TD VALIGN=TOP><div style="width: 150px" ><img src="images/ZK.jpg" height="400px" width="300px"/></div></TD>
+   <TD VALIGN=TOP><small>**Zhian Kamvar** is a graduate student in the Department of Botany and Pant Pathology at Oregon State University.</small></TD>
  </TR>
  <TR>
    <TD VALIGN=TOP><div style="width: 150px" ><img src="images/IMG_3734.jpg" height="400px" width="300px"/></div></TD>
