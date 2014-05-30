@@ -22,5 +22,3 @@ i.   [Preface](Foreword.html)
 1. [Data sets](A1_Data_sets.html)
 2. [Function glossary](A2_Function_Glossary.html)
 
-### Authors:
-[About the authors](Authors.html)
