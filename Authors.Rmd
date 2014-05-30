@@ -1,0 +1,19 @@
+---
+title: "About the authors"
+output: html_document
+---
+
+<TABLE Frame=void cellpadding="5" cellspacing = "5">
+ <TR>
+   <TD VALIGN=TOP><div style="width: 150px" ><img src="images/IMG_3734.jpg" height="400px" width="300px"/></div></TD>
+   <TD VALIGN=TOP><small>**Niklaus J. Gr&uuml;nwald** is a plant pathologist with the USDA Agricultural Research Service and a Professor in the Department of Botany and Pant Pathology and the Center for Genome Research and Biocomputing at Oregon State University. He received his PhD from UC Davis and conducted postdoctoral research at Cornell University. His research focuses on understanding the evolutionary patterns and processes of emerging pathogens using population genetic and evolutionary approaches. You can find more information about him at <a href="http://grunwaldlab.cgrb.oregonstate.edu/">Gr&uuml;nwald lab</a>.</small></TD>
+ </TR>
+  <TR>
+   <TD VALIGN=TOP><div style="width: 150px" ><img src="images/IMG_3734.jpg" height="400px" width="300px"/></div></TD>
+   <TD VALIGN=TOP><small>**Zhian Kamvar**.</small></TD>
+ </TR>
+ <TR>
+   <TD VALIGN=TOP><div style="width: 150px" ><img src="images/IMG_3734.jpg" height="400px" width="300px"/></div></TD>
+   <TD VALIGN=TOP><small>**Sydney Everhart**.</small></TD>
+ </TR>
+</TABLE>
