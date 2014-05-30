@@ -4,7 +4,7 @@ title: 'Table of contents'
 
 i.   [Preface](Foreword.html)
 
-### Chapters:
+### Chapters
 
 1.   [Introduction](C1_Introduction.html)
 2.   [Getting ready to use R](C2_Getting_ready_to_use_R.html)
@@ -17,7 +17,7 @@ i.   [Preface](Foreword.html)
 9.   [Analysis of molecular variance (AMOVA)](C9_AMOVA.html)
 10.   [Discriminant analysis of principal components (DAPC)](C10_DAPC.html)
 
-### Appendices:
+### Appendices
 
 1. [Data sets](A1_Data_sets.html)
 2. [Function glossary](A2_Function_Glossary.html)
