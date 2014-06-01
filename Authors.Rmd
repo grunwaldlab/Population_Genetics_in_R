@@ -18,6 +18,6 @@ output: html_document
  </TR>
  <TR>
    <TD VALIGN=TOP><div style="width: 150px" ><img src="images/SydneyEverhart.JPG" height="400px" width="300px"/></div></TD>
-   <TD VALIGN=TOP><small>**Sydney E. Everhart**.</small></TD>
+   <TD VALIGN=TOP><small>**Sydney E. Everhart** is a postdoctoral research assistant in the Department of Botany and Plant Pathology at Oregon State University.</small></TD>
  </TR>
 </TABLE>

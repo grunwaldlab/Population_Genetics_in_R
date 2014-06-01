@@ -12,7 +12,7 @@ title: "2: Getting ready to use R"
 
 R provides a unique environment for performing population genetic analyses. You will particularly enjoy not having to switch data formats and operating systems to execute a series of analyses, as was the case until now. Furthermore, R provides graphing capabilities that are ready for use in publications, with only a little bit of extra effort. But first, let's install R, install an integrated development environment, open R, and load R packages. 
 
-----
+<!------
 
 ## FOR THE SPRING 2014 WORKSHOP
 
@@ -44,17 +44,17 @@ in several ways:
 ```
 ----
 
-<!--
+-->
 
 Installing R
 -----
 
-1. Download and install the [R](http://www.r-project.org) statistical computing and graphing environment. This works cross-platform on Windows, OS X and Linux operating systems. (**For the spring 2014 workshop:** version 3.1 is required)
+1. Download and install the [R](http://www.r-project.org) statistical computing and graphing environment. This works cross-platform on Windows, OS X and Linux operating systems.
 
 2. Download and install the [Rstudio IDE](http://www.rstudio.com/ide/) that we recommend as an integrated development environment.
 
-3. Download and install [poppr](http://grunwaldlab.cgrb.oregonstate.edu/poppr-r-package-population-genetics) and all its dependencies `r citep(bib["kamvar2014poppr"])`.
--->
+3. Download and install the **development version** of [poppr](http://github.com/grunwaldlab/poppr/tree/devel) and all its dependencies `r citep(bib["kamvar2014poppr"])` [INSTRUCTIONS HERE](https://github.com/grunwaldlab/poppr/tree/devel#stable-and-development-versions).
+
 
 
 *Poppr* is an R package. You can think of a package as a library of functions written and curated by someone in the R user community, which you can loaded into R for use. We wrote and actively maintain *poppr* `r citep(bib["kamvar2014poppr"])`.
