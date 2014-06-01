@@ -32,15 +32,15 @@ Importing data labeled according to a hierarchy
 ----
 The easiest way to work with hierarchical data is to label each sample accordingly, using an underscore "\_" to separate each category.  This was already done for the monpop data, where each sample was coded with which tree, year, and symptom it came from in the following format: "Tree\_Year\_Symptom". 
 
-Let's import the hierarchically, labeled example data:
+Let's load the hierarchically labeled example data:
 ```{r}
 library(poppr)
-monpop <- read.genalex("monpop.csv")
+data(monpop)
 monpop
 ```
 
 
-Genotype information shows us that the data contains 264 multilocus genotypes among 694 haploid individuals with 13 loci.  <u>Population information</u> has two items, the hierarchical levels and the populations defined.  You can think of hierarchical levels as the index names for each of the hierarchical levels within your data (so for our date it should be Tree, Year, and Symptom).  By default, however, no hierarchical levels are defined and so this is "Pop", which is the entire dataset of 694 individuals.  Because we labeled each sample according to hierarchical level, populations defined shows us our data has 12 groups defined: `r monpop$pop.names`.  
+**Genotype information** shows us that the data contains 264 multilocus genotypes among 694 haploid individuals with 13 loci. **Population information** has two items, the hierarchical levels and the populations defined.  You can think of hierarchical levels as the index names for each of the hierarchical levels within your data (so for our date it should be Tree, Year, and Symptom).  By default, however, no hierarchical levels are defined and so this is "Pop", which is the entire dataset of 694 individuals.  Because we labeled each sample according to hierarchical level, populations defined shows us our data has 12 groups defined: `r monpop$pop.names`.  
 
 Assigning hierarchical levels
 ----
