@@ -28,7 +28,7 @@ For the analysis, we need to read in the data, specify the hierarchical levels i
 
 ```{r}
 library(poppr)
-monpop <- read.genalex("monpop.csv")
+data(monpop)
 splithierarchy(monpop) <- ~Tree/Year/Symptom
 setpop(monpop) <- ~Symptom
 monpop

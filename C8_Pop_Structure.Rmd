@@ -64,7 +64,7 @@ Let's load the data:
 
 ```{r}
 library(poppr)
-monpop <- read.genalex("monpop.csv")
+data(monpop)
 splithierarchy(monpop) <- ~Tree/Year/Symptom
 summary(monpop)
 ```
