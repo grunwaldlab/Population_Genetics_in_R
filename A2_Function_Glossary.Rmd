@@ -72,7 +72,8 @@ Function | Description
 `clonecorrect` | Clone censors at a specified population hierarchy
 `informloci` | Detects and removes phylogenetically uninformative loci
 `popsub` | Subsets genind objects by population
-`shufflepop` | Shuffles genotypes at each locus using fourdifferent shuffling algorithms
+`shufflepop` | Shuffles genotypes at each locus using four different shuffling algorithms
+`recode_polyploids` | Recodes an imported polyploid data set to observed allelic frequencies
 
 
 ### Distances

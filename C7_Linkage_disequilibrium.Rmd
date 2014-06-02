@@ -43,7 +43,7 @@ MXia
 
 > **For advanced users:** To reproduce results use the function `set.seed()` before invoking `ia()`.
 
-We observe 48 individuals and see that $P = `r round(MXia[4], 3)`$ for $\bar{r}_d = `r round(MXia[3], 3)`$. We thus reject the null hypothesis of no linkage among markers. Notice, however, that the observed $\bar{r}_d$ falls on the right tail of the resampled distribution and the P value is close to $P = 0.01$. Could this population have clones? We can find out by displaying the data.
+We observe 48 individuals and see that $P = `r round(MXia[4], 3)`$ for $\bar{r}_d = `r round(MXia[3], 3)`$. We thus reject the null hypothesis of no linkage among markers. Notice, however, that the observed $\bar{r}_d$ falls on the right tail of the re-sampled distribution and the P value is close to $P = 0.01$. Could this population have clones? We can find out by displaying the data.
 
 ```{r}
 MX

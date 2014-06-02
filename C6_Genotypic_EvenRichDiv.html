@@ -155,7 +155,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </ul>
 <p>For the analysis, we need to read in the data, specify the hierarchical levels in the data, and then set the hierarchical level to symptom so that we can calculate genotypic richness, diversity, and evenness for BB as compared to FR for the entire data set:</p>
 <pre class="r"><code>library(poppr)
-monpop &lt;- read.genalex(&quot;monpop.csv&quot;)
+data(monpop)
 splithierarchy(monpop) &lt;- ~Tree/Year/Symptom
 setpop(monpop) &lt;- ~Symptom
 monpop</code></pre>

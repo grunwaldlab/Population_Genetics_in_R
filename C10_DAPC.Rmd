@@ -10,7 +10,7 @@
 title: '10: Discriminant analysis of principal components (DAPC)'
 ---
 
-Often we want to infer population structure by determining the number of clusters (groups) observed without prior knowledge. Several appraoches can be used to infer groups such as for example K-means clustering, Bayesian clustering using STRUCTURE, and multivariate methods such as Discriminant Analysis of Principal Componenets (DAPC) `r citep(bib[c("jombart2010discriminant", "pritchard2000inference", "grunwald2011evolution")])`. A STRUCTURE-like approach assumes that markers are not linked and that populations are panmictic `r citep(bib[c("pritchard2000inference")])`. To use model-free methods K-means clustering based on genetic distance or DAPC are more convenient approaches for populations that are clonal or partially clonal. Here we explore DAPC further.
+Often we want to infer population structure by determining the number of clusters (groups) observed without prior knowledge. Several approaches can be used to infer groups such as for example K-means clustering, Bayesian clustering using STRUCTURE, and multivariate methods such as Discriminant Analysis of Principal Components (DAPC) `r citep(bib[c("jombart2010discriminant", "pritchard2000inference", "grunwald2011evolution")])`. A STRUCTURE-like approach assumes that markers are not linked and that populations are panmictic `r citep(bib[c("pritchard2000inference")])`. To use model-free methods K-means clustering based on genetic distance or DAPC are more convenient approaches for populations that are clonal or partially clonal. Here we explore DAPC further.
 
 DAPC analysis of the H3N2 influenza strains
 ----
@@ -75,7 +75,7 @@ This plot nicely illustrates the effect of mutation, followed by selection or dr
 Conclusions
 ----
 
-DAPC is a wonderful tool for exploring structure of populations based on PCA and DA without making assumptions of panmixia. Thus, this technique provides a robust alternative to Bayesian clustering methods like STRUCTURE `r citep(bib[c("pritchard2000inference")])` that should not be used for clonal or patially clonal populations.
+DAPC is a wonderful tool for exploring structure of populations based on PCA and DA without making assumptions of panmixia. Thus, this technique provides a robust alternative to Bayesian clustering methods like STRUCTURE `r citep(bib[c("pritchard2000inference")])` that should not be used for clonal or partially clonal populations.
 
 DAPC analysis is inherently interactive and cannot be scripted *a priori*. Please refer to the [vignette](http://adegenet.r-forge.r-project.org/files/tutorial-dapc.pdf) written by Thibaut Jombart for a more interactive analysis.
 

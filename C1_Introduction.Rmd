@@ -67,7 +67,7 @@ Plants and microorganisms such as fungi, oomycetes, and bacteria often reproduce
 Marker systems, ploidy and other kinds of data
 ----
 
-Population genetic data come in many shapes and forms and a good analysis needs to be tailored to the marker system, ploidy used and corresponding genetic models assumed `r citep(bib[c("grunwald2011evolution")])`. Organisms can be haploid, diploid, with or without known phase, or polyploid. In the case of diploid species, marker systems can be dominant (AFLP, RFLP or RAPD data) or codominant (SSR, SNPs, allozymes) `r citep(bib[c("grunwald2003")])`. A locus can have two alleles (0/1 for AFLP; C/T for SNPs) or many alleles per locus (A/B/C...N for SSRs or allozymes). In each case the data has to be coded and analyzed differently. Mutation rates can also differ for different markers systems (SSR >> mitochondrial SNPs > nuclear SNPs) `r citep(bib[c("grunwald2011evolution")])`. 
+Population genetic data come in many shapes and forms and a good analysis needs to be tailored to the marker system, ploidy used and corresponding genetic models assumed `r citep(bib[c("grunwald2011evolution")])`. Organisms can be haploid, diploid, with or without known phase, or polyploid. In the case of diploid species, marker systems can be dominant (AFLP, RFLP or RAPD data) or co-dominant (SSR, SNPs, allozymes) `r citep(bib[c("grunwald2003")])`. A locus can have two alleles (0/1 for AFLP; C/T for SNPs) or many alleles per locus (A/B/C...N for SSRs or allozymes). In each case the data has to be coded and analyzed differently. Mutation rates can also differ for different markers systems (SSR >> mitochondrial SNPs > nuclear SNPs) `r citep(bib[c("grunwald2011evolution")])`. 
 
 Applications of population genetic analyses
 ----

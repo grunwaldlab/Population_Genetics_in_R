@@ -145,9 +145,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </ul>
 </div>
 
-<p>A rigorous population genetic analysis looks closely at the data to assess quality and identify outliers or problems in the data such as erroneous allele calls. This chapter focuses on analysis on a per-locus level. While there are statistics that analyze populations across loci, it is important to analyse each locus independently to make sure that one locus is not introducing bias into the analysis.</p>
+<p>A rigorous population genetic analysis looks closely at the data to assess quality and identify outliers or problems in the data such as erroneous allele calls. This chapter focuses on analysis on a per-locus level. While there are statistics that analyze populations across loci, it is important to analyze each locus independently to make sure that one locus is not introducing bias into the analysis.</p>
 <blockquote>
-<p><strong>Note:</strong> Many of these statistics are specific to codominant data.</p>
+<p><strong>Note:</strong> Many of these statistics are specific to co-dominant data.</p>
 </blockquote>
 <div id="locus-summary-statistics" class="section level2">
 <h2>Locus summary statistics</h2>
@@ -407,7 +407,7 @@ nan1mean &lt;- missingno(nan1, &quot;mean&quot;)</code></pre>
   install.packages(&quot;genetics&quot;, repos = &quot;http://cran.at.r-project.org&quot;)
 nanhwe.full &lt;- HWE.test.genind(nancycats) # returns a list
 nanhwe.mat  &lt;- HWE.test.genind(nancycats, res.type = &quot;matrix&quot;) # returns a matrix</code></pre>
-<p>The full report (<code>nanhwe.full</code>) will give us a list of loci, each containing a list of populations, where each population is the result of a <span class="math">\(\chi^2\)</span> test. We will anlayze data for a few loci to avoid writing a large amount of data to the screen. With the following statements, we can see that at locus1 (<code>fca8</code>), we have no good evidence to reject the null hypothesis that population 1 (<code>P01</code>) is not in HWE, but we have evidence that population 2 (<code>P02</code>) is not in HWE:</p>
+<p>The full report (<code>nanhwe.full</code>) will give us a list of loci, each containing a list of populations, where each population is the result of a <span class="math">\(\chi^2\)</span> test. We will analyze data for a few loci to avoid writing a large amount of data to the screen. With the following statements, we can see that at locus1 (<code>fca8</code>), we have no good evidence to reject the null hypothesis that population 1 (<code>P01</code>) is not in HWE, but we have evidence that population 2 (<code>P02</code>) is not in HWE:</p>
 <pre class="r"><code>nanhwe.full$fca8$P01</code></pre>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test

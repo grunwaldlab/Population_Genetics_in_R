@@ -13,10 +13,10 @@
 title: "5: Locus stats, heterozygosity, HWE, Information index"
 ---
 
-A rigorous population genetic analysis looks closely at the data to assess quality and identify outliers or problems in the data such as erroneous allele calls. This chapter focuses on analysis on a per-locus level. While there are statistics that analyze populations across loci, it is important to analyse each locus independently to make sure that one locus is not introducing
+A rigorous population genetic analysis looks closely at the data to assess quality and identify outliers or problems in the data such as erroneous allele calls. This chapter focuses on analysis on a per-locus level. While there are statistics that analyze populations across loci, it is important to analyze each locus independently to make sure that one locus is not introducing
 bias into the analysis. 
 
-> **Note:** Many of these statistics are specific to codominant data. 
+> **Note:** Many of these statistics are specific to co-dominant data. 
 
 Locus summary statistics
 -----
@@ -184,7 +184,7 @@ nanhwe.mat  <- HWE.test.genind(nancycats, res.type = "matrix") # returns a matri
 ```
 
 The full report (`nanhwe.full`) will give us a list of loci, each containing a list of 
-populations, where each population is the result of a $\chi^2$ test. We will anlayze data for a few loci to avoid writing a large amount of data to the screen. With the following statements, we can see that at locus1 (`fca8`), we have no good evidence to reject the null hypothesis that population 1
+populations, where each population is the result of a $\chi^2$ test. We will analyze data for a few loci to avoid writing a large amount of data to the screen. With the following statements, we can see that at locus1 (`fca8`), we have no good evidence to reject the null hypothesis that population 1
 (`P01`) is not in HWE, but we have evidence that population 2 (`P02`) is not in 
 HWE:
 

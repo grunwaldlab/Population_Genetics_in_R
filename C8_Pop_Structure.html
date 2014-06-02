@@ -199,7 +199,7 @@ nancycats</code></pre>
 </ol>
 <p>Let’s load the data:</p>
 <pre class="r"><code>library(poppr)
-monpop &lt;- read.genalex(&quot;monpop.csv&quot;)
+data(monpop)
 splithierarchy(monpop) &lt;- ~Tree/Year/Symptom
 summary(monpop)</code></pre>
 <pre><code>## 
@@ -325,7 +325,7 @@ SAclust &lt;- find.clusters(SA)</code></pre>
 <p>Notice here that there is no uptick in the curve. This indicates that there <a href="http://lists.r-forge.r-project.org/pipermail/adegenet-forum/2011-June/000303.html">might not be enough information in the data set to properly cluster</a>. We will go ahead by choosing the highest number of clusters:</p>
 <div id="trees" class="section level3">
 <h3>Trees</h3>
-<p>Now we will build trees. We are using Bruvo’s distance since polyploidies bias calculation of other distances:</p>
+<p>Now we will build trees. We are using Bruvo’s distance since polyploids bias calculation of other distances:</p>
 <pre class="r"><code>pinfreps &lt;- c(2, 2, 6, 2, 2, 2, 2, 2, 3, 3, 2)
 MXtree &lt;- bruvo.boot(MX, replen = pinfreps, cutoff = 50, quiet = TRUE)</code></pre>
 <p><img src="C8_Pop_Structure_files/figure-html/trees1.png" title="plot of chunk trees" alt="plot of chunk trees" width="700px" /></p>

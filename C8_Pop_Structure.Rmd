@@ -178,7 +178,7 @@ SAclust <- find.clusters(SA, n.pca = 30, n.clust = 4)
 
 ### Trees
 
-Now we will build trees. We are using Bruvo's distance since polyploidies bias calculation of other distances: 
+Now we will build trees. We are using Bruvo's distance since polyploids bias calculation of other distances: 
 
 ```{r, trees}
 pinfreps <- c(2, 2, 6, 2, 2, 2, 2, 2, 3, 3, 2)
