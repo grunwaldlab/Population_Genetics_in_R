@@ -76,7 +76,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <body>
 
-<div class="container">
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
 
 
 <div class="navbar navbar-default navbar-fixed-top">
@@ -135,7 +142,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="TOC">
 <ul>
-<li><a href="#installing-r">Installing R</a></li>
+<li><a href="#for-the-spring-2014-workshop">FOR THE SPRING 2014 WORKSHOP</a></li>
 <li><a href="#a-quick-introduction-to-r-using-rstudio">A quick introduction to R using Rstudio</a></li>
 <li><a href="#some-useful-resources-to-learn-r">Some useful resources to learn R:</a></li>
 <li><a href="#packages-and-getting-help">Packages and getting help</a></li>
@@ -144,49 +151,44 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 
 <p>R provides a unique environment for performing population genetic analyses. You will particularly enjoy not having to switch data formats and operating systems to execute a series of analyses, as was the case until now. Furthermore, R provides graphing capabilities that are ready for use in publications, with only a little bit of extra effort. But first, let’s install R, install an integrated development environment, open R, and load R packages.</p>
+<div id="for-the-spring-2014-workshop" class="section level2">
+<h2>FOR THE SPRING 2014 WORKSHOP</h2>
+<p>You must have:</p>
+<ol style="list-style-type: decimal">
+<li>The latest version of <a href="http://www.r-project.org">R</a> <strong>(3.1.0)</strong></li>
+<li><a href="http://www.rstudio.com/ide/">Rstudio</a>. Think of this as kind of a GUI for R.</li>
+<li>The latest development version of <em>poppr</em> (1.1.0.99) (see below)</li>
+</ol>
+<p><strong>You must download the development version of poppr</strong> (1.1.0.99). You may do this in several ways:</p>
+<div id="if-you-do-not-have-a-c-compiler-or-do-not-know-what-it-is" class="section level3">
+<h3>If you do NOT have a C compiler or do not know what it is:</h3>
+<ol style="list-style-type: decimal">
+<li>In your R console, run the command to install the dependencies of <em>poppr</em>: <code>install.packages(c(&quot;adegenet&quot;, &quot;pegas&quot;, &quot;vegan&quot;, &quot;ggplot2&quot;, &quot;phangorn&quot;, &quot;ape&quot;, &quot;igraph&quot;))</code></li>
+<li>Download the binaries for Windows <a href="http://grunwaldlab.cgrb.oregonstate.edu/sites/default/files/u5/poppr_1.1.0.99_24.6.14.zip">[here]</a> or OSX <a href="http://grunwaldlab.cgrb.oregonstate.edu/sites/default/files/u5/poppr_1.1.0.99_24.6.14.tgz">[here]</a> and install using the <code>Tools &gt; Install Packages...</code> menu command. You should see a window like this:</li>
+</ol>
+<p><img src="screenshots/InstallPackages.png" alt="Install Packages Window" /></p>
+<p>You should make sure to choose the <strong>Package Archive File</strong> option and then indicate where you downloaded the package in the menubar. If you have downloaded it on your desktop, you would type <code>~/Desktop/poppr_1.1.0.99.tgz</code> (on OSX).</p>
+</div>
+<div id="if-you-have-a-working-c-compiler-on-your-system" class="section level3">
+<h3>If you have a working C compiler on your system</h3>
+<p>You may do install <em>poppr</em> via the R package <em>devtools</em>:</p>
+<pre class="r"><code> install.packages(&quot;devtools&quot;)
+ devtools::install_github(&quot;grunwaldlab/poppr&quot;, ref = &quot;devel&quot;)</code></pre>
+<hr />
 <!------
 
-## FOR THE SPRING 2014 WORKSHOP
 
-You must have:
+Installing R
+-----
 
-1. The latest version of [R](http://www.r-project.org) **(3.1.0)**
-2. [Rstudio](http://www.rstudio.com/ide/). Think of this as kind of a GUI for R.
-3. The latest development version of *poppr* (1.1.0.99) (see below)
+1. Download and install the [R](http://www.r-project.org) statistical computing and graphing environment. This works cross-platform on Windows, OS X and Linux operating systems.
 
+2. Download and install the [Rstudio IDE](http://www.rstudio.com/ide/) that we recommend as an integrated development environment.
 
-**You must download the development version of poppr** (1.1.0.99). You may do this
-in several ways:
+3. Download and install the **development version** of [poppr](http://github.com/grunwaldlab/poppr/tree/devel) and all its dependencies (<a href="http://dx.doi.org/10.7717/peerj.281">Kamvar et al. 2014</a>) [INSTRUCTIONS HERE](https://github.com/grunwaldlab/poppr/tree/devel#stable-and-development-versions).
 
-### If you do NOT have a C compiler or do not know what it is:
- 1. In your R console, run the command to install the dependencies of *poppr*: `install.packages(c("adegenet", "pegas", "vegan", "ggplot2", "phangorn", "ape", "igraph"))`
- 2. Download the binaries for Windows [[here]](http://win-builder.r-project.org/zPueeo84ZCP5/poppr_1.1.0.99.zip) or OSX [[here]](http://grunwaldlab.cgrb.oregonstate.edu/sites/default/files/u5/poppr_1.1.0.99.tgz) and install using the `Tools > Install Packages...` menu command. You should see a window like this:
+----->
 
- ![Install Packages Window](screenshots/InstallPackages.png)
-
- You should make sure to choose the **Package Archive File** option and then indicate where you downloaded the package in the menubar. If you have downloaded it on your desktop, you would type `~/Desktop/poppr_1.1.0.99.tgz` (on OSX).
-
-### If you have a working C compiler on your system
-
- You may do install *poppr* via the R package *devtools*:
-
-
-```r
- install.packages("devtools")
- devtools::install_github("grunwaldlab/poppr", ref = "devel")
-```
-
-----
-
--->
-
-<div id="installing-r" class="section level2">
-<h2>Installing R</h2>
-<ol style="list-style-type: decimal">
-<li><p>Download and install the <a href="http://www.r-project.org">R</a> statistical computing and graphing environment. This works cross-platform on Windows, OS X and Linux operating systems.</p></li>
-<li><p>Download and install the <a href="http://www.rstudio.com/ide/">Rstudio IDE</a> that we recommend as an integrated development environment.</p></li>
-<li><p>Download and install the <strong>development version</strong> of <a href="http://github.com/grunwaldlab/poppr/tree/devel">poppr</a> and all its dependencies (<a href="http://dx.doi.org/10.7717/peerj.281">Kamvar et al. 2014</a>) <a href="https://github.com/grunwaldlab/poppr/tree/devel#stable-and-development-versions">INSTRUCTIONS HERE</a>.</p></li>
-</ol>
 <p><em>Poppr</em> is an R package. You can think of a package as a library of functions written and curated by someone in the R user community, which you can loaded into R for use. We wrote and actively maintain <em>poppr</em> (<a href="http://dx.doi.org/10.7717/peerj.281">Kamvar et al. 2014</a>).</p>
 <p>Once you’ve installed <em>poppr</em>, you can invoke it by typing or cutting + pasting:</p>
 <pre class="r"><code>library(poppr)</code></pre>
@@ -204,6 +206,7 @@ in several ways:
 ## This is poppr version 1.1.0.99</code></pre>
 <p>This will load <em>poppr</em> and all dependent packages, such as <em>adegenet</em> and <em>ade4</em>. You will recognize loading by the prompts written to your screen.</p>
 <p>Congratulations. You should be all set for using R. Loading data and conducting your first analysis will be the topic of the next chapter.</p>
+</div>
 </div>
 <div id="a-quick-introduction-to-r-using-rstudio" class="section level2">
 <h2>A quick introduction to R using Rstudio</h2>
@@ -265,7 +268,6 @@ browseVignettes(package = &#39;poppr&#39;)    # see vignettes from a specific pa
 <p> 
 ZN Kamvar, JF Tabima, NJ Grünwald, (2014) Poppr: an R package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> <strong>2</strong> e281-NA <a href="http://dx.doi.org/10.7717/peerj.281">10.7717/peerj.281</a>
 </p>
-
 
 
 </div>

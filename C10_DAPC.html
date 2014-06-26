@@ -76,7 +76,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <body>
 
-<div class="container">
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
 
 
 <div class="navbar navbar-default navbar-fixed-top">
@@ -152,7 +159,7 @@ data(H3N2)      # load the H3N2 inflluenza data. Tye ?H3N2 for more info.
 pop(H3N2) &lt;- factor(H3N2$other$epid)
 dapc.H3N2 &lt;- dapc(H3N2, var.contrib=TRUE, scale=FALSE, n.pca=30, n.da=10)
 scatter(dapc.H3N2, cell=0, pch=18:23, cstar=0, mstree=TRUE, lwd=2, lty=2)</code></pre>
-<p><img src="C10_DAPC_files/figure-html/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2" /></p>
+<p><img src="C10_DAPC_files/figure-html/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="960" /></p>
 <p>The <code>dapc()</code> variables refer to:</p>
 <ul>
 <li>the dataset H3N2</li>
@@ -165,7 +172,7 @@ scatter(dapc.H3N2, cell=0, pch=18:23, cstar=0, mstree=TRUE, lwd=2, lty=2)</code>
 <p>Next, let’s assess if there are alleles that most differentiate the 2006 cluster from those in other years.</p>
 <pre class="r"><code>set.seed(4)
 contrib &lt;- loadingplot(dapc.H3N2$var.contr, axis=2, thres=.07, lab.jitter=1)</code></pre>
-<p><img src="C10_DAPC_files/figure-html/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3" /></p>
+<p><img src="C10_DAPC_files/figure-html/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="960" /></p>
 <p>It looks like SNPs at position 384 and 906 are involved. Let’s check this further by looking at allele frequencies by year:</p>
 <pre class="r"><code>temp &lt;- seploc(H3N2)
 snp906 &lt;- truenames(temp[[&quot;906&quot;]])$tab #truenames{adegenet} returns elements of a genind object
@@ -194,7 +201,7 @@ matplot(freq906, pch=c(&quot;c&quot;,&quot;t&quot;), type=&quot;b&quot;,xlab=&qu
 axis(side=1, at=1:6, lab=2001:2006)
 matplot(freq399, pch=c(&quot;c&quot;,&quot;t&quot;), type=&quot;b&quot;, xlab=&quot;year&quot;,ylab=&quot;allele frequency&quot;, xaxt=&quot;n&quot;, cex=1.5, main=&quot;SNP #399&quot;)
 axis(side=1, at=1:6, lab=2001:2006)</code></pre>
-<p><img src="C10_DAPC_files/figure-html/unnamed-chunk-5.png" alt="plot of chunk unnamed-chunk-5" /></p>
+<p><img src="C10_DAPC_files/figure-html/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="960" /></p>
 <p>This plot nicely illustrates the effect of mutation, followed by selection or drift in the seasonal H3N2 influenza virus.</p>
 </div>
 <div id="conclusions" class="section level2">
@@ -211,7 +218,6 @@ T Jombart, S Devillard, F Balloux, (2010) Discriminant analysis of principal com
 </p><p> 
 JK Pritchard, M Stephens, P. Donnelly, (2000) Inference of population structure using multilocus genotype data. <em>Genetics</em> <strong>155</strong> (2) 945-959 <a href="http://www.genetics.org/content/155/2/945.abstract">http://www.genetics.org/content/155/2/945.abstract</a>
 </p>
-
 
 
 </div>

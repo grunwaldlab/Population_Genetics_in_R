@@ -76,7 +76,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <body>
 
-<div class="container">
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
 
 
 <div class="navbar navbar-default navbar-fixed-top">
@@ -267,9 +274,9 @@ Aeutccsignif &lt;- randtest(Aeutamovacc, nrepet = 999)</code></pre>
 ## Adjustment method for multiple comparisons:   none 
 ## Permutation number:   999 
 ##                         Test    Obs Std.Obs   Alter Pvalue
-## 1  Variations within samples  3.411 -31.385    less  0.001
-## 2 Variations between samples  1.329  20.687 greater  0.001
-## 3     Variations between Pop 11.063   9.425 greater  0.001
+## 1  Variations within samples  3.411 -30.655    less  0.001
+## 2 Variations between samples  1.329  20.129 greater  0.001
+## 3     Variations between Pop 11.063   9.567 greater  0.001
 ## 
 ## other elements: adj.method call</code></pre>
 <p>From this output, you can see three histograms representing the distribution of the randomized hierarchy. The black line represents the observed data. You can see a table of observed results in the output showing that there is significant population structure considering all levels of the population hierarchy. Of course, this could be due to the presence of clones, so let’s visualize the results from the clone corrected data set below:</p>
@@ -285,9 +292,9 @@ Aeutccsignif &lt;- randtest(Aeutamovacc, nrepet = 999)</code></pre>
 ## Adjustment method for multiple comparisons:   none 
 ## Permutation number:   999 
 ##                         Test     Obs Std.Obs   Alter Pvalue
-## 1  Variations within samples  4.2286 -20.901    less  0.001
-## 2 Variations between samples  0.9521   9.560 greater  0.001
-## 3     Variations between Pop 10.4132   9.758 greater  0.001
+## 1  Variations within samples  4.2286 -22.941    less  0.001
+## 2 Variations between samples  0.9521   9.458 greater  0.001
+## 3     Variations between Pop 10.4132  10.272 greater  0.001
 ## 
 ## other elements: adj.method call</code></pre>
 <p>The above graphs show significant population differentiation at all levels given that the observed <span class="math">\(\phi\)</span> does not fall within the distribution expected from the permutation. Compare the results of our AMOVA analysis to those published in (<a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134">Grünwald &amp; Hoheisel, 2006</a>). They should be identical.</p>
@@ -353,9 +360,9 @@ Aeut.new.amova.test</code></pre>
 ## Adjustment method for multiple comparisons:   none 
 ## Permutation number:   999 
 ##                         Test     Obs Std.Obs   Alter Pvalue
-## 1  Variations within samples 10.3056  0.3706    less  0.602
-## 2 Variations between samples -0.1733 -0.7517 greater  0.775
-## 3     Variations between Pop  0.1589  1.4471 greater  0.096
+## 1  Variations within samples 10.3056  0.3934    less  0.618
+## 2 Variations between samples -0.1733 -0.7786 greater  0.769
+## 3     Variations between Pop  0.1589  1.4060 greater  0.102
 ## 
 ## other elements: adj.method call</code></pre>
 <pre class="r"><code>plot(Aeut.new.amova.test)</code></pre>
@@ -374,7 +381,6 @@ L Excoffier, PE Smouse, JM Quattro, (1992) Analysis of molecular variance inferr
 </p><p> 
 NJ Grünwald, G-A Hoheisel, (2006) Hierarchical analysis of diversity, selfing, and genetic differentiation in populations of the oomycete Aphanomyces euteiches. <em>Phytopathology</em> <strong>96</strong> (10) 1134-1141 <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134</a>
 </p>
-
 
 
 </div>

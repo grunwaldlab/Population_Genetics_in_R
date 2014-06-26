@@ -76,7 +76,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <body>
 
-<div class="container">
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
 
 
 <div class="navbar navbar-default navbar-fixed-top">
@@ -320,8 +327,7 @@ info_table(nancycats, plot = TRUE)</code></pre>
 ##  1 genotype contained missing values greater than 22.2222222222222%.
 ##  Removing 1 genotype : N310</code></pre>
 <pre class="r"><code>miss &lt;- info_table(nanind, plot = TRUE) </code></pre>
-<p><img src="C5_Locus_Stats_files/figure-html/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="700px" /></p>
-<p>We only found one individual in population 11.</p>
+<p><img src="C5_Locus_Stats_files/figure-html/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="700px" /> We only found one individual in population 11.</p>
 </div>
 <div id="replacing-missing-data" class="section level2">
 <h2>Replacing missing data</h2>
@@ -473,7 +479,6 @@ levelplot(newmat)</code></pre>
 <p> 
 EM Goss, JF Tabima, DEL Cooke, S Restrepo, WE Fry, GA Forbes, VJ Fieland, M Cardenas, NJ Grünwald, (2014) The Irish famine pathogen Phytophthora infestans originated in central Mexico rather than the Andes. <em>Proceedings of the National Academy of Sciences</em> <strong>##</strong> (3) in press-NA
 </p>
-
 
 
 </div>
