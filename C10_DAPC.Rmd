@@ -1,0 +1,86 @@
+```{r,message=FALSE,echo=FALSE}
+  library(knitcitations)
+  bib <- read.bibtex("bibtexlib.bib")
+  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE,
+                 fig.width = 10, fig.height = 6, cache = TRUE) 
+  # use this to set knitr options: 
+  # http://yihui.name/knitr/options #chunk_options
+```
+---
+title: '10: Discriminant analysis of principal components (DAPC)'
+---
+
+Often we want to infer population structure by determining the number of clusters (groups) observed without prior knowledge. Several approaches can be used to infer groups such as for example K-means clustering, Bayesian clustering using STRUCTURE, and multivariate methods such as Discriminant Analysis of Principal Components (DAPC) `r citep(bib[c("jombart2010discriminant", "pritchard2000inference", "grunwald2011evolution")])`. A STRUCTURE-like approach assumes that markers are not linked and that populations are panmictic `r citep(bib[c("pritchard2000inference")])`. To use model-free methods K-means clustering based on genetic distance or DAPC are more convenient approaches for populations that are clonal or partially clonal. Here we explore DAPC further.
+
+DAPC analysis of the H3N2 influenza strains
+----
+
+DAPC was pioneered by Jombart and colleagues `r citep(bib[c("jombart2010discriminant")])` and can be used to infer the number of clusters of genetically related individuals. In this multivariate statistical approach variance in the sample is partitioned into a between-group and within-group component, in an effort to maximize discrimination between groups. In DAPC, data is first transformed using a principal components analysis (PCA) and subsequently clusters are identified using discriminant analysis (DA). This tutorial is based on the [vignette](http://adegenet.r-forge.r-project.org/files/tutorial-dapc.pdf) written by Thibaut Jombart. We encourage the user to explore this vignette further. The vignette can also be opened within R by executing `adegenetTutorial("dapc")`.
+
+We will use the seasonal influenza dataset H3N2 data containing 1903 isolates genotyped for 125 SNPs located in the hemagglutinin segment. This dataset as well as the `dapc()` function is part of the [*adegenet*](http://adegenet.r-forge.r-project.org) package. 
+
+```{r}
+# DAPC requires the adegenet package. Let's load this package:
+library(adegenet)
+data(H3N2)      # load the H3N2 inflluenza data. Tye ?H3N2 for more info.
+pop(H3N2) <- factor(H3N2$other$epid)
+dapc.H3N2 <- dapc(H3N2, var.contrib=TRUE, scale=FALSE, n.pca=30, n.da=10)
+scatter(dapc.H3N2, cell=0, pch=18:23, cstar=0, mstree=TRUE, lwd=2, lty=2)
+```
+
+The `dapc()` variables refer to:
+
+- the dataset H3N2
+- `var.contrib` when set to FALSE, flag removes contribution from original variables from output. We will look at this later to see which loci are responsible for separatig populations. 
+- `n.pca` is the number of axes retained in the Principal Component Analysis (PCA). If set to NULL selection is interactive, which we avoid here but can be explored by the user.
+- `n.da` is the  number of axes retained in the Discriminant Analysis (DA). If set to NULL selection is interactive, which we avoid here but can be explored by the user.
+
+The `scatter()` function is part of the *ade4* pacakge and plots results of a DAPC analysis. 
+
+As you can see, each year between 2001 to 2005 is a cluster of H3N2 strains separated by axis 1. In contrast, axis 2 separates the strains observed in the 2006 cluster from the clusters observed during 2001-5, indicating that the strains observed in 2006 are genetically distinct.
+
+Next, let's assess if there are alleles that most differentiate the 2006 cluster from those in other years. 
+
+```{r}
+set.seed(4)
+contrib <- loadingplot(dapc.H3N2$var.contr, axis=2, thres=.07, lab.jitter=1)
+````
+
+It looks like SNPs at position 384 and 906 are involved. Let's check this further by looking at allele frequencies by year:
+
+
+```{r}
+temp <- seploc(H3N2)
+snp906 <- truenames(temp[["906"]])$tab #truenames{adegenet} returns elements of a genind object
+snp399 <- truenames(temp[["399"]])$tab
+freq906 <- apply(snp906, 2, function(e) tapply(e, pop(H3N2), mean, na.rm=TRUE))
+freq399 <- apply(snp399, 2, function(e) tapply(e, pop(H3N2), mean, na.rm=TRUE))
+freq906
+freq399
+```
+
+Note that a new allele appeared in 2005 for SNP locus 906 and 2004 for locus 399 separating populations along axis 2.
+
+
+```{r}
+par(mfrow=c(1,2), mar=c(5.1,4.1,4.1,.1),las=3)
+matplot(freq906, pch=c("c","t"), type="b",xlab="year",ylab="allele frequency", xaxt="n", cex=1.5, main="SNP # 906")
+axis(side=1, at=1:6, lab=2001:2006)
+matplot(freq399, pch=c("c","t"), type="b", xlab="year",ylab="allele frequency", xaxt="n", cex=1.5, main="SNP #399")
+axis(side=1, at=1:6, lab=2001:2006)
+```
+
+This plot nicely illustrates the effect of mutation, followed by selection or drift in the seasonal H3N2 influenza virus.
+
+Conclusions
+----
+
+DAPC is a wonderful tool for exploring structure of populations based on PCA and DA without making assumptions of panmixia. Thus, this technique provides a robust alternative to Bayesian clustering methods like STRUCTURE `r citep(bib[c("pritchard2000inference")])` that should not be used for clonal or partially clonal populations.
+
+DAPC analysis is inherently interactive and cannot be scripted *a priori*. Please refer to the [vignette](http://adegenet.r-forge.r-project.org/files/tutorial-dapc.pdf) written by Thibaut Jombart for a more interactive analysis.
+
+References
+----------
+```{r,echo=FALSE, results='asis', cache=FALSE}
+  bibliography(style = "html", bulleted=FALSE)
+```

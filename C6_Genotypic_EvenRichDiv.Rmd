@@ -1,0 +1,100 @@
+```{r,message=FALSE,echo=FALSE}
+  html <- TRUE
+  library(knitcitations)
+  bib <- read.bibtex("bibtexlib.bib")
+  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, 
+                 fig.width = 10, fig.height = 6, cache = TRUE)
+  if (html) opts_chunk$set(out.width = "700px", dpi = 300)
+  # use this to set knitr options: 
+  # http://yihui.name/knitr/options #chunk_options
+```
+
+---
+title: '6: Genotypic richness, diversity, and evenness'
+---
+
+Introduction
+-----
+
+In Chapter 3, we introduced basic summary statistics that can be calculated using *poppr*.  For this chapter, we want to specifically focus on how to evaluate genotypic richness, diversity, and evenness in your data.  In this example, we'll examine the monpop microsatellite data for 13 loci of 694 individuals of the haploid fungal pathogen *Monilinia fructicola* that infects peach flowers and fruits in commercial orchards. 
+
+For this example, we can explore the hypothesis that the population that infects flowers and yields blighted blossoms (BB) is from a more genetically diverse pool (being a product of overwintering, sexual recombination), than the population that infects and causes fruit rots (FR), which is likely a product of asexual production from existing infections in the orchard. As such, we can ask the following questions:
+
+* Is genotypic richness of BB populations higher than for FR populations?
+* Is genotypic diversity of BB populations higher for FR populations?
+* Is genotypic evenness higher for BB populations than for FR populations?
+
+For the analysis, we need to read in the data, specify the hierarchical levels in the data, and then set the hierarchical level to symptom so that we can calculate genotypic richness, diversity, and evenness for BB as compared to FR for the entire data set:
+
+```{r}
+library(poppr)
+data(monpop)
+splithierarchy(monpop) <- ~Tree/Year/Symptom
+setpop(monpop) <- ~Symptom
+monpop
+```
+
+To calculate genotypic richness, diversity, and evenness, we can use the `poppr` function:
+
+```{r}
+poppr(monpop)
+```
+
+This shows us several summary statistics:
+
+ - `Pop`  -  Population name.
+ - `N` -  Number of individuals observed.
+ - `MLG` - Number of multilocus genotypes (MLG) observed.
+ - `eMLG` - The number of expected MLG at the smallest sample size ≥ 10 based on rarefaction `r citep(bib[c("hurlbert1971nonconcept")])`.
+ - `SE` - Standard error based on eMLG.
+ - `H` - Shannon-Wiener Index of MLG diversity `r citep(bib[c("shannon2001mathematical")])`.
+ - `G` - Stoddart and Taylor’s Index of MLG diversity  `r citep(bib[c("stoddart1988genotypic")])`.
+ - `Hexp` - Unbiased genotypic diversity `r citep(bib[c("nei1978estimation")])`.
+ - `E.5` - Evenness, E5 `r citep(bib[c("pielou1975ecological","ludwig1988statistical","grunwald2003")])`.
+ - `Ia` - The index of association, $I_A$ `r citep(bib[c("brown1980multilocus","smith1993clonal")])`.
+ - `rbarD` - The standardized index of association, $\bar{r}_d$ `r citep(bib[c("agapow2001indices")])`.
+
+
+Genotypic richness
+-----
+
+The number of observed $MLGs$ is equivalent to genotypic richness.  We expect that the BB population would have a higher genotypic richness than the FR population.  However, looking at the raw number of MLGs for each symptom type, it shows us the opposite:  there are 94 MLGs for BB and 191 MLGs for FR.  This discrepancy has to do with the sample size, where we $N$ = 113 for BB and $N$ = 581 for FR.  The more appropriate comparison is the $eMLG$ value, which is an approximation of the number of genotypes that would be observed at the smallest sample size ($N$ = 113) based on rarefaction.  For BB ($N$=113) the $eMLG$ = 94 and for FR (where $N$ is set to 113) the $eMLG$ = 66.6. Thus, genotypic richness is indeed higher in the BB populations than the FR population when considering equal sample sizes.
+
+```{r, rarecurve}
+library(vegan)
+mon.tab <- mlg.table(monpop, bar = FALSE)
+min_sample <- min(rowSums(mon.tab))
+rarecurve(mon.tab, sample = min_sample, xlab = "Sample Size", ylab = "Expected MLGs")
+title("Rarefaction of Fruit Rot and Blossom Blight")
+
+```
+
+
+Genotypic diversity
+-----
+
+Diversity measures incorporate both genotypic richness and abundance.  There are three measures of genotypic diversity employed by 'poppr', the Shannon-Weiner Index (H), Stoddart and Taylor's Index (G), and what we call unbiased genotypic diversity (Hexp), which is an analog of expected heterozygosity.  In our example, comparing the diversity of BB to FR shows that H is greater for FR (4.58 vs. 4.40), but lower for G (53.4 vs. 61.7).  Thus, our expectation that diversity is lower for FR than BB is rejected in the case of H, which is likely due to the sensitivity of the Shannon-Weiner Index to genotypic richness in the uneven sample sizes, and accepted in the case of G.  To be fair, the sample size used to calculate these diversity measures is different and is therefore not an appropriate comparison.  
+
+
+Unlike H and G, genotypic diversity measure, Hexp, is calculated using genotype frequencies and scaled according to sample size, with a range from 0 to 1.  This measure provides an estimation of the probability of two randomly selected genotypes are different.  In the data above, it shows us that the genotypic diversity of the BB is higher (0.993) than that of FR (0.983), thus we have a higher probability that two randomly selected BB individuals have a different genotype as compared to the FR population.
+
+Genotypic evenness
+-----
+
+Evenness is a measure of the distribution of genotype abundances, wherein a population with equally abundant genotypes yields a value equal to 1 and a population dominated by a single genotype is closer to zero.  In the example above, the BB population has $E.5$ = 0.755 and the FR population has $E.5$ = 0.543.  This indicates that the MLGs observed in the BB population are closer to equal abundance than those in the FR population.  Indeed, when we look at a distribution of the $MLGs$ for each symptom type it shows us there are many more unique BB symptoms as compared to the FR symptoms.
+
+```{r}
+mon.tab <- mlg.table(monpop)
+```
+
+
+Conclusions
+-----
+
+Calculating measures of genotypic richness, diversity, and evenness is straightforward to do in *poppr*.  In our example, we were able to perform these calculations with one command.  However, the ease of calculating these measures is not an indication of the ease of interpretation, particularly when it comes to measures of diversity.  There are a large number of diversity measures available and the measures provided here are those we found most useful.  
+
+References
+----------
+```{r,echo=FALSE, results='asis', cache = FALSE}
+  bibliography(style = "html", bulleted=FALSE)
+```

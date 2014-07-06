@@ -1,0 +1,82 @@
+```{r,message=FALSE,echo=FALSE}
+  library(knitcitations)
+  bib <- read.bibtex("bibtexlib.bib")
+  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, cache = TRUE) 
+  # use this to set knitr options: 
+  # http://yihui.name/knitr/options #chunk_options
+```
+---
+title: "4: Populations hierarchies: subsetting and clone correction"
+---
+
+Introduction
+-----
+Populations are best sampled hierarchically on a range of scales from subpopulations (e.g. fields, valleys, ranges) to regions (e.g. valleys, states, countries or continents). This approach is useful because population structure and evolutionary processes may not be discernible *a priori*. Most of the times we do not know if population are differentiated locally, regionally or globally.  Thus, a combination of targeted local sampling with sampling over larger scales is necessary to detect population structure over different scales, without using intense sampling throughout the entire range.  
+
+The methods implemented in *poppr* allow specification of which hierarchies you want to analyze.  This is a rapid way of working with subsets of your data without having to perform any data manipulation or changing the input file.  In this tutorial, we'll show you how to define the hierarchical structure of your data, following which, we'll show you how to specify the hierarchical levels that you might want to analyze.
+
+Data used in this example
+----
+For this example, we will use  the `monpop` data set `r citep(bib[c("everhart2014finescale")])`.  This microsatellite data consists of 13 loci for 694 individuals of the haploid fungal pathogen *Monilinia fructicola* that infects peach flowers and fruits in commercial orchards.  The monpop population came from four trees within a single orchard (trees 26, 45, and 7). Each tree was sampled in 2009, 2010, and/or 2011.  Additionally, each sample was noted as to whether it came from a blossom or a fruit. This example data set is included with the *poppr* package. 
+
+Working with hierarchical data
+----
+
+The steps for working with hierarchical data include:
+
+1.  Import data set with samples labeled according to hierarchy
+2.  Define the hierarchical levels for the data
+3.  Setting the hierarchical level(s) that you want to have analyzed
+
+Importing data labeled according to a hierarchy
+----
+The easiest way to work with hierarchical data is to label each sample accordingly, using an underscore "\_" to separate each category.  This was already done for the monpop data, where each sample was coded with which tree, year, and symptom it came from in the following format: "Tree\_Year\_Symptom". 
+
+Let's load the hierarchically labeled example data:
+```{r}
+library(poppr)
+data(monpop)
+monpop
+```
+
+
+**Genotype information** shows us that the data contains 264 multilocus genotypes among 694 haploid individuals with 13 loci. **Population information** has two items, the hierarchical levels and the populations defined.  You can think of hierarchical levels as the index names for each of the hierarchical levels within your data (so for our date it should be Tree, Year, and Symptom).  By default, however, no hierarchical levels are defined and so this is "Pop", which is the entire dataset of 694 individuals.  Because we labeled each sample according to hierarchical level, populations defined shows us our data has 12 groups defined: `r monpop$pop.names`.  
+
+Assigning hierarchical levels
+----
+We imported the data that has three hierarchical levels "Tree\_Year\_Symptom". In order to analyze our data according to any combination of those three hierarchical levels, we need to tell *poppr* that the 12 groups should be split by tree, year, and symptom.  Thus, the first step is to split our data according to hierarchy so that we can access each of the three hierarchical levels in the data.  The `splithierarchy` command is used to index the three hierarchical levels:
+
+
+```{r}
+splithierarchy(monpop) <- ~Tree/Year/Symptom
+monpop
+```
+
+After splitting the data populations are specified by hierarchical level: "Tree Year Symptom". 
+
+Next, we analyze the data according to Tree and Year:
+
+```{r}
+setpop(monpop) <- ~Tree/Year
+monpop
+```
+
+To analyze the data according to Symptom:
+````{r}
+setpop(monpop) <- ~Symptom
+monpop
+````
+
+Order of the levels that you define is important, so if we wanted to define the symptoms according to tree, we would use the following:
+````{r}
+setpop(monpop) <- ~Symptom/Tree
+monpop
+````
+
+This was a brief introduction to the easiest way to create hierarchical levels and apply them in *poppr* to more rapidly analyze your data. By indexing the hierarchical levels of your data, you can set the hierarchical level(s) you want to have analyzed in a single command line.  This approach avoids having to create new sub-sets of the data for each analysis and simultaneously reduces the chance of error when manipulating data sets by hand.
+
+References
+----------
+```{r,echo=FALSE, results='asis', cache = FALSE}
+  bibliography(style = "html", bulleted=FALSE)
+```
