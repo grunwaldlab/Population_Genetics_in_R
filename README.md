@@ -5,7 +5,9 @@ Population Genetics in R
 
 This primer provides a concise introduction to conducting applied analyses of population genetic data in R, with a special emphasis on non-model populations including clonal or partially clonal organisms. It provides a valuable resource for tackling the nitty-gritty analysis of populations that do not necessarily conform to textbook genetics and might or might not be in Hardy-Weinberg equilibrium and panmixia. While this primer does not require extensive knowledge of programming in R, the user is expected to install R and all packages required for this primer. 
 
-Please note that this primer is still being written and will be changing as we continue writing it. Please provide us feedback on any errors you might find or suggestions you migth have for improvement. We reserve the right to take this primer of the internet at any time.
+Please note that this primer is still being written and will be changing as we continue writing it. Please provide us feedback on any errors you might find or suggestions you migth have for improvement. We reserve the right to take this primer of the internet at any time. The primer is currently published [here](http://grunwaldlab.github.io/Population_Genetics_in_R/).
+
+test
 
 &copy; 2014, Corvallis, Oregon, USA
 
