@@ -7,52 +7,42 @@
   if (html) opts_chunk$set(out.width = "700px", dpi = 300)
 ```
 ---
-title: "Chapter 3:  Data format, loading into R, and first analysis"
+title: "Chapter 3:  first analysis"
 ---
 
-This chapter introduces basic use of and navigation in *poppr* as well as good practices when starting an analysis. We will start by loading data into R and *poppr* and glance at the genotypic diversity observed in populations and allelic frequencies observed in your loci by population. Both of these are good first steps to eliminate data entry errors, check for missing/rare data and make sure all loci conform to expectations given your analyses.
+This chapter introduces basic use of and navigation in *poppr* as well as good practices when starting an analysis. We take a glance at the genotypic diversity observed in populations and allelic frequencies observed in your loci by population. Both of these are good first steps to eliminate data entry errors, check for missing/rare data, and make sure all loci conform to expectations given your analyses. 
 
-Loading data
+For these examples, we will be using a data set that is already built into *poppr* containing 86 individuals of *Phytophthora infestans* genotyped over 11 microsatellite loci `r citep(bib['goss2014irish'])`
+
+
+Analyzing the genotype accumulation curve
 -----
 
-We will use AFLP data for a population of the diploid plant pathogen *Aphanomyces euteiches* to get started [`r citep(bib[c("grunwald2006hierarchical")])`](http://grunwaldlab.cgrb.oregonstate.edu/hierarchical-analysis-diversity-selfing-and-genetic-differentiation-populations-oomycete-aphanomyces). This data can also be downloaded from [figshare](http://dx.doi.org/10.6084/m9.figshare.877104) by copying the link from the `Download` button. A total of 187 pathogen isolates were sampled hierarchically in two regions in Oregon (N = 97) and Washington (N = 90), respectively. Let's first load the data:
-
-
-```{r library, message = TRUE}
-library(poppr) # Load poppr package
-data(Aeut)     # Load A. euteiches data stored within poppr
-
-# Optional, load the data from figshare:
-Aeut.figshare <- read.genalex("http://files.figshare.com/1314228/rootrot.csv")
-```
-
-Let's make sure the data is loaded appropriately:
+A genotype accumulation curve is a tool that allows you to assess how much power you have to discriminate between unique individuals given a random sample of $n$ loci. This analysis is particularly important for clonal organisms to confirm that a plateau has been reached in the number of loci necessary to discriminate individuals. Below, we will analyze the `Pinf` data set. 
 
 ```{r}
-Aeut          # The data set in poppr
-Aeut.figshare # the data set from the internet
+data(Pinf) # Load the data
+Pinf       # We expect a maximum of 72 Multilocus Genotypes
+gac <- genotype_curve(Pinf, sample = 1000, quiet = TRUE)
 ```
 
-As we can see, the data has the expected 56 loci and $N$ = 187 individuals. 
+We specified `sample = 1000` in our function call. This means that for each boxplot, $n$ loci were randomly sampled 1000 times in order to create the distribution. Since this data has been curated, we can see that we have reached the plateau with 11 loci. Try seeing what happens when you use a data set of sexual populations such as `microbov` or `nancycats`. Also, what happens when you use dominant AFLP data such as `Aeut`? 
 
-Looking at allele frequencies
+Allele frequencies, missing data, and ploidy
 -----
 
 A good first step after loading data is to look for missing data, rare alleles and overall quality of your data:
 
 ```{r}
-data(nancycats)
-locus_table(nancycats)
-info_table(nancycats, plot = TRUE, percent = FALSE) # Search for missing data.
+data(Pinf)
+locus_table(Pinf)
+info_table(Pinf, type = "missing", plot = TRUE)
 ```
 
 If your data consists of polyploid SSR markers, you would code the unobserved alleles as
-"0". An example for this is the *Phyophthora infestans* data set from `r citep(bib['goss2014irish'])`, which is a subset of a tetraploid data set. In this example, each row represents
-an isolate and each column represents a locus:
+"0". The `Pinf` data set is a perfect example of this. It is a subset of a slightly larger tetraploid data set. In this example, each row represents an isolate and each column represents a locus:
 
 ```{r}
-data(Pinf)
-Pinf
 tail(genind2df(Pinf, sep = "/"))
 ```
 
@@ -73,7 +63,7 @@ Let us get a first impression of the diversity found in this data using the
 summary function, `poppr`:
 
 ```{r}
-poppr(Aeut)
+poppr(Pinf)
 ```
 
 We can see statistics printed for each individual and the total population. The fields you see in the output include:
@@ -90,15 +80,15 @@ We can see statistics printed for each individual and the total population. The 
 - `Ia` - The index of association, $I_A$ `r citep(bib[c("brown1980multilocus","smith1993clonal")])`.
 - `rbarD` - The standardized index of association, $\bar{r}_d$ `r citep(bib[c("agapow2001indices")])`.
 
-What does all this mean? Both populations have a similar number of individuals ($N$ = 90 and 97) sampled. However, one population has 50 and the other 70 $MLG$ while both populations together have combined 119 $MLG$. Genotypic diversity (either $H$ or $G$) is higher in population 1 than population 2, while evenness is similar. Let's ignore $I_A$ and $\bar{r}_d$ for now, as these are measures of linkage disequilibrium that will be covered in [Chapter 7](C7_Linkage_disequilibrium.html). 
+What does all this mean? Both populations have a similar number of individuals ($N$ = 38 and 48) sampled. However, one population has 29 and the other 43 $MLG$ while both populations together have combined 86 $MLG$. Genotypic diversity (either $H$ or $G$) is higher in population 2 than population 1, while evenness is similar. Let's ignore $I_A$ and $\bar{r}_d$ for now, as these are measures of linkage disequilibrium that will be covered in [Chapter 7](C7_Linkage_disequilibrium.html). 
 
-Next, let's calculate $MLG$ for each population, e.g. "Athena" and "Mt. Vernon" populations:
+Next, let's calculate $MLG$ for each population, e.g. "South America" and "North America" populations:
 
 ```{r}
-A.tab <- mlg.table(Aeut)
+P.tab <- mlg.table(Pinf)
 ```
 
-The figures provide histograms to see how evenly $MLGs$ are distributed within each population. Both populations have genotypes that occur a few times and only a few genotypes that occur more than 5 times (as expected from the high $E_5$ discussed above). Feel free to explore the actual published data to see how this work was interpreted previously `r citep(bib[c("grunwald2006hierarchical")])`.
+The figures provide histograms to see how evenly $MLGs$ are distributed within each population. Both populations have genotypes that occur a few times and only a few genotypes that occur more than 2 times (as expected from the high $E_5$ discussed above). Try this analysis on other published data sets such as that of the root rot pathogen *Aphanomyces euteiches*, stored in *poppr* as `Aeut`. See if you can produce similar tables and graphs and compare it to the published paper `r citep(bib[c("grunwald2006hierarchical")])`.
 
 This concludes our first introduction on how to count genotypes and determine genotypic diversity, evenness and richness in populations. In the [next chapter](C4_Population_Hierarchies) we will learn how to subset and clone-correct populations. 
 
