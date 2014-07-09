@@ -7,6 +7,8 @@ This primer provides a concise introduction to conducting applied analyses of po
 
 Please note that this primer is still being written and will be changing as we continue writing it. Please provide us feedback on any errors you might find or suggestions you migth have for improvement. We reserve the right to take this primer of the internet at any time. The primer is currently published [here](http://grunwaldlab.github.io/Population_Genetics_in_R/).
 
+test
+
 &copy; 2014, Corvallis, Oregon, USA
 
 >*I was really impressed with what you've accomplished with [poppr], it is very thoughtful and addressed a number of things I never considered but which many pop gen folks that I know deal with all the time and complain about.  I think it is going to be very well received by the community.* 
