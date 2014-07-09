@@ -1,6 +1,6 @@
 
 ---
-title: "Population genetics in R primer"
+title: "Population genetics in R"
 ---
 
 By [*Niklaus J. Gr&uuml;nwald, Zhian N. Kamvar, and Sydney E. Everhart*](Authors.html)
