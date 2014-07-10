@@ -11,7 +11,7 @@
 
 
 
-<title>Chapter 3: Data format, loading into R, and first analysis</title>
+<title>Chapter 3: first analysis</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -136,129 +136,25 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div class="span10 offset1">
 
 <div id="header">
-<h1 class="title">Chapter 3: Data format, loading into R, and first analysis</h1>
+<h1 class="title">Chapter 3: first analysis</h1>
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#loading-data">Loading data</a></li>
-<li><a href="#looking-at-allele-frequencies">Looking at allele frequencies</a></li>
+<li><a href="#analyzing-the-genotype-accumulation-curve">Analyzing the genotype accumulation curve</a></li>
+<li><a href="#allele-frequencies-missing-data-and-ploidy">Allele frequencies, missing data, and ploidy</a></li>
 <li><a href="#calculating-genotypic-diversity">Calculating genotypic diversity</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </div>
 
-<p>This chapter introduces basic use of and navigation in <em>poppr</em> as well as good practices when starting an analysis. We will start by loading data into R and <em>poppr</em> and glance at the genotypic diversity observed in populations and allelic frequencies observed in your loci by population. Both of these are good first steps to eliminate data entry errors, check for missing/rare data and make sure all loci conform to expectations given your analyses.</p>
-<div id="loading-data" class="section level2">
-<h2>Loading data</h2>
-<p>We will use AFLP data for a population of the diploid plant pathogen <em>Aphanomyces euteiches</em> to get started <a href="http://grunwaldlab.cgrb.oregonstate.edu/hierarchical-analysis-diversity-selfing-and-genetic-differentiation-populations-oomycete-aphanomyces">(<a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134">Grünwald &amp; Hoheisel, 2006</a>)</a>. This data can also be downloaded from <a href="http://dx.doi.org/10.6084/m9.figshare.877104">figshare</a> by copying the link from the <code>Download</code> button. A total of 187 pathogen isolates were sampled hierarchically in two regions in Oregon (N = 97) and Washington (N = 90), respectively. Let’s first load the data:</p>
-<pre class="r"><code>library(poppr) # Load poppr package</code></pre>
-<pre><code>## Loading required package: adegenet
-## Loading required package: ade4
-##    ==========================
-##     adegenet 1.4-1 is loaded
-##    ==========================
-## 
-##  - to start, type &#39;?adegenet&#39;
-##  - to browse adegenet website, type &#39;adegenetWeb()&#39;
-##  - to post questions/comments: adegenet-forum@lists.r-forge.r-project.org
-## 
-## 
-## This is poppr version 1.1.0.99</code></pre>
-<pre class="r"><code>data(Aeut)     # Load A. euteiches data stored within poppr
-
-# Optional, load the data from figshare:
-Aeut.figshare &lt;- read.genalex(&quot;http://files.figshare.com/1314228/rootrot.csv&quot;)</code></pre>
-<p>Let’s make sure the data is loaded appropriately:</p>
-<pre class="r"><code>Aeut          # The data set in poppr</code></pre>
-<pre><code>## 
-##    #####################
-##    ### Genind object ### 
-##    #####################
-## - genotypes of individuals - 
-## 
-## S4 class:  genind
-## @call: read.genalex(genalex = &quot;rootrot.csv&quot;)
-## 
-## @tab:  187 x 56 matrix of genotypes
-## 
-## @ind.names: vector of  187 individual names
-## @loc.names: vector of  56 locus names
-## @loc.nall: NULL
-## @loc.fac: NULL
-## @all.names: NULL
-## @ploidy:  2
-## @type:  PA
-## 
-## Optionnal contents: 
-## @pop:  factor giving the population of each individual
-## @pop.names:  factor giving the population of each individual
-## 
-## @other: a list containing: population_hierarchy</code></pre>
-<pre class="r"><code>Aeut.figshare # the data set from the internet</code></pre>
-<pre><code>## 
-## This is a genclone object
-## -------------------------
-## Genotype information:
-## 
-##    119 multilocus genotypes
-##    187 diploid individuals
-##     56 dominant loci
-## 
-## Population information:
-## 
-##      1 hierarchical level - Pop
-##     18 populations defined - Athena_1 Athena_2 Athena_3 ... Mt. Vernon_6 
-## Mt. Vernon_7 Mt. Vernon_8</code></pre>
-<p>As we can see, the data has the expected 56 loci and <span class="math">\(N\)</span> = 187 individuals.</p>
-</div>
-<div id="looking-at-allele-frequencies" class="section level2">
-<h2>Looking at allele frequencies</h2>
-<p>A good first step after loading data is to look for missing data, rare alleles and overall quality of your data:</p>
-<pre class="r"><code>data(nancycats)
-locus_table(nancycats)</code></pre>
-<pre><code>## 
-##  allele = Number of observed alleles
-##  1-D = Simpson index
-##  Hexp = Nei&#39;s 1978 expected heterozygosity
-## ------------------------------------------</code></pre>
-<pre><code>##        summary
-## locus   allele   1-D  Hexp Evenness
-##   fca8   16.00  0.87  0.92     0.76
-##   fca23  11.00  0.79  0.87     0.68
-##   fca43  10.00  0.80  0.88     0.79
-##   fca45   9.00  0.76  0.86     0.67
-##   fca77  12.00  0.87  0.95     0.86
-##   fca78   8.00  0.69  0.79     0.64
-##   fca90  12.00  0.82  0.89     0.77
-##   fca96  12.00  0.76  0.83     0.64
-##   fca37  18.00  0.61  0.64     0.42
-##   mean   12.00  0.77  0.85     0.69</code></pre>
-<pre class="r"><code>info_table(nancycats, plot = TRUE, percent = FALSE) # Search for missing data.</code></pre>
-<p><img src="C3_Data_format_loading_files/figure-html/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="700px" /></p>
-<pre><code>##           Locus
-## Population  fca8 fca23 fca43 fca45 fca77 fca78 fca90 fca96 fca37  Mean
-##      1      2.00     .     .     .     .     .     .     .     .  0.22
-##      2         .     .     .     .     .     .     .     .     .     .
-##      3         .     .     .     .     .     .     .     .     .     .
-##      4         .     .     .     .     .     .     .     .     .     .
-##      5         .     .     .     .     .     .     .     .     .     .
-##      6         .     .     .     .     .     .     .     .     .     .
-##      7      5.00     .     .     .     .     .     .     .     .  0.56
-##      8         .     .     .     .     .     .     .     .     .     .
-##      9         .     .     .     .     .     .     .     .     .     .
-##      10        .     .     .     .     .     .     .     .     .     .
-##      11     3.00     .     .  8.00     .     .     .  1.00     .  1.33
-##      12     3.00     .     .     .     .     .     .     .     .  0.33
-##      13        .     .     .     .     .     .     .     .     .     .
-##      14     7.00     .     .     .     .     .     .     .     .  0.78
-##      15        .     .     .     .     .     .     .     .     .     .
-##      16        .     .     .     .     .     .     .     .     .     .
-##      17        .     .     . 13.00     .     .     .  8.00     .  2.33
-##      Total 20.00     .     . 21.00     .     .     .  9.00     .  5.56</code></pre>
-<p>If your data consists of polyploid SSR markers, you would code the unobserved alleles as “0”. An example for this is the <em>Phyophthora infestans</em> data set from (<a href="http://grunwaldlab.cgrb.oregonstate.edu/irish-potato-famine-pathogen-phytophthora-infestans-originated-central-mexico-rather-andes">Goss et al. 2014</a>), which is a subset of a tetraploid data set. In this example, each row represents an isolate and each column represents a locus:</p>
-<pre class="r"><code>data(Pinf)
-Pinf</code></pre>
+<p>This chapter introduces basic use of and navigation in <em>poppr</em> as well as good practices when starting an analysis. We take a glance at the genotypic diversity observed in populations and allelic frequencies observed in your loci by population. Both of these are good first steps to eliminate data entry errors, check for missing/rare data, and make sure all loci conform to expectations given your analyses.</p>
+<p>For these examples, we will be using a data set that is already built into <em>poppr</em> containing 86 individuals of <em>Phytophthora infestans</em> genotyped over 11 microsatellite loci (<a href="http://grunwaldlab.cgrb.oregonstate.edu/irish-potato-famine-pathogen-phytophthora-infestans-originated-central-mexico-rather-andes">Goss et al. 2014</a>)</p>
+<div id="analyzing-the-genotype-accumulation-curve" class="section level2">
+<h2>Analyzing the genotype accumulation curve</h2>
+<p>A genotype accumulation curve is a tool that allows you to assess how much power you have to discriminate between unique individuals given a random sample of <span class="math">\(n\)</span> loci. This analysis is particularly important for clonal organisms to confirm that a plateau has been reached in the number of loci necessary to discriminate individuals. Below, we will analyze the <code>Pinf</code> data set.</p>
+<pre class="r"><code>data(Pinf) # Load the data
+Pinf       # We expect a maximum of 72 Multilocus Genotypes</code></pre>
 <pre><code>## 
 ## This is a genclone object
 ## -------------------------
@@ -272,6 +168,47 @@ Pinf</code></pre>
 ## 
 ##     2 hierarchical levels - Continent Country
 ##     2 populations defined - South America North America</code></pre>
+<pre class="r"><code>gac &lt;- genotype_curve(Pinf, sample = 1000, quiet = TRUE)</code></pre>
+<p><img src="C3_Data_format_loading_files/figure-html/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="700px" /></p>
+<p>We specified <code>sample = 1000</code> in our function call. This means that for each boxplot, <span class="math">\(n\)</span> loci were randomly sampled 1000 times in order to create the distribution. Since this data has been curated, we can see that we have reached the plateau with 11 loci. Try seeing what happens when you use a data set of sexual populations such as <code>microbov</code> or <code>nancycats</code>. Also, what happens when you use dominant AFLP data such as <code>Aeut</code>?</p>
+</div>
+<div id="allele-frequencies-missing-data-and-ploidy" class="section level2">
+<h2>Allele frequencies, missing data, and ploidy</h2>
+<p>A good first step after loading data is to look for missing data, rare alleles and overall quality of your data:</p>
+<pre class="r"><code>data(Pinf)
+locus_table(Pinf)</code></pre>
+<pre><code>## 
+##  allele = Number of observed alleles
+##  1-D = Simpson index
+##  Hexp = Nei&#39;s 1978 expected heterozygosity
+## ------------------------------------------</code></pre>
+<pre><code>##       summary
+## locus  allele    1-D   Hexp Evenness
+##   Pi02 10.000  0.633  0.703    0.663
+##   D13  25.000  0.884  0.921    0.587
+##   Pi33  2.000  0.012  0.023    0.322
+##   Pi04  4.000  0.578  0.771    0.785
+##   Pi4B  7.000  0.669  0.780    0.707
+##   Pi16  6.000  0.403  0.484    0.507
+##   G11  21.000  0.839  0.881    0.544
+##   Pi56  3.000  0.361  0.541    0.707
+##   Pi63  3.000  0.413  0.619    0.641
+##   Pi70  3.000  0.279  0.419    0.580
+##   Pi89 11.000  0.615  0.677    0.578
+##   mean  8.636  0.517  0.620    0.602</code></pre>
+<pre class="r"><code>info_table(Pinf, type = &quot;missing&quot;, plot = TRUE)</code></pre>
+<p><img src="C3_Data_format_loading_files/figure-html/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="700px" /></p>
+<pre><code>##                Locus
+## Population      Pi02   D13 Pi33 Pi04 Pi4B  Pi16 G11 Pi56  Pi63 Pi70  Pi89
+##   South America    .     .    .    .    .     .   .    .     .    .     .
+##   North America    . 0.104    .    .    . 0.062   .    . 0.021    . 0.021
+##   Total            . 0.058    .    .    . 0.035   .    . 0.012    . 0.012
+##                Locus
+## Population       Mean
+##   South America     .
+##   North America 0.019
+##   Total         0.011</code></pre>
+<p>If your data consists of polyploid SSR markers, you would code the unobserved alleles as “0”. The <code>Pinf</code> data set is a perfect example of this. It is a subset of a slightly larger tetraploid data set. In this example, each row represents an isolate and each column represents a locus:</p>
 <pre class="r"><code>tail(genind2df(Pinf, sep = &quot;/&quot;))</code></pre>
 <pre><code>##                  pop            Pi02             D13            Pi33
 ## PiPE22 South America 000/000/160/160 000/000/142/144 000/000/203/203
@@ -311,14 +248,14 @@ Pinf</code></pre>
 <div id="calculating-genotypic-diversity" class="section level2">
 <h2>Calculating genotypic diversity</h2>
 <p>Let us get a first impression of the diversity found in this data using the summary function, <code>poppr</code>:</p>
-<pre class="r"><code>poppr(Aeut)</code></pre>
-<pre><code>## | Athena 
-## | Mt. Vernon 
+<pre class="r"><code>poppr(Pinf)</code></pre>
+<pre><code>## | South America 
+## | North America 
 ## | Total</code></pre>
-<pre><code>##          Pop   N MLG eMLG   SE    H    G  Hexp   E.5    Ia  rbarD File
-## 1     Athena  97  70 66.0 1.25 4.06 42.2 0.986 0.721  2.91 0.0724 Aeut
-## 2 Mt. Vernon  90  50 50.0 0.00 3.67 28.7 0.976 0.726 13.30 0.2816 Aeut
-## 3      Total 187 119 68.5 2.99 4.56 69.0 0.991 0.720 14.37 0.2706 Aeut</code></pre>
+<pre><code>##             Pop  N MLG eMLG    SE    H    G  Hexp   E.5    Ia  rbarD File
+## 1 South America 38  29 29.0 0.000 3.27 23.3 0.983 0.883 2.873 0.3446 Pinf
+## 2 North America 48  43 34.5 0.989 3.69 34.9 0.992 0.871 0.223 0.0240 Pinf
+## 3         Total 86  72 34.6 1.529 4.19 57.8 0.994 0.875 0.652 0.0717 Pinf</code></pre>
 <p>We can see statistics printed for each individual and the total population. The fields you see in the output include:</p>
 <ul>
 <li><code>Pop</code> - Population name.</li>
@@ -333,14 +270,14 @@ Pinf</code></pre>
 <li><code>Ia</code> - The index of association, <span class="math">\(I_A\)</span> (<a href="http://www.genetics.org/content/96/2/523">Brown et al. 1980</a>; <a href="http://www.pnas.org/content/90/10/4384">Smith et al. 1993</a>).</li>
 <li><code>rbarD</code> - The standardized index of association, <span class="math">\(\bar{r}_d\)</span> (<a href="http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract">Agapow &amp; Burt, 2001</a>).</li>
 </ul>
-<p>What does all this mean? Both populations have a similar number of individuals (<span class="math">\(N\)</span> = 90 and 97) sampled. However, one population has 50 and the other 70 <span class="math">\(MLG\)</span> while both populations together have combined 119 <span class="math">\(MLG\)</span>. Genotypic diversity (either <span class="math">\(H\)</span> or <span class="math">\(G\)</span>) is higher in population 1 than population 2, while evenness is similar. Let’s ignore <span class="math">\(I_A\)</span> and <span class="math">\(\bar{r}_d\)</span> for now, as these are measures of linkage disequilibrium that will be covered in <a href="C7_Linkage_disequilibrium.html">Chapter 7</a>.</p>
-<p>Next, let’s calculate <span class="math">\(MLG\)</span> for each population, e.g. “Athena” and “Mt. Vernon” populations:</p>
-<pre class="r"><code>A.tab &lt;- mlg.table(Aeut)</code></pre>
-<pre><code>## | Athena</code></pre>
+<p>What does all this mean? Both populations have a similar number of individuals (<span class="math">\(N\)</span> = 38 and 48) sampled. However, one population has 29 and the other 43 <span class="math">\(MLG\)</span> while both populations together have combined 86 <span class="math">\(MLG\)</span>. Genotypic diversity (either <span class="math">\(H\)</span> or <span class="math">\(G\)</span>) is higher in population 2 than population 1, while evenness is similar. Let’s ignore <span class="math">\(I_A\)</span> and <span class="math">\(\bar{r}_d\)</span> for now, as these are measures of linkage disequilibrium that will be covered in <a href="C7_Linkage_disequilibrium.html">Chapter 7</a>.</p>
+<p>Next, let’s calculate <span class="math">\(MLG\)</span> for each population, e.g. “South America” and “North America” populations:</p>
+<pre class="r"><code>P.tab &lt;- mlg.table(Pinf)</code></pre>
+<pre><code>## | South America</code></pre>
 <p><img src="C3_Data_format_loading_files/figure-html/unnamed-chunk-71.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="700px" /></p>
-<pre><code>## | Mt. Vernon</code></pre>
+<pre><code>## | North America</code></pre>
 <p><img src="C3_Data_format_loading_files/figure-html/unnamed-chunk-72.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="700px" /></p>
-<p>The figures provide histograms to see how evenly <span class="math">\(MLGs\)</span> are distributed within each population. Both populations have genotypes that occur a few times and only a few genotypes that occur more than 5 times (as expected from the high <span class="math">\(E_5\)</span> discussed above). Feel free to explore the actual published data to see how this work was interpreted previously (<a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134">Grünwald &amp; Hoheisel, 2006</a>).</p>
+<p>The figures provide histograms to see how evenly <span class="math">\(MLGs\)</span> are distributed within each population. Both populations have genotypes that occur a few times and only a few genotypes that occur more than 2 times (as expected from the high <span class="math">\(E_5\)</span> discussed above). Try this analysis on other published data sets such as that of the root rot pathogen <em>Aphanomyces euteiches</em>, stored in <em>poppr</em> as <code>Aeut</code>. See if you can produce similar tables and graphs and compare it to the published paper (<a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134">Grünwald &amp; Hoheisel, 2006</a>).</p>
 <p>This concludes our first introduction on how to count genotypes and determine genotypic diversity, evenness and richness in populations. In the <a href="C4_Population_Hierarchies">next chapter</a> we will learn how to subset and clone-correct populations.</p>
 </div>
 <div id="references" class="section level2">
