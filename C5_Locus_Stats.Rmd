@@ -10,7 +10,7 @@
   # http://yihui.name/knitr/options #chunk_options
 ```
 ---
-title: "5: Locus stats, heterozygosity, HWE, Information index"
+title: "5: Locus stats, heterozygosity, HWE"
 ---
 
 A rigorous population genetic analysis looks closely at the data to assess quality and identify outliers or problems in the data such as erroneous allele calls. This chapter focuses on analysis on a per-locus level. While there are statistics that analyze populations across loci, it is important to analyze each locus independently to make sure that one locus is not introducing
@@ -23,8 +23,10 @@ Locus summary statistics
 
 A quick way to assess quality of the data is to determine the number, diversity,
 expected heterozygosity, and evenness of the alleles at each locus. As an 
-example, we will use data for the fungal-like protist *Phytophthora infestans* from `r citep(bib["goss2014irish"])`. First, we'll use the function `locus_table` to get all of the statistics
-mentioned above. For documentation on this function type `?locus_table`. Here is a first look at each locus:
+example, we will use data for the fungal-like protist *Phytophthora infestans* from 
+`r citep(bib["goss2014irish"])`. First, we'll use the function `locus_table` to get 
+all of the statistics mentioned above. For documentation on this function type 
+`?locus_table`. Here is a first look at each locus:
 
 ```{r, locus_table_stats}
 library(poppr)     # Make sure poppr is loaded if you haven't done so already.
@@ -75,10 +77,9 @@ We can see that it increased ever so slightly for the "North America" and "Total
 Missing data
 ----
 
-It is often important to asses the percentage of missing data. The *poppr* function `info_table` will help you visualize missing data so that you can assess how to treat these further using the function `missingno`. For this example, we will use the nancycats
-data set:
+It is often important to asses the percentage of missing data. The *poppr* function `info_table` will help you visualize missing data so that you can assess how to treat these further using the function `missingno`. For this example, we will use the nancycats data set as it contains a wide variety of possabilities for missing data:
 
-```{r, missing_table, fig.height=6, fig.width = 10}
+```{r, missing_table, fig.height=6, fig.width = 10, fig.cap = "Plot of missing data"}
 data(nancycats)
 info_table(nancycats, plot = TRUE)
 ```
@@ -98,7 +99,7 @@ Removing loci and genotypes
 
 When removing loci or genotypes, you can specify a cutoff representing the percent missing to be removed. The default is `0.05` (5%).
 
-```{r}
+```{r, fig.cap = "Plot of missing data"}
 nanloc <- missingno(nancycats, "loci") # Removing loci with greater than 5% missing.
 miss <- info_table(nanloc, plot = TRUE, scale = FALSE)
 ```
@@ -116,7 +117,7 @@ miss <- info_table(nanloc, plot = TRUE)
 
 Again, removing individuals is also relatively easy:
 
-```{r}
+```{r, fig.cap = "Plot of missing data"}
 nanind <- missingno(nancycats, "geno")
 miss <- info_table(nanind, plot = TRUE)
 nanind <- missingno(nancycats, "geno", cutoff = 0)
@@ -126,10 +127,11 @@ miss <- info_table(nanind, plot = TRUE)
 `Missingno` removes individuals based on the percent of missing data relative to
 the number of loci. Let's remove all individuals with 2 missing loci:
 
-```{r, fig.height=6, fig.width = 10}
+```{r, fig.height=6, fig.width = 10, fig.cap = "Plot of missing data"}
 nanind <- missingno(nancycats, "geno", cutoff = 2/nLoc(nancycats))
 miss <- info_table(nanind, plot = TRUE) 
 ```
+
 We only found one individual in population 11.
 
 Replacing missing data
@@ -210,7 +212,7 @@ newmat[newmat > alpha] <- 1
 ```
 Now we can create a simple heatmap with `levelplot`.
 
-```{r, fig.height=6, fig.width = 10}
+```{r, fig.height=6, fig.width = 10, fig.cap = "Heatmap showing significant departures from HWE"}
 library(lattice)
 levelplot(newmat)
 ```

@@ -20,7 +20,7 @@ Analyzing the genotype accumulation curve
 
 A genotype accumulation curve is a tool that allows you to assess how much power you have to discriminate between unique individuals given a random sample of $n$ loci. This analysis is particularly important for clonal organisms to confirm that a plateau has been reached in the number of loci necessary to discriminate individuals. Below, we will analyze the `Pinf` data set. 
 
-```{r}
+```{r, fig.cap = "Genotype accumulation curve"}
 data(Pinf) # Load the data
 Pinf       # We expect a maximum of 72 Multilocus Genotypes
 gac <- genotype_curve(Pinf, sample = 1000, quiet = TRUE)
@@ -33,7 +33,7 @@ Allele frequencies, missing data, and ploidy
 
 A good first step after loading data is to look for missing data, rare alleles and overall quality of your data:
 
-```{r}
+```{r, fig.cap = "Missing data plot"}
 data(Pinf)
 locus_table(Pinf)
 info_table(Pinf, type = "missing", plot = TRUE)
@@ -49,7 +49,7 @@ tail(genind2df(Pinf, sep = "/"))
 To observe the different levels of ploidy in your data, use the function
 `info_table` with the argument `type = "ploidy"`:
 
-```{r}
+```{r, fig.cap = "Plot of ploidy"}
 Pinf.ploidy <- info_table(Pinf, type = "ploidy", plot = TRUE)
 tail(Pinf.ploidy)
 ```
@@ -84,7 +84,7 @@ What does all this mean? Both populations have a similar number of individuals (
 
 Next, let's calculate $MLG$ for each population, e.g. "South America" and "North America" populations:
 
-```{r}
+```{r, fig.cap = "Multilocus Genotype Table"}
 P.tab <- mlg.table(Pinf)
 ```
 
