@@ -11,7 +11,7 @@
 
 
 
-<title>5: Locus stats, heterozygosity, HWE, Information index</title>
+<title>5: Locus stats, heterozygosity, HWE</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -136,7 +136,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div class="span10 offset1">
 
 <div id="header">
-<h1 class="title">5: Locus stats, heterozygosity, HWE, Information index</h1>
+<h1 class="title">5: Locus stats, heterozygosity, HWE</h1>
 </div>
 
 <div id="TOC">
@@ -253,10 +253,10 @@ locus_table(Pinf)</code></pre>
 </div>
 <div id="missing-data" class="section level2">
 <h2>Missing data</h2>
-<p>It is often important to asses the percentage of missing data. The <em>poppr</em> function <code>info_table</code> will help you visualize missing data so that you can assess how to treat these further using the function <code>missingno</code>. For this example, we will use the nancycats data set:</p>
+<p>It is often important to asses the percentage of missing data. The <em>poppr</em> function <code>info_table</code> will help you visualize missing data so that you can assess how to treat these further using the function <code>missingno</code>. For this example, we will use the nancycats data set as it contains a wide variety of possabilities for missing data:</p>
 <pre class="r"><code>data(nancycats)
 info_table(nancycats, plot = TRUE)</code></pre>
-<p><img src="C5_Locus_Stats_files/figure-html/missing_table.png" title="plot of chunk missing_table" alt="plot of chunk missing_table" width="700px" /></p>
+<p><img src="C5_Locus_Stats_files/figure-html/missing_table.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
 <pre><code>##           Locus
 ## Population  fca8 fca23 fca43 fca45 fca77 fca78 fca90 fca96 fca37  Mean
 ##      1     0.200     .     .     .     .     .     .     .     . 0.022
@@ -288,7 +288,7 @@ info_table(nancycats, plot = TRUE)</code></pre>
 ##  2 loci contained missing values greater than 5%.
 ##  Removing 2 loci : fca8 fca45</code></pre>
 <pre class="r"><code>miss &lt;- info_table(nanloc, plot = TRUE, scale = FALSE)</code></pre>
-<p><img src="C5_Locus_Stats_files/figure-html/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="700px" /></p>
+<p><img src="C5_Locus_Stats_files/figure-html/unnamed-chunk-2.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
 <blockquote>
 <p><strong>Advanced Users:</strong> when <code>scale = TRUE</code>, the color scale will be set so that the warmest color corresponds to the highest value.</p>
 </blockquote>
@@ -326,7 +326,7 @@ info_table(nancycats, plot = TRUE)</code></pre>
 ##  1 genotype contained missing values greater than 22.2222222222222%.
 ##  Removing 1 genotype : N310</code></pre>
 <pre class="r"><code>miss &lt;- info_table(nanind, plot = TRUE) </code></pre>
-<p><img src="C5_Locus_Stats_files/figure-html/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="700px" /> We only found one individual in population 11.</p>
+<p><img src="C5_Locus_Stats_files/figure-html/unnamed-chunk-5.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /> We only found one individual in population 11.</p>
 </div>
 <div id="replacing-missing-data" class="section level2">
 <h2>Replacing missing data</h2>
@@ -470,7 +470,7 @@ newmat[newmat &gt; alpha] &lt;- 1</code></pre>
 <p>Now we can create a simple heatmap with <code>levelplot</code>.</p>
 <pre class="r"><code>library(lattice)
 levelplot(newmat)</code></pre>
-<p><img src="C5_Locus_Stats_files/figure-html/unnamed-chunk-13.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="700px" /></p>
+<p><img src="C5_Locus_Stats_files/figure-html/unnamed-chunk-13.png" title="Heatmap showing significant departures from HWE" alt="Heatmap showing significant departures from HWE" width="700px" /></p>
 <p>This simple plot shows us loci in rows and populations in columns. Note, that all loci shown in pink are loci suspected for not being in HWE with <span class="math">\(p \leq 0.05\)</span>.</p>
 </div>
 <div id="references" class="section level2">
