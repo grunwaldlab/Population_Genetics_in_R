@@ -155,7 +155,25 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="genalex-data-format" class="section level2">
 <h2>GenAlEx data format</h2>
 <p>GenAlEx is a very popular add-on for Microsoft Excel. It is relatively easy to use because of its familiar, menu-driven interface. It also gives the user the option to include information on population groupings, regional groupings, and xy coordinates. The flexibility of this format made it a clear choice for import into <em>poppr</em>.</p>
-<p>The data format is standard in that individuals are defined in the rows and loci are defined in the columns.</p>
+<p>The data format is standard in that individuals are defined in the rows and loci are defined in the columns. The first three rows are reserved for metadata and the first two columns are reserved for the individual names and population names, respectively. The examples we will be using are codominant data, but AFLP data is also accepted.</p>
+<p>To start simple, let’s examine the input file for the <code>monpop</code> data set containg 694 isolates of <em>Monolinia fructicola</em> genotyped over 13 haploid loci (<a href="">Everhart &amp; Scherm, 2014</a>). This is a data set that lives within the <em>poppr</em> package and can be loaded with the following command:</p>
+<pre class="r"><code>data(monpop)
+monpop</code></pre>
+<pre><code>## 
+## This is a genclone object
+## -------------------------
+## Genotype information:
+## 
+##    264 multilocus genotypes
+##    694 haploid individuals
+##     13 codominant loci
+## 
+## Population information:
+## 
+##      1 hierarchical level - Pop
+##     12 populations defined - 7_09_BB 26_09_BB 26_09_FR ... 45_10_FR 
+## 26_11_BB 26_11_FR</code></pre>
+<p>We can now export this to a GenAlEx file on our desktop using the command</p>
 <ul>
 <li>GenAlEx data
 <ul>

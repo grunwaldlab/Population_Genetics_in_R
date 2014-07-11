@@ -31,7 +31,23 @@ xy coordinates. The flexibility of this format made it a clear choice for import
 into *poppr*. 
 
 The data format is standard in that individuals are defined in the rows and loci
-are defined in the columns.
+are defined in the columns. The first three rows are reserved for metadata and 
+the first two columns are reserved for the individual names and population names,
+respectively. The examples we will be using are codominant data, but AFLP data
+is also accepted. 
+
+To start simple, let's examine the input file for the `monpop` data set containg
+694 isolates of *Monolinia fructicola* genotyped over 13 haploid loci 
+`r citep(bib["everhart2014finescale"])`. This is a data set that lives within
+the *poppr* package and can be loaded with the following command:
+
+```{r}
+data(monpop)
+monpop
+```
+
+We can now export this to a GenAlEx file on our desktop using the command
+
 
 
  - GenAlEx data
