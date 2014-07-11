@@ -15,14 +15,33 @@ title: '2: Data Preparation'
 
 Introduction
 ----
+<!--- Nik smells like fairy feets. --->
+This section will breifly go over the basics of data import into *poppr* with the
+GenAlEx format. We will show examples of haploid, diploid, and polyploid data
+sets and show you how you can format your data if it's grouped by multiple 
+hierarchical levels. 
 
-Nik smells like fairy feets.
-
-
-Data Format
+GenAlEx data format
 ----
 
+GenAlEx is a very popular add-on for Microsoft Excel. It is relatively easy to 
+use because of its familiar, menu-driven interface. It also gives the user the
+option to include information on population groupings, regional groupings, and 
+xy coordinates. The flexibility of this format made it a clear choice for import
+into *poppr*. 
+
+The data format is standard in that individuals are defined in the rows and loci
+are defined in the columns.
+
+
  - GenAlEx data
+    - haploid
+    - diploid
+    - polyploid
+    
+Other accepted formats
+----
  - Others (FSTAT, Structure, Genetix, Genepop)
  - importing data frames with columns of data
+ - formatting multiple population hierarchical levels
 
