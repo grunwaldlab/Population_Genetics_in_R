@@ -46,7 +46,16 @@ data(monpop)
 monpop
 ```
 
-We can now export this to a GenAlEx file on our desktop using the command
+To see how a GenAlEx file can be constructed with this data, we will first write
+this data to a file on our desktop with the command `genind2genalex`:
+
+```{r, eval=FALSE}
+genind2genalex(monpop, filename = "~/Desktop/monpop.csv")
+```
+```{r, echo = FALSE}
+cat("Extracting the table ... Writing the table to ~/Desktop/monpop.csv ... Done.")
+```
+
 
 
 
