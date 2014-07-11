@@ -55,8 +55,14 @@ genind2genalex(monpop, filename = "~/Desktop/monpop.csv")
 ```{r, echo = FALSE}
 cat("Extracting the table ... Writing the table to ~/Desktop/monpop.csv ... Done.")
 ```
-
-
+data
+![monpop](images/monpop.png)
+data
+![monpop_ideal](images/monpop_ideal.png)
+data
+![diploid](images/diploid.png)
+data
+![tetraploid](images/tetraploid.png)
 
 
  - GenAlEx data
