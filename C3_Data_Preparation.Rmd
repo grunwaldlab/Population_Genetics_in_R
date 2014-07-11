@@ -55,7 +55,16 @@ genind2genalex(monpop, filename = "~/Desktop/monpop.csv")
 ```{r, echo = FALSE}
 cat("Extracting the table ... Writing the table to ~/Desktop/monpop.csv ... Done.")
 ```
-data
+
+This is what normal GenAlEx data looks like. The first three rows are reserved
+for metadata. Highlighted in blue are the important parts of the metadata that
+is used by *poppr*:
+
+| A | B | C |
+|:----:|:----:|:----:|
+| # of loci | # of individuals | # of populations |
+
+
 ![monpop](images/monpop.png)
 data
 ![monpop_ideal](images/monpop_ideal.png)
