@@ -64,7 +64,7 @@ xtable::print.xtable(x, type = "html", include.rownames = FALSE,
 
 ![monpop](images/monpop.png)
 
-The columns of the metadata beyond those three rows define the number of individuals contained within each population. Since this data is redundant with the second column, it is not necessary. Below is a modified version of the input format that should make it easier to format.
+The columns of the metadata beyond those three rows define the number of individuals contained within each population. Since this data is redundant with the second column, it is not necessary. Notice, also, that the second column, reserved for the population assignments, has a a pattern of underscores in the populations. This will be important at the end of this section. Below is a modified version of the input format that should make it easier to format.
 
 ![monpop_ideal](images/monpop_ideal.png)
 
@@ -88,10 +88,12 @@ Highlighted in blue is the first locus and highlighted in red are two samples at
 Other accepted formats
 ----
 
+The other formats that are supported by *poppr* and *adegenet* are FSTAT, STRUCTURE, GENETIX, and GENEPOP. All of these can be imported with the *adegenet* function `import2genind`. If your data is in a custom format that has the basic form where individuals are in rows and each locus is in a separate column, then you can import your data using the base function `read.table` and then use the *adegenet* function `df2genind` to translate it to a genind object. Note that for polyploid data, it is still important to code your missing data as `0`. 
 
- - Others (FSTAT, Structure, Genetix, Genepop)
- - importing data frames with columns of data
- - formatting multiple population hierarchical levels
+Population Hierarchies
+----
+
+Many data formats do not allow the inclusion of more than one population level. When sampling microbes such as filamentous fungi, it is often not possible to know the true population structure *apriori* and so a hierarchical sampling approach is necessary. In order to get around the limitation of having one population level per data set, we suggest concatenating the different hierarchical levels into a single column by a common separator ("\_" by default) and then using the function `splithierarchy` detailed in [our chapter on population hierarchies](C4_Population_Hierarchies).
 
 References
 ----------
