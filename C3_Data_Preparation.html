@@ -144,18 +144,19 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#genalex-data-format">GenAlEx data format</a></li>
 <li><a href="#other-accepted-formats">Other accepted formats</a></li>
+<li><a href="#references">References</a></li>
 </ul>
 </div>
 
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
 <!--- Nik smells like fairy feets. --->
-<p>This section will breifly go over the basics of data import into <em>poppr</em> with the GenAlEx format. We will show examples of haploid, diploid, and polyploid data sets and show you how you can format your data if it’s grouped by multiple hierarchical levels.</p>
+<p>This section will breifly go over the basics of data import into <em>poppr</em>. For this section, we will focus on the GenAlEx format. Other formats are supported and details are given in the R help page for the <em>adegenet</em> function <code>import2genind</code>. We will show examples of haploid, diploid, and polyploid data sets and show you how you can format your data if it’s grouped by multiple hierarchical levels.</p>
 </div>
 <div id="genalex-data-format" class="section level2">
 <h2>GenAlEx data format</h2>
 <p>GenAlEx is a very popular add-on for Microsoft Excel. It is relatively easy to use because of its familiar, menu-driven interface. It also gives the user the option to include information on population groupings, regional groupings, and xy coordinates. The flexibility of this format made it a clear choice for import into <em>poppr</em>.</p>
-<p>The data format is standard in that individuals are defined in the rows and loci are defined in the columns. The first three rows are reserved for metadata and the first two columns are reserved for the individual names and population names, respectively. The examples we will be using are codominant data, but AFLP data is also accepted.</p>
+<p>The data format is standard in that individuals are defined in the rows and loci are defined in the columns. The first two rows are reserved for metadata and the first two columns are reserved for the individual names and population names, respectively. The examples we will be using are codominant data, but AFLP data is also accepted.</p>
 <p>To start simple, let’s examine the input file for the <code>monpop</code> data set containg 694 isolates of <em>Monolinia fructicola</em> genotyped over 13 haploid loci (<a href="">Everhart &amp; Scherm, 2014</a>). This is a data set that lives within the <em>poppr</em> package and can be loaded with the following command:</p>
 <pre class="r"><code>data(monpop)
 monpop</code></pre>
@@ -176,32 +177,41 @@ monpop</code></pre>
 <p>To see how a GenAlEx file can be constructed with this data, we will first write this data to a file on our desktop with the command <code>genind2genalex</code>:</p>
 <pre class="r"><code>genind2genalex(monpop, filename = &quot;~/Desktop/monpop.csv&quot;)</code></pre>
 <pre><code>## Extracting the table ... Writing the table to ~/Desktop/monpop.csv ... Done.</code></pre>
-<p>This is what normal GenAlEx data looks like. The first three rows are reserved for metadata. Highlighted in blue are the important parts of the metadata that is used by <em>poppr</em>:</p>
-<table>
-<thead>
-<tr class="header">
-<th align="center">A</th>
-<th align="center">B</th>
-<th align="center">C</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center"># of loci</td>
-<td align="center"># of individuals</td>
-<td align="center"># of populations</td>
-</tr>
-</tbody>
-</table>
-<p><img src="images/monpop.png" alt="monpop" /> data <img src="images/monpop_ideal.png" alt="monpop_ideal" /> data <img src="images/diploid.png" alt="diploid" /> data <img src="images/tetraploid.png" alt="tetraploid" /></p>
-<ul>
-<li>GenAlEx data
-<ul>
-<li>haploid</li>
-<li>diploid</li>
-<li>polyploid</li>
-</ul></li>
-</ul>
+<p>Below is what normal, haploid, GenAlEx data looks like. Highlighted in red is how missing data should be coded for codominant markers. Highlighted in blue are the parts of the metadata rows used by <em>poppr</em>. These three numbers represent:</p>
+<!-- html table generated in R 3.1.0 by xtable 1.7-3 package -->
+<!-- Fri Jul 11 20:39:55 2014 -->
+<TABLE border=2 cellpadding=5 align=center>
+<TR> <TH> 
+A
+</TH> <TH> 
+B
+</TH> <TH> 
+C
+</TH>  </TR>
+  <TR> <TD>  
+loci
+</TD> <TD>  
+individuals
+</TD> <TD>  
+populations
+</TD> </TR>
+   </TABLE>
+
+<p><img src="images/monpop.png" alt="monpop" /></p>
+<p>The columns of the metadata beyond those three rows define the number of individuals contained within each population. Since this data is redundant with the second column, it is not necessary. Below is a modified version of the input format that should make it easier to format.</p>
+<p><img src="images/monpop_ideal.png" alt="monpop_ideal" /></p>
+<p>Highlighted in blue is the cell that defines the number of columns highlighted in red. If we set this number to <code>1</code>, then we do not have to enter in any information in those columns. Try it for yourself.</p>
+<div id="diploids" class="section level3">
+<h3>Diploids</h3>
+<p>Diploid data is only different in the fact that you will have two alleles represented at each locus. This is coded such that each allele is in a separate column so that your genetic data will take up 2*(number of loci) columns. Below is an example of the <code>nancycats</code> data set (from the <em>adegenet</em> package), exported like above. Highlighted in blue and red are the first two loci.</p>
+<p><img src="images/diploid.png" alt="diploid" /></p>
+</div>
+<div id="polyploids" class="section level3">
+<h3>Polyploids</h3>
+<p>GenAlEx does not handle polyploids, but since poppr can do it, we have set up a scheme to allow import of polyploids via this format. The limitation is that all of your loci have to have the same observed ploidy. Below is the example of <em>Phytophthora infestans</em> in the data set <code>Pinf</code> where some genotypes had observed tetraploid loci (<a href="http://grunwaldlab.cgrb.oregonstate.edu/irish-potato-famine-pathogen-phytophthora-infestans-originated-central-mexico-rather-andes">Goss et al. 2014</a>).</p>
+<p><img src="images/tetraploid.png" alt="tetraploid" /></p>
+<p>Highlighted in blue is the first locus and highlighted in red are two samples at that locus, an observed diploid and observed triploid. Note the extra zeroes needed to make the genotype tetraploid.</p>
+</div>
 </div>
 <div id="other-accepted-formats" class="section level2">
 <h2>Other accepted formats</h2>
@@ -210,6 +220,16 @@ monpop</code></pre>
 <li>importing data frames with columns of data</li>
 <li>formatting multiple population hierarchical levels</li>
 </ul>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<p> 
+SE Everhart, H Scherm, (2014) Fine-scale genetic structure of Monilinia fructicola during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> <strong>##</strong> (#) submitted-NA
+</p><p> 
+EM Goss, JF Tabima, DEL Cooke, S Restrepo, WE Fry, GA Forbes, VJ Fieland, M Cardenas, NJ Grünwald, (2014) The Irish famine pathogen Phytophthora infestans originated in central Mexico rather than the Andes. <em>Proceedings of the National Academy of Sciences</em> <strong>111</strong> (24) 8791-8796-NA <a href="http://grunwaldlab.cgrb.oregonstate.edu/irish-potato-famine-pathogen-phytophthora-infestans-originated-central-mexico-rather-andes">http://grunwaldlab.cgrb.oregonstate.edu/irish-potato-famine-pathogen-phytophthora-infestans-originated-central-mexico-rather-andes</a>
+</p>
+
+
 </div>
 
 </div>

@@ -16,9 +16,7 @@ title: '2: Data Preparation'
 Introduction
 ----
 <!--- Nik smells like fairy feets. --->
-This section will breifly go over the basics of data import into *poppr* with the
-GenAlEx format. We will show examples of haploid, diploid, and polyploid data
-sets and show you how you can format your data if it's grouped by multiple 
+This section will breifly go over the basics of data import into *poppr*. For this section, we will focus on the GenAlEx format. Other formats are supported and details are given in the R help page for the *adegenet* function `import2genind`. We will show examples of haploid, diploid, and polyploid data sets and show you how you can format your data if it's grouped by multiple 
 hierarchical levels. 
 
 GenAlEx data format
@@ -31,7 +29,7 @@ xy coordinates. The flexibility of this format made it a clear choice for import
 into *poppr*. 
 
 The data format is standard in that individuals are defined in the rows and loci
-are defined in the columns. The first three rows are reserved for metadata and 
+are defined in the columns. The first two rows are reserved for metadata and 
 the first two columns are reserved for the individual names and population names,
 respectively. The examples we will be using are codominant data, but AFLP data
 is also accepted. 
@@ -56,32 +54,47 @@ genind2genalex(monpop, filename = "~/Desktop/monpop.csv")
 cat("Extracting the table ... Writing the table to ~/Desktop/monpop.csv ... Done.")
 ```
 
-This is what normal GenAlEx data looks like. The first three rows are reserved
-for metadata. Highlighted in blue are the important parts of the metadata that
-is used by *poppr*:
+Below is what normal, haploid, GenAlEx data looks like. Highlighted in red is how missing data should be coded for codominant markers. Highlighted in blue are the parts of the metadata rows used by *poppr*. These three numbers represent:
 
-| A | B | C |
-|:----:|:----:|:----:|
-| # of loci | # of individuals | # of populations |
-
+```{r, echo = FALSE, results='asis'}
+x <- xtable::xtable(data.frame(list(A = " loci ", B = " individuals ", C = " populations ")))
+xtable::print.xtable(x, type = "html", include.rownames = FALSE, 
+					 html.table.attributes = "border=2 cellpadding=5 align=center")
+```
 
 ![monpop](images/monpop.png)
-data
+
+The columns of the metadata beyond those three rows define the number of individuals contained within each population. Since this data is redundant with the second column, it is not necessary. Below is a modified version of the input format that should make it easier to format.
+
 ![monpop_ideal](images/monpop_ideal.png)
-data
+
+Highlighted in blue is the cell that defines the number of columns highlighted in red. If we set this number to `1`, then we do not have to enter in any information in those columns. Try it for yourself. 
+
+### Diploids
+
+Diploid data is only different in the fact that you will have two alleles represented at each locus. This is coded such that each allele is in a separate column so that your genetic data will take up 2\*(number of loci) columns. Below is an example of the `nancycats` data set (from the *adegenet* package), exported like above. Highlighted in blue and red are the first two loci. 
+
 ![diploid](images/diploid.png)
-data
+
+### Polyploids
+
+GenAlEx does not handle polyploids, but since poppr can do it, we have set up a scheme to allow import of polyploids via this format. The limitation is that all of your loci have to have the same observed ploidy. Below is the example of *Phytophthora infestans* in the data set `Pinf` where some genotypes had observed tetraploid loci `r citep(bib["goss2014irish"])`. 
+
 ![tetraploid](images/tetraploid.png)
 
+Highlighted in blue is the first locus and highlighted in red are two samples at that locus, an observed diploid and observed triploid. Note the extra zeroes needed to make the genotype tetraploid. 
 
- - GenAlEx data
-    - haploid
-    - diploid
-    - polyploid
-    
+
 Other accepted formats
 ----
+
+
  - Others (FSTAT, Structure, Genetix, Genepop)
  - importing data frames with columns of data
  - formatting multiple population hierarchical levels
 
+References
+----------
+```{r,echo=FALSE, results='asis', cache = FALSE}
+  bibliography(style = "html", bulleted=FALSE)
+```
