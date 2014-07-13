@@ -1,0 +1,99 @@
+```{r,message=FALSE,echo=FALSE}
+  html <- TRUE
+  library(knitcitations)
+  bib <- read.bibtex("bibtexlib.bib")
+  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, 
+                 fig.width = 10, fig.height = 6, cache = TRUE)
+  if (html) opts_chunk$set(out.width = "700px", dpi = 300)
+```
+---
+title: "Chapter 4:  First Analysis"
+---
+
+This chapter introduces basic use of and navigation in *poppr* as well as good practices when starting an analysis. We take a glance at the genotypic diversity observed in populations and allelic frequencies observed in your loci by population. Both of these are good first steps to eliminate data entry errors, check for missing/rare data, and make sure all loci conform to expectations given your analyses. 
+
+For these examples, we will be using a data set that is already built into *poppr* containing 86 individuals of *Phytophthora infestans* genotyped over 11 microsatellite loci `r citep(bib['goss2014irish'])`
+
+
+Analyzing the genotype accumulation curve
+-----
+
+A genotype accumulation curve is a tool that allows you to assess how much power you have to discriminate between unique individuals given a random sample of $n$ loci. This analysis is particularly important for clonal organisms to confirm that a plateau has been reached in the number of loci necessary to discriminate individuals. Below, we will analyze the `Pinf` data set. 
+
+```{r, fig.cap = "Genotype accumulation curve"}
+data(Pinf) # Load the data
+Pinf       # We expect a maximum of 72 Multilocus Genotypes
+gac <- genotype_curve(Pinf, sample = 1000, quiet = TRUE)
+```
+
+We specified `sample = 1000` in our function call. This means that for each boxplot, $n$ loci were randomly sampled 1000 times in order to create the distribution. Since this data has been curated, we can see that we have reached the plateau with 11 loci. Try seeing what happens when you use a data set of sexual populations such as `microbov` or `nancycats`. Also, what happens when you use dominant AFLP data such as `Aeut`? 
+
+Allele frequencies, missing data, and ploidy
+-----
+
+A good first step after loading data is to look for missing data, rare alleles and overall quality of your data:
+
+```{r, fig.cap = "Missing data plot"}
+data(Pinf)
+locus_table(Pinf)
+info_table(Pinf, type = "missing", plot = TRUE)
+```
+
+If your data consists of polyploid SSR markers, you would code the unobserved alleles as
+"0". The `Pinf` data set is a perfect example of this. It is a subset of a slightly larger tetraploid data set. In this example, each row represents an isolate and each column represents a locus:
+
+```{r}
+tail(genind2df(Pinf, sep = "/"))
+```
+
+To observe the different levels of ploidy in your data, use the function
+`info_table` with the argument `type = "ploidy"`:
+
+```{r, fig.cap = "Plot of ploidy"}
+Pinf.ploidy <- info_table(Pinf, type = "ploidy", plot = TRUE)
+tail(Pinf.ploidy)
+```
+
+You are now able to assess the quality of your data and examine allelic diversity in your populations. In the next section we will learn how to calculate genotypic diversity.
+
+Calculating genotypic diversity
+-----
+
+Let us get a first impression of the diversity found in this data using the
+summary function, `poppr`:
+
+```{r}
+poppr(Pinf)
+```
+
+We can see statistics printed for each individual and the total population. The fields you see in the output include:
+
+- `Pop`  -  Population name.
+- `N` -  Number of individuals observed.
+- `MLG` - Number of multilocus genotypes (MLG) observed.
+- `eMLG` - The number of expected MLG at the smallest sample size ≥ 10 based on rarefaction `r citep(bib[c("hurlbert1971nonconcept")])`.
+- `SE` - Standard error based on eMLG.
+- `H` - Shannon-Wiener Index of MLG diversity `r citep(bib[c("shannon2001mathematical")])`.
+- `G` - Stoddart and Taylor’s Index of MLG diversity  `r citep(bib[c("stoddart1988genotypic")])`.
+- `Hexp` - Nei’s expected heterozygosity (denoted elsewhere as D)  `r citep(bib[c("nei1978estimation")])`.
+- `E.5` - Evenness, E5 `r citep(bib[c("pielou1975ecological","ludwig1988statistical","grunwald2003")])`.
+- `Ia` - The index of association, $I_A$ `r citep(bib[c("brown1980multilocus","smith1993clonal")])`.
+- `rbarD` - The standardized index of association, $\bar{r}_d$ `r citep(bib[c("agapow2001indices")])`.
+
+What does all this mean? Both populations have a similar number of individuals ($N$ = 38 and 48) sampled. However, one population has 29 and the other 43 $MLG$ while both populations together have combined 86 $MLG$. Genotypic diversity (either $H$ or $G$) is higher in population 2 than population 1, while evenness is similar. Let's ignore $I_A$ and $\bar{r}_d$ for now, as these are measures of linkage disequilibrium that will be covered in [Chapter 7](C7_Linkage_disequilibrium.html). 
+
+Next, let's calculate $MLG$ for each population, e.g. "South America" and "North America" populations:
+
+```{r, fig.cap = "Multilocus Genotype Table"}
+P.tab <- mlg.table(Pinf)
+```
+
+The figures provide histograms to see how evenly $MLGs$ are distributed within each population. Both populations have genotypes that occur a few times and only a few genotypes that occur more than 2 times (as expected from the high $E_5$ discussed above). Try this analysis on other published data sets such as that of the root rot pathogen *Aphanomyces euteiches*, stored in *poppr* as `Aeut`. See if you can produce similar tables and graphs and compare it to the published paper `r citep(bib[c("grunwald2006hierarchical")])`.
+
+This concludes our first introduction on how to count genotypes and determine genotypic diversity, evenness and richness in populations. In the [next chapter](C4_Population_Hierarchies) we will learn how to subset and clone-correct populations. 
+
+References
+----------
+```{r,echo=FALSE, results='asis', cache = FALSE}
+  bibliography(style = "html", bulleted=FALSE)
+```
