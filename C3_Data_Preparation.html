@@ -160,7 +160,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>GenAlEx is a very popular add-on for Microsoft Excel. It is relatively easy to use because of its familiar, menu-driven interface. It also gives the user the option to include information on population groupings, regional groupings, and xy coordinates. The flexibility of this format made it a clear choice for import into <em>poppr</em>.</p>
 <p>The data format is standard in that individuals are defined in the rows and loci are defined in the columns. The first two rows are reserved for metadata and the first two columns are reserved for the individual names and population names, respectively. The examples we will be using are codominant data, but AFLP data is also accepted.</p>
 <p>To start simple, let’s examine the input file for the <code>monpop</code> data set containg 694 isolates of <em>Monolinia fructicola</em> genotyped over 13 haploid loci (<a href="">Everhart &amp; Scherm, 2014</a>). This is a data set that lives within the <em>poppr</em> package and can be loaded with the following command:</p>
-<pre class="r"><code>data(monpop)
+<pre class="r"><code>library(poppr)
+data(monpop)
 monpop</code></pre>
 <pre><code>## 
 ## This is a genclone object
@@ -221,7 +222,7 @@ populations
 </div>
 <div id="population-hierarchies" class="section level2">
 <h2>Population Hierarchies</h2>
-<p>Many data formats do not allow the inclusion of more than one population level. When sampling microbes such as filamentous fungi, it is often not possible to know the true population structure <em>apriori</em> and so a hierarchical sampling approach is necessary. In order to get around the limitation of having one population level per data set, we suggest concatenating the different hierarchical levels into a single column by a common separator (“_” by default) and then using the function <code>splithierarchy</code> detailed in <a href="C4_Population_Hierarchies">our chapter on population hierarchies</a>.</p>
+<p>Many data formats do not allow the inclusion of more than one population level. When sampling microbes such as filamentous fungi, it is often not possible to know the true population structure <em>apriori</em> and so a hierarchical sampling approach is necessary. In order to get around the limitation of having one population level per data set, we suggest concatenating the different hierarchical levels into a single column by a common separator (“_” by default) and then using the function <code>splithierarchy</code> detailed in <a href="C5_Population_Hierarchies">our chapter on population hierarchies</a>.</p>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>

@@ -90,7 +90,7 @@ P.tab <- mlg.table(Pinf)
 
 The figures provide histograms to see how evenly $MLGs$ are distributed within each population. Both populations have genotypes that occur a few times and only a few genotypes that occur more than 2 times (as expected from the high $E_5$ discussed above). Try this analysis on other published data sets such as that of the root rot pathogen *Aphanomyces euteiches*, stored in *poppr* as `Aeut`. See if you can produce similar tables and graphs and compare it to the published paper `r citep(bib[c("grunwald2006hierarchical")])`.
 
-This concludes our first introduction on how to count genotypes and determine genotypic diversity, evenness and richness in populations. In the [next chapter](C4_Population_Hierarchies) we will learn how to subset and clone-correct populations. 
+This concludes our first introduction on how to count genotypes and determine genotypic diversity, evenness and richness in populations. In the [next chapter](C5_Population_Hierarchies) we will learn how to subset and clone-correct populations. 
 
 References
 ----------

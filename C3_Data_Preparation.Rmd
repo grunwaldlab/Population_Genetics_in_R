@@ -40,6 +40,7 @@ To start simple, let's examine the input file for the `monpop` data set containg
 the *poppr* package and can be loaded with the following command:
 
 ```{r}
+library(poppr)
 data(monpop)
 monpop
 ```
@@ -93,7 +94,7 @@ The other formats that are supported by *poppr* and *adegenet* are FSTAT, STRUCT
 Population Hierarchies
 ----
 
-Many data formats do not allow the inclusion of more than one population level. When sampling microbes such as filamentous fungi, it is often not possible to know the true population structure *apriori* and so a hierarchical sampling approach is necessary. In order to get around the limitation of having one population level per data set, we suggest concatenating the different hierarchical levels into a single column by a common separator ("\_" by default) and then using the function `splithierarchy` detailed in [our chapter on population hierarchies](C4_Population_Hierarchies).
+Many data formats do not allow the inclusion of more than one population level. When sampling microbes such as filamentous fungi, it is often not possible to know the true population structure *apriori* and so a hierarchical sampling approach is necessary. In order to get around the limitation of having one population level per data set, we suggest concatenating the different hierarchical levels into a single column by a common separator ("\_" by default) and then using the function `splithierarchy` detailed in [our chapter on population hierarchies](C5_Population_Hierarchies).
 
 References
 ----------
