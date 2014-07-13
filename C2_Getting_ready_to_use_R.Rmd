@@ -77,7 +77,7 @@ We wrote and actively maintain *poppr* `r citep(bib["kamvar2014poppr"])` and it 
 
 Once you've installed *poppr*, you can invoke it by typing or cutting + pasting:
 
-```{r, message=TRUE}
+```{r, message=TRUE, warning=TRUE}
 library(poppr)
 ```
 
@@ -159,7 +159,6 @@ Some packages include vignettes that can have different formats such as being in
 browseVignettes()                     # see vignettes from all packages
 browseVignettes(package = 'poppr')    # see vignettes from a specific package.
 ```
-
 
 and to look at a specific vignette you can type:
 
