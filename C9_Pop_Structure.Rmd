@@ -90,10 +90,12 @@ t26.9msn <- bruvo.msn(t26, replen = reps, sublist = sub9, showplot = FALSE)
 
 # Visualize
 set.seed(9001)
-plot_poppr_msn(popsub(t26, sub9), t26.9msn, inds = "none", palette = cm.colors)
+plot_poppr_msn(t26, t26.9msn, inds = "none", palette = cm.colors)
 ```
 
-We can see that the BB in the tree heavily contributed to the major groups of MLGs found in the FR. Now see if you can produce similar graphs with the 2010 and 2011 populations.
+We can see that the Blossom Blight in the tree heavily contributed to the major groups of MLGs found in the Fruit Rot. 
+
+> **Try it!** See if you can produce similar graphs with the 2010 and 2011 populations.
 
 K-means hierarchical clustering
 ----
@@ -111,7 +113,7 @@ First, we will perform a cluster analysis:
 MX <- popsub(Pinf, "North America")
 MXclust <- find.clusters(MX)
 ```
-![MX_PCA](C8_Pop_Structure_files/figure-html/MXPCA.png)
+![MX_PCA](C9_Pop_Structure_files/figure-html/MXPCA.png)
 
 ```{r, echo = FALSE}
 cat("Choose the number PCs to retain (>=1): \n")
@@ -122,7 +124,7 @@ message("50")
 
 PC stands for principal component, are unitless transofrmations of your data that explaining the variance observed. For the purposes of `find.clusters`, we can keep as many as we want.
 
-![MX_CLUSTER](C8_Pop_Structure_files/figure-html/MXCLUST.png)
+![MX_CLUSTER](C9_Pop_Structure_files/figure-html/MXCLUST.png)
 
 ```{r, echo = FALSE}
 cat("Choose the number PCs to retain (>=2: \n")
@@ -151,7 +153,7 @@ We will go through the same procedure for the South American population.
 SA <- popsub(Pinf, "South America")
 SAclust <- find.clusters(SA)
 ```
-![SA_PCA](C8_Pop_Structure_files/figure-html/SAPCA.png)
+![SA_PCA](C9_Pop_Structure_files/figure-html/SAPCA.png)
 
 ```{r, echo = FALSE}
 cat("Choose the number PCs to retain (>=1): \n")
@@ -160,7 +162,7 @@ cat("Choose the number PCs to retain (>=1): \n")
 message("30")
 ```
 
-![SA_CLUSTER](C8_Pop_Structure_files/figure-html/SACLUST.png)
+![SA_CLUSTER](C9_Pop_Structure_files/figure-html/SACLUST.png)
 
 ```{r, echo = FALSE}
 cat("Choose the number PCs to retain (>=2): \n")

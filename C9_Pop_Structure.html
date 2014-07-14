@@ -262,9 +262,12 @@ t26.9msn &lt;- bruvo.msn(t26, replen = reps, sublist = sub9, showplot = FALSE)
 
 # Visualize
 set.seed(9001)
-plot_poppr_msn(popsub(t26, sub9), t26.9msn, inds = &quot;none&quot;, palette = cm.colors)</code></pre>
+plot_poppr_msn(t26, t26.9msn, inds = &quot;none&quot;, palette = cm.colors)</code></pre>
 <p><img src="C9_Pop_Structure_files/figure-html/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="700px" /></p>
-<p>We can see that the BB in the tree heavily contributed to the major groups of MLGs found in the FR. Now see if you can produce similar graphs with the 2010 and 2011 populations.</p>
+<p>We can see that the Blossom Blight in the tree heavily contributed to the major groups of MLGs found in the Fruit Rot.</p>
+<blockquote>
+<p><strong>Try it!</strong> See if you can produce similar graphs with the 2010 and 2011 populations.</p>
+</blockquote>
 </div>
 <div id="k-means-hierarchical-clustering" class="section level2">
 <h2>K-means hierarchical clustering</h2>
@@ -287,11 +290,11 @@ Pinf</code></pre>
 <p>First, we will perform a cluster analysis:</p>
 <pre class="r"><code>MX &lt;- popsub(Pinf, &quot;North America&quot;)
 MXclust &lt;- find.clusters(MX)</code></pre>
-<p><img src="C8_Pop_Structure_files/figure-html/MXPCA.png" alt="MX_PCA" /></p>
+<p><img src="C9_Pop_Structure_files/figure-html/MXPCA.png" alt="MX_PCA" /></p>
 <pre><code>## Choose the number PCs to retain (&gt;=1):</code></pre>
 <pre><code>&gt; 50</code></pre>
 <p>PC stands for principal component, are unitless transofrmations of your data that explaining the variance observed. For the purposes of <code>find.clusters</code>, we can keep as many as we want.</p>
-<p><img src="C8_Pop_Structure_files/figure-html/MXCLUST.png" alt="MX_CLUSTER" /></p>
+<p><img src="C9_Pop_Structure_files/figure-html/MXCLUST.png" alt="MX_CLUSTER" /></p>
 <pre><code>## Choose the number PCs to retain (&gt;=2:</code></pre>
 <pre><code>&gt; 3</code></pre>
 <p>BIC stands for “Bayesian Information Criterion”. The lower the BIC value, the better. On the x axis are the number of clusters. We see that there is a bend at 3 clusters, indicating that the data clusters optimally into three groups.</p>
@@ -323,10 +326,10 @@ MXclust &lt;- find.clusters(MX)</code></pre>
 <p>We will go through the same procedure for the South American population.</p>
 <pre class="r"><code>SA &lt;- popsub(Pinf, &quot;South America&quot;)
 SAclust &lt;- find.clusters(SA)</code></pre>
-<p><img src="C8_Pop_Structure_files/figure-html/SAPCA.png" alt="SA_PCA" /></p>
+<p><img src="C9_Pop_Structure_files/figure-html/SAPCA.png" alt="SA_PCA" /></p>
 <pre><code>## Choose the number PCs to retain (&gt;=1):</code></pre>
 <pre><code>&gt; 30</code></pre>
-<p><img src="C8_Pop_Structure_files/figure-html/SACLUST.png" alt="SA_CLUSTER" /></p>
+<p><img src="C9_Pop_Structure_files/figure-html/SACLUST.png" alt="SA_CLUSTER" /></p>
 <pre><code>## Choose the number PCs to retain (&gt;=2):</code></pre>
 <pre><code>&gt; 4</code></pre>
 <p>Notice here that there is no uptick in the curve. This indicates that there <a href="http://lists.r-forge.r-project.org/pipermail/adegenet-forum/2011-June/000303.html">might not be enough information in the data set to properly cluster</a>. We will go ahead by choosing the highest number of clusters:</p>
