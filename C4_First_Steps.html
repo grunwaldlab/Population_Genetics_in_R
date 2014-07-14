@@ -145,6 +145,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#analyzing-the-genotype-accumulation-curve">Analyzing the genotype accumulation curve</a></li>
 <li><a href="#allele-frequencies-missing-data-and-ploidy">Allele frequencies, missing data, and ploidy</a></li>
 <li><a href="#calculating-genotypic-diversity">Calculating genotypic diversity</a></li>
+<li><a href="#conclusions">Conclusions</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </div>
@@ -271,7 +272,7 @@ locus_table(Pinf)</code></pre>
 <li><code>Ia</code> - The index of association, <span class="math">\(I_A\)</span> (<a href="http://www.genetics.org/content/96/2/523">Brown et al. 1980</a>; <a href="http://www.pnas.org/content/90/10/4384">Smith et al. 1993</a>).</li>
 <li><code>rbarD</code> - The standardized index of association, <span class="math">\(\bar{r}_d\)</span> (<a href="http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract">Agapow &amp; Burt, 2001</a>).</li>
 </ul>
-<p>What does all this mean? Both populations have a similar number of individuals (<span class="math">\(N\)</span> = 38 and 48) sampled. However, one population has 29 and the other 43 <span class="math">\(MLG\)</span> while both populations together have combined 86 <span class="math">\(MLG\)</span>. Genotypic diversity (either <span class="math">\(H\)</span> or <span class="math">\(G\)</span>) is higher in population 2 than population 1, while evenness is similar. Let’s ignore <span class="math">\(I_A\)</span> and <span class="math">\(\bar{r}_d\)</span> for now, as these are measures of linkage disequilibrium that will be covered in <a href="C7_Linkage_disequilibrium.html">Chapter 7</a>.</p>
+<p>What does all this mean? Both populations have a similar number of individuals (<span class="math">\(N\)</span> = 38 and 48) sampled. However, one population has 29 and the other 43 <span class="math">\(MLG\)</span> while both populations together have combined 86 <span class="math">\(MLG\)</span>. Genotypic diversity (either <span class="math">\(H\)</span> or <span class="math">\(G\)</span>) is higher in population 2 than population 1, while evenness is similar. Let’s ignore <span class="math">\(I_A\)</span> and <span class="math">\(\bar{r}_d\)</span> for now, as these are measures of linkage disequilibrium that will be covered in <a href="C8_Linkage_disequilibrium.html">Chapter 8</a>.</p>
 <p>Next, let’s calculate <span class="math">\(MLG\)</span> for each population, e.g. “South America” and “North America” populations:</p>
 <pre class="r"><code>P.tab &lt;- mlg.table(Pinf)</code></pre>
 <pre><code>## | South America</code></pre>
@@ -279,7 +280,10 @@ locus_table(Pinf)</code></pre>
 <pre><code>## | North America</code></pre>
 <p><img src="C4_First_Steps_files/figure-html/unnamed-chunk-72.png" title="Multilocus Genotype Table" alt="Multilocus Genotype Table" width="700px" /></p>
 <p>The figures provide histograms to see how evenly <span class="math">\(MLGs\)</span> are distributed within each population. Both populations have genotypes that occur a few times and only a few genotypes that occur more than 2 times (as expected from the high <span class="math">\(E_5\)</span> discussed above). Try this analysis on other published data sets such as that of the root rot pathogen <em>Aphanomyces euteiches</em>, stored in <em>poppr</em> as <code>Aeut</code>. See if you can produce similar tables and graphs and compare it to the published paper (<a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134">Grünwald &amp; Hoheisel, 2006</a>).</p>
-<p>This concludes our first introduction on how to count genotypes and determine genotypic diversity, evenness and richness in populations. In the <a href="C5_Population_Hierarchies">next chapter</a> we will learn how to subset and clone-correct populations.</p>
+</div>
+<div id="conclusions" class="section level2">
+<h2>Conclusions</h2>
+<p>Going through many of these steps will give you a valuable broad overview of your data. These analyses can give you insight into what methods you are able to use in analysis. The genotype curve can tell you if you’ve sampled enough loci (or if you’ve over sampled) and <code>info_table</code> gives a nice visualization to aid assessing whether or not there is systematic missing data in your sample. For clonal populations, the genotypic diversity table is valuable for informing you of how to clone-correct populations. Which we will learn about in the <a href="C5_Population_Hierarchies">next chapter</a>.</p>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>

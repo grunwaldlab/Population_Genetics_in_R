@@ -80,7 +80,7 @@ We can see statistics printed for each individual and the total population. The 
 - `Ia` - The index of association, $I_A$ `r citep(bib[c("brown1980multilocus","smith1993clonal")])`.
 - `rbarD` - The standardized index of association, $\bar{r}_d$ `r citep(bib[c("agapow2001indices")])`.
 
-What does all this mean? Both populations have a similar number of individuals ($N$ = 38 and 48) sampled. However, one population has 29 and the other 43 $MLG$ while both populations together have combined 86 $MLG$. Genotypic diversity (either $H$ or $G$) is higher in population 2 than population 1, while evenness is similar. Let's ignore $I_A$ and $\bar{r}_d$ for now, as these are measures of linkage disequilibrium that will be covered in [Chapter 7](C7_Linkage_disequilibrium.html). 
+What does all this mean? Both populations have a similar number of individuals ($N$ = 38 and 48) sampled. However, one population has 29 and the other 43 $MLG$ while both populations together have combined 86 $MLG$. Genotypic diversity (either $H$ or $G$) is higher in population 2 than population 1, while evenness is similar. Let's ignore $I_A$ and $\bar{r}_d$ for now, as these are measures of linkage disequilibrium that will be covered in [Chapter 8](C8_Linkage_disequilibrium.html). 
 
 Next, let's calculate $MLG$ for each population, e.g. "South America" and "North America" populations:
 
@@ -90,7 +90,11 @@ P.tab <- mlg.table(Pinf)
 
 The figures provide histograms to see how evenly $MLGs$ are distributed within each population. Both populations have genotypes that occur a few times and only a few genotypes that occur more than 2 times (as expected from the high $E_5$ discussed above). Try this analysis on other published data sets such as that of the root rot pathogen *Aphanomyces euteiches*, stored in *poppr* as `Aeut`. See if you can produce similar tables and graphs and compare it to the published paper `r citep(bib[c("grunwald2006hierarchical")])`.
 
-This concludes our first introduction on how to count genotypes and determine genotypic diversity, evenness and richness in populations. In the [next chapter](C5_Population_Hierarchies) we will learn how to subset and clone-correct populations. 
+
+Conclusions
+----
+
+Going through many of these steps will give you a valuable broad overview of your data. These analyses can give you insight into what methods you are able to use in analysis. The genotype curve can tell you if you've sampled enough loci (or if you've over sampled) and `info_table` gives a nice visualization to aid assessing whether or not there is systematic missing data in your sample. For clonal populations, the genotypic diversity table is valuable for informing you of how to clone-correct populations. Which we will learn about in the [next chapter](C5_Population_Hierarchies). 
 
 References
 ----------
