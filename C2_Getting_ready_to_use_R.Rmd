@@ -77,7 +77,7 @@ We wrote and actively maintain *poppr* `r citep(bib["kamvar2014poppr"])` and it 
 
 Once you've installed *poppr*, you can invoke it by typing or cutting + pasting:
 
-```{r, message=TRUE, warning=TRUE}
+```{r, message=TRUE, warning=TRUE, cache=FALSE}
 library(poppr)
 ```
 
