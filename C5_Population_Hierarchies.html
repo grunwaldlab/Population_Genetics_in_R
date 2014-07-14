@@ -147,6 +147,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#working-with-hierarchical-data">Working with hierarchical data</a></li>
 <li><a href="#importing-data-labeled-according-to-a-hierarchy">Importing data labeled according to a hierarchy</a></li>
 <li><a href="#assigning-hierarchical-levels">Assigning hierarchical levels</a></li>
+<li><a href="#clone-correction">Clone Correction</a></li>
+<li><a href="#conclusions">Conclusions</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </div>
@@ -260,6 +262,65 @@ monpop</code></pre>
 ## 
 ##      3 hierarchical levels - Tree Year Symptom
 ##      8 populations defined - BB_7 BB_26 FR_26 ... BB_79 FR_79 FR_45</code></pre>
+</div>
+<div id="clone-correction" class="section level2">
+<h2>Clone Correction</h2>
+<p>Clone correction is a method of masking repeated genotypes in your data as a way of reducing bias. This technique is commonly use with the analysis of the index of association as it will report more significant values with the presence of duplicated genotypes. Clone correction in <em>poppr</em> relies upon the knowledge of the hierarchical levels in order to work. You should never clone correct your data unless you know why and how you are clone correcting it.</p>
+<p>Conceptually, you want to clone correct using your hierarchical levels based on what you want to analyze and what the biology of the organism is. Using our data above as an example, if we wanted to know the diversity of alleles within each tree per year, how should we go about correcting for the clones? We use the function <code>clonecorrect</code> thusly:</p>
+<pre class="r"><code>mcc_TY &lt;- clonecorrect(monpop, hier = ~Tree/Year, keep = 1:2)
+mcc_TY</code></pre>
+<pre><code>## 
+## This is a genclone object
+## -------------------------
+## Genotype information:
+## 
+##    264 multilocus genotypes
+##    278 haploid individuals
+##     13 codominant loci
+## 
+## Population information:
+## 
+##      3 hierarchical levels - Tree Year Symptom
+##      6 populations defined - 7_9 26_9 26_10 45_10 79_10 26_11</code></pre>
+<pre class="r"><code>setpop(monpop) &lt;- ~Tree/Year</code></pre>
+<p>Now we can compare the diversity of alleles at each locus using Simpson’s index:</p>
+<pre class="r"><code>cc &lt;- locus_table(mcc_TY, info = FALSE)
+mp &lt;- locus_table(monpop, info = FALSE)
+mp - cc</code></pre>
+<pre><code>##          summary
+## locus     allele     1-D    Hexp Evenness
+##   CHMFc4       .  0.0016  0.0024   0.0016
+##   CHMFc5       . -0.0905 -0.1085  -0.0429
+##   CHMFc12      .  0.0042  0.0064   0.0387
+##   SEA          .  0.0312  0.0343   0.0851
+##   SED          . -0.0739 -0.0832  -0.0756
+##   SEE          . -0.0469 -0.0587  -0.0264
+##   SEG          .  0.0320  0.0366   0.0482
+##   SEI          . -0.0090 -0.0105   0.0306
+##   SEL          . -0.0092 -0.0115  -0.0540
+##   SEN          . -0.0501 -0.0563  -0.0764
+##   SEP          .  0.0165  0.0188   0.0409
+##   SEQ          . -0.0544 -0.0599  -0.0871
+##   SER          . -0.0421 -0.0467  -0.0236
+##   mean         . -0.0223 -0.0259  -0.0108</code></pre>
+<p>We can see quite a difference in some alleles after clone correcting based on tree in the overall data set. Of course, we still want to analyze each tree/year combination separately. This is where it would help to construct a little function.</p>
+<pre class="r"><code>plot_simp_diff &lt;- function(pop_name, mcc_TY, monpop){
+  cc &lt;- locus_table(mcc_TY, pop = pop_name, info = FALSE)
+  mp &lt;- locus_table(monpop, pop = pop_name, info = FALSE)
+  res &lt;- mp - cc
+  barplot(res[, &quot;1-D&quot;], main = pop_name)
+}
+pops &lt;- monpop@pop.names # Gather the population names
+par(mfrow = c(2, 3)) # Set up the graphics to have two rows and three columns
+for (i in pops){
+  plot_simp_diff(i, mcc_TY, monpop)
+}</code></pre>
+<p><img src="C5_Population_Hierarchies_files/figure-html/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="960" /></p>
+<pre class="r"><code>par(mfrow = c(1, 1))</code></pre>
+<p>We can see that the allelic diversity declines unless clone correction is implemented.</p>
+</div>
+<div id="conclusions" class="section level2">
+<h2>Conclusions</h2>
 <p>This was a brief introduction to the easiest way to create hierarchical levels and apply them in <em>poppr</em> to more rapidly analyze your data. By indexing the hierarchical levels of your data, you can set the hierarchical level(s) you want to have analyzed in a single command line. This approach avoids having to create new sub-sets of the data for each analysis and simultaneously reduces the chance of error when manipulating data sets by hand.</p>
 </div>
 <div id="references" class="section level2">

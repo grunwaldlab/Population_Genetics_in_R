@@ -73,6 +73,61 @@ setpop(monpop) <- ~Symptom/Tree
 monpop
 ````
 
+Clone Correction
+----
+
+Clone correction is a method of masking repeated genotypes in your data as a way
+of reducing bias. This technique is commonly use with the analysis of the index
+of association as it will report more significant values with the presence of 
+duplicated genotypes. Clone correction in *poppr* relies upon the knowledge of
+the hierarchical levels in order to work. You should never clone correct your
+data unless you know why and how you are clone correcting it.
+
+Conceptually, you want to clone correct using your hierarchical levels based on
+what you want to analyze and what the biology of the organism is. Using our data
+above as an example, if we wanted to know the diversity of alleles within each
+tree per year, how should we go about correcting for the clones? We use the 
+function `clonecorrect` thusly:
+
+```{r, clonecorrection}
+mcc_TY <- clonecorrect(monpop, hier = ~Tree/Year, keep = 1:2)
+mcc_TY
+setpop(monpop) <- ~Tree/Year
+```
+
+Now we can compare the diversity of alleles at each locus using Simpson's index:
+
+```{r, simpdiv}
+cc <- locus_table(mcc_TY, info = FALSE)
+mp <- locus_table(monpop, info = FALSE)
+mp - cc
+```
+
+We can see quite a difference in some alleles after clone correcting based on 
+tree in the overall data set. Of course, we still want to analyze each tree/year
+combination separately. This is where it would help to construct a little function.
+
+```{r}
+plot_simp_diff <- function(pop_name, mcc_TY, monpop){
+  cc <- locus_table(mcc_TY, pop = pop_name, info = FALSE)
+  mp <- locus_table(monpop, pop = pop_name, info = FALSE)
+  res <- mp - cc
+  barplot(res[, "1-D"], main = pop_name)
+}
+pops <- monpop@pop.names # Gather the population names
+par(mfrow = c(2, 3)) # Set up the graphics to have two rows and three columns
+for (i in pops){
+  plot_simp_diff(i, mcc_TY, monpop)
+}
+par(mfrow = c(1, 1))
+```
+
+We can see that the allelic diversity declines unless clone correction is implemented.
+
+
+Conclusions
+----
+
 This was a brief introduction to the easiest way to create hierarchical levels and apply them in *poppr* to more rapidly analyze your data. By indexing the hierarchical levels of your data, you can set the hierarchical level(s) you want to have analyzed in a single command line.  This approach avoids having to create new sub-sets of the data for each analysis and simultaneously reduces the chance of error when manipulating data sets by hand.
 
 References
