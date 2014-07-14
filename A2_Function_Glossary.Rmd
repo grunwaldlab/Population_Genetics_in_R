@@ -104,6 +104,7 @@ Function | Description
 `mlg.vector` | Returns a vector of a numeric multilocus genotype assignment for each individual
 `poppr` | Returns a diversity table by population
 `poppr.all` | Returns a diversity table by population for all compatible files specified
+`private_alleles` | Tabulates the occurences of alleles that only occur in one population
 
 ### Visualization
 Function | Description    
@@ -113,3 +114,4 @@ Function | Description
 `bruvo.msn` | Produces minimum spanning networks based off Bruvo’s distance colored by population
 `poppr.msn` | Produces a minimum spanning network for any pairwise distance matrix related to the data
 `info_table` | Creates a heatmap representing missing data or observed ploidy
+`genotype_curve` | Creates a series of boxplots to demonstrate how many markers are needed to represent the diversity of your data
