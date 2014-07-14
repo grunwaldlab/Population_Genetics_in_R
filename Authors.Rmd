@@ -18,6 +18,6 @@ output: html_document
  </TR>
  <TR>
    <TD VALIGN=TOP><div style="width: 150px" ><img src="images/SydneyEverhart.JPG" height="400px" width="300px"/></div></TD>
-   <TD VALIGN=TOP><small>**Sydney E. Everhart** is a postdoctoral research assistant in the Department of Botany and Plant Pathology at Oregon State University.</small></TD>
+   <TD VALIGN=TOP><small>**Sydney E. Everhart** is a USDA-AFRI-NIFA Postdoctoral Fellow at Oregon State University.  Her research utilizes population genetics and genomics to better understand disease dynamics and evolution of fungal plant pathogens.  She developed the micrsoatellite markers and data used in the monpop data set and currently works with genomes, GBS data, and SSR data for *Phytophthora ramorum* in Nik's lab.  After the APS meeting, she will be starting as an Assistant Professor at the University of Nebraska-Lincoln studying the emergence and evolution of fungicide resistance within fungal plant pathogen populations.  She is currently seeking a graduate student interested in population genetics of fungi. </small></TD>
  </TR>
 </TABLE>
