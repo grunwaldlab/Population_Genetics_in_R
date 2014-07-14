@@ -94,7 +94,7 @@ The figures provide histograms to see how evenly $MLGs$ are distributed within e
 Conclusions
 ----
 
-Going through many of these steps will give you a valuable broad overview of your data. These analyses can give you insight into what methods you are able to use in analysis. The genotype curve can tell you if you've sampled enough loci (or if you've over sampled) and `info_table` gives a nice visualization to aid assessing whether or not there is systematic missing data in your sample. For clonal populations, the genotypic diversity table is valuable for informing you of how to clone-correct populations. Which we will learn about in the [next chapter](C5_Population_Hierarchies). 
+Going through many of these steps will give you a valuable broad overview of your data. These analyses can give you insight into what methods you are able to use in analysis. The genotype curve can tell you if you've sampled enough loci (or if you've over sampled) and `info_table` gives a nice visualization to aid assessing whether or not there is systematic missing data in your sample. For clonal populations, the genotypic diversity table is valuable for informing you of how to clone-correct populations. Which we will learn about in the [next chapter](C5_Population_Hierarchies.html). 
 
 References
 ----------
