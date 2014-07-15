@@ -271,7 +271,7 @@ plot_poppr_msn(t26, t26.9msn, inds = &quot;none&quot;, palette = cm.colors)</cod
 </div>
 <div id="k-means-hierarchical-clustering" class="section level2">
 <h2>K-means hierarchical clustering</h2>
-<p>A recent study reported that the origin of the potato late blight pathogen <em>Phytophthora infestans</em> lies in Mexico as opposed to South America (<a href="http://grunwaldlab.cgrb.oregonstate.edu/irish-potato-famine-pathogen-phytophthora-infestans-originated-central-mexico-rather-andes">Goss et al. 2014</a>). We saw in the previous chapter that South American populations showed signatures of clonal reproduction while Mexican populations showed no evidence rejecting the null hypothesis of random mating. In this section, we will use K-means clustering in combination with bootstrapped dendrograms to see how well this pattern holds up. Clonal populations should have short terminal branch lengths and should cluster according to those branches. Panmictic populations will show no clear pattern. Let’s look at the data:</p>
+<p>A recent study reported that the origin of the potato late blight pathogen <em>Phytophthora infestans</em> lies in Mexico as opposed to South America (<a href="http://dx.doi.org/10.1073/pnas.1401884111">Goss et al. 2014</a>). We saw in the previous chapter that South American populations showed signatures of clonal reproduction while Mexican populations showed no evidence rejecting the null hypothesis of random mating. In this section, we will use K-means clustering in combination with bootstrapped dendrograms to see how well this pattern holds up. Clonal populations should have short terminal branch lengths and should cluster according to those branches. Panmictic populations will show no clear pattern. Let’s look at the data:</p>
 <pre class="r"><code>data(Pinf)
 Pinf</code></pre>
 <pre><code>## 
@@ -367,7 +367,7 @@ R Bruvo, NK Michiels, TG D’Souza, H Schulenburg, (2004) A simple method for th
 </p><p> 
 SE Everhart, H Scherm, (2014) Fine-scale genetic structure of Monilinia fructicola during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> <strong>##</strong> (#) submitted-NA
 </p><p> 
-EM Goss, JF Tabima, DEL Cooke, S Restrepo, WE Fry, GA Forbes, VJ Fieland, M Cardenas, NJ Grünwald, (2014) The Irish famine pathogen Phytophthora infestans originated in central Mexico rather than the Andes. <em>Proceedings of the National Academy of Sciences</em> <strong>111</strong> (24) 8791-8796-NA <a href="http://grunwaldlab.cgrb.oregonstate.edu/irish-potato-famine-pathogen-phytophthora-infestans-originated-central-mexico-rather-andes">http://grunwaldlab.cgrb.oregonstate.edu/irish-potato-famine-pathogen-phytophthora-infestans-originated-central-mexico-rather-andes</a>
+Erica Goss, Javier Tabima, David Cooke, Silvia Restrepo, William Fry, Gregory Forbes, Valerie Fieland, Martha Cardenas, Niklaus Grünwald, (2014) The Irish potato famine pathogen Phytophthora infestans originated in central Mexico rather than the Andes. <em>Proceedings of the National Academy of Sciences</em> <a href="http://dx.doi.org/10.1073/pnas.1401884111">10.1073/pnas.1401884111</a>
 </p><p> 
 PW Hedrick, (2005) A standardized genetic differentiation measure. <em>Evolution</em> <strong>59</strong> (8) 1633-1638 <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.0014-3820.2005.tb01814.x/abstract">http://onlinelibrary.wiley.com/doi/10.1111/j.0014-3820.2005.tb01814.x/abstract</a>
 </p><p> 
