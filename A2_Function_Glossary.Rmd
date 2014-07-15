@@ -102,6 +102,7 @@ Function | Description
 `mlg.crosspop` | Finds all multilocus genotypes that cross populations
 `mlg.table` | Returns a table of populations by multilocus genotypes
 `mlg.vector` | Returns a vector of a numeric multilocus genotype assignment for each individual
+`mlg.id` | Finds all individuals associated with each multilocus genotype
 `poppr` | Returns a diversity table by population
 `poppr.all` | Returns a diversity table by population for all compatible files specified
 `private_alleles` | Tabulates the occurences of alleles that only occur in one population
