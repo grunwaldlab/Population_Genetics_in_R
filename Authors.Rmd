@@ -14,7 +14,7 @@ output: html_document
  </TR>
   <TR>
    <TD VALIGN=TOP><div style="width: 150px" ><img src="images/ZK.jpg" height="400px" width="300px"/></div></TD>
-   <TD VALIGN=TOP><small>**Zhian N. Kamvar** is a graduate student in the Department of Botany and Pant Pathology at Oregon State University. His research is focused on utilizing population genomics approaches to characterize population structure of the nursery pathogen, *Phytophthora syringae*. His work also involves maintainence of the [*poppr* R package](http://github.com/grunwaldlab/poppr). Zhian is also co-host of the award-winning radio program [Inspiration Dissemination](http://poweredbyorange.com/2013/12/17/science-through-a-microphone/). </small></TD>
+   <TD VALIGN=TOP><small>**Zhian N. Kamvar** is a graduate student in the Department of Botany and Pant Pathology at Oregon State University. His research is focused on genome sequencing and population genomics of the nursery pathogen *Phytophthora syringae*. He is the lead developper of the [*poppr* R package](http://github.com/grunwaldlab/poppr). Zhian is also co-host of the award-winning radio program [Inspiration Dissemination](http://poweredbyorange.com/2013/12/17/science-through-a-microphone/). </small></TD>
  </TR>
  <TR>
    <TD VALIGN=TOP><div style="width: 150px" ><img src="images/SydneyEverhart.JPG" height="400px" width="300px"/></div></TD>
