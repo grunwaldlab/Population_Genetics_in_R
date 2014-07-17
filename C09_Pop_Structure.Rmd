@@ -1,0 +1,223 @@
+```{r,message=FALSE,echo=FALSE}
+  html <- TRUE
+  library(knitcitations)
+  bib <- read.bibtex("bibtexlib.bib")
+  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, 
+                 fig.width = 10, fig.height = 6, cache = TRUE)
+  if (html) opts_chunk$set(out.width = "700px", dpi = 300)
+  # use this to set knitr options: 
+  # http://yihui.name/knitr/options #chunk_options
+```
+---
+title: '9: Population structure: $G_{ST}$, clustering and minimum spanning networks'
+---
+
+In this chapter we explore various ways of assessing if population are structured (e.g., differentiated). You can think of population structure as identifying clusters or groups of more closely related individuals resulting from reduced gene flow among these groups. Populations can be studied to determine if they are structured by using for example population differentiation $G_{ST}$, clustering, or graphing of minimum spanning networks (MSN). Let's first look at an example of population differentiation.
+
+$G_{ST}$ an example with *Felis catus* data.
+----
+
+Assessing genetic diversity almost always starts with an analysis of a parameter
+such as $G_{ST}$. There are [lengthy debates](http://www.molecularecologist.com/2011/03/should-i-use-fst-gst-or-d-2/) as to what measure of differentiation is
+better `r citep(bib['meirmans2011assessing'])`. Instead of going into that
+lengthy debate, it would be more worthwhile to point you into the direction of
+a package dedicated to Modern Methods of Differentiation called *mmod*. We will
+use the data set *nancycats* containing 17 colonies of cats collected from Nancy,
+France. As cats tend to stay within small groups, we expect to see some population
+differentiation. In terms of these diversity measures, an index of 0 indicates
+no differentiation, whereas 1 indicates that populations are segregating for
+differing alleles. 
+
+Let's load the package and the example data set.
+
+```{r loadstuff}
+if (!require("mmod")){
+  install.packages("mmod", repos = "http://cran.at.r-project.org")
+  require("mmod")
+}
+data(nancycats)
+nancycats
+```
+
+Now we will use Hendrick's standardized $G_{ST}$ to assess population structure 
+among these populations `r citep(bib['hedrick2005standardized'])`.
+
+```{r nancycats}
+Gst_Hedrick(nancycats)
+```
+What does this output tell us?
+
+Minimum spanning network
+----
+
+For this section, we will use the `monpop` data set from `r citep(bib['everhart2014finescale'])`. 
+see [Chapter 6](C06_Genotypic_EvenRichDiv.html) for more details. We will be
+focusing on sources of multilocus genotypes. The life cycle of the pathogen *Monilinia fructicola* begins with an
+ascospore (sexual propagule) released from a mummified peach fruit that had overwintered on the ground. It infects an emerging blossom that, in turn, asexually infects fruit, which proceed with cyclical infections.
+We might have questions such as:
+
+1. Are the major genotypes of Fruit Rot (FR) samples closely related?
+2. To what degree do the Blossom Blight (BB) samples contribute to the FR?
+
+
+Let's load the data:
+
+```{r}
+library(poppr)
+data(monpop)
+splithierarchy(monpop) <- ~Tree/Year/Symptom
+summary(monpop)
+```
+
+We notice that tree number 26 is the only one to have been sampled for all three years. Let's use it as an example.
+
+```{r}
+setpop(monpop) <- ~Tree
+t26 <- popsub(monpop, "26")
+setpop(t26) <- ~Year/Symptom
+t26
+```
+
+Now that we have our tree, let's calculate a MSN using Bruvo's distance `r citep(bib['bruvo2004simple'])`:
+
+```{r}
+# Set up our repeat lengths and populations to analyze
+reps <- c(6, 2, 4, 4, 4, 4, 4, 3, 4, 4, 2, 2, 2)
+sub9 <- c("9_BB", "9_FR")
+
+# Run the tree
+t26.9msn <- bruvo.msn(t26, replen = reps, sublist = sub9, showplot = FALSE)
+
+# Visualize
+set.seed(9001)
+plot_poppr_msn(t26, t26.9msn, inds = "none", palette = cm.colors)
+```
+
+We can see that the Blossom Blight in the tree heavily contributed to the major groups of MLGs found in the Fruit Rot. 
+
+> **Try it!** See if you can produce similar graphs with the 2010 and 2011 populations.
+
+K-means hierarchical clustering
+----
+
+A recent study reported that the origin of the potato late blight pathogen *Phytophthora infestans* lies in Mexico as opposed to South America `r citep(bib['goss2014irish'])`. We saw in the previous chapter that South American populations showed signatures of clonal reproduction while Mexican populations showed no evidence rejecting the null hypothesis of random mating. In this section, we will use K-means clustering in combination with bootstrapped dendrograms to see how well this pattern holds up. Clonal populations should have short terminal branch lengths and should cluster according to those branches. Panmictic populations will show no clear pattern. Let's look at the data: 
+
+```{r}
+data(Pinf)
+Pinf
+```
+
+First, we will perform a cluster analysis:
+
+```{r, eval = FALSE}
+MX <- popsub(Pinf, "North America")
+MXclust <- find.clusters(MX)
+```
+![MX_PCA](C09_Pop_Structure_files/figure-html/MXPCA.png)
+
+```{r, echo = FALSE}
+cat("Choose the number PCs to retain (>=1): \n")
+```
+```{r, echo = FALSE, message=TRUE, comment= ">"}
+message("50")
+```
+
+PC stands for principal component, are unitless transofrmations of your data that explaining the variance observed. For the purposes of `find.clusters`, we can keep as many as we want.
+
+![MX_CLUSTER](C09_Pop_Structure_files/figure-html/MXCLUST.png)
+
+```{r, echo = FALSE}
+cat("Choose the number PCs to retain (>=2: \n")
+```
+```{r, echo = FALSE, message=TRUE, comment= ">"}
+message("3")
+```
+
+BIC stands for "Bayesian Information Criterion". The lower the BIC value, the better. On the x axis are the number of clusters. We see that there is a bend at 3 clusters, indicating that the data clusters optimally into three groups. 
+
+
+```{r, echo = FALSE}
+MX <- popsub(Pinf, "North America")
+MXclust <- find.clusters(MX, n.pca = 50, n.clust = 3)
+```
+
+And now we can see the cluster assignments:
+
+```{r}
+MXclust
+```
+
+We will go through the same procedure for the South American population.
+
+```{r, eval = FALSE}
+SA <- popsub(Pinf, "South America")
+SAclust <- find.clusters(SA)
+```
+![SA_PCA](C09_Pop_Structure_files/figure-html/SAPCA.png)
+
+```{r, echo = FALSE}
+cat("Choose the number PCs to retain (>=1): \n")
+```
+```{r, echo = FALSE, message=TRUE, comment= ">"}
+message("30")
+```
+
+![SA_CLUSTER](C09_Pop_Structure_files/figure-html/SACLUST.png)
+
+```{r, echo = FALSE}
+cat("Choose the number PCs to retain (>=2): \n")
+```
+```{r, echo = FALSE, message=TRUE, comment= ">"}
+message("4")
+```
+
+Notice here that there is no uptick in the curve. This indicates that there [might not be enough information in the data set to properly cluster](http://lists.r-forge.r-project.org/pipermail/adegenet-forum/2011-June/000303.html). We will go ahead by choosing the highest number of clusters:
+
+```{r, echo = FALSE}
+SA <- popsub(Pinf, "South America")
+SAclust <- find.clusters(SA, n.pca = 30, n.clust = 4)
+```
+
+### Trees
+
+Now we will build trees. We are using Bruvo's distance since polyploids bias calculation of other distances: 
+
+```{r, trees}
+pinfreps <- c(2, 2, 6, 2, 2, 2, 2, 2, 3, 3, 2)
+MXtree <- bruvo.boot(MX, replen = pinfreps, cutoff = 50, quiet = TRUE)
+SAtree <- bruvo.boot(SA, replen = pinfreps, cutoff = 50, quiet = TRUE)
+```
+
+We see very long terminal branches in the MX tree. Let's see how the groups we found with the clustering algorithm match up:
+
+```{r, grouptree}
+library(ape)
+cols <- rainbow(4)
+plot.phylo(MXtree, cex = 0.8, font = 2, adj = 0, tip.color = cols[MXclust$grp])
+nodelabels(MXtree$node.label, adj = c(1.3, -0.5), frame = "n", cex = 0.8, font = 3)
+axisPhylo(3)
+```
+
+You can see that the assigned clusters don't necessarily group with the dendrogram clusters. Let's see what happens when we view this with the South American population:
+
+```{r, grouptreeSA}
+plot.phylo(SAtree, cex = 0.8, font = 2, adj = 0, tip.color = cols[SAclust$grp])
+nodelabels(SAtree$node.label, adj = c(1.3, -0.5), frame = "n", cex = 0.8, font = 3)
+axisPhylo(3)
+```
+
+Everything clusters together nicely, further supporting a non-panmictic population. 
+
+Other methods
+----
+
+Not all methods of clustering need to be based on Bruvos's distance. There are others
+available. See `?nei.dist` for more details. The function `aboot` will perform bootstrap
+analysis on any distance given for individuals or populations, and `poppr.msn` will create
+minimum spanning networks given a genind object and a distance.
+
+References
+----------
+```{r,echo=FALSE, results='asis', cache = FALSE}
+  bibliography(style = "html", bulleted=FALSE)
+```
