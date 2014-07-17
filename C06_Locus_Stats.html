@@ -102,15 +102,15 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
             <a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>
             <ul class="dropdown-menu">
                <li><a href="Preface.html">i. Preface</a></li>
-               <li><a href="C1_Introduction.html">1. Introduction</a></li>
-               <li><a href="C2_Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
-               <li><a href="C3_Data_Preparation.html">3. Data Preparation</a></li>
-               <li><a href="C4_First_Steps.html">4. First steps</a></li>
-               <li><a href="C5_Population_Hierarchies.html">5. Population hierarchies</a></li>
-               <li><a href="C6_Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
-               <li><a href="C7_Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
-               <li><a href="C8_Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
-               <li><a href="C9_Pop_Structure.html">9. Population structure</a></li>
+               <li><a href="C01_Introduction.html">1. Introduction</a></li>
+               <li><a href="C02_Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
+               <li><a href="C03_Data_Preparation.html">3. Data Preparation</a></li>
+               <li><a href="C04_First_Steps.html">4. First steps</a></li>
+               <li><a href="C05_Population_Hierarchies.html">5. Population hierarchies</a></li>
+               <li><a href="C06_Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
+               <li><a href="C07_Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
+               <li><a href="C08_Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
+               <li><a href="C09_Pop_Structure.html">9. Population structure</a></li>
                <li><a href="C10_AMOVA.html">10. AMOVA</a></li>
                <li><a href="C11_DAPC.html">11. Discriminant analysis of principal components (DAPC)</a></li>
                </ul>
@@ -258,7 +258,7 @@ locus_table(Pinf)</code></pre>
 <p>It is often important to asses the percentage of missing data. The <em>poppr</em> function <code>info_table</code> will help you visualize missing data so that you can assess how to treat these further using the function <code>missingno</code>. For this example, we will use the nancycats data set as it contains a wide variety of possabilities for missing data:</p>
 <pre class="r"><code>data(nancycats)
 info_table(nancycats, plot = TRUE)</code></pre>
-<p><img src="C6_Locus_Stats_files/figure-html/missing_table.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
+<p><img src="C06_Locus_Stats_files/figure-html/missing_table.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
 <pre><code>##           Locus
 ## Population  fca8 fca23 fca43 fca45 fca77 fca78 fca90 fca96 fca37  Mean
 ##      1     0.200     .     .     .     .     .     .     .     . 0.022
@@ -290,7 +290,7 @@ info_table(nancycats, plot = TRUE)</code></pre>
 ##  2 loci contained missing values greater than 5%.
 ##  Removing 2 loci : fca8 fca45</code></pre>
 <pre class="r"><code>miss &lt;- info_table(nanloc, plot = TRUE, scale = FALSE)</code></pre>
-<p><img src="C6_Locus_Stats_files/figure-html/unnamed-chunk-2.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
+<p><img src="C06_Locus_Stats_files/figure-html/unnamed-chunk-2.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
 <blockquote>
 <p><strong>Advanced Users:</strong> when <code>scale = TRUE</code>, the color scale will be set so that the warmest color corresponds to the highest value.</p>
 </blockquote>
@@ -328,7 +328,7 @@ info_table(nancycats, plot = TRUE)</code></pre>
 ##  1 genotype contained missing values greater than 22.2222222222222%.
 ##  Removing 1 genotype : N310</code></pre>
 <pre class="r"><code>miss &lt;- info_table(nanind, plot = TRUE) </code></pre>
-<p><img src="C6_Locus_Stats_files/figure-html/unnamed-chunk-5.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
+<p><img src="C06_Locus_Stats_files/figure-html/unnamed-chunk-5.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
 <p>We only found one individual in population 11.</p>
 </div>
 <div id="replacing-missing-data" class="section level2">
@@ -473,7 +473,7 @@ newmat[newmat &gt; alpha] &lt;- 1</code></pre>
 <p>Now we can create a simple heatmap with <code>levelplot</code>.</p>
 <pre class="r"><code>library(lattice)
 levelplot(newmat)</code></pre>
-<p><img src="C6_Locus_Stats_files/figure-html/unnamed-chunk-13.png" title="Heatmap showing significant departures from HWE" alt="Heatmap showing significant departures from HWE" width="700px" /></p>
+<p><img src="C06_Locus_Stats_files/figure-html/unnamed-chunk-13.png" title="Heatmap showing significant departures from HWE" alt="Heatmap showing significant departures from HWE" width="700px" /></p>
 <p>This simple plot shows us loci in rows and populations in columns. Note, that all loci shown in pink are loci suspected for not being in HWE with <span class="math">\(p \leq 0.05\)</span>.</p>
 </div>
 <div id="references" class="section level2">

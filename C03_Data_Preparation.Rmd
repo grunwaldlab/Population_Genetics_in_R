@@ -119,7 +119,7 @@ xtable::print.xtable(x, type = "html", include.rownames = FALSE,
 save them as a separate csv file and use the functions `read.table` and `sethierarchy`
 after you've imported your genetic data to acheive the same result.
 
-The data imported this way can be accessed with the function `splithierarchy` detailed in [our chapter on population hierarchies](C5_Population_Hierarchies.html).
+The data imported this way can be accessed with the function `splithierarchy` detailed in [our chapter on population hierarchies](C05_Population_Hierarchies.html).
 
 References
 ----------

@@ -102,15 +102,15 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
             <a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>
             <ul class="dropdown-menu">
                <li><a href="Preface.html">i. Preface</a></li>
-               <li><a href="C1_Introduction.html">1. Introduction</a></li>
-               <li><a href="C2_Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
-               <li><a href="C3_Data_Preparation.html">3. Data Preparation</a></li>
-               <li><a href="C4_First_Steps.html">4. First steps</a></li>
-               <li><a href="C5_Population_Hierarchies.html">5. Population hierarchies</a></li>
-               <li><a href="C6_Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
-               <li><a href="C7_Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
-               <li><a href="C8_Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
-               <li><a href="C9_Pop_Structure.html">9. Population structure</a></li>
+               <li><a href="C01_Introduction.html">1. Introduction</a></li>
+               <li><a href="C02_Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
+               <li><a href="C03_Data_Preparation.html">3. Data Preparation</a></li>
+               <li><a href="C04_First_Steps.html">4. First steps</a></li>
+               <li><a href="C05_Population_Hierarchies.html">5. Population hierarchies</a></li>
+               <li><a href="C06_Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
+               <li><a href="C07_Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
+               <li><a href="C08_Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
+               <li><a href="C09_Pop_Structure.html">9. Population structure</a></li>
                <li><a href="C10_AMOVA.html">10. AMOVA</a></li>
                <li><a href="C11_DAPC.html">11. Discriminant analysis of principal components (DAPC)</a></li>
                </ul>
@@ -157,7 +157,7 @@ data(Pinf)
 MX &lt;- popsub(Pinf, &quot;North America&quot;)  #subset population to North America</code></pre>
 <pre class="r"><code>ia(MX, sample=999)   # include 999 permutations, where Ia is also calculated for the observed data, thus enabling a null distribution of 1000 observations</code></pre>
 <pre><code>## |================================================================| 100%</code></pre>
-<p><img src="C8_Linkage_disequilibrium_files/figure-html/MXia.png" title="plot of chunk MXia" alt="plot of chunk MXia" width="700px" /></p>
+<p><img src="C08_Linkage_disequilibrium_files/figure-html/MXia.png" title="plot of chunk MXia" alt="plot of chunk MXia" width="700px" /></p>
 <pre><code>##      Ia    p.Ia   rbarD    p.rD 
 ## 0.22261 0.02300 0.02396 0.01500</code></pre>
 <blockquote>
@@ -182,7 +182,7 @@ MX &lt;- popsub(Pinf, &quot;North America&quot;)  #subset population to North Am
 <pre class="r"><code>MX.cc &lt;- clonecorrect(MX, hier = ~Continent/Country, keep = 2) # remove clones from Mexican population</code></pre>
 <pre class="r"><code>ia(MX.cc, sample = 999)   # include 999 permutations</code></pre>
 <pre><code>## |================================================================| 100%</code></pre>
-<p><img src="C8_Linkage_disequilibrium_files/figure-html/MXiacc.png" title="plot of chunk MXiacc" alt="plot of chunk MXiacc" width="700px" /></p>
+<p><img src="C08_Linkage_disequilibrium_files/figure-html/MXiacc.png" title="plot of chunk MXiacc" alt="plot of chunk MXiacc" width="700px" /></p>
 <pre><code>##       Ia     p.Ia    rbarD     p.rD 
 ## 0.079811 0.225000 0.008569 0.213000</code></pre>
 <p>Now <span class="math">\(\bar{r}_d\)</span> is located more centrally in the distribution expected from unlinked loci. Note that <span class="math">\(P\)</span> has improved and we fail to reject the null hypothesis of no linkage among markers. Thus it spears that populations in Mexico are partially sexual.</p>
@@ -190,14 +190,14 @@ MX &lt;- popsub(Pinf, &quot;North America&quot;)  #subset population to North Am
 <pre class="r"><code>SA &lt;- popsub(Pinf, &quot;South America&quot;)</code></pre>
 <pre class="r"><code>ia(SA, sample = 999)   # include 999 permutations</code></pre>
 <pre><code>## |================================================================| 100%</code></pre>
-<p><img src="C8_Linkage_disequilibrium_files/figure-html/SAia.png" title="plot of chunk SAia" alt="plot of chunk SAia" width="700px" /></p>
+<p><img src="C08_Linkage_disequilibrium_files/figure-html/SAia.png" title="plot of chunk SAia" alt="plot of chunk SAia" width="700px" /></p>
 <pre><code>##     Ia   p.Ia  rbarD   p.rD 
 ## 2.8733 0.0010 0.3446 0.0010</code></pre>
 <p>Here we find significant support for the hypothesis that alleles are linked across loci with <span class="math">\(P &lt; 0.001\)</span>. The observed <span class="math">\(\bar{r}_d = 0.345\)</span> and falls outside of the distribution expected under no linkage. Let’s look at the clone-corrected data and make sure this is not an artifact of clonality:</p>
 <pre class="r"><code>SA.cc &lt;- clonecorrect(SA, hier = ~Continent/Country, keep = 2)</code></pre>
 <pre class="r"><code>ia(SA.cc, sample=999)   # include 999 permutations</code></pre>
 <pre><code>## |================================================================| 100%</code></pre>
-<p><img src="C8_Linkage_disequilibrium_files/figure-html/SAiacc.png" title="plot of chunk SAiacc" alt="plot of chunk SAiacc" width="700px" /></p>
+<p><img src="C08_Linkage_disequilibrium_files/figure-html/SAiacc.png" title="plot of chunk SAiacc" alt="plot of chunk SAiacc" width="700px" /></p>
 <pre><code>##     Ia   p.Ia  rbarD   p.rD 
 ## 2.6335 0.0010 0.3146 0.0010</code></pre>
 <p>Both clone-corrected (<span class="math">\(N = 29\)</span>) and uncorrected data (<span class="math">\(N = 38\)</span>) reject the hypothesis of no linkage among markers. We thus have support for populations in Mexico being sexual while those in South America are clonal.</p>

@@ -51,7 +51,7 @@ Minimum spanning network
 ----
 
 For this section, we will use the `monpop` data set from `r citep(bib['everhart2014finescale'])`. 
-see [Chapter 6](C6_Genotypic_EvenRichDiv.html) for more details. We will be
+see [Chapter 6](C06_Genotypic_EvenRichDiv.html) for more details. We will be
 focusing on sources of multilocus genotypes. The life cycle of the pathogen *Monilinia fructicola* begins with an
 ascospore (sexual propagule) released from a mummified peach fruit that had overwintered on the ground. It infects an emerging blossom that, in turn, asexually infects fruit, which proceed with cyclical infections.
 We might have questions such as:
@@ -113,7 +113,7 @@ First, we will perform a cluster analysis:
 MX <- popsub(Pinf, "North America")
 MXclust <- find.clusters(MX)
 ```
-![MX_PCA](C9_Pop_Structure_files/figure-html/MXPCA.png)
+![MX_PCA](C09_Pop_Structure_files/figure-html/MXPCA.png)
 
 ```{r, echo = FALSE}
 cat("Choose the number PCs to retain (>=1): \n")
@@ -124,7 +124,7 @@ message("50")
 
 PC stands for principal component, are unitless transofrmations of your data that explaining the variance observed. For the purposes of `find.clusters`, we can keep as many as we want.
 
-![MX_CLUSTER](C9_Pop_Structure_files/figure-html/MXCLUST.png)
+![MX_CLUSTER](C09_Pop_Structure_files/figure-html/MXCLUST.png)
 
 ```{r, echo = FALSE}
 cat("Choose the number PCs to retain (>=2: \n")
@@ -153,7 +153,7 @@ We will go through the same procedure for the South American population.
 SA <- popsub(Pinf, "South America")
 SAclust <- find.clusters(SA)
 ```
-![SA_PCA](C9_Pop_Structure_files/figure-html/SAPCA.png)
+![SA_PCA](C09_Pop_Structure_files/figure-html/SAPCA.png)
 
 ```{r, echo = FALSE}
 cat("Choose the number PCs to retain (>=1): \n")
@@ -162,7 +162,7 @@ cat("Choose the number PCs to retain (>=1): \n")
 message("30")
 ```
 
-![SA_CLUSTER](C9_Pop_Structure_files/figure-html/SACLUST.png)
+![SA_CLUSTER](C09_Pop_Structure_files/figure-html/SACLUST.png)
 
 ```{r, echo = FALSE}
 cat("Choose the number PCs to retain (>=2): \n")

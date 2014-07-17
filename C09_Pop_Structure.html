@@ -102,15 +102,15 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
             <a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>
             <ul class="dropdown-menu">
                <li><a href="Preface.html">i. Preface</a></li>
-               <li><a href="C1_Introduction.html">1. Introduction</a></li>
-               <li><a href="C2_Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
-               <li><a href="C3_Data_Preparation.html">3. Data Preparation</a></li>
-               <li><a href="C4_First_Steps.html">4. First steps</a></li>
-               <li><a href="C5_Population_Hierarchies.html">5. Population hierarchies</a></li>
-               <li><a href="C6_Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
-               <li><a href="C7_Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
-               <li><a href="C8_Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
-               <li><a href="C9_Pop_Structure.html">9. Population structure</a></li>
+               <li><a href="C01_Introduction.html">1. Introduction</a></li>
+               <li><a href="C02_Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
+               <li><a href="C03_Data_Preparation.html">3. Data Preparation</a></li>
+               <li><a href="C04_First_Steps.html">4. First steps</a></li>
+               <li><a href="C05_Population_Hierarchies.html">5. Population hierarchies</a></li>
+               <li><a href="C06_Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
+               <li><a href="C07_Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
+               <li><a href="C08_Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
+               <li><a href="C09_Pop_Structure.html">9. Population structure</a></li>
                <li><a href="C10_AMOVA.html">10. AMOVA</a></li>
                <li><a href="C11_DAPC.html">11. Discriminant analysis of principal components (DAPC)</a></li>
                </ul>
@@ -200,7 +200,7 @@ nancycats</code></pre>
 </div>
 <div id="minimum-spanning-network" class="section level2">
 <h2>Minimum spanning network</h2>
-<p>For this section, we will use the <code>monpop</code> data set from (<a href="">Everhart &amp; Scherm, 2014</a>). see <a href="C6_Genotypic_EvenRichDiv.html">Chapter 6</a> for more details. We will be focusing on sources of multilocus genotypes. The life cycle of the pathogen <em>Monilinia fructicola</em> begins with an ascospore (sexual propagule) released from a mummified peach fruit that had overwintered on the ground. It infects an emerging blossom that, in turn, asexually infects fruit, which proceed with cyclical infections. We might have questions such as:</p>
+<p>For this section, we will use the <code>monpop</code> data set from (<a href="">Everhart &amp; Scherm, 2014</a>). see <a href="C06_Genotypic_EvenRichDiv.html">Chapter 6</a> for more details. We will be focusing on sources of multilocus genotypes. The life cycle of the pathogen <em>Monilinia fructicola</em> begins with an ascospore (sexual propagule) released from a mummified peach fruit that had overwintered on the ground. It infects an emerging blossom that, in turn, asexually infects fruit, which proceed with cyclical infections. We might have questions such as:</p>
 <ol style="list-style-type: decimal">
 <li>Are the major genotypes of Fruit Rot (FR) samples closely related?</li>
 <li>To what degree do the Blossom Blight (BB) samples contribute to the FR?</li>
@@ -264,7 +264,7 @@ t26.9msn &lt;- bruvo.msn(t26, replen = reps, sublist = sub9, showplot = FALSE)
 # Visualize
 set.seed(9001)
 plot_poppr_msn(t26, t26.9msn, inds = &quot;none&quot;, palette = cm.colors)</code></pre>
-<p><img src="C9_Pop_Structure_files/figure-html/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="700px" /></p>
+<p><img src="C09_Pop_Structure_files/figure-html/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="700px" /></p>
 <p>We can see that the Blossom Blight in the tree heavily contributed to the major groups of MLGs found in the Fruit Rot.</p>
 <blockquote>
 <p><strong>Try it!</strong> See if you can produce similar graphs with the 2010 and 2011 populations.</p>
@@ -291,11 +291,11 @@ Pinf</code></pre>
 <p>First, we will perform a cluster analysis:</p>
 <pre class="r"><code>MX &lt;- popsub(Pinf, &quot;North America&quot;)
 MXclust &lt;- find.clusters(MX)</code></pre>
-<p><img src="C9_Pop_Structure_files/figure-html/MXPCA.png" alt="MX_PCA" /></p>
+<p><img src="C09_Pop_Structure_files/figure-html/MXPCA.png" alt="MX_PCA" /></p>
 <pre><code>## Choose the number PCs to retain (&gt;=1):</code></pre>
 <pre><code>&gt; 50</code></pre>
 <p>PC stands for principal component, are unitless transofrmations of your data that explaining the variance observed. For the purposes of <code>find.clusters</code>, we can keep as many as we want.</p>
-<p><img src="C9_Pop_Structure_files/figure-html/MXCLUST.png" alt="MX_CLUSTER" /></p>
+<p><img src="C09_Pop_Structure_files/figure-html/MXCLUST.png" alt="MX_CLUSTER" /></p>
 <pre><code>## Choose the number PCs to retain (&gt;=2:</code></pre>
 <pre><code>&gt; 3</code></pre>
 <p>BIC stands for “Bayesian Information Criterion”. The lower the BIC value, the better. On the x axis are the number of clusters. We see that there is a bend at 3 clusters, indicating that the data clusters optimally into three groups.</p>
@@ -327,10 +327,10 @@ MXclust &lt;- find.clusters(MX)</code></pre>
 <p>We will go through the same procedure for the South American population.</p>
 <pre class="r"><code>SA &lt;- popsub(Pinf, &quot;South America&quot;)
 SAclust &lt;- find.clusters(SA)</code></pre>
-<p><img src="C9_Pop_Structure_files/figure-html/SAPCA.png" alt="SA_PCA" /></p>
+<p><img src="C09_Pop_Structure_files/figure-html/SAPCA.png" alt="SA_PCA" /></p>
 <pre><code>## Choose the number PCs to retain (&gt;=1):</code></pre>
 <pre><code>&gt; 30</code></pre>
-<p><img src="C9_Pop_Structure_files/figure-html/SACLUST.png" alt="SA_CLUSTER" /></p>
+<p><img src="C09_Pop_Structure_files/figure-html/SACLUST.png" alt="SA_CLUSTER" /></p>
 <pre><code>## Choose the number PCs to retain (&gt;=2):</code></pre>
 <pre><code>&gt; 4</code></pre>
 <p>Notice here that there is no uptick in the curve. This indicates that there <a href="http://lists.r-forge.r-project.org/pipermail/adegenet-forum/2011-June/000303.html">might not be enough information in the data set to properly cluster</a>. We will go ahead by choosing the highest number of clusters:</p>
@@ -339,21 +339,21 @@ SAclust &lt;- find.clusters(SA)</code></pre>
 <p>Now we will build trees. We are using Bruvo’s distance since polyploids bias calculation of other distances:</p>
 <pre class="r"><code>pinfreps &lt;- c(2, 2, 6, 2, 2, 2, 2, 2, 3, 3, 2)
 MXtree &lt;- bruvo.boot(MX, replen = pinfreps, cutoff = 50, quiet = TRUE)</code></pre>
-<p><img src="C9_Pop_Structure_files/figure-html/trees1.png" title="plot of chunk trees" alt="plot of chunk trees" width="700px" /></p>
+<p><img src="C09_Pop_Structure_files/figure-html/trees1.png" title="plot of chunk trees" alt="plot of chunk trees" width="700px" /></p>
 <pre class="r"><code>SAtree &lt;- bruvo.boot(SA, replen = pinfreps, cutoff = 50, quiet = TRUE)</code></pre>
-<p><img src="C9_Pop_Structure_files/figure-html/trees2.png" title="plot of chunk trees" alt="plot of chunk trees" width="700px" /></p>
+<p><img src="C09_Pop_Structure_files/figure-html/trees2.png" title="plot of chunk trees" alt="plot of chunk trees" width="700px" /></p>
 <p>We see very long terminal branches in the MX tree. Let’s see how the groups we found with the clustering algorithm match up:</p>
 <pre class="r"><code>library(ape)
 cols &lt;- rainbow(4)
 plot.phylo(MXtree, cex = 0.8, font = 2, adj = 0, tip.color = cols[MXclust$grp])
 nodelabels(MXtree$node.label, adj = c(1.3, -0.5), frame = &quot;n&quot;, cex = 0.8, font = 3)
 axisPhylo(3)</code></pre>
-<p><img src="C9_Pop_Structure_files/figure-html/grouptree.png" title="plot of chunk grouptree" alt="plot of chunk grouptree" width="700px" /></p>
+<p><img src="C09_Pop_Structure_files/figure-html/grouptree.png" title="plot of chunk grouptree" alt="plot of chunk grouptree" width="700px" /></p>
 <p>You can see that the assigned clusters don’t necessarily group with the dendrogram clusters. Let’s see what happens when we view this with the South American population:</p>
 <pre class="r"><code>plot.phylo(SAtree, cex = 0.8, font = 2, adj = 0, tip.color = cols[SAclust$grp])
 nodelabels(SAtree$node.label, adj = c(1.3, -0.5), frame = &quot;n&quot;, cex = 0.8, font = 3)
 axisPhylo(3)</code></pre>
-<p><img src="C9_Pop_Structure_files/figure-html/grouptreeSA.png" title="plot of chunk grouptreeSA" alt="plot of chunk grouptreeSA" width="700px" /></p>
+<p><img src="C09_Pop_Structure_files/figure-html/grouptreeSA.png" title="plot of chunk grouptreeSA" alt="plot of chunk grouptreeSA" width="700px" /></p>
 <p>Everything clusters together nicely, further supporting a non-panmictic population.</p>
 </div>
 </div>
