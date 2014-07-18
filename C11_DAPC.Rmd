@@ -1,5 +1,7 @@
 ```{r,message=FALSE,echo=FALSE}
   library(knitcitations)
+  library(knitr)
+  cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
   bib <- read.bibtex("bibtexlib.bib")
   opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE,
                  fig.width = 10, fig.height = 6, cache = TRUE) 
@@ -81,6 +83,5 @@ DAPC analysis is inherently interactive and cannot be scripted *a priori*. Pleas
 
 References
 ----------
-```{r,echo=FALSE, results='asis', cache=FALSE}
-  bibliography(style = "html", bulleted=FALSE)
-```
+
+<!--------------->
