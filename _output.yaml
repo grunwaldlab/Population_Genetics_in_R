@@ -13,7 +13,6 @@ html_document:
     before_body: include/before_body.html
     after_body: include/after_body.html
   pandoc_args: [
-    "--biblio", "bibtexlib.bib"
+    "--biblio", "bibtexlib.bib",
+    "--csl", "styles/pnas.csl"
     ]
-  
-  

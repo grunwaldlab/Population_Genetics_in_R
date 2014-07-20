@@ -154,7 +154,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>In this chapter we explore various ways of assessing if population are structured (e.g., differentiated). You can think of population structure as identifying clusters or groups of more closely related individuals resulting from reduced gene flow among these groups. Populations can be studied to determine if they are structured by using for example population differentiation <span class="math">\(G_{ST}\)</span>, clustering, or graphing of minimum spanning networks (MSN). Let’s first look at an example of population differentiation.</p>
 <div id="g_st-an-example-with-felis-catus-data." class="section level2">
 <h2><span class="math">\(G_{ST}\)</span> an example with <em>Felis catus</em> data.</h2>
-<p>Assessing genetic diversity almost always starts with an analysis of a parameter such as <span class="math">\(G_{ST}\)</span>. There are <a href="http://www.molecularecologist.com/2011/03/should-i-use-fst-gst-or-d-2/">lengthy debates</a> as to what measure of differentiation is better <span class="citation">(Meirmans and Hedrick 2011)</span>. Instead of going into that lengthy debate, it would be more worthwhile to point you into the direction of a package dedicated to Modern Methods of Differentiation called <em>mmod</em>. We will use the data set <em>nancycats</em> containing 17 colonies of cats collected from Nancy, France. As cats tend to stay within small groups, we expect to see some population differentiation. In terms of these diversity measures, an index of 0 indicates no differentiation, whereas 1 indicates that populations are segregating for differing alleles.</p>
+<p>Assessing genetic diversity almost always starts with an analysis of a parameter such as <span class="math">\(G_{ST}\)</span>. There are <a href="http://www.molecularecologist.com/2011/03/should-i-use-fst-gst-or-d-2/">lengthy debates</a> as to what measure of differentiation is better <span class="citation">(1)</span>. Instead of going into that lengthy debate, it would be more worthwhile to point you into the direction of a package dedicated to Modern Methods of Differentiation called <em>mmod</em>. We will use the data set <em>nancycats</em> containing 17 colonies of cats collected from Nancy, France. As cats tend to stay within small groups, we expect to see some population differentiation. In terms of these diversity measures, an index of 0 indicates no differentiation, whereas 1 indicates that populations are segregating for differing alleles.</p>
 <p>Let’s load the package and the example data set.</p>
 <pre class="r"><code>if (!require(&quot;mmod&quot;)){
   install.packages(&quot;mmod&quot;, repos = &quot;http://cran.at.r-project.org&quot;)
@@ -186,7 +186,7 @@ nancycats</code></pre>
 ## @pop.names:  factor giving the population of each individual
 ## 
 ## @other: a list containing: xy</code></pre>
-<p>Now we will use Hendrick’s standardized <span class="math">\(G_{ST}\)</span> to assess population structure among these populations <span class="citation">(Hedrick 2005)</span>.</p>
+<p>Now we will use Hendrick’s standardized <span class="math">\(G_{ST}\)</span> to assess population structure among these populations <span class="citation">(2)</span>.</p>
 <pre class="r"><code>Gst_Hedrick(nancycats)</code></pre>
 <pre><code>## $per.locus
 ##     fca8    fca23    fca43    fca45    fca77    fca78    fca90    fca96 
@@ -200,7 +200,7 @@ nancycats</code></pre>
 </div>
 <div id="minimum-spanning-network" class="section level2">
 <h2>Minimum spanning network</h2>
-<p>For this section, we will use the <code>monpop</code> data set from <span class="citation">(Everhart and Scherm 2014)</span>. see <a href="C06_Genotypic_EvenRichDiv.html">Chapter 6</a> for more details. We will be focusing on sources of multilocus genotypes. The life cycle of the pathogen <em>Monilinia fructicola</em> begins with an ascospore (sexual propagule) released from a mummified peach fruit that had overwintered on the ground. It infects an emerging blossom that, in turn, asexually infects fruit, which proceed with cyclical infections. We might have questions such as:</p>
+<p>For this section, we will use the <code>monpop</code> data set from <span class="citation">(3)</span>. see <a href="C06_Genotypic_EvenRichDiv.html">Chapter 6</a> for more details. We will be focusing on sources of multilocus genotypes. The life cycle of the pathogen <em>Monilinia fructicola</em> begins with an ascospore (sexual propagule) released from a mummified peach fruit that had overwintered on the ground. It infects an emerging blossom that, in turn, asexually infects fruit, which proceed with cyclical infections. We might have questions such as:</p>
 <ol style="list-style-type: decimal">
 <li>Are the major genotypes of Fruit Rot (FR) samples closely related?</li>
 <li>To what degree do the Blossom Blight (BB) samples contribute to the FR?</li>
@@ -253,7 +253,7 @@ t26</code></pre>
 ## 
 ##      3 hierarchical levels - Tree Year Symptom
 ##      6 populations defined - 9_BB 9_FR 10_BB 10_FR 11_BB 11_FR</code></pre>
-<p>Now that we have our tree, let’s calculate a MSN using Bruvo’s distance <span class="citation">(Bruvo et al. 2004)</span>:</p>
+<p>Now that we have our tree, let’s calculate a MSN using Bruvo’s distance <span class="citation">(4)</span>:</p>
 <pre class="r"><code># Set up our repeat lengths and populations to analyze
 reps &lt;- c(6, 2, 4, 4, 4, 4, 4, 3, 4, 4, 2, 2, 2)
 sub9 &lt;- c(&quot;9_BB&quot;, &quot;9_FR&quot;)
@@ -272,7 +272,7 @@ plot_poppr_msn(t26, t26.9msn, inds = &quot;none&quot;, palette = cm.colors)</cod
 </div>
 <div id="k-means-hierarchical-clustering" class="section level2">
 <h2>K-means hierarchical clustering</h2>
-<p>A recent study reported that the origin of the potato late blight pathogen <em>Phytophthora infestans</em> lies in Mexico as opposed to South America <span class="citation">(Goss et al. 2014)</span>. We saw in the previous chapter that South American populations showed signatures of clonal reproduction while Mexican populations showed no evidence rejecting the null hypothesis of random mating. In this section, we will use K-means clustering in combination with bootstrapped dendrograms to see how well this pattern holds up. Clonal populations should have short terminal branch lengths and should cluster according to those branches. Panmictic populations will show no clear pattern. Let’s look at the data:</p>
+<p>A recent study reported that the origin of the potato late blight pathogen <em>Phytophthora infestans</em> lies in Mexico as opposed to South America <span class="citation">(5)</span>. We saw in the previous chapter that South American populations showed signatures of clonal reproduction while Mexican populations showed no evidence rejecting the null hypothesis of random mating. In this section, we will use K-means clustering in combination with bootstrapped dendrograms to see how well this pattern holds up. Clonal populations should have short terminal branch lengths and should cluster according to those branches. Panmictic populations will show no clear pattern. Let’s look at the data:</p>
 <pre class="r"><code>data(Pinf)
 Pinf</code></pre>
 <pre><code>## 
@@ -367,11 +367,11 @@ axisPhylo(3)</code></pre>
 
 
 <div class="references">
-<p>Bruvo, R, NK Michiels, D’SouzaTG, and H Schulenburg. 2004. “A Simple Method for the Calculation of Microsatellite Genotype Distances Irrespective of Ploidy Level.” <em>Molecular Ecology</em> 13 (7): 2101–2106. doi:<a href="http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x">10.1111/j.1365-294X.2004.02209.x</a>. <a href="http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x">http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x</a>.</p>
-<p>Everhart, SE, and H Scherm. 2014. “Fine-Scale Genetic Structure of &lt;i&gt;Monilinia Fructicola&lt;/I&gt; During Brown Rot Epidemics Within Individual Peach Tree Canopies.” <em>Phytopathology</em> ## (#): submitted.</p>
-<p>Goss, EM, JF Tabima, DEL Cooke, S Restrepo, WE Fry, GA Forbes, VJ Fieland, M Cardenas, and NJ Gr&amp;uuml;nwald. 2014. “The Irish Potato Famine Pathogen &lt;i&gt;Phytophthora Infestans&lt;/I&gt; Originated in Central Mexico Rather Than the Andes.” <em>Proceedings of the National Academy of Sciences</em>. doi:<a href="http://dx.doi.org/10.1073/pnas.1401884111">10.1073/pnas.1401884111</a>. <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a>.</p>
-<p>Hedrick, PW. 2005. “A Standardized Genetic Differentiation Measure.” <em>Evolution</em> 59 (8): 1633–1638. <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.0014-3820.2005.tb01814.x/abstract">http://onlinelibrary.wiley.com/doi/10.1111/j.0014-3820.2005.tb01814.x/abstract</a>.</p>
-<p>Meirmans, PG, and PW Hedrick. 2011. “Assessing Population Structure: <span class="math">\(F_{ST}\)</span> and Related Measures.” <em>Molecular Ecology Resources</em> 11 (1): 5–18. <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full">http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full</a>.</p>
+<p>1. Meirmans P, Hedrick P (2011) Assessing population structure: <span class="math">\(F_{ST}\)</span> and related measures. <em>Molecular Ecology Resources</em> 11:5–18. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full">http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full</a>.</p>
+<p>2. Hedrick P (2005) A standardized genetic differentiation measure. <em>Evolution</em> 59:1633–1638. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.0014-3820.2005.tb01814.x/abstract">http://onlinelibrary.wiley.com/doi/10.1111/j.0014-3820.2005.tb01814.x/abstract</a>.</p>
+<p>3. Everhart S, Scherm H (2014) Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> ##:submitted.</p>
+<p>4. Bruvo R, Michiels N, D’Souza T, Schulenburg H (2004) A simple method for the calculation of microsatellite genotype distances irrespective of ploidy level. <em>Molecular Ecology</em> 13:2101–2106. Available at: <a href="http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x">http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x</a>.</p>
+<p>5. Goss E et al. (2014) The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em>. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a>.</p>
 </div>
 </div>
 

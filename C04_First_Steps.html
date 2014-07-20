@@ -152,7 +152,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 
 <p>This chapter introduces basic use of and navigation in <em>poppr</em> as well as good practices when starting an analysis. We take a glance at the genotypic diversity observed in populations and allelic frequencies observed in your loci by population. Both of these are good first steps to eliminate data entry errors, check for missing/rare data, and make sure all loci conform to expectations given your analyses.</p>
-<p>For these examples, we will be using a data set that is already built into <em>poppr</em> containing 86 individuals of <em>Phytophthora infestans</em> genotyped over 11 microsatellite loci <span class="citation">(Goss et al. 2014)</span></p>
+<p>For these examples, we will be using a data set that is already built into <em>poppr</em> containing 86 individuals of <em>Phytophthora infestans</em> genotyped over 11 microsatellite loci <span class="citation">(1)</span></p>
 <div id="analyzing-the-genotype-accumulation-curve" class="section level2">
 <h2>Analyzing the genotype accumulation curve</h2>
 <p>A genotype accumulation curve is a tool that allows you to assess how much power you have to discriminate between unique individuals given a random sample of <span class="math">\(n\)</span> loci. This analysis is particularly important for clonal organisms to confirm that a plateau has been reached in the number of loci necessary to discriminate individuals. Below, we will analyze the <code>Pinf</code> data set.</p>
@@ -264,14 +264,14 @@ locus_table(Pinf)</code></pre>
 <li><code>Pop</code> - Population name.</li>
 <li><code>N</code> - Number of individuals observed.</li>
 <li><code>MLG</code> - Number of multilocus genotypes (MLG) observed.</li>
-<li><code>eMLG</code> - The number of expected MLG at the smallest sample size ≥ 10 based on rarefaction <span class="citation">(Hurlbert 1971)</span>.</li>
+<li><code>eMLG</code> - The number of expected MLG at the smallest sample size ≥ 10 based on rarefaction <span class="citation">(2)</span>.</li>
 <li><code>SE</code> - Standard error based on eMLG.</li>
-<li><code>H</code> - Shannon-Wiener Index of MLG diversity <span class="citation">(Shannon 2001)</span>.</li>
-<li><code>G</code> - Stoddart and Taylor’s Index of MLG diversity <span class="citation">(Stoddart and Taylor 1988)</span>.</li>
-<li><code>Hexp</code> - Nei’s expected heterozygosity (denoted elsewhere as D) <span class="citation">(Nei 1978)</span>.</li>
-<li><code>E.5</code> - Evenness, E5 <span class="citation">(Pielou 1975; Ludwig and Reynolds 1988; Gr&amp;uuml;nwald et al. 2003)</span>.</li>
-<li><code>Ia</code> - The index of association, <span class="math">\(I_A\)</span> <span class="citation">(Brown, Feldman, and Nevo 1980; J. Smith et al. 1993)</span>.</li>
-<li><code>rbarD</code> - The standardized index of association, <span class="math">\(\bar{r}_d\)</span> <span class="citation">(Agapow and Burt 2001)</span>.</li>
+<li><code>H</code> - Shannon-Wiener Index of MLG diversity <span class="citation">(3)</span>.</li>
+<li><code>G</code> - Stoddart and Taylor’s Index of MLG diversity <span class="citation">(4)</span>.</li>
+<li><code>Hexp</code> - Nei’s expected heterozygosity (denoted elsewhere as D) <span class="citation">(5)</span>.</li>
+<li><code>E.5</code> - Evenness, E5 <span class="citation">(6–8)</span>.</li>
+<li><code>Ia</code> - The index of association, <span class="math">\(I_A\)</span> <span class="citation">(9, 10)</span>.</li>
+<li><code>rbarD</code> - The standardized index of association, <span class="math">\(\bar{r}_d\)</span> <span class="citation">(11)</span>.</li>
 </ul>
 <p>What does all this mean? Both populations have a similar number of individuals (<span class="math">\(N\)</span> = 38 and 48) sampled. However, one population has 29 and the other 43 <span class="math">\(MLG\)</span> while both populations together have combined 86 <span class="math">\(MLG\)</span>. Genotypic diversity (either <span class="math">\(H\)</span> or <span class="math">\(G\)</span>) is higher in population 2 than population 1, while evenness is similar. Let’s ignore <span class="math">\(I_A\)</span> and <span class="math">\(\bar{r}_d\)</span> for now, as these are measures of linkage disequilibrium that will be covered in <a href="C08_Linkage_disequilibrium.html">Chapter 8</a>.</p>
 <p>Next, let’s calculate <span class="math">\(MLG\)</span> for each population, e.g. “South America” and “North America” populations:</p>
@@ -280,7 +280,7 @@ locus_table(Pinf)</code></pre>
 <p><img src="C04_First_Steps_files/figure-html/unnamed-chunk-71.png" title="Multilocus Genotype Table" alt="Multilocus Genotype Table" width="700px" /></p>
 <pre><code>## | North America</code></pre>
 <p><img src="C04_First_Steps_files/figure-html/unnamed-chunk-72.png" title="Multilocus Genotype Table" alt="Multilocus Genotype Table" width="700px" /></p>
-<p>The figures provide histograms to see how evenly <span class="math">\(MLGs\)</span> are distributed within each population. Both populations have genotypes that occur a few times and only a few genotypes that occur more than 2 times (as expected from the high <span class="math">\(E_5\)</span> discussed above). Try this analysis on other published data sets such as that of the root rot pathogen <em>Aphanomyces euteiches</em>, stored in <em>poppr</em> as <code>Aeut</code>. See if you can produce similar tables and graphs and compare it to the published paper <span class="citation">(Gr&amp;uuml;nwald and Hoheisel 2006)</span>.</p>
+<p>The figures provide histograms to see how evenly <span class="math">\(MLGs\)</span> are distributed within each population. Both populations have genotypes that occur a few times and only a few genotypes that occur more than 2 times (as expected from the high <span class="math">\(E_5\)</span> discussed above). Try this analysis on other published data sets such as that of the root rot pathogen <em>Aphanomyces euteiches</em>, stored in <em>poppr</em> as <code>Aeut</code>. See if you can produce similar tables and graphs and compare it to the published paper <span class="citation">(12)</span>.</p>
 </div>
 <div id="conclusions" class="section level2">
 <h2>Conclusions</h2>
@@ -292,18 +292,18 @@ locus_table(Pinf)</code></pre>
 
 
 <div class="references">
-<p>Agapow, P-M, and A Burt. 2001. “Indices of Multilocus Linkage Disequilibrium.” <em>Molecular Ecology Notes</em> 1 (1-2): 101–102. <a href="http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract">http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract</a>.</p>
-<p>Brown, AHD, MW Feldman, and E Nevo. 1980. “Multilocus Structure of Natural Populations of &lt;i&gt;Hordeum Spontaneum&lt;/I&gt;.” <em>Genetics</em> 96 (2): 523–536. <a href="http://www.genetics.org/content/96/2/523">http://www.genetics.org/content/96/2/523</a>.</p>
-<p>Goss, EM, JF Tabima, DEL Cooke, S Restrepo, WE Fry, GA Forbes, VJ Fieland, M Cardenas, and NJ Gr&amp;uuml;nwald. 2014. “The Irish Potato Famine Pathogen &lt;i&gt;Phytophthora Infestans&lt;/I&gt; Originated in Central Mexico Rather Than the Andes.” <em>Proceedings of the National Academy of Sciences</em>. doi:<a href="http://dx.doi.org/10.1073/pnas.1401884111">10.1073/pnas.1401884111</a>. <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a>.</p>
-<p>Gr&amp;uuml;nwald, NJ, and G-A Hoheisel. 2006. “Hierarchical Analysis of Diversity, Selfing, and Genetic Differentiation in Populations of the Oomycete &lt;i&gt;Aphanomyces Euteiches&lt;/I&gt;.” <em>Phytopathology</em> 96 (10): 1134–1141. <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134</a>.</p>
-<p>Gr&amp;uuml;nwald, NJ, SB Goodwin, MG Milgroom, and WE Fry. 2003. “Analysis of Genotypic Diversity Data for Populations of Microorganisms.” <em>Phytopathology</em> 93 (6): 738–746. <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738</a>.</p>
-<p>Hurlbert, SH. 1971. “The Nonconcept of Species Diversity: a Critique and Alternative Parameters.” <em>Ecology</em> 52 (4): 577–586. <a href="http://www.jstor.org/discover/10.2307/1934145?uid=3739856&amp;uid=2&amp;uid=4&amp;uid=3739256&amp;sid=21103760010461">http://www.jstor.org/discover/10.2307/1934145?uid=3739856&amp;uid=2&amp;uid=4&amp;uid=3739256&amp;sid=21103760010461</a>.</p>
-<p>Ludwig, JA, and JF Reynolds. 1988. <em>Statistical Ecology: a Primer in Methods and Computing</em>. Wiley.com.</p>
-<p>Nei, M. 1978. “Estimation of Average Heterozygosity and Genetic Distance from a Small Number of Individuals.” <em>Genetics</em> 89 (3): 583–590. <a href="http://www.genetics.org/content/89/3/583.abstract">http://www.genetics.org/content/89/3/583.abstract</a>.</p>
-<p>Pielou, EC. 1975. <em>Ecological Diversity</em>. Wiley New York.</p>
-<p>Shannon, CE. 2001. “A Mathematical Theory of Communication.” <em>ACM SIGMOBILE Mobile Computing and Communications Review</em> 5 (1): 3–55. <a href="http://cm.bell-labs.com/cm/ms/what/shannonday/shannon1948.pdf">http://cm.bell-labs.com/cm/ms/what/shannonday/shannon1948.pdf</a>.</p>
-<p>Smith, JM, NH Smith, O’RourkeM, and BG Spratt. 1993. “How Clonal Are Bacteria.” <em>Proceedings of the National Academy of Sciences</em> 90 (10): 4384–4388. <a href="http://www.pnas.org/content/90/10/4384">http://www.pnas.org/content/90/10/4384</a>.</p>
-<p>Stoddart, JA, and JF Taylor. 1988. “Genotypic Diversity: estimation and Prediction in Samples.” <em>Genetics</em> 118 (4): 705–711. <a href="http://www.genetics.org/content/118/4/705">http://www.genetics.org/content/118/4/705</a>.</p>
+<p>1. Goss E et al. (2014) The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em>. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a>.</p>
+<p>2. Hurlbert S (1971) The nonconcept of species diversity: a critique and alternative parameters. <em>Ecology</em> 52:577–586. Available at: <a href="http://www.jstor.org/discover/10.2307/1934145?uid=3739856&amp;uid=2&amp;uid=4&amp;uid=3739256&amp;sid=21103760010461">http://www.jstor.org/discover/10.2307/1934145?uid=3739856&amp;uid=2&amp;uid=4&amp;uid=3739256&amp;sid=21103760010461</a>.</p>
+<p>3. Shannon C (2001) A mathematical theory of communication. <em>ACM SIGMOBILE Mobile Computing and Communications Review</em> 5:3–55. Available at: <a href="http://cm.bell-labs.com/cm/ms/what/shannonday/shannon1948.pdf">http://cm.bell-labs.com/cm/ms/what/shannonday/shannon1948.pdf</a>.</p>
+<p>4. Stoddart J, Taylor J (1988) Genotypic diversity: estimation and prediction in samples. <em>Genetics</em> 118:705–711. Available at: <a href="http://www.genetics.org/content/118/4/705">http://www.genetics.org/content/118/4/705</a>.</p>
+<p>5. Nei M (1978) Estimation of average heterozygosity and genetic distance from a small number of individuals. <em>Genetics</em> 89:583–590. Available at: <a href="http://www.genetics.org/content/89/3/583.abstract">http://www.genetics.org/content/89/3/583.abstract</a>.</p>
+<p>6. Pielou E (1975) <em>Ecological diversity</em> (Wiley New York).</p>
+<p>7. Ludwig J, Reynolds J (1988) <em>Statistical ecology: a primer in methods and computing</em> (Wiley.com).</p>
+<p>8. Grünwald N, Goodwin S, Milgroom M, Fry W (2003) Analysis of genotypic diversity data for populations of microorganisms. <em>Phytopathology</em> 93:738–746. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738</a>.</p>
+<p>9. Brown A, Feldman M, Nevo E (1980) Multilocus structure of natural populations of <em>Hordeum spontaneum</em>. <em>Genetics</em> 96:523–536. Available at: <a href="http://www.genetics.org/content/96/2/523">http://www.genetics.org/content/96/2/523</a>.</p>
+<p>10. Smith J, Smith N, O’Rourke M, Spratt B (1993) How clonal are bacteria. <em>Proceedings of the National Academy of Sciences</em> 90:4384–4388. Available at: <a href="http://www.pnas.org/content/90/10/4384">http://www.pnas.org/content/90/10/4384</a>.</p>
+<p>11. Agapow P-M, Burt A (2001) Indices of multilocus linkage disequilibrium. <em>Molecular Ecology Notes</em> 1:101–102. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract">http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract</a>.</p>
+<p>12. Grünwald N, Hoheisel G-A (2006) Hierarchical analysis of diversity, selfing, and genetic differentiation in populations of the oomycete <em>Aphanomyces euteiches</em>. <em>Phytopathology</em> 96:1134–1141. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134</a>.</p>
 </div>
 </div>
 

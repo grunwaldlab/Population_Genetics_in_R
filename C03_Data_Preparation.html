@@ -160,7 +160,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h2>GenAlEx data format</h2>
 <p>GenAlEx is a very popular add-on for Microsoft Excel. It is relatively easy to use because of its familiar, menu-driven interface. It also gives the user the option to include information on population groupings, regional groupings, and xy coordinates. The flexibility of this format made it a clear choice for import into <em>poppr</em>.</p>
 <p>The data format is standard in that individuals are defined in the rows and loci are defined in the columns. The first two rows are reserved for metadata and the first two columns are reserved for the individual names and population names, respectively. The examples we will be using are codominant data, but AFLP data is also accepted.</p>
-<p>To start simple, let’s examine the input file for the <code>monpop</code> data set containg 694 isolates of <em>Monolinia fructicola</em> genotyped over 13 haploid loci <span class="citation">(Everhart and Scherm 2014)</span>. This is a data set that lives within the <em>poppr</em> package and can be loaded with the following command:</p>
+<p>To start simple, let’s examine the input file for the <code>monpop</code> data set containg 694 isolates of <em>Monolinia fructicola</em> genotyped over 13 haploid loci <span class="citation">(1)</span>. This is a data set that lives within the <em>poppr</em> package and can be loaded with the following command:</p>
 <pre class="r"><code>library(poppr)
 data(monpop)
 monpop</code></pre>
@@ -212,7 +212,7 @@ populations
 </div>
 <div id="polyploids" class="section level3">
 <h3>Polyploids</h3>
-<p>GenAlEx does not handle polyploids, but since poppr can do it, we have set up a scheme to allow import of polyploids via this format. The limitation is that all of your loci have to have the same observed ploidy. Below is the example of <em>Phytophthora infestans</em> in the data set <code>Pinf</code> where some genotypes had observed tetraploid loci <span class="citation">(Goss et al. 2014)</span>.</p>
+<p>GenAlEx does not handle polyploids, but since poppr can do it, we have set up a scheme to allow import of polyploids via this format. The limitation is that all of your loci have to have the same observed ploidy. Below is the example of <em>Phytophthora infestans</em> in the data set <code>Pinf</code> where some genotypes had observed tetraploid loci <span class="citation">(2)</span>.</p>
 <p><img src="images/tetraploid.png" alt="tetraploid" /></p>
 <p>Highlighted in blue is the first locus and highlighted in red are two samples at that locus, an observed diploid and observed triploid. Note the extra zeroes needed to make the genotype tetraploid.</p>
 </div>
@@ -316,8 +316,8 @@ Tree_Year_Symptom
 
 
 <div class="references">
-<p>Everhart, SE, and H Scherm. 2014. “Fine-Scale Genetic Structure of &lt;i&gt;Monilinia Fructicola&lt;/I&gt; During Brown Rot Epidemics Within Individual Peach Tree Canopies.” <em>Phytopathology</em> ## (#): submitted.</p>
-<p>Goss, EM, JF Tabima, DEL Cooke, S Restrepo, WE Fry, GA Forbes, VJ Fieland, M Cardenas, and NJ Gr&amp;uuml;nwald. 2014. “The Irish Potato Famine Pathogen &lt;i&gt;Phytophthora Infestans&lt;/I&gt; Originated in Central Mexico Rather Than the Andes.” <em>Proceedings of the National Academy of Sciences</em>. doi:<a href="http://dx.doi.org/10.1073/pnas.1401884111">10.1073/pnas.1401884111</a>. <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a>.</p>
+<p>1. Everhart S, Scherm H (2014) Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> ##:submitted.</p>
+<p>2. Goss E et al. (2014) The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em>. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a>.</p>
 </div>
 </div>
 
