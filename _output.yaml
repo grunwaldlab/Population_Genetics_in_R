@@ -14,5 +14,5 @@ html_document:
     after_body: include/after_body.html
   pandoc_args: [
     "--biblio", "bibtexlib.bib",
-    "--csl", "styles/pnas.csl"
+    "--csl", "styles/peerj.csl"
     ]
