@@ -16,7 +16,7 @@ This primer is geared towards biologists interested in analyzing their populatio
 Why use R?
 -----
 
-Until recently, one of the more tedious aspects of conducting a population genetic analysis was the need for repeated reformatting data to conduct different, complimentary analyses in different programs. Often, these programs only ran on one platform. Now, R provides a toolbox with its packages that allows analysis of most data conveniently without tedious reformatting on all major computing platforms including Microsoft Windows, Linux, and Apple's OS X. R is an open source statistical programming and graphing language that includes tools for statistical, population genetic, genomic, phylogenetic, and comparative genomic analyses. This primer is for those of us that want to conduct applied analyses of populations and make full use of the palette of tools available in R.
+Until recently, one of the more tedious aspects of conducting a population genetic analysis was the need for repeated reformatting data to conduct different, complimentary analyses in different programs. Often, these programs only ran on one platform. Now, R provides a toolbox with its packages that allows analysis of most data conveniently without tedious reformatting on all major computing platforms including Microsoft Windows, Linux, and Apple's OS X. R is an open source statistical programming and graphing language that includes tools for statistical, population genetic, genomic, phylogenetic, and comparative genomic analyses. This primer is for those of us that want to conduct applied analyses of populations and make full use of the palette of tools available in R including for example the R markdown code for this primer.
 
 Note that the R user community is very active and that both R and its packages are regularly updated, critically modified, and noted as deprecated (no longer updated) as appropriate. 
 
@@ -57,19 +57,19 @@ Genetic differentiation of two populations (e.g. subdivision of populations) occ
 
 $F_{ST} = \frac{H_{T}-H_{S}}{H_{T}}$
 
-If allele frequencies are identical in both subpopulations then $H_{T} = H_{S)}$. If, on the other hand, allele frequencies vary between subdivided populations, then $H_{T} > H_{S)}$ and populations are considered to be genetically differentiated.
+If allele frequencies are identical in both subpopulations then $H_{T} = H_{S}$. If, on the other hand, allele frequencies vary between subdivided populations, then $H_{T} > H_{S}$ and populations are considered to be genetically differentiated.
 
-Besides calculation of $F_{st}$  other approaches can be used to assess population structure including clustering. These approaches will be explored in other chapters.
+Besides calculation of $F_{st}$  other approaches can be used to assess population structure including clustering. These approaches will be explored in subsequent chapters.
 
 The special case of clonal organisms
 ----
 
-Plants and microorganisms such as fungi, oomycetes, and bacteria often reproduce clonally or follow a mixed reproductive system, including various degrees of clonality and sexuality `r citep(bib[c("halkett2005tackling")])`. Traditional population genetic theory does not apply and these populations violate basic assumptions in the corresponding analyses. Thus, a different set of tools are required for analyses of clonal populations `r citep(bib[c("anderson1995clonality", "balloux2003population", "de2006molecular", "grunwald2011evolution", "halkett2005tackling", "milgroom1996recombination")])`. Typically these focus on metrics that are model free and do not assume random mating or random sampling of alleles. Model free metrics suitable for analyzing these populations include measures of genotypic diversity and evenness, and using genetic distance to cluster populations. Additional useful measures include indices of linkage disequiblibrium among markers that are used to infer if populations are reproducing sexually or clonally. We will explore these analyses bit by bit throughout this primer. The *poppr* R package was specifically developed to facilitate analyses of clonal populations `r citep(bib[c("kamvar2014poppr")])`.
+Plants and microorganisms such as fungi, oomycetes, and bacteria often reproduce clonally or follow a mixed reproductive system, including various degrees of clonality and sexuality `r citep(bib[c("halkett2005tackling")])`. Traditional population genetic theory does not apply and these populations violate basic assumptions in the corresponding analyses. Thus, a different set of tools are required for analyses of clonal populations `r citep(bib[c("anderson1995clonality", "balloux2003population", "de2006molecular", "grunwald2011evolution", "halkett2005tackling", "milgroom1996recombination")])`. Typically these focus on metrics that are model free and do not assume random mating or random sampling of alleles. Model free metrics suitable for analyzing these populations include measures of genotypic diversity or evenness, as well as cluster analysis based on genetic distance. Additional useful measures include indices of linkage disequiblibrium among markers that are used to infer if populations are reproducing sexually or clonally. We will explore these analyses bit by bit throughout this primer. The *poppr* R package was specifically developed to facilitate analyses of clonal populations `r citep(bib[c("kamvar2014poppr")])`.
 
 Marker systems, ploidy and other kinds of data
 ----
 
-Population genetic data come in many shapes and forms and a good analysis needs to be tailored to the marker system, ploidy used and corresponding genetic models assumed `r citep(bib[c("grunwald2011evolution")])`. Organisms can be haploid, diploid, with or without known phase, or polyploid. In the case of diploid species, marker systems can be dominant (AFLP, RFLP or RAPD data) or co-dominant (SSR, SNPs, allozymes) `r citep(bib[c("grunwald2003")])`. A locus can have two alleles (0/1 for AFLP; C/T for SNPs) or many alleles per locus (A/B/C...N for SSRs or allozymes). In each case the data has to be coded and analyzed differently. Mutation rates can also differ for different markers systems (SSR >> mitochondrial SNPs > nuclear SNPs) `r citep(bib[c("grunwald2011evolution")])`. 
+Population genetic data come in many shapes and forms and a good analysis needs to be tailored to the marker system, ploidy used and corresponding genetic models assumed `r citep(bib[c("grunwald2011evolution")])`. Organisms can be haploid, diploid, with or without known phase, or polyploid. In the case of diploid species, marker systems can be dominant (AFLP, RFLP or RAPD data) or co-dominant (SSR, SNPs, allozymes) `r citep(bib[c("grunwald2003")])`. A locus can have two alleles (0/1 for AFLP; C/T for SNPs) or many alleles per locus (A/B/C...N for SSRs or allozymes). In each case the data has to be coded and analyzed differently. Mutation rates can also differ for different markers systems (SSR >> mitochondrial SNPs > nuclear SNPs) `r citep(bib[c("grunwald2011evolution")])`. All these aspects of a particular data set need to be considered in the data analyses.
 
 Applications of population genetic analyses
 ----
@@ -78,7 +78,6 @@ Population genetic analyses are tremendously valuable for answering questions ra
 
  - Where is the center of origin? 
  - Does this organism reproduce sexually? 
- - Is there evidence of recombination? 
  - Has the population gone through a genetic bottleneck? 
  - Are populations structured by region, geography, micro-environment? 
  - What are source and sink populations and what are the rates of migration? 
