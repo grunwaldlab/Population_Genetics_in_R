@@ -222,7 +222,8 @@ locus_table(Pinf)</code></pre>
 ##   South America     .
 ##   North America 0.019
 ##   Total         0.011</code></pre>
-<p>If your data consists of polyploid SSR markers, you would code the unobserved alleles as “0”. The <code>Pinf</code> data set is a perfect example of this. It is a subset of a slightly larger tetraploid data set. In this example, each row represents an isolate and each column represents a locus:</p>
+<p>We see that we have anywhere from 2 to 25 microsatellite alleles per locus. We also observe between 1-10% missing data in the ‘North America’ population.</p>
+<p>If your data consists of polyploid SSR markers, you would code the unobserved alleles as ‘0’. The <code>Pinf</code> data set is a perfect example of this. It is a subset of a slightly larger tetraploid data set. In this example, each row represents an isolate and each column represents a locus:</p>
 <pre class="r"><code>tail(genind2df(Pinf, sep = &quot;/&quot;))</code></pre>
 <pre><code>##                  pop            Pi02             D13            Pi33
 ## PiPE22 South America 000/000/160/160 000/000/142/144 000/000/203/203
@@ -245,6 +246,7 @@ locus_table(Pinf)</code></pre>
 ## PiPE25 000/000/176/176 000/148/151/157 000/000/189/192 000/000/179/179
 ## PiPE26 000/000/176/176 000/000/157/157 000/000/192/195 000/000/179/181
 ## PiPE27 000/000/176/176 000/148/151/157 000/000/189/192 000/000/179/179</code></pre>
+<p>The <code>genind2df()</code> function trasnforms the data from genind object into a dataframe and adds ‘/’ as separators between alleles at each locus. Note how missing allelles are coded as ‘000’.</p>
 <p>To observe the different levels of ploidy in your data, use the function <code>info_table</code> with the argument <code>type = &quot;ploidy&quot;</code>:</p>
 <pre class="r"><code>Pinf.ploidy &lt;- info_table(Pinf, type = &quot;ploidy&quot;, plot = TRUE)</code></pre>
 <p><img src="C04_First_Steps_files/figure-html/unnamed-chunk-5.png" title="Plot of ploidy" alt="Plot of ploidy" width="700px" /></p>
@@ -257,6 +259,7 @@ locus_table(Pinf)</code></pre>
 ##   PiPE25    2   2    2    2    2    2   3    2    3    2    2
 ##   PiPE26    2   2    2    2    2    2   2    2    2    2    2
 ##   PiPE27    2   2    2    2    2    2   3    2    3    2    2</code></pre>
+<p>Note that ploidy varies between 2 and 3 among individuals and loci.</p>
 <p>You are now able to assess the quality of your data and examine allelic diversity in your populations.</p>
 </div>
 <div id="calculating-genotypic-diversity" class="section level2">
@@ -295,7 +298,7 @@ locus_table(Pinf)</code></pre>
 </div>
 <div id="conclusions" class="section level2">
 <h2>Conclusions</h2>
-<p>Going through many of these steps will give you a valuable broad overview of your data. These analyses can give you insight into what methods you are able to use in your analysis. The genotype curve can tell you if you’ve sampled enough loci (or if you have over sampled) and <code>info_table</code> gives a nice visualization to aid assessing whether or not there is missing data in your sample. For clonal populations, the genotypic diversity table is valuable for informing you of how to clone-correct populations, which we will tackle in the <a href="C05_Population_Hierarchies.html">next chapter</a>.</p>
+<p>Going through many of these steps will give you a valuable first look at your data. These analyses can give you insight into what methods you are able to use in your analysis. The genotype curve can tell you if you’ve sampled enough loci (or if you have over sampled) and <code>info_table</code> gives a nice visualization to aid assessing whether or not there is missing data in your sample. For clonal populations, the genotypic diversity table is valuable for informing you of how to clone-correct populations, which we will tackle in the <a href="C05_Population_Hierarchies.html">next chapter</a>.</p>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>

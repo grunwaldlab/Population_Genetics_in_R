@@ -41,12 +41,16 @@ locus_table(Pinf)
 info_table(Pinf, type = "missing", plot = TRUE)
 ```
 
+We see that we have anywhere from 2 to 25 microsatellite alleles per locus. We also observe between 1-10% missing data in the 'North America' population. 
+
 If your data consists of polyploid SSR markers, you would code the unobserved alleles as
-"0". The `Pinf` data set is a perfect example of this. It is a subset of a slightly larger tetraploid data set. In this example, each row represents an isolate and each column represents a locus:
+'0'. The `Pinf` data set is a perfect example of this. It is a subset of a slightly larger tetraploid data set. In this example, each row represents an isolate and each column represents a locus:
 
 ```{r}
 tail(genind2df(Pinf, sep = "/"))
 ```
+
+The `genind2df()` function trasnforms the data from genind object into a dataframe and adds '/' as separators between alleles at each locus. Note how missing allelles are coded as '000'.
 
 To observe the different levels of ploidy in your data, use the function
 `info_table` with the argument `type = "ploidy"`:
@@ -55,6 +59,8 @@ To observe the different levels of ploidy in your data, use the function
 Pinf.ploidy <- info_table(Pinf, type = "ploidy", plot = TRUE)
 tail(Pinf.ploidy)
 ```
+
+Note that ploidy varies between 2 and 3 among individuals and loci.
 
 You are now able to assess the quality of your data and examine allelic diversity in your populations. 
 
@@ -96,7 +102,7 @@ The figures provide histograms to see how evenly $MLGs$ are distributed within e
 Conclusions
 ----
 
-Going through many of these steps will give you a valuable broad overview of your data. These analyses can give you insight into what methods you are able to use in your analysis. The genotype curve can tell you if you've sampled enough loci (or if you have over sampled) and `info_table` gives a nice visualization to aid assessing whether or not there is missing data in your sample. For clonal populations, the genotypic diversity table is valuable for informing you of how to clone-correct populations, which we will tackle in the [next chapter](C05_Population_Hierarchies.html). 
+Going through many of these steps will give you a valuable first look at your data. These analyses can give you insight into what methods you are able to use in your analysis. The genotype curve can tell you if you've sampled enough loci (or if you have over sampled) and `info_table` gives a nice visualization to aid assessing whether or not there is missing data in your sample. For clonal populations, the genotypic diversity table is valuable for informing you of how to clone-correct populations, which we will tackle in the [next chapter](C05_Population_Hierarchies.html). 
 
 References
 ----------
