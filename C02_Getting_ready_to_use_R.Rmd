@@ -61,7 +61,7 @@ Installing R
 Installing the required packages
 ----
 
-The following package are utilized in this primer:
+The following packages are utilized in this primer:
 
 1. [poppr](http://cran.r-project.org/web/packages/poppr/index.html)
 2. [adegenet](http://cran.r-project.org/web/packages/adegenet/index.html)
@@ -75,9 +75,9 @@ Use the following script to install these packages:
 install.packages(c("poppr", "mmod", "genetics"))
 ```
 
-We wrote and actively maintain *poppr* `r citep(bib["kamvar2014poppr"])` and it is heavily relied upon in this primer. *Poppr* is an R package. You can think of a package as a library of functions written and curated by someone in the R user community, which you can loaded into R for use.
+We wrote and actively maintain *poppr* `r citep(bib["kamvar2014poppr"])` and it is heavily relied upon in this primer. *Poppr* is an R package. You can think of a package as a library of functions written and curated by someone in the R user community, which you can be loaded into R for use.
 
-Once you've installed *poppr*, you can invoke it by typing or cutting + pasting:
+Once you've installed *poppr*, you can invoke (i.e., load) it by typing or cutting and pasting:
 
 ```{r, message=TRUE, warning=TRUE, cache=FALSE}
 library(poppr)
@@ -85,12 +85,12 @@ library(poppr)
 
 This will load *poppr* and all dependent packages, such as *adegenet* and *ade4*. You will recognize loading by the prompts written to your screen.
 
-Congratulations. You should be all set for using R. Loading data and conducting your first analysis will be the topic of the next chapter. 
+Congratulations. You should now be all set for using R. Loading data and conducting your first analysis will be the topic of the next chapter. But before we go there lets provide a few useful resources.
 
 A quick introduction to R using Rstudio
 ----
 
-First, let's review some of the basic features and functions of R. To start R, open the Rstudio application from your programs folder or start menu. This will initialize your R session. To exit R, simply close the Rstudio application. 
+Next, let's review some of the basic features and functions of R. To start R, open the Rstudio application from your programs folder or start menu. This will initialize your R session. To exit R, simply close the Rstudio application. 
 
 > Note that R is a case sensitive language!
 
@@ -167,6 +167,8 @@ and to look at a specific vignette you can type:
 ```{r, eval=FALSE}
 vignette('poppr_manual')
 ```
+
+We are now ready to launch into our first analysis of population genetic data.
 
 References
 ----------
