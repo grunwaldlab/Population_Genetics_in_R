@@ -74,7 +74,7 @@ Population genetic data come in many shapes and forms and a good analysis needs 
 Applications of population genetic analyses
 ----
 
-Population genetic analyses are tremendously valuable for answering questions ranging from determining best management practices to basic evolutionary questions `r citep(bib[c("grunwald2011evolution")])`. For example, a typical concern when finding a new, invasive organism is whether it is introduced to the area or emerged from a resident population. Other questions of interest might include:
+Population genetic analyses are tremendously valuable for answering questions ranging from applied to basic evolutionary questions `r citep(bib[c("grunwald2011evolution")])`. For example, a typical concern when finding a new, invasive organism is whether it is introduced to the area or emerged from a resident population. Other questions of interest might include:
 
  - Where is the center of origin? 
  - Does this organism reproduce sexually? 
