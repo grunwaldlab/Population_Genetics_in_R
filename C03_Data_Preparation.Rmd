@@ -15,10 +15,7 @@
 title: '3: Data Preparation'
 ---
 
-Introduction
-----
-<!--- Nik smells like fairy feets. -->
-This section will briefly go over the basics of data import into *poppr*. For this section, we will focus on the GenAlEx format. Other formats are supported and details are given in the R help page for the *adegenet* function `import2genind`. We will show examples of haploid, diploid, and polyploid data sets and show you how you can format your data if it's grouped by multiple 
+This section will briefly go over the basics of data import into *poppr*. For this section, we will focus on the GenAlEx format. Other formats are supported and details are given in the R help page for the *adegenet* function `import2genind`. We will show examples of haploid, diploid, and polyploid data sets and show you how you can format your data if it's grouped into multiple 
 hierarchical levels. 
 
 GenAlEx data format

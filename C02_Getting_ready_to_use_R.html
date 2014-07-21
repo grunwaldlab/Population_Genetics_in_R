@@ -209,7 +209,7 @@ in several ways:
 </div>
 <div id="installing-the-required-packages" class="section level2">
 <h2>Installing the required packages</h2>
-<p>The following package are utilized in this primer:</p>
+<p>The following packages are utilized in this primer:</p>
 <ol style="list-style-type: decimal">
 <li><a href="http://cran.r-project.org/web/packages/poppr/index.html">poppr</a></li>
 <li><a href="http://cran.r-project.org/web/packages/adegenet/index.html">adegenet</a></li>
@@ -219,8 +219,8 @@ in several ways:
 </ol>
 <p>Use the following script to install these packages:</p>
 <pre class="r"><code>install.packages(c(&quot;poppr&quot;, &quot;mmod&quot;, &quot;genetics&quot;))</code></pre>
-<p>We wrote and actively maintain <em>poppr</em> <span class="citation">(Kamvar, Tabima &amp; Grünwald, 2014)</span> and it is heavily relied upon in this primer. <em>Poppr</em> is an R package. You can think of a package as a library of functions written and curated by someone in the R user community, which you can loaded into R for use.</p>
-<p>Once you’ve installed <em>poppr</em>, you can invoke it by typing or cutting + pasting:</p>
+<p>We wrote and actively maintain <em>poppr</em> <span class="citation">(Kamvar, Tabima &amp; Grünwald, 2014)</span> and it is heavily relied upon in this primer. <em>Poppr</em> is an R package. You can think of a package as a library of functions written and curated by someone in the R user community, which you can be loaded into R for use.</p>
+<p>Once you’ve installed <em>poppr</em>, you can invoke (i.e., load) it by typing or cutting and pasting:</p>
 <pre class="r"><code>library(poppr)</code></pre>
 <pre><code>## Loading required package: adegenet
 ## Loading required package: ade4
@@ -235,11 +235,11 @@ in several ways:
 ## 
 ## This is poppr version 1.1.0.99. To get started, type package?poppr</code></pre>
 <p>This will load <em>poppr</em> and all dependent packages, such as <em>adegenet</em> and <em>ade4</em>. You will recognize loading by the prompts written to your screen.</p>
-<p>Congratulations. You should be all set for using R. Loading data and conducting your first analysis will be the topic of the next chapter.</p>
+<p>Congratulations. You should now be all set for using R. Loading data and conducting your first analysis will be the topic of the next chapter. But before we go there lets provide a few useful resources.</p>
 </div>
 <div id="a-quick-introduction-to-r-using-rstudio" class="section level2">
 <h2>A quick introduction to R using Rstudio</h2>
-<p>First, let’s review some of the basic features and functions of R. To start R, open the Rstudio application from your programs folder or start menu. This will initialize your R session. To exit R, simply close the Rstudio application.</p>
+<p>Next, let’s review some of the basic features and functions of R. To start R, open the Rstudio application from your programs folder or start menu. This will initialize your R session. To exit R, simply close the Rstudio application.</p>
 <blockquote>
 <p>Note that R is a case sensitive language!</p>
 </blockquote>
@@ -291,6 +291,7 @@ help(amova)             # Get help for the amova function.
 browseVignettes(package = &#39;poppr&#39;)    # see vignettes from a specific package.</code></pre>
 <p>and to look at a specific vignette you can type:</p>
 <pre class="r"><code>vignette(&#39;poppr_manual&#39;)</code></pre>
+<p>We are now ready to launch into our first analysis of population genetic data.</p>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>
