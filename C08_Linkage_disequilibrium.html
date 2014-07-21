@@ -151,7 +151,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>In this chapter we will formally test if populations are in linkage disequilibrium or not. This test is useful to determine if populations are clonal (where significant disequilibrium is expected due to linkage among loci) or sexual (where linkage among loci is not expected). The null hypothesis tested is that alleles observed at different loci are not linked if populations are sexual while alleles recombine freely into new genotypes during the process of sexual reproduction. In molecular ecology we typically use the index of association or related indices to test this phenomenon.</p>
 <div id="the-index-of-association" class="section level2">
 <h2>The index of association</h2>
-<p>The index of association (<span class="math">\(I_A\)</span>) was originally proposed by Brown et al. (<a href="http://www.genetics.org/content/96/2/523">Brown et al. 1980</a>) and implemented in the <em>poppr</em> R package (<a href="http://dx.doi.org/10.7717/peerj.281">Kamvar et al. 2014</a>) using a permutation approach to assess if loci are linked as described previously by Agapow and Burt (<a href="http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract">Agapow &amp; Burt, 2001</a>). Agapow and Burt also described the index <span class="math">\(\bar{r}_d\)</span> that accounts for the number of loci sampled that is less biased and will be used here.</p>
+<p>The index of association (<span class="math">\(I_A\)</span>) was originally proposed by Brown et al. <span class="citation">(Brown, Feldman &amp; Nevo, 1980)</span> and implemented in the <em>poppr</em> R package <span class="citation">(Kamvar, Tabima &amp; Grünwald, 2014)</span> using a permutation approach to assess if loci are linked as described previously by Agapow and Burt <span class="citation">(Agapow &amp; Burt, 2001)</span>. Agapow and Burt also described the index <span class="math">\(\bar{r}_d\)</span> that accounts for the number of loci sampled that is less biased and will be used here.</p>
 <pre class="r"><code>library(poppr)
 data(Pinf)
 MX &lt;- popsub(Pinf, &quot;North America&quot;)  #subset population to North America</code></pre>
@@ -201,21 +201,19 @@ MX &lt;- popsub(Pinf, &quot;North America&quot;)  #subset population to North Am
 <pre><code>##     Ia   p.Ia  rbarD   p.rD 
 ## 2.6335 0.0010 0.3146 0.0010</code></pre>
 <p>Both clone-corrected (<span class="math">\(N = 29\)</span>) and uncorrected data (<span class="math">\(N = 38\)</span>) reject the hypothesis of no linkage among markers. We thus have support for populations in Mexico being sexual while those in South America are clonal.</p>
-<p>This approach has been applied to provide support for Mexico as the putative center of origin of the potato late blight pathogen <em>P. infestans</em> (<a href="http://dx.doi.org/10.1073/pnas.1401884111">Goss et al. 2014</a>). At the center of origin this organism is expected to reproduce sexually, while South American populations are clonal.</p>
+<p>This approach has been applied to provide support for Mexico as the putative center of origin of the potato late blight pathogen <em>P. infestans</em> <span class="citation">(Goss et al., 2014)</span>. At the center of origin this organism is expected to reproduce sexually, while South American populations are clonal.</p>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>
-<p> 
-P-M Agapow, A Burt, (2001) Indices of multilocus linkage disequilibrium. <em>Molecular Ecology Notes</em> <strong>1</strong> (1-2) 101-102 <a href="http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract">http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract</a>
-</p><p> 
-AHD Brown, MW Feldman, E Nevo, (1980) Multilocus structure of natural populations of <i>Hordeum spontaneum</i>. <em>Genetics</em> <strong>96</strong> (2) 523-536 <a href="http://www.genetics.org/content/96/2/523">http://www.genetics.org/content/96/2/523</a>
-</p><p> 
-EM Goss, JF Tabima, DEL Cooke, S Restrepo, WE Fry, GA Forbes, VJ Fieland, M Cardenas, NJ Grünwald, (2014) The Irish potato famine pathogen <i>Phytophthora infestans</i> originated in central Mexico rather than the Andes. <em>Proceedings of the National Academy of Sciences</em> <a href="http://dx.doi.org/10.1073/pnas.1401884111">10.1073/pnas.1401884111</a>
-</p><p> 
-ZN Kamvar, JF Tabima, NJ Grünwald, (2014) <span class="math">\(Poppr\)</span>: an R package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> <strong>2</strong> e281-NA <a href="http://dx.doi.org/10.7717/peerj.281">10.7717/peerj.281</a>
-</p>
+<!--------->
 
 
+<div class="references">
+<p>Agapow P-M., Burt A. 2001. Indices of multilocus linkage disequilibrium. <em>Molecular Ecology Notes</em> 1:101–102. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract">http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract</a></p>
+<p>Brown A., Feldman M., Nevo E. 1980. Multilocus structure of natural populations of <em>Hordeum spontaneum</em>. <em>Genetics</em> 96:523–536. Available at: <a href="http://www.genetics.org/content/96/2/523">http://www.genetics.org/content/96/2/523</a></p>
+<p>Goss E., Tabima J., Cooke D., Restrepo S., Fry W., Forbes G., Fieland V., Cardenas M., Grünwald N. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em>. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
+<p>Kamvar Z., Tabima J., Grünwald N. 2014. <span class="math">\(Poppr\)</span>: an r package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281">http://dx.doi.org/10.7717/peerj.281</a></p>
+</div>
 </div>
 
 </div>

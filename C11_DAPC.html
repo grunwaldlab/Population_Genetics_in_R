@@ -149,10 +149,10 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </ul>
 </div>
 
-<p>Often we want to infer population structure by determining the number of clusters (groups) observed without prior knowledge. Several approaches can be used to infer groups such as for example K-means clustering, Bayesian clustering using STRUCTURE, and multivariate methods such as Discriminant Analysis of Principal Components (DAPC) (<a href="http://www.biomedcentral.com/1471-2156/11/94">Jombart et al. 2010</a>; <a href="http://www.genetics.org/content/155/2/945.abstract">Pritchard et al. 2000</a>; <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-phyto-072910-095246?journalCode=phyto">Grünwald &amp; Goss, 2011</a>). A STRUCTURE-like approach assumes that markers are not linked and that populations are panmictic (<a href="http://www.genetics.org/content/155/2/945.abstract">Pritchard et al. 2000</a>). To use model-free methods K-means clustering based on genetic distance or DAPC are more convenient approaches for populations that are clonal or partially clonal. Here we explore DAPC further.</p>
+<p>Often we want to infer population structure by determining the number of clusters (groups) observed without prior knowledge. Several approaches can be used to infer groups such as for example K-means clustering, Bayesian clustering using STRUCTURE, and multivariate methods such as Discriminant Analysis of Principal Components (DAPC) <span class="citation">(Pritchard, Stephens &amp; Donnelly, 2000; Jombart, Devillard &amp; Balloux, 2010; Grünwald &amp; Goss, 2011)</span>. A STRUCTURE-like approach assumes that markers are not linked and that populations are panmictic <span class="citation">(Pritchard et al., 2000)</span>. To use model-free methods K-means clustering based on genetic distance or DAPC are more convenient approaches for populations that are clonal or partially clonal. Here we explore DAPC further.</p>
 <div id="dapc-analysis-of-the-h3n2-influenza-strains" class="section level2">
 <h2>DAPC analysis of the H3N2 influenza strains</h2>
-<p>DAPC was pioneered by Jombart and colleagues (<a href="http://www.biomedcentral.com/1471-2156/11/94">Jombart et al. 2010</a>) and can be used to infer the number of clusters of genetically related individuals. In this multivariate statistical approach variance in the sample is partitioned into a between-group and within-group component, in an effort to maximize discrimination between groups. In DAPC, data is first transformed using a principal components analysis (PCA) and subsequently clusters are identified using discriminant analysis (DA). This tutorial is based on the <a href="http://adegenet.r-forge.r-project.org/files/tutorial-dapc.pdf">vignette</a> written by Thibaut Jombart. We encourage the user to explore this vignette further. The vignette can also be opened within R by executing <code>adegenetTutorial(&quot;dapc&quot;)</code>.</p>
+<p>DAPC was pioneered by Jombart and colleagues <span class="citation">(Jombart et al., 2010)</span> and can be used to infer the number of clusters of genetically related individuals. In this multivariate statistical approach variance in the sample is partitioned into a between-group and within-group component, in an effort to maximize discrimination between groups. In DAPC, data is first transformed using a principal components analysis (PCA) and subsequently clusters are identified using discriminant analysis (DA). This tutorial is based on the <a href="http://adegenet.r-forge.r-project.org/files/tutorial-dapc.pdf">vignette</a> written by Thibaut Jombart. We encourage the user to explore this vignette further. The vignette can also be opened within R by executing <code>adegenetTutorial(&quot;dapc&quot;)</code>.</p>
 <p>We will use the seasonal influenza dataset H3N2 data containing 1903 isolates genotyped for 125 SNPs located in the hemagglutinin segment. This dataset as well as the <code>dapc()</code> function is part of the <a href="http://adegenet.r-forge.r-project.org"><em>adegenet</em></a> package.</p>
 <pre class="r"><code># DAPC requires the adegenet package. Let&#39;s load this package:
 library(adegenet)
@@ -207,20 +207,19 @@ axis(side=1, at=1:6, lab=2001:2006)</code></pre>
 </div>
 <div id="conclusions" class="section level2">
 <h2>Conclusions</h2>
-<p>DAPC is a wonderful tool for exploring structure of populations based on PCA and DA without making assumptions of panmixia. Thus, this technique provides a robust alternative to Bayesian clustering methods like STRUCTURE (<a href="http://www.genetics.org/content/155/2/945.abstract">Pritchard et al. 2000</a>) that should not be used for clonal or partially clonal populations.</p>
+<p>DAPC is a wonderful tool for exploring structure of populations based on PCA and DA without making assumptions of panmixia. Thus, this technique provides a robust alternative to Bayesian clustering methods like STRUCTURE <span class="citation">(Pritchard et al., 2000)</span> that should not be used for clonal or partially clonal populations.</p>
 <p>DAPC analysis is inherently interactive and cannot be scripted <em>a priori</em>. Please refer to the <a href="http://adegenet.r-forge.r-project.org/files/tutorial-dapc.pdf">vignette</a> written by Thibaut Jombart for a more interactive analysis.</p>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>
-<p> 
-NJ Grünwald, EM Goss, (2011) Evolution and population genetics of exotic and re-emerging pathogens: Novel tools and approaches. <em>Annual Review of Phytopathology</em> <strong>49</strong> 249-267 <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-phyto-072910-095246?journalCode=phyto">http://www.annualreviews.org/doi/abs/10.1146/annurev-phyto-072910-095246?journalCode=phyto</a>
-</p><p> 
-T Jombart, S Devillard, F Balloux, (2010) Discriminant analysis of principal components: a new method for the analysis of genetically structured populations. <em>BMC genetics</em> <strong>11</strong> (1) 94-NA <a href="http://www.biomedcentral.com/1471-2156/11/94">http://www.biomedcentral.com/1471-2156/11/94</a>
-</p><p> 
-JK Pritchard, M Stephens, P. Donnelly, (2000) Inference of population structure using multilocus genotype data. <em>Genetics</em> <strong>155</strong> (2) 945-959 <a href="http://www.genetics.org/content/155/2/945.abstract">http://www.genetics.org/content/155/2/945.abstract</a>
-</p>
+<!--------------->
 
 
+<div class="references">
+<p>Grünwald N., Goss E. 2011. Evolution and population genetics of exotic and re-emerging pathogens: Novel tools and approaches. <em>Annual Review of Phytopathology</em> 49:249–267. Available at: <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-phyto-072910-095246?journalCode=phyto">http://www.annualreviews.org/doi/abs/10.1146/annurev-phyto-072910-095246?journalCode=phyto</a></p>
+<p>Jombart T., Devillard S., Balloux F. 2010. Discriminant analysis of principal components: a new method for the analysis of genetically structured populations. <em>BMC genetics</em> 11:94. Available at: <a href="http://www.biomedcentral.com/1471-2156/11/94">http://www.biomedcentral.com/1471-2156/11/94</a></p>
+<p>Pritchard J., Stephens M., Donnelly P. 2000. Inference of population structure using multilocus genotype data. <em>Genetics</em> 155:945–959. Available at: <a href="http://www.genetics.org/content/155/2/945.abstract">http://www.genetics.org/content/155/2/945.abstract</a></p>
+</div>
 </div>
 
 </div>

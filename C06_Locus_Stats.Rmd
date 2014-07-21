@@ -1,7 +1,8 @@
 ```{r,message=FALSE,echo=FALSE}
   html <- TRUE
   library(knitcitations)
-  library(poppr)
+  library(knitr)
+  cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
   bib <- read.bibtex("bibtexlib.bib")
   opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, 
                  fig.width = 10, fig.height = 6, cache = TRUE)
@@ -36,7 +37,7 @@ locus_table(Pinf)
 
 We can see here that we have widely variable number of alleles per locus and 
 that we actually have a single locus that only has two alleles, 
-`r {x <- locus_table(Pinf); rownames(x)[x[, 1] == 2]}`. 
+`r {x <- poppr::locus_table(Pinf); rownames(x)[x[, 1] == 2]}`. 
 This locus also has low diversity, low expected heterozygosity
 and is very uneven in allele distribution. This is a sign that this might be a phylogenetically
 uninformative locus, where we have two alleles and one is occurring at a minor
@@ -222,6 +223,5 @@ all loci shown in pink are loci suspected for not being in HWE with $p \leq 0.05
 
 References
 ----------
-```{r,echo=FALSE, results='asis', cache = FALSE}
-  bibliography(style = "html", bulleted=FALSE)
-```
+
+<!---------->
