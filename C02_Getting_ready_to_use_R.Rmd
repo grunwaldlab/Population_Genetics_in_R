@@ -168,7 +168,7 @@ and to look at a specific vignette you can type:
 vignette('poppr_manual')
 ```
 
-We are now ready to launch into our first analysis of population genetic data.
+We are now ready to think about formatting and loading data into R.
 
 References
 ----------

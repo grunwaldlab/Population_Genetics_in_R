@@ -64,7 +64,7 @@ xtable::print.xtable(x, type = "html", include.rownames = FALSE,
 
 ![monpop](images/monpop.png)
 
-The columns of the metadata beyond those three rows define the number of individuals contained within each population. Since this data is redundant with the second column, it is not necessary. Notice, also, that the second column, reserved for the population assignments, has a a pattern of underscores in the populations. This will be important at the end of this section. Below is a modified version of the input format that should make it easier to format.
+The columns of the metadata beyond those three rows define the number of individuals contained within each population. Since this data is redundant with the second column, it is not necessary. Notice, also, that the second column, reserved for the population assignments, has a pattern of underscores in the populations. This will be important at the end of this section. Below is a modified version of the input format that should make it easier to format.
 
 ![monpop_ideal](images/monpop_ideal.png)
 
@@ -93,7 +93,7 @@ The other formats that are supported by *poppr* and *adegenet* are FSTAT, STRUCT
 Population hierarchies
 ----
 
-Many data formats do not allow the inclusion of more than one population level. When sampling microbes such as filamentous fungi, it is often not possible to know the true population structure *a priori* and so a hierarchical sampling approach is necessary. In order to get around the limitation of having one population level per data set, we suggest concatenating the different hierarchical levels into a single column by a common separator ("\_" by default). Here's an example of the three hierarchical levels of the `monpop` data set before:
+A hierarchical sampling approach is necessary to infer structure of populations in space or time. *Poppr* facilitates definition of hierarchical data by concatenating the different hierarchical levels into a single column by a common separator ("\_" by default). Here's an example of the three hierarchical levels of the `monpop` data set introduced above:
 
 ```{r, echo=FALSE, results='asis'}
 splithierarchy(monpop) <- ~Tree/Year/Symptom
@@ -103,7 +103,7 @@ xtable::print.xtable(x, type = "html", include.rownames = FALSE,
   				 html.table.attributes = "border=2 cellpadding=5 align=center")
 ```
 
-And after:
+resulting in defintion for use in *poppr* as:
 
 ```{r, echo = FALSE, results='asis'}
 x <-head(gethierarchy(monpop, ~Tree/Year/Symptom)[3])
@@ -113,6 +113,8 @@ xtable::align(x) <- rep("c", ncol(x) + 1)
 xtable::print.xtable(x, type = "html", include.rownames = FALSE, 
   				 html.table.attributes = "border=2 cellpadding=5 align=center")
 ```
+
+<br>
 
 > If you do not want to concatenate your population factors into one row,
 save them as a separate csv file and use the functions `read.table` and `sethierarchy`
