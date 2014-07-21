@@ -75,7 +75,7 @@ setpop(monpop) <- ~Symptom/Tree
 monpop
 ````
 
-Clone Correction
+Clone correction
 ----
 
 Clone correction is a method of masking repeated genotypes in your data as a way

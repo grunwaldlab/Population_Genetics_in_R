@@ -154,7 +154,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="TOC">
 <ul>
-<li><a href="#analyzing-the-genotype-accumulation-curve">Analyzing the genotype accumulation curve</a></li>
+<li><a href="#the-genotype-accumulation-curve">The genotype accumulation curve</a></li>
 <li><a href="#allele-frequencies-missing-data-and-ploidy">Allele frequencies, missing data, and ploidy</a></li>
 <li><a href="#calculating-genotypic-diversity">Calculating genotypic diversity</a></li>
 <li><a href="#conclusions">Conclusions</a></li>
@@ -164,8 +164,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <p>This chapter introduces basic use of and navigation in <em>poppr</em> as well as good practices when starting an analysis. We take a glance at the genotypic diversity observed in populations and allelic frequencies observed in your loci by population. Both of these are good first steps to eliminate data entry errors, check for missing/rare data, and make sure all loci conform to expectations given your analyses.</p>
 <p>For these examples, we will be using a data set that is already built into <em>poppr</em> containing 86 individuals of <em>Phytophthora infestans</em> genotyped over 11 microsatellite loci <span class="citation">(Goss et al., 2014)</span></p>
-<div id="analyzing-the-genotype-accumulation-curve" class="section level2">
-<h2>Analyzing the genotype accumulation curve</h2>
+<div id="the-genotype-accumulation-curve" class="section level2">
+<h2>The genotype accumulation curve</h2>
 <p>A genotype accumulation curve is a tool that allows you to assess how much power you have to discriminate between unique individuals given a random sample of <span class="math">\(n\)</span> loci. This analysis is particularly important for clonal organisms to confirm that a plateau has been reached in the number of loci necessary to discriminate individuals. Below, we will analyze the <code>Pinf</code> data set.</p>
 <pre class="r"><code>data(Pinf) # Load the data
 Pinf       # We expect a maximum of 72 Multilocus Genotypes</code></pre>

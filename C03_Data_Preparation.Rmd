@@ -18,7 +18,7 @@ title: '3: Data Preparation'
 Introduction
 ----
 <!--- Nik smells like fairy feets. -->
-This section will breifly go over the basics of data import into *poppr*. For this section, we will focus on the GenAlEx format. Other formats are supported and details are given in the R help page for the *adegenet* function `import2genind`. We will show examples of haploid, diploid, and polyploid data sets and show you how you can format your data if it's grouped by multiple 
+This section will briefly go over the basics of data import into *poppr*. For this section, we will focus on the GenAlEx format. Other formats are supported and details are given in the R help page for the *adegenet* function `import2genind`. We will show examples of haploid, diploid, and polyploid data sets and show you how you can format your data if it's grouped by multiple 
 hierarchical levels. 
 
 GenAlEx data format
@@ -93,7 +93,7 @@ Other accepted formats
 
 The other formats that are supported by *poppr* and *adegenet* are FSTAT, STRUCTURE, GENETIX, and GENEPOP. All of these can be imported with the *adegenet* function `import2genind`. If your data is in a custom format that has the basic form where individuals are in rows and each locus is in a separate column, then you can import your data using the base function `read.table` and then use the *adegenet* function `df2genind` to translate it to a genind object. Note that for polyploid data, it is still important to code your missing data as `0`. 
 
-Population Hierarchies
+Population hierarchies
 ----
 
 Many data formats do not allow the inclusion of more than one population level. When sampling microbes such as filamentous fungi, it is often not possible to know the true population structure *a priori* and so a hierarchical sampling approach is necessary. In order to get around the limitation of having one population level per data set, we suggest concatenating the different hierarchical levels into a single column by a common separator ("\_" by default). Here's an example of the three hierarchical levels of the `monpop` data set before:

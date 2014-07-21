@@ -17,7 +17,7 @@ This chapter introduces basic use of and navigation in *poppr* as well as good p
 For these examples, we will be using a data set that is already built into *poppr* containing 86 individuals of *Phytophthora infestans* genotyped over 11 microsatellite loci `r citep(bib['goss2014irish'])`
 
 
-Analyzing the genotype accumulation curve
+The genotype accumulation curve
 -----
 
 A genotype accumulation curve is a tool that allows you to assess how much power you have to discriminate between unique individuals given a random sample of $n$ loci. This analysis is particularly important for clonal organisms to confirm that a plateau has been reached in the number of loci necessary to discriminate individuals. Below, we will analyze the `Pinf` data set. 

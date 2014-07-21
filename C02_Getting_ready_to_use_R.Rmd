@@ -120,7 +120,7 @@ Our primer is heavily based on the *poppr* and *adegenet* packages. To get help 
 ```
 
 
-Some useful resources to learn R:
+Some useful resources to learn R
 -----
 
 *Free resources*:

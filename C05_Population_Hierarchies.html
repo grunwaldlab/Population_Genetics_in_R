@@ -159,7 +159,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#working-with-hierarchical-data">Working with hierarchical data</a></li>
 <li><a href="#importing-data-labeled-according-to-a-hierarchy">Importing data labeled according to a hierarchy</a></li>
 <li><a href="#assigning-hierarchical-levels">Assigning hierarchical levels</a></li>
-<li><a href="#clone-correction">Clone Correction</a></li>
+<li><a href="#clone-correction">Clone correction</a></li>
 <li><a href="#conclusions">Conclusions</a></li>
 <li><a href="#references">References</a></li>
 </ul>
@@ -276,7 +276,7 @@ monpop</code></pre>
 ##      8 populations defined - BB_7 BB_26 FR_26 ... BB_79 FR_79 FR_45</code></pre>
 </div>
 <div id="clone-correction" class="section level2">
-<h2>Clone Correction</h2>
+<h2>Clone correction</h2>
 <p>Clone correction is a method of masking repeated genotypes in your data as a way of reducing bias. This technique is commonly use with the analysis of the index of association as it will report more significant values with the presence of duplicated genotypes. Clone correction in <em>poppr</em> relies upon the knowledge of the hierarchical levels in order to work. You should never clone correct your data unless you know why and how you are clone correcting it.</p>
 <p>Conceptually, you want to clone correct using your hierarchical levels based on what you want to analyze and what the biology of the organism is. Using our data above as an example, if we wanted to know the diversity of alleles within each tree per year, how should we go about correcting for the clones? We use the function <code>clonecorrect</code> thusly:</p>
 <pre class="r"><code>mcc_TY &lt;- clonecorrect(monpop, hier = ~Tree/Year, keep = 1:2)
