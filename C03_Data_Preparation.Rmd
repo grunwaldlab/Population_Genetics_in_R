@@ -33,8 +33,8 @@ the first two columns are reserved for the individual names and population names
 respectively. The examples we will be using are codominant data, but AFLP data
 is also accepted. 
 
-To start simple, let's examine the input file for the `monpop` data set containg
-694 isolates of *Monolinia fructicola* genotyped over 13 haploid loci 
+To start simple, let's examine the input file for the `monpop` data set containing
+694 isolates of the plant pathogen *Monilinia fructicola* genotyped over 13 haploid loci 
 `r citep(bib["everhart2014finescale"])`. This is a data set that lives within
 the *poppr* package and can be loaded with the following command:
 

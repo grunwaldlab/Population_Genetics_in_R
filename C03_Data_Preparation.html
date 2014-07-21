@@ -161,12 +161,12 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </ul>
 </div>
 
-<p>This section will briefly go over the basics of data import into <em>poppr</em>. For this section, we will focus on the GenAlEx format. Other formats are supported and details are given in the R help page for the <em>adegenet</em> function <code>import2genind</code>. We will show examples of haploid, diploid, and polyploid data sets and show you how you can format your data if it’s grouped by multiple hierarchical levels.</p>
+<p>This section will briefly go over the basics of data import into <em>poppr</em>. For this section, we will focus on the GenAlEx format. Other formats are supported and details are given in the R help page for the <em>adegenet</em> function <code>import2genind</code>. We will show examples of haploid, diploid, and polyploid data sets and show you how you can format your data if it’s grouped into multiple hierarchical levels.</p>
 <div id="genalex-data-format" class="section level2">
 <h2>GenAlEx data format</h2>
 <p>GenAlEx is a very popular add-on for Microsoft Excel. It is relatively easy to use because of its familiar, menu-driven interface. It also gives the user the option to include information on population groupings, regional groupings, and xy coordinates. The flexibility of this format made it a clear choice for import into <em>poppr</em>.</p>
 <p>The data format is standard in that individuals are defined in the rows and loci are defined in the columns. The first two rows are reserved for metadata and the first two columns are reserved for the individual names and population names, respectively. The examples we will be using are codominant data, but AFLP data is also accepted.</p>
-<p>To start simple, let’s examine the input file for the <code>monpop</code> data set containg 694 isolates of <em>Monolinia fructicola</em> genotyped over 13 haploid loci <span class="citation">(Everhart &amp; Scherm, 2014)</span>. This is a data set that lives within the <em>poppr</em> package and can be loaded with the following command:</p>
+<p>To start simple, let’s examine the input file for the <code>monpop</code> data set containing 694 isolates of the plant pathogen <em>Monilinia fructicola</em> genotyped over 13 haploid loci <span class="citation">(Everhart &amp; Scherm, 2014)</span>. This is a data set that lives within the <em>poppr</em> package and can be loaded with the following command:</p>
 <pre class="r"><code>library(poppr)
 data(monpop)
 monpop</code></pre>
