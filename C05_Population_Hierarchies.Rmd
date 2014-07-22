@@ -90,7 +90,7 @@ mcc_TY
 setpop(monpop) <- ~Tree/Year
 ```
 
-Now we can compare the diversity of alleles at each locus using Simpson's index:
+Now we can compare the diversity of alleles at each locus using Simpson's index ($1-D$):
 
 ```{r, simpdiv}
 cc <- locus_table(mcc_TY, info = FALSE)
@@ -117,7 +117,7 @@ for (i in pops){
 par(mfrow = c(1, 1))
 ```
 
-We can see that the allelic diversity declines unless clone correction is implemented.
+These barplots show the difference in Simpson's index of original minus clone corrected data for each population per locus. We can see that  allelic diversity generally is lower in the total data set (containing some repeated MLGs) relative to clone corrected data.
 
 
 Conclusions
