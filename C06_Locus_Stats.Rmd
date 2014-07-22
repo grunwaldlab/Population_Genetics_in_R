@@ -180,8 +180,10 @@ Hardy-Weinberg equilibrium
 Next, let's determine if our  populations are in Hardy-Weinberg equilibrium. We will again use the nancycats data to test for HWE using genind objects, a dataframe particular to the *adegenet* R package: 
 
 ```{r, hwe}
-if (!require(genetics)) 
+if (!require("genetics")){ 
   install.packages("genetics", repos = "http://cran.at.r-project.org")
+  require("genetics")
+}
 nanhwe.full <- HWE.test.genind(nancycats) # returns a list
 nanhwe.mat  <- HWE.test.genind(nancycats, res.type = "matrix") # returns a matrix
 ```
