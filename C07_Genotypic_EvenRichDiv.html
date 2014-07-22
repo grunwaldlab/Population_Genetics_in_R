@@ -154,7 +154,6 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="TOC">
 <ul>
-<li><a href="#introduction">Introduction</a></li>
 <li><a href="#genotypic-richness">Genotypic richness</a></li>
 <li><a href="#genotypic-diversity">Genotypic diversity</a></li>
 <li><a href="#genotypic-evenness">Genotypic evenness</a></li>
@@ -163,9 +162,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </ul>
 </div>
 
-<div id="introduction" class="section level2">
-<h2>Introduction</h2>
-<p>In Chapter 3, we introduced basic summary statistics that can be calculated using <em>poppr</em>. For this chapter, we want to specifically focus on how to evaluate genotypic richness, diversity, and evenness in your data. In this example, we’ll examine the monpop microsatellite data for 13 loci of 694 individuals of the haploid fungal pathogen <em>Monilinia fructicola</em> that infects peach flowers and fruits in commercial orchards.</p>
+<p>In Chapter 4, we introduced basic summary statistics that can be calculated using <em>poppr</em>. For this chapter, we want to specifically focus on how to evaluate genotypic richness, diversity, and evenness in your data. In this example, we’ll examine the monpop microsatellite data for 13 loci of 694 individuals of the haploid fungal pathogen <em>Monilinia fructicola</em> that infects peach flowers and fruits in commercial orchards.</p>
 <p>For this example, we can explore the hypothesis that the population that infects flowers and yields blighted blossoms (BB) is from a more genetically diverse pool (being a product of overwintering, sexual recombination), than the population that infects and causes fruit rots (FR), which is likely a product of asexual production from existing infections in the orchard. As such, we can ask the following questions:</p>
 <ul>
 <li>Is genotypic richness of BB populations higher than for FR populations?</li>
@@ -214,7 +211,6 @@ monpop</code></pre>
 <li><code>Ia</code> - The index of association, <span class="math">\(I_A\)</span> <span class="citation">(Brown, Feldman &amp; Nevo, 1980; Smith et al., 1993)</span>.</li>
 <li><code>rbarD</code> - The standardized index of association, <span class="math">\(\bar{r}_d\)</span> <span class="citation">(Agapow &amp; Burt, 2001)</span>.</li>
 </ul>
-</div>
 <div id="genotypic-richness" class="section level2">
 <h2>Genotypic richness</h2>
 <p>The number of observed <span class="math">\(MLGs\)</span> is equivalent to genotypic richness. We expect that the BB population would have a higher genotypic richness than the FR population. However, looking at the raw number of MLGs for each symptom type, it shows us the opposite: there are 94 MLGs for BB and 191 MLGs for FR. This discrepancy has to do with the sample size, where we <span class="math">\(N\)</span> = 113 for BB and <span class="math">\(N\)</span> = 581 for FR. The more appropriate comparison is the <span class="math">\(eMLG\)</span> value, which is an approximation of the number of genotypes that would be observed at the smallest sample size (<span class="math">\(N\)</span> = 113) based on rarefaction. For BB (<span class="math">\(N\)</span>=113) the <span class="math">\(eMLG\)</span> = 94 and for FR (where <span class="math">\(N\)</span> is set to 113) the <span class="math">\(eMLG\)</span> = 66.6. Thus, genotypic richness is indeed higher in the BB populations than the FR population when considering equal sample sizes.</p>

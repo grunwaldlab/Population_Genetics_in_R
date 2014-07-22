@@ -154,7 +154,6 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="TOC">
 <ul>
-<li><a href="#introduction">Introduction</a></li>
 <li><a href="#data-set">Data set</a></li>
 <li><a href="#analysis">Analysis</a></li>
 <li><a href="#significance-testing">Significance testing</a></li>
@@ -164,8 +163,6 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </ul>
 </div>
 
-<div id="introduction" class="section level2">
-<h2>Introduction</h2>
 <p>In this chapter, we will utilize AMOVA to analyze our populations. AMOVA stands for <strong>A</strong>nalysis of <strong>MO</strong>lecular <strong>VA</strong>riance and is a method to detect population differentiation utilizing molecular markers <span class="citation">(Excoffier, Smouse &amp; Quattro, 1992)</span>. This procedure was initially implemented for DNA haplotypes, but applies to any marker system. <em>Poppr</em>’s implementation of AMOVA requires two very basic components: A distance matrix derived from the data and a separate table used to partition the data into different hierarchical levels.</p>
 <p>The distance matrix can be calculated using any distance as long as it is euclidean. The distance that is used in the program Arlequin is the opposite of the Kronecker Delta function that counts the number of differences summed over <span class="math">\(L\)</span> loci:</p>
 <p><span class="math">\[
@@ -176,7 +173,6 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 \]</span> <span class="math">\[
 d_{i,j} = \sum_{L = 1}^L 1 - \delta_{i,j}
 \]</span></p>
-</div>
 <div id="data-set" class="section level2">
 <h2>Data set</h2>
 <p>To calculate AMOVA in <em>poppr</em>, one simply needs to supply a data set with hierarchical levels. We will use the <em>Aphanomyces euteiches</em> data set from <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>.</p>

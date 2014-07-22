@@ -1,4 +1,4 @@
-```{r,message=FALSE,echo=FALSE}
+ ```{r,message=FALSE,echo=FALSE}
   library(knitcitations)
   library(knitr)
   cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
@@ -31,7 +31,7 @@ a published reference. Likely, the source paper is [here](http://dx.doi.org/10.1
 Microsatellite (triploid, sexual/clonal): **Pinf**
 ----
 
-This microsatellite data comes from a larger data set of popualtions of *Phytophthora infestans*`r citep(bib["goss2014irish"])`. It contains 86 individuals representing 72 multilocus genotypes that have been genotyped over 11 loci. They are grouped by continent and country. This data set is used to demonstrate clone correction and linkage disequilibrium.
+This microsatellite data comes from a larger data set of popualtions of *Phytophthora infestans* `r citep(bib["goss2014irish"])`. It contains 86 individuals representing 72 multilocus genotypes that have been genotyped over 11 loci. They are grouped by continent and country. This data set is used to demonstrate clone correction and linkage disequilibrium.
 
 SNP (haploid, clonal): **H3N2**
 ----

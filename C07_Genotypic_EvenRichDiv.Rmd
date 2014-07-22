@@ -15,10 +15,7 @@
 title: '7: Genotypic richness, diversity, and evenness'
 ---
 
-Introduction
------
-
-In Chapter 3, we introduced basic summary statistics that can be calculated using *poppr*.  For this chapter, we want to specifically focus on how to evaluate genotypic richness, diversity, and evenness in your data.  In this example, we'll examine the monpop microsatellite data for 13 loci of 694 individuals of the haploid fungal pathogen *Monilinia fructicola* that infects peach flowers and fruits in commercial orchards. 
+In Chapter 4, we introduced basic summary statistics that can be calculated using *poppr*.  For this chapter, we want to specifically focus on how to evaluate genotypic richness, diversity, and evenness in your data.  In this example, we'll examine the monpop microsatellite data for 13 loci of 694 individuals of the haploid fungal pathogen *Monilinia fructicola* that infects peach flowers and fruits in commercial orchards. 
 
 For this example, we can explore the hypothesis that the population that infects flowers and yields blighted blossoms (BB) is from a more genetically diverse pool (being a product of overwintering, sexual recombination), than the population that infects and causes fruit rots (FR), which is likely a product of asexual production from existing infections in the orchard. As such, we can ask the following questions:
 

@@ -14,9 +14,6 @@
 title: "10: AMOVA"
 ---
 
-Introduction
-----
-
 In this chapter, we will utilize AMOVA to analyze our populations. AMOVA stands
 for **A**nalysis of **MO**lecular **VA**riance and is a method to detect
 population differentiation utilizing molecular markers `r citep(bib[c("excoffier1992analysis")])`. This procedure was initially implemented for DNA haplotypes, but applies to any marker system. *Poppr*'s implementation of AMOVA requires two very basic components: A distance matrix derived from the data and a separate table used to partition the data into different hierarchical levels.
