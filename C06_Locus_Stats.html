@@ -115,9 +115,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
                <li><a href="Preface.html">i. Preface</a></li>
                <li><a href="C01_Introduction.html">1. Introduction</a></li>
                <li><a href="C02_Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
-               <li><a href="C03_Data_Preparation.html">3. Data Preparation</a></li>
+               <li><a href="C03_Data_Preparation.html">3. Data preparation</a></li>
                <li><a href="C04_First_Steps.html">4. First steps</a></li>
-               <li><a href="C05_Population_Hierarchies.html">5. Population hierarchies</a></li>
+               <li><a href="C05_Population_Hierarchies.html">5. Population hierarchies and clone correction</a></li>
                <li><a href="C06_Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
                <li><a href="C07_Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
                <li><a href="C08_Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
@@ -422,8 +422,10 @@ nan1mean &lt;- missingno(nan1, &quot;mean&quot;)</code></pre>
 <div id="hardy-weinberg-equilibrium" class="section level2">
 <h2>Hardy-Weinberg equilibrium</h2>
 <p>Next, let’s determine if our populations are in Hardy-Weinberg equilibrium. We will again use the nancycats data to test for HWE using genind objects, a dataframe particular to the <em>adegenet</em> R package:</p>
-<pre class="r"><code>if (!require(genetics)) 
+<pre class="r"><code>if (!require(&quot;genetics&quot;)){ 
   install.packages(&quot;genetics&quot;, repos = &quot;http://cran.at.r-project.org&quot;)
+  require(&quot;genetics&quot;)
+}
 nanhwe.full &lt;- HWE.test.genind(nancycats) # returns a list
 nanhwe.mat  &lt;- HWE.test.genind(nancycats, res.type = &quot;matrix&quot;) # returns a matrix</code></pre>
 <p>The full report (<code>nanhwe.full</code>) will give us a list of loci, each containing a list of populations, where each population is the result of a <span class="math">\(\chi^2\)</span> test. We will analyze data for a few loci to avoid writing a large amount of data to the screen. With the following statements, we can see that at locus1 (<code>fca8</code>), we have no good evidence to reject the null hypothesis that population 1 (<code>P01</code>) is not in HWE, but we have evidence that population 2 (<code>P02</code>) is not in HWE:</p>
