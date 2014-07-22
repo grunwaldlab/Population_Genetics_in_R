@@ -103,7 +103,7 @@ xtable::print.xtable(x, type = "html", include.rownames = FALSE,
   				 html.table.attributes = "border=2 cellpadding=5 align=center")
 ```
 
-resulting in defintion for use in *poppr* as:
+resulting in definition for use in *poppr* as:
 
 ```{r, echo = FALSE, results='asis'}
 x <-head(gethierarchy(monpop, ~Tree/Year/Symptom)[3])
