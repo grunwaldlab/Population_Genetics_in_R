@@ -127,7 +127,7 @@ Aeutccsignif
 
 The above graphs show significant population differentiation at all levels given that the observed $\phi$ does not fall within the distribution expected from the permutation. Compare the results of our AMOVA analysis to those published in `r citep(bib["grunwald2006hierarchical"])`. They should be identical. 
 
-Random population structure
+Randomized population structure
 ----
 
 Since AMOVA is used to detect whether or not there is significant population
