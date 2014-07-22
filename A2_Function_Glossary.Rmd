@@ -1,5 +1,7 @@
 ```{r,message=FALSE,echo=FALSE}
   library(knitcitations)
+  library(knitr)
+  cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
   bib <- read.bibtex("bibtexlib.bib")
   opts_chunk$set(tidy = FALSE)
 ```
@@ -102,8 +104,10 @@ Function | Description
 `mlg.crosspop` | Finds all multilocus genotypes that cross populations
 `mlg.table` | Returns a table of populations by multilocus genotypes
 `mlg.vector` | Returns a vector of a numeric multilocus genotype assignment for each individual
+`mlg.id` | Finds all individuals associated with each multilocus genotype
 `poppr` | Returns a diversity table by population
 `poppr.all` | Returns a diversity table by population for all compatible files specified
+`private_alleles` | Tabulates the occurences of alleles that only occur in one population
 
 ### Visualization
 Function | Description    
@@ -113,3 +117,4 @@ Function | Description
 `bruvo.msn` | Produces minimum spanning networks based off Bruvo’s distance colored by population
 `poppr.msn` | Produces a minimum spanning network for any pairwise distance matrix related to the data
 `info_table` | Creates a heatmap representing missing data or observed ploidy
+`genotype_curve` | Creates a series of boxplots to demonstrate how many markers are needed to represent the diversity of your data

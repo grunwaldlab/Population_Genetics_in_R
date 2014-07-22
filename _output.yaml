@@ -12,3 +12,7 @@ html_document:
     in_header: include/in_header.html
     before_body: include/before_body.html
     after_body: include/after_body.html
+  pandoc_args: [
+    "--biblio", "bibtexlib.bib",
+    "--csl", "styles/peerj-mod.csl"
+    ]

@@ -18,12 +18,25 @@
 <link href="libs/bootstrap-2.3.2/css/readable.min.css" rel="stylesheet" />
 <link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
 <script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-52691601-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
 <style type="text/css">
 
 /* padding for bootstrap navbar */
 body {
   padding-top: 50px;
   padding-bottom: 40px;
+  padding-right: 50px;
+  padding-left: -50px;
 }
 @media (max-width: 979px) {
   body {
@@ -96,21 +109,21 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
       <a class="brand" href="index.html"><b>Population Genetics in R</b></a>
       <div class="nav-collapse collapse">
         <ul class="nav">
-          <li><a href="TOC.html">Home</a></li>
           <li class="dropdown">
             <a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>
             <ul class="dropdown-menu">
-               <li><a href="Foreword.html">i. Preface</a></li>
-               <li><a href="C1_Introduction.html">1. Introduction</a></li>
-               <li><a href="C2_Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
-               <li><a href="C3_Data_format_loading.html">3. First steps</a></li>
-               <li><a href="C4_Population_Hierarchies.html">4. Population hierarchies</a></li>
-               <li><a href="C5_Locus_Stats.html">5. Locus-based statistics and missing data</a></li>
-               <li><a href="C6_Genotypic_EvenRichDiv.html">6. Genotypic evenness, richness, and diversity</a></li>
-               <li><a href="C7_Linkage_disequilibrium.html">7. Linkage disequilibrium</a></li>
-               <li><a href="C8_Pop_Structure.html">8. Population structure</a></li>
-               <li><a href="C9_AMOVA.html">9. AMOVA</a></li>
-               <li><a href="C10_DAPC.html">10. Discriminant analysis of principal components (DAPC)</a></li>
+               <li><a href="Preface.html">i. Preface</a></li>
+               <li><a href="C01_Introduction.html">1. Introduction</a></li>
+               <li><a href="C02_Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
+               <li><a href="C03_Data_Preparation.html">3. Data Preparation</a></li>
+               <li><a href="C04_First_Steps.html">4. First steps</a></li>
+               <li><a href="C05_Population_Hierarchies.html">5. Population hierarchies</a></li>
+               <li><a href="C06_Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
+               <li><a href="C07_Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
+               <li><a href="C08_Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
+               <li><a href="C09_Pop_Structure.html">9. Population structure</a></li>
+               <li><a href="C10_AMOVA.html">10. AMOVA</a></li>
+               <li><a href="C11_DAPC.html">11. Discriminant analysis of principal components (DAPC)</a></li>
                </ul>
             </li>
           <li class="dropdown">
@@ -141,12 +154,16 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 
 <p>By <a href="Authors.html"><em>Niklaus J. Grünwald, Zhian N. Kamvar, and Sydney E. Everhart</em></a></p>
-<p>Welcome! This primer provides a concise introduction to conducting applied analyses of population genetic data in R, with a special emphasis on non-model populations including clonal or partially clonal organisms. It provides a valuable resource for tackling the nitty-gritty analysis of populations that do not necessarily conform to textbook genetics and might or might not be in Hardy-Weinberg equilibrium and panmixia. While this primer does not require extensive knowledge of programming in R, the user is expected to install R and all packages required for this primer. <em>It is important to note that this is still a work in progress and some content might change in the near future.</em></p>
+<p>Welcome! This primer provides a concise introduction to conducting applied analyses of population genetic data in R, with a special emphasis on non-model populations including clonal or partially clonal organisms. It provides a valuable resource for tackling the nitty-gritty analysis of populations that do not necessarily conform to textbook genetics and might or might not be in Hardy-Weinberg equilibrium. While this primer does not require extensive knowledge of programming in R, the user is expected to install R and all packages required for this primer.</p>
+<p>Please note that this primer is still being written and will be changing as we continue writing it. Please provide us feedback on any errors you might find or suggestions for improvement. The primer is currently published <a href="http://grunwaldlab.github.io/Population_Genetics_in_R/">here</a>.</p>
 <p>© 2014, Corvallis, Oregon, USA</p>
 <blockquote>
 <p><em>I was really impressed with what you’ve accomplished with [poppr], it is very thoughtful and addressed a number of things I never considered but which many pop gen folks that I know deal with all the time and complain about. I think it is going to be very well received by the community.</em></p>
 </blockquote>
 <p>– Andy Jones, Assistant Professor, Oregon State University</p>
+<div class="references">
+
+</div>
 
 </div>
 </div>
