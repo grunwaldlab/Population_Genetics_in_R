@@ -11,11 +11,9 @@
 title: "5: Populations hierarchies: subsetting and clone correction"
 ---
 
-Introduction
------
-Populations are best sampled hierarchically on a range of scales from subpopulations (e.g. fields, valleys, ranges) to regions (e.g. valleys, states, countries or continents). This approach is useful because population structure and evolutionary processes may not be discernible *a priori*. Most of the times we do not know if population are differentiated locally, regionally or globally.  Thus, a combination of targeted local sampling with sampling over larger scales is necessary to detect population structure over different scales, without using intense sampling throughout the entire range.  
+Populations are best sampled hierarchically on a range of scales from subpopulations (e.g. fields, valleys, ranges) to regions (e.g. valleys, states, countries or continents) or across time (years or decades). This approach is useful because population structure and evolutionary processes may not be discernible *a priori*. Most of the times we do not know if population are differentiated locally, regionally or globally or in time.  Thus, a combination of targeted local sampling with sampling over larger spatial or temporal scales is necessary to detect population structure over different scales, without using intense sampling throughout the entire range.  
 
-The methods implemented in *poppr* allow specification of which hierarchies you want to analyze.  This is a rapid way of working with subsets of your data without having to perform any data manipulation or changing the input file.  In this tutorial, we'll show you how to define the hierarchical structure of your data, following which, we'll show you how to specify the hierarchical levels that you might want to analyze.
+The methods implemented in *poppr* allow specification of which hierarchies you want to analyze.  This is a rapid way of working with subsets of your data without having to perform any data manipulation or changing the input file.  In this tutorial, we will show you how to define the hierarchical structure of your data and  how to specify specific levels that you might want to analyze.
 
 Data used in this example
 ----
@@ -32,7 +30,7 @@ The steps for working with hierarchical data include:
 
 Importing data labeled according to a hierarchy
 ----
-The easiest way to work with hierarchical data is to label each sample accordingly, using an underscore "\_" to separate each category.  This was already done for the monpop data, where each sample was coded with which tree, year, and symptom it came from in the following format: "Tree\_Year\_Symptom". 
+The easiest way to work with hierarchical data is to label each sample using an underscore "\_" to separate each hierarchical level.  This was already done for the monpop data, where each sample was coded hierarchically by tree, year, and symptom in the following format: "Tree\_Year\_Symptom". 
 
 Let's load the hierarchically labeled example data:
 ```{r}
@@ -42,11 +40,11 @@ monpop
 ```
 
 
-**Genotype information** shows us that the data contains 264 multilocus genotypes among 694 haploid individuals with 13 loci. **Population information** has two items, the hierarchical levels and the populations defined.  You can think of hierarchical levels as the index names for each of the hierarchical levels within your data (so for our date it should be Tree, Year, and Symptom).  By default, however, no hierarchical levels are defined and so this is "Pop", which is the entire dataset of 694 individuals.  Because we labeled each sample according to hierarchical level, populations defined shows us our data has 12 groups defined: `r monpop$pop.names`.  
+**Genotype information** shows us that the data contains 264 multilocus genotypes among 694 haploid individuals with 13 loci. **Population information** has two items, the hierarchical levels and the populations defined.  You can think of hierarchical levels as the index names for each of the hierarchical levels within your data (so for our data it should be Tree, Year, and Symptom).  By default, however, no hierarchical levels are defined and so this is "Pop", which is the entire dataset of 694 individuals.  Because we labeled each sample according to hierarchical level, populations defined shows us our data has 12 groups defined: `r monpop$pop.names`.  
 
 Assigning hierarchical levels
 ----
-We imported the data that has three hierarchical levels "Tree\_Year\_Symptom". In order to analyze our data according to any combination of those three hierarchical levels, we need to tell *poppr* that the 12 groups should be split by tree, year, and symptom.  Thus, the first step is to split our data according to hierarchy so that we can access each of the three hierarchical levels in the data.  The `splithierarchy` command is used to index the three hierarchical levels:
+We imported the data that has three hierarchical levels "Tree\_Year\_Symptom". In order to analyze our data according to any combination of those three hierarchical levels, we need to tell *poppr* that the 12 groups should be split by tree, year, and/or symptom.  Thus, the first step is to split our data according to hierarchy so that we can access each of the three hierarchical levels in the data.  The `splithierarchy` command is used to index the three hierarchical levels:
 
 
 ```{r}
@@ -78,18 +76,13 @@ monpop
 Clone correction
 ----
 
-Clone correction is a method of masking repeated genotypes in your data as a way
-of reducing bias. This technique is commonly use with the analysis of the index
-of association as it will report more significant values with the presence of 
-duplicated genotypes. Clone correction in *poppr* relies upon the knowledge of
-the hierarchical levels in order to work. You should never clone correct your
-data unless you know why and how you are clone correcting it.
+When dealing wtih a clonal population analyses are typically conducted with and without clone corrections. Clone correction results in retaining only one individual per MLG. This technique is commonly used with the analysis of the index
+of association. Clone correction requires specification of
+the hierarchical levels at which clones should be censored. 
 
-Conceptually, you want to clone correct using your hierarchical levels based on
-what you want to analyze and what the biology of the organism is. Using our data
-above as an example, if we wanted to know the diversity of alleles within each
+Using $monpop$ an example, if we wanted to know the diversity of alleles within each
 tree per year, how should we go about correcting for the clones? We use the 
-function `clonecorrect` thusly:
+function `clonecorrect` specifying the "Tree/Year" hierarchy:
 
 ```{r, clonecorrection}
 mcc_TY <- clonecorrect(monpop, hier = ~Tree/Year, keep = 1:2)

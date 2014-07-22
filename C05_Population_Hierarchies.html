@@ -154,7 +154,6 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="TOC">
 <ul>
-<li><a href="#introduction">Introduction</a></li>
 <li><a href="#data-used-in-this-example">Data used in this example</a></li>
 <li><a href="#working-with-hierarchical-data">Working with hierarchical data</a></li>
 <li><a href="#importing-data-labeled-according-to-a-hierarchy">Importing data labeled according to a hierarchy</a></li>
@@ -165,11 +164,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </ul>
 </div>
 
-<div id="introduction" class="section level2">
-<h2>Introduction</h2>
 <p>Populations are best sampled hierarchically on a range of scales from subpopulations (e.g. fields, valleys, ranges) to regions (e.g. valleys, states, countries or continents). This approach is useful because population structure and evolutionary processes may not be discernible <em>a priori</em>. Most of the times we do not know if population are differentiated locally, regionally or globally. Thus, a combination of targeted local sampling with sampling over larger scales is necessary to detect population structure over different scales, without using intense sampling throughout the entire range.</p>
-<p>The methods implemented in <em>poppr</em> allow specification of which hierarchies you want to analyze. This is a rapid way of working with subsets of your data without having to perform any data manipulation or changing the input file. In this tutorial, we’ll show you how to define the hierarchical structure of your data, following which, we’ll show you how to specify the hierarchical levels that you might want to analyze.</p>
-</div>
+<p>The methods implemented in <em>poppr</em> allow specification of which hierarchies you want to analyze. This is a rapid way of working with subsets of your data without having to perform any data manipulation or changing the input file. In this tutorial, we’ll show you how to define the hierarchical structure of your data and how to specify specific levels that you might want to analyze.</p>
 <div id="data-used-in-this-example" class="section level2">
 <h2>Data used in this example</h2>
 <p>For this example, we will use the <code>monpop</code> data set <span class="citation">(Everhart &amp; Scherm, 2014)</span>. This microsatellite data consists of 13 loci for 694 individuals of the haploid fungal pathogen <em>Monilinia fructicola</em> that infects peach flowers and fruits in commercial orchards. The monpop population came from four trees within a single orchard (trees 26, 45, and 7). Each tree was sampled in 2009, 2010, and/or 2011. Additionally, each sample was noted as to whether it came from a blossom or a fruit. This example data set is included with the <em>poppr</em> package.</p>
@@ -185,7 +181,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 <div id="importing-data-labeled-according-to-a-hierarchy" class="section level2">
 <h2>Importing data labeled according to a hierarchy</h2>
-<p>The easiest way to work with hierarchical data is to label each sample accordingly, using an underscore “_” to separate each category. This was already done for the monpop data, where each sample was coded with which tree, year, and symptom it came from in the following format: “Tree_Year_Symptom”.</p>
+<p>The easiest way to work with hierarchical data is to label each sample accordingly, using an underscore “_” to separate each category. This was already done for the monpop data, where each sample was coded hierarchically by tree, year, and symptom in the following format: “Tree_Year_Symptom”.</p>
 <p>Let’s load the hierarchically labeled example data:</p>
 <pre class="r"><code>library(poppr)
 data(monpop)
@@ -204,11 +200,11 @@ monpop</code></pre>
 ##      1 hierarchical level - Pop
 ##     12 populations defined - 7_09_BB 26_09_BB 26_09_FR ... 45_10_FR 
 ## 26_11_BB 26_11_FR</code></pre>
-<p><strong>Genotype information</strong> shows us that the data contains 264 multilocus genotypes among 694 haploid individuals with 13 loci. <strong>Population information</strong> has two items, the hierarchical levels and the populations defined. You can think of hierarchical levels as the index names for each of the hierarchical levels within your data (so for our date it should be Tree, Year, and Symptom). By default, however, no hierarchical levels are defined and so this is “Pop”, which is the entire dataset of 694 individuals. Because we labeled each sample according to hierarchical level, populations defined shows us our data has 12 groups defined: 7_09_BB, 26_09_BB, 26_09_FR, 7_09_FR, 26_10_BB, 45_10_BB, 79_10_BB, 79_10_FR, 26_10_FR, 45_10_FR, 26_11_BB, 26_11_FR.</p>
+<p><strong>Genotype information</strong> shows us that the data contains 264 multilocus genotypes among 694 haploid individuals with 13 loci. <strong>Population information</strong> has two items, the hierarchical levels and the populations defined. You can think of hierarchical levels as the index names for each of the hierarchical levels within your data (so for our data it should be Tree, Year, and Symptom). By default, however, no hierarchical levels are defined and so this is “Pop”, which is the entire dataset of 694 individuals. Because we labeled each sample according to hierarchical level, populations defined shows us our data has 12 groups defined: 7_09_BB, 26_09_BB, 26_09_FR, 7_09_FR, 26_10_BB, 45_10_BB, 79_10_BB, 79_10_FR, 26_10_FR, 45_10_FR, 26_11_BB, 26_11_FR.</p>
 </div>
 <div id="assigning-hierarchical-levels" class="section level2">
 <h2>Assigning hierarchical levels</h2>
-<p>We imported the data that has three hierarchical levels “Tree_Year_Symptom”. In order to analyze our data according to any combination of those three hierarchical levels, we need to tell <em>poppr</em> that the 12 groups should be split by tree, year, and symptom. Thus, the first step is to split our data according to hierarchy so that we can access each of the three hierarchical levels in the data. The <code>splithierarchy</code> command is used to index the three hierarchical levels:</p>
+<p>We imported the data that has three hierarchical levels “Tree_Year_Symptom”. In order to analyze our data according to any combination of those three hierarchical levels, we need to tell <em>poppr</em> that the 12 groups should be split by tree, year, and/or symptom. Thus, the first step is to split our data according to hierarchy so that we can access each of the three hierarchical levels in the data. The <code>splithierarchy</code> command is used to index the three hierarchical levels:</p>
 <pre class="r"><code>splithierarchy(monpop) &lt;- ~Tree/Year/Symptom
 monpop</code></pre>
 <pre><code>## 
