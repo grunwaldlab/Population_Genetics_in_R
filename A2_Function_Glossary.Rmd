@@ -108,6 +108,7 @@ Function | Description
 `poppr` | Returns a diversity table by population
 `poppr.all` | Returns a diversity table by population for all compatible files specified
 `private_alleles` | Tabulates the occurences of alleles that only occur in one population
+`locus_table` | Create a table of summary statistics per locus
 
 ### Visualization
 Function | Description    
