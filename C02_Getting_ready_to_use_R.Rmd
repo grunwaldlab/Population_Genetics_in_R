@@ -128,6 +128,7 @@ Some useful resources to learn R
  - [Code School Try R](https://www.codeschool.com/courses/try-r) is a nice interactive tutorial. 
  - [Quick R](http://www.statmethods.net/interface/help.html)
  - [R reference card](http://cran.r-project.org/doc/contrib/Short-refcard.pdf)
+ - [Introduction to R](http://ateucher.github.io/rcourse_site/index.html)
 
 *Books*:
 
