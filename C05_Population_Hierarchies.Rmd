@@ -76,11 +76,11 @@ monpop
 Clone correction
 ----
 
-When dealing wtih a clonal population analyses are typically conducted with and without clone corrections. Clone correction results in retaining only one individual per MLG. This technique is commonly used with the analysis of the index
+When dealing wtih a clonal populations, analyses are typically conducted with and without clone corrections. Clone correction results in retaining only one individual per MLG. This technique is commonly used with the analysis of the index
 of association. Clone correction requires specification of
 the hierarchical levels at which clones should be censored. 
 
-Using $monpop$ an example, if we wanted to know the diversity of alleles within each
+Using `monpop` as an example, if we wanted to know the diversity of alleles within each
 tree per year, how should we go about correcting for the clones? We use the 
 function `clonecorrect` specifying the "Tree/Year" hierarchy:
 
