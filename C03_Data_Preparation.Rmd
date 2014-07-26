@@ -114,7 +114,6 @@ xtable::print.xtable(x, type = "html", include.rownames = FALSE,
   				 html.table.attributes = "border=2 cellpadding=5 align=center")
 ```
 
-<br>
 
 > If you do not want to concatenate your population factors into one row,
 save them as a separate csv file and use the functions `read.table` and `sethierarchy`

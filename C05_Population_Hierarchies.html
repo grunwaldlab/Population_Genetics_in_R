@@ -273,8 +273,8 @@ monpop</code></pre>
 </div>
 <div id="clone-correction" class="section level2">
 <h2>Clone correction</h2>
-<p>When dealing wtih a clonal population analyses are typically conducted with and without clone corrections. Clone correction results in retaining only one individual per MLG. This technique is commonly used with the analysis of the index of association. Clone correction requires specification of the hierarchical levels at which clones should be censored.</p>
-<p>Using <span class="math">\(monpop\)</span> an example, if we wanted to know the diversity of alleles within each tree per year, how should we go about correcting for the clones? We use the function <code>clonecorrect</code> specifying the “Tree/Year” hierarchy:</p>
+<p>When dealing wtih a clonal populations, analyses are typically conducted with and without clone corrections. Clone correction results in retaining only one individual per MLG. This technique is commonly used with the analysis of the index of association. Clone correction requires specification of the hierarchical levels at which clones should be censored.</p>
+<p>Using <code>monpop</code> as an example, if we wanted to know the diversity of alleles within each tree per year, how should we go about correcting for the clones? We use the function <code>clonecorrect</code> specifying the “Tree/Year” hierarchy:</p>
 <pre class="r"><code>mcc_TY &lt;- clonecorrect(monpop, hier = ~Tree/Year, keep = 1:2)
 mcc_TY</code></pre>
 <pre><code>## 
