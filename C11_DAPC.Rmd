@@ -10,6 +10,7 @@
 ```
 ---
 title: '11: Discriminant analysis of principal components (DAPC)'
+output: pdf_document
 ---
 
 Often we want to infer population structure by determining the number of clusters (groups) observed without prior knowledge. Several approaches can be used to infer groups such as for example K-means clustering, Bayesian clustering using STRUCTURE, and multivariate methods such as Discriminant Analysis of Principal Components (DAPC) `r citep(bib[c("jombart2010discriminant", "pritchard2000inference", "grunwald2011evolution")])`. A STRUCTURE-like approach assumes that markers are not linked and that populations are panmictic `r citep(bib[c("pritchard2000inference")])`. To use model-free methods K-means clustering based on genetic distance or DAPC are more convenient approaches for populations that are clonal or partially clonal. Here we explore DAPC further.
