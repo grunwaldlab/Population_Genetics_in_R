@@ -14,7 +14,6 @@ title: "2: Getting ready to use R"
 
 R provides a unique environment for performing population genetic analyses. You will particularly enjoy not having to switch data formats and operating systems to execute a series of analyses, as was the case until now. Furthermore, R provides graphing capabilities that are ready for use in publications, with only a little bit of extra effort. But first, let's install R, install an integrated development environment, open R, and load R packages. 
 
-
 <!---
 
 ## FOR THE SPRING 2014 WORKSHOP
@@ -45,7 +44,6 @@ in several ways:
  devtools::install_github("grunwaldlab/poppr", ref = "devel")
 ```
 ----
-
 
 ---->
 
@@ -101,40 +99,13 @@ getwd() # this command will print the current working directory
 
 > Note that the symbol '#' is used to add comments to your code and you just type `getwd()` after the ">".
 
-Other useful commands providing information on your system include:
-
-```{r, eval=FALSE}
-help(options)                                 # learn about available options
-installed.packages()[,c("Package","Version")] # list packages & versions installed
-sessionInfo()								  # displays packages currently loaded
-data(<name>, package = "package")             # load a specific data set from a specific package
-```
-
-To quit R you can either use the `Rstudio > Quit` Rstudio pull-down menu command or execute `⌘ + Q` (OS X) or `CTRL + Q` (PC). 
-
 Our primer is heavily based on the *poppr* and *adegenet* packages. To get help on any of their functions type a question mark before the empty function call as in:
 
 ```{r, eval=FALSE}
 ?mlg # open the R documentiaon of the function mlg()
 ```
 
-
-Some useful resources to learn R
------
-
-*Free resources*:
-
- - [Swirl](http://swirlstats.com/) is a very well thought out R package that teaches you interactively.
- - [Code School Try R](https://www.codeschool.com/courses/try-r) is a nice interactive tutorial. 
- - [Quick R](http://www.statmethods.net/interface/help.html)
- - [R reference card](http://cran.r-project.org/doc/contrib/Short-refcard.pdf)
- - A very nice, short [introduction to R](http://ateucher.github.io/rcourse_site/index.html)
-
-*Books*:
-
- - [R in a Nutshell](http://oreilly.com/catalog/9780596801717) 
- - [R cookbook]() is a nice quick reference and tutorial for general R use.
- - [ggplot2: Elegant Graphics for Data Analysis]() is a useful, bu dated reference if you want to customize graphs for publication. 
+To quit R you can either use the `Rstudio > Quit` pull-down menu command or execute `⌘ + Q` (OS X) or `CTRL + Q` (PC). 
 
 Packages and getting help
 ----
@@ -169,7 +140,7 @@ and to look at a specific vignette you can type:
 vignette('poppr_manual')
 ```
 
-We are now ready to think about formatting and loading data into R.
+Next, consider browsing the R tutorial chapter if you are not yet familiar with R and Rstudio. Otherwise, you are now ready to think about formatting and loading population genetic data into R. 
 
 References
 ----------
