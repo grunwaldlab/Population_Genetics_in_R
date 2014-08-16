@@ -198,10 +198,13 @@ x</code></pre>
 x</code></pre>
 <pre><code>## [1] 1 2 3 4 5</code></pre>
 <p>You can see several important traits of R. The <code>c()</code> command (which stands for combine) can be used to make a list (e.g., a vector) of data. We can overwrite the variable <code>x</code> with new content and we can assign another dataype (e.g., a single number becomes a vector). To compound things further you can even change the data type:</p>
-<pre class="r"><code>a &lt;- c(&quot;Paris, Tokyo, Seattle&quot;)
+<pre class="r"><code>a &lt;- c(&quot;Paris&quot;, &quot;Tokyo&quot;, &quot;Seattle&quot;)
 a</code></pre>
-<pre><code>## [1] &quot;Paris, Tokyo, Seattle&quot;</code></pre>
-<p>Note that we use quotes to denote the data type text as opposed to numbers.</p>
+<pre><code>## [1] &quot;Paris&quot;   &quot;Tokyo&quot;   &quot;Seattle&quot;</code></pre>
+<p>Note that we use quotes to denote the text data type.</p>
+<p>To access individual elements of a vector, in this case the second element, we use:</p>
+<pre class="r"><code>a[2]</code></pre>
+<pre><code>## [1] &quot;Tokyo&quot;</code></pre>
 </div>
 <div id="data-types" class="section level2">
 <h2>Data types</h2>
