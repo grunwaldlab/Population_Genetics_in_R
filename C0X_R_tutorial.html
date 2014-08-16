@@ -167,17 +167,17 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </ul>
 </div>
 
-<p>This chapter introduces basic use of the <a href="http://www.r-project.org">R</a> statistical and computer language and the <a href="http://www.rstudio.com/ide/">Rstudio</a> graphics user interface.</p>
+<p>This chapter introduces basic use of the <a href="http://www.r-project.org">R</a> statistical and computer language and the <a href="http://www.rstudio.com/ide/">Rstudio</a> graphics user interface. We assume you installed the needed resources mentioned in chapter 2 on getting ready to use R.</p>
 <blockquote>
-<p>You can skip this chapter if you ahve worked in R before and are comfprtable using Rstudio</p>
+<p>You can skip this chapter if you have worked in R before and are comfortable using Rstudio</p>
 </blockquote>
-<p>After installing both R and Rstudio, please proceed to open Rstudio. Rstudio should look something similar to:</p>
+<p>After installing both R and Rstudio, please proceed to open Rstudio. Rstudio should look something like:</p>
 <p><img src="images/Rstudio.tiff" alt="Rstudio" /></p>
 <p>The top left panel is a textbox where you can write a script. The bottom left panel is the console (or command line) where you directly execute commands and R writes results to the console; for example, type in <code>x &lt;- 1</code> hit return and then type <code>x</code> and hit return again and watch the console:</p>
 <pre class="r"><code>x &lt;- 1
 x</code></pre>
 <pre><code>## [1] 1</code></pre>
-<p>You just assinged the value 1 to the variable <code>x</code> with the assignment operator <span class="math">\(&lt;-\)</span>. The second command asks R to show the value assinged to R. Finally, the top right panel shows variables loaded into the enviroment and the bottom right panel is useful for loading files, plotting graphs, installing packages and getting help. Feel free to explore all the various tabs or elements of each panel.</p>
+<p>You just assigned the value 1 to the variable <code>x</code> with the assignment operator <span class="math">\(&lt;-\)</span>. The second command asks R to show the value assigned to R. Finally, the top right panel shows variables loaded into the environment and the bottom right panel is useful for loading files, plotting graphs, installing packages and getting help. Feel free to explore all the various tabs or elements of each panel.</p>
 <div id="assingment-data-types-and-operations" class="section level2">
 <h2>Assingment, data types and operations</h2>
 <p>Let’s learn a few simple facts about R:</p>
@@ -186,7 +186,7 @@ x</code></pre>
 1+1</code></pre>
 <pre><code>## [1] 2</code></pre>
 <p>This is very useful when developing reuseable code or when you want to remember a few months later what you actually did.</p>
-<p>R is case sensitive, so that <code>x = 5</code> is not the same as <code>X = x + 1</code>. Try typing this into your console and look at <code>x</code> and <code>X</code>, respectively:</p>
+<p>R is case sensitive so that <code>x = 5</code> is not the same as <code>X = x + 1</code>. Try typing this into your console and look at <code>x</code> and <code>X</code>, respectively:</p>
 <pre class="r"><code>x = 5
 X = x+1
 x</code></pre>

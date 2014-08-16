@@ -13,11 +13,11 @@ title: "Chapter X:  R tutorial"
 ---
 
 This chapter introduces basic use of the [R](http://www.r-project.org) statistical and computer language
-and the [Rstudio](http://www.rstudio.com/ide/) graphics user interface. 
+and the [Rstudio](http://www.rstudio.com/ide/) graphics user interface. We assume you installed the needed resources mentioned in chapter 2 on getting ready to use R.
 
-> You can skip this chapter if you ahve worked in R before and are comfprtable using Rstudio
+> You can skip this chapter if you have worked in R before and are comfortable using Rstudio
 
-After installing both R and Rstudio, please proceed to open Rstudio. Rstudio should look something similar to:
+After installing both R and Rstudio, please proceed to open Rstudio. Rstudio should look something like:
 
 ![Rstudio](images/Rstudio.tiff)
 
@@ -28,7 +28,7 @@ x <- 1
 x
 ```
 
-You just assinged the value 1 to the variable `x` with the assignment operator $<-$. The second command asks R to show the value assinged to R. Finally, the top right panel shows variables loaded into the enviroment and the bottom right panel is useful for loading files, plotting graphs, installing packages and getting help. Feel free to explore all the various tabs or elements of each panel. 
+You just assigned the value 1 to the variable `x` with the assignment operator $<-$. The second command asks R to show the value assigned to R. Finally, the top right panel shows variables loaded into the environment and the bottom right panel is useful for loading files, plotting graphs, installing packages and getting help. Feel free to explore all the various tabs or elements of each panel. 
 
 Assingment, data types and operations
 ---
@@ -43,7 +43,7 @@ R uses # to add comments to code:
 
 This is very useful when developing reuseable code or when you want to remember a few months later what you actually did.
 
-R is case sensitive, so that `x = 5` is not the same as  `X = x + 1`. Try typing this into your console and look at `x` and `X`, respectively:
+R is case sensitive so that `x = 5` is not the same as  `X = x + 1`. Try typing this into your console and look at `x` and `X`, respectively:
 ```{r}
 x = 5
 X = x+1
