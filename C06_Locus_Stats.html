@@ -6,7 +6,6 @@
 
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="Content-Style-Type" content="text/css" />
 <meta name="generator" content="pandoc" />
 
 
@@ -111,21 +110,21 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
         <ul class="nav">
           <li class="dropdown">
             <a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-               <li><a href="Preface.html">i. Preface</a></li>
-               <li><a href="C01_Introduction.html">1. Introduction</a></li>
-               <li><a href="C02_Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
-               <li><a href="C03_Data_Preparation.html">3. Data preparation</a></li>
-               <li><a href="C04_First_Steps.html">4. First steps</a></li>
-               <li><a href="C05_Population_Hierarchies.html">5. Population hierarchies and clone correction</a></li>
-               <li><a href="C06_Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
-               <li><a href="C07_Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
-               <li><a href="C08_Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
-               <li><a href="C09_Pop_Structure.html">9. Population structure</a></li>
-               <li><a href="C10_AMOVA.html">10. AMOVA</a></li>
-               <li><a href="C11_DAPC.html">11. Discriminant analysis of principal components (DAPC)</a></li>
-               </ul>
-            </li>
+            <ol class="dropdown-menu">
+               <li type = "i"><a href="Preface.html">Preface</a></li>
+               <li type = "1" value = "1"><a href="C01_Introduction.html">Introduction</a></li>
+               <li><a href="C02_Getting_ready_to_use_R.html">Getting ready to use R</a></li>
+               <li><a href="C03_Data_Preparation.html">Data preparation</a></li>
+               <li><a href="C04_First_Steps.html">First steps</a></li>
+               <li><a href="C05_Population_Hierarchies.html">Population hierarchies and clone correction</a></li>
+               <li><a href="C06_Locus_Stats.html">Locus-based statistics and missing data</a></li>
+               <li><a href="C07_Genotypic_EvenRichDiv.html">Genotypic evenness, richness, and diversity</a></li>
+               <li><a href="C08_Linkage_disequilibrium.html">Linkage disequilibrium</a></li>
+               <li><a href="C09_Pop_Structure.html">Population structure</a></li>
+               <li><a href="C10_AMOVA.html">AMOVA</a></li>
+               <li><a href="C11_DAPC.html">Discriminant analysis of principal components (DAPC)</a></li>
+            </ol>
+          </li>
           <li class="dropdown">
             <a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>
             <ul class = "dropdown-menu">
@@ -241,7 +240,7 @@ locus_table(Pinf)</code></pre>
 <pre class="r"><code>nLoc(Pinf)  # Let&#39;s look at our data set, note how many loci we have.</code></pre>
 <pre><code>## [1] 11</code></pre>
 <pre class="r"><code>iPinf &lt;- informloci(Pinf)</code></pre>
-<pre><code>## cutoff value: 2.326 percent ( 2 individuals ).
+<pre><code>## cutoff value: 2.325581 percent ( 2 individuals ).
 ## 1 uninformative locus found: Pi33</code></pre>
 <pre class="r"><code>nLoc(iPinf) # Note that we have 1 less locus</code></pre>
 <pre><code>## [1] 10</code></pre>
@@ -269,7 +268,7 @@ locus_table(Pinf)</code></pre>
 <p>It is often important to asses the percentage of missing data. The <em>poppr</em> function <code>info_table</code> will help you visualize missing data so that you can assess how to treat these further using the function <code>missingno</code>. For this example, we will use the nancycats data set as it contains a wide variety of possabilities for missing data:</p>
 <pre class="r"><code>data(nancycats)
 info_table(nancycats, plot = TRUE)</code></pre>
-<p><img src="C06_Locus_Stats_files/figure-html/missing_table.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
+<p><img src="C06_Locus_Stats_files/figure-html/missing_table-1.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
 <pre><code>##           Locus
 ## Population  fca8 fca23 fca43 fca45 fca77 fca78 fca90 fca96 fca37  Mean
 ##      1     0.200     .     .     .     .     .     .     .     . 0.022
@@ -301,7 +300,7 @@ info_table(nancycats, plot = TRUE)</code></pre>
 ##  2 loci contained missing values greater than 5%.
 ##  Removing 2 loci : fca8 fca45</code></pre>
 <pre class="r"><code>miss &lt;- info_table(nanloc, plot = TRUE, scale = FALSE)</code></pre>
-<p><img src="C06_Locus_Stats_files/figure-html/unnamed-chunk-2.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
+<p><img src="C06_Locus_Stats_files/figure-html/unnamed-chunk-2-1.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
 <blockquote>
 <p><strong>Advanced Users:</strong> when <code>scale = TRUE</code>, the color scale will be set so that the warmest color corresponds to the highest value.</p>
 </blockquote>
@@ -339,7 +338,7 @@ info_table(nancycats, plot = TRUE)</code></pre>
 ##  1 genotype contained missing values greater than 22.2222222222222%.
 ##  Removing 1 genotype : N310</code></pre>
 <pre class="r"><code>miss &lt;- info_table(nanind, plot = TRUE) </code></pre>
-<p><img src="C06_Locus_Stats_files/figure-html/unnamed-chunk-5.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
+<p><img src="C06_Locus_Stats_files/figure-html/unnamed-chunk-5-1.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
 <p>We only found one individual in population 11.</p>
 </div>
 <div id="replacing-missing-data" class="section level2">
@@ -379,28 +378,39 @@ nan1[loc = &quot;L1&quot;]@tab</code></pre>
 <pre><code>## 
 ##  Replaced 617 missing values</code></pre>
 <pre class="r"><code>popsub(nanmean, 1, drop = TRUE)[loc = &quot;L1&quot;]@tab</code></pre>
-<pre><code>##       L1.01    L1.02   L1.03   L1.04    L1.05   L1.06   L1.07   L1.08
-## 01 0.002304 0.002304 0.01382 0.06682 0.002304 0.04608 0.05069 0.07604
-## 02 0.002304 0.002304 0.01382 0.06682 0.002304 0.04608 0.05069 0.07604
-## 03 0.000000 0.000000 0.00000 0.00000 0.000000 0.00000 0.00000 0.00000
-## 04 0.000000 0.000000 0.00000 0.00000 0.000000 0.00000 0.00000 0.50000
-## 05 0.000000 0.000000 0.00000 0.00000 0.000000 0.00000 0.00000 0.50000
-## 06 0.000000 0.000000 0.00000 0.00000 0.000000 0.00000 0.00000 0.00000
-## 07 0.000000 0.000000 0.00000 0.00000 0.000000 0.00000 0.00000 0.00000
-## 08 0.000000 0.000000 0.00000 0.00000 0.000000 0.00000 0.00000 0.00000
-## 09 0.000000 0.000000 0.00000 0.00000 0.000000 0.00000 0.00000 0.00000
-## 10 0.000000 0.000000 0.00000 0.00000 0.000000 0.00000 0.00000 0.00000
-##     L1.09  L1.10   L1.11   L1.12  L1.13   L1.14    L1.15   L1.16
-## 01 0.2419 0.1912 0.06221 0.09447 0.1014 0.02535 0.006912 0.01613
-## 02 0.2419 0.1912 0.06221 0.09447 0.1014 0.02535 0.006912 0.01613
-## 03 0.5000 0.0000 0.00000 0.00000 0.5000 0.00000 0.000000 0.00000
-## 04 0.5000 0.0000 0.00000 0.00000 0.0000 0.00000 0.000000 0.00000
-## 05 0.5000 0.0000 0.00000 0.00000 0.0000 0.00000 0.000000 0.00000
-## 06 0.5000 0.0000 0.00000 0.00000 0.5000 0.00000 0.000000 0.00000
-## 07 1.0000 0.0000 0.00000 0.00000 0.0000 0.00000 0.000000 0.00000
-## 08 0.5000 0.0000 0.00000 0.00000 0.5000 0.00000 0.000000 0.00000
-## 09 0.0000 0.5000 0.00000 0.00000 0.5000 0.00000 0.000000 0.00000
-## 10 1.0000 0.0000 0.00000 0.00000 0.0000 0.00000 0.000000 0.00000</code></pre>
+<pre><code>##          L1.01       L1.02      L1.03      L1.04       L1.05      L1.06
+## 01 0.002304147 0.002304147 0.01382488 0.06682028 0.002304147 0.04608295
+## 02 0.002304147 0.002304147 0.01382488 0.06682028 0.002304147 0.04608295
+## 03 0.000000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
+## 04 0.000000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
+## 05 0.000000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
+## 06 0.000000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
+## 07 0.000000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
+## 08 0.000000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
+## 09 0.000000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
+## 10 0.000000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
+##         L1.07      L1.08     L1.09     L1.10      L1.11      L1.12
+## 01 0.05069124 0.07603687 0.2419355 0.1912442 0.06221198 0.09447005
+## 02 0.05069124 0.07603687 0.2419355 0.1912442 0.06221198 0.09447005
+## 03 0.00000000 0.00000000 0.5000000 0.0000000 0.00000000 0.00000000
+## 04 0.00000000 0.50000000 0.5000000 0.0000000 0.00000000 0.00000000
+## 05 0.00000000 0.50000000 0.5000000 0.0000000 0.00000000 0.00000000
+## 06 0.00000000 0.00000000 0.5000000 0.0000000 0.00000000 0.00000000
+## 07 0.00000000 0.00000000 1.0000000 0.0000000 0.00000000 0.00000000
+## 08 0.00000000 0.00000000 0.5000000 0.0000000 0.00000000 0.00000000
+## 09 0.00000000 0.00000000 0.0000000 0.5000000 0.00000000 0.00000000
+## 10 0.00000000 0.00000000 1.0000000 0.0000000 0.00000000 0.00000000
+##        L1.13      L1.14       L1.15      L1.16
+## 01 0.1013825 0.02534562 0.006912442 0.01612903
+## 02 0.1013825 0.02534562 0.006912442 0.01612903
+## 03 0.5000000 0.00000000 0.000000000 0.00000000
+## 04 0.0000000 0.00000000 0.000000000 0.00000000
+## 05 0.0000000 0.00000000 0.000000000 0.00000000
+## 06 0.5000000 0.00000000 0.000000000 0.00000000
+## 07 0.0000000 0.00000000 0.000000000 0.00000000
+## 08 0.5000000 0.00000000 0.000000000 0.00000000
+## 09 0.5000000 0.00000000 0.000000000 0.00000000
+## 10 0.0000000 0.00000000 0.000000000 0.00000000</code></pre>
 <p>Notice that there are a lot more alleles than there were originally. This is because the procedure is performed over the entire data set, not by population. Let’s look at what happens if we perform the same routine on the subsetted data.</p>
 <pre class="r"><code>nan1 &lt;- popsub(nancycats, 1, drop = TRUE) # dropping alleles not in this population. 
 nan1mean &lt;- missingno(nan1, &quot;mean&quot;)</code></pre>
@@ -434,51 +444,51 @@ nanhwe.mat  &lt;- HWE.test.genind(nancycats, res.type = &quot;matrix&quot;) # re
 ##  Pearson&#39;s Chi-squared test
 ## 
 ## data:  tab
-## X-squared = 5.136, df = 6, p-value = 0.5265</code></pre>
+## X-squared = 5.1358, df = 6, p-value = 0.5265</code></pre>
 <pre class="r"><code>nanhwe.full$fca8$P02</code></pre>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 
 ## data:  tab
-## X-squared = 29.86, df = 15, p-value = 0.01243</code></pre>
+## X-squared = 29.8624, df = 15, p-value = 0.01243</code></pre>
 <p>Of course, checking all of these is tedious, but we can look at a matrix for all loci by population:</p>
 <pre class="r"><code>nanhwe.mat</code></pre>
-<pre><code>##         fca8     fca23     fca43   fca45     fca77    fca78     fca90
-## P01 0.526517 3.674e-03 0.2280402 0.43751 0.0208150 1.000000 1.765e-01
-## P02 0.012427 9.955e-03 0.0001328 0.66252 0.0002153 0.073976 9.040e-07
-## P03 0.008042 1.916e-02 0.5099205 0.90711 0.3460930 0.007422 4.882e-01
-## P04 0.030857 3.234e-01 0.7685881 0.18515 0.0259008 0.134971 2.425e-04
-## P05 0.395499 1.851e-01 0.2095530 0.65080 0.5544311 0.001087 4.948e-02
-## P06 0.035773 3.720e-02 0.3933427 0.02992 0.0564054 0.166577 1.441e-01
-## P07 0.001015 1.269e-02 0.9591441 0.45935 0.4482332 0.000760 2.556e-01
-## P08 0.916112 3.966e-01 0.0919880 0.31833 0.0087894 0.032459 3.067e-01
-## P09 0.315106 2.874e-02 0.6457715 0.16271 0.7313058 0.123889 1.948e-02
-## P10 0.058729 8.743e-01 0.3820891 0.25979 0.0051378 0.152917 3.720e-02
-## P11 0.155066 8.492e-02 0.1718178 0.46374 0.0535610 0.131432 6.895e-03
-## P12 0.164120 2.434e-02 0.0014486 0.99994 0.2473303 0.394489 1.450e-01
-## P13 0.263065 7.554e-04 0.0166925 0.69861 0.0782627 0.463145 6.731e-02
-## P14 0.425618 1.298e-05 0.0613204 0.63565 0.0237132 0.020968 8.541e-02
-## P15 0.705557 5.149e-01 0.5669695 0.78928 0.7006925 0.004625 2.563e-01
-## P16 0.281227 4.745e-02 0.4923883 0.43651 0.2143387 0.002940 1.088e-01
-## P17 0.105208 3.870e-01 0.0147464      NA 0.2844190 0.622681 3.508e-01
-##         fca96     fca37
-## P01 3.808e-01 1.728e-02
-## P02 4.067e-13 5.889e-01
-## P03 5.619e-01 3.600e-02
-## P04 8.593e-01 5.750e-01
-## P05 4.642e-01 3.896e-05
-## P06 3.200e-01 7.168e-01
-## P07 6.791e-01 1.943e-01
-## P08 6.613e-01 4.085e-02
-## P09 8.324e-01 7.067e-01
-## P10 8.985e-01 6.182e-01
-## P11 7.234e-02 7.412e-02
-## P12 9.953e-01 5.611e-02
-## P13 4.214e-01 1.385e-01
-## P14 1.129e-02 9.212e-01
-## P15 3.299e-02 5.719e-02
-## P16 6.018e-02 5.609e-01
-## P17 1.000e+00 1.648e-01</code></pre>
+<pre><code>##            fca8        fca23        fca43      fca45        fca77
+## P01 0.526517306 3.674334e-03 0.2280401694 0.43750676 0.0208150012
+## P02 0.012427474 9.955382e-03 0.0001328128 0.66252290 0.0002152672
+## P03 0.008041715 1.916355e-02 0.5099204974 0.90711298 0.3460930403
+## P04 0.030856739 3.233864e-01 0.7685881191 0.18515049 0.0259007804
+## P05 0.395498917 1.850960e-01 0.2095530108 0.65080395 0.5544311397
+## P06 0.035773418 3.719982e-02 0.3933427435 0.02992243 0.0564054317
+## P07 0.001015109 1.268771e-02 0.9591440521 0.45934725 0.4482332084
+## P08 0.916111766 3.966211e-01 0.0919880072 0.31833436 0.0087893711
+## P09 0.315105915 2.873635e-02 0.6457715350 0.16270652 0.7313057692
+## P10 0.058728516 8.742964e-01 0.3820891009 0.25979323 0.0051378404
+## P11 0.155066305 8.492324e-02 0.1718177965 0.46374114 0.0535610325
+## P12 0.164120103 2.434068e-02 0.0014486207 0.99993750 0.2473302515
+## P13 0.263064520 7.554178e-04 0.0166924694 0.69860814 0.0782627471
+## P14 0.425618273 1.298351e-05 0.0613204016 0.63565380 0.0237132295
+## P15 0.705556557 5.148712e-01 0.5669694621 0.78927714 0.7006924729
+## P16 0.281226569 4.744791e-02 0.4923883264 0.43651121 0.2143387208
+## P17 0.105208495 3.869703e-01 0.0147464047         NA 0.2844189945
+##           fca78        fca90        fca96        fca37
+## P01 1.000000000 1.764717e-01 3.807962e-01 1.728360e-02
+## P02 0.073976130 9.039990e-07 4.067241e-13 5.889498e-01
+## P03 0.007422415 4.881535e-01 5.618907e-01 3.599621e-02
+## P04 0.134971005 2.424509e-04 8.593198e-01 5.749990e-01
+## P05 0.001086817 4.948073e-02 4.641922e-01 3.895597e-05
+## P06 0.166576970 1.440809e-01 3.199573e-01 7.167803e-01
+## P07 0.000760033 2.556088e-01 6.790824e-01 1.943165e-01
+## P08 0.032459406 3.067009e-01 6.612712e-01 4.084806e-02
+## P09 0.123888817 1.948082e-02 8.324384e-01 7.067191e-01
+## P10 0.152917196 3.719982e-02 8.984756e-01 6.182026e-01
+## P11 0.131431929 6.894609e-03 7.233591e-02 7.412148e-02
+## P12 0.394489189 1.449764e-01 9.952821e-01 5.610992e-02
+## P13 0.463144684 6.730596e-02 4.214194e-01 1.384549e-01
+## P14 0.020968325 8.540995e-02 1.128794e-02 9.212362e-01
+## P15 0.004624641 2.562802e-01 3.299178e-02 5.719099e-02
+## P16 0.002939821 1.087867e-01 6.017899e-02 5.609268e-01
+## P17 0.622681015 3.508286e-01 1.000000e+00 1.648068e-01</code></pre>
 <p>However, this is still hard to sift through. We will thus define an <span class="math">\(\alpha\)</span> value and set everything above that value to 1 so that we can visually detect candidate loci where we might reject the <span class="math">\(H_o\)</span> of HWE.</p>
 <pre class="r"><code>alpha  &lt;- 0.05
 newmat &lt;- nanhwe.mat
@@ -486,7 +496,7 @@ newmat[newmat &gt; alpha] &lt;- 1</code></pre>
 <p>Now we can create a simple heatmap with <code>levelplot</code>.</p>
 <pre class="r"><code>library(lattice)
 levelplot(newmat)</code></pre>
-<p><img src="C06_Locus_Stats_files/figure-html/unnamed-chunk-13.png" title="Heatmap showing significant departures from HWE" alt="Heatmap showing significant departures from HWE" width="700px" /></p>
+<p><img src="C06_Locus_Stats_files/figure-html/unnamed-chunk-13-1.png" title="Heatmap showing significant departures from HWE" alt="Heatmap showing significant departures from HWE" width="700px" /></p>
 <p>This simple plot shows us loci in rows and populations in columns. Note, that all loci shown in pink are loci suspected for not being in HWE with <span class="math">\(p \leq 0.05\)</span>.</p>
 </div>
 <div id="references" class="section level2">
@@ -514,12 +524,12 @@ $(document).ready(function () {
 
 </script>
 
-<!-- dynamically load mathjax for compatibility with --self-contained -->
+<!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "libs/mathjax-2.3.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

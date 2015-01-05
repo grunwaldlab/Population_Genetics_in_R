@@ -110,21 +110,21 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
         <ul class="nav">
           <li class="dropdown">
             <a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-               <li><a href="Preface.html">i. Preface</a></li>
-               <li><a href="C01_Introduction.html">1. Introduction</a></li>
-               <li><a href="C02_Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
-               <li><a href="C03_Data_Preparation.html">3. Data preparation</a></li>
-               <li><a href="C04_First_Steps.html">4. First steps</a></li>
-               <li><a href="C05_Population_Hierarchies.html">5. Population hierarchies and clone correction</a></li>
-               <li><a href="C06_Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
-               <li><a href="C07_Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
-               <li><a href="C08_Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
-               <li><a href="C09_Pop_Structure.html">9. Population structure</a></li>
-               <li><a href="C10_AMOVA.html">10. AMOVA</a></li>
-               <li><a href="C11_DAPC.html">11. Discriminant analysis of principal components (DAPC)</a></li>
-               </ul>
-            </li>
+            <ol class="dropdown-menu">
+               <li type = "i"><a href="Preface.html">Preface</a></li>
+               <li type = "1" value = "1"><a href="C01_Introduction.html">Introduction</a></li>
+               <li><a href="C02_Getting_ready_to_use_R.html">Getting ready to use R</a></li>
+               <li><a href="C03_Data_Preparation.html">Data preparation</a></li>
+               <li><a href="C04_First_Steps.html">First steps</a></li>
+               <li><a href="C05_Population_Hierarchies.html">Population hierarchies and clone correction</a></li>
+               <li><a href="C06_Locus_Stats.html">Locus-based statistics and missing data</a></li>
+               <li><a href="C07_Genotypic_EvenRichDiv.html">Genotypic evenness, richness, and diversity</a></li>
+               <li><a href="C08_Linkage_disequilibrium.html">Linkage disequilibrium</a></li>
+               <li><a href="C09_Pop_Structure.html">Population structure</a></li>
+               <li><a href="C10_AMOVA.html">AMOVA</a></li>
+               <li><a href="C11_DAPC.html">Discriminant analysis of principal components (DAPC)</a></li>
+            </ol>
+          </li>
           <li class="dropdown">
             <a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>
             <ul class = "dropdown-menu">
@@ -187,24 +187,24 @@ monpop</code></pre>
 <pre class="r"><code>genind2genalex(monpop, filename = &quot;~/Desktop/monpop.csv&quot;)</code></pre>
 <pre><code>## Extracting the table ... Writing the table to ~/Desktop/monpop.csv ... Done.</code></pre>
 <p>Below is what normal, haploid, GenAlEx data looks like. Highlighted in red is how missing data should be coded for codominant markers. Highlighted in blue are the parts of the metadata rows used by <em>poppr</em>. These three numbers represent:</p>
-<!-- html table generated in R 3.1.1 by xtable 1.7-3 package -->
-<!-- Wed Jul 16 21:06:58 2014 -->
-<TABLE border=2 cellpadding=5 align=center>
-<TR> <TH> 
+<!-- html table generated in R 3.1.2 by xtable 1.7-4 package -->
+<!-- Mon Jan  5 14:41:03 2015 -->
+<table border=2 cellpadding=5 align=center>
+<tr> <th> 
 A
-</TH> <TH> 
+</th> <th> 
 B
-</TH> <TH> 
+</th> <th> 
 C
-</TH>  </TR>
-  <TR> <TD>  
+</th>  </tr>
+  <tr> <td>  
 loci
-</TD> <TD>  
+</td> <td>  
 individuals
-</TD> <TD>  
+</td> <td>  
 populations
-</TD> </TR>
-   </TABLE>
+</td> </tr>
+   </table>
 
 <p><img src="images/monpop.png" alt="monpop" /></p>
 <p>The columns of the metadata beyond those three rows define the number of individuals contained within each population. Since this data is redundant with the second column, it is not necessary. Notice, also, that the second column, reserved for the population assignments, has a pattern of underscores in the populations. This will be important at the end of this section. Below is a modified version of the input format that should make it easier to format.</p>
@@ -229,86 +229,86 @@ populations
 <div id="population-hierarchies" class="section level2">
 <h2>Population hierarchies</h2>
 <p>A hierarchical sampling approach is necessary to infer structure of populations in space or time. <em>Poppr</em> facilitates definition of hierarchical data by concatenating the different hierarchical levels into a single column by a common separator (“_” by default). Here’s an example of the three hierarchical levels of the <code>monpop</code> data set introduced above:</p>
-<!-- html table generated in R 3.1.1 by xtable 1.7-3 package -->
-<!-- Wed Jul 16 21:06:58 2014 -->
-<TABLE border=2 cellpadding=5 align=center>
-<TR> <TH> 
+<!-- html table generated in R 3.1.2 by xtable 1.7-4 package -->
+<!-- Mon Jan  5 14:41:03 2015 -->
+<table border=2 cellpadding=5 align=center>
+<tr> <th> 
 Tree
-</TH> <TH> 
+</th> <th> 
 Year
-</TH> <TH> 
+</th> <th> 
 Symptom
-</TH>  </TR>
-  <TR> <TD align="center"> 
+</th>  </tr>
+  <tr> <td align="center"> 
 7
-</TD> <TD align="center"> 
+</td> <td align="center"> 
 9
-</TD> <TD align="center"> 
+</td> <td align="center"> 
 BB
-</TD> </TR>
-  <TR> <TD align="center"> 
+</td> </tr>
+  <tr> <td align="center"> 
 7
-</TD> <TD align="center"> 
+</td> <td align="center"> 
 9
-</TD> <TD align="center"> 
+</td> <td align="center"> 
 BB
-</TD> </TR>
-  <TR> <TD align="center"> 
+</td> </tr>
+  <tr> <td align="center"> 
 7
-</TD> <TD align="center"> 
+</td> <td align="center"> 
 9
-</TD> <TD align="center"> 
+</td> <td align="center"> 
 BB
-</TD> </TR>
-  <TR> <TD align="center"> 
+</td> </tr>
+  <tr> <td align="center"> 
 7
-</TD> <TD align="center"> 
+</td> <td align="center"> 
 9
-</TD> <TD align="center"> 
+</td> <td align="center"> 
 BB
-</TD> </TR>
-  <TR> <TD align="center"> 
+</td> </tr>
+  <tr> <td align="center"> 
 7
-</TD> <TD align="center"> 
+</td> <td align="center"> 
 9
-</TD> <TD align="center"> 
+</td> <td align="center"> 
 BB
-</TD> </TR>
-  <TR> <TD align="center"> 
+</td> </tr>
+  <tr> <td align="center"> 
 7
-</TD> <TD align="center"> 
+</td> <td align="center"> 
 9
-</TD> <TD align="center"> 
+</td> <td align="center"> 
 BB
-</TD> </TR>
-   </TABLE>
+</td> </tr>
+   </table>
 
 <p>resulting in definition for use in <em>poppr</em> as:</p>
-<!-- html table generated in R 3.1.1 by xtable 1.7-3 package -->
-<!-- Wed Jul 16 21:06:58 2014 -->
-<TABLE border=2 cellpadding=5 align=center>
-<TR> <TH> 
+<!-- html table generated in R 3.1.2 by xtable 1.7-4 package -->
+<!-- Mon Jan  5 14:41:03 2015 -->
+<table border=2 cellpadding=5 align=center>
+<tr> <th> 
 Tree_Year_Symptom
-</TH>  </TR>
-  <TR> <TD align="center"> 
+</th>  </tr>
+  <tr> <td align="center"> 
 7_9_BB
-</TD> </TR>
-  <TR> <TD align="center"> 
+</td> </tr>
+  <tr> <td align="center"> 
 7_9_BB
-</TD> </TR>
-  <TR> <TD align="center"> 
+</td> </tr>
+  <tr> <td align="center"> 
 7_9_BB
-</TD> </TR>
-  <TR> <TD align="center"> 
+</td> </tr>
+  <tr> <td align="center"> 
 7_9_BB
-</TD> </TR>
-  <TR> <TD align="center"> 
+</td> </tr>
+  <tr> <td align="center"> 
 7_9_BB
-</TD> </TR>
-  <TR> <TD align="center"> 
+</td> </tr>
+  <tr> <td align="center"> 
 7_9_BB
-</TD> </TR>
-   </TABLE>
+</td> </tr>
+   </table>
 
 
 <blockquote>
@@ -347,7 +347,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "libs/mathjax-2.3.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

@@ -6,7 +6,6 @@
 
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="Content-Style-Type" content="text/css" />
 <meta name="generator" content="pandoc" />
 
 
@@ -111,21 +110,21 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
         <ul class="nav">
           <li class="dropdown">
             <a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-               <li><a href="Preface.html">i. Preface</a></li>
-               <li><a href="C01_Introduction.html">1. Introduction</a></li>
-               <li><a href="C02_Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
-               <li><a href="C03_Data_Preparation.html">3. Data preparation</a></li>
-               <li><a href="C04_First_Steps.html">4. First steps</a></li>
-               <li><a href="C05_Population_Hierarchies.html">5. Population hierarchies and clone correction</a></li>
-               <li><a href="C06_Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
-               <li><a href="C07_Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
-               <li><a href="C08_Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
-               <li><a href="C09_Pop_Structure.html">9. Population structure</a></li>
-               <li><a href="C10_AMOVA.html">10. AMOVA</a></li>
-               <li><a href="C11_DAPC.html">11. Discriminant analysis of principal components (DAPC)</a></li>
-               </ul>
-            </li>
+            <ol class="dropdown-menu">
+               <li type = "i"><a href="Preface.html">Preface</a></li>
+               <li type = "1" value = "1"><a href="C01_Introduction.html">Introduction</a></li>
+               <li><a href="C02_Getting_ready_to_use_R.html">Getting ready to use R</a></li>
+               <li><a href="C03_Data_Preparation.html">Data preparation</a></li>
+               <li><a href="C04_First_Steps.html">First steps</a></li>
+               <li><a href="C05_Population_Hierarchies.html">Population hierarchies and clone correction</a></li>
+               <li><a href="C06_Locus_Stats.html">Locus-based statistics and missing data</a></li>
+               <li><a href="C07_Genotypic_EvenRichDiv.html">Genotypic evenness, richness, and diversity</a></li>
+               <li><a href="C08_Linkage_disequilibrium.html">Linkage disequilibrium</a></li>
+               <li><a href="C09_Pop_Structure.html">Population structure</a></li>
+               <li><a href="C10_AMOVA.html">AMOVA</a></li>
+               <li><a href="C11_DAPC.html">Discriminant analysis of principal components (DAPC)</a></li>
+            </ol>
+          </li>
           <li class="dropdown">
             <a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>
             <ul class = "dropdown-menu">
@@ -157,7 +156,6 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#installing-r">Installing R</a></li>
 <li><a href="#installing-the-required-packages">Installing the required packages</a></li>
 <li><a href="#a-quick-introduction-to-r-using-rstudio">A quick introduction to R using Rstudio</a></li>
-<li><a href="#some-useful-resources-to-learn-r">Some useful resources to learn R</a></li>
 <li><a href="#packages-and-getting-help">Packages and getting help</a></li>
 <li><a href="#references">References</a></li>
 </ul>
@@ -196,7 +194,6 @@ in several ways:
 ```
 ----
 
-
 ---->
 
 <div id="installing-r" class="section level2">
@@ -232,7 +229,7 @@ in several ways:
 ##  - to post questions/comments: adegenet-forum@lists.r-forge.r-project.org
 ## 
 ## 
-## This is poppr version 1.1.2. To get started, type package?poppr</code></pre>
+## This is poppr version 1.1.2.99.47. To get started, type package?poppr</code></pre>
 <p>This will load <em>poppr</em> and all dependent packages, such as <em>adegenet</em> and <em>ade4</em>. You will recognize loading by the prompts written to your screen.</p>
 <p>Congratulations. You should now be all set for using R. Loading data and conducting your first analysis will be the topic of the next chapter. But before we go there lets provide a few useful resources.</p>
 </div>
@@ -247,31 +244,9 @@ in several ways:
 <blockquote>
 <p>Note that the symbol ‘#’ is used to add comments to your code and you just type <code>getwd()</code> after the “&gt;”.</p>
 </blockquote>
-<p>Other useful commands providing information on your system include:</p>
-<pre class="r"><code>help(options)                                 # learn about available options
-installed.packages()[,c(&quot;Package&quot;,&quot;Version&quot;)] # list packages &amp; versions installed
-sessionInfo()                                 # displays packages currently loaded
-data(&lt;name&gt;, package = &quot;package&quot;)             # load a specific data set from a specific package</code></pre>
-<p>To quit R you can either use the <code>Rstudio &gt; Quit</code> Rstudio pull-down menu command or execute <code>⌘ + Q</code> (OS X) or <code>CTRL + Q</code> (PC).</p>
 <p>Our primer is heavily based on the <em>poppr</em> and <em>adegenet</em> packages. To get help on any of their functions type a question mark before the empty function call as in:</p>
 <pre class="r"><code>?mlg # open the R documentiaon of the function mlg()</code></pre>
-</div>
-<div id="some-useful-resources-to-learn-r" class="section level2">
-<h2>Some useful resources to learn R</h2>
-<p><em>Free resources</em>:</p>
-<ul>
-<li><a href="http://swirlstats.com/">Swirl</a> is a very well thought out R package that teaches you interactively.</li>
-<li><a href="https://www.codeschool.com/courses/try-r">Code School Try R</a> is a nice interactive tutorial.</li>
-<li><a href="http://www.statmethods.net/interface/help.html">Quick R</a></li>
-<li><a href="http://cran.r-project.org/doc/contrib/Short-refcard.pdf">R reference card</a></li>
-<li>A very nice, short <a href="http://ateucher.github.io/rcourse_site/index.html">introduction to R</a></li>
-</ul>
-<p><em>Books</em>:</p>
-<ul>
-<li><a href="http://oreilly.com/catalog/9780596801717">R in a Nutshell</a></li>
-<li><a href="">R cookbook</a> is a nice quick reference and tutorial for general R use.</li>
-<li><a href="">ggplot2: Elegant Graphics for Data Analysis</a> is a useful, bu dated reference if you want to customize graphs for publication.</li>
-</ul>
+<p>To quit R you can either use the <code>Rstudio &gt; Quit</code> pull-down menu command or execute <code>⌘ + Q</code> (OS X) or <code>CTRL + Q</code> (PC).</p>
 </div>
 <div id="packages-and-getting-help" class="section level2">
 <h2>Packages and getting help</h2>
@@ -292,7 +267,7 @@ help(amova)             # Get help for the amova function.
 browseVignettes(package = &#39;poppr&#39;)    # see vignettes from a specific package.</code></pre>
 <p>and to look at a specific vignette you can type:</p>
 <pre class="r"><code>vignette(&#39;poppr_manual&#39;)</code></pre>
-<p>We are now ready to think about formatting and loading data into R.</p>
+<p>Next, consider browsing the R tutorial chapter if you are not yet familiar with R and Rstudio. Otherwise, you are now ready to think about formatting and loading population genetic data into R.</p>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>
@@ -319,12 +294,12 @@ $(document).ready(function () {
 
 </script>
 
-<!-- dynamically load mathjax for compatibility with --self-contained -->
+<!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "libs/mathjax-2.3.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

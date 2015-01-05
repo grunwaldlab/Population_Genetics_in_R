@@ -110,21 +110,21 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
         <ul class="nav">
           <li class="dropdown">
             <a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-               <li><a href="Preface.html">i. Preface</a></li>
-               <li><a href="C01_Introduction.html">1. Introduction</a></li>
-               <li><a href="C02_Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
-               <li><a href="C03_Data_Preparation.html">3. Data preparation</a></li>
-               <li><a href="C04_First_Steps.html">4. First steps</a></li>
-               <li><a href="C05_Population_Hierarchies.html">5. Population hierarchies and clone correction</a></li>
-               <li><a href="C06_Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
-               <li><a href="C07_Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
-               <li><a href="C08_Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
-               <li><a href="C09_Pop_Structure.html">9. Population structure</a></li>
-               <li><a href="C10_AMOVA.html">10. AMOVA</a></li>
-               <li><a href="C11_DAPC.html">11. Discriminant analysis of principal components (DAPC)</a></li>
-               </ul>
-            </li>
+            <ol class="dropdown-menu">
+               <li type = "i"><a href="Preface.html">Preface</a></li>
+               <li type = "1" value = "1"><a href="C01_Introduction.html">Introduction</a></li>
+               <li><a href="C02_Getting_ready_to_use_R.html">Getting ready to use R</a></li>
+               <li><a href="C03_Data_Preparation.html">Data preparation</a></li>
+               <li><a href="C04_First_Steps.html">First steps</a></li>
+               <li><a href="C05_Population_Hierarchies.html">Population hierarchies and clone correction</a></li>
+               <li><a href="C06_Locus_Stats.html">Locus-based statistics and missing data</a></li>
+               <li><a href="C07_Genotypic_EvenRichDiv.html">Genotypic evenness, richness, and diversity</a></li>
+               <li><a href="C08_Linkage_disequilibrium.html">Linkage disequilibrium</a></li>
+               <li><a href="C09_Pop_Structure.html">Population structure</a></li>
+               <li><a href="C10_AMOVA.html">AMOVA</a></li>
+               <li><a href="C11_DAPC.html">Discriminant analysis of principal components (DAPC)</a></li>
+            </ol>
+          </li>
           <li class="dropdown">
             <a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>
             <ul class = "dropdown-menu">
@@ -153,8 +153,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="TOC">
 <ul>
-<li><a href="#assingment-data-types-and-operations">Assingment, data types and operations</a></li>
-<li><a href="#data-types">Data types</a></li>
+<li><a href="#assignment-data-types-and-operations">Assignment, data types and operations</a></li>
 <li><a href="#console-tricks-code-completion-command-history">Console tricks: Code completion, command history,</a></li>
 <li><a href="#useful-r-functions">Useful R functions</a></li>
 <li><a href="#getting-help">Getting help</a></li>
@@ -171,21 +170,21 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <blockquote>
 <p>You can skip this chapter if you have worked in R before and are comfortable using Rstudio</p>
 </blockquote>
-<p>After installing both R and Rstudio, please proceed to open Rstudio. Rstudio should look something like:</p>
+<p>After installing both R and R studio, please proceed to open R studio. R studio should look something like:</p>
 <p><img src="images/Rstudio.tiff" alt="Rstudio" /></p>
-<p>The top left panel is a textbox where you can write a script. The bottom left panel is the console (or command line) where you directly execute commands and R writes results to the console; for example, type in <code>x &lt;- 1</code> hit return and then type <code>x</code> and hit return again and watch the console:</p>
+<p>The top left panel is a text-box where you can write a script. The bottom left panel is the console (or command line) where you directly execute commands and R writes results to the console; for example, type in <code>x &lt;- 1</code> hit return and then type <code>x</code> and hit return again and watch the console:</p>
 <pre class="r"><code>x &lt;- 1
 x</code></pre>
 <pre><code>## [1] 1</code></pre>
 <p>You just assigned the value 1 to the variable <code>x</code> with the assignment operator <span class="math">\(&lt;-\)</span>. The second command asks R to show the value assigned to R. Finally, the top right panel shows variables loaded into the environment and the bottom right panel is useful for loading files, plotting graphs, installing packages and getting help. Feel free to explore all the various tabs or elements of each panel.</p>
-<div id="assingment-data-types-and-operations" class="section level2">
-<h2>Assingment, data types and operations</h2>
+<div id="assignment-data-types-and-operations" class="section level2">
+<h2>Assignment, data types and operations</h2>
 <p>Let’s learn a few simple facts about R:</p>
 <p>R uses # to add comments to code:</p>
 <pre class="r"><code># Add 1 + 1 and write to console
 1+1</code></pre>
 <pre><code>## [1] 2</code></pre>
-<p>This is very useful when developing reuseable code or when you want to remember a few months later what you actually did.</p>
+<p>This is very useful when developing reusable code or when you want to remember a few months later what you actually did.</p>
 <p>R is case sensitive so that <code>x = 5</code> is not the same as <code>X = x + 1</code>. Try typing this into your console and look at <code>x</code> and <code>X</code>, respectively:</p>
 <pre class="r"><code>x = 5
 X = x+1
@@ -197,24 +196,20 @@ x</code></pre>
 <pre class="r"><code>x &lt;- c(1,2,3,4,5)
 x</code></pre>
 <pre><code>## [1] 1 2 3 4 5</code></pre>
-<p>You can see several important traits of R. The <code>c()</code> command (which stands for combine) can be used to make a list (e.g., a vector) of data. We can overwrite the variable <code>x</code> with new content and we can assign another dataype (e.g., a single number becomes a vector). To compound things further you can even change the data type:</p>
+<p>You can see several important traits of R. The <code>c()</code> command (which stands for combine) can be used to make a list (e.g., a vector) of data. We can overwrite the variable <code>x</code> with new content and we can assign another datatype (e.g., a single number becomes a vector). To compound things further you can even change the data type to strings overwriting the previous content:</p>
 <pre class="r"><code>a &lt;- c(&quot;Paris&quot;, &quot;Tokyo&quot;, &quot;Seattle&quot;)
 a</code></pre>
 <pre><code>## [1] &quot;Paris&quot;   &quot;Tokyo&quot;   &quot;Seattle&quot;</code></pre>
-<p>Note that we use quotes to denote the text data type.</p>
-<p>To access individual elements of a vector, in this case the second element, we use:</p>
+<p>Note that we use quotes to denote the string data type containing text.</p>
+<p>To access individual elements of a vector, in this case the second element, we execute:</p>
 <pre class="r"><code>a[2]</code></pre>
 <pre><code>## [1] &quot;Tokyo&quot;</code></pre>
 </div>
-<div id="data-types" class="section level2">
-<h2>Data types</h2>
-<p>R has a variety of data types including</p>
-</div>
 <div id="console-tricks-code-completion-command-history" class="section level2">
 <h2>Console tricks: Code completion, command history,</h2>
-<p>Rstudio has a very useful feature called code completion using the <strong>Tab</strong> key whcih can complete the full name of an object. For example type <code>hel</code> and hit <strong>Tab</strong> and you will see several functions pop up and you can select <code>help()</code>.</p>
+<p>R studio has a very useful feature called code completion using the <strong>Tab</strong> key which can complete the full name of an object. For example type <code>hel</code> and hit <strong>Tab</strong> and you will see several functions pop up and you can select <code>help()</code>.</p>
 <p>This also work inside a function to find function arguments. Type <code>help(</code> and hit <em>Tab</em> to select arguments for the help function.</p>
-<p>Rstudio records your command hisotry. Thus you can scroll up or down the history of executed commands using the <em>Up</em> or <em>Down</em> arrows. MAke sure your curso is in the console and try to reexecute previous commands.</p>
+<p>R studio records your command history. Thus you can scroll up or down the history of executed commands using the <em>Up</em> or <em>Down</em> arrows. Make sure your cursor is in the console and try to re-execute previous commands.</p>
 </div>
 <div id="useful-r-functions" class="section level2">
 <h2>Useful R functions</h2>
@@ -291,7 +286,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "libs/mathjax-2.3.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

@@ -6,7 +6,6 @@
 
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="Content-Style-Type" content="text/css" />
 <meta name="generator" content="pandoc" />
 
 
@@ -111,21 +110,21 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
         <ul class="nav">
           <li class="dropdown">
             <a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-               <li><a href="Preface.html">i. Preface</a></li>
-               <li><a href="C01_Introduction.html">1. Introduction</a></li>
-               <li><a href="C02_Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
-               <li><a href="C03_Data_Preparation.html">3. Data preparation</a></li>
-               <li><a href="C04_First_Steps.html">4. First steps</a></li>
-               <li><a href="C05_Population_Hierarchies.html">5. Population hierarchies and clone correction</a></li>
-               <li><a href="C06_Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
-               <li><a href="C07_Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
-               <li><a href="C08_Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
-               <li><a href="C09_Pop_Structure.html">9. Population structure</a></li>
-               <li><a href="C10_AMOVA.html">10. AMOVA</a></li>
-               <li><a href="C11_DAPC.html">11. Discriminant analysis of principal components (DAPC)</a></li>
-               </ul>
-            </li>
+            <ol class="dropdown-menu">
+               <li type = "i"><a href="Preface.html">Preface</a></li>
+               <li type = "1" value = "1"><a href="C01_Introduction.html">Introduction</a></li>
+               <li><a href="C02_Getting_ready_to_use_R.html">Getting ready to use R</a></li>
+               <li><a href="C03_Data_Preparation.html">Data preparation</a></li>
+               <li><a href="C04_First_Steps.html">First steps</a></li>
+               <li><a href="C05_Population_Hierarchies.html">Population hierarchies and clone correction</a></li>
+               <li><a href="C06_Locus_Stats.html">Locus-based statistics and missing data</a></li>
+               <li><a href="C07_Genotypic_EvenRichDiv.html">Genotypic evenness, richness, and diversity</a></li>
+               <li><a href="C08_Linkage_disequilibrium.html">Linkage disequilibrium</a></li>
+               <li><a href="C09_Pop_Structure.html">Population structure</a></li>
+               <li><a href="C10_AMOVA.html">AMOVA</a></li>
+               <li><a href="C11_DAPC.html">Discriminant analysis of principal components (DAPC)</a></li>
+            </ol>
+          </li>
           <li class="dropdown">
             <a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>
             <ul class = "dropdown-menu">
@@ -200,13 +199,13 @@ nancycats</code></pre>
 <p>Now we will use Hendrick’s standardized <span class="math">\(G_{ST}\)</span> to assess population structure among these populations <span class="citation">(Hedrick, 2005)</span>.</p>
 <pre class="r"><code>Gst_Hedrick(nancycats)</code></pre>
 <pre><code>## $per.locus
-##     fca8    fca23    fca43    fca45    fca77    fca78    fca90    fca96 
-##  0.47504  0.29567  0.26758 -0.05706  0.48558  0.19333  0.38076  0.39139 
-##    fca37 
-##  0.16096 
+##        fca8       fca23       fca43       fca45       fca77       fca78 
+##  0.47504450  0.29566884  0.26757664 -0.05705814  0.48558285  0.19333266 
+##       fca90       fca96       fca37 
+##  0.38075783  0.39139242  0.16095760 
 ## 
 ## $global
-## [1] 0.2821</code></pre>
+## [1] 0.2820551</code></pre>
 <p>What does this output tell us?</p>
 </div>
 <div id="minimum-spanning-network" class="section level2">
@@ -239,7 +238,7 @@ summary(monpop)</code></pre>
 ## 48 53 58 48 37 40 13 44 60 64 60 63 
 ## 
 ##  # Percentage of missing data:  
-## [1] 0.5099
+## [1] 0.5098648
 ## 
 ##  # Observed heterozygosity:  
 ## [1] 0
@@ -275,7 +274,7 @@ t26.9msn &lt;- bruvo.msn(t26, replen = reps, sublist = sub9, showplot = FALSE)
 # Visualize
 set.seed(9001)
 plot_poppr_msn(t26, t26.9msn, inds = &quot;none&quot;, palette = cm.colors)</code></pre>
-<p><img src="C09_Pop_Structure_files/figure-html/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="700px" /></p>
+<p><img src="C09_Pop_Structure_files/figure-html/unnamed-chunk-4-1.png" title="" alt="" width="700px" /></p>
 <p>We can see that the Blossom Blight in the tree heavily contributed to the major groups of MLGs found in the Fruit Rot.</p>
 <blockquote>
 <p><strong>Try it!</strong> See if you can produce similar graphs with the 2010 and 2011 populations.</p>
@@ -350,21 +349,21 @@ SAclust &lt;- find.clusters(SA)</code></pre>
 <p>Now we will build trees. We are using Bruvo’s distance since polyploids bias calculation of other distances:</p>
 <pre class="r"><code>pinfreps &lt;- c(2, 2, 6, 2, 2, 2, 2, 2, 3, 3, 2)
 MXtree &lt;- bruvo.boot(MX, replen = pinfreps, cutoff = 50, quiet = TRUE)</code></pre>
-<p><img src="C09_Pop_Structure_files/figure-html/trees1.png" title="plot of chunk trees" alt="plot of chunk trees" width="700px" /></p>
+<p><img src="C09_Pop_Structure_files/figure-html/trees-1.png" title="" alt="" width="700px" /></p>
 <pre class="r"><code>SAtree &lt;- bruvo.boot(SA, replen = pinfreps, cutoff = 50, quiet = TRUE)</code></pre>
-<p><img src="C09_Pop_Structure_files/figure-html/trees2.png" title="plot of chunk trees" alt="plot of chunk trees" width="700px" /></p>
+<p><img src="C09_Pop_Structure_files/figure-html/trees-2.png" title="" alt="" width="700px" /></p>
 <p>We see very long terminal branches in the MX tree. Let’s see how the groups we found with the clustering algorithm match up:</p>
 <pre class="r"><code>library(ape)
 cols &lt;- rainbow(4)
 plot.phylo(MXtree, cex = 0.8, font = 2, adj = 0, tip.color = cols[MXclust$grp])
 nodelabels(MXtree$node.label, adj = c(1.3, -0.5), frame = &quot;n&quot;, cex = 0.8, font = 3)
 axisPhylo(3)</code></pre>
-<p><img src="C09_Pop_Structure_files/figure-html/grouptree.png" title="plot of chunk grouptree" alt="plot of chunk grouptree" width="700px" /></p>
+<p><img src="C09_Pop_Structure_files/figure-html/grouptree-1.png" title="" alt="" width="700px" /></p>
 <p>You can see that the assigned clusters don’t necessarily group with the dendrogram clusters. Let’s see what happens when we view this with the South American population:</p>
 <pre class="r"><code>plot.phylo(SAtree, cex = 0.8, font = 2, adj = 0, tip.color = cols[SAclust$grp])
 nodelabels(SAtree$node.label, adj = c(1.3, -0.5), frame = &quot;n&quot;, cex = 0.8, font = 3)
 axisPhylo(3)</code></pre>
-<p><img src="C09_Pop_Structure_files/figure-html/grouptreeSA.png" title="plot of chunk grouptreeSA" alt="plot of chunk grouptreeSA" width="700px" /></p>
+<p><img src="C09_Pop_Structure_files/figure-html/grouptreeSA-1.png" title="" alt="" width="700px" /></p>
 <p>Everything clusters together nicely, further supporting a non-panmictic population.</p>
 </div>
 </div>
@@ -401,12 +400,12 @@ $(document).ready(function () {
 
 </script>
 
-<!-- dynamically load mathjax for compatibility with --self-contained -->
+<!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "libs/mathjax-2.3.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

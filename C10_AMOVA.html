@@ -6,7 +6,6 @@
 
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="Content-Style-Type" content="text/css" />
 <meta name="generator" content="pandoc" />
 
 
@@ -111,21 +110,21 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
         <ul class="nav">
           <li class="dropdown">
             <a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-               <li><a href="Preface.html">i. Preface</a></li>
-               <li><a href="C01_Introduction.html">1. Introduction</a></li>
-               <li><a href="C02_Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
-               <li><a href="C03_Data_Preparation.html">3. Data preparation</a></li>
-               <li><a href="C04_First_Steps.html">4. First steps</a></li>
-               <li><a href="C05_Population_Hierarchies.html">5. Population hierarchies and clone correction</a></li>
-               <li><a href="C06_Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
-               <li><a href="C07_Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
-               <li><a href="C08_Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
-               <li><a href="C09_Pop_Structure.html">9. Population structure</a></li>
-               <li><a href="C10_AMOVA.html">10. AMOVA</a></li>
-               <li><a href="C11_DAPC.html">11. Discriminant analysis of principal components (DAPC)</a></li>
-               </ul>
-            </li>
+            <ol class="dropdown-menu">
+               <li type = "i"><a href="Preface.html">Preface</a></li>
+               <li type = "1" value = "1"><a href="C01_Introduction.html">Introduction</a></li>
+               <li><a href="C02_Getting_ready_to_use_R.html">Getting ready to use R</a></li>
+               <li><a href="C03_Data_Preparation.html">Data preparation</a></li>
+               <li><a href="C04_First_Steps.html">First steps</a></li>
+               <li><a href="C05_Population_Hierarchies.html">Population hierarchies and clone correction</a></li>
+               <li><a href="C06_Locus_Stats.html">Locus-based statistics and missing data</a></li>
+               <li><a href="C07_Genotypic_EvenRichDiv.html">Genotypic evenness, richness, and diversity</a></li>
+               <li><a href="C08_Linkage_disequilibrium.html">Linkage disequilibrium</a></li>
+               <li><a href="C09_Pop_Structure.html">Population structure</a></li>
+               <li><a href="C10_AMOVA.html">AMOVA</a></li>
+               <li><a href="C11_DAPC.html">Discriminant analysis of principal components (DAPC)</a></li>
+            </ol>
+          </li>
           <li class="dropdown">
             <a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>
             <ul class = "dropdown-menu">
@@ -217,47 +216,47 @@ Aeutamovacc &lt;- poppr.amova(Aeut, ~Pop/Subpop, clonecorrect = TRUE)</code></pr
 ## ade4::amova(samples = xtab, distances = xdist, structures = xstruct)
 ## 
 ## $results
-##                             Df Sum Sq  Mean Sq
-## Between Pop                  1 1051.2 1051.235
-## Between samples Within Pop  16  273.5   17.091
-## Within samples             169  576.5    3.411
-## Total                      186 1901.2   10.221
+##                             Df    Sum Sq     Mean Sq
+## Between Pop                  1 1051.2345 1051.234516
+## Between samples Within Pop  16  273.4575   17.091091
+## Within samples             169  576.5059    3.411277
+## Total                      186 1901.1979   10.221494
 ## 
 ## $componentsofcovariance
-##                                         Sigma       %
-## Variations  Between Pop                11.063  70.007
-## Variations  Between samples Within Pop  1.329   8.407
-## Variations  Within samples              3.411  21.586
-## Total variations                       15.803 100.000
+##                                            Sigma          %
+## Variations  Between Pop                11.063446  70.006786
+## Variations  Between samples Within Pop  1.328667   8.407483
+## Variations  Within samples              3.411277  21.585732
+## Total variations                       15.803391 100.000000
 ## 
 ## $statphi
-##                      Phi
-## Phi-samples-total 0.7841
-## Phi-samples-Pop   0.2803
-## Phi-Pop-total     0.7001</code></pre>
+##                         Phi
+## Phi-samples-total 0.7841427
+## Phi-samples-Pop   0.2803128
+## Phi-Pop-total     0.7000679</code></pre>
 <pre class="r"><code>Aeutamovacc</code></pre>
 <pre><code>## $call
 ## ade4::amova(samples = xtab, distances = xdist, structures = xstruct)
 ## 
 ## $results
-##                             Df Sum Sq Mean Sq
-## Between Pop                  1  742.0 741.987
-## Between samples Within Pop  16  185.7  11.605
-## Within samples             123  520.1   4.229
-## Total                      140 1447.8  10.341
+##                             Df    Sum Sq    Mean Sq
+## Between Pop                  1  741.9872 741.987234
+## Between samples Within Pop  16  185.6877  11.605483
+## Within samples             123  520.1123   4.228555
+## Total                      140 1447.7872  10.341337
 ## 
 ## $componentsofcovariance
-##                                          Sigma       %
-## Variations  Between Pop                10.4132  66.778
-## Variations  Between samples Within Pop  0.9521   6.105
-## Variations  Within samples              4.2286  27.117
-## Total variations                       15.5938 100.000
+##                                             Sigma          %
+## Variations  Between Pop                10.4131525  66.777680
+## Variations  Between samples Within Pop  0.9520545   6.105355
+## Variations  Within samples              4.2285550  27.116965
+## Total variations                       15.5937620 100.000000
 ## 
 ## $statphi
-##                      Phi
-## Phi-samples-total 0.7288
-## Phi-samples-Pop   0.1838
-## Phi-Pop-total     0.6678</code></pre>
+##                         Phi
+## Phi-samples-total 0.7288303
+## Phi-samples-Pop   0.1837727
+## Phi-Pop-total     0.6677768</code></pre>
 <p>The first thing to look at are the <code>$results</code> element. The degrees of freedom (the <code>Df</code> column) should match what we expect from our (not clone-corrected) data. The number in the <code>Total</code> row should equal 186 or <span class="math">\(N - 1\)</span>, where values are calculated from pooled data. Note that here, “samples” actually refers to subpopulations since we cannot asses within-sample variance of dominant data.</p>
 <p>The <code>$componentsofcovariance</code> table shows how much variance is detected at each hierarchical level. We expect variations within samples to give the greatest amount of variation for populations that are not significantly differentiated. <code>Sigma</code> represents the variance, <span class="math">\(\sigma\)</span>, for each hierarchical level and to the right is the percent of the total.</p>
 <p>Finally, <code>$statphi</code> provides the <span class="math">\(\phi\)</span> population differentiation statistics. These are used to test hypotheses about population differentiation. We would expect a higher <span class="math">\(\phi\)</span> statistic to represent a higher amount of differentiation.</p>
@@ -271,7 +270,7 @@ Aeutamovacc &lt;- poppr.amova(Aeut, ~Pop/Subpop, clonecorrect = TRUE)</code></pr
 Aeutsignif   &lt;- randtest(Aeutamova, nrepet = 999)
 Aeutccsignif &lt;- randtest(Aeutamovacc, nrepet = 999)</code></pre>
 <pre class="r"><code>plot(Aeutsignif)</code></pre>
-<p><img src="C10_AMOVA_files/figure-html/Aeut_random_plot.png" title="plot of chunk Aeut_random_plot" alt="plot of chunk Aeut_random_plot" width="700px" /></p>
+<p><img src="C10_AMOVA_files/figure-html/Aeut_random_plot-1.png" title="" alt="" width="700px" /></p>
 <pre class="r"><code>Aeutsignif</code></pre>
 <pre><code>## class: krandtest 
 ## Monte-Carlo tests
@@ -281,15 +280,15 @@ Aeutccsignif &lt;- randtest(Aeutamovacc, nrepet = 999)</code></pre>
 ## 
 ## Adjustment method for multiple comparisons:   none 
 ## Permutation number:   999 
-##                         Test    Obs Std.Obs   Alter Pvalue
-## 1  Variations within samples  3.411 -31.437    less  0.001
-## 2 Variations between samples  1.329  20.166 greater  0.001
-## 3     Variations between Pop 11.063   9.764 greater  0.001
+##                         Test       Obs    Std.Obs   Alter Pvalue
+## 1  Variations within samples  3.411277 -32.036209    less  0.001
+## 2 Variations between samples  1.328667  19.821125 greater  0.001
+## 3     Variations between Pop 11.063446   9.871005 greater  0.001
 ## 
 ## other elements: adj.method call</code></pre>
 <p>From this output, you can see three histograms representing the distribution of the randomized hierarchy. The black line represents the observed data. You can see a table of observed results in the output showing that there is significant population structure considering all levels of the population hierarchy. Of course, this could be due to the presence of clones, so let’s visualize the results from the clone corrected data set below:</p>
 <pre class="r"><code>plot(Aeutccsignif)</code></pre>
-<p><img src="C10_AMOVA_files/figure-html/Aeut_clonecorrect_random_plot.png" title="plot of chunk Aeut_clonecorrect_random_plot" alt="plot of chunk Aeut_clonecorrect_random_plot" width="700px" /></p>
+<p><img src="C10_AMOVA_files/figure-html/Aeut_clonecorrect_random_plot-1.png" title="" alt="" width="700px" /></p>
 <pre class="r"><code>Aeutccsignif</code></pre>
 <pre><code>## class: krandtest 
 ## Monte-Carlo tests
@@ -299,10 +298,10 @@ Aeutccsignif &lt;- randtest(Aeutamovacc, nrepet = 999)</code></pre>
 ## 
 ## Adjustment method for multiple comparisons:   none 
 ## Permutation number:   999 
-##                         Test     Obs Std.Obs   Alter Pvalue
-## 1  Variations within samples  4.2286 -21.087    less  0.001
-## 2 Variations between samples  0.9521   9.661 greater  0.001
-## 3     Variations between Pop 10.4132  10.351 greater  0.001
+##                         Test        Obs    Std.Obs   Alter Pvalue
+## 1  Variations within samples  4.2285550 -20.866469    less  0.001
+## 2 Variations between samples  0.9520545   9.956407 greater  0.001
+## 3     Variations between Pop 10.4131525  10.325631 greater  0.001
 ## 
 ## other elements: adj.method call</code></pre>
 <p>The above graphs show significant population differentiation at all levels given that the observed <span class="math">\(\phi\)</span> does not fall within the distribution expected from the permutation. Compare the results of our AMOVA analysis to those published in <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>. They should be identical.</p>
@@ -339,24 +338,24 @@ Aeut.new.amova         &lt;- poppr.amova(Aeut.new, ~Pop/Subpop)</code></pre>
 ## ade4::amova(samples = xtab, distances = xdist, structures = xstruct)
 ## 
 ## $results
-##                             Df  Sum Sq Mean Sq
-## Between Pop                  1   23.21  23.206
-## Between samples Within Pop  16  136.34   8.521
-## Within samples             169 1741.65  10.306
-## Total                      186 1901.20  10.221
+##                             Df     Sum Sq   Mean Sq
+## Between Pop                  1   23.20576 23.205765
+## Between samples Within Pop  16  136.33757  8.521098
+## Within samples             169 1741.65452 10.305648
+## Total                      186 1901.19786 10.221494
 ## 
 ## $componentsofcovariance
-##                                          Sigma       %
-## Variations  Between Pop                 0.1589   1.544
-## Variations  Between samples Within Pop -0.1733  -1.684
-## Variations  Within samples             10.3056 100.140
-## Total variations                       10.2912 100.000
+##                                             Sigma          %
+## Variations  Between Pop                 0.1588974   1.544009
+## Variations  Between samples Within Pop -0.1733264  -1.684217
+## Variations  Within samples             10.3056481 100.140207
+## Total variations                       10.2912190 100.000000
 ## 
 ## $statphi
-##                         Phi
-## Phi-samples-total -0.001402
-## Phi-samples-Pop   -0.017106
-## Phi-Pop-total      0.015440</code></pre>
+##                            Phi
+## Phi-samples-total -0.001402074
+## Phi-samples-Pop   -0.017106288
+## Phi-Pop-total      0.015440091</code></pre>
 <pre class="r"><code>Aeut.new.amova.test    &lt;- randtest(Aeut.new.amova, nrepet = 999)
 Aeut.new.amova.test</code></pre>
 <pre><code>## class: krandtest 
@@ -367,14 +366,14 @@ Aeut.new.amova.test</code></pre>
 ## 
 ## Adjustment method for multiple comparisons:   none 
 ## Permutation number:   999 
-##                         Test     Obs Std.Obs   Alter Pvalue
-## 1  Variations within samples 10.3056  0.3828    less  0.600
-## 2 Variations between samples -0.1733 -0.7156 greater  0.763
-## 3     Variations between Pop  0.1589  1.3889 greater  0.090
+##                         Test        Obs    Std.Obs   Alter Pvalue
+## 1  Variations within samples 10.3056481  0.3943624    less  0.617
+## 2 Variations between samples -0.1733264 -0.7362208 greater  0.767
+## 3     Variations between Pop  0.1588974  1.4483580 greater  0.096
 ## 
 ## other elements: adj.method call</code></pre>
 <pre class="r"><code>plot(Aeut.new.amova.test)</code></pre>
-<p><img src="C10_AMOVA_files/figure-html/randomized_hierarchy_plot.png" title="plot of chunk randomized_hierarchy_plot" alt="plot of chunk randomized_hierarchy_plot" width="700px" /></p>
+<p><img src="C10_AMOVA_files/figure-html/randomized_hierarchy_plot-1.png" title="" alt="" width="700px" /></p>
 <p>We see that there now is no significant population structure.</p>
 </div>
 <div id="conclusions" class="section level2">
@@ -408,12 +407,12 @@ $(document).ready(function () {
 
 </script>
 
-<!-- dynamically load mathjax for compatibility with --self-contained -->
+<!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "libs/mathjax-2.3.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

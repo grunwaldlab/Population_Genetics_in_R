@@ -110,21 +110,21 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
         <ul class="nav">
           <li class="dropdown">
             <a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-               <li><a href="Preface.html">i. Preface</a></li>
-               <li><a href="C01_Introduction.html">1. Introduction</a></li>
-               <li><a href="C02_Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
-               <li><a href="C03_Data_Preparation.html">3. Data preparation</a></li>
-               <li><a href="C04_First_Steps.html">4. First steps</a></li>
-               <li><a href="C05_Population_Hierarchies.html">5. Population hierarchies and clone correction</a></li>
-               <li><a href="C06_Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
-               <li><a href="C07_Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
-               <li><a href="C08_Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
-               <li><a href="C09_Pop_Structure.html">9. Population structure</a></li>
-               <li><a href="C10_AMOVA.html">10. AMOVA</a></li>
-               <li><a href="C11_DAPC.html">11. Discriminant analysis of principal components (DAPC)</a></li>
-               </ul>
-            </li>
+            <ol class="dropdown-menu">
+               <li type = "i"><a href="Preface.html">Preface</a></li>
+               <li type = "1" value = "1"><a href="C01_Introduction.html">Introduction</a></li>
+               <li><a href="C02_Getting_ready_to_use_R.html">Getting ready to use R</a></li>
+               <li><a href="C03_Data_Preparation.html">Data preparation</a></li>
+               <li><a href="C04_First_Steps.html">First steps</a></li>
+               <li><a href="C05_Population_Hierarchies.html">Population hierarchies and clone correction</a></li>
+               <li><a href="C06_Locus_Stats.html">Locus-based statistics and missing data</a></li>
+               <li><a href="C07_Genotypic_EvenRichDiv.html">Genotypic evenness, richness, and diversity</a></li>
+               <li><a href="C08_Linkage_disequilibrium.html">Linkage disequilibrium</a></li>
+               <li><a href="C09_Pop_Structure.html">Population structure</a></li>
+               <li><a href="C10_AMOVA.html">AMOVA</a></li>
+               <li><a href="C11_DAPC.html">Discriminant analysis of principal components (DAPC)</a></li>
+            </ol>
+          </li>
           <li class="dropdown">
             <a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>
             <ul class = "dropdown-menu">
@@ -170,7 +170,7 @@ data(H3N2)      # load the H3N2 inflluenza data. Tye ?H3N2 for more info.
 pop(H3N2) &lt;- factor(H3N2$other$epid)
 dapc.H3N2 &lt;- dapc(H3N2, var.contrib=TRUE, scale=FALSE, n.pca=30, n.da=10)
 scatter(dapc.H3N2, cell=0, pch=18:23, cstar=0, mstree=TRUE, lwd=2, lty=2)</code></pre>
-<p><img src="C11_DAPC_files/figure-html/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="960" /></p>
+<p><img src="C11_DAPC_files/figure-html/unnamed-chunk-2-1.png" title="" alt="" width="960" /></p>
 <p>The <code>dapc()</code> variables refer to:</p>
 <ul>
 <li>the dataset H3N2</li>
@@ -183,7 +183,7 @@ scatter(dapc.H3N2, cell=0, pch=18:23, cstar=0, mstree=TRUE, lwd=2, lty=2)</code>
 <p>Next, let’s assess if there are alleles that most differentiate the 2006 cluster from those in other years.</p>
 <pre class="r"><code>set.seed(4)
 contrib &lt;- loadingplot(dapc.H3N2$var.contr, axis=2, thres=.07, lab.jitter=1)</code></pre>
-<p><img src="C11_DAPC_files/figure-html/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="960" /></p>
+<p><img src="C11_DAPC_files/figure-html/unnamed-chunk-3-1.png" title="" alt="" width="960" /></p>
 <p>It looks like SNPs at position 384 and 906 are involved. Let’s check this further by looking at allele frequencies by year:</p>
 <pre class="r"><code>temp &lt;- seploc(H3N2)
 snp906 &lt;- truenames(temp[[&quot;906&quot;]])$tab #truenames{adegenet} returns elements of a genind object
@@ -191,28 +191,28 @@ snp399 &lt;- truenames(temp[[&quot;399&quot;]])$tab
 freq906 &lt;- apply(snp906, 2, function(e) tapply(e, pop(H3N2), mean, na.rm=TRUE))
 freq399 &lt;- apply(snp399, 2, function(e) tapply(e, pop(H3N2), mean, na.rm=TRUE))
 freq906</code></pre>
-<pre><code>##         906.c  906.t
-## 2001 0.000000 1.0000
-## 2002 0.000000 1.0000
-## 2003 0.000000 1.0000
-## 2004 0.000000 1.0000
-## 2005 0.002155 0.9978
-## 2006 0.616071 0.3839</code></pre>
+<pre><code>##            906.c     906.t
+## 2001 0.000000000 1.0000000
+## 2002 0.000000000 1.0000000
+## 2003 0.000000000 1.0000000
+## 2004 0.000000000 1.0000000
+## 2005 0.002155172 0.9978448
+## 2006 0.616071429 0.3839286</code></pre>
 <pre class="r"><code>freq399</code></pre>
-<pre><code>##         399.c  399.t
-## 2001 0.000000 1.0000
-## 2002 0.000000 1.0000
-## 2003 0.000000 1.0000
-## 2004 0.001848 0.9982
-## 2005 0.002079 0.9979
-## 2006 0.357143 0.6429</code></pre>
+<pre><code>##            399.c     399.t
+## 2001 0.000000000 1.0000000
+## 2002 0.000000000 1.0000000
+## 2003 0.000000000 1.0000000
+## 2004 0.001848429 0.9981516
+## 2005 0.002079002 0.9979210
+## 2006 0.357142857 0.6428571</code></pre>
 <p>Note that a new allele appeared in 2005 for SNP locus 906 and 2004 for locus 399 separating populations along axis 2.</p>
 <pre class="r"><code>par(mfrow=c(1,2), mar=c(5.1,4.1,4.1,.1),las=3)
 matplot(freq906, pch=c(&quot;c&quot;,&quot;t&quot;), type=&quot;b&quot;,xlab=&quot;year&quot;,ylab=&quot;allele frequency&quot;, xaxt=&quot;n&quot;, cex=1.5, main=&quot;SNP # 906&quot;)
 axis(side=1, at=1:6, lab=2001:2006)
 matplot(freq399, pch=c(&quot;c&quot;,&quot;t&quot;), type=&quot;b&quot;, xlab=&quot;year&quot;,ylab=&quot;allele frequency&quot;, xaxt=&quot;n&quot;, cex=1.5, main=&quot;SNP #399&quot;)
 axis(side=1, at=1:6, lab=2001:2006)</code></pre>
-<p><img src="C11_DAPC_files/figure-html/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="960" /></p>
+<p><img src="C11_DAPC_files/figure-html/unnamed-chunk-5-1.png" title="" alt="" width="960" /></p>
 <p>This plot nicely illustrates the effect of mutation, followed by selection or drift in the seasonal H3N2 influenza virus.</p>
 </div>
 <div id="conclusions" class="section level2">
@@ -252,7 +252,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "libs/mathjax-2.3.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

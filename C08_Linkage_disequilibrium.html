@@ -110,21 +110,21 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
         <ul class="nav">
           <li class="dropdown">
             <a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-               <li><a href="Preface.html">i. Preface</a></li>
-               <li><a href="C01_Introduction.html">1. Introduction</a></li>
-               <li><a href="C02_Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
-               <li><a href="C03_Data_Preparation.html">3. Data preparation</a></li>
-               <li><a href="C04_First_Steps.html">4. First steps</a></li>
-               <li><a href="C05_Population_Hierarchies.html">5. Population hierarchies and clone correction</a></li>
-               <li><a href="C06_Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
-               <li><a href="C07_Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
-               <li><a href="C08_Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
-               <li><a href="C09_Pop_Structure.html">9. Population structure</a></li>
-               <li><a href="C10_AMOVA.html">10. AMOVA</a></li>
-               <li><a href="C11_DAPC.html">11. Discriminant analysis of principal components (DAPC)</a></li>
-               </ul>
-            </li>
+            <ol class="dropdown-menu">
+               <li type = "i"><a href="Preface.html">Preface</a></li>
+               <li type = "1" value = "1"><a href="C01_Introduction.html">Introduction</a></li>
+               <li><a href="C02_Getting_ready_to_use_R.html">Getting ready to use R</a></li>
+               <li><a href="C03_Data_Preparation.html">Data preparation</a></li>
+               <li><a href="C04_First_Steps.html">First steps</a></li>
+               <li><a href="C05_Population_Hierarchies.html">Population hierarchies and clone correction</a></li>
+               <li><a href="C06_Locus_Stats.html">Locus-based statistics and missing data</a></li>
+               <li><a href="C07_Genotypic_EvenRichDiv.html">Genotypic evenness, richness, and diversity</a></li>
+               <li><a href="C08_Linkage_disequilibrium.html">Linkage disequilibrium</a></li>
+               <li><a href="C09_Pop_Structure.html">Population structure</a></li>
+               <li><a href="C10_AMOVA.html">AMOVA</a></li>
+               <li><a href="C11_DAPC.html">Discriminant analysis of principal components (DAPC)</a></li>
+            </ol>
+          </li>
           <li class="dropdown">
             <a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>
             <ul class = "dropdown-menu">
@@ -167,9 +167,9 @@ data(Pinf)
 MX &lt;- popsub(Pinf, &quot;North America&quot;)  #subset population to North America</code></pre>
 <pre class="r"><code>ia(MX, sample=999)   # include 999 permutations, where Ia is also calculated for the observed data, thus enabling a null distribution of 1000 observations</code></pre>
 <pre><code>## |================================================================| 100%</code></pre>
-<p><img src="C08_Linkage_disequilibrium_files/figure-html/MXia.png" title="plot of chunk MXia" alt="plot of chunk MXia" width="700px" /></p>
-<pre><code>##      Ia    p.Ia   rbarD    p.rD 
-## 0.22261 0.02300 0.02396 0.01500</code></pre>
+<p><img src="C08_Linkage_disequilibrium_files/figure-html/MXia-1.png" title="" alt="" width="700px" /></p>
+<pre><code>##         Ia       p.Ia      rbarD       p.rD 
+## 0.22260850 0.02300000 0.02395687 0.01500000</code></pre>
 <blockquote>
 <p><strong>For advanced users:</strong> To reproduce results use the function <code>set.seed()</code> before invoking <code>ia()</code>.</p>
 </blockquote>
@@ -192,24 +192,24 @@ MX &lt;- popsub(Pinf, &quot;North America&quot;)  #subset population to North Am
 <pre class="r"><code>MX.cc &lt;- clonecorrect(MX, hier = ~Continent/Country, keep = 2) # remove clones from Mexican population</code></pre>
 <pre class="r"><code>ia(MX.cc, sample = 999)   # include 999 permutations</code></pre>
 <pre><code>## |================================================================| 100%</code></pre>
-<p><img src="C08_Linkage_disequilibrium_files/figure-html/MXiacc.png" title="plot of chunk MXiacc" alt="plot of chunk MXiacc" width="700px" /></p>
-<pre><code>##       Ia     p.Ia    rbarD     p.rD 
-## 0.079811 0.225000 0.008569 0.213000</code></pre>
+<p><img src="C08_Linkage_disequilibrium_files/figure-html/MXiacc-1.png" title="" alt="" width="700px" /></p>
+<pre><code>##          Ia        p.Ia       rbarD        p.rD 
+## 0.079811141 0.225000000 0.008568857 0.213000000</code></pre>
 <p>Now <span class="math">\(\bar{r}_d\)</span> is located more centrally in the distribution expected from unlinked loci. Note that <span class="math">\(P\)</span> has improved and we fail to reject the null hypothesis of no linkage among markers. Thus it spears that populations in Mexico are partially sexual.</p>
 <p>Next let’s use the same process to evaluate the South American population:</p>
 <pre class="r"><code>SA &lt;- popsub(Pinf, &quot;South America&quot;)</code></pre>
 <pre class="r"><code>ia(SA, sample = 999)   # include 999 permutations</code></pre>
 <pre><code>## |================================================================| 100%</code></pre>
-<p><img src="C08_Linkage_disequilibrium_files/figure-html/SAia.png" title="plot of chunk SAia" alt="plot of chunk SAia" width="700px" /></p>
-<pre><code>##     Ia   p.Ia  rbarD   p.rD 
-## 2.8733 0.0010 0.3446 0.0010</code></pre>
+<p><img src="C08_Linkage_disequilibrium_files/figure-html/SAia-1.png" title="" alt="" width="700px" /></p>
+<pre><code>##        Ia      p.Ia     rbarD      p.rD 
+## 2.8733344 0.0010000 0.3446431 0.0010000</code></pre>
 <p>Here we find significant support for the hypothesis that alleles are linked across loci with <span class="math">\(P &lt; 0.001\)</span>. The observed <span class="math">\(\bar{r}_d = 0.345\)</span> and falls outside of the distribution expected under no linkage. Let’s look at the clone-corrected data and make sure this is not an artifact of clonality:</p>
 <pre class="r"><code>SA.cc &lt;- clonecorrect(SA, hier = ~Continent/Country, keep = 2)</code></pre>
 <pre class="r"><code>ia(SA.cc, sample=999)   # include 999 permutations</code></pre>
 <pre><code>## |================================================================| 100%</code></pre>
-<p><img src="C08_Linkage_disequilibrium_files/figure-html/SAiacc.png" title="plot of chunk SAiacc" alt="plot of chunk SAiacc" width="700px" /></p>
-<pre><code>##     Ia   p.Ia  rbarD   p.rD 
-## 2.6335 0.0010 0.3146 0.0010</code></pre>
+<p><img src="C08_Linkage_disequilibrium_files/figure-html/SAiacc-1.png" title="" alt="" width="700px" /></p>
+<pre><code>##        Ia      p.Ia     rbarD      p.rD 
+## 2.6335025 0.0010000 0.3145711 0.0010000</code></pre>
 <p>Both clone-corrected (<span class="math">\(N = 29\)</span>) and uncorrected data (<span class="math">\(N = 38\)</span>) reject the hypothesis of no linkage among markers. We thus have support for populations in Mexico being sexual while those in South America are clonal.</p>
 <p>This approach has been applied to provide support for Mexico as the putative center of origin of the potato late blight pathogen <em>P. infestans</em> <span class="citation">(Goss et al., 2014)</span>. At the center of origin this organism is expected to reproduce sexually, while South American populations are clonal.</p>
 </div>
@@ -246,7 +246,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "libs/mathjax-2.3.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
