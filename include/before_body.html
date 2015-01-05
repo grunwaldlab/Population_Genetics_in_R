@@ -1,51 +1,64 @@
 
-<div class="navbar navbar-default navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="brand" href="index.html"><b>Population Genetics in R</b></a>
-      <div class="nav-collapse collapse">
-        <ul class="nav">
-          <li class="dropdown">
-            <a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>
-            <ol class="dropdown-menu">
-               <li type = "i"><a href="Preface.html">Preface</a></li>
-               <li type = "1" value = "1"><a href="C01_Introduction.html">Introduction</a></li>
-               <li><a href="C02_Getting_ready_to_use_R.html">Getting ready to use R</a></li>
-               <li><a href="C03_Data_Preparation.html">Data preparation</a></li>
-               <li><a href="C04_First_Steps.html">First steps</a></li>
-               <li><a href="C05_Population_Hierarchies.html">Population hierarchies and clone correction</a></li>
-               <li><a href="C06_Locus_Stats.html">Locus-based statistics and missing data</a></li>
-               <li><a href="C07_Genotypic_EvenRichDiv.html">Genotypic evenness, richness, and diversity</a></li>
-               <li><a href="C08_Linkage_disequilibrium.html">Linkage disequilibrium</a></li>
-               <li><a href="C09_Pop_Structure.html">Population structure</a></li>
-               <li><a href="C10_AMOVA.html">AMOVA</a></li>
-               <li><a href="C11_DAPC.html">Discriminant analysis of principal components (DAPC)</a></li>
-            </ol>
-          </li>
-          <li class="dropdown">
-            <a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>
-            <ul class = "dropdown-menu">
-               <li><a href="A1_Data_sets.html">A1. Data sets</a></li>
-               <li><a href="A2_Function_Glossary.html">A2. Function glossary</a></li>
-            </ul>
-          </li>
-          
-        <ul class="nav">
-          <li><a href="Authors.html">About</a></li>
-          <li class="dropdown">
-
-        </ul>
-      </div><!--/.nav-collapse -->
+      <a class="navbar-brand" href="/"><b>Population Genetics in R</b></a>
     </div>
-  </div>
-</div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <!---<a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>-->
+          <a href="chapters" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Chapters <span class="caret"></span></a>
+          <ol class="dropdown-menu", role = "menu">
+             <li type = "i"><a href="Preface.html">Preface</a></li>
+             <li type = "1" value = "1"><a href="C01_Introduction.html">Introduction</a></li>
+             <li><a href="C02_Getting_ready_to_use_R.html">Getting ready to use R</a></li>
+             <li><a href="C03_Data_Preparation.html">Data preparation</a></li>
+             <li><a href="C04_First_Steps.html">First steps</a></li>
+             <li><a href="C05_Population_Hierarchies.html">Population hierarchies and clone correction</a></li>
+             <li><a href="C06_Locus_Stats.html">Locus-based statistics and missing data</a></li>
+             <li><a href="C07_Genotypic_EvenRichDiv.html">Genotypic evenness, richness, and diversity</a></li>
+             <li><a href="C08_Linkage_disequilibrium.html">Linkage disequilibrium</a></li>
+             <li><a href="C09_Pop_Structure.html">Population structure</a></li>
+             <li><a href="C10_AMOVA.html">AMOVA</a></li>
+             <li><a href="C11_DAPC.html">Discriminant analysis of principal components (DAPC)</a></li>
+          </ol>
+        </li>
+        <li class="dropdown">
+          <!---<a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>-->
+          <a href="appendices" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Appendices <span class="caret"></span></a>
+          <ul class = "dropdown-menu", role = "menu">
+             <li><a href="A1_Data_sets.html">A1. Data sets</a></li>
+             <li><a href="A2_Function_Glossary.html">A2. Function glossary</a></li>
+          </ul>
+        </li>
+        
+      <ul class="nav">
+        <li><a href="Authors.html">About</a></li>
+        <li class="dropdown">
 
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+<!-- 
+
+old rmarkdown version: 
+
+devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa21442203f52face83")
+
+
+ -->
 <div class="container">
 <div class="row">
 <div class="span10 offset1">
+
+
+
+
 
