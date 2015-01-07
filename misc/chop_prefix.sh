@@ -12,6 +12,12 @@ do
    	then
    		oldrmd=`printf $name | cut -d \. -f 1`
    		newrmd=`printf $newname | cut -d \. -f 1`
+   		cachedir="cache"
+   		oldcache=${oldrmd}_${cachedir}
+   		newcache=${newrmd}_${cachedir}
+   		filesdir="files"
+   		oldfiles=${oldrmd}_${filesdir}
+   		newfiles=${newrmd}_${filesdir}   		
    		printf "cp $name -> $newname\n"
    		# cp $name $newname
    		printf "cp $oldrmd.Rmd -> $newrmd.Rmd\n"
@@ -20,8 +26,10 @@ do
    		# cp $name old/$name
    		printf "mv $oldrmd.Rmd -> old/$oldrmd.Rmd\n"
    		# mv $oldrmd.Rmd old/$oldrmd.Rmd
-   		printf "mv $oldrmd/ -> $newrmd/\n"
-   		# mv $oldrmd $newrmd
+   		printf "mv $oldcache/ -> $newcache/\n"
+   		# mv $oldcache/ $newcache/
+   		printf "mv $oldfiles/ -> $newfiles/\n"
+   		# mv $oldfiles/ $newfiles/
    		printf "redirect $name -> $newname\n"
    		# cp $redirect $name
 	   	# perl -p -i -e 's/http:.+?in_R\//'$newname'/g' $name
