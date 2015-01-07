@@ -1,0 +1,176 @@
+```{r,message=FALSE,echo=FALSE}
+  html <- TRUE
+  library(knitcitations)
+  library(knitr)
+  cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
+  bib <- read.bibtex("bibtexlib.bib")
+  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, 
+                 fig.width = 10, fig.height = 6, cache = TRUE)
+  if (html) opts_chunk$set(out.width = "700px", dpi = 300)
+  # use this to set knitr options: 
+  # http://yihui.name/knitr/options #chunk_options
+```
+---
+title: "10: AMOVA"
+---
+
+In this chapter, we will utilize AMOVA to analyze our populations. AMOVA stands
+for **A**nalysis of **MO**lecular **VA**riance and is a method to detect
+population differentiation utilizing molecular markers `r citep(bib[c("excoffier1992analysis")])`. This procedure was initially implemented for DNA haplotypes, but applies to any marker system. *Poppr*'s implementation of AMOVA requires two very basic components: A distance matrix derived from the data and a separate table used to partition the data into different hierarchical levels.
+
+The distance matrix can be calculated using any distance as long as it is euclidean. The distance that is used in the program Arlequin is the opposite of the Kronecker Delta function that counts the number of differences summed over $L$ loci:
+
+$$
+\delta_{l,m} = \begin{cases}
+1 \text{ if } m = l,\\
+0 \text{ if } m \neq l
+\end{cases}
+$$
+$$
+d_{i,j} = \sum_{L = 1}^L 1 - \delta_{i,j}
+$$
+
+Data set
+----
+
+To calculate AMOVA in *poppr*, one simply needs to supply a data set with
+hierarchical levels. We will use the *Aphanomyces euteiches* data set from 
+`r citep(bib["grunwald2006hierarchical"])`.
+
+```{r}
+library(poppr)
+data(Aeut)
+Aeut <- as.genclone(Aeut)
+Aeut
+```
+We can see that this data set contains clonal data and has three hierarchical levels where the first is really a combination of the other levels. We can take a look
+at the different hierarchical levels, first populations followed by subpopulations: 
+
+```{r}
+table(gethierarchy(Aeut, ~Pop))
+table(gethierarchy(Aeut, ~Pop/Subpop, combine = FALSE))
+```
+
+
+In this example, we have a data set of 187 individuals sampled from two fields in regions Athena and Mt. Vernon over different 8 or 10 soil samples within each field. We want to see if most of the variance is observed at the sample, field, or regional level. 
+
+Analysis
+----
+
+In panmictic populations, we would expect to see most of the variance arise from within samples. If we see that the most of the variance occurs among samples within populations or among populations, then there is evidence that we have some sort of population structure. In the case of clonal organisms, this would help support a hypothesis of clonal reproduction. Since *Aphanomyces eutieches* is known to be clonal, we would not expect most of the variance to come from within samples.
+
+Let's invoke the AMOVA functions with and without clone correction:
+
+```{r, eval = FALSE}
+Aeutamova <- poppr.amova(Aeut, ~Pop/Subpop)
+Aeutamovacc <- poppr.amova(Aeut, ~Pop/Subpop, clonecorrect = TRUE)
+```
+
+
+```{r, echo = FALSE}
+Aeutamova <- poppr.amova(Aeut, ~Pop/Subpop, quiet = TRUE)
+Aeutamovacc <- poppr.amova(Aeut, ~Pop/Subpop, clonecorrect = TRUE, quiet = TRUE)
+```
+
+We'll look at the AMOVA results for both analyses. 
+
+```{r}
+Aeutamova
+Aeutamovacc
+```
+
+The first thing to look at are the `$results` element. The degrees of freedom
+(the `Df` column) should match what we expect from our (not clone-corrected) data. The number in the `Total` row should equal 186 or $N - 1$, where values are calculated from pooled data. Note that here, "samples" actually refers to 
+subpopulations since we cannot asses within-sample variance of dominant data. 
+
+The `$componentsofcovariance` table shows how much
+variance is detected at each hierarchical level. We expect variations within samples to 
+give the greatest amount of variation for populations that are not significantly
+differentiated. `Sigma` represents the variance, $\sigma$, for each hierarchical
+level and to the right is the percent of the total. 
+
+Finally, `$statphi` provides the $\phi$ population differentiation statistics. These are used to test hypotheses about population differentiation. We would expect a higher $\phi$
+statistic to represent a higher amount of differentiation. 
+
+Note, if you want to make a table of any of these components, you can isolate them by using the `$` operator and then export it to a table with `write.table`. Here's an example with the components of covariance:
+
+```{r, eval = FALSE}
+write.table(Aeutamova$componentsofcovariance, sep = ",", file = "~/Documents/AeutiechesAMOVA.csv")
+```
+
+
+Significance testing
+----
+
+To test if populations are significantly different, we perform a randomization test using the function `randtest()` from the *ade4* package. This will randomly permute the sample matrices as described in `r citep(bib["excoffier1992analysis"])`.
+
+```{r, first_randtest, cache=TRUE}
+set.seed(1999)
+Aeutsignif   <- randtest(Aeutamova, nrepet = 999)
+Aeutccsignif <- randtest(Aeutamovacc, nrepet = 999)
+```
+```{r, Aeut_random_plot}
+plot(Aeutsignif)
+Aeutsignif
+```
+From this output, you can see three histograms representing the distribution of
+the randomized hierarchy. The black line represents the observed data. You can 
+see a table of observed results in the output showing that there is significant
+population structure considering all levels of the population hierarchy. Of
+course, this could be due to the presence of clones, so let's visualize the
+results from the clone corrected data set below:
+
+```{r, Aeut_clonecorrect_random_plot}
+plot(Aeutccsignif)
+Aeutccsignif
+```
+
+The above graphs show significant population differentiation at all levels given that the observed $\phi$ does not fall within the distribution expected from the permutation. Compare the results of our AMOVA analysis to those published in `r citep(bib["grunwald2006hierarchical"])`. They should be identical. 
+
+Randomized population structure
+----
+
+Since AMOVA is used to detect whether or not there is significant population
+structure, we can see what happens when we randomly shuffle the population
+assignments in our data. Here we will show what the populations look like before
+and after shuffling:
+
+```{r}
+Aeut.new <- Aeut
+head(gethierarchy(Aeut)[, -1])
+set.seed(9001)
+head(gethierarchy(Aeut)[sample(nInd(Aeut)), -1])
+```
+Here we see that the populations are completely shuffled, so in the next step,
+we will reassign the hierarchy with these newly shuffled populations and rerun
+the AMOVA analysis.
+
+```{r, randomized_hierarchy, cache=TRUE}
+set.seed(9001)
+sethierarchy(Aeut.new) <- gethierarchy(Aeut)[sample(nInd(Aeut)), -1]
+Aeut.new.amova         <- poppr.amova(Aeut.new, ~Pop/Subpop)
+Aeut.new.amova
+Aeut.new.amova.test    <- randtest(Aeut.new.amova, nrepet = 999)
+Aeut.new.amova.test
+```
+```{r, randomized_hierarchy_plot}
+plot(Aeut.new.amova.test)
+```
+
+We see that there now is no significant population structure.
+
+Conclusions
+----
+
+AMOVA is a powerful tool that can help support hypotheses of population structure due to clonal reproduction or isolation without making assumptions about Hardy-Weinberg equilibrium. We have shown that we can reject the
+$H_o$ of random mating between the two populations and have strong evidence that
+these populations are significantly differentiated at all hierarchical levels `r citep(bib["grunwald2006hierarchical"])`. From these results, we can investigate
+hypotheses as to why these populations are significantly differentiated.
+
+This example was performed with a data set of dominant (AFLP)
+markers, but it can also be performed on codominant markers as well (SNP, SSR). These provide more information because within sample (individual) variance is also assessed. If one wants to utilize a genetic distance that has biological relevance, a different distance matrix can be provided by the user. See `help('amova', package = 'poppr')` for more details.
+
+References
+----------
+
+<!----------->
