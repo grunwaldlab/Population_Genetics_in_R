@@ -6,9 +6,14 @@ redirect="$2"
 while read line
 do
     name=$line
-    cp $redirect $name
     newname=`printf $name | cut -d _ -f 2-`
-    printf "$newname\n"
-   	perl -p -i -e 's/http:.+?in_R\//'$newname'/g' $name
+    if [[ "$newname" != "$name" ]]
+    then
+    	cp $redirect $name
+    	printf "$name -> $newname\n"
+	   	perl -p -i -e 's/http:.+?in_R\//'$newname'/g' $name
+	else
+		printf "$name\n"
+	fi
     
 done < $collate
