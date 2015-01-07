@@ -11,6 +11,8 @@ do
    	if [[ $name != $newname ]]
    	then
    		printf "$name -> old/$name\n"
+   		newrmd=`printf $newname | cut -d \. -f 1`
+   		printf "$newrmd.Rmd\n"
    		cp $name $newname
    		cp $name old/$name
    		cd old
