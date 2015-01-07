@@ -1,5 +1,4 @@
 html_document:
-  mathjax: local
   toc: true
   toc_depth: 2
   self_contained: false

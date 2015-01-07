@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>A1: Data sets used in this primer</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/readable.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-52691601-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">
+
+/* padding for bootstrap navbar */
+body {
+  padding-top: 50px;
+  padding-bottom: 40px;
+  padding-right: 50px;
+  padding-left: -50px;
+}
+@media (max-width: 979px) {
+  body {
+    padding-top: 0;
+  }
+}
+
+/* offset scroll position for anchor links (for fixed navbar)  */
+@media (min-width: 980px) {
+  .section h2 {
+    padding-top: 52px;
+    margin-top: -52px;
+  }
+  .section h3 {
+    padding-top: 52px;
+    margin-top: -52px;
+  }
+}
+
+
+/* don't use link color in navbar */
+.dropdown-menu>li>a {
+  color: black;
+}
+
+</style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="brand" href="index.html"><b>Population Genetics in R</b></a>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <li class="dropdown">
+            <a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>
+            <ol class="dropdown-menu">
+               <li type = "i"><a href="Preface.html">Preface</a></li>
+               <li type = "1" value = "1"><a href="Introduction.html">Introduction</a></li>
+               <li><a href="Getting_ready_to_use_R.html">Getting ready to use R</a></li>
+               <li><a href="Data_Preparation.html">Data preparation</a></li>
+               <li><a href="First_Steps.html">First steps</a></li>
+               <li><a href="Population_Hierarchies.html">Population hierarchies and clone correction</a></li>
+               <li><a href="Locus_Stats.html">Locus-based statistics and missing data</a></li>
+               <li><a href="Genotypic_EvenRichDiv.html">Genotypic evenness, richness, and diversity</a></li>
+               <li><a href="Linkage_disequilibrium.html">Linkage disequilibrium</a></li>
+               <li><a href="Pop_Structure.html">Population structure</a></li>
+               <li><a href="AMOVA.html">AMOVA</a></li>
+               <li><a href="DAPC.html">Discriminant analysis of principal components (DAPC)</a></li>
+            </ol>
+          </li>
+          <li class="dropdown">
+            <a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>
+            <ul class = "dropdown-menu">
+               <li><a href="Data_sets.html">A1. Data sets</a></li>
+               <li><a href="Function_Glossary.html">A2. Function glossary</a></li>
+            </ul>
+          </li>
+          
+        <ul class="nav">
+          <li><a href="Authors.html">About</a></li>
+          <li class="dropdown">
+
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+</div>
+
+<!-- <div class="container">
+<div class="row">
+<div class="span10 offset1"> -->
+
+<div id="header">
+<h1 class="title">A1: Data sets used in this primer</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#aflp-diploid-clonal-aeut">AFLP (diploid, clonal): <strong>Aeut</strong></a></li>
+<li><a href="#microsatellite-haploid-clonal-monpop">Microsatellite (haploid, clonal): <strong>monpop</strong></a></li>
+<li><a href="#microsatellite-diploid-sexual-nancycats">Microsatellite (diploid, sexual): <strong>nancycats</strong></a></li>
+<li><a href="#microsatellite-triploid-sexualclonal-pinf">Microsatellite (triploid, sexual/clonal): <strong>Pinf</strong></a></li>
+<li><a href="#snp-haploid-clonal-h3n2">SNP (haploid, clonal): <strong>H3N2</strong></a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<div id="aflp-diploid-clonal-aeut" class="section level2">
+<h2>AFLP (diploid, clonal): <strong>Aeut</strong></h2>
+<p>This data is for a population of the diploid plant pathogen <em>Aphanomyces euteiches</em> using AFLP as a marker system <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>. A total of 187 pathogen isolates were sampled hierarchically in two regions in Oregon (N = 97) and Washington (N = 90). The alleles observed were treated as dominant markers with presence or absence. Analysis included clone-correction, genotypic diversity, linkage disequilibrium using the index of association, dendrograms based on Nei’s genetic distance, and AMOVA.</p>
+</div>
+<div id="microsatellite-haploid-clonal-monpop" class="section level2">
+<h2>Microsatellite (haploid, clonal): <strong>monpop</strong></h2>
+<p>This is microsatellite data for a population of the haploid plant pathogen <em>Monilinia fructicola</em> that causes disease within peach tree canopies <span class="citation">(Everhart &amp; Scherm, 2014)</span>. Entire populations within trees were sampled across 3 years (2009, 2010, and 2011) in a total of four trees, where one tree was sampled in all three years, for a total of 6 within-tree populations. Within each year, samples in the spring were taken from affected blossoms (termed “BB” for blossom blight) and in late summer from affected fruits (termed “FR” for fruit rot). There are a total of 694 isolates with 65 to 173 isolates within each canopy population that were characterized using a set of 13 microsatellite markers.</p>
+</div>
+<div id="microsatellite-diploid-sexual-nancycats" class="section level2">
+<h2>Microsatellite (diploid, sexual): <strong>nancycats</strong></h2>
+<p>This is a data set of 217 cats <em>Felis catus</em> L. from Nancy, France genotyped over 9 microsatellite loci. They have been divided into 17 populations with spatial coordinates in the <code>@other</code> slot. It comes from the <em>adegenet</em> package without a published reference. Likely, the source paper is <a href="http://dx.doi.org/10.1016/j.mambio.2008.01.001">here</a>.</p>
+</div>
+<div id="microsatellite-triploid-sexualclonal-pinf" class="section level2">
+<h2>Microsatellite (triploid, sexual/clonal): <strong>Pinf</strong></h2>
+<p>This microsatellite data comes from a larger data set of popualtions of <em>Phytophthora infestans</em> <span class="citation">(Goss et al., 2014)</span>. It contains 86 individuals representing 72 multilocus genotypes that have been genotyped over 11 loci. They are grouped by continent and country. This data set is used to demonstrate clone correction and linkage disequilibrium.</p>
+</div>
+<div id="snp-haploid-clonal-h3n2" class="section level2">
+<h2>SNP (haploid, clonal): <strong>H3N2</strong></h2>
+<p>This is a SNP data set from the hemaglutinin segment of the H3N2 strain of seasonal influenza contained within the <em>adegenet</em> package. It contains 1902 samples genotyped over 125 SNP markers. It contains a wealth of information in the <code>@other</code> slot including year isolated, month isolated, country of origin, and more. This data set is utilized to demonstrate the DAPC function in <em>adegenet</em>.</p>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<!------------>
+
+
+<div class="references">
+<p>Everhart S., Scherm H. 2014. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> ##:submitted.</p>
+<p>Goss E., Tabima J., Cooke D., Restrepo S., Fry W., Forbes G., Fieland V., Cardenas M., Grünwald N. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
+<p>Grünwald N., Hoheisel G-A. 2006. Hierarchical analysis of diversity, selfing, and genetic differentiation in populations of the oomycete <em>Aphanomyces euteiches</em>. <em>Phytopathology</em> 96:1134–1141. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134</a></p>
+</div>
+</div>
+
+<!-- </div>
+</div>
+</div>
+ -->
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

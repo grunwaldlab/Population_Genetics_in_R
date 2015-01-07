@@ -1,0 +1,130 @@
+```{r,message=FALSE,echo=FALSE}
+  library(knitcitations)
+  library(knitr)
+  cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
+  bib <- read.bibtex("bibtexlib.bib")
+  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, cache = TRUE) 
+  # use this to set knitr options: 
+  # http://yihui.name/knitr/options #chunk_options
+```
+---
+title: "5: Populations hierarchies: subsetting and clone correction"
+---
+
+Populations are best sampled hierarchically on a range of scales from subpopulations (e.g. fields, valleys, ranges) to regions (e.g. valleys, states, countries or continents) or across time (years or decades). This approach is useful because population structure and evolutionary processes may not be discernible *a priori*. Most of the times we do not know if population are differentiated locally, regionally or globally or in time.  Thus, a combination of targeted local sampling with sampling over larger spatial or temporal scales is necessary to detect population structure over different scales, without using intense sampling throughout the entire range.  
+
+The methods implemented in *poppr* allow specification of which hierarchies you want to analyze.  This is a rapid way of working with subsets of your data without having to perform any data manipulation or changing the input file.  In this tutorial, we will show you how to define the hierarchical structure of your data and  how to specify specific levels that you might want to analyze.
+
+Data used in this example
+----
+For this example, we will use  the `monpop` data set `r citep(bib[c("everhart2014finescale")])`.  This microsatellite data consists of 13 loci for 694 individuals of the haploid fungal pathogen *Monilinia fructicola* that infects peach flowers and fruits in commercial orchards.  The monpop population came from four trees within a single orchard (trees 26, 45, and 7). Each tree was sampled in 2009, 2010, and/or 2011.  Additionally, each sample was noted as to whether it came from a blossom or a fruit. This example data set is included with the *poppr* package. 
+
+Working with hierarchical data
+----
+
+The steps for working with hierarchical data include:
+
+1.  Import data set with samples labeled according to hierarchy
+2.  Define the hierarchical levels for the data
+3.  Setting the hierarchical level(s) that you want to have analyzed
+
+Importing data labeled according to a hierarchy
+----
+The easiest way to work with hierarchical data is to label each sample using an underscore "\_" to separate each hierarchical level.  This was already done for the monpop data, where each sample was coded hierarchically by tree, year, and symptom in the following format: "Tree\_Year\_Symptom". 
+
+Let's load the hierarchically labeled example data:
+```{r}
+library(poppr)
+data(monpop)
+monpop
+```
+
+
+**Genotype information** shows us that the data contains 264 multilocus genotypes among 694 haploid individuals with 13 loci. **Population information** has two items, the hierarchical levels and the populations defined.  You can think of hierarchical levels as the index names for each of the hierarchical levels within your data (so for our data it should be Tree, Year, and Symptom).  By default, however, no hierarchical levels are defined and so this is "Pop", which is the entire dataset of 694 individuals.  Because we labeled each sample according to hierarchical level, populations defined shows us our data has 12 groups defined: `r monpop$pop.names`.  
+
+Assigning hierarchical levels
+----
+We imported the data that has three hierarchical levels "Tree\_Year\_Symptom". In order to analyze our data according to any combination of those three hierarchical levels, we need to tell *poppr* that the 12 groups should be split by tree, year, and/or symptom.  Thus, the first step is to split our data according to hierarchy so that we can access each of the three hierarchical levels in the data.  The `splithierarchy` command is used to index the three hierarchical levels:
+
+
+```{r}
+splithierarchy(monpop) <- ~Tree/Year/Symptom
+monpop
+```
+
+After splitting the data populations are specified by hierarchical level: "Tree Year Symptom". 
+
+Next, we analyze the data according to Tree and Year:
+
+```{r}
+setpop(monpop) <- ~Tree/Year
+monpop
+```
+
+To analyze the data according to Symptom:
+````{r}
+setpop(monpop) <- ~Symptom
+monpop
+````
+
+Order of the levels that you define is important, so if we wanted to define the symptoms according to tree, we would use the following:
+````{r}
+setpop(monpop) <- ~Symptom/Tree
+monpop
+````
+
+Clone correction
+----
+
+When dealing wtih a clonal populations, analyses are typically conducted with and without clone corrections. Clone correction results in retaining only one individual per MLG. This technique is commonly used with the analysis of the index
+of association. Clone correction requires specification of
+the hierarchical levels at which clones should be censored. 
+
+Using `monpop` as an example, if we wanted to know the diversity of alleles within each
+tree per year, how should we go about correcting for the clones? We use the 
+function `clonecorrect` specifying the "Tree/Year" hierarchy:
+
+```{r, clonecorrection}
+mcc_TY <- clonecorrect(monpop, hier = ~Tree/Year, keep = 1:2)
+mcc_TY
+setpop(monpop) <- ~Tree/Year
+```
+
+Now we can compare the diversity of alleles at each locus using Simpson's index ($1-D$):
+
+```{r, simpdiv}
+cc <- locus_table(mcc_TY, info = FALSE)
+mp <- locus_table(monpop, info = FALSE)
+mp - cc
+```
+
+We can see quite a difference in some alleles after clone correcting based on 
+tree in the overall data set. Of course, we still want to analyze each tree/year
+combination separately. This is where it would help to construct a little function.
+
+```{r}
+plot_simp_diff <- function(pop_name, mcc_TY, monpop){
+  cc <- locus_table(mcc_TY, pop = pop_name, info = FALSE)
+  mp <- locus_table(monpop, pop = pop_name, info = FALSE)
+  res <- mp - cc
+  barplot(res[, "1-D"], main = pop_name)
+}
+pops <- monpop@pop.names # Gather the population names
+par(mfrow = c(2, 3)) # Set up the graphics to have two rows and three columns
+for (i in pops){
+  plot_simp_diff(i, mcc_TY, monpop)
+}
+par(mfrow = c(1, 1))
+```
+
+These barplots show the difference in Simpson's index of original minus clone corrected data for each population per locus. We can see that  allelic diversity generally is lower in the total data set (containing some repeated MLGs) relative to clone corrected data.
+
+Conclusions
+----
+
+This was a brief introduction to the easiest way to create hierarchical levels and apply them in *poppr* to more rapidly analyze your data. By indexing the hierarchical levels of your data, you can set the hierarchical level(s) you want to have analyzed in a single command line.  This approach avoids having to create new sub-sets of the data for each analysis and simultaneously reduces the chance of error when manipulating data sets by hand.
+
+References
+----------
+
+<!-------->
