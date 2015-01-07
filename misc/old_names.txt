@@ -1,0 +1,14 @@
+Preface.html
+C01_Introduction.html
+C02_Getting_ready_to_use_R.html
+C03_Data_Preparation.html
+C04_First_Steps.html
+C05_Population_Hierarchies.html
+C06_Locus_Stats.html
+C07_Genotypic_EvenRichDiv.html
+C08_Linkage_disequilibrium.html
+C09_Pop_Structure.html
+C10_AMOVA.html
+C11_DAPC.html
+A1_Data_sets.html
+A2_Function_Glossary.html
