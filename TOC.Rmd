@@ -6,20 +6,20 @@ i.   [Preface](Preface.html)
 
 ### Chapters
 
-1.   [Introduction](C01_Introduction.html)
-2.   [Getting ready to use R](C02_Getting_ready_to_use_R.html)
-3.   [Data formating and preparation](C03_Data_Preparation.html)
-3.   [First steps](C04_First_Steps.html)
-4.   [Populations hierarchies: subsetting and clone correction](C05_Population_Hierarchies.html)
-5.   [Locus stats, heterozygosity, and HWE](C06_Locus_Stats.html)
-6.   [Genotypic richness, diversity, and eveness](C07_Genotypic_EvenRichDiv.html)
-7.   [Linkage disequilibrium](C08_Linkage_disequilibrium.html)
-8.   [Population structure: differentiation by $G_{ST}$, clustering and minimum spanning networks](C09_Pop_Structure.html)
-9.   [Analysis of molecular variance (AMOVA)](C10_AMOVA.html)
-10.   [Discriminant analysis of principal components (DAPC)](C11_DAPC.html)
+1.   [Introduction](Introduction.html)
+2.   [Getting ready to use R](Getting_ready_to_use_R.html)
+3.   [Data formating and preparation](Data_Preparation.html)
+3.   [First steps](First_Steps.html)
+4.   [Populations hierarchies: subsetting and clone correction](Population_Hierarchies.html)
+5.   [Locus stats, heterozygosity, and HWE](Locus_Stats.html)
+6.   [Genotypic richness, diversity, and eveness](Genotypic_EvenRichDiv.html)
+7.   [Linkage disequilibrium](Linkage_disequilibrium.html)
+8.   [Population structure: differentiation by $G_{ST}$, clustering and minimum spanning networks](Pop_Structure.html)
+9.   [Analysis of molecular variance (AMOVA)](AMOVA.html)
+10.   [Discriminant analysis of principal components (DAPC)](DAPC.html)
 
 ### Appendices
 
-1. [Data sets](A1_Data_sets.html)
-2. [Function glossary](A2_Function_Glossary.html)
+1. [Data sets](Data_sets.html)
+2. [Function glossary](Function_Glossary.html)
 
