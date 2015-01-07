@@ -20,6 +20,8 @@ do
    		# cp $name old/$name
    		printf "mv $oldrmd.Rmd -> old/$oldrmd.Rmd\n"
    		# mv $oldrmd.Rmd old/$oldrmd.Rmd
+   		printf "mv $oldrmd/ -> $newrmd/\n"
+   		# mv $oldrmd $newrmd
    		printf "redirect $name -> $newname\n"
    		# cp $redirect $name
 	   	# perl -p -i -e 's/http:.+?in_R\//'$newname'/g' $name
