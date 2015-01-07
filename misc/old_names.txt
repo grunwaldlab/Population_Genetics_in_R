@@ -10,3 +10,5 @@ C08_Linkage_disequilibrium.html
 C09_Pop_Structure.html
 C10_AMOVA.html
 C11_DAPC.html
+A1_Data_sets.html
+A2_Function_Glossary.html

@@ -33,6 +33,7 @@ do
    		printf "redirect $name -> $newname\n"
    		# cp $redirect $name
 	   	# perl -p -i -e 's/http:.+?in_R\//'$newname'/g' $name
+	   	# perl -p -i -e 's/(A|C)[[:digit:]]+?_//g'$newrmd.Rmd
    	else
    		printf "$name\n"
    	fi
