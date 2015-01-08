@@ -1,0 +1,19 @@
+i. Preface
+
+1
+Introduction
+Getting_ready_to_use_R
+Data_Preparation
+First_Steps
+Population_Hierarchies
+Locus_Stats
+Genotypic_EvenRichDiv
+Linkage_disequilibrium
+Pop_Structure
+AMOVA
+DAPC
+
+prefix:A
+1
+Data_sets
+Function_Glossary
