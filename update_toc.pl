@@ -47,7 +47,7 @@ while (my $line = <TOC>)
 	{
 		my $outcount = $rom ? roman($count) : $count;
 		verb("$prefix$outcount.\t$line");
-		verb(`grep -E "title: (\\"|\\')$prefix$outcount" $line.Rmd`);
+		verb(`grep -E "title: [\\"\\']$prefix$outcount" $line.Rmd`);
 		$count++;
 	}
 	else
