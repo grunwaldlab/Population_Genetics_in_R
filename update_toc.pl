@@ -47,7 +47,7 @@ while (my $line = <TOC>)
 	{
 		my $outcount = $rom ? roman($count) : $count;
 		verb("$prefix$outcount.\t$line");
-		system("sh update_title.sh $line.Rmd $html $outcount $prefix");
+		system("sh update_title.sh $line $html $outcount $prefix");
 		$count++;
 	}
 	else
