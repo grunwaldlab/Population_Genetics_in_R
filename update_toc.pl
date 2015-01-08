@@ -30,25 +30,29 @@ open(TOC, "<", "$toc")
 while (my $line = <TOC>)
 {
 	chomp $line;
+	# Check for starting number
 	if ($line =~ m/start:/)
 	{
 		($junk, $line) = split /:/, $line;
 		$count = looks_like_number($line) ? $line : arabic($line);
 		$rom = isroman($line) ? 1 : undef;
 	}
+	# Check for a prefix before the number
 	elsif ($line =~ m/prefix:/)
 	{
 		($junk, $prefix) = split /:/, $line;
 	} 
+	# Check for full lines. These will be filenames.
 	elsif (length($line) > 1)
 	{
 		my $outcount = $rom ? roman($count) : $count;
-		print "$prefix$outcount\t$line\n";
+		verb("$prefix$outcount.\t$line");
+		verb(`grep -E "title: (\\"|\\')$prefix$outcount" $line.Rmd`);
 		$count++;
 	}
 	else
 	{
-		print "\n";
+		verb("");
 	}
 	
 
