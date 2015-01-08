@@ -9,7 +9,7 @@
   if (html) opts_chunk$set(out.width = "700px", dpi = 300)
 ```
 ---
-title: "4:  First Analysis"
+title: "4: First Analysis"
 ---
 
 This chapter introduces basic use of and navigation in *poppr* as well as good practices when starting an analysis. We take a glance at the genotypic diversity observed in populations and allelic frequencies observed in your loci by population. Both of these are good first steps to eliminate data entry errors, check for missing/rare data, and make sure all loci conform to expectations given your analyses. 
