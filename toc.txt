@@ -1,6 +1,9 @@
-i. Preface
+prefix:
+start:i
+Preface
 
-1
+prefix:
+start:1
 Introduction
 Getting_ready_to_use_R
 Data_Preparation
@@ -14,6 +17,6 @@ AMOVA
 DAPC
 
 prefix:A
-1
+start:1
 Data_sets
 Function_Glossary
