@@ -82,7 +82,7 @@ t26
 
 Now that we have our tree, let's calculate a MSN using Bruvo's distance `r citep(bib['bruvo2004simple'])`:
 
-```{r}
+```{r, fig.width = 10, fig.height = 10}
 # Set up our repeat lengths and populations to analyze
 reps <- c(6, 2, 4, 4, 4, 4, 4, 3, 4, 4, 2, 2, 2)
 sub9 <- c("9_BB", "9_FR")
