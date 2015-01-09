@@ -67,7 +67,7 @@ output: html_document
     <div class="row">
         <div class="col-md-2">
             <div class="imgAbt">
-                <img style="margin-bottom:25px;width=220px;height=220px" src="images/SydneyEverhart.JPG"  />
+                <img style="margin-bottom:25px;width=220px;height=220px" src="images/SE.jpg"  />
             </div>
         </div>
         <div class="col-md-6">
