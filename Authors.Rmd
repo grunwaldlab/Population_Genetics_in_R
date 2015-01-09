@@ -32,19 +32,19 @@ output: html_document
             </div>
         </div>
         <div class="col-md-6">
-		<small>
+        <small>
             **Niklaus J. Gr&uuml;nwald** is a plant pathologist with the USDA Agricultural Research Service and a Professor in the Department of Botany and Pant Pathology and the Center for Genome Research and Biocomputing at Oregon State University. He received his PhD from UC Davis and conducted postdoctoral research at Cornell University. His research focuses on understanding the evolutionary patterns and processes of emerging pathogens using population genetic and evolutionary approaches. 
-			<p>
-			<a href="http://grunwaldlab.cgrb.oregonstate.edu/">Gr&uuml;nwald lab</a> | 
-			<a href="http://www.researcherid.com/rid/K-6041-2013">ResearcherID</a> | 
-			<a href="http://orcid.org/0000-0003-1656-7602">Orcid</a> | 
-			<a href="https://www.researchgate.net/profile/Niklaus_Grunwald/?ev=hdr_xprf">ResearchGate</a> | 
-			<!-- <a href="http://impactstory.org/NiklausGrunwald">ImpactStory</a> |  -->
-			<a href="https://twitter.com/PhytophthoraLab" class="twitter-follow-button" data-show-count="false">Follow &#64;PhytophthoraLab</a> </small>
-			<script>
-			!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-			</script>
-			</p>
+            <p>
+            <a href="http://grunwaldlab.cgrb.oregonstate.edu/">Gr&uuml;nwald lab</a> | 
+            <a href="http://www.researcherid.com/rid/K-6041-2013">ResearcherID</a> | 
+            <a href="http://orcid.org/0000-0003-1656-7602">Orcid</a> | 
+            <a href="https://www.researchgate.net/profile/Niklaus_Grunwald/?ev=hdr_xprf">ResearchGate</a> | 
+            <!-- <a href="http://impactstory.org/NiklausGrunwald">ImpactStory</a> | -->
+            <a href="https://twitter.com/PhytophthoraLab" class="twitter-follow-button" data-show-count="false">
+                Follow &#64;PhytophthoraLab
+            </a> 
+            </p>
+        </small>
         </div>
     </div>
     <div class="row">
@@ -56,12 +56,11 @@ output: html_document
         <div class="col-md-6">
             <small>**Zhian N. Kamvar** is a graduate student in the Department of Botany and Pant Pathology at Oregon State University. His research is focused on genome sequencing and population genomics of the nursery pathogen *Phytophthora syringae*. He is the lead developer of the [*poppr* R package](http://github.com/grunwaldlab/poppr). Zhian is also co-host of the award-winning radio program [Inspiration Dissemination](http://poweredbyorange.com/2013/12/17/science-through-a-microphone/). 
             <p>
-            <a href="https://twitter.com/ZKamvar" class="twitter-follow-button" data-show-count="false">Follow &#64;ZKamvar</a>
+                <a href="https://twitter.com/ZKamvar" class="twitter-follow-button" data-show-count="false">
+                    Follow &#64;ZKamvar
+                </a>
+            </p>
             </small>
-			<script>
-			!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-			</script>
-			</p>
         </div>
     </div>
     <div class="row">
@@ -75,3 +74,10 @@ output: html_document
         </div>
     </div>
 </div>
+
+
+<script>
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+</script>
+
+
