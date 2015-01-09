@@ -1,18 +1,22 @@
 
-<div class="navbar navbar-default navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="brand" href="index.html"><b>Population Genetics in R</b></a>
-      <div class="nav-collapse collapse">
-        <ul class="nav">
-          <li class="dropdown">
-            <a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>
-            <ul class="dropdown-menu">
+      <!-- HOME -->
+      <a class="navbar-brand" href="index.html"><b>Population Genetics in R</b></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <!-- Table of contents -->
+        <li class="dropdown">
+          <!---<a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>-->
+          <a href="chapters" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Chapters <span class="caret"></span></a>
+            <ol class="dropdown-menu">
                <li><a href="Preface.html">i. Preface</a></li>
                <li><a href="Introduction.html">1. Introduction</a></li>
                <li><a href="Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
@@ -25,27 +29,34 @@
                <li><a href="Pop_Structure.html">9. Population structure</a></li>
                <li><a href="AMOVA.html">10. AMOVA</a></li>
                <li><a href="DAPC.html">11. Discriminant analysis of principal components (DAPC)</a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>
-            <ul class = "dropdown-menu">
-               <li><a href="Data_sets.html">A1. Data sets</a></li>
-               <li><a href="Function_Glossary.html">A2. Function glossary</a></li>
-            </ul>
-          </li>
-          
-        <ul class="nav">
-          <li><a href="Authors.html">About</a></li>
-          <li class="dropdown">
+            </ol>
+        </li>
+        <!-- Appendices dropdown -->
+        <li class="dropdown">
+          <!---<a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>-->
+          <a href="appendices" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Appendices <span class="caret"></span></a>
+          <ul class = "dropdown-menu", role = "menu">
+            <li><a href="Data_sets.html">A1. Data sets</a></li>
+            <li><a href="Function_Glossary.html">A2. Function glossary</a></li>
+          </ul>
+        </li>
+        <!-- Author button -->
+        <li><a href="Authors.html">About</a></li>
+        <li class="dropdown">
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+<!-- 
 
-        </ul>
-      </div><!--/.nav-collapse -->
-    </div>
-  </div>
-</div>
+old rmarkdown version: 
 
+devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa21442203f52face83")
+
+
+ -->
 <!-- <div class="container">
 <div class="row">
 <div class="span10 offset1"> -->
+
 

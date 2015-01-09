@@ -65,7 +65,7 @@ set.seed(20154)
 ia(MX.cc, sample = 999, quiet = TRUE)
 ```
 
-Now $\bar{r}_d$ is located more centrally in the distribution expected from unlinked loci. Note that $P$ has improved and we fail to reject the null hypothesis of no linkage among markers. Thus it spears that populations in Mexico are partially sexual. 
+Now $\bar{r}_d$ is located more centrally in the distribution expected from unlinked loci. Note that $P$ has improved and we fail to reject the null hypothesis of no linkage among markers. Thus it appears that populations in Mexico are partially sexual. 
 
 Next let's use the same process to evaluate the South American population:
 
