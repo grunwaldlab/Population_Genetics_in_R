@@ -6,7 +6,7 @@
   opts_chunk$set(tidy = FALSE)
 ```
 ---
-title: "A2. Function glossary"
+title: "A2: Function glossary"
 ---
 
 To quit R you can either use the Rstudio>Quit Rstudio pulldown menu command or execute ⌘+Q (OS X) or CTRL+Q (PC). 

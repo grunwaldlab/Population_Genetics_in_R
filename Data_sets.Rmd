@@ -1,4 +1,4 @@
- ```{r,message=FALSE,echo=FALSE}
+```{r,message=FALSE,echo=FALSE}
   library(knitcitations)
   library(knitr)
   cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
