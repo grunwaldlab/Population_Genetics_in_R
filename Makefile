@@ -17,6 +17,10 @@ newrmd:
 %.html: %.Rmd
 	R --slave -e "rmarkdown::render('$<')"
 
+# Render a single Rmd file. 
+# $ make render f=myFile.Rmd
+render: $(f) 
+	R --slave -e "rmarkdown::render('$<')"
 
 .PHONY: clean
 clean:
