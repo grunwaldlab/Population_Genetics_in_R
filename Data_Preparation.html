@@ -204,21 +204,25 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 
 <div id="TOC">
 <ul>
+<li><a href="#importing-data">Importing data</a></li>
 <li><a href="#genalex-data-format">GenAlEx data format</a></li>
-<li><a href="#other-accepted-formats">Other accepted formats</a></li>
 <li><a href="#population-hierarchies">Population hierarchies</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </div>
 
 <p>This section will briefly go over the basics of data import into <em>poppr</em>. For this section, we will focus on the GenAlEx format. Other formats are supported and details are given in the R help page for the <em>adegenet</em> function <code>import2genind</code>. We will show examples of haploid, diploid, and polyploid data sets and show you how you can format your data if it’s grouped into multiple hierarchical levels.</p>
-<div id="genalex-data-format" class="section level2">
-<h2>GenAlEx data format</h2>
-<p>GenAlEx is a very popular add-on for Microsoft Excel. It is relatively easy to use because of its familiar, menu-driven interface. It also gives the user the option to include information on population groupings, regional groupings, and xy coordinates. The flexibility of this format made it a clear choice for import into <em>poppr</em>.</p>
-<p>The data format is standard in that individuals are defined in the rows and loci are defined in the columns. The first two rows are reserved for metadata and the first two columns are reserved for the individual names and population names, respectively. The examples we will be using are codominant data, but AFLP data is also accepted.</p>
-<p>To start simple, let’s examine the input file for the <code>monpop</code> data set containing 694 isolates of the plant pathogen <em>Monilinia fructicola</em> genotyped over 13 haploid loci <span class="citation">(Everhart &amp; Scherm, 2014)</span>. This is a data set that lives within the <em>poppr</em> package and can be loaded with the following command:</p>
-<pre class="r"><code>library(poppr)
-data(monpop)
+<div id="importing-data" class="section level2">
+<h2>Importing data</h2>
+<div id="genalex-formatted-data" class="section level3">
+<h3>GenAlEx formatted data</h3>
+<p>To start simple, let’s examine the input file for the <code>monpop</code> data set containing 694 isolates of the plant pathogen <em>Monilinia fructicola</em> genotyped over 13 haploid loci <span class="citation">(Everhart &amp; Scherm, 2014)</span>. The data set is called <strong>monpop.csv</strong>.</p>
+<blockquote>
+<p><a class="btn btn-info btn-sm" target = "blank" href="https://github.com/grunwaldlab/Population_Genetics_in_R/blob/master/monpop.csv" role="button">view</a> or <a class="btn btn-primary btn-sm" target = "blank" href="http://grunwaldlab.github.io/Population_Genetics_in_R/monpop.csv" role="button"> download</a> monpop.csv</p>
+</blockquote>
+<p>To import GenAlEx formatted data into <em>poppr</em>, you should use the function <code>read.genalex</code>. Below is an example using <strong>monpop.csv</strong>.</p>
+<pre class="r"><code>library(&quot;poppr&quot;)
+monpop &lt;- read.genalex(&quot;~/Downloads/monpop.csv&quot;)
 monpop</code></pre>
 <pre><code>## 
 ## This is a genclone object
@@ -234,36 +238,67 @@ monpop</code></pre>
 ##      1 hierarchical level - Pop
 ##     12 populations defined - 7_09_BB 26_09_BB 26_09_FR ... 45_10_FR 
 ## 26_11_BB 26_11_FR</code></pre>
-<p>To see how a GenAlEx file can be constructed with this data, we will first write this data to a file on our desktop with the command <code>genind2genalex</code>:</p>
-<pre class="r"><code>genind2genalex(monpop, filename = &quot;~/Desktop/monpop.csv&quot;)</code></pre>
-<pre><code>## Extracting the table ... Writing the table to ~/Desktop/monpop.csv ... Done.</code></pre>
-<p>Below is what normal, haploid, GenAlEx data looks like. Highlighted in red is how missing data should be coded for codominant markers. Highlighted in blue are the parts of the metadata rows used by <em>poppr</em>. These three numbers represent:</p>
-<!-- html table generated in R 3.1.2 by xtable 1.7-4 package -->
-<!-- Tue Jan  6 22:03:24 2015 -->
-<table border=2 cellpadding=5 align=center>
-<tr> <th> 
+<blockquote>
+<p>There are other options for genalex formatted data, such as xy coordinates. We won’t cover the other options, but type <code>help(&quot;read.genalex&quot;)</code> in your R console for details.</p>
+</blockquote>
+</div>
+<div id="other-data-formats" class="section level3">
+<h3>Other data formats</h3>
+<p>Being based off of <em>adegenet</em>, users can import data from the following formats</p>
+<ul>
+<li><strong>FSTAT</strong> (file.dat)</li>
+<li><strong>GENETIX</strong> (file.gtx)</li>
+<li><strong>GENEPOP</strong> (file.gen)</li>
+<li><strong>STRUCTURE</strong> (file.str)</li>
+</ul>
+<p>The <em>adegenet</em> function <code>import2genind</code> will import all of these formats. If you have sequence data, you can use the <code>read.FASTA</code> function from the <em>ape</em> package. If your data is in any other format, type <code>help(&quot;df2genind&quot;)</code> for guidance.</p>
+<p>We will continue discussing the GenAlEx format below.</p>
+</div>
+</div>
+<div id="genalex-data-format" class="section level2">
+<h2>GenAlEx data format</h2>
+<p>GenAlEx is a very popular add-on for Microsoft Excel. It is relatively easy to use because of its familiar, menu-driven interface. It also gives the user the option to include information on population groupings, regional groupings, and xy coordinates. The flexibility of this format made it a clear choice for import into <em>poppr</em>.</p>
+<p>The data format is standard in that individuals are defined in the rows and loci are defined in the columns. The first two rows are reserved for metadata and the first two columns are reserved for the individual names and population names, respectively. The examples we will be using are codominant data, but AFLP data is also accepted.</p>
+<div id="haploids" class="section level3">
+<h3>Haploids</h3>
+<p>Below is what the monpop.csv data look like. Highlighted in red is how missing data should be coded for codominant markers. Highlighted in blue are the parts of the metadata rows used by <em>poppr</em>. These three numbers represent:</p>
+<table align="left" cellpadding=20 border=2>
+  <thead>
+    <tr>
+      <th class="col-xs-3">
 A
-</th> <th> 
+</th>
+      <th class="col-xs-3">
 B
-</th> <th> 
+</th>
+      <th class="col-xs-3">
 C
-</th>  </tr>
-  <tr> <td>  
+</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="text-center">
 loci
-</td> <td>  
-individuals
-</td> <td>  
+</td>
+      <td class="text-center">
+samples
+</td>
+      <td class="text-center">
 populations
-</td> </tr>
-   </table>
+</td>
+    </tr>
+  </tbody>
+</table>
 
 <p><img src="images/monpop.png" alt="monpop" /></p>
 <p>The columns of the metadata beyond those three rows define the number of individuals contained within each population. Since this data is redundant with the second column, it is not necessary. Notice, also, that the second column, reserved for the population assignments, has a pattern of underscores in the populations. This will be important at the end of this section. Below is a modified version of the input format that should make it easier to format.</p>
 <p><img src="images/monpop_ideal.png" alt="monpop_ideal" /></p>
 <p>Highlighted in blue is the cell that defines the number of columns highlighted in red. If we set this number to <code>1</code>, then we do not have to enter in any information in those columns. Try it for yourself.</p>
+</div>
 <div id="diploids" class="section level3">
 <h3>Diploids</h3>
-<p>Diploid data is only different in the fact that you will have two alleles represented at each locus. This is coded such that each allele is in a separate column so that your genetic data will take up 2*(number of loci) columns. Below is an example of the <code>nancycats</code> data set (from the <em>adegenet</em> package), exported like above. Highlighted in blue and red are the first two loci.</p>
+<p>Diploid data is only different in the fact that you will have two alleles represented at each locus. This is coded such that each allele is in a separate column so that your genetic data will take up 2 <span class="math">\(\times\)</span> (number of loci) columns. Below is an example of the <code>nancycats</code> data set (from the <em>adegenet</em> package), exported like above. Highlighted in blue and red are the first and second loci, respectively.</p>
 <p><img src="images/diploid.png" alt="diploid" /></p>
 </div>
 <div id="polyploids" class="section level3">
@@ -273,21 +308,15 @@ populations
 <p>Highlighted in blue is the first locus and highlighted in red are two samples at that locus, an observed diploid and observed triploid. Note the extra zeroes needed to make the genotype tetraploid.</p>
 </div>
 </div>
-<div id="other-accepted-formats" class="section level2">
-<h2>Other accepted formats</h2>
-<p>The other formats that are supported by <em>poppr</em> and <em>adegenet</em> are FSTAT, STRUCTURE, GENETIX, and GENEPOP. All of these can be imported with the <em>adegenet</em> function <code>import2genind</code>. If your data is in a custom format that has the basic form where individuals are in rows and each locus is in a separate column, then you can import your data using the base function <code>read.table</code> and then use the <em>adegenet</em> function <code>df2genind</code> to translate it to a genind object. Note that for polyploid data, it is still important to code your missing data as <code>0</code>.</p>
-</div>
 <div id="population-hierarchies" class="section level2">
 <h2>Population hierarchies</h2>
 <p>A hierarchical sampling approach is necessary to infer structure of populations in space or time. <em>Poppr</em> facilitates definition of hierarchical data by concatenating the different hierarchical levels into a single column by a common separator (“_” by default). Here’s an example of the three hierarchical levels of the <code>monpop</code> data set introduced above:</p>
-<!-- html table generated in R 3.1.2 by xtable 1.7-4 package -->
-<!-- Tue Jan  6 22:03:25 2015 -->
-<table border=2 cellpadding=5 align=center>
-<tr> <th> 
+<table border=2 cellpadding=20 align=center>
+<tr> <th class="col-xs3"> 
 Tree
-</th> <th> 
+</th> <th class="col-xs3"> 
 Year
-</th> <th> 
+</th> <th class="col-xs3"> 
 Symptom
 </th>  </tr>
   <tr> <td align="center"> 
@@ -332,13 +361,13 @@ BB
 </td> <td align="center"> 
 BB
 </td> </tr>
-   </table>
+</table>
 
 <p>resulting in definition for use in <em>poppr</em> as:</p>
 <!-- html table generated in R 3.1.2 by xtable 1.7-4 package -->
-<!-- Tue Jan  6 22:03:25 2015 -->
-<table border=2 cellpadding=5 align=center>
-<tr> <th> 
+<!-- Fri Jan  9 20:12:57 2015 -->
+<table border=2 cellpadding=20 align=center>
+<tr> <th class="col-xs3"> 
 Tree_Year_Symptom
 </th>  </tr>
   <tr> <td align="center"> 
@@ -359,13 +388,47 @@ Tree_Year_Symptom
   <tr> <td align="center"> 
 7_9_BB
 </td> </tr>
-   </table>
+</table>
+
 
 
 <blockquote>
 <p>If you do not want to concatenate your population factors into one row, save them as a separate csv file and use the functions <code>read.table</code> and <code>sethierarchy</code> after you’ve imported your genetic data to acheive the same result.</p>
 </blockquote>
-<p>The data imported this way can be accessed with the function <code>splithierarchy</code> detailed in <a href="Population_Hierarchies.html">our chapter on population hierarchies</a>.</p>
+<p>The data imported this way can be accessed with the function <code>splithierarchy</code>:</p>
+<pre class="r"><code># using monpop from above
+monpop # Before (One level, Pop)</code></pre>
+<pre><code>## 
+## This is a genclone object
+## -------------------------
+## Genotype information:
+## 
+##    264 multilocus genotypes
+##    694 haploid individuals
+##     13 codominant loci
+## 
+## Population information:
+## 
+##      1 hierarchical level - Pop
+##     12 populations defined - 7_09_BB 26_09_BB 26_09_FR ... 45_10_FR 
+## 26_11_BB 26_11_FR</code></pre>
+<pre class="r"><code>splithierarchy(monpop) &lt;- ~Tree/Year/Symptom
+monpop # After (Three distinct levels)</code></pre>
+<pre><code>## 
+## This is a genclone object
+## -------------------------
+## Genotype information:
+## 
+##    264 multilocus genotypes
+##    694 haploid individuals
+##     13 codominant loci
+## 
+## Population information:
+## 
+##      3 hierarchical levels - Tree Year Symptom
+##     12 populations defined - 7_09_BB 26_09_BB 26_09_FR ... 45_10_FR 
+## 26_11_BB 26_11_FR</code></pre>
+<p>This is detailed in <a href="Population_Hierarchies.html">our chapter on population hierarchies</a>.</p>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>
