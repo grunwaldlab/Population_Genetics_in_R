@@ -55,6 +55,7 @@ the monpop data, where each sample was coded hierarchically by tree, year, and
 symptom in the following format: "Tree\_Year\_Symptom".
 
 Let's load the hierarchically labeled example data:
+
 ```{r}
 library(poppr)
 data(monpop)
@@ -99,6 +100,7 @@ monpop
 ```
 
 To analyze the data according to Symptom:
+
 ````{r}
 setpop(monpop) <- ~Symptom
 monpop

@@ -9,12 +9,15 @@
 title: "A2: Function glossary"
 ---
 
-To quit R you can either use the Rstudio>Quit Rstudio pulldown menu command or execute ⌘+Q (OS X) or CTRL+Q (PC). 
+<!---To quit R you can either use the Rstudio>Quit Rstudio pulldown menu command or execute ⌘+Q (OS X) or CTRL+Q (PC). 
 
 Navigation in R
 ----
 
-```{r, eval=FALSE}
+---->
+ 
+
+<!--```{r, eval=FALSE}
 getwd()        # this command will print the current working directory
 ls()           # list objects in the current workspace
 help(options)  # learn about available options
@@ -35,23 +38,30 @@ help(functionname)     # Display documentation for a function
 args(functionname)     # What are the arguments for a given function
 example(functionname)  # see examples of function calls
 ```
+-->
 
+
+Navigation in R
+----
+
+Our primer is heavily based on the *poppr* and *adegenet* packages. To get help
+on any of their functions type a question mark before the empty function call as
+in:
+
+```{r, eval=FALSE}
+?mlg # open the R documentiaon of the function mlg
+```
+
+Other information can be obtained with the following commands.
+
+```{r, eval = FALSE}
+browseVignettes(package = 'poppr') # see vignettes for poppr
+vignette('poppr_manual')           # see manual for poppr
+help(package="poppr")              # shows all functions contained in poppr package
+```
 
 *Poppr* functions
 ----
-
-Our primer is heavily based on the *poppr* and *adegenet* packages. To get help on any of their functions type a question mark before the empty function call as in:
-
-```{r, eval=FALSE}
-# Information on pacakges or functions
-browseVignettes(package = 'poppr')    # see vignettes for poppr
-vignette('poppr_manual')              # see manual for poppr
-?mlg()           # open the R documentiaon of the function mlg()
-
-# Poppr functions
-help(package="poppr")   # shows all functions contained in poppr package
-
-```
 
 ### Import/Export
 Function | Description    

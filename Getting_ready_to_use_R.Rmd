@@ -1,12 +1,11 @@
 ```{r,message=FALSE,echo=FALSE}
-  html <- TRUE
   library(knitcitations)
   library(knitr)
   cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
   bib <- read.bibtex("bibtexlib.bib")
-  opts_chunk$set(tidy = FALSE,  warning = FALSE, fig.width = 10,
-  				 fig.height = 6, cache = TRUE)
-  if (html) opts_chunk$set(out.width = "700px", dpi = 300) 
+  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, cache = TRUE) 
+  # use this to set knitr options: 
+  # http://yihui.name/knitr/options #chunk_options 
 ```
 ---
 title: "2: Getting ready to use R"
@@ -48,9 +47,7 @@ in several ways:
  install.packages("devtools")
  devtools::install_github("grunwaldlab/poppr", ref = "devel")
 ```
-----
-
----->
+-->
 
 Installing R
 -----
@@ -124,7 +121,7 @@ on any of their functions type a question mark before the empty function call as
 in:
 
 ```{r, eval=FALSE}
-?mlg # open the R documentiaon of the function mlg()
+?mlg # open the R documentation of the function mlg()
 ```
 
 To quit R you can either use the <kbd>Rstudio > Quit</kbd> pull-down menu command or
