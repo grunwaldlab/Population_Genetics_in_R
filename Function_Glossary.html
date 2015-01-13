@@ -209,39 +209,49 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </ul>
 </div>
 
-<p>To quit R you can either use the Rstudio&gt;Quit Rstudio pulldown menu command or execute ⌘+Q (OS X) or CTRL+Q (PC).</p>
-<div id="navigation-in-r" class="section level2">
-<h2>Navigation in R</h2>
-<pre class="r"><code>getwd()        # this command will print the current working directory
+<!---To quit R you can either use the Rstudio>Quit Rstudio pulldown menu command or execute ⌘+Q (OS X) or CTRL+Q (PC). 
+
+Navigation in R
+----
+
+---->
+ 
+
+<!--```{r, eval=FALSE}
+getwd()        # this command will print the current working directory
 ls()           # list objects in the current workspace
 help(options)  # learn about available options
 history()      # viewing your command history
 data(*dsname*) # access builtin database *dsname*; must have pacakge loaded containing it
 q()            # quit your R session
 
-# default for saving history is &quot;.Rhistory&quot;
-savehistory(file=&quot;myfile&quot;)  # save your command history for whole session
-loadhistory(file= &quot;myfile&quot;) # recall command history save
+# default for saving history is ".Rhistory"
+savehistory(file="myfile")  # save your command history for whole session
+loadhistory(file= "myfile") # recall command history save
 
 # Package specific information
-installed.packages()[,c(&quot;Package&quot;,&quot;Version&quot;)] #list packages &amp; versions installed
+installed.packages()[,c("Package","Version")] #list packages & versions installed
 browseVignettes()                     # see vignettes from all packages
 
 #Help on functions
 help(functionname)     # Display documentation for a function
 args(functionname)     # What are the arguments for a given function
-example(functionname)  # see examples of function calls</code></pre>
+example(functionname)  # see examples of function calls
+```
+-->
+
+
+<div id="navigation-in-r" class="section level2">
+<h2>Navigation in R</h2>
+<p>Our primer is heavily based on the <em>poppr</em> and <em>adegenet</em> packages. To get help on any of their functions type a question mark before the empty function call as in:</p>
+<pre class="r"><code>?mlg # open the R documentiaon of the function mlg</code></pre>
+<p>Other information can be obtained with the following commands.</p>
+<pre class="r"><code>browseVignettes(package = &#39;poppr&#39;) # see vignettes for poppr
+vignette(&#39;poppr_manual&#39;)           # see manual for poppr
+help(package=&quot;poppr&quot;)              # shows all functions contained in poppr package</code></pre>
 </div>
 <div id="poppr-functions" class="section level2">
 <h2><em>Poppr</em> functions</h2>
-<p>Our primer is heavily based on the <em>poppr</em> and <em>adegenet</em> packages. To get help on any of their functions type a question mark before the empty function call as in:</p>
-<pre class="r"><code># Information on pacakges or functions
-browseVignettes(package = &#39;poppr&#39;)    # see vignettes for poppr
-vignette(&#39;poppr_manual&#39;)              # see manual for poppr
-?mlg()           # open the R documentiaon of the function mlg()
-
-# Poppr functions
-help(package=&quot;poppr&quot;)   # shows all functions contained in poppr package</code></pre>
 <div id="importexport" class="section level3">
 <h3>Import/Export</h3>
 <table>

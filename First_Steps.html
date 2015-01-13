@@ -233,7 +233,7 @@ Pinf       # We expect a maximum of 72 Multilocus Genotypes</code></pre>
 ##     2 hierarchical levels - Continent Country
 ##     2 populations defined - South America North America</code></pre>
 <pre class="r"><code>gac &lt;- genotype_curve(Pinf, sample = 1000, quiet = TRUE)</code></pre>
-<p><img src="First_Steps_files/figure-html/unnamed-chunk-2-1.png" title="Genotype accumulation curve" alt="Genotype accumulation curve" width="700px" /></p>
+<p><img src="First_Steps_files/figure-html/unnamed-chunk-2-1.png" title="Genotype accumulation curve" alt="Genotype accumulation curve" width="960" /></p>
 <p>We specified <code>sample = 1000</code> in our function call. This means that for each boxplot, <span class="math">\(n\)</span> loci were randomly sampled 1000 times in order to create the distribution. Since this data has been curated, we can see that we have reached the plateau with 11 loci. Try seeing what happens when you use a data set of sexual populations such as <code>microbov</code> or <code>nancycats</code>. Also, what happens when you use dominant AFLP data such as <code>Aeut</code>?</p>
 </div>
 <div id="allele-frequencies-missing-data-and-ploidy" class="section level2">
@@ -261,7 +261,7 @@ locus_table(Pinf)</code></pre>
 ##   Pi89 11.000  0.615  0.677    0.578
 ##   mean  8.636  0.517  0.620    0.602</code></pre>
 <pre class="r"><code>info_table(Pinf, type = &quot;missing&quot;, plot = TRUE)</code></pre>
-<p><img src="First_Steps_files/figure-html/unnamed-chunk-3-1.png" title="Missing data plot" alt="Missing data plot" width="700px" /></p>
+<p><img src="First_Steps_files/figure-html/unnamed-chunk-3-1.png" title="Missing data plot" alt="Missing data plot" width="1152" /></p>
 <pre><code>##                Locus
 ## Population      Pi02   D13 Pi33 Pi04 Pi4B  Pi16 G11 Pi56  Pi63 Pi70  Pi89
 ##   South America    .     .    .    .    .     .   .    .     .    .     .
@@ -299,7 +299,7 @@ locus_table(Pinf)</code></pre>
 <p>The <code>genind2df()</code> function trasnforms the data from genind object into a dataframe and adds ‘/’ as separators between alleles at each locus. Note how missing allelles are coded as ‘000’.</p>
 <p>To observe the different levels of ploidy in your data, use the function <code>info_table</code> with the argument <code>type = &quot;ploidy&quot;</code>:</p>
 <pre class="r"><code>Pinf.ploidy &lt;- info_table(Pinf, type = &quot;ploidy&quot;, plot = TRUE)</code></pre>
-<p><img src="First_Steps_files/figure-html/unnamed-chunk-5-1.png" title="Plot of ploidy" alt="Plot of ploidy" width="700px" /></p>
+<p><img src="First_Steps_files/figure-html/unnamed-chunk-5-1.png" title="Plot of ploidy" alt="Plot of ploidy" width="480" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>tail(Pinf.ploidy)</code></pre>
 <pre><code>##         Loci
 ## Samples  Pi02 D13 Pi33 Pi04 Pi4B Pi16 G11 Pi56 Pi63 Pi70 Pi89
@@ -341,9 +341,9 @@ locus_table(Pinf)</code></pre>
 <p>Next, let’s calculate <span class="math">\(MLG\)</span> for each population, e.g. “South America” and “North America” populations:</p>
 <pre class="r"><code>P.tab &lt;- mlg.table(Pinf)</code></pre>
 <pre><code>## | South America</code></pre>
-<p><img src="First_Steps_files/figure-html/unnamed-chunk-7-1.png" title="Multilocus Genotype Table" alt="Multilocus Genotype Table" width="700px" /></p>
+<p><img src="First_Steps_files/figure-html/unnamed-chunk-7-1.png" title="Multilocus Genotype Table" alt="Multilocus Genotype Table" width="960" /></p>
 <pre><code>## | North America</code></pre>
-<p><img src="First_Steps_files/figure-html/unnamed-chunk-7-2.png" title="Multilocus Genotype Table" alt="Multilocus Genotype Table" width="700px" /></p>
+<p><img src="First_Steps_files/figure-html/unnamed-chunk-7-2.png" title="Multilocus Genotype Table" alt="Multilocus Genotype Table" width="960" /></p>
 <p>The figures provide histograms to see how evenly <span class="math">\(MLGs\)</span> are distributed within each population. Both populations have genotypes that occur a few times and only a few genotypes that occur more than 2 times (as expected from the high <span class="math">\(E_5\)</span> discussed above). Try this analysis on other published data sets such as that of the root rot pathogen <em>Aphanomyces euteiches</em>, stored in <em>poppr</em> as <code>Aeut</code>. See if you can produce similar tables and graphs and compare it to the published paper <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>.</p>
 </div>
 <div id="conclusions" class="section level2">
