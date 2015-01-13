@@ -320,10 +320,14 @@ monpop</code></pre>
 ## 
 ##      3 hierarchical levels - Tree Year Symptom
 ##      8 populations defined - BB_7 BB_26 FR_26 ... BB_79 FR_79 FR_45</code></pre>
+<p>Now that we have laid out the basics of manipulating populations by hierarchies, we will now talk a little bit about using these hierarchies for clone correction.</p>
 </div>
 <div id="clone-correction" class="section level2">
 <h2>Clone correction</h2>
-<p>When dealing wtih a clonal populations, analyses are typically conducted with and without clone corrections. Clone correction results in retaining only one individual per MLG. This technique is commonly used with the analysis of the index of association. Clone correction requires specification of the hierarchical levels at which clones should be censored.</p>
+<p>When dealing with clonal populations, analyses are typically conducted with and without clone correction. Clone correction is a method of censoring a data set such that only one individual per MLG is represented per population <span class="citation">(Milgroom, 1996; Grünwald et al., 2003; Grünwald &amp; Hoheisel, 2006)</span>. This technique is commonly used with the analysis of the index of association and allelic diversity measures since duplicated genotypes have the potential to bias the analysis. Since we want to only observe unique genotypes per population, clone correction requires specification of the hierarchical levels at which clones should be censored. This section will show how to clone correct at a specific hierarchical level and also compare the results with uncorrected data.</p>
+<blockquote>
+<p>Question: Will allelic diversity increase or decrease with clone-censored data?</p>
+</blockquote>
 <p>Using <code>monpop</code> as an example, if we wanted to know the diversity of alleles within each tree per year, how should we go about correcting for the clones? We use the function <code>clonecorrect</code> specifying the “Tree/Year” hierarchy:</p>
 <pre class="r"><code>mcc_TY &lt;- clonecorrect(monpop, hier = ~Tree/Year, keep = 1:2)
 mcc_TY</code></pre>
@@ -340,7 +344,8 @@ mcc_TY</code></pre>
 ## 
 ##      3 hierarchical levels - Tree Year Symptom
 ##      6 populations defined - 7_9 26_9 26_10 45_10 79_10 26_11</code></pre>
-<pre class="r"><code>setpop(monpop) &lt;- ~Tree/Year</code></pre>
+<pre class="r"><code># Don&#39;t forget to set the original data set to the same hierarchy.
+setpop(monpop) &lt;- ~Tree/Year</code></pre>
 <p>Now we can compare the diversity of alleles at each locus using Simpson’s index (<span class="math">\(1-D\)</span>) as implemented in the function <code>locus_table</code>. We will do this in three steps:</p>
 <ol style="list-style-type: decimal">
 <li>Calculate diversity of the clone corrected data</li>
@@ -386,16 +391,16 @@ barplot(locus_diff[, &quot;1-D&quot;], ylab = &quot;Change in Simpson&#39;s Inde
 <h4>Example: harmonic mean</h4>
 <p>As an example function, let’s write a function that will take the harmonic mean of a vector of numbers. First, we’ll see how to do it in a non-functional way.</p>
 <blockquote>
-<p>The harmonic mean takes the reciprocal of the arithmetic mean of the reciprocal.</p>
+<p>The harmonic mean has been utilized to estimate effective population size of a population that has undergone drastic changes in population size <span class="citation">(Nielsen &amp; Slatkin, 2013)</span>.</p>
 </blockquote>
-<pre class="r"><code>vec &lt;- c(10, 2, 19, 24, 6, 23, 47, 24, 54, 77)
+<pre class="r"><code>psize &lt;- c(10, 100, 50, 80, 20, 500)
 # Arithmetic mean
-mean(vec)</code></pre>
-<pre><code>## [1] 28.6</code></pre>
+mean(psize)</code></pre>
+<pre><code>## [1] 126.6667</code></pre>
 <pre class="r"><code># Harmonic mean
-rmean &lt;- mean(1/vec)
+rmean &lt;- mean(1/psize)
 1/rmean</code></pre>
-<pre><code>## [1] 10.01109</code></pre>
+<pre><code>## [1] 30.84833</code></pre>
 <p>If we didn’t want to type all that, we could just write it into a function so that it can be reused without so much typing:</p>
 <blockquote>
 <p>Note here that the <em>argument</em> is <strong>x</strong> and it is a placeholder for any value you put into the function.</p>
@@ -404,10 +409,10 @@ rmean &lt;- mean(1/vec)
   rmean &lt;- mean(1/x)
   1/rmean
 }
-mean(vec)</code></pre>
-<pre><code>## [1] 28.6</code></pre>
-<pre class="r"><code>hmean(vec)</code></pre>
-<pre><code>## [1] 10.01109</code></pre>
+mean(psize)</code></pre>
+<pre><code>## [1] 126.6667</code></pre>
+<pre class="r"><code>hmean(psize)</code></pre>
+<pre><code>## [1] 30.84833</code></pre>
 </div>
 <div id="writing-a-function-for-comparing-clone-corrected-and-uncorrected-data" class="section level4">
 <h4>Writing a function for comparing clone corrected and uncorrected data</h4>
@@ -433,9 +438,9 @@ mean(vec)</code></pre>
   barplot(res[, &quot;1-D&quot;], main = pop_name, ylab = &quot;Change in Simpson&#39;s Index&quot;, xlab = &quot;Locus&quot;)
 }</code></pre>
 <p>Now that we have our function written, let’s gather the population names and construct a <em>for loop</em> that will analyze each one.</p>
-<pre class="r"><code>pops &lt;- monpop@pop.names # Gather the population names
-par(mfrow = c(2, 3))     # Set up the graphics to have two rows and three columns
-for (i in pops){
+<pre class="r"><code>par(mfrow = c(2, 3)) # Set up the graphics to have two rows and three columns
+
+for (i in monpop@pop.names){
   plot_simp_diff(i, mcc_TY, monpop)
 }</code></pre>
 <p><img src="Population_Hierarchies_files/figure-html/unnamed-chunk-11-1.png" title="" alt="" width="960" /></p>
@@ -446,7 +451,7 @@ for (i in pops){
 </div>
 <div id="conclusions" class="section level2">
 <h2>Conclusions</h2>
-<p>This was a brief introduction to the easiest way to create hierarchical levels and apply them in <em>poppr</em> to more rapidly analyze your data. By indexing the hierarchical levels of your data, you can set the hierarchical level(s) you want to have analyzed in a single command line. This approach avoids having to create new sub-sets of the data for each analysis and simultaneously reduces the chance of error when manipulating data sets by hand.</p>
+<p>This was a brief introduction to the easiest way to create hierarchical levels and apply them in <em>poppr</em> to more rapidly analyze your data. By indexing the hierarchical levels of your data, you can set the hierarchical level(s) you want to have analyzed in a single command. This approach avoids having to create new sub-sets of the data for each analysis and simultaneously reduces the chance of error when manipulating data sets by hand.</p>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>
@@ -455,6 +460,10 @@ for (i in pops){
 
 <div class="references">
 <p>Everhart S., Scherm H. 2014. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> ##:submitted.</p>
+<p>Grünwald N., Goodwin S., Milgroom M., Fry W. 2003. Analysis of genotypic diversity data for populations of microorganisms. <em>Phytopathology</em> 93:738–746. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738</a></p>
+<p>Grünwald N., Hoheisel G-A. 2006. Hierarchical analysis of diversity, selfing, and genetic differentiation in populations of the oomycete <em>Aphanomyces euteiches</em>. <em>Phytopathology</em> 96:1134–1141. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134</a></p>
+<p>Milgroom M. 1996. Recombination and the multilocus structure of fungal populations. <em>Annual review of phytopathology</em> 34:457–477. Available at: <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev.phyto.34.1.457">http://www.annualreviews.org/doi/abs/10.1146/annurev.phyto.34.1.457</a></p>
+<p>Nielsen R., Slatkin M. 2013. <em>An introduction to population genetics: Theory and applications</em>. Sinauer Associates, Incorporated. Available at: <a href="http://books.google.com/books?id=Iy08kgEACAAJ">http://books.google.com/books?id=Iy08kgEACAAJ</a></p>
 </div>
 </div>
 
