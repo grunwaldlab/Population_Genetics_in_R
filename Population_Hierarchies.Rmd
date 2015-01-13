@@ -89,6 +89,9 @@ splithierarchy(monpop) <- ~Tree/Year/Symptom
 monpop
 ```
 
+> The `splithierarchy` command only needs to be run once: right after you import
+> your data. 
+
 After splitting the data populations are specified by hierarchical level: "Tree
 Year Symptom".
 
@@ -140,12 +143,22 @@ use the function `clonecorrect` specifying the "Tree/Year" hierarchy:
 ```{r, clonecorrection}
 mcc_TY <- clonecorrect(monpop, hier = ~Tree/Year, keep = 1:2)
 mcc_TY
-# Don't forget to set the original data set to the same hierarchy.
+```
+
+Notice that the number of samples reduced from `r nInd(monpop)` to 
+`r nInd(mcc_TY)`, but is still more than the number of MLGs. This indicates that
+there are duplicated genotypes that cross trees and years, but that's okay
+because of our definition of a clone-corrected data set as having one
+representative genotype *per population*. Before we continue, we should set the
+original data to the same hierarchy:
+
+```{r}
 setpop(monpop) <- ~Tree/Year
 ```
 
 Now we can compare the diversity of alleles at each locus using Simpson's index
-($1-D$) as implemented in the function `locus_table`. We will do this in three
+($1-D$) as implemented in the function `locus_table` (Detailed in our 
+[chapter on locus based statistics](Locus_Stats.html)). We will do this in three
 steps:
 
 1. Calculate diversity of the clone corrected data
@@ -170,7 +183,8 @@ barplot(locus_diff[, "1-D"], ylab = "Change in Simpson's Index", xlab = "Locus",
 ```
 
 We can see quite a difference in some loci after clone correcting based on 
-tree in the overall data set. 
+tree in the overall data set showing that, while some loci show a decrease,
+many loci show an increase in allelic diversity after clone-correction. 
 
 ### Advanced: using functions
 
