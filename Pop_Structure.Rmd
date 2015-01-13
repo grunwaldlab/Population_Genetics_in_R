@@ -184,7 +184,7 @@ SAclust <- find.clusters(SA, n.pca = 30, n.clust = 4)
 
 Now we will build trees. We are using Bruvo's distance since polyploids bias calculation of other distances: 
 
-```{r, trees}
+```{r, trees, fig.width = 5, fig.height = 7}
 pinfreps <- c(2, 2, 6, 2, 2, 2, 2, 2, 3, 3, 2)
 MXtree <- bruvo.boot(MX, replen = pinfreps, cutoff = 50, quiet = TRUE)
 SAtree <- bruvo.boot(SA, replen = pinfreps, cutoff = 50, quiet = TRUE)
@@ -192,19 +192,23 @@ SAtree <- bruvo.boot(SA, replen = pinfreps, cutoff = 50, quiet = TRUE)
 
 We see very long terminal branches in the MX tree. Let's see how the groups we found with the clustering algorithm match up:
 
-```{r, grouptree}
+```{r, grouptree, fig.width = 5, fig.height = 7}
 library(ape)
 cols <- rainbow(4)
-plot.phylo(MXtree, cex = 0.8, font = 2, adj = 0, tip.color = cols[MXclust$grp])
-nodelabels(MXtree$node.label, adj = c(1.3, -0.5), frame = "n", cex = 0.8, font = 3)
+plot.phylo(MXtree, cex = 0.8, font = 2, adj = 0, tip.color = cols[MXclust$grp],
+           label.offset = 0.0125)
+nodelabels(MXtree$node.label, adj = c(1.3, -0.5), frame = "n", cex = 0.8, 
+           font = 3, xpd = TRUE)
 axisPhylo(3)
 ```
 
 You can see that the assigned clusters don't necessarily group with the dendrogram clusters. Let's see what happens when we view this with the South American population:
 
-```{r, grouptreeSA}
-plot.phylo(SAtree, cex = 0.8, font = 2, adj = 0, tip.color = cols[SAclust$grp])
-nodelabels(SAtree$node.label, adj = c(1.3, -0.5), frame = "n", cex = 0.8, font = 3)
+```{r, grouptreeSA, fig.width = 5, fig.height = 7}
+plot.phylo(SAtree, cex = 0.8, font = 2, adj = 0, tip.color = cols[SAclust$grp],
+           label.offset = 0.0125)
+nodelabels(SAtree$node.label, adj = c(1.3, -0.5), frame = "n", cex = 0.8, 
+           font = 3, xpd = TRUE)
 axisPhylo(3)
 ```
 
