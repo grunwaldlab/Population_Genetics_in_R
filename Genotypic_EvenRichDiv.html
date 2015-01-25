@@ -220,7 +220,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <li>Is genotypic evenness higher for BB populations than for FR populations?</li>
 </ul>
 <p>For the analysis, we need to read in the data, specify the hierarchical levels in the data, and then set the hierarchical level to symptom so that we can calculate genotypic richness, diversity, and evenness for BB as compared to FR for the entire data set:</p>
-<pre class="r"><code>library(poppr)
+<pre class="r"><code>library(&quot;poppr&quot;)
 data(monpop)
 splithierarchy(monpop) &lt;- ~Tree/Year/Symptom
 setpop(monpop) &lt;- ~Symptom
@@ -231,6 +231,7 @@ monpop</code></pre>
 ## Genotype information:
 ## 
 ##    264 multilocus genotypes
+##    264 multilocus lineages
 ##    694 haploid individuals
 ##     13 codominant loci
 ## 
@@ -264,7 +265,7 @@ monpop</code></pre>
 <div id="genotypic-richness" class="section level2">
 <h2>Genotypic richness</h2>
 <p>The number of observed <span class="math">\(MLGs\)</span> is equivalent to genotypic richness. We expect that the BB population would have a higher genotypic richness than the FR population. However, looking at the raw number of MLGs for each symptom type, it shows us the opposite: there are 94 MLGs for BB and 191 MLGs for FR. This discrepancy has to do with the sample size, where we <span class="math">\(N\)</span> = 113 for BB and <span class="math">\(N\)</span> = 581 for FR. The more appropriate comparison is the <span class="math">\(eMLG\)</span> value, which is an approximation of the number of genotypes that would be observed at the smallest sample size (<span class="math">\(N\)</span> = 113) based on rarefaction. For BB (<span class="math">\(N\)</span>=113) the <span class="math">\(eMLG\)</span> = 94 and for FR (where <span class="math">\(N\)</span> is set to 113) the <span class="math">\(eMLG\)</span> = 66.6. Thus, genotypic richness is indeed higher in the BB populations than the FR population when considering equal sample sizes.</p>
-<pre class="r"><code>library(vegan)
+<pre class="r"><code>library(&quot;vegan&quot;)
 mon.tab &lt;- mlg.table(monpop, bar = FALSE)
 min_sample &lt;- min(rowSums(mon.tab))
 rarecurve(mon.tab, sample = min_sample, xlab = &quot;Sample Size&quot;, ylab = &quot;Expected MLGs&quot;)

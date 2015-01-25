@@ -213,7 +213,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div id="the-index-of-association" class="section level2">
 <h2>The index of association</h2>
 <p>The index of association (<span class="math">\(I_A\)</span>) was originally proposed by Brown et al. <span class="citation">(Brown, Feldman &amp; Nevo, 1980)</span> and implemented in the <em>poppr</em> R package <span class="citation">(Kamvar, Tabima &amp; Grünwald, 2014)</span> using a permutation approach to assess if loci are linked as described previously by Agapow and Burt <span class="citation">(Agapow &amp; Burt, 2001)</span>. Agapow and Burt also described the index <span class="math">\(\bar{r}_d\)</span> that accounts for the number of loci sampled that is less biased and will be used here.</p>
-<pre class="r"><code>library(poppr)
+<pre class="r"><code>library(&quot;poppr&quot;)
 data(Pinf)
 MX &lt;- popsub(Pinf, &quot;North America&quot;)  #subset population to North America</code></pre>
 <pre class="r"><code>ia(MX, sample=999)   # include 999 permutations, where Ia is also calculated for the observed data, thus enabling a null distribution of 1000 observations</code></pre>

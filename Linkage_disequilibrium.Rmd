@@ -1,7 +1,7 @@
 ```{r,message=FALSE,echo=FALSE}
   html <- TRUE
-  library(knitcitations)
-  library(knitr)
+  library("knitcitations")
+  library("knitr")
   cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
   bib <- read.bibtex("bibtexlib.bib")
   opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, cache = TRUE)
@@ -27,7 +27,7 @@ The index of association
 The index of association ($I_A$) was originally proposed by Brown et al. `r citep(bib[c("brown1980multilocus")])` and implemented in the *poppr* R package `r citep(bib[c("kamvar2014poppr")])` using a permutation approach to assess if loci are linked as described previously by Agapow and Burt `r citep(bib[c("agapow2001indices")])`. Agapow and Burt also described the index $\bar{r}_d$ that accounts for the number of loci sampled that is less biased and will be used here. 
 
 ```{r}
-library(poppr)
+library("poppr")
 data(Pinf)
 MX <- popsub(Pinf, "North America")  #subset population to North America
 ```
