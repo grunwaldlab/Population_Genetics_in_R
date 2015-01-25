@@ -1,7 +1,7 @@
 ```{r,message=FALSE,echo=FALSE}
   html <- TRUE
-  library(knitcitations)
-  library(knitr)
+  library("knitcitations")
+  library("knitr")
   cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
   bib <- read.bibtex("bibtexlib.bib")
   opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, 
@@ -65,7 +65,7 @@ We might have questions such as:
 Let's load the data:
 
 ```{r}
-library(poppr)
+library("poppr")
 data(monpop)
 splithierarchy(monpop) <- ~Tree/Year/Symptom
 summary(monpop)
@@ -193,7 +193,7 @@ SAtree <- bruvo.boot(SA, replen = pinfreps, cutoff = 50, quiet = TRUE)
 We see very long terminal branches in the MX tree. Let's see how the groups we found with the clustering algorithm match up:
 
 ```{r, grouptree, fig.width = 5, fig.height = 7}
-library(ape)
+library("ape")
 cols <- rainbow(4)
 plot.phylo(MXtree, cex = 0.8, font = 2, adj = 0, tip.color = cols[MXclust$grp],
            label.offset = 0.0125)

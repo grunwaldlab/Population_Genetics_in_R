@@ -1,15 +1,15 @@
 ```{r,message=FALSE,echo=FALSE}
   # html <- TRUE
-  # library(knitcitations)
-  # library(knitr)
+  # library("knitcitations")
+  # library("knitr")
   # cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
   # bib <- read.bibtex("bibtexlib.bib")
   # opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, 
   #                fig.width = 10, fig.height = 6, cache = TRUE)
   # if (html) opts_chunk$set(out.width = "700px", dpi = 300)
 
-  library(knitcitations)
-  library(knitr)
+  library("knitcitations")
+  library("knitr")
   cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
   bib <- read.bibtex("bibtexlib.bib")
   opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, cache = TRUE) 

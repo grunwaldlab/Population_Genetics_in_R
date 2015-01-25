@@ -1,7 +1,7 @@
 ```{r,message=FALSE,echo=FALSE}
   html <- TRUE
-  library(knitcitations)
-  library(knitr)
+  library("knitcitations")
+  library("knitr")
   cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
   bib <- read.bibtex("bibtexlib.bib")
   opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, 
@@ -26,7 +26,7 @@ For this example, we can explore the hypothesis that the population that infects
 For the analysis, we need to read in the data, specify the hierarchical levels in the data, and then set the hierarchical level to symptom so that we can calculate genotypic richness, diversity, and evenness for BB as compared to FR for the entire data set:
 
 ```{r}
-library(poppr)
+library("poppr")
 data(monpop)
 splithierarchy(monpop) <- ~Tree/Year/Symptom
 setpop(monpop) <- ~Symptom
@@ -60,7 +60,7 @@ Genotypic richness
 The number of observed $MLGs$ is equivalent to genotypic richness.  We expect that the BB population would have a higher genotypic richness than the FR population.  However, looking at the raw number of MLGs for each symptom type, it shows us the opposite:  there are 94 MLGs for BB and 191 MLGs for FR.  This discrepancy has to do with the sample size, where we $N$ = 113 for BB and $N$ = 581 for FR.  The more appropriate comparison is the $eMLG$ value, which is an approximation of the number of genotypes that would be observed at the smallest sample size ($N$ = 113) based on rarefaction.  For BB ($N$=113) the $eMLG$ = 94 and for FR (where $N$ is set to 113) the $eMLG$ = 66.6. Thus, genotypic richness is indeed higher in the BB populations than the FR population when considering equal sample sizes.
 
 ```{r, rarecurve}
-library(vegan)
+library("vegan")
 mon.tab <- mlg.table(monpop, bar = FALSE)
 min_sample <- min(rowSums(mon.tab))
 rarecurve(mon.tab, sample = min_sample, xlab = "Sample Size", ylab = "Expected MLGs")

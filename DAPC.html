@@ -216,7 +216,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <p>DAPC was pioneered by Jombart and colleagues <span class="citation">(Jombart et al., 2010)</span> and can be used to infer the number of clusters of genetically related individuals. In this multivariate statistical approach variance in the sample is partitioned into a between-group and within-group component, in an effort to maximize discrimination between groups. In DAPC, data is first transformed using a principal components analysis (PCA) and subsequently clusters are identified using discriminant analysis (DA). This tutorial is based on the <a href="http://adegenet.r-forge.r-project.org/files/tutorial-dapc.pdf">vignette</a> written by Thibaut Jombart. We encourage the user to explore this vignette further. The vignette can also be opened within R by executing <code>adegenetTutorial(&quot;dapc&quot;)</code>.</p>
 <p>We will use the seasonal influenza dataset H3N2 data containing 1903 isolates genotyped for 125 SNPs located in the hemagglutinin segment. This dataset as well as the <code>dapc()</code> function is part of the <a href="http://adegenet.r-forge.r-project.org"><em>adegenet</em></a> package.</p>
 <pre class="r"><code># DAPC requires the adegenet package. Let&#39;s load this package:
-library(adegenet)
+library(&quot;adegenet&quot;)
 data(H3N2)      # load the H3N2 inflluenza data. Tye ?H3N2 for more info.
 pop(H3N2) &lt;- factor(H3N2$other$epid)
 dapc.H3N2 &lt;- dapc(H3N2, var.contrib=TRUE, scale=FALSE, n.pca=30, n.da=10)

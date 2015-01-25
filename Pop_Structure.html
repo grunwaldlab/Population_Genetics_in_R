@@ -267,7 +267,7 @@ nancycats</code></pre>
 <li>To what degree do the Blossom Blight (BB) samples contribute to the FR?</li>
 </ol>
 <p>Let’s load the data:</p>
-<pre class="r"><code>library(poppr)
+<pre class="r"><code>library(&quot;poppr&quot;)
 data(monpop)
 splithierarchy(monpop) &lt;- ~Tree/Year/Symptom
 summary(monpop)</code></pre>
@@ -404,7 +404,7 @@ MXtree &lt;- bruvo.boot(MX, replen = pinfreps, cutoff = 50, quiet = TRUE)</code>
 <pre class="r"><code>SAtree &lt;- bruvo.boot(SA, replen = pinfreps, cutoff = 50, quiet = TRUE)</code></pre>
 <p><img src="Pop_Structure_files/figure-html/trees-2.png" title="" alt="" width="700px" /></p>
 <p>We see very long terminal branches in the MX tree. Let’s see how the groups we found with the clustering algorithm match up:</p>
-<pre class="r"><code>library(ape)
+<pre class="r"><code>library(&quot;ape&quot;)
 cols &lt;- rainbow(4)
 plot.phylo(MXtree, cex = 0.8, font = 2, adj = 0, tip.color = cols[MXclust$grp],
            label.offset = 0.0125)

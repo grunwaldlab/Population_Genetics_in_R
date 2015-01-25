@@ -226,7 +226,7 @@ d_{i,j} = \sum_{L = 1}^L 1 - \delta_{i,j}
 <div id="data-set" class="section level2">
 <h2>Data set</h2>
 <p>To calculate AMOVA in <em>poppr</em>, one simply needs to supply a data set with hierarchical levels. We will use the <em>Aphanomyces euteiches</em> data set from <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>.</p>
-<pre class="r"><code>library(poppr)
+<pre class="r"><code>library(&quot;poppr&quot;)
 data(Aeut)
 Aeut &lt;- as.genclone(Aeut)
 Aeut</code></pre>
@@ -236,6 +236,7 @@ Aeut</code></pre>
 ## Genotype information:
 ## 
 ##    119 multilocus genotypes
+##    119 multilocus lineages
 ##    187 diploid individuals
 ##     56 dominant loci
 ## 

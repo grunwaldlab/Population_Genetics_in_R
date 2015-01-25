@@ -221,7 +221,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div id="locus-summary-statistics" class="section level2">
 <h2>Locus summary statistics</h2>
 <p>A quick way to assess quality of the data is to determine the number, diversity, expected heterozygosity, and evenness of the alleles at each locus. As an example, we will use data for the fungal-like protist <em>Phytophthora infestans</em> from <span class="citation">(Goss et al., 2014)</span>. First, we’ll use the function <code>locus_table</code> to get all of the statistics mentioned above. For documentation on this function type <code>?locus_table</code>. Here is a first look at each locus:</p>
-<pre class="r"><code>library(poppr)     # Make sure poppr is loaded if you haven&#39;t done so already.
+<pre class="r"><code>library(&quot;poppr&quot;)     # Make sure poppr is loaded if you haven&#39;t done so already.
 data(Pinf)         # P. infestans data set from Mexico and South America
 locus_table(Pinf)</code></pre>
 <pre><code>## 
@@ -545,7 +545,7 @@ nanhwe.mat  &lt;- HWE.test.genind(nancycats, res.type = &quot;matrix&quot;) # re
 newmat &lt;- nanhwe.mat
 newmat[newmat &gt; alpha] &lt;- 1</code></pre>
 <p>Now we can create a simple heatmap with <code>levelplot</code>.</p>
-<pre class="r"><code>library(lattice)
+<pre class="r"><code>library(&quot;lattice&quot;)
 levelplot(newmat)</code></pre>
 <p><img src="Locus_Stats_files/figure-html/unnamed-chunk-13-1.png" title="Heatmap showing significant departures from HWE" alt="Heatmap showing significant departures from HWE" width="700px" /></p>
 <p>This simple plot shows us loci in rows and populations in columns. Note, that all loci shown in pink are loci suspected for not being in HWE with <span class="math">\(p \leq 0.05\)</span>.</p>
