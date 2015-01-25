@@ -196,10 +196,16 @@ A function can be thought of as a set of instructions that tells the computer
 what to do. A function's form looks like this:
 
 ```{r, eval = FALSE}
-function_name <- function(arguments){
+fun_name <- function(arguments){
   # instructions
 }
 ```
+
+`fun_name` is the name of the function, the R command `function` tells R that 
+you are about to write a function. Arguments are varaibles that you will give
+to the function and the curly braces (`{` and `}`) is the place where you write 
+all the steps of the function. Next, we will go through an example of writing 
+a function. 
 
 #### Example: harmonic mean
 
@@ -218,8 +224,13 @@ mean(psize)
 rmean <- mean(1/psize)
 1/rmean
 ```
-If we didn't want to type all that, we could just write it into a function so
-that it can be reused without so much typing:
+
+Notice that there are two steps to calculating the harmonic mean. 
+If we wanted to calculate the harmonic mean of a lot of different vectors,
+this would get really repetitive. A function is a way of encapsulating a lot
+of instructions to reduce the number of steps (and potential errors) you would
+need to take in your analysis. Below, we will write a function to calculate
+the harmonic mean using the steps above. 
 
 > Note here that the *argument* is **x** and it is a placeholder for any value
 you put into the function.

@@ -388,9 +388,10 @@ barplot(locus_diff[, &quot;1-D&quot;], ylab = &quot;Change in Simpson&#39;s Inde
 <h3>Advanced: using functions</h3>
 <p>Of course, we still want to analyze each tree/year combination separately. Instead of typing those commands above for each combination, we can write a function to do it for us.</p>
 <p>A function can be thought of as a set of instructions that tells the computer what to do. A function’s form looks like this:</p>
-<pre class="r"><code>function_name &lt;- function(arguments){
+<pre class="r"><code>fun_name &lt;- function(arguments){
   # instructions
 }</code></pre>
+<p><code>fun_name</code> is the name of the function, the R command <code>function</code> tells R that you are about to write a function. Arguments are varaibles that you will give to the function and the curly braces (<code>{</code> and <code>}</code>) is the place where you write all the steps of the function. Next, we will go through an example of writing a function.</p>
 <div id="example-harmonic-mean" class="section level4">
 <h4>Example: harmonic mean</h4>
 <p>As an example function, let’s write a function that will take the harmonic mean of a vector of numbers. First, we’ll see how to do it in a non-functional way.</p>
@@ -405,7 +406,7 @@ mean(psize)</code></pre>
 rmean &lt;- mean(1/psize)
 1/rmean</code></pre>
 <pre><code>## [1] 30.84833</code></pre>
-<p>If we didn’t want to type all that, we could just write it into a function so that it can be reused without so much typing:</p>
+<p>Notice that there are two steps to calculating the harmonic mean. If we wanted to calculate the harmonic mean of a lot of different vectors, this would get really repetitive. A function is a way of encapsulating a lot of instructions to reduce the number of steps (and potential errors) you would need to take in your analysis. Below, we will write a function to calculate the harmonic mean using the steps above.</p>
 <blockquote>
 <p>Note here that the <em>argument</em> is <strong>x</strong> and it is a placeholder for any value you put into the function.</p>
 </blockquote>
