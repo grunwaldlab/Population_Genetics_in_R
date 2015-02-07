@@ -63,8 +63,11 @@ The `genind2df()` function trasnforms the data from genind object into a datafra
 To observe the different levels of ploidy in your data, use the function
 `info_table` with the argument `type = "ploidy"`:
 
+> Notice you can change the colors of the plot by setting a "low" color and a
+> "high" color.
+
 ```{r, fig.cap = "Plot of ploidy", fig.height = 12, fig.width = 5, fig.align = "center"}
-Pinf.ploidy <- info_table(Pinf, type = "ploidy", plot = TRUE)
+Pinf.ploidy <- info_table(Pinf, type = "ploidy", plot = TRUE, low = "black", high = "orange")
 tail(Pinf.ploidy)
 ```
 
