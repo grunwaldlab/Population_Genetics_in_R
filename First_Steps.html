@@ -298,7 +298,10 @@ locus_table(Pinf)</code></pre>
 ## PiPE27 000/000/176/176 000/148/151/157 000/000/189/192 000/000/179/179</code></pre>
 <p>The <code>genind2df()</code> function trasnforms the data from genind object into a dataframe and adds ‘/’ as separators between alleles at each locus. Note how missing allelles are coded as ‘000’.</p>
 <p>To observe the different levels of ploidy in your data, use the function <code>info_table</code> with the argument <code>type = &quot;ploidy&quot;</code>:</p>
-<pre class="r"><code>Pinf.ploidy &lt;- info_table(Pinf, type = &quot;ploidy&quot;, plot = TRUE)</code></pre>
+<blockquote>
+<p>Notice you can change the colors of the plot by setting a “low” color and a “high” color.</p>
+</blockquote>
+<pre class="r"><code>Pinf.ploidy &lt;- info_table(Pinf, type = &quot;ploidy&quot;, plot = TRUE, low = &quot;black&quot;, high = &quot;orange&quot;)</code></pre>
 <p><img src="First_Steps_files/figure-html/unnamed-chunk-5-1.png" title="Plot of ploidy" alt="Plot of ploidy" width="480" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>tail(Pinf.ploidy)</code></pre>
 <pre><code>##         Loci
