@@ -80,22 +80,34 @@ setpop(t26) <- ~Year/Symptom
 t26
 ```
 
-Now that we have our tree, let's calculate a MSN using Bruvo's distance `r citep(bib['bruvo2004simple'])`:
+Now that we have our tree, let's calculate a MSN using Bruvo's distance 
+`r citep(bib['bruvo2004simple'])`. Remember that this distance is based on a 
+stepwise mutation model, so we have to first specify what kind of repeats units 
+we have in our data (eg. dinucleotide = 2, trinucleotide = 3, etc.):
 
-```{r, fig.width = 10, fig.height = 10}
+```{r}
 # Set up our repeat lengths and populations to analyze
 reps <- c(6, 2, 4, 4, 4, 4, 4, 3, 4, 4, 2, 2, 2)
 sub9 <- c("9_BB", "9_FR")
 
-# Run the tree
+# Calculate the MSN
 t26.9msn <- bruvo.msn(t26, replen = reps, sublist = sub9, showplot = FALSE)
-
-# Visualize
-set.seed(9001)
-plot_poppr_msn(t26, t26.9msn, inds = "none", palette = cm.colors)
 ```
 
-We can see that the Blossom Blight in the tree heavily contributed to the major groups of MLGs found in the Fruit Rot. 
+The minimum spanning network is calculated via `bruvo.msn`. I've set the
+argument `showplot = FALSE` because I want to use the more powerful function
+`plot_poppr_msn` to view the MSN. In this, I'm telling it to lable none of the
+samples, color populations using the "cm.colors" palette and scale the size of
+the nodes to $log_{1.25}$. If you want to know what other things this function can
+do, simply type `help("plot_poppr_msn")`
+
+```{r, fig.width = 10, fig.height = 10}
+# Visualize
+set.seed(9001)
+plot_poppr_msn(t26, t26.9msn, inds = "none", palette = cm.colors, nodebase = 1.25)
+```
+
+We can see that the Blossom Blight in the tree (pink pie pieces) heavily contributed to the major groups of MLGs found in the Fruit Rot (blue pie pieces). 
 
 > **Try it!** See if you can produce similar graphs with the 2010 and 2011 populations.
 
