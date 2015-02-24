@@ -18,7 +18,7 @@ output: html_document
  </TR>
  <TR>
    <TD VALIGN=TOP><div style="width: 150px" ><img src="images/SydneyEverhart.JPG" height="400px" width="300px"/></div></TD>
-   <TD VALIGN=TOP><small>**Sydney E. Everhart** is a Assistant Professor at the University of Nebraska-Lincoln. Her research utilizes population genetics and genomics to better understand disease dynamics and evolution of fungal plant pathogens.  She developed the micrsoatellite markers and data used in the [`monpop`](Data_sets.html#microsatellite-haploid-clonal-monpop) data set and currently works with genomes, GBS data, and SSR data for *Phytophthora ramorum*. </small></TD>
+   <TD VALIGN=TOP><small>**Sydney E. Everhart** is an Assistant Professor at the University of Nebraska-Lincoln. Her research utilizes population genetics and genomics to better understand disease dynamics and evolution of fungal plant pathogens.  She developed the micrsoatellite markers and data used in the [`monpop`](Data_sets.html#microsatellite-haploid-clonal-monpop) data set and currently works with genomes, GBS data, and SSR data for *Phytophthora ramorum*. </small></TD>
  </TR>
 </TABLE>
  -->
