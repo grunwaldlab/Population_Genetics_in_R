@@ -59,7 +59,8 @@ output: html_document
             </div>
         </div>
         <div class="col-md-6">
-            <small>**Zhian N. Kamvar** is a graduate student in the Department of Botany and Pant Pathology at Oregon State University. His research is focused on genome sequencing and population genomics of the nursery pathogen *Phytophthora syringae*. He is the lead developer of the [*poppr* R package](http://github.com/grunwaldlab/poppr). Zhian is also co-host of the award-winning radio program [Inspiration Dissemination](http://poweredbyorange.com/2013/12/17/science-through-a-microphone/). 
+            <small>**Zhian N. Kamvar** is a graduate student in the Department of Botany and Pant Pathology at Oregon State University. His research is focused on genome sequencing and population genomics of the nursery pathogen *Phytophthora syringae*. He is the lead developer of the [*poppr* R package](http://github.com/grunwaldlab/poppr) and a contributor to the [*adegenet* R package](http://github.com/thibautjombart/adegenet). Zhian is also co-host of the award-winning radio program 
+            [Inspiration Dissemination](http://poweredbyorange.com/2013/12/17/science-through-a-microphone/). 
             <p>
                 <a href="https://twitter.com/ZKamvar" class="twitter-follow-button" data-show-count="false">
                     Follow &#64;ZKamvar
@@ -75,7 +76,13 @@ output: html_document
             </div>
         </div>
         <div class="col-md-6">
-            <small>**Sydney E. Everhart** is a USDA-AFRI-NIFA Postdoctoral Fellow at Oregon State University.  Her research utilizes population genetics and genomics to better understand disease dynamics and evolution of fungal plant pathogens.  She developed the micrsoatellite markers and data used in the [`monpop`](A1_Data_sets.html#microsatellite-haploid-clonal-monpop) data set and currently works with genomes, GBS data, and SSR data for *Phytophthora ramorum* in Nik's lab.  After the APS meeting, she will be starting as an Assistant Professor at the University of Nebraska-Lincoln studying the emergence and evolution of fungicide resistance within fungal plant pathogen populations.  She is currently seeking a graduate student interested in population genetics of fungi. </small>
+            <small>**Sydney E. Everhart** is an Assistant Professor at the University of Nebraska-Lincoln. Her research utilizes population genetics and genomics to better understand disease dynamics and evolution of fungal plant pathogens.  She developed the micrsoatellite markers and data used in the [`monpop`](Data_sets.html#microsatellite-haploid-clonal-monpop) data set and currently works with genomes, GBS data, and SSR data for *Phytophthora ramorum*.
+            <p>
+            <a href="https://twitter.com/SydneyEverhart" class="twitter-follow-button" data-show-count="false">
+                Follow &#64;SydneyEverhart
+            </a>
+            </p>
+            </small>
         </div>
     </div>
 </div>
