@@ -222,6 +222,8 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </ul>
 </div>
 
+<pre><code>## Warning: package &#39;knitcitations&#39; was built under R version 3.1.2</code></pre>
+<pre><code>## Warning: package &#39;knitr&#39; was built under R version 3.1.2</code></pre>
 <p>In this chapter, we will utilize AMOVA to analyze our populations. AMOVA stands for <strong>A</strong>nalysis of <strong>MO</strong>lecular <strong>VA</strong>riance and is a method to detect population differentiation utilizing molecular markers <span class="citation">(Excoffier, Smouse &amp; Quattro, 1992)</span>. This procedure was initially implemented for DNA haplotypes, but applies to any marker system. The implementation of AMOVA in <em>poppr</em> requires two very basic components: A distance matrix derived from the data and a separate table used to partition the data into different hierarchical levels.</p>
 <p>The distance matrix can be calculated using any distance as long as it is euclidean. The distance that is used in the program Arlequin is the opposite of the Kronecker Delta function that counts the number of differences summed over <span class="math">\(L\)</span> loci:</p>
 <p><span class="math">\[
