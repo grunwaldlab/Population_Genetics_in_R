@@ -117,8 +117,8 @@ setpop(monpop) <- ~Symptom/Tree
 monpop
 ````
 
-Now that we have laid out the basics of manipulating populations by hierarchies,
-we will now talk a little bit about using these hierarchies for clone correction.
+Now that we have laid out the basics of manipulating data by hierarchies,
+we will now apply hierarchies for clone correction.
 
 Clone correction
 ----
