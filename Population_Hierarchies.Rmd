@@ -192,7 +192,7 @@ Instead of typing those commands above for each combination, we can write a
 function to do it for us.
 
 A function can be thought of as a set of instructions that tells the computer
-what to do. A function's form looks like this:
+what to do. You have been using funcitons before such as `poppr()`. A function is written  like this:
 
 ```{r, eval = FALSE}
 fun_name <- function(arguments){
