@@ -333,11 +333,11 @@ monpop</code></pre>
 ## 
 ##      3 hierarchical levels - Tree Year Symptom
 ##      8 populations defined - BB_7 BB_26 FR_26 ... BB_79 FR_79 FR_45</code></pre>
-<p>Now that we have laid out the basics of manipulating populations by hierarchies, we will now talk a little bit about using these hierarchies for clone correction.</p>
+<p>Now that we have laid out the basics of manipulating data by hierarchies, we will now apply hierarchies for clone correction.</p>
 </div>
 <div id="clone-correction" class="section level2">
 <h2>Clone correction</h2>
-<p>When dealing with clonal populations, analyses are typically conducted with and without clone correction. Clone correction is a method of censoring a data set such that only one individual per MLG is represented per population <span class="citation">(Milgroom, 1996; Grünwald et al., 2003; Grünwald &amp; Hoheisel, 2006)</span>. This technique is commonly used with the analysis of the index of association and allelic diversity measures since duplicated genotypes have the potential to bias the analysis. Since we want to only observe unique genotypes per population, clone correction requires specification of the hierarchical levels at which clones should be censored. This section will show how to clone correct at a specific hierarchical level and also compare the results with uncorrected data.</p>
+<p>When dealing with clonal populations, analyses are typically conducted with and without clone correction. Clone correction is a method of censoring a data set such that only one individual per MLG is represented per population <span class="citation">(Milgroom, 1996; Grünwald et al., 2003; Grünwald &amp; Hoheisel, 2006)</span>. This technique is commonly used with the index of association and genotypic diversity measures since clone corrected populations approximate behavior of sexual populations. Since we want to only observe unique genotypes per population, clone correction requires specification of the hierarchical levels at which clones should be censored. This section will show how to clone correct at a specific hierarchical level and also compare the results with uncorrected data.</p>
 <blockquote>
 <p>Question: Will allelic diversity increase or decrease with clone-censored data?</p>
 </blockquote>

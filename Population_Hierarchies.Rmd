@@ -127,9 +127,8 @@ When dealing with clonal populations, analyses are typically conducted with and
 without clone correction. Clone correction is a method of censoring a data set
 such that only one individual per MLG is represented per population
 `r citep(bib[c('milgroom1996recombination', 'grunwald2003', 'grunwald2006hierarchical')])`. 
-This technique is commonly used with the analysis of the index of association
-and allelic diversity measures since duplicated genotypes have the potential to
-bias the analysis. Since we want to only observe unique genotypes per population,
+This technique is commonly used with the index of association
+and genotypic diversity measures since clone corrected populations approximate behavior of sexual populations. Since we want to only observe unique genotypes per population,
 clone correction requires specification of the hierarchical levels at which
 clones should be censored. This section will show how to clone correct at a
 specific hierarchical level and also compare the results with uncorrected data.
