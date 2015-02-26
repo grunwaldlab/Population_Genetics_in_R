@@ -296,7 +296,7 @@ locus_table(Pinf)</code></pre>
 </div>
 <div id="phylogenetically-uninformative-loci" class="section level2">
 <h2>Phylogenetically uninformative loci</h2>
-<p>We can see that the South American populations are fixed for this allele, thus it would not be a bad idea to remove that locus from downstream analyses. We can do this using the function <code>informloci</code>. This will remove loci that contain less than a given percentage of divergent individuals (the default is <span class="math">\(2/N\)</span>, where <span class="math">\(N\)</span> equals the number of individuals in the data set).</p>
+<p>We can see that the South American populations is fixed for one allele, thus it would not be a bad idea to remove that locus from downstream analyses. We can do this using the function <code>informloci</code>. This will remove loci that contain less than a given percentage of divergent individuals (the default is <span class="math">\(2/N\)</span>, where <span class="math">\(N\)</span> equals the number of individuals in the data set).</p>
 <pre class="r"><code>nLoc(Pinf)  # Let&#39;s look at our data set, note how many loci we have.</code></pre>
 <pre><code>## [1] 11</code></pre>
 <pre class="r"><code>iPinf &lt;- informloci(Pinf)</code></pre>

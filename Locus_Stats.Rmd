@@ -52,7 +52,7 @@ locus_table(Pinf, pop = "South America")
 Phylogenetically uninformative loci
 -----
 
-We can see that the South American populations are fixed for this allele, thus 
+We can see that the South American populations is fixed for one allele, thus 
 it would not be a bad idea to remove that locus from downstream analyses. We can
 do this using the function `informloci`. This will remove loci that contain less
 than a given percentage of divergent individuals (the default is $2/N$, where 
