@@ -30,12 +30,14 @@ Importing data
 
 To start simple, let's examine the input file for the `monpop` data set
 containing 694 isolates of the plant pathogen *Monilinia fructicola* genotyped
-over 13 haploid loci `r citep(bib["everhart2014finescale"])`. The data set is
+over 13 haploid microsatellite loci `r citep(bib["everhart2014finescale"])`. The data set is
 called **monpop.csv**.
 
 ><a class="btn btn-info btn-sm" target = "blank" href="https://github.com/grunwaldlab/Population_Genetics_in_R/blob/master/monpop.csv" role="button">view</a> 
 or
 <a class="btn btn-primary btn-sm" target = "blank" href="http://grunwaldlab.github.io/Population_Genetics_in_R/monpop.csv" role="button"> download</a> monpop.csv
+
+> Note that `*.csv` stands for comma-separated-value. This can be opened in a text editor or excel. `*.csv` is a good format for portability into R.
 
 To import GenAlEx formatted data into *poppr*, you should use the function
 `read.genalex`. Below is an example using **monpop.csv**.
@@ -58,7 +60,7 @@ console for details.
 
 ### Other data formats
 
-Being based off of *adegenet*, users can import data from the following formats
+Being based on *adegenet*, users can import data from the following formats
 
 - **FSTAT** (file.dat)
 - **GENETIX** (file.gtx)
@@ -70,12 +72,10 @@ If you have sequence data, you can use the `read.FASTA` function from the *ape*
 package.
 If your data is in any other format, type `help("df2genind")` for guidance.
 
-We will continue discussing the GenAlEx format below.
-
 GenAlEx data format
 ----
 
-GenAlEx is a very popular add-on for Microsoft Excel. It is relatively easy to
+[GenAlEx](http://biology-assets.anu.edu.au/GenAlEx/Welcome.html) is a very popular add-on for Microsoft Excel. It is relatively easy to
 use because of its familiar, menu-driven interface. It also gives the user the
 option to include information on population groupings, regional groupings, and
 xy coordinates. The flexibility of this format made it a clear choice for import
@@ -89,7 +89,7 @@ is also accepted.
 
 ### Haploids
 
-Below is what the monpop.csv data look like. Highlighted in red is
+Below is what the **monpop.csv** data looks like. Highlighted in red is
 how missing data should be coded for codominant markers. Highlighted in blue are
 the parts of the metadata rows used by *poppr*. These three numbers represent:
 
@@ -128,9 +128,8 @@ information in those columns. Try it for yourself.
 ### Diploids
 
 Diploid data is only different in the fact that you will have two alleles
-represented at each locus. This is coded such that each allele is in a separate
-column so that your genetic data will take up 2 $\times$ (number of loci)
-columns. Below is an example of the `nancycats` data set (from the *adegenet*
+per locus. This is coded such that each allele is in a separate
+column. Below is an example of the `nancycats` data set (from the *adegenet*
 package), exported like above. Highlighted in blue and red are the first and 
 second loci, respectively.
 
@@ -245,7 +244,7 @@ Tree_Year_Symptom
 
 > If you do not want to concatenate your population factors into one row,
 save them as a separate csv file and use the functions `read.table` and `sethierarchy`
-after you've imported your genetic data to acheive the same result.
+after you've imported your genetic data to achieve the same result.
 
 The data imported this way can be accessed with the function `splithierarchy`:
 
