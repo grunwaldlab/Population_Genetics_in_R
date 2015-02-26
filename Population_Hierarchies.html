@@ -393,8 +393,8 @@ barplot(locus_diff[, &quot;1-D&quot;], ylab = &quot;Change in Simpson&#39;s Inde
         main = &quot;Comparison of clone-corrected vs. uncorrected data&quot;)</code></pre>
 <p><img src="Population_Hierarchies_files/figure-html/simpdivplot-1.png" title="" alt="" width="960" /></p>
 <p>We can see quite a difference in some loci after clone correcting based on tree in the overall data set showing that, while some loci show a decrease, many loci show an increase in allelic diversity after clone-correction.</p>
-<div id="advanced-using-functions" class="section level3">
-<h3>Advanced: using functions</h3>
+<div id="advanced-r-writing-your-own-functions" class="section level3">
+<h3>Advanced R: writing your own functions</h3>
 <p>Of course, we still want to analyze each tree/year combination separately. Instead of typing those commands above for each combination, we can write a function to do it for us.</p>
 <p>A function can be thought of as a set of instructions that tells the computer what to do. A function’s form looks like this:</p>
 <pre class="r"><code>fun_name &lt;- function(arguments){
