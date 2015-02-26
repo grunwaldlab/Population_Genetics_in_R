@@ -128,7 +128,7 @@ R and Rstudio. Otherwise, you are now ready to think about formatting and
 loading population genetic data into R.
 
 
-Useful resources
+Useful resources to learn R
 ---
 
 *Introductory*
