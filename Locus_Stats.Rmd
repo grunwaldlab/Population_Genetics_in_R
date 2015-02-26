@@ -35,7 +35,7 @@ data(Pinf)         # P. infestans data set from Mexico and South America
 locus_table(Pinf)
 ```
 
-We can see here that we have q widely variable number of alleles per locus and 
+We can see here that we have a widely variable number of alleles per locus and 
 that we actually have a single locus that only has two alleles, 
 `r {x <- poppr::locus_table(Pinf); rownames(x)[x[, 1] == 2]}`. 
 This locus also has low diversity, low expected heterozygosity
