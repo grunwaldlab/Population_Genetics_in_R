@@ -201,8 +201,8 @@ fun_name <- function(arguments){
 ```
 
 `fun_name` is the name of the function, the R command `function` tells R that 
-you are about to write a function. Arguments are varaibles that you will give
-to the function and the curly braces (`{` and `}`) is the place where you write 
+you are about to write a function. Arguments are variables that you will pass
+to the function and the curly braces (`{` and `}`) provide the area where you write 
 all the steps of the function. Next, we will go through an example of writing 
 a function. 
 
