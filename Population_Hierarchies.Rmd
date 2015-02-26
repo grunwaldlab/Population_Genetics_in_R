@@ -208,8 +208,8 @@ a function.
 
 #### Example: harmonic mean
 
-As an example function, let's write a function that will take the harmonic mean
-of a vector of numbers. First, we'll see how to do it in a non-functional way.
+Let's write a function that will take the harmonic mean
+of a vector of numbers. First, we'll see how to do this calculation step by step before we write a function.
 
 > The harmonic mean has been utilized to estimate effective population size of a
 population that has undergone drastic changes in population size 
