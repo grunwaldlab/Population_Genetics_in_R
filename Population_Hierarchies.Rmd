@@ -185,7 +185,7 @@ We can see quite a difference in some loci after clone correcting based on
 tree in the overall data set showing that, while some loci show a decrease,
 many loci show an increase in allelic diversity after clone-correction. 
 
-### Advanced: using functions
+### Advanced R: writing functions
 
 Of course, we still want to analyze each tree/year combination separately.
 Instead of typing those commands above for each combination, we can write a
