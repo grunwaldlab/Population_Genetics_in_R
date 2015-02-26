@@ -58,7 +58,7 @@ If your data consists of polyploid SSR markers, you would code the unobserved al
 tail(genind2df(Pinf, sep = "/"))
 ```
 
-The `genind2df()` function trasnforms the data from genind object into a dataframe and adds '/' as separators between alleles at each locus. Note how missing allelles are coded as '000'.
+The `genind2df()` function transforms the data from genind object into a dataframe and adds '/' as separators between alleles at each locus. Note how missing allelles are coded as '000'.
 
 To observe the different levels of ploidy in your data, use the function
 `info_table` with the argument `type = "ploidy"`:
