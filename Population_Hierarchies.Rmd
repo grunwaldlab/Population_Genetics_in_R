@@ -16,7 +16,7 @@ subpopulations (e.g. fields, valleys, ranges) to regions (e.g. valleys, states,
 countries or continents) or across time (years or decades). This approach is
 useful because population structure and evolutionary processes may not be
 discernible *a priori*. Most of the times we do not know if population are
-differentiated locally, regionally or globally or in time.  Thus, a combination
+differentiated spatially or temporaly.  Thus, a combination
 of targeted local sampling with sampling over larger spatial or temporal scales
 is necessary to detect population structure over different scales, without using
 intense sampling throughout the entire range.
