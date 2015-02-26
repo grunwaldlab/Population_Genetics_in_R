@@ -9,86 +9,87 @@
 title: "A3: Introduction to R"
 ---
 
-Installing R
------
+This appendix introduces basic use of the [R](http://www.r-project.org) statistical and computer language
+and the [Rstudio](http://www.rstudio.com/ide/) graphics user interface. We assume you installed the needed resources mentioned in chapter 2 on getting ready to use R.
 
-1. Download and install the [R](http://www.r-project.org) statistical computing
-   and graphing environment. This works cross-platform on Windows, OS X and
-   Linux operating systems.
+After installing both R and R studio, please proceed to open R studio. R studio should look something like:
 
-2. Download and install the [Rstudio IDE](http://www.rstudio.com/ide/) that we
-   recommend as an integrated development environment.
+![Rstudio](images/Rstudio.tiff)
 
+The top left panel is a text-box where you can write a script. The bottom left panel is the console (or command line) where you directly execute commands and R writes results to the console; for example, type in `x <- 1` hit return and then type `x` and hit return again and watch the console:
 
-Installing the required packages
-----
-
-The following packages are utilized in this primer:
-
-1. [poppr](http://cran.r-project.org/web/packages/poppr/index.html)
-2. [adegenet](http://cran.r-project.org/web/packages/adegenet/index.html)
-4. [ggplot2](http://cran.r-project.org/web/packages/ggplot2/index.html)
-5. [mmod](http://cran.r-project.org/web/packages/mmod/index.html)
-3. [genetics](http://cran.r-project.org/web/packages/genetics/index.html)
-
-Use the following script to install these packages:
-
-```{r, eval = FALSE}
-install.packages(c("poppr", "mmod", "genetics"))
+```{r}
+x <- 1
+x
 ```
 
-We wrote and actively maintain *poppr* `r citep(bib["kamvar2014poppr"])` and it
-is heavily relied upon in this primer. *Poppr* is an R package. You can think of
-a package as a library of functions written and curated by someone in the R user
-community, which you can be loaded into R for use.
+You just assigned the value 1 to the variable `x` with the assignment operator $<-$. The second command asks R to show the value assigned to R. Finally, the top right panel shows variables loaded into the environment and the bottom right panel is useful for loading files, plotting graphs, installing packages and getting help. Feel free to explore all the various tabs or elements of each panel. 
 
-Once you've installed *poppr*, you can invoke (i.e., load) it by typing or
-cutting and pasting:
+Assignment, data types and operations
+---
 
-```{r, message=TRUE, warning=TRUE, cache=FALSE}
-library("poppr")
+Let's learn a few simple facts about R:
+
+R uses # to add comments to code:
+```{r}
+# Add 1 + 1 and write to console
+1+1
 ```
 
-This will load *poppr* and all dependent packages, such as *adegenet* and
-*ade4*. You will recognize loading by the prompts written to your screen.
+This is very useful when developing reusable code or when you want to remember a few months later what you actually did.
 
-Congratulations. You should now be all set for using R. Loading data and
-conducting your first analysis will be the topic of the next chapter. But before
-we go there lets provide a few useful resources.
+R is case sensitive so that `x = 5` is not the same as  `X = x + 1`. Try typing this into your console and look at `x` and `X`, respectively:
+```{r}
+x = 5
+X = x+1
+x
+X
+```
 
-A quick introduction to R using Rstudio
-----
+Next, let's assign numbers to a vector:
+```{r}
+x <- c(1,2,3,4,5)
+x
+```
 
-Next, let's review some of the basic features and functions of R. To start R,
-open the Rstudio application from your programs folder or start menu. This will
-initialize your R session. To exit R, simply close the Rstudio application.
+You can see several important traits of R. The `c()` command (which stands for combine) can be used to make a list (e.g., a vector) of data. We can overwrite the variable `x` with new content and we can assign another datatype (e.g., a single number becomes a vector). To compound things further you can even change the data type to strings overwriting the previous content:
+```{r}
+a <- c("Paris", "Tokyo", "Seattle")
+a
+```
+Note that we use quotes to denote the string data type containing text. 
 
-> Note that R is a case sensitive language!
+To access individual elements of a vector, in this case the second element, we execute:
 
-Let's get comfortable with R by submitting the following command on the command
-line (where R prompts you with a `>` in the lower left Rstudio window pane) that
-will retrieve the current working directory on your machine:
+```{r}
+a[2]
+```
+
+Console tricks: Code completion & command history
+---
+
+R studio has a very useful feature called code completion using the **Tab** key which can complete the full name of an object. For example type `hel` and hit **Tab** and you will see several functions pop up and you can select `help()`. 
+
+This also work inside a function to find function arguments. Type `help(` and hit *Tab* to select arguments for the help function.
+
+R studio records your command history. Thus you can scroll up or down the history of executed commands using the *Up* or *Down* arrows. Make sure your cursor is in the console and try to re-execute previous commands.
+
+Useful R functions
+---
+
+Other useful commands providing information on your system include:
 
 ```{r, eval=FALSE}
-getwd() # this command will print the current working directory
+help(options)                                 # learn about available options
+installed.packages()[,c("Package","Version")] # list packages & versions installed
+sessionInfo()    						  # displays packages currently loaded
+data(<name>, package = "package")             # load a specific data set from a specific package
 ```
 
-> Note that the symbol '#' is used to add comments to your code and you just
-> type `getwd()` after the ">".
+To quit R you can either use the `Rstudio > Quit` pull-down menu command or execute `⌘ + Q` (OS X) or `CTRL + Q` (PC). 
 
-Our primer is heavily based on the *poppr* and *adegenet* packages. To get help
-on any of their functions type a question mark before the empty function call as
-in:
-
-```{r, eval=FALSE}
-?mlg # open the R documentation of the function mlg()
-```
-
-To quit R you can either use the <kbd>Rstudio > Quit</kbd> pull-down menu command or
-execute <kbd>⌘ + Q</kbd> (OS X) or <kbd>ctrl + Q</kbd> (PC).
-
-Packages and getting help
-----
+Getting help
+---
 
 One way that R shines above other languages for analysis is the fact that
 R packages in CRAN are all documented. Help files are written in HTML and give
@@ -126,5 +127,26 @@ Next, consider browsing the R tutorial chapter if you are not yet familiar with
 R and Rstudio. Otherwise, you are now ready to think about formatting and
 loading population genetic data into R.
 
+
+Useful resources
+---
+
+*Introductory*
+
+ - [Swirl](http://swirlstats.com/) is a very well thought out R package that teaches you interactively.
+ - [Code School Try R](https://www.codeschool.com/courses/try-r) is a nice interactive tutorial. 
+ - [Quick R](http://www.statmethods.net/interface/help.html)
+ - [R reference card](http://cran.r-project.org/doc/contrib/Short-refcard.pdf)
+ - A very nice, short [introduction to R](http://ateucher.github.io/rcourse_site/index.html)
+
+*Advanced*
+
+ - [Advanced R](http://adv-r.had.co.nz/) by Hadley Wickham
+
+*Books*:
+
+ - [R in a Nutshell](http://oreilly.com/catalog/9780596801717) 
+ - [R cookbook]() is a nice quick reference and tutorial for general R use.
+ - [ggplot2: Elegant Graphics for Data Analysis]() is a useful, bu dated reference if you want to customize graphs for publication. 
 
 <!------------>
