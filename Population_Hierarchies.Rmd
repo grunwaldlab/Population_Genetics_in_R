@@ -247,7 +247,7 @@ hmean(psize)
 
 We will simply take the steps from above and turn them into a function to 
 calculate the difference in Simpson's diversity for a given population. In order
-to do that, we will need to have 3 things:
+to do that, we will need to compute three steps:
 
 1. the name of the population
 2. the clone-corrected data set
