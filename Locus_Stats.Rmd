@@ -78,7 +78,7 @@ We can see that it increased ever so slightly for the "North America" and "Total
 Missing data
 ----
 
-It is often important to asses the percentage of missing data. The *poppr* function `info_table` will help you visualize missing data so that you can assess how to treat these further using the function `missingno`. For this example, we will use the nancycats data set as it contains a wide variety of possabilities for missing data:
+It is often important to asses the percentage of missing data. The *poppr* function `info_table` will help you visualize missing data so that you can assess how to treat these further using the function `missingno`. For this example, we will use the nancycats data set as it contains a wide variety of possibilities for missing data:
 
 ```{r, missing_table, fig.height=6, fig.width = 10, fig.cap = "Plot of missing data"}
 data(nancycats)
