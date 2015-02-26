@@ -22,7 +22,7 @@ title: "4: First Analysis"
 
 This chapter introduces basic use of and navigation in *poppr* as well as good practices when starting an analysis. We take a glance at the genotypic diversity observed in populations and allelic frequencies observed in your loci by population. Both of these are good first steps to eliminate data entry errors, check for missing/rare data, and make sure all loci conform to expectations given your analyses. 
 
-For these examples, we will be using a data set that is already built into *poppr* containing 86 individuals of *Phytophthora infestans* genotyped over 11 microsatellite loci `r citep(bib['goss2014irish'])`
+For these examples, we will be using the data set `Pinf` that is already built into *poppr* containing 86 individuals of the polyploid data for *Phytophthora infestans* genotyped over 11 microsatellite loci `r citep(bib['goss2014irish'])`
 
 
 The genotype accumulation curve

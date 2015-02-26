@@ -22,6 +22,7 @@ and details are given in the R help page for the *adegenet* function
 sets and show you how you can format your data if it's grouped into multiple
 hierarchical levels.
 
+> [Appendix 1](Data_sets.html) provides an overview and description of the data sets used in this primer.
 
 Importing data
 ------
