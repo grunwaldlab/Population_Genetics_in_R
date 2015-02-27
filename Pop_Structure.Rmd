@@ -87,7 +87,11 @@ we have in our data (eg. dinucleotide = 2, trinucleotide = 3, etc.):
 
 ```{r}
 # Set up our repeat lengths and populations to analyze
-reps <- c(6, 2, 4, 4, 4, 4, 4, 3, 4, 4, 2, 2, 2)
+reps <- c(CHMFc4 = 7, CHMFc5 = 2, CHMFc12 = 4, 
+          SEA = 4, SED = 4, SEE = 2, SEG = 6,
+          SEI = 3, SEL = 4, SEN = 2, 
+          SEP = 4, SEQ = 2, SER = 4)
+
 sub9 <- c("9_BB", "9_FR")
 
 # Calculate the MSN
@@ -101,8 +105,8 @@ samples, color populations using the "cm.colors" palette and scale the size of
 the nodes to $log_{1.25}$. If you want to know what other things this function can
 do, simply type `help("plot_poppr_msn")`
 
-```{r, fig.width = 10, fig.height = 10}
-# Visualize
+```{r, fig.width = 7, fig.height = 7}
+# Visualize the network
 set.seed(9001)
 plot_poppr_msn(t26, t26.9msn, inds = "none", palette = cm.colors, nodebase = 1.25)
 ```

@@ -270,7 +270,7 @@ nancycats</code></pre>
 </div>
 <div id="minimum-spanning-network" class="section level2">
 <h2>Minimum spanning network</h2>
-<p>For this section, we will use the <code>monpop</code> data set from <span class="citation">(Everhart &amp; Scherm, 2014)</span>. see <a href="Genotypic_EvenRichDiv.html">Chapter 6</a> for more details. We will be focusing on sources of multilocus genotypes. The life cycle of the pathogen <em>Monilinia fructicola</em> begins with an ascospore (sexual propagule) released from a mummified peach fruit that had overwintered on the ground. It infects an emerging blossom that, in turn, asexually infects fruit, which proceed with cyclical infections. We might have questions such as:</p>
+<p>For this section, we will use the <code>monpop</code> data set from <span class="citation">(Everhart &amp; Scherm, 2015)</span>. see <a href="Genotypic_EvenRichDiv.html">Chapter 6</a> for more details. We will be focusing on sources of multilocus genotypes. The life cycle of the pathogen <em>Monilinia fructicola</em> begins with an ascospore (sexual propagule) released from a mummified peach fruit that had overwintered on the ground. It infects an emerging blossom that, in turn, asexually infects fruit, which proceed with cyclical infections. We might have questions such as:</p>
 <ol style="list-style-type: decimal">
 <li>Are the major genotypes of Fruit Rot (FR) samples closely related?</li>
 <li>To what degree do the Blossom Blight (BB) samples contribute to the FR?</li>
@@ -325,13 +325,17 @@ t26</code></pre>
 ##      6 populations defined - 9_BB 9_FR 10_BB 10_FR 11_BB 11_FR</code></pre>
 <p>Now that we have our tree, let’s calculate a MSN using Bruvo’s distance <span class="citation">(Bruvo et al., 2004)</span>. Remember that this distance is based on a stepwise mutation model, so we have to first specify what kind of repeats units we have in our data (eg. dinucleotide = 2, trinucleotide = 3, etc.):</p>
 <pre class="r"><code># Set up our repeat lengths and populations to analyze
-reps &lt;- c(6, 2, 4, 4, 4, 4, 4, 3, 4, 4, 2, 2, 2)
+reps &lt;- c(CHMFc4 = 7, CHMFc5 = 2, CHMFc12 = 4, 
+          SEA = 4, SED = 4, SEE = 2, SEG = 6,
+          SEI = 3, SEL = 4, SEN = 2, 
+          SEP = 4, SEQ = 2, SER = 4)
+
 sub9 &lt;- c(&quot;9_BB&quot;, &quot;9_FR&quot;)
 
 # Calculate the MSN
 t26.9msn &lt;- bruvo.msn(t26, replen = reps, sublist = sub9, showplot = FALSE)</code></pre>
 <p>The minimum spanning network is calculated via <code>bruvo.msn</code>. I’ve set the argument <code>showplot = FALSE</code> because I want to use the more powerful function <code>plot_poppr_msn</code> to view the MSN. In this, I’m telling it to lable none of the samples, color populations using the “cm.colors” palette and scale the size of the nodes to <span class="math">\(log_{1.25}\)</span>. If you want to know what other things this function can do, simply type <code>help(&quot;plot_poppr_msn&quot;)</code></p>
-<pre class="r"><code># Visualize
+<pre class="r"><code># Visualize the network
 set.seed(9001)
 plot_poppr_msn(t26, t26.9msn, inds = &quot;none&quot;, palette = cm.colors, nodebase = 1.25)</code></pre>
 <p><img src="Pop_Structure_files/figure-html/unnamed-chunk-5-1.png" title="" alt="" width="700px" /></p>
@@ -442,7 +446,7 @@ axisPhylo(3)</code></pre>
 
 <div class="references">
 <p>Bruvo R., Michiels N., D’Souza T., Schulenburg H. 2004. A simple method for the calculation of microsatellite genotype distances irrespective of ploidy level. <em>Molecular Ecology</em> 13:2101–2106. Available at: <a href="http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x">http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x</a></p>
-<p>Everhart S., Scherm H. 2014. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> ##:submitted.</p>
+<p>Everhart S., Scherm H. 2015. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> ##:in press.</p>
 <p>Goss E., Tabima J., Cooke D., Restrepo S., Fry W., Forbes G., Fieland V., Cardenas M., Grünwald N. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
 <p>Hedrick P. 2005. A standardized genetic differentiation measure. <em>Evolution</em> 59:1633–1638. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.0014-3820.2005.tb01814.x/abstract">http://onlinelibrary.wiley.com/doi/10.1111/j.0014-3820.2005.tb01814.x/abstract</a></p>
 <p>Meirmans P., Hedrick P. 2011. Assessing population structure: <span class="math">\(F_{ST}\)</span> and related measures. <em>Molecular Ecology Resources</em> 11:5–18. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full">http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full</a></p>

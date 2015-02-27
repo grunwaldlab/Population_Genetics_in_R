@@ -35,7 +35,7 @@ data(Pinf)         # P. infestans data set from Mexico and South America
 locus_table(Pinf)
 ```
 
-We can see here that we have q widely variable number of alleles per locus and 
+We can see here that we have a widely variable number of alleles per locus and 
 that we actually have a single locus that only has two alleles, 
 `r {x <- poppr::locus_table(Pinf); rownames(x)[x[, 1] == 2]}`. 
 This locus also has low diversity, low expected heterozygosity
@@ -52,7 +52,7 @@ locus_table(Pinf, pop = "South America")
 Phylogenetically uninformative loci
 -----
 
-We can see that the South American populations are fixed for this allele, thus 
+We can see that the South American populations is fixed for one allele, thus 
 it would not be a bad idea to remove that locus from downstream analyses. We can
 do this using the function `informloci`. This will remove loci that contain less
 than a given percentage of divergent individuals (the default is $2/N$, where 
@@ -78,7 +78,7 @@ We can see that it increased ever so slightly for the "North America" and "Total
 Missing data
 ----
 
-It is often important to asses the percentage of missing data. The *poppr* function `info_table` will help you visualize missing data so that you can assess how to treat these further using the function `missingno`. For this example, we will use the nancycats data set as it contains a wide variety of possabilities for missing data:
+It is often important to asses the percentage of missing data. The *poppr* function `info_table` will help you visualize missing data so that you can assess how to treat these further using the function `missingno`. For this example, we will use the nancycats data set as it contains a wide variety of possibilities for missing data:
 
 ```{r, missing_table, fig.height=6, fig.width = 10, fig.cap = "Plot of missing data"}
 data(nancycats)

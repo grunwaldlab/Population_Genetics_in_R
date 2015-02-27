@@ -16,7 +16,7 @@ subpopulations (e.g. fields, valleys, ranges) to regions (e.g. valleys, states,
 countries or continents) or across time (years or decades). This approach is
 useful because population structure and evolutionary processes may not be
 discernible *a priori*. Most of the times we do not know if population are
-differentiated locally, regionally or globally or in time.  Thus, a combination
+differentiated spatially or temporaly.  Thus, a combination
 of targeted local sampling with sampling over larger spatial or temporal scales
 is necessary to detect population structure over different scales, without using
 intense sampling throughout the entire range.
@@ -117,8 +117,8 @@ setpop(monpop) <- ~Symptom/Tree
 monpop
 ````
 
-Now that we have laid out the basics of manipulating populations by hierarchies,
-we will now talk a little bit about using these hierarchies for clone correction.
+Now that we have laid out the basics of manipulating data by hierarchies,
+we will now apply hierarchies for clone correction.
 
 Clone correction
 ----
@@ -127,9 +127,8 @@ When dealing with clonal populations, analyses are typically conducted with and
 without clone correction. Clone correction is a method of censoring a data set
 such that only one individual per MLG is represented per population
 `r citep(bib[c('milgroom1996recombination', 'grunwald2003', 'grunwald2006hierarchical')])`. 
-This technique is commonly used with the analysis of the index of association
-and allelic diversity measures since duplicated genotypes have the potential to
-bias the analysis. Since we want to only observe unique genotypes per population,
+This technique is commonly used with the index of association
+and genotypic diversity measures since clone corrected populations approximate behavior of sexual populations. Since we want to only observe unique genotypes per population,
 clone correction requires specification of the hierarchical levels at which
 clones should be censored. This section will show how to clone correct at a
 specific hierarchical level and also compare the results with uncorrected data.
@@ -186,14 +185,14 @@ We can see quite a difference in some loci after clone correcting based on
 tree in the overall data set showing that, while some loci show a decrease,
 many loci show an increase in allelic diversity after clone-correction. 
 
-### Advanced: using functions
+### Advanced R: writing your own functions
 
 Of course, we still want to analyze each tree/year combination separately.
 Instead of typing those commands above for each combination, we can write a
 function to do it for us.
 
 A function can be thought of as a set of instructions that tells the computer
-what to do. A function's form looks like this:
+what to do. You have been using funcitons before such as `poppr()`. A function is written  like this:
 
 ```{r, eval = FALSE}
 fun_name <- function(arguments){
@@ -202,15 +201,15 @@ fun_name <- function(arguments){
 ```
 
 `fun_name` is the name of the function, the R command `function` tells R that 
-you are about to write a function. Arguments are varaibles that you will give
-to the function and the curly braces (`{` and `}`) is the place where you write 
+you are about to write a function. Arguments are variables that you will pass
+to the function and the curly braces (`{` and `}`) provide the area where you write 
 all the steps of the function. Next, we will go through an example of writing 
 a function. 
 
 #### Example: harmonic mean
 
-As an example function, let's write a function that will take the harmonic mean
-of a vector of numbers. First, we'll see how to do it in a non-functional way.
+Let's write a function that will take the harmonic mean
+of a vector of numbers. First, we'll see how to do this calculation step by step before we write a function.
 
 > The harmonic mean has been utilized to estimate effective population size of a
 population that has undergone drastic changes in population size 
@@ -248,7 +247,7 @@ hmean(psize)
 
 We will simply take the steps from above and turn them into a function to 
 calculate the difference in Simpson's diversity for a given population. In order
-to do that, we will need to have 3 things:
+to do that, we will need to compute three steps:
 
 1. the name of the population
 2. the clone-corrected data set

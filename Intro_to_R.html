@@ -10,7 +10,7 @@
 
 
 
-<title>2: Getting ready to use R</title>
+<title>A3: Introduction to R</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -208,106 +208,72 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div class="span10 offset1"> -->
 
 <div id="header">
-<h1 class="title">2: Getting ready to use R</h1>
+<h1 class="title">A3: Introduction to R</h1>
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#installing-r">Installing R</a></li>
-<li><a href="#installing-the-required-packages">Installing the required packages</a></li>
-<li><a href="#a-quick-introduction-to-r-using-rstudio">A quick introduction to R using Rstudio</a></li>
-<li><a href="#packages-and-getting-help">Packages and getting help</a></li>
-<li><a href="#references">References</a></li>
+<li><a href="#assignment-data-types-and-operations">Assignment, data types and operations</a></li>
+<li><a href="#console-tricks-code-completion-command-history">Console tricks: Code completion &amp; command history</a></li>
+<li><a href="#useful-r-functions">Useful R functions</a></li>
+<li><a href="#getting-help">Getting help</a></li>
+<li><a href="#useful-resources-to-learn-r">Useful resources to learn R</a></li>
 </ul>
 </div>
 
-<p>R provides a unique environment for performing population genetic analyses. You will particularly enjoy not having to switch data formats and operating systems to execute a series of analyses, as was the case until now. Furthermore, R provides graphing capabilities that are ready for use in publications, with only a little bit of extra effort. But first, let’s install R, install an integrated development environment, open R, and load R packages.</p>
-<!---
-
-## FOR THE SPRING 2014 WORKSHOP
-
-You must have:
-
-1. The latest version of [R](http://www.r-project.org) **(3.1.0)**
-2. [Rstudio](http://www.rstudio.com/ide/). Think of this as kind of a GUI for R.
-3. The latest development version of *poppr* (1.1.0.99) (see below)
-
-**You must download the development version of poppr** (1.1.0.99). You may do this
-in several ways:
-
-### If you do NOT have a C compiler or do not know what it is:
- 1. In your R console, run the command to install the dependencies of *poppr*: `install.packages(c("adegenet", "pegas", "vegan", "ggplot2", "phangorn", "ape", "igraph"))`
- 2. Download the binaries for Windows [[here]](http://grunwaldlab.cgrb.oregonstate.edu/sites/default/files/u5/poppr_1.1.0.99_24.6.14.zip) or OSX [[here]](http://grunwaldlab.cgrb.oregonstate.edu/sites/default/files/u5/poppr_1.1.0.99_24.6.14.tgz) and install using the `Tools > Install Packages...` menu command. You should see a window like this:
-
- ![Install Packages Window](screenshots/InstallPackages.png)
-
- You should make sure to choose the **Package Archive File** option and then indicate where you downloaded the package in the menubar. If you have downloaded it on your desktop, you would type `~/Desktop/poppr_1.1.0.99.tgz` (on OSX).
-
-### If you have a working C compiler on your system
-
- You may do install *poppr* via the R package *devtools*:
-
-
-```r
- install.packages("devtools")
- devtools::install_github("grunwaldlab/poppr", ref = "devel")
-```
--->
-
-<div id="installing-r" class="section level2">
-<h2>Installing R</h2>
-<ol style="list-style-type: decimal">
-<li><p>Download and install the <a href="http://www.r-project.org">R</a> statistical computing and graphing environment. This works cross-platform on Windows, OS X and Linux operating systems.</p></li>
-<li><p>Download and install the <a href="http://www.rstudio.com/ide/">Rstudio IDE</a> that we recommend as an integrated development environment.</p></li>
-</ol>
+<p>This appendix introduces basic use of the <a href="http://www.r-project.org">R</a> statistical and computer language and the <a href="http://www.rstudio.com/ide/">Rstudio</a> graphics user interface. We assume you installed the needed resources mentioned in chapter 2 on getting ready to use R.</p>
+<p>After installing both R and R studio, please proceed to open R studio. R studio should look something like:</p>
+<p><img src="images/Rstudio.png" alt="Rstudio" /></p>
+<p>The top left panel is a text-box where you can write a script. The bottom left panel is the console (or command line) where you directly execute commands and R writes results to the console; for example, type in <code>x &lt;- 1</code> hit return and then type <code>x</code> and hit return again and watch the console:</p>
+<pre class="r"><code>x &lt;- 1
+x</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p>You just assigned the value 1 to the variable <code>x</code> with the assignment operator <span class="math">\(&lt;-\)</span>. The second command asks R to show the value assigned to R. Finally, the top right panel shows variables loaded into the environment and the bottom right panel is useful for loading files, plotting graphs, installing packages and getting help. Feel free to explore all the various tabs or elements of each panel.</p>
+<div id="assignment-data-types-and-operations" class="section level2">
+<h2>Assignment, data types and operations</h2>
+<p>Let’s learn a few simple facts about R:</p>
+<p>R uses # to add comments to code:</p>
+<pre class="r"><code># Add 1 + 1 and write to console
+1+1</code></pre>
+<pre><code>## [1] 2</code></pre>
+<p>This is very useful when developing reusable code or when you want to remember a few months later what you actually did.</p>
+<p>R is case sensitive so that <code>x = 5</code> is not the same as <code>X = x + 1</code>. Try typing this into your console and look at <code>x</code> and <code>X</code>, respectively:</p>
+<pre class="r"><code>x = 5
+X = x+1
+x</code></pre>
+<pre><code>## [1] 5</code></pre>
+<pre class="r"><code>X</code></pre>
+<pre><code>## [1] 6</code></pre>
+<p>Next, let’s assign numbers to a vector:</p>
+<pre class="r"><code>x &lt;- c(1,2,3,4,5)
+x</code></pre>
+<pre><code>## [1] 1 2 3 4 5</code></pre>
+<p>You can see several important traits of R. The <code>c()</code> command (which stands for combine) can be used to make a list (e.g., a vector) of data. We can overwrite the variable <code>x</code> with new content and we can assign another datatype (e.g., a single number becomes a vector). To compound things further you can even change the data type to strings overwriting the previous content:</p>
+<pre class="r"><code>a &lt;- c(&quot;Paris&quot;, &quot;Tokyo&quot;, &quot;Seattle&quot;)
+a</code></pre>
+<pre><code>## [1] &quot;Paris&quot;   &quot;Tokyo&quot;   &quot;Seattle&quot;</code></pre>
+<p>Note that we use quotes to denote the string data type containing text.</p>
+<p>To access individual elements of a vector, in this case the second element, we execute:</p>
+<pre class="r"><code>a[2]</code></pre>
+<pre><code>## [1] &quot;Tokyo&quot;</code></pre>
 </div>
-<div id="installing-the-required-packages" class="section level2">
-<h2>Installing the required packages</h2>
-<p>The following packages are utilized in this primer:</p>
-<ol style="list-style-type: decimal">
-<li><a href="http://cran.r-project.org/web/packages/poppr/index.html">poppr</a></li>
-<li><a href="http://cran.r-project.org/web/packages/adegenet/index.html">adegenet</a></li>
-<li><a href="http://cran.r-project.org/web/packages/ggplot2/index.html">ggplot2</a></li>
-<li><a href="http://cran.r-project.org/web/packages/mmod/index.html">mmod</a></li>
-<li><a href="http://cran.r-project.org/web/packages/genetics/index.html">genetics</a></li>
-</ol>
-<p>Use the following script to install these packages:</p>
-<pre class="r"><code>install.packages(c(&quot;poppr&quot;, &quot;mmod&quot;, &quot;genetics&quot;))</code></pre>
-<p>We wrote and actively maintain <em>poppr</em> <span class="citation">(Kamvar, Tabima &amp; Grünwald, 2014)</span> and it is heavily relied upon in this primer. <em>Poppr</em> is an R package. You can think of a package as a library of functions written and curated by someone in the R user community, which you can be loaded into R for use.</p>
-<p>Once you’ve installed <em>poppr</em>, you can invoke (i.e., load) it by typing or cutting and pasting:</p>
-<pre class="r"><code>library(&quot;poppr&quot;)</code></pre>
-<pre><code>## Loading required package: adegenet
-## Loading required package: ade4
-##    ==========================
-##     adegenet 1.4-2 is loaded
-##    ==========================
-## 
-##  - to start, type &#39;?adegenet&#39;
-##  - to browse adegenet website, type &#39;adegenetWeb()&#39;
-##  - to post questions/comments: adegenet-forum@lists.r-forge.r-project.org
-## 
-## 
-## This is poppr version 1.1.4. To get started, type package?poppr</code></pre>
-<p>This will load <em>poppr</em> and all dependent packages, such as <em>adegenet</em> and <em>ade4</em>. You will recognize loading by the prompts written to your screen.</p>
-<p>Congratulations. You should now be all set for using R. Loading data and conducting your first analysis will be the topic of the next chapter. But before we go there lets provide a few useful resources.</p>
+<div id="console-tricks-code-completion-command-history" class="section level2">
+<h2>Console tricks: Code completion &amp; command history</h2>
+<p>R studio has a very useful feature called code completion using the <strong>Tab</strong> key which can complete the full name of an object. For example type <code>hel</code> and hit <strong>Tab</strong> and you will see several functions pop up and you can select <code>help()</code>.</p>
+<p>This also work inside a function to find function arguments. Type <code>help(</code> and hit <em>Tab</em> to select arguments for the help function.</p>
+<p>R studio records your command history. Thus you can scroll up or down the history of executed commands using the <em>Up</em> or <em>Down</em> arrows. Make sure your cursor is in the console and try to re-execute previous commands.</p>
 </div>
-<div id="a-quick-introduction-to-r-using-rstudio" class="section level2">
-<h2>A quick introduction to R using Rstudio</h2>
-<p>Next, let’s review some of the basic features and functions of R. To start R, open the Rstudio application from your programs folder or start menu. This will initialize your R session. To exit R, simply close the Rstudio application.</p>
-<blockquote>
-<p>Note that R is a case sensitive language!</p>
-</blockquote>
-<p>Let’s get comfortable with R by submitting the following command on the command line (where R prompts you with a <code>&gt;</code> in the lower left Rstudio window pane) that will retrieve the current working directory on your machine:</p>
-<pre class="r"><code>getwd() # this command will print the current working directory</code></pre>
-<blockquote>
-<p>Note that the symbol ‘#’ is used to add comments to your code and you just type <code>getwd()</code> after the “&gt;”.</p>
-</blockquote>
-<p>Our primer is heavily based on the <em>poppr</em> and <em>adegenet</em> packages. To get help on any of their functions type a question mark before the empty function call as in:</p>
-<pre class="r"><code>?mlg # open the R documentation of the function mlg()</code></pre>
+<div id="useful-r-functions" class="section level2">
+<h2>Useful R functions</h2>
+<p>Other useful commands providing information on your system include:</p>
+<pre class="r"><code>help(options)                                 # learn about available options
+installed.packages()[,c(&quot;Package&quot;,&quot;Version&quot;)] # list packages &amp; versions installed
+sessionInfo()                             # displays packages currently loaded
+data(&lt;name&gt;, package = &quot;package&quot;)             # load a specific data set from a specific package</code></pre>
 <p>To quit R you can either use the <kbd>Rstudio &gt; Quit</kbd> pull-down menu command or execute <kbd>⌘ + Q</kbd> (OS X) or <kbd>ctrl + Q</kbd> (PC).</p>
 </div>
-<div id="packages-and-getting-help" class="section level2">
-<h2>Packages and getting help</h2>
+<div id="getting-help" class="section level2">
+<h2>Getting help</h2>
 <p>One way that R shines above other languages for analysis is the fact that R packages in CRAN are all documented. Help files are written in HTML and give the user a brief overview of:</p>
 <ul>
 <li>The purpose of a function</li>
@@ -325,15 +291,33 @@ help(amova)             # Get help for the amova function.
 browseVignettes(package = &#39;poppr&#39;)    # see vignettes from a specific package.</code></pre>
 <p>and to look at a specific vignette you can type:</p>
 <pre class="r"><code>vignette(&#39;poppr_manual&#39;)</code></pre>
-<p>Next, consider browsing the Appendix 3 on Introduction to R if you are not yet familiar with R and Rstudio. Otherwise, you are now ready to think about formatting and loading population genetic data into R.</p>
+<p>Next, consider browsing the R tutorial chapter if you are not yet familiar with R and Rstudio. Otherwise, you are now ready to think about formatting and loading population genetic data into R.</p>
 </div>
-<div id="references" class="section level2">
-<h2>References</h2>
-<!---->
+<div id="useful-resources-to-learn-r" class="section level2">
+<h2>Useful resources to learn R</h2>
+<p><em>Introductory</em></p>
+<ul>
+<li><a href="http://swirlstats.com/">Swirl</a> is a very well thought out R package that teaches you interactively.</li>
+<li><a href="https://www.codeschool.com/courses/try-r">Code School Try R</a> is a nice interactive tutorial.</li>
+<li><a href="http://www.statmethods.net/interface/help.html">Quick R</a></li>
+<li><a href="http://cran.r-project.org/doc/contrib/Short-refcard.pdf">R reference card</a></li>
+<li>A very nice, short <a href="http://ateucher.github.io/rcourse_site/index.html">introduction to R</a></li>
+</ul>
+<p><em>Advanced</em></p>
+<ul>
+<li><a href="http://adv-r.had.co.nz/">Advanced R</a> by Hadley Wickham</li>
+</ul>
+<p><em>Books</em>:</p>
+<ul>
+<li><a href="http://oreilly.com/catalog/9780596801717">R in a Nutshell</a></li>
+<li><a href="">R cookbook</a> is a nice quick reference and tutorial for general R use.</li>
+<li><a href="">ggplot2: Elegant Graphics for Data Analysis</a> is a useful, bu dated reference if you want to customize graphs for publication.</li>
+</ul>
+<!------------>
 
 
 <div class="references">
-<p>Kamvar Z., Tabima J., Grünwald N. 2014. <span class="math">\(Poppr\)</span>: an r package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281">http://dx.doi.org/10.7717/peerj.281</a></p>
+
 </div>
 </div>
 
