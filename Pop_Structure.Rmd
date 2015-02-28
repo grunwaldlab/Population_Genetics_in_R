@@ -11,24 +11,31 @@
   # http://yihui.name/knitr/options #chunk_options
 ```
 ---
-title: '9: Population structure: $G_{ST}$, clustering and minimum spanning networks'
+title: '9: Population structure: $G_{ST}$, genetic distance, clustering, and minimum spanning networks'
 ---
 
-In this chapter we explore various ways of assessing if population are structured (e.g., differentiated). You can think of population structure as identifying clusters or groups of more closely related individuals resulting from reduced gene flow among these groups. Populations can be studied to determine if they are structured by using for example population differentiation $G_{ST}$, clustering, or graphing of minimum spanning networks (MSN). Let's first look at an example of population differentiation.
+In this chapter we explore various ways of assessing if population are
+structured (e.g., differentiated). You can think of population structure as
+identifying clusters or groups of more closely related individuals resulting
+from reduced gene flow among these groups. Populations can be studied to
+determine if they are structured by using for example population differentiation
+$G_{ST}$, clustering, or graphing of minimum spanning networks (MSN). Note, that
+this chapter will utilize many data sets due to the unique features offered by
+each. Let's first look at an example of population differentiation.
 
 $G_{ST}$ an example with *Felis catus* data.
 ----
 
 Assessing genetic diversity almost always starts with an analysis of a parameter
-such as $G_{ST}$. There are [lengthy debates](http://www.molecularecologist.com/2011/03/should-i-use-fst-gst-or-d-2/) as to what measure of differentiation is
-better `r citep(bib['meirmans2011assessing'])`. Instead of going into that
-lengthy debate, it would be more worthwhile to point you into the direction of
-a package dedicated to Modern Methods of Differentiation called *mmod*. We will
-use the data set *nancycats* containing 17 colonies of cats collected from Nancy,
-France. As cats tend to stay within small groups, we expect to see some population
-differentiation. In terms of these diversity measures, an index of 0 indicates
-no differentiation, whereas 1 indicates that populations are segregating for
-differing alleles. 
+such as $G_{ST}$. There are [lengthy debates](http://www.molecularecologist.com/2011/03/should-i-use-fst-gst-or-d-2/)
+as to what measure of differentiation is better `r citep(bib['meirmans2011assessing'])`. 
+Instead of going into that lengthy debate, it would be more worthwhile to point
+you into the direction of a package dedicated to Modern Methods of
+Differentiation called *mmod*. We will use the data set *nancycats* containing
+17 colonies of cats collected from Nancy, France. As cats tend to stay within
+small groups, we expect to see some population differentiation. In terms of
+these diversity measures, an index of 0 indicates no differentiation, whereas 1
+indicates that populations are segregating for differing alleles.
 
 Let's load the package and the example data set.
 
@@ -49,14 +56,52 @@ Gst_Hedrick(nancycats)
 ```
 What does this output tell us?
 
+Genetic Distance
+----
+
+If we wanted to analyze the relationship between individuals or populations, we
+would use genetic distance measures which calculate the "distance" between
+samples based on their genetic profile. These distances can be visualized with
+heatmaps, dendrograms, or minimum spanning networks. In the package *poppr*,
+there are several distances available:
+
+|Distance|Function|Marker type|
+|----|----|----|----|
+|Bruvo's distance|`bruvo.dist`|microsatellite|
+|Provesti's distance|`provesti.dist`|any|
+|Nei's distance|`nei.dist`|any|
+|Rogers' distance|`rogers.dist`|any|
+|Edwards' distance|`edwards.dist`|any|
+|Reynolds' distance|`reynolds.dist`|any|
+
+One common way to visualize a genetic distance is with a dendrogram.
+
+
+```{r, cattletree, fig.width = 5, fig.height = 7}
+library("ape")
+data(microbov)
+microbov <- as.genclone(microbov, hierarchy = other(microbov))
+microbov
+namehierarchy(microbov) <- ~Country/Breed/Species
+setpop(microbov) <- ~Country/Breed
+set.seed(999)
+ten_samples <- sample(nInd(microbov), 10)
+mic10 <- microbov[ten_samples]
+
+```
+
+The rest of this chapter will utilize Bruvo's distance `r citep(bib['bruvo2004simple'])`. 
+
 Minimum spanning network
 ----
 
-For this section, we will use the `monpop` data set from `r citep(bib['everhart2014finescale'])`. 
-see [Chapter 6](Genotypic_EvenRichDiv.html) for more details. We will be
-focusing on sources of multilocus genotypes. The life cycle of the pathogen *Monilinia fructicola* begins with an
-ascospore (sexual propagule) released from a mummified peach fruit that had overwintered on the ground. It infects an emerging blossom that, in turn, asexually infects fruit, which proceed with cyclical infections.
-We might have questions such as:
+For this section, we will use the `monpop` data set from `rcitep(bib['everhart2014finescale'])`. 
+See [Chapter6](Genotypic_EvenRichDiv.html) for more details. We will be focusing
+on sources of multilocus genotypes. The life cycle of the pathogen *Monilinia
+fructicola* begins with an ascospore (sexual propagule) released from a
+mummified peach fruit that had overwintered on the ground. It infects an
+emerging blossom that, in turn, asexually infects fruit, which proceed with
+cyclical infections. We might have questions such as:
 
 1. Are the major genotypes of Fruit Rot (FR) samples closely related?
 2. To what degree do the Blossom Blight (BB) samples contribute to the FR?
@@ -71,7 +116,8 @@ splithierarchy(monpop) <- ~Tree/Year/Symptom
 summary(monpop)
 ```
 
-We notice that tree number 26 is the only one to have been sampled for all three years. Let's use it as an example.
+We notice that tree number 26 is the only one to have been sampled for all three
+years. Let's use it as an example.
 
 ```{r}
 setpop(monpop) <- ~Tree
