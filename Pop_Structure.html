@@ -10,7 +10,7 @@
 
 
 
-<title>9: Population structure: G_{ST}, clustering and minimum spanning networks</title>
+<title>9: Population structure: G_{ST}, genetic distance, clustering, and minimum spanning networks</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -208,20 +208,20 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div class="span10 offset1"> -->
 
 <div id="header">
-<h1 class="title">9: Population structure: <span class="math">\(G_{ST}\)</span>, clustering and minimum spanning networks</h1>
+<h1 class="title">9: Population structure: <span class="math">\(G_{ST}\)</span>, genetic distance, clustering, and minimum spanning networks</h1>
 </div>
 
 <div id="TOC">
 <ul>
 <li><a href="#g_st-an-example-with-felis-catus-data."><span class="math">\(G_{ST}\)</span> an example with <em>Felis catus</em> data.</a></li>
+<li><a href="#genetic-distance">Genetic Distance</a></li>
 <li><a href="#minimum-spanning-network">Minimum spanning network</a></li>
 <li><a href="#k-means-hierarchical-clustering">K-means hierarchical clustering</a></li>
 <li><a href="#other-methods">Other methods</a></li>
-<li><a href="#references">References</a></li>
 </ul>
 </div>
 
-<p>In this chapter we explore various ways of assessing if population are structured (e.g., differentiated). You can think of population structure as identifying clusters or groups of more closely related individuals resulting from reduced gene flow among these groups. Populations can be studied to determine if they are structured by using for example population differentiation <span class="math">\(G_{ST}\)</span>, clustering, or graphing of minimum spanning networks (MSN). Let’s first look at an example of population differentiation.</p>
+<p>In this chapter we explore various ways of assessing if population are structured (e.g., differentiated). You can think of population structure as identifying clusters or groups of more closely related individuals resulting from reduced gene flow among these groups. Populations can be studied to determine if they are structured by using for example population differentiation <span class="math">\(G_{ST}\)</span>, clustering, or graphing of minimum spanning networks (MSN). Note, that this chapter will utilize many data sets due to the unique features offered by each. Let’s first look at an example of population differentiation.</p>
 <div id="g_st-an-example-with-felis-catus-data." class="section level2">
 <h2><span class="math">\(G_{ST}\)</span> an example with <em>Felis catus</em> data.</h2>
 <p>Assessing genetic diversity almost always starts with an analysis of a parameter such as <span class="math">\(G_{ST}\)</span>. There are <a href="http://www.molecularecologist.com/2011/03/should-i-use-fst-gst-or-d-2/">lengthy debates</a> as to what measure of differentiation is better <span class="citation">(Meirmans &amp; Hedrick, 2011)</span>. Instead of going into that lengthy debate, it would be more worthwhile to point you into the direction of a package dedicated to Modern Methods of Differentiation called <em>mmod</em>. We will use the data set <em>nancycats</em> containing 17 colonies of cats collected from Nancy, France. As cats tend to stay within small groups, we expect to see some population differentiation. In terms of these diversity measures, an index of 0 indicates no differentiation, whereas 1 indicates that populations are segregating for differing alleles.</p>
@@ -268,9 +268,195 @@ nancycats</code></pre>
 ## [1] 0.2820551</code></pre>
 <p>What does this output tell us?</p>
 </div>
+<div id="genetic-distance" class="section level2">
+<h2>Genetic Distance</h2>
+<p>If we wanted to analyze the relationship between individuals or populations, we would use genetic distance measures which calculate the “distance” between samples based on their genetic profile. These distances can be visualized with heatmaps, dendrograms, or minimum spanning networks. In the package <em>poppr</em>, there are several distances available:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Distance</th>
+<th align="left">Function</th>
+<th align="left">Marker type</th>
+<th align="left">Can handle missing data</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bruvo’s distance</td>
+<td align="left"><code>bruvo.dist</code></td>
+<td align="left">microsatellite</td>
+<td align="left">yes</td>
+</tr>
+<tr class="even">
+<td align="left">Edwards’ distance</td>
+<td align="left"><code>edwards.dist</code></td>
+<td align="left">any</td>
+<td align="left">no</td>
+</tr>
+<tr class="odd">
+<td align="left">Nei’s distance</td>
+<td align="left"><code>nei.dist</code></td>
+<td align="left">any</td>
+<td align="left">no</td>
+</tr>
+<tr class="even">
+<td align="left">Provesti’s distance</td>
+<td align="left"><code>provesti.dist</code></td>
+<td align="left">any</td>
+<td align="left">yes</td>
+</tr>
+<tr class="odd">
+<td align="left">Reynolds’ distance</td>
+<td align="left"><code>reynolds.dist</code></td>
+<td align="left">any</td>
+<td align="left">no</td>
+</tr>
+<tr class="even">
+<td align="left">Rogers’ distance</td>
+<td align="left"><code>rogers.dist</code></td>
+<td align="left">any</td>
+<td align="left">no</td>
+</tr>
+</tbody>
+</table>
+<p>One common way to visualize a genetic distance is with a dendrogram. For this example, we will use the <em>microbov</em> data set. This contains information on 704 cattle from both Africa and France over several different breeds. We can create a dendrogram over all 704 samples, but that would be difficult to visualize. For our purposes, let’s take ten random samples and calculate Provesti’s distance, which will return the fraction of the number of differences between samples:</p>
+<pre class="r"><code>library(&quot;poppr&quot;)
+library(&quot;ape&quot;) # To visualize the tree using the &quot;nj&quot; function
+library(&quot;magrittr&quot;)
+data(microbov)
+set.seed(10)
+ten_samples &lt;- sample(nInd(microbov), 10)
+mic10 &lt;- microbov[ten_samples]
+micdist &lt;- provesti.dist(mic10)
+micdist</code></pre>
+<pre><code>##              FRBTBDA35243 AFBTSOM9386 FRBTBAZ26396 FRBTGAS9052 AFBIZEB9462
+## AFBTSOM9386     0.7500000                                                 
+## FRBTBAZ26396    0.6000000   0.6833333                                     
+## FRBTGAS9052     0.6333333   0.8500000    0.5333333                        
+## AFBIZEB9462     0.7166667   0.6666667    0.7833333   0.8500000            
+## AFBTND211       0.6333333   0.5666667    0.6833333   0.7333333   0.8000000
+## AFBTSOM9362     0.6000000   0.5333333    0.6666667   0.8166667   0.7000000
+## AFBTSOM9360     0.7000000   0.5166667    0.6000000   0.7166667   0.7333333
+## FRBTCHA25069    0.6166667   0.7000000    0.5833333   0.6833333   0.8000000
+## FRBTBAZ26388    0.5333333   0.7000000    0.5500000   0.6333333   0.7500000
+##              AFBTND211 AFBTSOM9362 AFBTSOM9360 FRBTCHA25069
+## AFBTSOM9386                                                
+## FRBTBAZ26396                                               
+## FRBTGAS9052                                                
+## AFBIZEB9462                                                
+## AFBTND211                                                  
+## AFBTSOM9362  0.5333333                                     
+## AFBTSOM9360  0.5500000   0.5666667                         
+## FRBTCHA25069 0.6500000   0.7333333   0.7166667             
+## FRBTBAZ26388 0.6000000   0.6666667   0.6833333    0.6166667</code></pre>
+<p>The above represents the pairwise distances between these 10 samples. We will use this distance matrix to create a neighbor-joining tree.</p>
+<pre class="r"><code>theTree &lt;- micdist %&gt;% 
+  nj %&gt;%    # calculate neighbor-joining tree
+  ladderize # organize branches by clade
+plot(theTree)
+add.scale.bar(length = 0.05) # add a scale bar showing 5% difference.</code></pre>
+<p><img src="Pop_Structure_files/figure-html/cattleplot-1.png" title="" alt="" width="700px" /></p>
+<p>Notice that the sample names start with either “AF” or “FR”. This indicates their country of origin and we are seeing that the tree seems to separate based off of this. Of course, a tree is a hypothesis and one way of generating support is to bootstrap loci. This can be achieved with the <em>poppr</em> function <code>aboot</code>.</p>
+<pre class="r"><code>set.seed(999)
+aboot(mic10, dist = provesti.dist, sample = 200, tree = &quot;nj&quot;, cutoff = 50, quiet = TRUE)</code></pre>
+<p><img src="Pop_Structure_files/figure-html/unnamed-chunk-2-1.png" title="" alt="" width="700px" /></p>
+<pre><code>## 
+## Phylogenetic tree with 10 tips and 8 internal nodes.
+## 
+## Tip labels:
+##  FRBTBDA35243, AFBTSOM9386, FRBTBAZ26396, FRBTGAS9052, AFBIZEB9462, AFBTND211, ...
+## Node labels:
+##  100, NA, NA, 70, NA, NA, ...
+## 
+## Unrooted; includes branch lengths.</code></pre>
+<p>The bootstrap value of 100 on the node separating the French and African samples gives support that the country of origin is a factor in how these breeds are structured. If we wanted to analyze all of the breeds against one another, it would be better to create a bootstrapped dendrogram based off of a population genetic distance. To do this, we will create a genclone object that will contain 3 hierarchical levels: Country, Breed, and Species. We will then set the population to Country by Breed, convert the data to a genpop object and then make a tree using <code>aboot</code> with Nei’s genetic distance.</p>
+<pre class="r"><code># Setting up the data 
+microbov &lt;- as.genclone(microbov, hierarchy = other(microbov))
+microbov</code></pre>
+<pre><code>## 
+## This is a genclone object
+## -------------------------
+## Genotype information:
+## 
+##    704 multilocus genotypes
+##    704 diploid individuals
+##     30 codominant loci
+## 
+## Population information:
+## 
+##      3 hierarchical levels - coun breed spe
+##     15 populations defined - Borgou Zebu Lagunaire ... MaineAnjou 
+## Montbeliard Salers</code></pre>
+<pre class="r"><code>namehierarchy(microbov) &lt;- ~Country/Breed/Species
+setpop(microbov) &lt;- ~Country/Breed
+
+# Analysis
+set.seed(999)
+microbov %&gt;% 
+  genind2genpop %&gt;%
+  aboot(cutoff = 50, quiet = TRUE, sample = 1000, distance = nei.dist) </code></pre>
+<pre><code>## 
+##  Converting data from a genind to a genpop object... 
+## 
+## ...done.</code></pre>
+<p><img src="Pop_Structure_files/figure-html/cattlepopboot-1.png" title="" alt="" width="700px" /></p>
+<pre><code>## 
+## Phylogenetic tree with 15 tips and 14 internal nodes.
+## 
+## Tip labels:
+##  AF_Borgou, AF_Zebu, AF_Lagunaire, AF_NDama, AF_Somba, FR_Aubrac, ...
+## Node labels:
+##  100, 100, 99.8, 92.5, 92.4, 63.6, ...
+## 
+## Rooted; includes branch lengths.</code></pre>
+<p>Now we can see that, in all 1000 bootstrapped trees, the African and French samples were each in separate clades. Of course, dendrograms are only one type of analysis you can use genetic distances for. Below is a table describing some of the different analyses for which you can utilize genetic distance:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Analysis</th>
+<th align="left">Function</th>
+<th align="left">Package</th>
+<th align="left">Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bootstrapped dendrograms</td>
+<td align="left"><code>aboot</code></td>
+<td align="left"><em>poppr</em></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">Mantel Test</td>
+<td align="left"><code>mantel.randtest</code></td>
+<td align="left"><em>ade4</em></td>
+<td align="left">To be used with geographic distance matrix</td>
+</tr>
+<tr class="odd">
+<td align="left">Principle Coordinates Analysis</td>
+<td align="left"><code>cmdscale</code></td>
+<td align="left"><em>stats</em></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="DAPC.html">DAPC</a></td>
+<td align="left"><code>dapc</code></td>
+<td align="left"><em>adegenet</em></td>
+<td align="left">Convert to matrix with <code>as.matrix</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Minimum Spanning Networks</td>
+<td align="left"><code>poppr.msn</code></td>
+<td align="left"><em>poppr</em></td>
+<td align="left">cannot handle genpop</td>
+</tr>
+</tbody>
+</table>
+<p>The rest of this chapter will utilize Bruvo’s distance <span class="citation">(Bruvo et al., 2004)</span>. It is important to note that calculating Bruvo’s distance is computationally different than other distances, so it has its own function for</p>
+</div>
 <div id="minimum-spanning-network" class="section level2">
 <h2>Minimum spanning network</h2>
-<p>For this section, we will use the <code>monpop</code> data set from <span class="citation">(Everhart &amp; Scherm, 2015)</span>. see <a href="Genotypic_EvenRichDiv.html">Chapter 6</a> for more details. We will be focusing on sources of multilocus genotypes. The life cycle of the pathogen <em>Monilinia fructicola</em> begins with an ascospore (sexual propagule) released from a mummified peach fruit that had overwintered on the ground. It infects an emerging blossom that, in turn, asexually infects fruit, which proceed with cyclical infections. We might have questions such as:</p>
+<p>For this section, we will use the <code>monpop</code> data set from <span class="citation">(Everhart &amp; Scherm, 2015)</span>. See <a href="Genotypic_EvenRichDiv.html">Chapter6</a> for more details. We will be focusing on sources of multilocus genotypes. The life cycle of the pathogen <em>Monilinia fructicola</em> begins with an ascospore (sexual propagule) released from a mummified peach fruit that had overwintered on the ground. It infects an emerging blossom that, in turn, asexually infects fruit, which proceed with cyclical infections. We might have questions such as:</p>
 <ol style="list-style-type: decimal">
 <li>Are the major genotypes of Fruit Rot (FR) samples closely related?</li>
 <li>To what degree do the Blossom Blight (BB) samples contribute to the FR?</li>
@@ -307,8 +493,7 @@ summary(monpop)</code></pre>
 ## [1] 0</code></pre>
 <p>We notice that tree number 26 is the only one to have been sampled for all three years. Let’s use it as an example.</p>
 <pre class="r"><code>setpop(monpop) &lt;- ~Tree
-t26 &lt;- popsub(monpop, &quot;26&quot;)
-setpop(t26) &lt;- ~Year/Symptom
+t26 &lt;- popsub(monpop, &quot;26&quot;) %&gt;% setpop(~Year/Symptom)
 t26</code></pre>
 <pre><code>## 
 ## This is a genclone object
@@ -338,7 +523,7 @@ t26.9msn &lt;- bruvo.msn(t26, replen = reps, sublist = sub9, showplot = FALSE)</
 <pre class="r"><code># Visualize the network
 set.seed(9001)
 plot_poppr_msn(t26, t26.9msn, inds = &quot;none&quot;, palette = cm.colors, nodebase = 1.25)</code></pre>
-<p><img src="Pop_Structure_files/figure-html/unnamed-chunk-5-1.png" title="" alt="" width="700px" /></p>
+<p><img src="Pop_Structure_files/figure-html/unnamed-chunk-6-1.png" title="" alt="" width="700px" /></p>
 <p>We can see that the Blossom Blight in the tree (pink pie pieces) heavily contributed to the major groups of MLGs found in the Fruit Rot (blue pie pieces).</p>
 <blockquote>
 <p><strong>Try it!</strong> See if you can produce similar graphs with the 2010 and 2011 populations.</p>
@@ -438,18 +623,13 @@ axisPhylo(3)</code></pre>
 <div id="other-methods" class="section level2">
 <h2>Other methods</h2>
 <p>Not all methods of clustering need to be based on Bruvos’s distance. There are others available. See <code>?nei.dist</code> for more details. The function <code>aboot</code> will perform bootstrap analysis on any distance given for individuals or populations, and <code>poppr.msn</code> will create minimum spanning networks given a genind object and a distance.</p>
-</div>
-<div id="references" class="section level2">
-<h2>References</h2>
-<!------------->
-
-
 <div class="references">
-<p>Bruvo R., Michiels N., D’Souza T., Schulenburg H. 2004. A simple method for the calculation of microsatellite genotype distances irrespective of ploidy level. <em>Molecular Ecology</em> 13:2101–2106. Available at: <a href="http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x">http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x</a></p>
+<h2>References</h2>
+<p>Bruvo R., Michiels N., D’Souza T., Schulenburg H. 2004. A simple method for the calculation of microsatellite genotype distances irrespective of ploidy level. <em>Molecular Ecology</em> 13:2101–2106. Available at: <a href="http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x" class="uri">http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x</a></p>
 <p>Everhart S., Scherm H. 2015. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> ##:in press.</p>
-<p>Goss E., Tabima J., Cooke D., Restrepo S., Fry W., Forbes G., Fieland V., Cardenas M., Grünwald N. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
-<p>Hedrick P. 2005. A standardized genetic differentiation measure. <em>Evolution</em> 59:1633–1638. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.0014-3820.2005.tb01814.x/abstract">http://onlinelibrary.wiley.com/doi/10.1111/j.0014-3820.2005.tb01814.x/abstract</a></p>
-<p>Meirmans P., Hedrick P. 2011. Assessing population structure: <span class="math">\(F_{ST}\)</span> and related measures. <em>Molecular Ecology Resources</em> 11:5–18. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full">http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full</a></p>
+<p>Goss E., Tabima J., Cooke D., Restrepo S., Fry W., Forbes G., Fieland V., Cardenas M., Grünwald N. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
+<p>Hedrick P. 2005. A standardized genetic differentiation measure. <em>Evolution</em> 59:1633–1638. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.0014-3820.2005.tb01814.x/abstract" class="uri">http://onlinelibrary.wiley.com/doi/10.1111/j.0014-3820.2005.tb01814.x/abstract</a></p>
+<p>Meirmans P., Hedrick P. 2011. Assessing population structure: <span class="math">\(F_{ST}\)</span> and related measures. <em>Molecular Ecology Resources</em> 11:5–18. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full" class="uri">http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full</a></p>
 </div>
 </div>
 

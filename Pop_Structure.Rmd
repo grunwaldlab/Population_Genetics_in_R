@@ -65,19 +65,24 @@ samples based on their genetic profile. These distances can be visualized with
 heatmaps, dendrograms, or minimum spanning networks. In the package *poppr*,
 there are several distances available:
 
-|Distance|Function|Marker type|
-|----|----|----|----|
-|Bruvo's distance|`bruvo.dist`|microsatellite|
-|Provesti's distance|`provesti.dist`|any|
-|Nei's distance|`nei.dist`|any|
-|Rogers' distance|`rogers.dist`|any|
-|Edwards' distance|`edwards.dist`|any|
-|Reynolds' distance|`reynolds.dist`|any|
+ | Distance | Function | Marker type | Can handle missing data |
+ | ---- | ---- | ---- | ---- | ---- |
+ | Bruvo's distance | `bruvo.dist` | microsatellite | yes |
+ | Edwards' distance | `edwards.dist` | any | no |
+ | Nei's distance | `nei.dist` | any | no |
+ | Provesti's distance | `provesti.dist` | any | yes |
+ | Reynolds' distance | `reynolds.dist` | any | no |
+ | Rogers' distance | `rogers.dist` | any | no |
 
-One common way to visualize a genetic distance is with a dendrogram. For this example, we will use the *microbov* data set. This contains information on 704 cattle from both Africa and France over several different breeds. We can create a dendrogram over all 704 samples, but that would be difficult to visualize. For our purposes, let's take ten random samples and calculate Provesti's distance, which will return the fraction of the number of differences between samples:
+One common way to visualize a genetic distance is with a dendrogram. For this
+example, we will use the *microbov* data set. This contains information on 704
+cattle from both Africa and France over several different breeds. We can create
+a dendrogram over all 704 samples, but that would be difficult to visualize. For
+our purposes, let's take ten random samples and calculate Provesti's distance,
+which will return the fraction of the number of differences between samples:
 
 
-```{r, cattlefirstplot, fig.width = 5, fig.height = 7}
+```{r, cattlefirst}
 library("poppr")
 library("ape") # To visualize the tree using the "nj" function
 library("magrittr")
@@ -87,37 +92,73 @@ ten_samples <- sample(nInd(microbov), 10)
 mic10 <- microbov[ten_samples]
 micdist <- provesti.dist(mic10)
 micdist
-micdist %>% 
-  nj %>%        # calculate neighbor-joining tree
-  ladderize %>% # organize branches by clade
-  plot          # show the plot
+```
+
+The above represents the pairwise distances between these 10 samples. We will 
+use this distance matrix to create a neighbor-joining tree. 
+
+```{r, cattleplot, fig.width = 5, fig.height = 7}
+theTree <- micdist %>% 
+  nj %>%    # calculate neighbor-joining tree
+  ladderize # organize branches by clade
+plot(theTree)
 add.scale.bar(length = 0.05) # add a scale bar showing 5% difference.
 ```
 
-Notice that 
+Notice that the sample names start with either "AF" or "FR". This indicates 
+their country of origin and we are seeing that the tree seems to separate based
+off of this. Of course, a tree is a hypothesis and one way of generating support
+is to bootstrap loci. This can be achieved with the *poppr* function `aboot`.
 
 ```{r, fig.width = 5, fig.height = 7}
 set.seed(999)
 aboot(mic10, dist = provesti.dist, sample = 200, tree = "nj", cutoff = 50, quiet = TRUE)
 ```
 
-```{r }
+The bootstrap value of 100 on the node separating the French and African samples
+gives support that the country of origin is a factor in how these breeds are
+structured. If we wanted to analyze all of the breeds against one another, it
+would be better to create a bootstrapped dendrogram based off of a population
+genetic distance. To do this, we will create a genclone object that will contain
+3 hierarchical levels: Country, Breed, and Species. We will then set the
+population to Country by Breed, convert the data to a genpop object and then
+make a tree using `aboot` with Nei's genetic distance.
+
+```{r, cattlepopboot, fig.width = 5, fig.height = 7, cache = TRUE}
+# Setting up the data 
 microbov <- as.genclone(microbov, hierarchy = other(microbov))
 microbov
 namehierarchy(microbov) <- ~Country/Breed/Species
 setpop(microbov) <- ~Country/Breed
+
+# Analysis
 set.seed(999)
 microbov %>% 
   genind2genpop %>%
-  aboot(cutoff = 50, quiet = TRUE)
+  aboot(cutoff = 50, quiet = TRUE, sample = 1000, distance = nei.dist) 
 ```
 
-The rest of this chapter will utilize Bruvo's distance `r citep(bib['bruvo2004simple'])`. 
+Now we can see that, in all 1000 bootstrapped trees, the African and French 
+samples were each in separate clades. Of course, dendrograms are only one type
+of analysis you can use genetic distances for. Below is a table describing some
+of the different analyses for which you can utilize genetic distance:
+
+ | Analysis | Function | Package | Note | 
+ | ---- | ----- | ---- | ---- | 
+ | Bootstrapped dendrograms | `aboot` | *poppr* |  | 
+ | Mantel Test | `mantel.randtest` | *ade4* | To be used with geographic distance matrix | 
+ | Principle Coordinates Analysis | `cmdscale` | *stats* |  | 
+ | [DAPC](DAPC.html) | `dapc` | *adegenet* | Convert to matrix with `as.matrix` | 
+ | Minimum Spanning Networks | `poppr.msn` | *poppr* | cannot handle genpop | 
+
+The rest of this chapter will utilize Bruvo's distance `r citep(bib['bruvo2004simple'])`.
+It is important to note that calculating Bruvo's distance is computationally 
+different than other distances, so it has its own function for 
 
 Minimum spanning network
 ----
 
-For this section, we will use the `monpop` data set from `rcitep(bib['everhart2014finescale'])`. 
+For this section, we will use the `monpop` data set from `r citep(bib['everhart2014finescale'])`. 
 See [Chapter6](Genotypic_EvenRichDiv.html) for more details. We will be focusing
 on sources of multilocus genotypes. The life cycle of the pathogen *Monilinia
 fructicola* begins with an ascospore (sexual propagule) released from a
@@ -143,8 +184,7 @@ years. Let's use it as an example.
 
 ```{r}
 setpop(monpop) <- ~Tree
-t26 <- popsub(monpop, "26")
-setpop(t26) <- ~Year/Symptom
+t26 <- popsub(monpop, "26") %>% setpop(~Year/Symptom)
 t26
 ```
 
