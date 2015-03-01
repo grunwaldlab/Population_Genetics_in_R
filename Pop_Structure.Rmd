@@ -74,20 +74,42 @@ there are several distances available:
 |Edwards' distance|`edwards.dist`|any|
 |Reynolds' distance|`reynolds.dist`|any|
 
-One common way to visualize a genetic distance is with a dendrogram.
+One common way to visualize a genetic distance is with a dendrogram. For this example, we will use the *microbov* data set. This contains information on 704 cattle from both Africa and France over several different breeds. We can create a dendrogram over all 704 samples, but that would be difficult to visualize. For our purposes, let's take ten random samples and calculate Provesti's distance, which will return the fraction of the number of differences between samples:
 
 
-```{r, cattletree, fig.width = 5, fig.height = 7}
-library("ape")
+```{r, cattlefirstplot, fig.width = 5, fig.height = 7}
+library("poppr")
+library("ape") # To visualize the tree using the "nj" function
+library("magrittr")
 data(microbov)
+set.seed(10)
+ten_samples <- sample(nInd(microbov), 10)
+mic10 <- microbov[ten_samples]
+micdist <- provesti.dist(mic10)
+micdist
+micdist %>% 
+  nj %>%        # calculate neighbor-joining tree
+  ladderize %>% # organize branches by clade
+  plot          # show the plot
+add.scale.bar(length = 0.05) # add a scale bar showing 5% difference.
+```
+
+Notice that 
+
+```{r, fig.width = 5, fig.height = 7}
+set.seed(999)
+aboot(mic10, dist = provesti.dist, sample = 200, tree = "nj", cutoff = 50, quiet = TRUE)
+```
+
+```{r }
 microbov <- as.genclone(microbov, hierarchy = other(microbov))
 microbov
 namehierarchy(microbov) <- ~Country/Breed/Species
 setpop(microbov) <- ~Country/Breed
 set.seed(999)
-ten_samples <- sample(nInd(microbov), 10)
-mic10 <- microbov[ten_samples]
-
+microbov %>% 
+  genind2genpop %>%
+  aboot(cutoff = 50, quiet = TRUE)
 ```
 
 The rest of this chapter will utilize Bruvo's distance `r citep(bib['bruvo2004simple'])`. 
@@ -148,8 +170,8 @@ The minimum spanning network is calculated via `bruvo.msn`. I've set the
 argument `showplot = FALSE` because I want to use the more powerful function
 `plot_poppr_msn` to view the MSN. In this, I'm telling it to lable none of the
 samples, color populations using the "cm.colors" palette and scale the size of
-the nodes to $log_{1.25}$. If you want to know what other things this function can
-do, simply type `help("plot_poppr_msn")`
+the nodes to $log_{1.25}$. If you want to know what other things this function
+can do, simply type `help("plot_poppr_msn")`
 
 ```{r, fig.width = 7, fig.height = 7}
 # Visualize the network
@@ -157,14 +179,24 @@ set.seed(9001)
 plot_poppr_msn(t26, t26.9msn, inds = "none", palette = cm.colors, nodebase = 1.25)
 ```
 
-We can see that the Blossom Blight in the tree (pink pie pieces) heavily contributed to the major groups of MLGs found in the Fruit Rot (blue pie pieces). 
+We can see that the Blossom Blight in the tree (pink pie pieces) heavily
+contributed to the major groups of MLGs found in the Fruit Rot (blue pie
+pieces).
 
 > **Try it!** See if you can produce similar graphs with the 2010 and 2011 populations.
 
 K-means hierarchical clustering
 ----
 
-A recent study reported that the origin of the potato late blight pathogen *Phytophthora infestans* lies in Mexico as opposed to South America `r citep(bib['goss2014irish'])`. We saw in the previous chapter that South American populations showed signatures of clonal reproduction while Mexican populations showed no evidence rejecting the null hypothesis of random mating. In this section, we will use K-means clustering in combination with bootstrapped dendrograms to see how well this pattern holds up. Clonal populations should have short terminal branch lengths and should cluster according to those branches. Panmictic populations will show no clear pattern. Let's look at the data: 
+A recent study reported that the origin of the potato late blight pathogen
+*Phytophthora infestans* lies in Mexico as opposed to South America `r citep(bib['goss2014irish'])`. 
+We saw in the previous chapter that South American populations showed signatures
+of clonal reproduction while Mexican populations showed no evidence rejecting
+the null hypothesis of random mating. In this section, we will use K-means
+clustering in combination with bootstrapped dendrograms to see how well this
+pattern holds up. Clonal populations should have short terminal branch lengths
+and should cluster according to those branches. Panmictic populations will show
+no clear pattern. Let's look at the data:
 
 ```{r}
 data(Pinf)
@@ -186,7 +218,9 @@ cat("Choose the number PCs to retain (>=1): \n")
 message("50")
 ```
 
-PC stands for principal component, are unitless transofrmations of your data that explaining the variance observed. For the purposes of `find.clusters`, we can keep as many as we want.
+PC stands for principal component, are unitless transofrmations of your data
+that explaining the variance observed. For the purposes of `find.clusters`, we
+can keep as many as we want.
 
 ![MX_CLUSTER](Pop_Structure_files/figure-html/MXCLUST.png)
 
@@ -197,7 +231,9 @@ cat("Choose the number PCs to retain (>=2: \n")
 message("3")
 ```
 
-BIC stands for "Bayesian Information Criterion". The lower the BIC value, the better. On the x axis are the number of clusters. We see that there is a bend at 3 clusters, indicating that the data clusters optimally into three groups. 
+BIC stands for "Bayesian Information Criterion". The lower the BIC value, the
+better. On the x axis are the number of clusters. We see that there is a bend at
+3 clusters, indicating that the data clusters optimally into three groups.
 
 
 ```{r, echo = FALSE}
@@ -235,7 +271,9 @@ cat("Choose the number PCs to retain (>=2): \n")
 message("4")
 ```
 
-Notice here that there is no uptick in the curve. This indicates that there [might not be enough information in the data set to properly cluster](http://lists.r-forge.r-project.org/pipermail/adegenet-forum/2011-June/000303.html). We will go ahead by choosing the highest number of clusters:
+Notice here that there is no uptick in the curve. This indicates that there
+[might not be enough information in the data set to properly cluster](http://lists.r-forge.r-project.org/pipermail/adegenet-forum/2011-June/000303.html). 
+We will go ahead by choosing the highest number of clusters:
 
 ```{r, echo = FALSE}
 SA <- popsub(Pinf, "South America")
@@ -244,7 +282,8 @@ SAclust <- find.clusters(SA, n.pca = 30, n.clust = 4)
 
 ### Trees
 
-Now we will build trees. We are using Bruvo's distance since polyploids bias calculation of other distances: 
+Now we will build trees. We are using Bruvo's distance since polyploids bias
+calculation of other distances:
 
 ```{r, trees, fig.width = 5, fig.height = 7}
 pinfreps <- c(2, 2, 6, 2, 2, 2, 2, 2, 3, 3, 2)
@@ -252,7 +291,8 @@ MXtree <- bruvo.boot(MX, replen = pinfreps, cutoff = 50, quiet = TRUE)
 SAtree <- bruvo.boot(SA, replen = pinfreps, cutoff = 50, quiet = TRUE)
 ```
 
-We see very long terminal branches in the MX tree. Let's see how the groups we found with the clustering algorithm match up:
+We see very long terminal branches in the MX tree. Let's see how the groups we
+found with the clustering algorithm match up:
 
 ```{r, grouptree, fig.width = 5, fig.height = 7}
 library("ape")
@@ -264,7 +304,9 @@ nodelabels(MXtree$node.label, adj = c(1.3, -0.5), frame = "n", cex = 0.8,
 axisPhylo(3)
 ```
 
-You can see that the assigned clusters don't necessarily group with the dendrogram clusters. Let's see what happens when we view this with the South American population:
+You can see that the assigned clusters don't necessarily group with the
+dendrogram clusters. Let's see what happens when we view this with the South
+American population:
 
 ```{r, grouptreeSA, fig.width = 5, fig.height = 7}
 plot.phylo(SAtree, cex = 0.8, font = 2, adj = 0, tip.color = cols[SAclust$grp],
@@ -274,17 +316,17 @@ nodelabels(SAtree$node.label, adj = c(1.3, -0.5), frame = "n", cex = 0.8,
 axisPhylo(3)
 ```
 
-Everything clusters together nicely, further supporting a non-panmictic population. 
+Everything clusters together nicely, further supporting a non-panmictic
+population.
 
 Other methods
 ----
 
-Not all methods of clustering need to be based on Bruvos's distance. There are others
-available. See `?nei.dist` for more details. The function `aboot` will perform bootstrap
-analysis on any distance given for individuals or populations, and `poppr.msn` will create
-minimum spanning networks given a genind object and a distance.
+Not all methods of clustering need to be based on Bruvos's distance. There are
+others available. See `?nei.dist` for more details. The function `aboot` will
+perform bootstrap analysis on any distance given for individuals or populations,
+and `poppr.msn` will create minimum spanning networks given a genind object and
+a distance.
 
 References
 ----------
-
-<!------------->
