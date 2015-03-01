@@ -216,6 +216,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <li><a href="#installing-r">Installing R</a></li>
 <li><a href="#installing-the-required-packages">Installing the required packages</a></li>
 <li><a href="#a-quick-introduction-to-r-using-rstudio">A quick introduction to R using Rstudio</a></li>
+<li><a href="#using-magrittr">Using <em>magrittr</em></a></li>
 <li><a href="#packages-and-getting-help">Packages and getting help</a></li>
 <li><a href="#references">References</a></li>
 </ul>
@@ -253,7 +254,6 @@ in several ways:
  devtools::install_github("grunwaldlab/poppr", ref = "devel")
 ```
 -->
-
 <div id="installing-r" class="section level2">
 <h2>Installing R</h2>
 <ol style="list-style-type: decimal">
@@ -270,16 +270,17 @@ in several ways:
 <li><a href="http://cran.r-project.org/web/packages/ggplot2/index.html">ggplot2</a></li>
 <li><a href="http://cran.r-project.org/web/packages/mmod/index.html">mmod</a></li>
 <li><a href="http://cran.r-project.org/web/packages/genetics/index.html">genetics</a></li>
+<li><a href="http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html">magrittr</a></li>
 </ol>
 <p>Use the following script to install these packages:</p>
-<pre class="r"><code>install.packages(c(&quot;poppr&quot;, &quot;mmod&quot;, &quot;genetics&quot;))</code></pre>
+<pre class="r"><code>install.packages(c(&quot;poppr&quot;, &quot;mmod&quot;, &quot;genetics&quot;, &quot;magrittr&quot;))</code></pre>
 <p>We wrote and actively maintain <em>poppr</em> <span class="citation">(Kamvar, Tabima &amp; Grünwald, 2014)</span> and it is heavily relied upon in this primer. <em>Poppr</em> is an R package. You can think of a package as a library of functions written and curated by someone in the R user community, which you can be loaded into R for use.</p>
 <p>Once you’ve installed <em>poppr</em>, you can invoke (i.e., load) it by typing or cutting and pasting:</p>
 <pre class="r"><code>library(&quot;poppr&quot;)</code></pre>
 <pre><code>## Loading required package: adegenet
 ## Loading required package: ade4
 ##    ==========================
-##     adegenet 1.4-2 is loaded
+##     adegenet 1.4-3 is loaded
 ##    ==========================
 ## 
 ##  - to start, type &#39;?adegenet&#39;
@@ -287,7 +288,7 @@ in several ways:
 ##  - to post questions/comments: adegenet-forum@lists.r-forge.r-project.org
 ## 
 ## 
-## This is poppr version 1.1.4. To get started, type package?poppr</code></pre>
+## This is poppr version 1.1.4.99.1. To get started, type package?poppr</code></pre>
 <p>This will load <em>poppr</em> and all dependent packages, such as <em>adegenet</em> and <em>ade4</em>. You will recognize loading by the prompts written to your screen.</p>
 <p>Congratulations. You should now be all set for using R. Loading data and conducting your first analysis will be the topic of the next chapter. But before we go there lets provide a few useful resources.</p>
 </div>
@@ -305,6 +306,43 @@ in several ways:
 <p>Our primer is heavily based on the <em>poppr</em> and <em>adegenet</em> packages. To get help on any of their functions type a question mark before the empty function call as in:</p>
 <pre class="r"><code>?mlg # open the R documentation of the function mlg()</code></pre>
 <p>To quit R you can either use the <kbd>Rstudio &gt; Quit</kbd> pull-down menu command or execute <kbd>⌘ + Q</kbd> (OS X) or <kbd>ctrl + Q</kbd> (PC).</p>
+</div>
+<div id="using-magrittr" class="section level2">
+<h2>Using <em>magrittr</em></h2>
+<p>Various chapters throughout this primer will have this symbol in the code: <code>%&gt;%</code>. This is called a “pipe” operator and it allows code to be more readable by stringing together commands from right to left. Below, are two examples of how code can be improved with <em>magrittr</em>.</p>
+<div id="fake-example" class="section level4">
+<h4>Fake Example:</h4>
+<p>Adapted from <a href="https://twitter.com/_inundata/status/557980236130689024">Hadley Wickham</a>. Based on the children’s song, <a href="http://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo">Little bunny foo foo</a>.</p>
+<pre class="r"><code>foo_foo &lt;- little_bunny()
+
+bop_on(scoop_up(hop_through(foo_foo, forest), field_mouse), head)
+
+# VS
+
+foo_foo %&gt;%
+  hop_through(forest) %&gt;%
+  scoop_up(field_mouse) %&gt;%
+  bop_on(head)</code></pre>
+</div>
+<div id="real-example" class="section level4">
+<h4>Real Example:</h4>
+<p><em>Phytophthora infestans</em> data from North and South America <span class="citation">(Goss et al., 2014)</span>. Calculating allelic diversity per population after clone-correction. This information can be found in our chapters on <a href="Population_Hierarchies.html">Population hierarchies and clone correction</a> and <a href="Locus_Stats.html">Locus based statistics</a>.</p>
+<pre class="r"><code>library(&quot;poppr&quot;)
+data(Pinf)
+
+allelic_diversity &lt;- lapply(seppop(clonecorrect(Pinf, hier = ~Continent/Country)), FUN = locus_table, info = FALSE)
+
+# VS
+
+allelic_diversity &lt;- Pinf %&gt;%
+  clonecorrect(hier = ~Continent/Country) %&gt;% # clone censor by continent and country.
+  seppop %&gt;%                                  # Separate populations (by continent)
+  lapply(FUN = locus_table, info = FALSE)     # Apply the function locus_table to both populations.</code></pre>
+</div>
+<div id="discussion" class="section level3">
+<h3>Discussion</h3>
+<p>The <code>%&gt;%</code> operator is good if you have to do a lot of small things to the data in your analysis. It allows your code to be more readable and reproducible.</p>
+</div>
 </div>
 <div id="packages-and-getting-help" class="section level2">
 <h2>Packages and getting help</h2>
@@ -330,10 +368,9 @@ browseVignettes(package = &#39;poppr&#39;)    # see vignettes from a specific pa
 <div id="references" class="section level2">
 <h2>References</h2>
 <!---->
-
-
 <div class="references">
-<p>Kamvar Z., Tabima J., Grünwald N. 2014. <span class="math">\(Poppr\)</span>: an r package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281">http://dx.doi.org/10.7717/peerj.281</a></p>
+<p>Goss E., Tabima J., Cooke D., Restrepo S., Fry W., Forbes G., Fieland V., Cardenas M., Grünwald N. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
+<p>Kamvar Z., Tabima J., Grünwald N. 2014. <span class="math">\(Poppr\)</span>: an r package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281" class="uri">http://dx.doi.org/10.7717/peerj.281</a></p>
 </div>
 </div>
 
