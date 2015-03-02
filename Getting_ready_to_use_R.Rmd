@@ -133,9 +133,21 @@ Using *magrittr*
 
 Various chapters throughout this primer will have this symbol in the code: `%>%`.
 This is called a "pipe" operator and it allows code to be more readable by 
-stringing together commands from right to left. Below, are two examples of how
-code can be improved with *magrittr*. [More details about magrittr can be found
-in this link.](http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)
+stringing together commands from right to left. When reading code, it can be 
+thought of as equivalent to saying "and then". For example, if you have three
+steps to a process, you would write in English as:
+
+> Take your data **and then** do step one, **and then** do step two, **and then** do step three.
+
+In R code with *magrittr*, assuming that each step is a function, it might be written as:
+
+```{r, eval = FALSE}
+result <- data %>% step_one() %>% step_two() %>% step_three()
+```
+
+
+Below, are two examples of how code can be improved with *magrittr*. 
+[More details about magrittr can be found in this link.](http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)
 
 #### Fake Example: 
 Adapted from 
@@ -166,6 +178,7 @@ after clone-correction. This information can be found in our chapters on
 
 ```{r, eval = FALSE}
 library("poppr")
+library("magrittr")
 data(Pinf)
 
 allelic_diversity <- lapply(seppop(clonecorrect(Pinf, hier = ~Continent/Country)), FUN = locus_table, info = FALSE)
@@ -174,8 +187,8 @@ allelic_diversity <- lapply(seppop(clonecorrect(Pinf, hier = ~Continent/Country)
 
 allelic_diversity <- Pinf %>%
   clonecorrect(hier = ~Continent/Country) %>% # clone censor by continent and country.
-  seppop %>%                                  # Separate populations (by continent)
-  lapply(FUN = locus_table, info = FALSE)     # Apply the function locus_table to both populations.
+  seppop() %>%                                # Separate populations (by continent)
+  lapply(FUN = locus_table, info = FALSE)     # Apply the function locus_table to both populations
 ```
 
 ### Discussion

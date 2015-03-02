@@ -96,23 +96,31 @@ body {
 
 <link rel="stylesheet" href="libs/font-awesome-4.1.0/css/font-awesome.min.css"/>
 
+
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; background-color: #dddddd; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { font-weight: bold; }
+code > span.dt { color: #800000; }
+code > span.dv { color: #0000ff; }
+code > span.bn { color: #0000ff; }
+code > span.fl { color: #800080; }
+code > span.ch { color: #ff00ff; }
+code > span.st { color: #dd0000; }
+code > span.co { color: #808080; font-style: italic; }
+code > span.al { color: #00ff00; font-weight: bold; }
+code > span.fu { color: #000080; }
+code > span.er { color: #ff0000; font-weight: bold; }
+</style>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
   }
 </style>
-<script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
-}
-</script>
 
 
 
@@ -254,7 +262,6 @@ in several ways:
  devtools::install_github("grunwaldlab/poppr", ref = "devel")
 ```
 -->
-
 <div id="installing-r" class="section level2">
 <h2>Installing R</h2>
 <ol style="list-style-type: decimal">
@@ -274,10 +281,10 @@ in several ways:
 <li><a href="http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html">magrittr</a></li>
 </ol>
 <p>Use the following script to install these packages:</p>
-<pre class="r"><code>install.packages(c(&quot;poppr&quot;, &quot;mmod&quot;, &quot;genetics&quot;, &quot;magrittr&quot;))</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;poppr&quot;</span>, <span class="st">&quot;mmod&quot;</span>, <span class="st">&quot;genetics&quot;</span>, <span class="st">&quot;magrittr&quot;</span>))</code></pre>
 <p>We wrote and actively maintain <em>poppr</em> <span class="citation">(Kamvar, Tabima &amp; Grünwald, 2014)</span> and it is heavily relied upon in this primer. <em>Poppr</em> is an R package. You can think of a package as a library of functions written and curated by someone in the R user community, which you can be loaded into R for use.</p>
 <p>Once you’ve installed <em>poppr</em>, you can invoke (i.e., load) it by typing or cutting and pasting:</p>
-<pre class="r"><code>library(&quot;poppr&quot;)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</code></pre>
 <pre><code>## Loading required package: adegenet
 ## Loading required package: ade4
 ##    ==========================
@@ -300,45 +307,52 @@ in several ways:
 <p>Note that R is a case sensitive language!</p>
 </blockquote>
 <p>Let’s get comfortable with R by submitting the following command on the command line (where R prompts you with a <code>&gt;</code> in the lower left Rstudio window pane) that will retrieve the current working directory on your machine:</p>
-<pre class="r"><code>getwd() # this command will print the current working directory</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>() <span class="co"># this command will print the current working directory</span></code></pre>
 <blockquote>
 <p>Note that the symbol ‘#’ is used to add comments to your code and you just type <code>getwd()</code> after the “&gt;”.</p>
 </blockquote>
 <p>Our primer is heavily based on the <em>poppr</em> and <em>adegenet</em> packages. To get help on any of their functions type a question mark before the empty function call as in:</p>
-<pre class="r"><code>?mlg # open the R documentation of the function mlg()</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">?mlg <span class="co"># open the R documentation of the function mlg()</span></code></pre>
 <p>To quit R you can either use the <kbd>Rstudio &gt; Quit</kbd> pull-down menu command or execute <kbd>⌘ + Q</kbd> (OS X) or <kbd>ctrl + Q</kbd> (PC).</p>
 </div>
 <div id="using-magrittr" class="section level2">
 <h2>Using <em>magrittr</em></h2>
-<p>Various chapters throughout this primer will have this symbol in the code: <code>%&gt;%</code>. This is called a “pipe” operator and it allows code to be more readable by stringing together commands from right to left. Below, are two examples of how code can be improved with <em>magrittr</em>. <a href="http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html">More details about magrittr can be found in this link.</a></p>
+<p>Various chapters throughout this primer will have this symbol in the code: <code>%&gt;%</code>. This is called a “pipe” operator and it allows code to be more readable by stringing together commands from right to left. When reading code, it can be thought of as equivalent to saying “and then”. For example, if you have three steps to a process, you would write in English as:</p>
+<blockquote>
+<p>Take your data <strong>and then</strong> do step one, <strong>and then</strong> do step two, <strong>and then</strong> do step three.</p>
+</blockquote>
+<p>In R code with <em>magrittr</em>, assuming that each step is a function, it might be written as:</p>
+<pre class="sourceCode r"><code class="sourceCode r">result &lt;-<span class="st"> </span>data %&gt;%<span class="st"> </span><span class="kw">step_one</span>() %&gt;%<span class="st"> </span><span class="kw">step_two</span>() %&gt;%<span class="st"> </span><span class="kw">step_three</span>()</code></pre>
+<p>Below, are two examples of how code can be improved with <em>magrittr</em>. <a href="http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html">More details about magrittr can be found in this link.</a></p>
 <div id="fake-example" class="section level4">
 <h4>Fake Example:</h4>
 <p>Adapted from <a href="https://twitter.com/_inundata/status/557980236130689024">Hadley Wickham</a>. Based on the children’s song, <a href="http://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo">Little bunny foo foo</a>.</p>
-<pre class="r"><code>foo_foo &lt;- little_bunny()
+<pre class="sourceCode r"><code class="sourceCode r">foo_foo &lt;-<span class="st"> </span><span class="kw">little_bunny</span>()
 
-bop_on(scoop_up(hop_through(foo_foo, forest), field_mouse), head)
+<span class="kw">bop_on</span>(<span class="kw">scoop_up</span>(<span class="kw">hop_through</span>(foo_foo, forest), field_mouse), head)
 
-# VS
+<span class="co"># VS</span>
 
 foo_foo %&gt;%
-  hop_through(forest) %&gt;%
-  scoop_up(field_mouse) %&gt;%
-  bop_on(head)</code></pre>
+<span class="st">  </span><span class="kw">hop_through</span>(forest) %&gt;%
+<span class="st">  </span><span class="kw">scoop_up</span>(field_mouse) %&gt;%
+<span class="st">  </span><span class="kw">bop_on</span>(head)</code></pre>
 </div>
 <div id="real-example" class="section level4">
 <h4>Real Example:</h4>
 <p><em>Phytophthora infestans</em> data from North and South America <span class="citation">(Goss et al., 2014)</span>. Calculating allelic diversity per population after clone-correction. This information can be found in our chapters on <a href="Population_Hierarchies.html">Population hierarchies and clone correction</a> and <a href="Locus_Stats.html">Locus based statistics</a>.</p>
-<pre class="r"><code>library(&quot;poppr&quot;)
-data(Pinf)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)
+<span class="kw">data</span>(Pinf)
 
-allelic_diversity &lt;- lapply(seppop(clonecorrect(Pinf, hier = ~Continent/Country)), FUN = locus_table, info = FALSE)
+allelic_diversity &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">seppop</span>(<span class="kw">clonecorrect</span>(Pinf, <span class="dt">hier =</span> ~Continent/Country)), <span class="dt">FUN =</span> locus_table, <span class="dt">info =</span> <span class="ot">FALSE</span>)
 
-# VS
+<span class="co"># VS</span>
 
-allelic_diversity &lt;- Pinf %&gt;%
-  clonecorrect(hier = ~Continent/Country) %&gt;% # clone censor by continent and country.
-  seppop %&gt;%                                  # Separate populations (by continent)
-  lapply(FUN = locus_table, info = FALSE)     # Apply the function locus_table to both populations.</code></pre>
+allelic_diversity &lt;-<span class="st"> </span>Pinf %&gt;%
+<span class="st">  </span><span class="kw">clonecorrect</span>(<span class="dt">hier =</span> ~Continent/Country) %&gt;%<span class="st"> </span><span class="co"># clone censor by continent and country.</span>
+<span class="st">  </span><span class="kw">seppop</span>() %&gt;%<span class="st">                                </span><span class="co"># Separate populations (by continent)</span>
+<span class="st">  </span><span class="kw">lapply</span>(<span class="dt">FUN =</span> locus_table, <span class="dt">info =</span> <span class="ot">FALSE</span>)     <span class="co"># Apply the function locus_table to both populations</span></code></pre>
 </div>
 <div id="discussion" class="section level3">
 <h3>Discussion</h3>
@@ -355,25 +369,23 @@ allelic_diversity &lt;- Pinf %&gt;%
 <li>Some examples demonstrating its usage.</li>
 </ul>
 <p>To see all of the help topics in a package, you can simply type:</p>
-<pre class="r"><code>help(package = &quot;poppr&quot;) # Get help for a package.
-help(amova)             # Get help for the amova function.
-?amova                  # same as above.
-??multilocus            # Search for functions that have the keyword multilocus.</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(<span class="dt">package =</span> <span class="st">&quot;poppr&quot;</span>) <span class="co"># Get help for a package.</span>
+<span class="kw">help</span>(amova)             <span class="co"># Get help for the amova function.</span>
+?amova                  <span class="co"># same as above.</span>
+??multilocus            <span class="co"># Search for functions that have the keyword multilocus.</span></code></pre>
 <p>Some packages include vignettes that can have different formats such as being introductions, tutorials, or reference cards in PDF format. You can look at a list of vignettes in all packages by typing:</p>
-<pre class="r"><code>browseVignettes()                     # see vignettes from all packages
-browseVignettes(package = &#39;poppr&#39;)    # see vignettes from a specific package.</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">browseVignettes</span>()                     <span class="co"># see vignettes from all packages</span>
+<span class="kw">browseVignettes</span>(<span class="dt">package =</span> <span class="st">&#39;poppr&#39;</span>)    <span class="co"># see vignettes from a specific package.</span></code></pre>
 <p>and to look at a specific vignette you can type:</p>
-<pre class="r"><code>vignette(&#39;poppr_manual&#39;)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="st">&#39;poppr_manual&#39;</span>)</code></pre>
 <p>Next, consider browsing the Appendix 3 on Introduction to R if you are not yet familiar with R and Rstudio. Otherwise, you are now ready to think about formatting and loading population genetic data into R.</p>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>
 <!---->
-
-
 <div class="references">
-<p>Goss E., Tabima J., Cooke D., Restrepo S., Fry W., Forbes G., Fieland V., Cardenas M., Grünwald N. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
-<p>Kamvar Z., Tabima J., Grünwald N. 2014. <span class="math">\(Poppr\)</span>: an r package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281">http://dx.doi.org/10.7717/peerj.281</a></p>
+<p>Goss E., Tabima J., Cooke D., Restrepo S., Fry W., Forbes G., Fieland V., Cardenas M., Grünwald N. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
+<p>Kamvar Z., Tabima J., Grünwald N. 2014. <span class="math">\(Poppr\)</span>: an r package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281" class="uri">http://dx.doi.org/10.7717/peerj.281</a></p>
 </div>
 </div>
 
