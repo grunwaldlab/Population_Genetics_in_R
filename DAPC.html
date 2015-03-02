@@ -96,23 +96,33 @@ body {
 
 <link rel="stylesheet" href="libs/font-awesome-4.1.0/css/font-awesome.min.css"/>
 
+
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; }
+code > span.dt { color: #204a87; }
+code > span.dv { color: #0000cf; }
+code > span.bn { color: #0000cf; }
+code > span.fl { color: #0000cf; }
+code > span.ch { color: #4e9a06; }
+code > span.st { color: #4e9a06; }
+code > span.co { color: #8f5902; font-style: italic; }
+code > span.ot { color: #8f5902; }
+code > span.al { color: #ef2929; }
+code > span.fu { color: #000000; }
+code > span.er { font-weight: bold; }
+</style>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
   }
 </style>
-<script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
-}
-</script>
 
 
 
@@ -177,6 +187,7 @@ img {
           <ul class = "dropdown-menu", role = "menu">
             <li><a href="Data_sets.html">A1. Data sets</a></li>
             <li><a href="Function_Glossary.html">A2. Function glossary</a></li>
+            <li><a href="Intro_to_R.html">A3. Introduction to R</a></li>
           </ul>
         </li>
         <!-- Author button -->
@@ -224,12 +235,12 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <h2>DAPC analysis of the H3N2 influenza strains</h2>
 <p>DAPC was pioneered by Jombart and colleagues <span class="citation">(Jombart et al., 2010)</span> and can be used to infer the number of clusters of genetically related individuals. In this multivariate statistical approach variance in the sample is partitioned into a between-group and within-group component, in an effort to maximize discrimination between groups. In DAPC, data is first transformed using a principal components analysis (PCA) and subsequently clusters are identified using discriminant analysis (DA). This tutorial is based on the <a href="http://adegenet.r-forge.r-project.org/files/tutorial-dapc.pdf">vignette</a> written by Thibaut Jombart. We encourage the user to explore this vignette further. The vignette can also be opened within R by executing <code>adegenetTutorial(&quot;dapc&quot;)</code>.</p>
 <p>We will use the seasonal influenza dataset H3N2 data containing 1903 isolates genotyped for 125 SNPs located in the hemagglutinin segment. This dataset as well as the <code>dapc()</code> function is part of the <a href="http://adegenet.r-forge.r-project.org"><em>adegenet</em></a> package.</p>
-<pre class="r"><code># DAPC requires the adegenet package. Let&#39;s load this package:
-library(&quot;adegenet&quot;)
-data(H3N2)      # load the H3N2 inflluenza data. Tye ?H3N2 for more info.
-pop(H3N2) &lt;- factor(H3N2$other$epid)
-dapc.H3N2 &lt;- dapc(H3N2, var.contrib=TRUE, scale=FALSE, n.pca=30, n.da=10)
-scatter(dapc.H3N2, cell=0, pch=18:23, cstar=0, mstree=TRUE, lwd=2, lty=2)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># DAPC requires the adegenet package. Let&#39;s load this package:</span>
+<span class="kw">library</span>(<span class="st">&quot;adegenet&quot;</span>)
+<span class="kw">data</span>(H3N2)      <span class="co"># load the H3N2 inflluenza data. Tye ?H3N2 for more info.</span>
+<span class="kw">pop</span>(H3N2) &lt;-<span class="st"> </span><span class="kw">factor</span>(H3N2$other$epid)
+dapc.H3N2 &lt;-<span class="st"> </span><span class="kw">dapc</span>(H3N2, <span class="dt">var.contrib=</span><span class="ot">TRUE</span>, <span class="dt">scale=</span><span class="ot">FALSE</span>, <span class="dt">n.pca=</span><span class="dv">30</span>, <span class="dt">n.da=</span><span class="dv">10</span>)
+<span class="kw">scatter</span>(dapc.H3N2, <span class="dt">cell=</span><span class="dv">0</span>, <span class="dt">pch=</span><span class="dv">18</span>:<span class="dv">23</span>, <span class="dt">cstar=</span><span class="dv">0</span>, <span class="dt">mstree=</span><span class="ot">TRUE</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre>
 <p><img src="DAPC_files/figure-html/unnamed-chunk-2-1.png" title="" alt="" width="960" /></p>
 <p>The <code>dapc()</code> variables refer to:</p>
 <ul>
@@ -241,15 +252,15 @@ scatter(dapc.H3N2, cell=0, pch=18:23, cstar=0, mstree=TRUE, lwd=2, lty=2)</code>
 <p>The <code>scatter()</code> function is part of the <em>ade4</em> pacakge and plots results of a DAPC analysis.</p>
 <p>As you can see, each year between 2001 to 2005 is a cluster of H3N2 strains separated by axis 1. In contrast, axis 2 separates the strains observed in the 2006 cluster from the clusters observed during 2001-5, indicating that the strains observed in 2006 are genetically distinct.</p>
 <p>Next, let’s assess if there are alleles that most differentiate the 2006 cluster from those in other years.</p>
-<pre class="r"><code>set.seed(4)
-contrib &lt;- loadingplot(dapc.H3N2$var.contr, axis=2, thres=.07, lab.jitter=1)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">4</span>)
+contrib &lt;-<span class="st"> </span><span class="kw">loadingplot</span>(dapc.H3N2$var.contr, <span class="dt">axis=</span><span class="dv">2</span>, <span class="dt">thres=</span>.<span class="dv">07</span>, <span class="dt">lab.jitter=</span><span class="dv">1</span>)</code></pre>
 <p><img src="DAPC_files/figure-html/unnamed-chunk-3-1.png" title="" alt="" width="960" /></p>
 <p>It looks like SNPs at position 384 and 906 are involved. Let’s check this further by looking at allele frequencies by year:</p>
-<pre class="r"><code>temp &lt;- seploc(H3N2)
-snp906 &lt;- truenames(temp[[&quot;906&quot;]])$tab #truenames{adegenet} returns elements of a genind object
-snp399 &lt;- truenames(temp[[&quot;399&quot;]])$tab
-freq906 &lt;- apply(snp906, 2, function(e) tapply(e, pop(H3N2), mean, na.rm=TRUE))
-freq399 &lt;- apply(snp399, 2, function(e) tapply(e, pop(H3N2), mean, na.rm=TRUE))
+<pre class="sourceCode r"><code class="sourceCode r">temp &lt;-<span class="st"> </span><span class="kw">seploc</span>(H3N2)
+snp906 &lt;-<span class="st"> </span><span class="kw">truenames</span>(temp[[<span class="st">&quot;906&quot;</span>]])$tab <span class="co">#truenames{adegenet} returns elements of a genind object</span>
+snp399 &lt;-<span class="st"> </span><span class="kw">truenames</span>(temp[[<span class="st">&quot;399&quot;</span>]])$tab
+freq906 &lt;-<span class="st"> </span><span class="kw">apply</span>(snp906, <span class="dv">2</span>, function(e) <span class="kw">tapply</span>(e, <span class="kw">pop</span>(H3N2), mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))
+freq399 &lt;-<span class="st"> </span><span class="kw">apply</span>(snp399, <span class="dv">2</span>, function(e) <span class="kw">tapply</span>(e, <span class="kw">pop</span>(H3N2), mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))
 freq906</code></pre>
 <pre><code>##            906.c     906.t
 ## 2001 0.000000000 1.0000000
@@ -258,7 +269,7 @@ freq906</code></pre>
 ## 2004 0.000000000 1.0000000
 ## 2005 0.002155172 0.9978448
 ## 2006 0.616071429 0.3839286</code></pre>
-<pre class="r"><code>freq399</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">freq399</code></pre>
 <pre><code>##            399.c     399.t
 ## 2001 0.000000000 1.0000000
 ## 2002 0.000000000 1.0000000
@@ -267,11 +278,11 @@ freq906</code></pre>
 ## 2005 0.002079002 0.9979210
 ## 2006 0.357142857 0.6428571</code></pre>
 <p>Note that a new allele appeared in 2005 for SNP locus 906 and 2004 for locus 399 separating populations along axis 2.</p>
-<pre class="r"><code>par(mfrow=c(1,2), mar=c(5.1,4.1,4.1,.1),las=3)
-matplot(freq906, pch=c(&quot;c&quot;,&quot;t&quot;), type=&quot;b&quot;,xlab=&quot;year&quot;,ylab=&quot;allele frequency&quot;, xaxt=&quot;n&quot;, cex=1.5, main=&quot;SNP # 906&quot;)
-axis(side=1, at=1:6, lab=2001:2006)
-matplot(freq399, pch=c(&quot;c&quot;,&quot;t&quot;), type=&quot;b&quot;, xlab=&quot;year&quot;,ylab=&quot;allele frequency&quot;, xaxt=&quot;n&quot;, cex=1.5, main=&quot;SNP #399&quot;)
-axis(side=1, at=1:6, lab=2001:2006)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">mar=</span><span class="kw">c</span>(<span class="fl">5.1</span>,<span class="fl">4.1</span>,<span class="fl">4.1</span>,.<span class="dv">1</span>),<span class="dt">las=</span><span class="dv">3</span>)
+<span class="kw">matplot</span>(freq906, <span class="dt">pch=</span><span class="kw">c</span>(<span class="st">&quot;c&quot;</span>,<span class="st">&quot;t&quot;</span>), <span class="dt">type=</span><span class="st">&quot;b&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;year&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;allele frequency&quot;</span>, <span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span>, <span class="dt">cex=</span><span class="fl">1.5</span>, <span class="dt">main=</span><span class="st">&quot;SNP # 906&quot;</span>)
+<span class="kw">axis</span>(<span class="dt">side=</span><span class="dv">1</span>, <span class="dt">at=</span><span class="dv">1</span>:<span class="dv">6</span>, <span class="dt">lab=</span><span class="dv">2001</span>:<span class="dv">2006</span>)
+<span class="kw">matplot</span>(freq399, <span class="dt">pch=</span><span class="kw">c</span>(<span class="st">&quot;c&quot;</span>,<span class="st">&quot;t&quot;</span>), <span class="dt">type=</span><span class="st">&quot;b&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;year&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;allele frequency&quot;</span>, <span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span>, <span class="dt">cex=</span><span class="fl">1.5</span>, <span class="dt">main=</span><span class="st">&quot;SNP #399&quot;</span>)
+<span class="kw">axis</span>(<span class="dt">side=</span><span class="dv">1</span>, <span class="dt">at=</span><span class="dv">1</span>:<span class="dv">6</span>, <span class="dt">lab=</span><span class="dv">2001</span>:<span class="dv">2006</span>)</code></pre>
 <p><img src="DAPC_files/figure-html/unnamed-chunk-5-1.png" title="" alt="" width="960" /></p>
 <p>This plot nicely illustrates the effect of mutation, followed by selection or drift in the seasonal H3N2 influenza virus.</p>
 </div>

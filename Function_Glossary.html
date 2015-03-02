@@ -96,23 +96,33 @@ body {
 
 <link rel="stylesheet" href="libs/font-awesome-4.1.0/css/font-awesome.min.css"/>
 
+
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; }
+code > span.dt { color: #204a87; }
+code > span.dv { color: #0000cf; }
+code > span.bn { color: #0000cf; }
+code > span.fl { color: #0000cf; }
+code > span.ch { color: #4e9a06; }
+code > span.st { color: #4e9a06; }
+code > span.co { color: #8f5902; font-style: italic; }
+code > span.ot { color: #8f5902; }
+code > span.al { color: #ef2929; }
+code > span.fu { color: #000000; }
+code > span.er { font-weight: bold; }
+</style>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
   }
 </style>
-<script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
-}
-</script>
 
 
 
@@ -177,6 +187,7 @@ img {
           <ul class = "dropdown-menu", role = "menu">
             <li><a href="Data_sets.html">A1. Data sets</a></li>
             <li><a href="Function_Glossary.html">A2. Function glossary</a></li>
+            <li><a href="Intro_to_R.html">A3. Introduction to R</a></li>
           </ul>
         </li>
         <!-- Author button -->
@@ -253,11 +264,11 @@ example(functionname)  # see examples of function calls
 <div id="navigation-in-r" class="section level2">
 <h2>Navigation in R</h2>
 <p>Our primer is heavily based on the <em>poppr</em> and <em>adegenet</em> packages. To get help on any of their functions type a question mark before the empty function call as in:</p>
-<pre class="r"><code>?mlg # open the R documentiaon of the function mlg</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">?mlg <span class="co"># open the R documentiaon of the function mlg</span></code></pre>
 <p>Other information can be obtained with the following commands.</p>
-<pre class="r"><code>browseVignettes(package = &#39;poppr&#39;) # see vignettes for poppr
-vignette(&#39;poppr_manual&#39;)           # see manual for poppr
-help(package=&quot;poppr&quot;)              # shows all functions contained in poppr package</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">browseVignettes</span>(<span class="dt">package =</span> <span class="st">&#39;poppr&#39;</span>) <span class="co"># see vignettes for poppr</span>
+<span class="kw">vignette</span>(<span class="st">&#39;poppr_manual&#39;</span>)           <span class="co"># see manual for poppr</span>
+<span class="kw">help</span>(<span class="dt">package=</span><span class="st">&quot;poppr&quot;</span>)              <span class="co"># shows all functions contained in poppr package</span></code></pre>
 </div>
 <div id="poppr-functions" class="section level2">
 <h2><em>Poppr</em> functions</h2>

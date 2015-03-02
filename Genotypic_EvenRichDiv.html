@@ -96,23 +96,33 @@ body {
 
 <link rel="stylesheet" href="libs/font-awesome-4.1.0/css/font-awesome.min.css"/>
 
+
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; }
+code > span.dt { color: #204a87; }
+code > span.dv { color: #0000cf; }
+code > span.bn { color: #0000cf; }
+code > span.fl { color: #0000cf; }
+code > span.ch { color: #4e9a06; }
+code > span.st { color: #4e9a06; }
+code > span.co { color: #8f5902; font-style: italic; }
+code > span.ot { color: #8f5902; }
+code > span.al { color: #ef2929; }
+code > span.fu { color: #000000; }
+code > span.er { font-weight: bold; }
+</style>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
   }
 </style>
-<script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
-}
-</script>
 
 
 
@@ -177,6 +187,7 @@ img {
           <ul class = "dropdown-menu", role = "menu">
             <li><a href="Data_sets.html">A1. Data sets</a></li>
             <li><a href="Function_Glossary.html">A2. Function glossary</a></li>
+            <li><a href="Intro_to_R.html">A3. Introduction to R</a></li>
           </ul>
         </li>
         <!-- Author button -->
@@ -229,10 +240,10 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <li>Is genotypic evenness higher for BB populations than for FR populations?</li>
 </ul>
 <p>For the analysis, we need to read in the data, specify the hierarchical levels in the data, and then set the hierarchical level to symptom so that we can calculate genotypic richness, diversity, and evenness for BB as compared to FR for the entire data set:</p>
-<pre class="r"><code>library(&quot;poppr&quot;)
-data(monpop)
-splithierarchy(monpop) &lt;- ~Tree/Year/Symptom
-setpop(monpop) &lt;- ~Symptom
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
+<span class="kw">data</span>(monpop)
+<span class="kw">splithierarchy</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree/Year/Symptom
+<span class="kw">setpop</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Symptom
 monpop</code></pre>
 <pre><code>## 
 ## This is a genclone object
@@ -249,7 +260,7 @@ monpop</code></pre>
 ##      3 hierarchical levels - Tree Year Symptom
 ##      2 populations defined - BB FR</code></pre>
 <p>To calculate genotypic richness, diversity, and evenness, we can use the <code>poppr</code> function:</p>
-<pre class="r"><code>poppr(monpop)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">poppr</span>(monpop)</code></pre>
 <pre><code>## | BB 
 ## | FR 
 ## | Total</code></pre>
@@ -274,11 +285,11 @@ monpop</code></pre>
 <div id="genotypic-richness" class="section level2">
 <h2>Genotypic richness</h2>
 <p>The number of observed <span class="math">\(MLGs\)</span> is equivalent to genotypic richness. We expect that the BB population would have a higher genotypic richness than the FR population. However, looking at the raw number of MLGs for each symptom type, it shows us the opposite: there are 94 MLGs for BB and 191 MLGs for FR. This discrepancy has to do with the sample size, where we <span class="math">\(N\)</span> = 113 for BB and <span class="math">\(N\)</span> = 581 for FR. The more appropriate comparison is the <span class="math">\(eMLG\)</span> value, which is an approximation of the number of genotypes that would be observed at the smallest sample size (<span class="math">\(N\)</span> = 113) based on rarefaction. For BB (<span class="math">\(N\)</span>=113) the <span class="math">\(eMLG\)</span> = 94 and for FR (where <span class="math">\(N\)</span> is set to 113) the <span class="math">\(eMLG\)</span> = 66.6. Thus, genotypic richness is indeed higher in the BB populations than the FR population when considering equal sample sizes.</p>
-<pre class="r"><code>library(&quot;vegan&quot;)
-mon.tab &lt;- mlg.table(monpop, bar = FALSE)
-min_sample &lt;- min(rowSums(mon.tab))
-rarecurve(mon.tab, sample = min_sample, xlab = &quot;Sample Size&quot;, ylab = &quot;Expected MLGs&quot;)
-title(&quot;Rarefaction of Fruit Rot and Blossom Blight&quot;)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;vegan&quot;</span>)
+mon.tab &lt;-<span class="st"> </span><span class="kw">mlg.table</span>(monpop, <span class="dt">bar =</span> <span class="ot">FALSE</span>)
+min_sample &lt;-<span class="st"> </span><span class="kw">min</span>(<span class="kw">rowSums</span>(mon.tab))
+<span class="kw">rarecurve</span>(mon.tab, <span class="dt">sample =</span> min_sample, <span class="dt">xlab =</span> <span class="st">&quot;Sample Size&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Expected MLGs&quot;</span>)
+<span class="kw">title</span>(<span class="st">&quot;Rarefaction of Fruit Rot and Blossom Blight&quot;</span>)</code></pre>
 <p><img src="Genotypic_EvenRichDiv_files/figure-html/rarecurve-1.png" title="" alt="" width="700px" /></p>
 </div>
 <div id="genotypic-diversity" class="section level2">
@@ -289,7 +300,7 @@ title(&quot;Rarefaction of Fruit Rot and Blossom Blight&quot;)</code></pre>
 <div id="genotypic-evenness" class="section level2">
 <h2>Genotypic evenness</h2>
 <p>Evenness is a measure of the distribution of genotype abundances, wherein a population with equally abundant genotypes yields a value equal to 1 and a population dominated by a single genotype is closer to zero. In the example above, the BB population has <span class="math">\(E.5\)</span> = 0.755 and the FR population has <span class="math">\(E.5\)</span> = 0.543. This indicates that the MLGs observed in the BB population are closer to equal abundance than those in the FR population. Indeed, when we look at a distribution of the <span class="math">\(MLGs\)</span> for each symptom type it shows us there are many more unique BB symptoms as compared to the FR symptoms.</p>
-<pre class="r"><code>mon.tab &lt;- mlg.table(monpop)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">mon.tab &lt;-<span class="st"> </span><span class="kw">mlg.table</span>(monpop)</code></pre>
 <pre><code>## | BB</code></pre>
 <p><img src="Genotypic_EvenRichDiv_files/figure-html/unnamed-chunk-4-1.png" title="" alt="" width="700px" /></p>
 <pre><code>## | FR</code></pre>
