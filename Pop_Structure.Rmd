@@ -100,8 +100,8 @@ use this distance matrix to create a neighbor-joining tree.
 
 ```{r, cattleplot, fig.width = 5, fig.height = 7}
 theTree <- micdist %>% 
-  nj %>%    # calculate neighbor-joining tree
-  ladderize # organize branches by clade
+  nj() %>%    # calculate neighbor-joining tree
+  ladderize() # organize branches by clade
 plot(theTree)
 add.scale.bar(length = 0.05) # add a scale bar showing 5% difference.
 ```
@@ -135,7 +135,7 @@ setpop(microbov) <- ~Country/Breed
 # Analysis
 set.seed(999)
 microbov %>% 
-  genind2genpop %>%
+  genind2genpop() %>%
   aboot(cutoff = 50, quiet = TRUE, sample = 1000, distance = nei.dist) 
 ```
 
@@ -184,8 +184,7 @@ We notice that tree number 26 is the only one to have been sampled for all three
 years. Let's use it as an example.
 
 ```{r}
-setpop(monpop) <- ~Tree
-t26 <- popsub(monpop, "26") %>% setpop(~Year/Symptom)
+t26 <- monpop %>% setpop(~Tree) %>% popsub("26") %>% setpop(~Year/Symptom)
 t26
 ```
 
