@@ -219,7 +219,6 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <li><a href="#removing-loci-and-genotypes">Removing loci and genotypes</a></li>
 <li><a href="#replacing-missing-data">Replacing missing data</a></li>
 <li><a href="#hardy-weinberg-equilibrium">Hardy-Weinberg equilibrium</a></li>
-<li><a href="#references">References</a></li>
 </ul>
 </div>
 
@@ -231,7 +230,8 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <h2>Locus summary statistics</h2>
 <p>A quick way to assess quality of the data is to determine the number, diversity, expected heterozygosity, and evenness of the alleles at each locus. As an example, we will use data for the fungal-like protist <em>Phytophthora infestans</em> from <span class="citation">(Goss et al., 2014)</span>. First, we’ll use the function <code>locus_table</code> to get all of the statistics mentioned above. For documentation on this function type <code>?locus_table</code>. Here is a first look at each locus:</p>
 <pre class="r"><code>library(&quot;poppr&quot;)     # Make sure poppr is loaded if you haven&#39;t done so already.
-data(Pinf)         # P. infestans data set from Mexico and South America
+library(&quot;magrittr&quot;)  # We will also use magrittr for part of this chapter
+data(Pinf)           # P. infestans data set from Mexico and South America
 locus_table(Pinf)</code></pre>
 <pre><code>## 
 ##  allele = Number of observed alleles
@@ -354,50 +354,70 @@ info_table(nancycats, plot = TRUE)</code></pre>
 <div id="removing-loci-and-genotypes" class="section level2">
 <h2>Removing loci and genotypes</h2>
 <p>When removing loci or genotypes, you can specify a cutoff representing the percent missing to be removed. The default is <code>0.05</code> (5%).</p>
-<pre class="r"><code>nanloc &lt;- missingno(nancycats, &quot;loci&quot;) # Removing loci with greater than 5% missing.</code></pre>
+<pre class="r"><code>nancycats %&gt;% missingno(&quot;loci&quot;) %&gt;% info_table(plot = TRUE, scale = FALSE)</code></pre>
 <pre><code>## 
 ##  Found 617 missing values.
 ##  2 loci contained missing values greater than 5%.
 ##  Removing 2 loci : fca8 fca45</code></pre>
-<pre class="r"><code>miss &lt;- info_table(nanloc, plot = TRUE, scale = FALSE)</code></pre>
 <p><img src="Locus_Stats_files/figure-html/unnamed-chunk-2-1.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
+<pre><code>##           Locus
+## Population fca23 fca43 fca77 fca78 fca90  fca96 fca37   Mean
+##      1         .     .     .     .     .      .     .      .
+##      2         .     .     .     .     .      .     .      .
+##      3         .     .     .     .     .      .     .      .
+##      4         .     .     .     .     .      .     .      .
+##      5         .     .     .     .     .      .     .      .
+##      6         .     .     .     .     .      .     .      .
+##      7         .     .     .     .     .      .     .      .
+##      8         .     .     .     .     .      .     .      .
+##      9         .     .     .     .     .      .     .      .
+##      10        .     .     .     .     .      .     .      .
+##      11        .     .     .     .     . 0.0500     . 0.0071
+##      12        .     .     .     .     .      .     .      .
+##      13        .     .     .     .     .      .     .      .
+##      14        .     .     .     .     .      .     .      .
+##      15        .     .     .     .     .      .     .      .
+##      16        .     .     .     .     .      .     .      .
+##      17        .     .     .     .     . 0.6154     . 0.0879
+##      Total     .     .     .     .     . 0.0380     . 0.0054</code></pre>
 <blockquote>
 <p><strong>Advanced Users:</strong> when <code>scale = TRUE</code>, the color scale will be set so that the warmest color corresponds to the highest value.</p>
 </blockquote>
 <p>We only removed two loci. If we wanted to make sure we removed everything, we could set <code>cutoff = 0</code>.</p>
-<pre class="r"><code>nanloc &lt;- missingno(nancycats, &quot;loci&quot;, cutoff = 0)</code></pre>
+<pre class="r"><code>miss &lt;- nancycats %&gt;% missingno(&quot;loci&quot;, cutoff = 0) %&gt;% info_table(plot = TRUE)</code></pre>
 <pre><code>## 
 ##  Found 617 missing values.
 ##  3 loci contained missing values greater than 0%.
-##  Removing 3 loci : fca8 fca45 fca96</code></pre>
-<pre class="r"><code>miss &lt;- info_table(nanloc, plot = TRUE)</code></pre>
-<pre><code>## No Missing Data Found!</code></pre>
+##  Removing 3 loci : fca8 fca45 fca96 
+## 
+## No Missing Data Found!</code></pre>
 <p>Again, removing individuals is also relatively easy:</p>
-<pre class="r"><code>nanind &lt;- missingno(nancycats, &quot;geno&quot;)</code></pre>
+<pre class="r"><code>miss &lt;- nancycats %&gt;% missingno(&quot;geno&quot;) %&gt;% info_table(plot = TRUE)</code></pre>
 <pre><code>## 
 ##  Found 617 missing values.
 ##  38 genotypes contained missing values greater than 5%.
 ##  Removing 38 genotypes : N215 N216 N188 N189 N190 N191 N192 N298 N299 N300 
 ## N301 N302 N303 N304 N310 N195 N197 N198 N199 N200 N201 N206 N182 N184 N186 N282 
-## N283 N288 N291 N292 N293 N294 N295 N296 N297 N281 N289 N290</code></pre>
-<pre class="r"><code>miss &lt;- info_table(nanind, plot = TRUE)</code></pre>
-<pre><code>## No Missing Data Found!</code></pre>
-<pre class="r"><code>nanind &lt;- missingno(nancycats, &quot;geno&quot;, cutoff = 0)</code></pre>
+## N283 N288 N291 N292 N293 N294 N295 N296 N297 N281 N289 N290 
+## 
+## No Missing Data Found!</code></pre>
+<pre class="r"><code>miss &lt;- nancycats %&gt;% missingno(&quot;geno&quot;, cutoff = 0) %&gt;% info_table(plot = TRUE)</code></pre>
 <pre><code>## 
 ##  Found 617 missing values.
 ##  38 genotypes contained missing values greater than 0%.
 ##  Removing 38 genotypes : N215 N216 N188 N189 N190 N191 N192 N298 N299 N300 
 ## N301 N302 N303 N304 N310 N195 N197 N198 N199 N200 N201 N206 N182 N184 N186 N282 
-## N283 N288 N291 N292 N293 N294 N295 N296 N297 N281 N289 N290</code></pre>
-<pre class="r"><code>miss &lt;- info_table(nanind, plot = TRUE) </code></pre>
-<pre><code>## No Missing Data Found!</code></pre>
-<p><code>Missingno</code> removes individuals based on the percent of missing data relative to the number of loci. Let’s remove all individuals with 2 missing loci:</p>
-<pre class="r"><code>nanind &lt;- missingno(nancycats, &quot;geno&quot;, cutoff = 2/nLoc(nancycats))</code></pre>
+## N283 N288 N291 N292 N293 N294 N295 N296 N297 N281 N289 N290 
+## 
+## No Missing Data Found!</code></pre>
+<p>The function <code>missingno</code> removes individuals based on the percent of missing data relative to the number of loci. Let’s remove all individuals with 2 missing loci:</p>
+<pre class="r"><code>miss &lt;- nancycats %&gt;% 
+  missingno(&quot;geno&quot;, cutoff = 2/nLoc(nancycats)) %&gt;% 
+  info_table(plot = TRUE)</code></pre>
 <pre><code>## 
 ##  Found 617 missing values.
 ##  1 genotype contained missing values greater than 22.2222222222222%.
 ##  Removing 1 genotype : N310</code></pre>
-<pre class="r"><code>miss &lt;- info_table(nanind, plot = TRUE) </code></pre>
 <p><img src="Locus_Stats_files/figure-html/unnamed-chunk-5-1.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
 <p>We only found one individual in population 11.</p>
 </div>
@@ -472,11 +492,10 @@ nan1[loc = &quot;L1&quot;]@tab</code></pre>
 ## 09 0.5000000 0.00000000 0.000000000 0.00000000
 ## 10 0.0000000 0.00000000 0.000000000 0.00000000</code></pre>
 <p>Notice that there are a lot more alleles than there were originally. This is because the procedure is performed over the entire data set, not by population. Let’s look at what happens if we perform the same routine on the subsetted data.</p>
-<pre class="r"><code>nan1 &lt;- popsub(nancycats, 1, drop = TRUE) # dropping alleles not in this population. 
-nan1mean &lt;- missingno(nan1, &quot;mean&quot;)</code></pre>
+<pre class="r"><code>nan1 &lt;- nancycats %&gt;% popsub(1, drop = TRUE) %&gt;% missingno(&quot;mean&quot;)</code></pre>
 <pre><code>## 
 ##  Replaced 8 missing values</code></pre>
-<pre class="r"><code>nan1mean[loc = &quot;L1&quot;]@tab</code></pre>
+<pre class="r"><code>nan1[loc = &quot;L1&quot;]@tab</code></pre>
 <pre><code>##     L1.1   L1.2   L1.3 L1.4
 ## 01 0.125 0.5625 0.0625 0.25
 ## 02 0.125 0.5625 0.0625 0.25
@@ -558,13 +577,8 @@ newmat[newmat &gt; alpha] &lt;- 1</code></pre>
 levelplot(newmat)</code></pre>
 <p><img src="Locus_Stats_files/figure-html/unnamed-chunk-13-1.png" title="Heatmap showing significant departures from HWE" alt="Heatmap showing significant departures from HWE" width="700px" /></p>
 <p>This simple plot shows us loci in rows and populations in columns. Note, that all loci shown in pink are loci suspected for not being in HWE with <span class="math">\(p \leq 0.05\)</span>.</p>
-</div>
-<div id="references" class="section level2">
-<h2>References</h2>
-<!---------->
-
-
 <div class="references">
+<h2>References</h2>
 <p>Goss E., Tabima J., Cooke D., Restrepo S., Fry W., Forbes G., Fieland V., Cardenas M., Grünwald N. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
 </div>
 </div>

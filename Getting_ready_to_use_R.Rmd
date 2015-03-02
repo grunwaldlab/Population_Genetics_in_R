@@ -134,7 +134,8 @@ Using *magrittr*
 Various chapters throughout this primer will have this symbol in the code: `%>%`.
 This is called a "pipe" operator and it allows code to be more readable by 
 stringing together commands from right to left. Below, are two examples of how
-code can be improved with *magrittr*.
+code can be improved with *magrittr*. [More details about magrittr can be found
+in this link.](http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)
 
 #### Fake Example: 
 Adapted from 

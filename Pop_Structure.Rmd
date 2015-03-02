@@ -75,11 +75,12 @@ there are several distances available:
  | Rogers' distance | `rogers.dist` | any | no |
 
 One common way to visualize a genetic distance is with a dendrogram. For this
-example, we will use the *microbov* data set. This contains information on 704
-cattle from both Africa and France over several different breeds. We can create
-a dendrogram over all 704 samples, but that would be difficult to visualize. For
-our purposes, let's take ten random samples and calculate Provesti's distance,
-which will return the fraction of the number of differences between samples:
+example, we will use the *microbov* data set `r citep(bib["laloe2007consensus"])`. 
+This contains information on 704 cattle from both Africa and France over several
+different breeds. We can create a dendrogram over all 704 samples, but that
+would be difficult to visualize. For our purposes, let's take ten random samples
+and calculate Provesti's distance, which will return the fraction of the number
+of differences between samples:
 
 
 ```{r, cattlefirst}
