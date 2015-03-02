@@ -97,7 +97,7 @@ Next let's use the same process to evaluate the South American population:
 
 ```{r, eval=FALSE}
 SA <- popsub(Pinf, "South America")
-ia(SA, sample = 999)   # include 999 permutations
+ia(SA, sample = 999)
 ```
 ```{r, SAia, echo=FALSE}
 cat("|================================================================| 100%\n")

@@ -270,7 +270,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <p>Now <span class="math">\(\bar{r}_d\)</span> is located more centrally in the distribution expected from unlinked loci. Note that <span class="math">\(P\)</span> has improved and we fail to reject the null hypothesis of no linkage among markers. Thus it appears that populations in Mexico are partially sexual.</p>
 <p>Next let’s use the same process to evaluate the South American population:</p>
 <pre class="sourceCode r"><code class="sourceCode r">SA &lt;-<span class="st"> </span><span class="kw">popsub</span>(Pinf, <span class="st">&quot;South America&quot;</span>)
-<span class="kw">ia</span>(SA, <span class="dt">sample =</span> <span class="dv">999</span>)   <span class="co"># include 999 permutations</span></code></pre>
+<span class="kw">ia</span>(SA, <span class="dt">sample =</span> <span class="dv">999</span>)</code></pre>
 <pre><code>## |================================================================| 100%</code></pre>
 <p><img src="Linkage_disequilibrium_files/figure-html/SAia-1.png" title="" alt="" width="700px" /></p>
 <pre><code>##        Ia      p.Ia     rbarD      p.rD 
@@ -285,10 +285,10 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <p>This approach has been applied to provide support for Mexico as the putative center of origin of the potato late blight pathogen <em>P. infestans</em> <span class="citation">(Goss et al., 2014)</span>. At the center of origin this organism is expected to reproduce sexually, while South American populations are clonal.</p>
 <div class="references">
 <h2>References</h2>
-<p>Agapow P-M., Burt A. 2001. Indices of multilocus linkage disequilibrium. <em>Molecular Ecology Notes</em> 1:101–102. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract" class="uri">http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract</a></p>
-<p>Brown A., Feldman M., Nevo E. 1980. Multilocus structure of natural populations of <em>Hordeum spontaneum</em>. <em>Genetics</em> 96:523–536. Available at: <a href="http://www.genetics.org/content/96/2/523" class="uri">http://www.genetics.org/content/96/2/523</a></p>
-<p>Goss E., Tabima J., Cooke D., Restrepo S., Fry W., Forbes G., Fieland V., Cardenas M., Grünwald N. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
-<p>Kamvar Z., Tabima J., Grünwald N. 2014. <span class="math">\(Poppr\)</span>: an R package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281" class="uri">http://dx.doi.org/10.7717/peerj.281</a></p>
+<p>Agapow P-M., Burt A. 2001. Indices of multilocus linkage disequilibrium. <em>Molecular Ecology Notes</em> 1:101–102. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract">http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract</a></p>
+<p>Brown A., Feldman M., Nevo E. 1980. Multilocus structure of natural populations of <em>Hordeum spontaneum</em>. <em>Genetics</em> 96:523–536. Available at: <a href="http://www.genetics.org/content/96/2/523">http://www.genetics.org/content/96/2/523</a></p>
+<p>Goss E., Tabima J., Cooke D., Restrepo S., Fry W., Forbes G., Fieland V., Cardenas M., Grünwald N. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
+<p>Kamvar Z., Tabima J., Grünwald N. 2014. <span class="math">\(Poppr\)</span>: an R package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281">http://dx.doi.org/10.7717/peerj.281</a></p>
 </div>
 </div>
 

@@ -362,8 +362,8 @@ micdist</code></pre>
 ## FRBTBAZ26388 0.6000000   0.6666667   0.6833333    0.6166667</code></pre>
 <p>The above represents the pairwise distances between these 10 samples. We will use this distance matrix to create a neighbor-joining tree.</p>
 <pre class="sourceCode r"><code class="sourceCode r">theTree &lt;-<span class="st"> </span>micdist %&gt;%<span class="st"> </span>
-<span class="st">  </span>nj %&gt;%<span class="st">    </span><span class="co"># calculate neighbor-joining tree</span>
-<span class="st">  </span>ladderize <span class="co"># organize branches by clade</span>
+<span class="st">  </span><span class="kw">nj</span>() %&gt;%<span class="st">    </span><span class="co"># calculate neighbor-joining tree</span>
+<span class="st">  </span><span class="kw">ladderize</span>() <span class="co"># organize branches by clade</span>
 <span class="kw">plot</span>(theTree)
 <span class="kw">add.scale.bar</span>(<span class="dt">length =</span> <span class="fl">0.05</span>) <span class="co"># add a scale bar showing 5% difference.</span></code></pre>
 <p><img src="Pop_Structure_files/figure-html/cattleplot-1.png" title="" alt="" width="700px" /></p>
@@ -404,7 +404,7 @@ microbov</code></pre>
 <span class="co"># Analysis</span>
 <span class="kw">set.seed</span>(<span class="dv">999</span>)
 microbov %&gt;%<span class="st"> </span>
-<span class="st">  </span>genind2genpop %&gt;%
+<span class="st">  </span><span class="kw">genind2genpop</span>() %&gt;%
 <span class="st">  </span><span class="kw">aboot</span>(<span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>, <span class="dt">sample =</span> <span class="dv">1000</span>, <span class="dt">distance =</span> nei.dist) </code></pre>
 <pre><code>## 
 ##  Converting data from a genind to a genpop object... 
@@ -503,8 +503,7 @@ microbov %&gt;%<span class="st"> </span>
 ##  # Expected heterozygosity:  
 ## [1] 0</code></pre>
 <p>We notice that tree number 26 is the only one to have been sampled for all three years. Let’s use it as an example.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setpop</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree
-t26 &lt;-<span class="st"> </span><span class="kw">popsub</span>(monpop, <span class="st">&quot;26&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">setpop</span>(~Year/Symptom)
+<pre class="sourceCode r"><code class="sourceCode r">t26 &lt;-<span class="st"> </span>monpop %&gt;%<span class="st"> </span><span class="kw">setpop</span>(~Tree) %&gt;%<span class="st"> </span><span class="kw">popsub</span>(<span class="st">&quot;26&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">setpop</span>(~Year/Symptom)
 t26</code></pre>
 <pre><code>## 
 ## This is a genclone object

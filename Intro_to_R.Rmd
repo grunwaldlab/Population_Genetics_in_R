@@ -36,6 +36,7 @@ Assignment, data types and operations
 Let's learn a few simple facts about R:
 
 R uses # to add comments to code:
+
 ```{r}
 # Add 1 + 1 and write to console
 1 + 1
