@@ -259,8 +259,8 @@ cat("Choose the number PCs to retain (>=1): \n")
 message("50")
 ```
 
-PC stands for principal component, are unitless transofrmations of your data
-that explaining the variance observed. For the purposes of `find.clusters`, we
+PC stands for principal components, which are unitless transformations of your data
+that explain the variance observed. For the purposes of `find.clusters`, we
 can keep as many as we want.
 
 ![MX_CLUSTER](Pop_Structure_files/figure-html/MXCLUST.png)
@@ -312,7 +312,7 @@ cat("Choose the number PCs to retain (>=2): \n")
 message("4")
 ```
 
-Notice here that there is no uptick in the curve. This indicates that there
+Notice here that there is no local minimum in the curve. This indicates that there
 [might not be enough information in the data set to properly cluster](http://lists.r-forge.r-project.org/pipermail/adegenet-forum/2011-June/000303.html). 
 We will go ahead by choosing the highest number of clusters:
 
@@ -359,15 +359,6 @@ axisPhylo(3)
 
 Everything clusters together nicely, further supporting a non-panmictic
 population.
-
-Other methods
-----
-
-Not all methods of clustering need to be based on Bruvos's distance. There are
-others available. See `?nei.dist` for more details. The function `aboot` will
-perform bootstrap analysis on any distance given for individuals or populations,
-and `poppr.msn` will create minimum spanning networks given a genind object and
-a distance.
 
 References
 ----------
