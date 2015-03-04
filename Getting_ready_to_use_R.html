@@ -292,7 +292,7 @@ in several ways:
 <pre><code>## Loading required package: adegenet
 ## Loading required package: ade4
 ##    ==========================
-##     adegenet 1.4-3 is loaded
+##     adegenet 1.4-2 is loaded
 ##    ==========================
 ## 
 ##  - to start, type &#39;?adegenet&#39;
@@ -321,7 +321,7 @@ in several ways:
 </div>
 <div id="using-magrittr" class="section level2">
 <h2>Using <em>magrittr</em></h2>
-<p>Various chapters throughout this primer will have this symbol in the code: <code>%&gt;%</code>. This is called a “pipe” operator and it allows code to be more readable by stringing together commands from right to left. When reading code, it can be thought of as equivalent to saying “and then”. For example, if you have three steps to a process, you would write in English as:</p>
+<p>Various chapters throughout this primer will have the symbol <code>%&gt;%</code> in the code. This is called a “pipe” operator and it allows code to be more readable by stringing together commands from right to left. When reading code, it can be thought of as equivalent to saying “and then”. For example, if you have three consecutive steps to a process, you would write this in English as:</p>
 <blockquote>
 <p>Take your data <strong>and then</strong> do step one, <strong>and then</strong> do step two, <strong>and then</strong> do step three.</p>
 </blockquote>
@@ -357,10 +357,7 @@ allelic_diversity &lt;-<span class="st"> </span>Pinf %&gt;%
 <span class="st">  </span><span class="kw">clonecorrect</span>(<span class="dt">hier =</span> ~Continent/Country) %&gt;%<span class="st"> </span><span class="co"># clone censor by continent and country.</span>
 <span class="st">  </span><span class="kw">seppop</span>() %&gt;%<span class="st">                                </span><span class="co"># Separate populations (by continent)</span>
 <span class="st">  </span><span class="kw">lapply</span>(<span class="dt">FUN =</span> locus_table, <span class="dt">info =</span> <span class="ot">FALSE</span>)     <span class="co"># Apply the function locus_table to both populations</span></code></pre>
-</div>
-<div id="discussion" class="section level3">
-<h3>Discussion</h3>
-<p>The <code>%&gt;%</code> operator is good if you have to do a lot of small things to the data in your analysis. It allows your code to be more readable and reproducible.</p>
+<p>The <code>%&gt;%</code> operator is thus good if you have to do a lot of small steps in your analysis. It allows your code to be more readable and reproducible.</p>
 </div>
 </div>
 <div id="packages-and-getting-help" class="section level2">
