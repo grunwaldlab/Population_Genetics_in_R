@@ -34,7 +34,7 @@ $\bar{r}_d$ that accounts for the number of loci sampled that is less biased and
 will be used here. The data we will use in this chapter are populations of
 *Phytophthora infestans* from North and South America 
 `r citep(bib["goss2014irish"])`. We will use the index of association to give
-support to they hypothesis that Mexico is the putative origin of *P. infestans*.
+support to they hypothesis that Mexico is the putative origin of *P. infestans* where populations are expected to be sexual.
 
 First, we need to load the packages needed for this analysis.
 
@@ -75,7 +75,7 @@ data.
 MX
 ```
 
-Indeed we observe 43 multilocus genotypes out of 48 samples. We are looking ats
+Indeed we observe 43 multilocus genotypes out of 48 samples. We are looking at
 partial clonality and thus need to use clone-corrected (also called clone-
 censored) data:
 
