@@ -168,7 +168,7 @@ these populations are significantly differentiated at all hierarchical levels `r
 hypotheses as to why these populations are significantly differentiated.
 
 This example was performed with a data set of dominant (AFLP)
-markers, but it can also be performed on codominant markers as well (SNP, SSR). These provide more information because within sample (individual) variance is also assessed. If one wants to utilize a genetic distance that has biological relevance, a different distance matrix can be provided by the user. See `help('amova', package = 'poppr')` for more details.
+markers, but it can also be performed on codominant markers such as SNPs or SSRs. These provide more information because within sample (individual) variance is also assessed. If one wants to utilize a genetic distance that has biological relevance, a different distance matrix can be chosen. See `help('amova', package = 'poppr')` for more details.
 
 References
 ----------
