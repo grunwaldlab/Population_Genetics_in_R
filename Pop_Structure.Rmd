@@ -140,22 +140,28 @@ microbov %>%
   aboot(cutoff = 50, quiet = TRUE, sample = 1000, distance = nei.dist) 
 ```
 
-Now we can see that, in all 1000 bootstrapped trees, the African and French 
+Now we can see that, in all 1,000 bootstrapped trees, the African and French 
 samples were each in separate clades. Of course, dendrograms are only one type
 of analysis you can use genetic distances for. Below is a table describing some
 of the different analyses for which you can utilize genetic distance:
 
- | Analysis | Function | Package | Note | 
- | ---- | ----- | ---- | ---- | 
- | Bootstrapped dendrograms | `aboot` | *poppr* |  | 
- | Mantel Test | `mantel.randtest` | *ade4* | To be used with geographic distance matrix | 
- | Principle Coordinates Analysis | `cmdscale` | *stats* |  | 
- | [DAPC](DAPC.html) | `dapc` | *adegenet* | Convert to matrix with `as.matrix` | 
- | Minimum Spanning Networks | `poppr.msn` | *poppr* | cannot handle genpop | 
+| Analysis | Function | Package | Note | 
+| ---- | ----- | ---- | ---- | 
+| Bootstrapped dendrograms | `aboot` | *poppr* |  | 
+| Mantel Test | `mantel.randtest` | *ade4* | To be used with geographic distance matrix | 
+| Principle Coordinates Analysis | `cmdscale` | *stats* |  | 
+| [DAPC](DAPC.html) | `dapc` | *adegenet* | Convert to matrix with `as.matrix` | 
+| Minimum Spanning Networks | `poppr.msn` | *poppr* | requires a distance matrix; cannot handle genpop | 
 
 The rest of this chapter will utilize Bruvo's distance `r citep(bib['bruvo2004simple'])`.
 It is important to note that calculating Bruvo's distance is computationally 
-different than other distances, so it has its own function for 
+different than other distances, so it has its own specialized functions for 
+minimum spanning networks and bootstrapping that do not need a distance matrix:
+
+| General function | Bruvo specific |
+| ---- | ---- |
+| `poppr.msn` | `bruvo.msn` |
+| `aboot` | `bruvo.boot` |
 
 Minimum spanning network
 ----

@@ -459,11 +459,29 @@ microbov %&gt;%<span class="st"> </span>
 <td align="left">Minimum Spanning Networks</td>
 <td align="left"><code>poppr.msn</code></td>
 <td align="left"><em>poppr</em></td>
-<td align="left">cannot handle genpop</td>
+<td align="left">requires a distance matrix; cannot handle genpop</td>
 </tr>
 </tbody>
 </table>
-<p>The rest of this chapter will utilize Bruvo’s distance <span class="citation">(Bruvo et al., 2004)</span>. It is important to note that calculating Bruvo’s distance is computationally different than other distances, so it has its own function for</p>
+<p>The rest of this chapter will utilize Bruvo’s distance <span class="citation">(Bruvo et al., 2004)</span>. It is important to note that calculating Bruvo’s distance is computationally different than other distances, so it has its own specialized functions for minimum spanning networks and bootstrapping that do not need a distance matrix:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">General function</th>
+<th align="left">Bruvo specific</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>poppr.msn</code></td>
+<td align="left"><code>bruvo.msn</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>aboot</code></td>
+<td align="left"><code>bruvo.boot</code></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="minimum-spanning-network" class="section level2">
 <h2>Minimum spanning network</h2>

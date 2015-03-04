@@ -233,7 +233,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </ul>
 </div>
 
-<p>In this chapter, we will utilize AMOVA to analyze our populations. AMOVA stands for <strong>A</strong>nalysis of <strong>MO</strong>lecular <strong>VA</strong>riance and is a method to detect population differentiation utilizing molecular markers <span class="citation">(Excoffier, Smouse &amp; Quattro, 1992)</span>. This procedure was initially implemented for DNA haplotypes, but applies to any marker system. The implementation of AMOVA in <em>poppr</em> requires two very basic components: A distance matrix derived from the data and a separate table used to partition the data into different hierarchical levels.</p>
+<p>In this chapter, we will utilize AMOVA to analyze our populations. AMOVA stands for <strong>A</strong>nalysis of <strong>MO</strong>lecular <strong>VA</strong>riance and is a method to detect population differentiation utilizing molecular markers <span class="citation">(Excoffier, Smouse &amp; Quattro, 1992)</span>. This procedure was initially implemented for DNA haplotypes, but applies to any marker system. The implementation of AMOVA in <em>poppr</em> requires two very basic components: (1) A distance matrix derived from the data and (2) a separate table used to partition the data into different hierarchical levels.</p>
 <p>The distance matrix can be calculated using any distance as long as it is euclidean. The distance that is used in the program Arlequin is the opposite of the Kronecker Delta function that counts the number of differences summed over <span class="math">\(L\)</span> loci:</p>
 <p><span class="math">\[
 \delta_{l,m} = \begin{cases}
@@ -264,17 +264,17 @@ Aeut</code></pre>
 ## 
 ##      3 hierarchical levels - Pop_Subpop Pop Subpop
 ##      2 populations defined - Athena Mt. Vernon</code></pre>
-<p>We can see that this data set contains clonal data and has three hierarchical levels where the first is really a combination of the other levels. We can take a look at the different hierarchical levels, first populations followed by subpopulations:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(<span class="kw">gethierarchy</span>(Aeut, ~Pop))</code></pre>
+<p>We can see that this data set contains clonal data and has three hierarchical levels where the first is really a combination of the other levels. We can take a look at the different hierarchical levels, populations or subpopulations:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(<span class="kw">gethierarchy</span>(Aeut, ~Pop))  <span class="co"># Populations</span></code></pre>
 <pre><code>## 
 ##     Athena Mt. Vernon 
 ##         97         90</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(<span class="kw">gethierarchy</span>(Aeut, ~Pop/Subpop, <span class="dt">combine =</span> <span class="ot">FALSE</span>))</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(<span class="kw">gethierarchy</span>(Aeut, ~Pop/Subpop, <span class="dt">combine =</span> <span class="ot">FALSE</span>))  <span class="co"># Subpopulations</span></code></pre>
 <pre><code>##             Subpop
 ## Pop           1  2  3  4  5  6  7  8  9 10
 ##   Athena      9 12 10 13 10  5 11  8 10  9
 ##   Mt. Vernon 10  6  8 12 17 12 12 13  0  0</code></pre>
-<p>In this example, we have a data set of 187 individuals sampled from two fields in regions Athena and Mt. Vernon over different 8 or 10 soil samples within each field. We want to see if most of the variance is observed at the sample, field, or regional level.</p>
+<p>In this example, we have a data set of 187 individuals sampled from two fields located in Athena or Mt. Vernon over 8 or 10 different soil samples within each field. We want to see if most of the variance is observed at the sample, field, or regional level.</p>
 </div>
 <div id="analysis" class="section level2">
 <h2>Analysis</h2>
