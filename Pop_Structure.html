@@ -232,11 +232,11 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </ul>
 </div>
 
-<p>In this chapter we explore various ways of assessing if population are structured (e.g., differentiated). You can think of population structure as identifying clusters or groups of more closely related individuals resulting from reduced gene flow among these groups. Populations can be studied to determine if they are structured by using for example population differentiation <span class="math">\(G_{ST}\)</span>, clustering, or graphing of minimum spanning networks (MSN). Note, that this chapter will utilize many data sets due to the unique features offered by each. Let’s first look at an example of population differentiation.</p>
+<p>In this chapter we explore various ways of assessing if population are structured (e.g., differentiated). You can think of population structure as identifying clusters or groups of more closely related individuals resulting from reduced gene flow among these groups. Populations can be studied to determine if they are structured by using for example population differentiation (e.g. <span class="math">\(G_{ST}\)</span>), clustering, or graphing of minimum spanning networks (MSN). Note, that this chapter will utilize many data sets due to the unique features offered by each. Let’s first look at an example of population differentiation based on <span class="math">\(G_{ST}\)</span>.</p>
 <div id="g_st-an-example-with-felis-catus-data." class="section level2">
 <h2><span class="math">\(G_{ST}\)</span> an example with <em>Felis catus</em> data.</h2>
-<p>Assessing genetic diversity almost always starts with an analysis of a parameter such as <span class="math">\(G_{ST}\)</span>. There are <a href="http://www.molecularecologist.com/2011/03/should-i-use-fst-gst-or-d-2/">lengthy debates</a> as to what measure of differentiation is better <span class="citation">(Meirmans &amp; Hedrick, 2011)</span>. Instead of going into that lengthy debate, it would be more worthwhile to point you into the direction of a package dedicated to Modern Methods of Differentiation called <em>mmod</em>. We will use the data set <em>nancycats</em> containing 17 colonies of cats collected from Nancy, France. As cats tend to stay within small groups, we expect to see some population differentiation. In terms of these diversity measures, an index of 0 indicates no differentiation, whereas 1 indicates that populations are segregating for differing alleles.</p>
-<p>Let’s load the package and the example data set.</p>
+<p>Assessing genetic diversity almost always starts with an analysis of a parameter such as <span class="math">\(G_{ST}\)</span>. There are <a href="http://www.molecularecologist.com/2011/03/should-i-use-fst-gst-or-d-2/">lengthy debates</a> as to what measure of differentiation is better <span class="citation">(Meirmans &amp; Hedrick, 2011)</span>. Instead of going into that lengthy debate, it would be more worthwhile to point you into the direction of a package dedicated to Modern Methods of Differentiation called <em>mmod</em>. We will use the data set <em>nancycats</em> containing 17 colonies of cats collected from Nancy, France. As cats tend to stay within small groups, we expect to see some population differentiation. In terms of these diversity measures, an index of <span class="math">\(G_{ST}\)</span> = 0 indicates no differentiation, whereas <span class="math">\(G_{ST}\)</span> = 1 indicates that populations are segregating for differing alleles.</p>
+<p>Let’s load the package and the example data set:</p>
 <pre class="sourceCode r"><code class="sourceCode r">if (!<span class="kw">require</span>(<span class="st">&quot;mmod&quot;</span>)){
   <span class="kw">install.packages</span>(<span class="st">&quot;mmod&quot;</span>, <span class="dt">repos =</span> <span class="st">&quot;http://cran.at.r-project.org&quot;</span>)
   <span class="kw">require</span>(<span class="st">&quot;mmod&quot;</span>)
@@ -278,6 +278,7 @@ nancycats</code></pre>
 ## $global
 ## [1] 0.2820551</code></pre>
 <p>What does this output tell us?</p>
+<p>Next we will look at genetic distance to find related groups of individuals.</p>
 </div>
 <div id="genetic-distance" class="section level2">
 <h2>Genetic Distance</h2>
@@ -367,7 +368,7 @@ micdist</code></pre>
 <span class="kw">plot</span>(theTree)
 <span class="kw">add.scale.bar</span>(<span class="dt">length =</span> <span class="fl">0.05</span>) <span class="co"># add a scale bar showing 5% difference.</span></code></pre>
 <p><img src="Pop_Structure_files/figure-html/cattleplot-1.png" title="" alt="" width="700px" /></p>
-<p>Notice that the sample names start with either “AF” or “FR”. This indicates their country of origin and we are seeing that the tree seems to separate based off of this. Of course, a tree is a hypothesis and one way of generating support is to bootstrap loci. This can be achieved with the <em>poppr</em> function <code>aboot</code>.</p>
+<p>Notice that the sample names start with either “AF” or “FR”. This indicates their country of origin and we are seeing that the populations cluster correspondingly. Of course, a tree is a hypothesis and one way of generating support is to bootstrap loci. This can be achieved with the <em>poppr</em> function <code>aboot</code>.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">999</span>)
 <span class="kw">aboot</span>(mic10, <span class="dt">dist =</span> provesti.dist, <span class="dt">sample =</span> <span class="dv">200</span>, <span class="dt">tree =</span> <span class="st">&quot;nj&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)</code></pre>
 <p><img src="Pop_Structure_files/figure-html/unnamed-chunk-2-1.png" title="" alt="" width="700px" /></p>
@@ -380,7 +381,7 @@ micdist</code></pre>
 ##  100, NA, NA, 70, NA, NA, ...
 ## 
 ## Unrooted; includes branch lengths.</code></pre>
-<p>The bootstrap value of 100 on the node separating the French and African samples gives support that the country of origin is a factor in how these breeds are structured. If we wanted to analyze all of the breeds against one another, it would be better to create a bootstrapped dendrogram based off of a population genetic distance. To do this, we will create a genclone object that will contain 3 hierarchical levels: Country, Breed, and Species. We will then set the population to Country by Breed, convert the data to a genpop object and then make a tree using <code>aboot</code> with Nei’s genetic distance.</p>
+<p>The bootstrap value of 100 on the node separating the French and African samples gives support that the country of origin is a factor in how these breeds are structured. If we wanted to analyze all of the breeds against one another, it would be better to create a bootstrapped dendrogram based on a genetic distance. To do this, we will create a genclone object that will contain 3 hierarchical levels: Country, Breed, and Species. We will then set the population to Country by Breed, convert the data to a genpop object and then create a tree using <code>aboot</code> with Nei’s genetic distance.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Setting up the data </span>
 microbov &lt;-<span class="st"> </span><span class="kw">as.genclone</span>(microbov, <span class="dt">hierarchy =</span> <span class="kw">other</span>(microbov))
 microbov</code></pre>

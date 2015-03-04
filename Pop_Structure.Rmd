@@ -19,9 +19,9 @@ structured (e.g., differentiated). You can think of population structure as
 identifying clusters or groups of more closely related individuals resulting
 from reduced gene flow among these groups. Populations can be studied to
 determine if they are structured by using for example population differentiation
-$G_{ST}$, clustering, or graphing of minimum spanning networks (MSN). Note, that
+(e.g. $G_{ST}$), clustering, or graphing of minimum spanning networks (MSN). Note, that
 this chapter will utilize many data sets due to the unique features offered by
-each. Let's first look at an example of population differentiation.
+each. Let's first look at an example of population differentiation based on $G_{ST}$.
 
 $G_{ST}$ an example with *Felis catus* data.
 ----
@@ -34,10 +34,10 @@ you into the direction of a package dedicated to Modern Methods of
 Differentiation called *mmod*. We will use the data set *nancycats* containing
 17 colonies of cats collected from Nancy, France. As cats tend to stay within
 small groups, we expect to see some population differentiation. In terms of
-these diversity measures, an index of 0 indicates no differentiation, whereas 1
+these diversity measures, an index of $G_{ST}$ = 0 indicates no differentiation, whereas $G_{ST}$ = 1
 indicates that populations are segregating for differing alleles.
 
-Let's load the package and the example data set.
+Let's load the package and the example data set:
 
 ```{r loadstuff}
 if (!require("mmod")){
@@ -55,6 +55,8 @@ among these populations `r citep(bib['hedrick2005standardized'])`.
 Gst_Hedrick(nancycats)
 ```
 What does this output tell us?
+
+Next we will look at genetic distance to find related groups of individuals. 
 
 Genetic Distance
 ----
@@ -107,8 +109,7 @@ add.scale.bar(length = 0.05) # add a scale bar showing 5% difference.
 ```
 
 Notice that the sample names start with either "AF" or "FR". This indicates 
-their country of origin and we are seeing that the tree seems to separate based
-off of this. Of course, a tree is a hypothesis and one way of generating support
+their country of origin and we are seeing that the populations cluster correspondingly. Of course, a tree is a hypothesis and one way of generating support
 is to bootstrap loci. This can be achieved with the *poppr* function `aboot`.
 
 ```{r, fig.width = 5, fig.height = 7}
@@ -119,11 +120,11 @@ aboot(mic10, dist = provesti.dist, sample = 200, tree = "nj", cutoff = 50, quiet
 The bootstrap value of 100 on the node separating the French and African samples
 gives support that the country of origin is a factor in how these breeds are
 structured. If we wanted to analyze all of the breeds against one another, it
-would be better to create a bootstrapped dendrogram based off of a population
+would be better to create a bootstrapped dendrogram based on a
 genetic distance. To do this, we will create a genclone object that will contain
 3 hierarchical levels: Country, Breed, and Species. We will then set the
 population to Country by Breed, convert the data to a genpop object and then
-make a tree using `aboot` with Nei's genetic distance.
+create a tree using `aboot` with Nei's genetic distance.
 
 ```{r, cattlepopboot, fig.width = 5, fig.height = 7, cache = TRUE}
 # Setting up the data 
