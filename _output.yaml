@@ -3,7 +3,7 @@ html_document:
   toc_depth: 2
   self_contained: false
   theme: readable
-  highlight: default
+  highlight: tango
   fig_width: 10
   fig_height: 6
   lib_dir: libs

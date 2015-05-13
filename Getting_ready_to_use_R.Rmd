@@ -70,11 +70,12 @@ The following packages are utilized in this primer:
 4. [ggplot2](http://cran.r-project.org/web/packages/ggplot2/index.html)
 5. [mmod](http://cran.r-project.org/web/packages/mmod/index.html)
 3. [genetics](http://cran.r-project.org/web/packages/genetics/index.html)
+6. [magrittr](http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)
 
 Use the following script to install these packages:
 
 ```{r, eval = FALSE}
-install.packages(c("poppr", "mmod", "genetics"))
+install.packages(c("poppr", "mmod", "genetics", "magrittr"))
 ```
 
 We wrote and actively maintain *poppr* `r citep(bib["kamvar2014poppr"])` and it
@@ -124,8 +125,74 @@ in:
 ?mlg # open the R documentation of the function mlg()
 ```
 
-To quit R you can either use the <kbd>Rstudio > Quit</kbd> pull-down menu command or
-execute <kbd>⌘ + Q</kbd> (OS X) or <kbd>ctrl + Q</kbd> (PC).
+To quit R you can either use the <kbd>Rstudio > Quit</kbd> pull-down menu
+command or execute <kbd>⌘ + Q</kbd> (OS X) or <kbd>ctrl + Q</kbd> (PC).
+
+Using *magrittr*
+----
+
+Various chapters throughout this primer will have the symbol `%>%` in the code.
+This is called a "pipe" operator and it allows code to be more readable by 
+stringing together commands from right to left. When reading code, it can be 
+thought of as equivalent to saying "and then". For example, if you have three
+consecutive steps to a process, you would write this in English as:
+
+> Take your data **and then** do step one, **and then** do step two, **and then** do step three.
+
+In R code with *magrittr*, assuming that each step is a function, it might be written as:
+
+```{r, eval = FALSE}
+result <- data %>% step_one() %>% step_two() %>% step_three()
+```
+
+
+Below, are two examples of how code can be improved with *magrittr*. 
+[More details about magrittr can be found in this link.](http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)
+
+#### Fake Example: 
+Adapted from 
+[Hadley Wickham](https://twitter.com/_inundata/status/557980236130689024). 
+Based on the children's song, 
+[Little bunny foo foo](http://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo).
+
+```{r, eval = FALSE}
+foo_foo <- little_bunny()
+
+bop_on(scoop_up(hop_through(foo_foo, forest), field_mouse), head)
+
+# VS
+
+foo_foo %>%
+  hop_through(forest) %>%
+  scoop_up(field_mouse) %>%
+  bop_on(head)
+```
+
+#### Real Example:
+
+*Phytophthora infestans* data from North and South America 
+`r citep(bib['goss2014irish'])`. Calculating allelic diversity per population
+after clone-correction. This information can be found in our chapters on
+[Population hierarchies and clone correction](Population_Hierarchies.html) and
+[Locus based statistics](Locus_Stats.html).
+
+```{r, eval = FALSE}
+library("poppr")
+library("magrittr")
+data(Pinf)
+
+allelic_diversity <- lapply(seppop(clonecorrect(Pinf, hier = ~Continent/Country)), FUN = locus_table, info = FALSE)
+
+# VS
+
+allelic_diversity <- Pinf %>%
+  clonecorrect(hier = ~Continent/Country) %>% # clone censor by continent and country.
+  seppop() %>%                                # Separate populations (by continent)
+  lapply(FUN = locus_table, info = FALSE)     # Apply the function locus_table to both populations
+```
+
+The `%>%` operator is thus good if you have to do a lot of small steps in your analysis. It allows your code to be more readable and reproducible. 
+
 
 Packages and getting help
 ----
@@ -162,9 +229,9 @@ and to look at a specific vignette you can type:
 vignette('poppr_manual')
 ```
 
-Next, consider browsing the Appendix 3 on Introduction to R if you are not yet familiar with
-R and Rstudio. Otherwise, you are now ready to think about formatting and
-loading population genetic data into R.
+Next, consider browsing the Appendix 3 on Introduction to R if you are not yet
+familiar with R and Rstudio. Otherwise, you are now ready to think about
+formatting and loading population genetic data into R.
 
 References
 ----------

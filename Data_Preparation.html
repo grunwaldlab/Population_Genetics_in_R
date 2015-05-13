@@ -96,23 +96,33 @@ body {
 
 <link rel="stylesheet" href="libs/font-awesome-4.1.0/css/font-awesome.min.css"/>
 
+
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; }
+code > span.dt { color: #204a87; }
+code > span.dv { color: #0000cf; }
+code > span.bn { color: #0000cf; }
+code > span.fl { color: #0000cf; }
+code > span.ch { color: #4e9a06; }
+code > span.st { color: #4e9a06; }
+code > span.co { color: #8f5902; font-style: italic; }
+code > span.ot { color: #8f5902; }
+code > span.al { color: #ef2929; }
+code > span.fu { color: #000000; }
+code > span.er { font-weight: bold; }
+</style>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
   }
 </style>
-<script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
-}
-</script>
 
 
 
@@ -177,6 +187,7 @@ img {
           <ul class = "dropdown-menu", role = "menu">
             <li><a href="Data_sets.html">A1. Data sets</a></li>
             <li><a href="Function_Glossary.html">A2. Function glossary</a></li>
+            <li><a href="Intro_to_R.html">A3. Introduction to R</a></li>
           </ul>
         </li>
         <!-- Author button -->
@@ -236,8 +247,8 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <p>Note that <code>*.csv</code> stands for comma-separated-value. This can be opened in a text editor or excel. <code>*.csv</code> is a good format for portability into R.</p>
 </blockquote>
 <p>To import GenAlEx formatted data into <em>poppr</em>, you should use the function <code>read.genalex</code>. Below is an example using <strong>monpop.csv</strong>.</p>
-<pre class="r"><code>library(&quot;poppr&quot;)
-monpop &lt;- read.genalex(&quot;~/Downloads/monpop.csv&quot;)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
+monpop &lt;-<span class="st"> </span><span class="kw">read.genalex</span>(<span class="st">&quot;~/Downloads/monpop.csv&quot;</span>)
 monpop</code></pre>
 <pre><code>## 
 ## This is a genclone object
@@ -276,35 +287,22 @@ monpop</code></pre>
 <div id="haploids" class="section level3">
 <h3>Haploids</h3>
 <p>Below is what the <code>monpop</code> data looks like. Highlighted in red is how missing data should be coded for codominant markers. Highlighted in blue are the parts of the metadata rows used by <em>poppr</em>. These three numbers represent:</p>
-<table align="left" cellpadding=20 border=2>
-  <thead>
-    <tr>
-      <th class="col-xs-3">
-A
-</th>
-      <th class="col-xs-3">
-B
-</th>
-      <th class="col-xs-3">
-C
-</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="text-center">
-loci
-</td>
-      <td class="text-center">
-samples
-</td>
-      <td class="text-center">
-populations
-</td>
-    </tr>
-  </tbody>
+<table align="left" cellpadding="20" border="2">
+<thead>
+<pre><code>&lt;tr&gt;
+  &lt;th class=&quot;col-xs-3&quot;&gt;A&lt;/th&gt;
+  &lt;th class=&quot;col-xs-3&quot;&gt;B&lt;/th&gt;
+  &lt;th class=&quot;col-xs-3&quot;&gt;C&lt;/th&gt;
+&lt;/tr&gt;</code></pre>
+</thead>
+<tbody>
+<pre><code>&lt;tr&gt;
+  &lt;td class=&quot;text-center&quot;&gt;loci&lt;/td&gt;
+  &lt;td class=&quot;text-center&quot;&gt;samples&lt;/td&gt;
+  &lt;td class=&quot;text-center&quot;&gt;populations&lt;/td&gt;
+&lt;/tr&gt;</code></pre>
+</tbody>
 </table>
-
 <p><img src="images/monpop.png" alt="monpop" /></p>
 <p>The columns of the metadata beyond those three rows define the number of individuals contained within each population. Since this data is redundant with the second column, it is not necessary. Notice, also, that the second column, reserved for the population assignments, has a pattern of underscores in the populations. This will be important at the end of this section. Below is a modified version of the input format that should make it easier to format.</p>
 <p><img src="images/monpop_ideal.png" alt="monpop_ideal" /></p>
@@ -325,93 +323,131 @@ populations
 <div id="population-hierarchies" class="section level2">
 <h2>Population hierarchies</h2>
 <p>A hierarchical sampling approach is necessary to infer structure of populations in space or time. <em>Poppr</em> facilitates definition of hierarchical data by concatenating the different hierarchical levels into a single column by a common separator (“_” by default). Here’s an example of the three hierarchical levels of the <code>monpop</code> data set introduced above:</p>
-<table border=2 cellpadding=20 align=center>
-<tr> <th class="col-xs3"> 
+<table border="2" cellpadding="20" align="center">
+<tr>
+<th class="col-xs3">
 Tree
-</th> <th class="col-xs3"> 
+</th>
+<th class="col-xs3">
 Year
-</th> <th class="col-xs3"> 
+</th>
+<th class="col-xs3">
 Symptom
-</th>  </tr>
-  <tr> <td align="center"> 
+</th>
+</tr>
+<tr>
+<td align="center">
 7
-</td> <td align="center"> 
+</td>
+<td align="center">
 9
-</td> <td align="center"> 
+</td>
+<td align="center">
 BB
-</td> </tr>
-  <tr> <td align="center"> 
+</td>
+</tr>
+<tr>
+<td align="center">
 7
-</td> <td align="center"> 
+</td>
+<td align="center">
 9
-</td> <td align="center"> 
+</td>
+<td align="center">
 BB
-</td> </tr>
-  <tr> <td align="center"> 
+</td>
+</tr>
+<tr>
+<td align="center">
 7
-</td> <td align="center"> 
+</td>
+<td align="center">
 9
-</td> <td align="center"> 
+</td>
+<td align="center">
 BB
-</td> </tr>
-  <tr> <td align="center"> 
+</td>
+</tr>
+<tr>
+<td align="center">
 7
-</td> <td align="center"> 
+</td>
+<td align="center">
 9
-</td> <td align="center"> 
+</td>
+<td align="center">
 BB
-</td> </tr>
-  <tr> <td align="center"> 
+</td>
+</tr>
+<tr>
+<td align="center">
 7
-</td> <td align="center"> 
+</td>
+<td align="center">
 9
-</td> <td align="center"> 
+</td>
+<td align="center">
 BB
-</td> </tr>
-  <tr> <td align="center"> 
+</td>
+</tr>
+<tr>
+<td align="center">
 7
-</td> <td align="center"> 
+</td>
+<td align="center">
 9
-</td> <td align="center"> 
+</td>
+<td align="center">
 BB
-</td> </tr>
+</td>
+</tr>
 </table>
-
 <p>resulting in definition for use in <em>poppr</em> as:</p>
 <!-- html table generated in R 3.1.2 by xtable 1.7-4 package -->
 <!-- Fri Jan  9 20:12:57 2015 -->
-<table border=2 cellpadding=20 align=center>
-<tr> <th class="col-xs3"> 
+<table border="2" cellpadding="20" align="center">
+<tr>
+<th class="col-xs3">
 Tree_Year_Symptom
-</th>  </tr>
-  <tr> <td align="center"> 
+</th>
+</tr>
+<tr>
+<td align="center">
 7_9_BB
-</td> </tr>
-  <tr> <td align="center"> 
+</td>
+</tr>
+<tr>
+<td align="center">
 7_9_BB
-</td> </tr>
-  <tr> <td align="center"> 
+</td>
+</tr>
+<tr>
+<td align="center">
 7_9_BB
-</td> </tr>
-  <tr> <td align="center"> 
+</td>
+</tr>
+<tr>
+<td align="center">
 7_9_BB
-</td> </tr>
-  <tr> <td align="center"> 
+</td>
+</tr>
+<tr>
+<td align="center">
 7_9_BB
-</td> </tr>
-  <tr> <td align="center"> 
+</td>
+</tr>
+<tr>
+<td align="center">
 7_9_BB
-</td> </tr>
+</td>
+</tr>
 </table>
-
-
-
 <blockquote>
 <p>If you do not want to concatenate your population factors into one row, save them as a separate csv file and use the functions <code>read.table</code> and <code>sethierarchy</code> after you’ve imported your genetic data to achieve the same result.</p>
 </blockquote>
 <p>The data imported this way can be accessed with the function <code>splithierarchy</code>:</p>
-<pre class="r"><code># using monpop from above
-monpop # Before (One level, Pop)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># using monpop from above</span>
+monpop <span class="co"># Before (One level, Pop)</span></code></pre>
 <pre><code>## 
 ## This is a genclone object
 ## -------------------------
@@ -426,8 +462,8 @@ monpop # Before (One level, Pop)</code></pre>
 ##      1 hierarchical level - Pop
 ##     12 populations defined - 7_09_BB 26_09_BB 26_09_FR ... 45_10_FR 
 ## 26_11_BB 26_11_FR</code></pre>
-<pre class="r"><code>splithierarchy(monpop) &lt;- ~Tree/Year/Symptom
-monpop # After (Three distinct levels)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">splithierarchy</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree/Year/Symptom
+monpop <span class="co"># After (Three distinct levels)</span></code></pre>
 <pre><code>## 
 ## This is a genclone object
 ## -------------------------
@@ -447,11 +483,9 @@ monpop # After (Three distinct levels)</code></pre>
 <div id="references" class="section level2">
 <h2>References</h2>
 <!------>
-
-
 <div class="references">
-<p>Everhart S., Scherm H. 2015. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> ##:in press.</p>
-<p>Goss E., Tabima J., Cooke D., Restrepo S., Fry W., Forbes G., Fieland V., Cardenas M., Grünwald N. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
+<p>Everhart S., Scherm H. 2015. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> 105:542–549.</p>
+<p>Goss E., Tabima J., Cooke D., Restrepo S., Fry W., Forbes G., Fieland V., Cardenas M., Grünwald N. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
 </div>
 </div>
 
