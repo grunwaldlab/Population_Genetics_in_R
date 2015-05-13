@@ -8,8 +8,8 @@ Welcome! This primer provides a concise introduction to conducting applied analy
 Please note that this primer is still being written and will be changing as we continue writing it. Please provide us feedback on any errors you might find or suggestions for improvement. The primer is currently published [here](http://grunwaldlab.github.io/Population_Genetics_in_R/).
 
 
-&copy; 2014, Corvallis, Oregon, USA
+&copy; 2015, Corvallis, Oregon, USA
 
 >*I was really impressed with what you've accomplished with [poppr], it is very thoughtful and addressed a number of things I never considered but which many pop gen folks that I know deal with all the time and complain about.  I think it is going to be very well received by the community.* 
 
--- Andy Jones, Assistant Professor, Oregon State University.
+-- Andy Jones, Assistant Professor, Oregon State University, Coprvallis, OR, 2014.
