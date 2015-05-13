@@ -96,23 +96,33 @@ body {
 
 <link rel="stylesheet" href="libs/font-awesome-4.1.0/css/font-awesome.min.css"/>
 
+
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; }
+code > span.dt { color: #204a87; }
+code > span.dv { color: #0000cf; }
+code > span.bn { color: #0000cf; }
+code > span.fl { color: #0000cf; }
+code > span.ch { color: #4e9a06; }
+code > span.st { color: #4e9a06; }
+code > span.co { color: #8f5902; font-style: italic; }
+code > span.ot { color: #8f5902; }
+code > span.al { color: #ef2929; }
+code > span.fu { color: #000000; }
+code > span.er { font-weight: bold; }
+</style>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
   }
 </style>
-<script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
-}
-</script>
 
 
 
@@ -177,6 +187,7 @@ img {
           <ul class = "dropdown-menu", role = "menu">
             <li><a href="Data_sets.html">A1. Data sets</a></li>
             <li><a href="Function_Glossary.html">A2. Function glossary</a></li>
+            <li><a href="Intro_to_R.html">A3. Introduction to R</a></li>
           </ul>
         </li>
         <!-- Author button -->
@@ -222,7 +233,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </ul>
 </div>
 
-<p>In this chapter, we will utilize AMOVA to analyze our populations. AMOVA stands for <strong>A</strong>nalysis of <strong>MO</strong>lecular <strong>VA</strong>riance and is a method to detect population differentiation utilizing molecular markers <span class="citation">(Excoffier, Smouse &amp; Quattro, 1992)</span>. This procedure was initially implemented for DNA haplotypes, but applies to any marker system. The implementation of AMOVA in <em>poppr</em> requires two very basic components: A distance matrix derived from the data and a separate table used to partition the data into different hierarchical levels.</p>
+<p>In this chapter, we will utilize AMOVA to analyze our populations. AMOVA stands for <strong>A</strong>nalysis of <strong>MO</strong>lecular <strong>VA</strong>riance and is a method to detect population differentiation utilizing molecular markers <span class="citation">(Excoffier, Smouse &amp; Quattro, 1992)</span>. This procedure was initially implemented for DNA haplotypes, but applies to any marker system. The implementation of AMOVA in <em>poppr</em> requires two very basic components: (1) A distance matrix derived from the data and (2) a separate table used to partition the data into different hierarchical levels.</p>
 <p>The distance matrix can be calculated using any distance as long as it is euclidean. The distance that is used in the program Arlequin is the opposite of the Kronecker Delta function that counts the number of differences summed over <span class="math">\(L\)</span> loci:</p>
 <p><span class="math">\[
 \delta_{l,m} = \begin{cases}
@@ -235,9 +246,9 @@ d_{i,j} = \sum_{L = 1}^L 1 - \delta_{i,j}
 <div id="data-set" class="section level2">
 <h2>Data set</h2>
 <p>To calculate AMOVA in <em>poppr</em>, one simply needs to supply a data set with hierarchical levels. We will use the <em>Aphanomyces euteiches</em> data set from <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>.</p>
-<pre class="r"><code>library(&quot;poppr&quot;)
-data(Aeut)
-Aeut &lt;- as.genclone(Aeut)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
+<span class="kw">data</span>(Aeut)
+Aeut &lt;-<span class="st"> </span><span class="kw">as.genclone</span>(Aeut)
 Aeut</code></pre>
 <pre><code>## 
 ## This is a genclone object
@@ -253,26 +264,26 @@ Aeut</code></pre>
 ## 
 ##      3 hierarchical levels - Pop_Subpop Pop Subpop
 ##      2 populations defined - Athena Mt. Vernon</code></pre>
-<p>We can see that this data set contains clonal data and has three hierarchical levels where the first is really a combination of the other levels. We can take a look at the different hierarchical levels, first populations followed by subpopulations:</p>
-<pre class="r"><code>table(gethierarchy(Aeut, ~Pop))</code></pre>
+<p>We can see that this data set contains clonal data and has three hierarchical levels where the first is really a combination of the other levels. We can take a look at the different hierarchical levels, populations or subpopulations:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(<span class="kw">gethierarchy</span>(Aeut, ~Pop))  <span class="co"># Populations</span></code></pre>
 <pre><code>## 
 ##     Athena Mt. Vernon 
 ##         97         90</code></pre>
-<pre class="r"><code>table(gethierarchy(Aeut, ~Pop/Subpop, combine = FALSE))</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(<span class="kw">gethierarchy</span>(Aeut, ~Pop/Subpop, <span class="dt">combine =</span> <span class="ot">FALSE</span>))  <span class="co"># Subpopulations</span></code></pre>
 <pre><code>##             Subpop
 ## Pop           1  2  3  4  5  6  7  8  9 10
 ##   Athena      9 12 10 13 10  5 11  8 10  9
 ##   Mt. Vernon 10  6  8 12 17 12 12 13  0  0</code></pre>
-<p>In this example, we have a data set of 187 individuals sampled from two fields in regions Athena and Mt. Vernon over different 8 or 10 soil samples within each field. We want to see if most of the variance is observed at the sample, field, or regional level.</p>
+<p>In this example, we have a data set of 187 individuals sampled from two fields located in Athena or Mt. Vernon over 8 or 10 different soil samples within each field. We want to see if most of the variance is observed at the sample, field, or regional level.</p>
 </div>
 <div id="analysis" class="section level2">
 <h2>Analysis</h2>
 <p>In panmictic populations, we would expect to see most of the variance arise from within samples. If we see that the most of the variance occurs among samples within populations or among populations, then there is evidence that we have some sort of population structure. In the case of clonal organisms, this would help support a hypothesis of clonal reproduction. Since <em>Aphanomyces eutieches</em> is known to be clonal, we would not expect most of the variance to come from within samples.</p>
 <p>Let’s invoke the AMOVA functions with and without clone correction:</p>
-<pre class="r"><code>Aeutamova &lt;- poppr.amova(Aeut, ~Pop/Subpop)
-Aeutamovacc &lt;- poppr.amova(Aeut, ~Pop/Subpop, clonecorrect = TRUE)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">Aeutamova &lt;-<span class="st"> </span><span class="kw">poppr.amova</span>(Aeut, ~Pop/Subpop)
+Aeutamovacc &lt;-<span class="st"> </span><span class="kw">poppr.amova</span>(Aeut, ~Pop/Subpop, <span class="dt">clonecorrect =</span> <span class="ot">TRUE</span>)</code></pre>
 <p>We’ll look at the AMOVA results for both analyses.</p>
-<pre class="r"><code>Aeutamova</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">Aeutamova</code></pre>
 <pre><code>## $call
 ## ade4::amova(samples = xtab, distances = xdist, structures = xstruct)
 ## 
@@ -295,7 +306,7 @@ Aeutamovacc &lt;- poppr.amova(Aeut, ~Pop/Subpop, clonecorrect = TRUE)</code></pr
 ## Phi-samples-total 0.7841427
 ## Phi-samples-Pop   0.2803128
 ## Phi-Pop-total     0.7000679</code></pre>
-<pre class="r"><code>Aeutamovacc</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">Aeutamovacc</code></pre>
 <pre><code>## $call
 ## ade4::amova(samples = xtab, distances = xdist, structures = xstruct)
 ## 
@@ -322,17 +333,17 @@ Aeutamovacc &lt;- poppr.amova(Aeut, ~Pop/Subpop, clonecorrect = TRUE)</code></pr
 <p>The <code>$componentsofcovariance</code> table shows how much variance is detected at each hierarchical level. We expect variations within samples to give the greatest amount of variation for populations that are not significantly differentiated. <code>Sigma</code> represents the variance, <span class="math">\(\sigma\)</span>, for each hierarchical level and to the right is the percent of the total.</p>
 <p>Finally, <code>$statphi</code> provides the <span class="math">\(\phi\)</span> population differentiation statistics. These are used to test hypotheses about population differentiation. We would expect a higher <span class="math">\(\phi\)</span> statistic to represent a higher amount of differentiation.</p>
 <p>Note, if you want to make a table of any of these components, you can isolate them by using the <code>$</code> operator and then export it to a table with <code>write.table</code>. Here’s an example with the components of covariance:</p>
-<pre class="r"><code>write.table(Aeutamova$componentsofcovariance, sep = &quot;,&quot;, file = &quot;~/Documents/AeutiechesAMOVA.csv&quot;)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.table</span>(Aeutamova$componentsofcovariance, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">file =</span> <span class="st">&quot;~/Documents/AeutiechesAMOVA.csv&quot;</span>)</code></pre>
 </div>
 <div id="significance-testing" class="section level2">
 <h2>Significance testing</h2>
 <p>To test if populations are significantly different, we perform a randomization test using the function <code>randtest()</code> from the <em>ade4</em> package. This will randomly permute the sample matrices as described in <span class="citation">(Excoffier et al., 1992)</span>.</p>
-<pre class="r"><code>set.seed(1999)
-Aeutsignif   &lt;- randtest(Aeutamova, nrepet = 999)
-Aeutccsignif &lt;- randtest(Aeutamovacc, nrepet = 999)</code></pre>
-<pre class="r"><code>plot(Aeutsignif)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1999</span>)
+Aeutsignif   &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeutamova, <span class="dt">nrepet =</span> <span class="dv">999</span>)
+Aeutccsignif &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeutamovacc, <span class="dt">nrepet =</span> <span class="dv">999</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Aeutsignif)</code></pre>
 <p><img src="AMOVA_files/figure-html/Aeut_random_plot-1.png" title="" alt="" width="700px" /></p>
-<pre class="r"><code>Aeutsignif</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">Aeutsignif</code></pre>
 <pre><code>## class: krandtest 
 ## Monte-Carlo tests
 ## Call: randtest.amova(xtest = Aeutamova, nrepet = 999)
@@ -348,9 +359,9 @@ Aeutccsignif &lt;- randtest(Aeutamovacc, nrepet = 999)</code></pre>
 ## 
 ## other elements: adj.method call</code></pre>
 <p>From this output, you can see three histograms representing the distribution of the randomized hierarchy. The black line represents the observed data. You can see a table of observed results in the output showing that there is significant population structure considering all levels of the population hierarchy. Of course, this could be due to the presence of clones, so let’s visualize the results from the clone corrected data set below:</p>
-<pre class="r"><code>plot(Aeutccsignif)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Aeutccsignif)</code></pre>
 <p><img src="AMOVA_files/figure-html/Aeut_clonecorrect_random_plot-1.png" title="" alt="" width="700px" /></p>
-<pre class="r"><code>Aeutccsignif</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">Aeutccsignif</code></pre>
 <pre><code>## class: krandtest 
 ## Monte-Carlo tests
 ## Call: randtest.amova(xtest = Aeutamovacc, nrepet = 999)
@@ -370,8 +381,8 @@ Aeutccsignif &lt;- randtest(Aeutamovacc, nrepet = 999)</code></pre>
 <div id="randomized-population-structure" class="section level2">
 <h2>Randomized population structure</h2>
 <p>Since AMOVA is used to detect whether or not there is significant population structure, we can see what happens when we randomly shuffle the population assignments in our data. Here we will show what the populations look like before and after shuffling:</p>
-<pre class="r"><code>Aeut.new &lt;- Aeut
-head(gethierarchy(Aeut)[, -1])</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">Aeut.new &lt;-<span class="st"> </span>Aeut
+<span class="kw">head</span>(<span class="kw">gethierarchy</span>(Aeut)[, -<span class="dv">1</span>])</code></pre>
 <pre><code>##      Pop Subpop
 ## 1 Athena      1
 ## 2 Athena      1
@@ -379,8 +390,8 @@ head(gethierarchy(Aeut)[, -1])</code></pre>
 ## 4 Athena      1
 ## 5 Athena      1
 ## 6 Athena      1</code></pre>
-<pre class="r"><code>set.seed(9001)
-head(gethierarchy(Aeut)[sample(nInd(Aeut)), -1])</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">9001</span>)
+<span class="kw">head</span>(<span class="kw">gethierarchy</span>(Aeut)[<span class="kw">sample</span>(<span class="kw">nInd</span>(Aeut)), -<span class="dv">1</span>])</code></pre>
 <pre><code>##            Pop Subpop
 ## 44      Athena      4
 ## 177 Mt. Vernon      8
@@ -389,12 +400,12 @@ head(gethierarchy(Aeut)[sample(nInd(Aeut)), -1])</code></pre>
 ## 8       Athena      1
 ## 39      Athena      4</code></pre>
 <p>Here we see that the populations are completely shuffled, so in the next step, we will reassign the hierarchy with these newly shuffled populations and rerun the AMOVA analysis.</p>
-<pre class="r"><code>set.seed(9001)
-sethierarchy(Aeut.new) &lt;- gethierarchy(Aeut)[sample(nInd(Aeut)), -1]
-Aeut.new.amova         &lt;- poppr.amova(Aeut.new, ~Pop/Subpop)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">9001</span>)
+<span class="kw">sethierarchy</span>(Aeut.new) &lt;-<span class="st"> </span><span class="kw">gethierarchy</span>(Aeut)[<span class="kw">sample</span>(<span class="kw">nInd</span>(Aeut)), -<span class="dv">1</span>]
+Aeut.new.amova         &lt;-<span class="st"> </span><span class="kw">poppr.amova</span>(Aeut.new, ~Pop/Subpop)</code></pre>
 <pre><code>## 
 ##  No missing values detected.</code></pre>
-<pre class="r"><code>Aeut.new.amova</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">Aeut.new.amova</code></pre>
 <pre><code>## $call
 ## ade4::amova(samples = xtab, distances = xdist, structures = xstruct)
 ## 
@@ -417,7 +428,7 @@ Aeut.new.amova         &lt;- poppr.amova(Aeut.new, ~Pop/Subpop)</code></pre>
 ## Phi-samples-total -0.001402074
 ## Phi-samples-Pop   -0.017106288
 ## Phi-Pop-total      0.015440091</code></pre>
-<pre class="r"><code>Aeut.new.amova.test    &lt;- randtest(Aeut.new.amova, nrepet = 999)
+<pre class="sourceCode r"><code class="sourceCode r">Aeut.new.amova.test    &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeut.new.amova, <span class="dt">nrepet =</span> <span class="dv">999</span>)
 Aeut.new.amova.test</code></pre>
 <pre><code>## class: krandtest 
 ## Monte-Carlo tests
@@ -433,14 +444,14 @@ Aeut.new.amova.test</code></pre>
 ## 3     Variations between Pop  0.1588974  1.4122566 greater  0.099
 ## 
 ## other elements: adj.method call</code></pre>
-<pre class="r"><code>plot(Aeut.new.amova.test)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Aeut.new.amova.test)</code></pre>
 <p><img src="AMOVA_files/figure-html/randomized_hierarchy_plot-1.png" title="" alt="" width="700px" /></p>
 <p>We see that there now is no significant population structure.</p>
 </div>
 <div id="conclusions" class="section level2">
 <h2>Conclusions</h2>
 <p>AMOVA is a powerful tool that can help support hypotheses of population structure due to clonal reproduction or isolation without making assumptions about Hardy-Weinberg equilibrium. We have shown that we can reject the <span class="math">\(H_o\)</span> of random mating between the two populations and have strong evidence that these populations are significantly differentiated at all hierarchical levels <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>. From these results, we can investigate hypotheses as to why these populations are significantly differentiated.</p>
-<p>This example was performed with a data set of dominant (AFLP) markers, but it can also be performed on codominant markers as well (SNP, SSR). These provide more information because within sample (individual) variance is also assessed. If one wants to utilize a genetic distance that has biological relevance, a different distance matrix can be provided by the user. See <code>help('amova', package = 'poppr')</code> for more details.</p>
+<p>This example was performed with a data set of dominant (AFLP) markers, but it can also be performed on codominant markers such as SNPs or SSRs. These provide more information because within sample (individual) variance is also assessed. If one wants to utilize a genetic distance that has biological relevance, a different distance matrix can be chosen. See <code>help('amova', package = 'poppr')</code> for more details.</p>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>

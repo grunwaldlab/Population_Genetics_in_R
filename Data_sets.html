@@ -96,23 +96,6 @@ body {
 
 <link rel="stylesheet" href="libs/font-awesome-4.1.0/css/font-awesome.min.css"/>
 
-<style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
-<script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
-}
-</script>
 
 
 
@@ -177,6 +160,7 @@ img {
           <ul class = "dropdown-menu", role = "menu">
             <li><a href="Data_sets.html">A1. Data sets</a></li>
             <li><a href="Function_Glossary.html">A2. Function glossary</a></li>
+            <li><a href="Intro_to_R.html">A3. Introduction to R</a></li>
           </ul>
         </li>
         <!-- Author button -->
@@ -214,22 +198,29 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div id="TOC">
 <ul>
 <li><a href="#aflp-diploid-clonal-aeut">AFLP (diploid, clonal): <code>Aeut</code></a></li>
+<li><a href="#microsatellite-haploid-clonal-monpop">Microsatellite (haploid, clonal): <code>monpop</code></a></li>
 <li><a href="#microsatellite-diploid-sexual-nancycats">Microsatellite (diploid, sexual): <code>nancycats</code></a></li>
+<li><a href="#microsatellite-diploid-sexual-microbov">Microsatellite (diploid, sexual): <code>microbov</code></a></li>
 <li><a href="#microsatellite-triploid-sexualclonal-pinf">Microsatellite (triploid, sexual/clonal): <code>Pinf</code></a></li>
 <li><a href="#snp-haploid-clonal-h3n2">SNP (haploid, clonal): <code>H3N2</code></a></li>
-<li><a href="#references">References</a></li>
 </ul>
 </div>
 
 <div id="aflp-diploid-clonal-aeut" class="section level2">
 <h2>AFLP (diploid, clonal): <code>Aeut</code></h2>
 <p>This data is for a population of the diploid plant pathogen <em>Aphanomyces euteiches</em> using AFLP as a marker system <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>. A total of 187 pathogen isolates were sampled hierarchically in two regions in Oregon (N = 97) and Washington (N = 90). The alleles observed were treated as dominant markers with presence or absence. Analysis included clone-correction, genotypic diversity, linkage disequilibrium using the index of association, dendrograms based on Nei’s genetic distance, and AMOVA.</p>
-<p>Microsatellite (haploid, clonal): *monpop` —-</p>
+</div>
+<div id="microsatellite-haploid-clonal-monpop" class="section level2">
+<h2>Microsatellite (haploid, clonal): <code>monpop</code></h2>
 <p>This is microsatellite data for a population of the haploid plant pathogen <em>Monilinia fructicola</em> that causes disease within peach tree canopies <span class="citation">(Everhart &amp; Scherm, 2015)</span>. Entire populations within trees were sampled across 3 years (2009, 2010, and 2011) in a total of four trees, where one tree was sampled in all three years, for a total of 6 within-tree populations. Within each year, samples in the spring were taken from affected blossoms (termed “BB” for blossom blight) and in late summer from affected fruits (termed “FR” for fruit rot). There are a total of 694 isolates with 65 to 173 isolates within each canopy population that were characterized using a set of 13 microsatellite markers.</p>
 </div>
 <div id="microsatellite-diploid-sexual-nancycats" class="section level2">
 <h2>Microsatellite (diploid, sexual): <code>nancycats</code></h2>
 <p>This is a data set of 217 cats <em>Felis catus</em> L. from Nancy, France genotyped over 9 microsatellite loci. They have been divided into 17 populations with spatial coordinates in the <code>@other</code> slot. It comes from the <em>adegenet</em> package without a published reference. Likely, the source paper is <a href="http://dx.doi.org/10.1016/j.mambio.2008.01.001">here</a>.</p>
+</div>
+<div id="microsatellite-diploid-sexual-microbov" class="section level2">
+<h2>Microsatellite (diploid, sexual): <code>microbov</code></h2>
+<p>This data set contains 704 bovine samples over 30 microsatellite loci for 15 breeds, 2 species and 2 countries. From <span class="citation">(Laloe et al., 2007)</span>.</p>
 </div>
 <div id="microsatellite-triploid-sexualclonal-pinf" class="section level2">
 <h2>Microsatellite (triploid, sexual/clonal): <code>Pinf</code></h2>
@@ -238,16 +229,12 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div id="snp-haploid-clonal-h3n2" class="section level2">
 <h2>SNP (haploid, clonal): <code>H3N2</code></h2>
 <p>This is a SNP data set from the hemaglutinin segment of the H3N2 strain of seasonal influenza contained within the <em>adegenet</em> package. It contains 1902 samples genotyped over 125 SNP markers. It contains a wealth of information in the <code>@other</code> slot including year isolated, month isolated, country of origin, and more. This data set is utilized to demonstrate the DAPC function in <em>adegenet</em>.</p>
-</div>
-<div id="references" class="section level2">
-<h2>References</h2>
-<!------------>
-
-
 <div class="references">
+<h2>References</h2>
 <p>Everhart S., Scherm H. 2015. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> ##:in press.</p>
 <p>Goss E., Tabima J., Cooke D., Restrepo S., Fry W., Forbes G., Fieland V., Cardenas M., Grünwald N. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
 <p>Grünwald N., Hoheisel G-A. 2006. Hierarchical analysis of diversity, selfing, and genetic differentiation in populations of the oomycete <em>Aphanomyces euteiches</em>. <em>Phytopathology</em> 96:1134–1141. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134</a></p>
+<p>Laloe D., Jombart T., Dufour A-B., Moazami-Goudarzi K. 2007. Consensus genetic structuring and typological value of markers using multiple co-inertia analysis. <em>Genetics Selection Evolution</em> 39:545–567. Available at: <a href="http://dx.doi.org/10.1051/gse:2007021">http://dx.doi.org/10.1051/gse:2007021</a></p>
 </div>
 </div>
 

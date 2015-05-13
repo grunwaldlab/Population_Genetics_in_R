@@ -12,3 +12,4 @@ lattice
 MASS
 mvtnorm
 poppr
+magrittr

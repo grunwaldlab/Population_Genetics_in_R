@@ -11,26 +11,33 @@
   # http://yihui.name/knitr/options #chunk_options
 ```
 ---
-title: '9: Population structure: $G_{ST}$, clustering and minimum spanning networks'
+title: '9: Population structure: $G_{ST}$, genetic distance, clustering, and minimum spanning networks'
 ---
 
-In this chapter we explore various ways of assessing if population are structured (e.g., differentiated). You can think of population structure as identifying clusters or groups of more closely related individuals resulting from reduced gene flow among these groups. Populations can be studied to determine if they are structured by using for example population differentiation $G_{ST}$, clustering, or graphing of minimum spanning networks (MSN). Let's first look at an example of population differentiation.
+In this chapter we explore various ways of assessing if population are
+structured (e.g., differentiated). You can think of population structure as
+identifying clusters or groups of more closely related individuals resulting
+from reduced gene flow among these groups. Populations can be studied to
+determine if they are structured by using for example population differentiation
+(e.g. $G_{ST}$), clustering, or graphing of minimum spanning networks (MSN). Note, that
+this chapter will utilize many data sets due to the unique features offered by
+each. Let's first look at an example of population differentiation based on $G_{ST}$.
 
 $G_{ST}$ an example with *Felis catus* data.
 ----
 
 Assessing genetic diversity almost always starts with an analysis of a parameter
-such as $G_{ST}$. There are [lengthy debates](http://www.molecularecologist.com/2011/03/should-i-use-fst-gst-or-d-2/) as to what measure of differentiation is
-better `r citep(bib['meirmans2011assessing'])`. Instead of going into that
-lengthy debate, it would be more worthwhile to point you into the direction of
-a package dedicated to Modern Methods of Differentiation called *mmod*. We will
-use the data set *nancycats* containing 17 colonies of cats collected from Nancy,
-France. As cats tend to stay within small groups, we expect to see some population
-differentiation. In terms of these diversity measures, an index of 0 indicates
-no differentiation, whereas 1 indicates that populations are segregating for
-differing alleles. 
+such as $G_{ST}$. There are [lengthy debates](http://www.molecularecologist.com/2011/03/should-i-use-fst-gst-or-d-2/)
+as to what measure of differentiation is better `r citep(bib['meirmans2011assessing'])`. 
+Instead of going into that lengthy debate, it would be more worthwhile to point
+you into the direction of a package dedicated to Modern Methods of
+Differentiation called *mmod*. We will use the data set *nancycats* containing
+17 colonies of cats collected from Nancy, France. As cats tend to stay within
+small groups, we expect to see some population differentiation. In terms of
+these diversity measures, an index of $G_{ST}$ = 0 indicates no differentiation, whereas $G_{ST}$ = 1
+indicates that populations are segregating for differing alleles.
 
-Let's load the package and the example data set.
+Let's load the package and the example data set:
 
 ```{r loadstuff}
 if (!require("mmod")){
@@ -49,14 +56,123 @@ Gst_Hedrick(nancycats)
 ```
 What does this output tell us?
 
+Next we will look at genetic distance to find related groups of individuals. 
+
+Genetic Distance
+----
+
+If we wanted to analyze the relationship between individuals or populations, we
+would use genetic distance measures which calculate the "distance" between
+samples based on their genetic profile. These distances can be visualized with
+heatmaps, dendrograms, or minimum spanning networks. In the package *poppr*,
+there are several distances available:
+
+ | Distance | Function | Marker type | Can handle missing data |
+ | ---- | ---- | ---- | ---- | ---- |
+ | Bruvo's distance | `bruvo.dist` | microsatellite | yes |
+ | Edwards' distance | `edwards.dist` | any | no |
+ | Nei's distance | `nei.dist` | any | no |
+ | Provesti's distance | `provesti.dist` | any | yes |
+ | Reynolds' distance | `reynolds.dist` | any | no |
+ | Rogers' distance | `rogers.dist` | any | no |
+
+One common way to visualize a genetic distance is with a dendrogram. For this
+example, we will use the *microbov* data set `r citep(bib["laloe2007consensus"])`. 
+This contains information on 704 cattle from both Africa and France over several
+different breeds. We can create a dendrogram over all 704 samples, but that
+would be difficult to visualize. For our purposes, let's take ten random samples
+and calculate Provesti's distance, which will return the fraction of the number
+of differences between samples:
+
+
+```{r, cattlefirst}
+library("poppr")
+library("ape") # To visualize the tree using the "nj" function
+library("magrittr")
+data(microbov)
+set.seed(10)
+ten_samples <- sample(nInd(microbov), 10)
+mic10 <- microbov[ten_samples]
+micdist <- provesti.dist(mic10)
+micdist
+```
+
+The above represents the pairwise distances between these 10 samples. We will 
+use this distance matrix to create a neighbor-joining tree. 
+
+```{r, cattleplot, fig.width = 5, fig.height = 7}
+theTree <- micdist %>% 
+  nj() %>%    # calculate neighbor-joining tree
+  ladderize() # organize branches by clade
+plot(theTree)
+add.scale.bar(length = 0.05) # add a scale bar showing 5% difference.
+```
+
+Notice that the sample names start with either "AF" or "FR". This indicates 
+their country of origin and we are seeing that the populations cluster correspondingly. Of course, a tree is a hypothesis and one way of generating support
+is to bootstrap loci. This can be achieved with the *poppr* function `aboot`.
+
+```{r, fig.width = 5, fig.height = 7}
+set.seed(999)
+aboot(mic10, dist = provesti.dist, sample = 200, tree = "nj", cutoff = 50, quiet = TRUE)
+```
+
+The bootstrap value of 100 on the node separating the French and African samples
+gives support that the country of origin is a factor in how these breeds are
+structured. If we wanted to analyze all of the breeds against one another, it
+would be better to create a bootstrapped dendrogram based on a
+genetic distance. To do this, we will create a genclone object that will contain
+3 hierarchical levels: Country, Breed, and Species. We will then set the
+population to Country by Breed, convert the data to a genpop object and then
+create a tree using `aboot` with Nei's genetic distance.
+
+```{r, cattlepopboot, fig.width = 5, fig.height = 7, cache = TRUE}
+# Setting up the data 
+microbov <- as.genclone(microbov, hierarchy = other(microbov))
+microbov
+namehierarchy(microbov) <- ~Country/Breed/Species
+setpop(microbov) <- ~Country/Breed
+
+# Analysis
+set.seed(999)
+microbov %>% 
+  genind2genpop() %>%
+  aboot(cutoff = 50, quiet = TRUE, sample = 1000, distance = nei.dist) 
+```
+
+Now we can see that, in all 1,000 bootstrapped trees, the African and French 
+samples were each in separate clades. Of course, dendrograms are only one type
+of analysis you can use genetic distances for. Below is a table describing some
+of the different analyses for which you can utilize genetic distance:
+
+| Analysis | Function | Package | Note | 
+| ---- | ----- | ---- | ---- | 
+| Bootstrapped dendrograms | `aboot` | *poppr* |  | 
+| Mantel Test | `mantel.randtest` | *ade4* | To be used with geographic distance matrix | 
+| Principle Coordinates Analysis | `cmdscale` | *stats* |  | 
+| [DAPC](DAPC.html) | `dapc` | *adegenet* | Convert to matrix with `as.matrix` | 
+| Minimum Spanning Networks | `poppr.msn` | *poppr* | requires a distance matrix; cannot handle genpop | 
+
+The rest of this chapter will utilize Bruvo's distance `r citep(bib['bruvo2004simple'])`.
+It is important to note that calculating Bruvo's distance is computationally 
+different than other distances, so it has its own specialized functions for 
+minimum spanning networks and bootstrapping that do not need a distance matrix:
+
+| General function | Bruvo specific |
+| ---- | ---- |
+| `poppr.msn` | `bruvo.msn` |
+| `aboot` | `bruvo.boot` |
+
 Minimum spanning network
 ----
 
 For this section, we will use the `monpop` data set from `r citep(bib['everhart2014finescale'])`. 
-see [Chapter 6](Genotypic_EvenRichDiv.html) for more details. We will be
-focusing on sources of multilocus genotypes. The life cycle of the pathogen *Monilinia fructicola* begins with an
-ascospore (sexual propagule) released from a mummified peach fruit that had overwintered on the ground. It infects an emerging blossom that, in turn, asexually infects fruit, which proceed with cyclical infections.
-We might have questions such as:
+See [Chapter6](Genotypic_EvenRichDiv.html) for more details. We will be focusing
+on sources of multilocus genotypes. The life cycle of the pathogen *Monilinia
+fructicola* begins with an ascospore (sexual propagule) released from a
+mummified peach fruit that had overwintered on the ground. It infects an
+emerging blossom that, in turn, asexually infects fruit, which proceed with
+cyclical infections. We might have questions such as:
 
 1. Are the major genotypes of Fruit Rot (FR) samples closely related?
 2. To what degree do the Blossom Blight (BB) samples contribute to the FR?
@@ -71,12 +187,11 @@ splithierarchy(monpop) <- ~Tree/Year/Symptom
 summary(monpop)
 ```
 
-We notice that tree number 26 is the only one to have been sampled for all three years. Let's use it as an example.
+We notice that tree number 26 is the only one to have been sampled for all three
+years. Let's use it as an example.
 
 ```{r}
-setpop(monpop) <- ~Tree
-t26 <- popsub(monpop, "26")
-setpop(t26) <- ~Year/Symptom
+t26 <- monpop %>% setpop(~Tree) %>% popsub("26") %>% setpop(~Year/Symptom)
 t26
 ```
 
@@ -102,8 +217,8 @@ The minimum spanning network is calculated via `bruvo.msn`. I've set the
 argument `showplot = FALSE` because I want to use the more powerful function
 `plot_poppr_msn` to view the MSN. In this, I'm telling it to lable none of the
 samples, color populations using the "cm.colors" palette and scale the size of
-the nodes to $log_{1.25}$. If you want to know what other things this function can
-do, simply type `help("plot_poppr_msn")`
+the nodes to $log_{1.25}$. If you want to know what other things this function
+can do, simply type `help("plot_poppr_msn")`
 
 ```{r, fig.width = 7, fig.height = 7}
 # Visualize the network
@@ -111,14 +226,24 @@ set.seed(9001)
 plot_poppr_msn(t26, t26.9msn, inds = "none", palette = cm.colors, nodebase = 1.25)
 ```
 
-We can see that the Blossom Blight in the tree (pink pie pieces) heavily contributed to the major groups of MLGs found in the Fruit Rot (blue pie pieces). 
+We can see that the Blossom Blight in the tree (pink pie pieces) heavily
+contributed to the major groups of MLGs found in the Fruit Rot (blue pie
+pieces).
 
 > **Try it!** See if you can produce similar graphs with the 2010 and 2011 populations.
 
 K-means hierarchical clustering
 ----
 
-A recent study reported that the origin of the potato late blight pathogen *Phytophthora infestans* lies in Mexico as opposed to South America `r citep(bib['goss2014irish'])`. We saw in the previous chapter that South American populations showed signatures of clonal reproduction while Mexican populations showed no evidence rejecting the null hypothesis of random mating. In this section, we will use K-means clustering in combination with bootstrapped dendrograms to see how well this pattern holds up. Clonal populations should have short terminal branch lengths and should cluster according to those branches. Panmictic populations will show no clear pattern. Let's look at the data: 
+A recent study reported that the origin of the potato late blight pathogen
+*Phytophthora infestans* lies in Mexico as opposed to South America `r citep(bib['goss2014irish'])`. 
+We saw in the previous chapter that South American populations showed signatures
+of clonal reproduction while Mexican populations showed no evidence rejecting
+the null hypothesis of random mating. In this section, we will use K-means
+clustering in combination with bootstrapped dendrograms to see how well this
+pattern holds up. Clonal populations should have short terminal branch lengths
+and should cluster according to those branches. Panmictic populations will show
+no clear pattern. Let's look at the data:
 
 ```{r}
 data(Pinf)
@@ -140,7 +265,9 @@ cat("Choose the number PCs to retain (>=1): \n")
 message("50")
 ```
 
-PC stands for principal component, are unitless transofrmations of your data that explaining the variance observed. For the purposes of `find.clusters`, we can keep as many as we want.
+PC stands for principal components, which are unitless transformations of your data
+that explain the variance observed. For the purposes of `find.clusters`, we
+can keep as many as we want.
 
 ![MX_CLUSTER](Pop_Structure_files/figure-html/MXCLUST.png)
 
@@ -151,7 +278,9 @@ cat("Choose the number PCs to retain (>=2: \n")
 message("3")
 ```
 
-BIC stands for "Bayesian Information Criterion". The lower the BIC value, the better. On the x axis are the number of clusters. We see that there is a bend at 3 clusters, indicating that the data clusters optimally into three groups. 
+BIC stands for "Bayesian Information Criterion". The lower the BIC value, the
+better. On the x axis are the number of clusters. We see that there is a bend at
+3 clusters, indicating that the data clusters optimally into three groups.
 
 
 ```{r, echo = FALSE}
@@ -189,7 +318,9 @@ cat("Choose the number PCs to retain (>=2): \n")
 message("4")
 ```
 
-Notice here that there is no uptick in the curve. This indicates that there [might not be enough information in the data set to properly cluster](http://lists.r-forge.r-project.org/pipermail/adegenet-forum/2011-June/000303.html). We will go ahead by choosing the highest number of clusters:
+Notice here that there is no local minimum in the curve. This indicates that there
+[might not be enough information in the data set to properly cluster](http://lists.r-forge.r-project.org/pipermail/adegenet-forum/2011-June/000303.html). 
+We will go ahead by choosing the highest number of clusters:
 
 ```{r, echo = FALSE}
 SA <- popsub(Pinf, "South America")
@@ -198,7 +329,8 @@ SAclust <- find.clusters(SA, n.pca = 30, n.clust = 4)
 
 ### Trees
 
-Now we will build trees. We are using Bruvo's distance since polyploids bias calculation of other distances: 
+Now we will build trees. We are using Bruvo's distance since polyploids bias
+calculation of other distances:
 
 ```{r, trees, fig.width = 5, fig.height = 7}
 pinfreps <- c(2, 2, 6, 2, 2, 2, 2, 2, 3, 3, 2)
@@ -206,7 +338,8 @@ MXtree <- bruvo.boot(MX, replen = pinfreps, cutoff = 50, quiet = TRUE)
 SAtree <- bruvo.boot(SA, replen = pinfreps, cutoff = 50, quiet = TRUE)
 ```
 
-We see very long terminal branches in the MX tree. Let's see how the groups we found with the clustering algorithm match up:
+We see very long terminal branches in the MX tree. Let's see how the groups we
+found with the clustering algorithm match up:
 
 ```{r, grouptree, fig.width = 5, fig.height = 7}
 library("ape")
@@ -218,7 +351,9 @@ nodelabels(MXtree$node.label, adj = c(1.3, -0.5), frame = "n", cex = 0.8,
 axisPhylo(3)
 ```
 
-You can see that the assigned clusters don't necessarily group with the dendrogram clusters. Let's see what happens when we view this with the South American population:
+You can see that the assigned clusters don't necessarily group with the
+dendrogram clusters. Let's see what happens when we view this with the South
+American population:
 
 ```{r, grouptreeSA, fig.width = 5, fig.height = 7}
 plot.phylo(SAtree, cex = 0.8, font = 2, adj = 0, tip.color = cols[SAclust$grp],
@@ -228,17 +363,8 @@ nodelabels(SAtree$node.label, adj = c(1.3, -0.5), frame = "n", cex = 0.8,
 axisPhylo(3)
 ```
 
-Everything clusters together nicely, further supporting a non-panmictic population. 
-
-Other methods
-----
-
-Not all methods of clustering need to be based on Bruvos's distance. There are others
-available. See `?nei.dist` for more details. The function `aboot` will perform bootstrap
-analysis on any distance given for individuals or populations, and `poppr.msn` will create
-minimum spanning networks given a genind object and a distance.
+Everything clusters together nicely, further supporting a non-panmictic
+population.
 
 References
 ----------
-
-<!------------->

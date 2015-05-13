@@ -16,7 +16,7 @@ title: "10: AMOVA"
 
 In this chapter, we will utilize AMOVA to analyze our populations. AMOVA stands
 for **A**nalysis of **MO**lecular **VA**riance and is a method to detect
-population differentiation utilizing molecular markers `r citep(bib[c("excoffier1992analysis")])`. This procedure was initially implemented for DNA haplotypes, but applies to any marker system. The implementation of AMOVA in *poppr* requires two very basic components: A distance matrix derived from the data and a separate table used to partition the data into different hierarchical levels.
+population differentiation utilizing molecular markers `r citep(bib[c("excoffier1992analysis")])`. This procedure was initially implemented for DNA haplotypes, but applies to any marker system. The implementation of AMOVA in *poppr* requires two very basic components: (1) A distance matrix derived from the data and (2) a separate table used to partition the data into different hierarchical levels.
 
 The distance matrix can be calculated using any distance as long as it is euclidean. The distance that is used in the program Arlequin is the opposite of the Kronecker Delta function that counts the number of differences summed over $L$ loci:
 
@@ -44,15 +44,15 @@ Aeut <- as.genclone(Aeut)
 Aeut
 ```
 We can see that this data set contains clonal data and has three hierarchical levels where the first is really a combination of the other levels. We can take a look
-at the different hierarchical levels, first populations followed by subpopulations: 
+at the different hierarchical levels, populations or subpopulations: 
 
 ```{r}
-table(gethierarchy(Aeut, ~Pop))
-table(gethierarchy(Aeut, ~Pop/Subpop, combine = FALSE))
+table(gethierarchy(Aeut, ~Pop))  # Populations
+table(gethierarchy(Aeut, ~Pop/Subpop, combine = FALSE))  # Subpopulations
 ```
 
 
-In this example, we have a data set of 187 individuals sampled from two fields in regions Athena and Mt. Vernon over different 8 or 10 soil samples within each field. We want to see if most of the variance is observed at the sample, field, or regional level. 
+In this example, we have a data set of 187 individuals sampled from two fields located in Athena or Mt. Vernon over 8 or 10 different soil samples within each field. We want to see if most of the variance is observed at the sample, field, or regional level. 
 
 Analysis
 ----
@@ -168,7 +168,7 @@ these populations are significantly differentiated at all hierarchical levels `r
 hypotheses as to why these populations are significantly differentiated.
 
 This example was performed with a data set of dominant (AFLP)
-markers, but it can also be performed on codominant markers as well (SNP, SSR). These provide more information because within sample (individual) variance is also assessed. If one wants to utilize a genetic distance that has biological relevance, a different distance matrix can be provided by the user. See `help('amova', package = 'poppr')` for more details.
+markers, but it can also be performed on codominant markers such as SNPs or SSRs. These provide more information because within sample (individual) variance is also assessed. If one wants to utilize a genetic distance that has biological relevance, a different distance matrix can be chosen. See `help('amova', package = 'poppr')` for more details.
 
 References
 ----------

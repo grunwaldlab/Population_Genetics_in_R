@@ -31,7 +31,8 @@ all of the statistics mentioned above. For documentation on this function type
 
 ```{r, locus_table_stats}
 library("poppr")     # Make sure poppr is loaded if you haven't done so already.
-data(Pinf)         # P. infestans data set from Mexico and South America
+library("magrittr")  # We will also use magrittr for part of this chapter
+data(Pinf)           # P. infestans data set from Mexico and South America
 locus_table(Pinf)
 ```
 
@@ -98,11 +99,11 @@ missing data with zeroes or the average values of the locus.
 Removing loci and genotypes
 -----
 
-When removing loci or genotypes, you can specify a cutoff representing the percent missing to be removed. The default is `0.05` (5%).
+When removing loci or genotypes, you can specify a cutoff representing the
+percent missing to be removed. The default is `0.05` (5%).
 
 ```{r, fig.cap = "Plot of missing data"}
-nanloc <- missingno(nancycats, "loci") # Removing loci with greater than 5% missing.
-miss <- info_table(nanloc, plot = TRUE, scale = FALSE)
+nancycats %>% missingno("loci") %>% info_table(plot = TRUE, scale = FALSE)
 ```
 
 > **Advanced Users:** when `scale = TRUE`, the color scale will be set so that 
@@ -112,25 +113,24 @@ We only removed two loci. If we wanted to make sure we removed everything, we
 could set `cutoff = 0`.
 
 ```{r}
-nanloc <- missingno(nancycats, "loci", cutoff = 0)
-miss <- info_table(nanloc, plot = TRUE)
+miss <- nancycats %>% missingno("loci", cutoff = 0) %>% info_table(plot = TRUE)
 ```
 
 Again, removing individuals is also relatively easy:
 
 ```{r, fig.cap = "Plot of missing data"}
-nanind <- missingno(nancycats, "geno")
-miss <- info_table(nanind, plot = TRUE)
-nanind <- missingno(nancycats, "geno", cutoff = 0)
-miss <- info_table(nanind, plot = TRUE) 
+miss <- nancycats %>% missingno("geno") %>% info_table(plot = TRUE)
+miss <- nancycats %>% missingno("geno", cutoff = 0) %>% info_table(plot = TRUE)
 ```
 
-`Missingno` removes individuals based on the percent of missing data relative to
-the number of loci. Let's remove all individuals with 2 missing loci:
+The function `missingno` removes individuals based on the percent of missing
+data relative to the number of loci. Let's remove all individuals with 2 missing
+loci:
 
 ```{r, fig.height=6, fig.width = 10, fig.cap = "Plot of missing data"}
-nanind <- missingno(nancycats, "geno", cutoff = 2/nLoc(nancycats))
-miss <- info_table(nanind, plot = TRUE) 
+miss <- nancycats %>% 
+  missingno("geno", cutoff = 2/nLoc(nancycats)) %>% 
+  info_table(plot = TRUE)
 ```
 
 We only found one individual in population 11.
@@ -138,10 +138,10 @@ We only found one individual in population 11.
 Replacing missing data
 ----
 
-Replacement of missing data occurs for each allele over all loci. It will replace all missing data in your data set. There are two options: replacement of
-missing data with zeroes, in fact recoding these as another
-allelic state, or replacement of missing data with the average allele 
-frequency observed. 
+Replacement of missing data occurs for each allele over all loci. It will
+replace all missing data in your data set. There are two options: replacement of
+missing data with zeroes, in fact recoding these as another allelic state, or
+replacement of missing data with the average allele frequency observed.
 
 Note that the first population in the data set has 20% missing data
 at the first locus. Here is the un-replaced data for reference:
@@ -169,15 +169,16 @@ because the procedure is performed over the entire data set, not by population.
 Let's look at what happens if we perform the same routine on the subsetted data.
 
 ```{r}
-nan1 <- popsub(nancycats, 1, drop = TRUE) # dropping alleles not in this population. 
-nan1mean <- missingno(nan1, "mean")
-nan1mean[loc = "L1"]@tab
+nan1 <- nancycats %>% popsub(1, drop = TRUE) %>% missingno("mean")
+nan1[loc = "L1"]@tab
 ```
 
 Hardy-Weinberg equilibrium
 -----
 
-Next, let's determine if our  populations are in Hardy-Weinberg equilibrium. We will again use the nancycats data to test for HWE using genind objects, a dataframe particular to the *adegenet* R package: 
+Next, let's determine if our  populations are in Hardy-Weinberg equilibrium. We
+will again use the nancycats data to test for HWE using genind objects, a
+dataframe particular to the *adegenet* R package:
 
 ```{r, hwe}
 if (!require("genetics")){ 
@@ -188,25 +189,28 @@ nanhwe.full <- HWE.test.genind(nancycats) # returns a list
 nanhwe.mat  <- HWE.test.genind(nancycats, res.type = "matrix") # returns a matrix
 ```
 
-The full report (`nanhwe.full`) will give us a list of loci, each containing a list of 
-populations, where each population is the result of a $\chi^2$ test. We will analyze data for a few loci to avoid writing a large amount of data to the screen. With the following statements, we can see that at locus1 (`fca8`), we have no good evidence to reject the null hypothesis that population 1
-(`P01`) is not in HWE, but we have evidence that population 2 (`P02`) is not in 
-HWE:
+The full report (`nanhwe.full`) will give us a list of loci, each containing a
+list of populations, where each population is the result of a $\chi^2$ test. We
+will analyze data for a few loci to avoid writing a large amount of data to the
+screen. With the following statements, we can see that at locus1 (`fca8`), we
+have no good evidence to reject the null hypothesis that population 1 (`P01`) is
+not in HWE, but we have evidence that population 2 (`P02`) is not in HWE:
 
 ```{r}
 nanhwe.full$fca8$P01
 nanhwe.full$fca8$P02
 ```
 
-Of course, checking all of these is tedious, but we can look at a matrix for all loci by population:
+Of course, checking all of these is tedious, but we can look at a matrix for all
+loci by population:
 
 ```{r}
 nanhwe.mat
 ```
 
-However, this is still hard to sift through. We will thus define an $\alpha$ value
-and set everything above that value to 1 so that we can visually detect candidate 
-loci where we might reject the $H_o$ of HWE.
+However, this is still hard to sift through. We will thus define an $\alpha$
+value and set everything above that value to 1 so that we can visually detect
+candidate loci where we might reject the $H_o$ of HWE.
 
 ```{r}
 alpha  <- 0.05
@@ -220,10 +224,9 @@ library("lattice")
 levelplot(newmat)
 ```
 
-This simple plot shows us loci in rows and populations in columns. Note, that 
-all loci shown in pink are loci suspected for not being in HWE with $p \leq 0.05$. 
+This simple plot shows us loci in rows and populations in columns. Note, that
+all loci shown in pink are loci suspected for not being in HWE with $p \leq
+0.05$.
 
 References
 ----------
-
-<!---------->

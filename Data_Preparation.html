@@ -96,23 +96,33 @@ body {
 
 <link rel="stylesheet" href="libs/font-awesome-4.1.0/css/font-awesome.min.css"/>
 
+
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; }
+code > span.dt { color: #204a87; }
+code > span.dv { color: #0000cf; }
+code > span.bn { color: #0000cf; }
+code > span.fl { color: #0000cf; }
+code > span.ch { color: #4e9a06; }
+code > span.st { color: #4e9a06; }
+code > span.co { color: #8f5902; font-style: italic; }
+code > span.ot { color: #8f5902; }
+code > span.al { color: #ef2929; }
+code > span.fu { color: #000000; }
+code > span.er { font-weight: bold; }
+</style>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
   }
 </style>
-<script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
-}
-</script>
 
 
 
@@ -177,6 +187,7 @@ img {
           <ul class = "dropdown-menu", role = "menu">
             <li><a href="Data_sets.html">A1. Data sets</a></li>
             <li><a href="Function_Glossary.html">A2. Function glossary</a></li>
+            <li><a href="Intro_to_R.html">A3. Introduction to R</a></li>
           </ul>
         </li>
         <!-- Author button -->
@@ -236,8 +247,8 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <p>Note that <code>*.csv</code> stands for comma-separated-value. This can be opened in a text editor or excel. <code>*.csv</code> is a good format for portability into R.</p>
 </blockquote>
 <p>To import GenAlEx formatted data into <em>poppr</em>, you should use the function <code>read.genalex</code>. Below is an example using <strong>monpop.csv</strong>.</p>
-<pre class="r"><code>library(&quot;poppr&quot;)
-monpop &lt;- read.genalex(&quot;~/Downloads/monpop.csv&quot;)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
+monpop &lt;-<span class="st"> </span><span class="kw">read.genalex</span>(<span class="st">&quot;~/Downloads/monpop.csv&quot;</span>)
 monpop</code></pre>
 <pre><code>## 
 ## This is a genclone object
@@ -410,8 +421,8 @@ Tree_Year_Symptom
 <p>If you do not want to concatenate your population factors into one row, save them as a separate csv file and use the functions <code>read.table</code> and <code>sethierarchy</code> after you’ve imported your genetic data to achieve the same result.</p>
 </blockquote>
 <p>The data imported this way can be accessed with the function <code>splithierarchy</code>:</p>
-<pre class="r"><code># using monpop from above
-monpop # Before (One level, Pop)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># using monpop from above</span>
+monpop <span class="co"># Before (One level, Pop)</span></code></pre>
 <pre><code>## 
 ## This is a genclone object
 ## -------------------------
@@ -426,8 +437,8 @@ monpop # Before (One level, Pop)</code></pre>
 ##      1 hierarchical level - Pop
 ##     12 populations defined - 7_09_BB 26_09_BB 26_09_FR ... 45_10_FR 
 ## 26_11_BB 26_11_FR</code></pre>
-<pre class="r"><code>splithierarchy(monpop) &lt;- ~Tree/Year/Symptom
-monpop # After (Three distinct levels)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">splithierarchy</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree/Year/Symptom
+monpop <span class="co"># After (Three distinct levels)</span></code></pre>
 <pre><code>## 
 ## This is a genclone object
 ## -------------------------
