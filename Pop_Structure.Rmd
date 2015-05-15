@@ -19,9 +19,10 @@ structured (e.g., differentiated). You can think of population structure as
 identifying clusters or groups of more closely related individuals resulting
 from reduced gene flow among these groups. Populations can be studied to
 determine if they are structured by using for example population differentiation
-(e.g. $G_{ST}$), clustering, or graphing of minimum spanning networks (MSN). Note, that
-this chapter will utilize many data sets due to the unique features offered by
-each. Let's first look at an example of population differentiation based on $G_{ST}$.
+(e.g. $G_{ST}$), clustering, or graphing of minimum spanning networks (MSN).
+Note, that this chapter will utilize many data sets due to the unique features
+offered by each. Let's first look at an example of population differentiation
+based on $G_{ST}$.
 
 $G_{ST}$ an example with *Felis catus* data.
 ----
@@ -34,8 +35,9 @@ you into the direction of a package dedicated to Modern Methods of
 Differentiation called *mmod*. We will use the data set *nancycats* containing
 17 colonies of cats collected from Nancy, France. As cats tend to stay within
 small groups, we expect to see some population differentiation. In terms of
-these diversity measures, an index of $G_{ST}$ = 0 indicates no differentiation, whereas $G_{ST}$ = 1
-indicates that populations are segregating for differing alleles.
+these diversity measures, an index of $G_{ST}$ = 0 indicates no differentiation,
+whereas $G_{ST}$ = 1 indicates that populations are segregating for differing
+alleles.
 
 Let's load the package and the example data set:
 
@@ -108,9 +110,11 @@ plot(theTree)
 add.scale.bar(length = 0.05) # add a scale bar showing 5% difference.
 ```
 
-Notice that the sample names start with either "AF" or "FR". This indicates 
-their country of origin and we are seeing that the populations cluster correspondingly. Of course, a tree is a hypothesis and one way of generating support
-is to bootstrap loci. This can be achieved with the *poppr* function `aboot`.
+Notice that the sample names start with either "AF" or "FR". This indicates
+their country of origin and we are seeing that the populations cluster
+correspondingly. Of course, a tree is a hypothesis and one way of generating
+support is to bootstrap loci. This can be achieved with the *poppr* function
+`aboot`.
 
 ```{r, fig.width = 5, fig.height = 7}
 set.seed(999)
@@ -153,9 +157,9 @@ of the different analyses for which you can utilize genetic distance:
 | [DAPC](DAPC.html) | `dapc` | *adegenet* | Convert to matrix with `as.matrix` | 
 | Minimum Spanning Networks | `poppr.msn` | *poppr* | requires a distance matrix; cannot handle genpop | 
 
-The rest of this chapter will utilize Bruvo's distance `r citep(bib['bruvo2004simple'])`.
-It is important to note that calculating Bruvo's distance is computationally 
-different than other distances, so it has its own specialized functions for 
+The rest of this chapter will utilize Bruvo's distance `r citep(bib['bruvo2004simple'])`. 
+It is important to note that calculating Bruvo's distance is computationally
+different than other distances, so it has its own specialized functions for
 minimum spanning networks and bootstrapping that do not need a distance matrix:
 
 | General function | Bruvo specific |
@@ -182,6 +186,7 @@ Let's load the data:
 
 ```{r}
 library("poppr")
+library("magrittr")
 data(monpop)
 splithierarchy(monpop) <- ~Tree/Year/Symptom
 summary(monpop)
@@ -246,6 +251,7 @@ and should cluster according to those branches. Panmictic populations will show
 no clear pattern. Let's look at the data:
 
 ```{r}
+library("poppr")
 data(Pinf)
 Pinf
 ```
@@ -265,7 +271,7 @@ cat("Choose the number PCs to retain (>=1): \n")
 message("50")
 ```
 
-PC stands for principal components, which are unitless transformations of your data
+PC stands for principal components, which are unit-less transformations of your data
 that explain the variance observed. For the purposes of `find.clusters`, we
 can keep as many as we want.
 

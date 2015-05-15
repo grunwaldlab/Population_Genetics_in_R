@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 use Getopt::Long;
+use lib ".";
 use Roman;
 use Scalar::Util qw(looks_like_number);
 
