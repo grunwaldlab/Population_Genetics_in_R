@@ -492,6 +492,7 @@ microbov %&gt;%<span class="st"> </span>
 </ol>
 <p>Let’s load the data:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)
 <span class="kw">data</span>(monpop)
 <span class="kw">splithierarchy</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree/Year/Symptom
 <span class="kw">summary</span>(monpop)</code></pre>
@@ -560,7 +561,8 @@ t26.9msn &lt;-<span class="st"> </span><span class="kw">bruvo.msn</span>(t26, <s
 <div id="k-means-hierarchical-clustering" class="section level2">
 <h2>K-means hierarchical clustering</h2>
 <p>A recent study reported that the origin of the potato late blight pathogen <em>Phytophthora infestans</em> lies in Mexico as opposed to South America <span class="citation">(Goss et al., 2014)</span>. We saw in the previous chapter that South American populations showed signatures of clonal reproduction while Mexican populations showed no evidence rejecting the null hypothesis of random mating. In this section, we will use K-means clustering in combination with bootstrapped dendrograms to see how well this pattern holds up. Clonal populations should have short terminal branch lengths and should cluster according to those branches. Panmictic populations will show no clear pattern. Let’s look at the data:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Pinf)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
+<span class="kw">data</span>(Pinf)
 Pinf</code></pre>
 <pre><code>## 
 ## This is a genclone object
@@ -581,7 +583,7 @@ MXclust &lt;-<span class="st"> </span><span class="kw">find.clusters</span>(MX)<
 <p><img src="Pop_Structure_files/figure-html/MXPCA.png" alt="MX_PCA" /></p>
 <pre><code>## Choose the number PCs to retain (&gt;=1):</code></pre>
 <pre><code>&gt; 50</code></pre>
-<p>PC stands for principal components, which are unitless transformations of your data that explain the variance observed. For the purposes of <code>find.clusters</code>, we can keep as many as we want.</p>
+<p>PC stands for principal components, which are unit-less transformations of your data that explain the variance observed. For the purposes of <code>find.clusters</code>, we can keep as many as we want.</p>
 <p><img src="Pop_Structure_files/figure-html/MXCLUST.png" alt="MX_CLUSTER" /></p>
 <pre><code>## Choose the number PCs to retain (&gt;=2:</code></pre>
 <pre><code>&gt; 3</code></pre>
