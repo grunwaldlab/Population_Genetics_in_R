@@ -25,3 +25,9 @@ render: $(f)
 .PHONY: clean
 clean:
 	$(RM) $(HTML_FILES)
+
+poppr_two:
+	R --slave -e 'local({r <- getOption("repos"); r["CRAN"] <- "http://cran.at.r-project.org"; options(repos = r)}); devtools::install_github(c("emmanuelparadis/pegas/pegas", "thibautjombart/adegenet", "grunwaldlab/poppr@2.0-rc"))';
+	
+poppr_one:
+	R --slave -e 'local({r <- getOption("repos"); r["CRAN"] <- "http://cran.at.r-project.org"; options(repos = r)}); install.packages(c("pegas", "adegenet", "poppr"))';
