@@ -38,10 +38,10 @@ and 7). Each tree was sampled in 2009, 2010, and/or 2011.  Additionally, each
 sample was noted as to whether it came from a blossom or a fruit. This example
 data set is included with the *poppr* package.
 
-Working with hierarchical data
+Working with stratified data
 ----
 
-The steps for working with hierarchical data include:
+The steps for working with stratified data include:
 
 1.  Import data set with samples labeled according to strata
 2.  Define the stratifications for the data
@@ -49,7 +49,7 @@ The steps for working with hierarchical data include:
 
 Importing data labeled according to a strata
 ----
-The easiest way to work with hierarchical data is to label each sample using an
+The easiest way to work with stratified data is to label each sample using an
 underscore "\_" to separate each stratification.  This was already done for
 the monpop data, where each sample was coded hierarchically by tree, year, and
 symptom in the following format: "Tree\_Year\_Symptom".

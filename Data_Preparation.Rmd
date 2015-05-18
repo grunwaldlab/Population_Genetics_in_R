@@ -155,7 +155,7 @@ Population strata
 ----
 
 A hierarchical sampling approach is necessary to infer structure of populations
-in space or time. *Poppr* facilitates definition of hierarchical data by
+in space or time. *Poppr* facilitates definition of stratified data by
 concatenating the different stratifications into a single column by a common
 separator ("\_" by default). Here's an example of the three stratifications
 of the `monpop` data set introduced above:
