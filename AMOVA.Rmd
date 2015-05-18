@@ -39,7 +39,8 @@ stratifications. We will use the *Aphanomyces euteiches* data set from
 
 ```{r}
 library("poppr")
-data(Aeut)
+data("Aeut")
+strata(Aeut) <- data.frame(other(Aeut)$population_hierarchy)
 Aeut <- as.genclone(Aeut)
 Aeut
 ```
