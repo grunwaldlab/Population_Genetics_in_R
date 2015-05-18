@@ -76,8 +76,7 @@ Function | Description
 `as.genclone` | Converts genind objects to genclone objects
 `setPop` | Set the population using defined strata
 `splitStrata` | Split a concatenated strata imported as a population
-`strata` | Define a population strata of a genclone object
-`strata` | Extract the strata data frame
+`strata` | Define or extract population strata of a genind object
 `addStrata` | Add a vector or data frame to an existing strata
 `nameStrata` | Rename a population strata
 `missingno` | Handles missing data
