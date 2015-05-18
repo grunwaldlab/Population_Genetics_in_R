@@ -177,7 +177,7 @@ foo_foo %>%
 *Phytophthora infestans* data from North and South America 
 `r citep(bib['goss2014irish'])`. Calculating allelic diversity per population
 after clone-correction. This information can be found in our chapters on
-[Population hierarchies and clone correction](Population_Hierarchies.html) and
+[Population strata and clone correction](Population_Strata.html) and
 [Locus based statistics](Locus_Stats.html).
 
 ```{r, eval = FALSE}

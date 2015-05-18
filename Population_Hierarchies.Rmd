@@ -8,7 +8,7 @@
   # http://yihui.name/knitr/options #chunk_options
 ```
 ---
-title: "5: Populations hierarchies: subsetting and clone correction"
+title: "5: Populations strata: subsetting and clone correction"
 ---
 
 Populations are best sampled hierarchically on a range of scales from
@@ -21,7 +21,7 @@ of targeted local sampling with sampling over larger spatial or temporal scales
 is necessary to detect population structure over different scales, without using
 intense sampling throughout the entire range.
 
-The methods implemented in *poppr* allow specification of which hierarchies you
+The methods implemented in *poppr* allow specification of which strata you
 want to analyze.  This is a rapid way of working with subsets of your data
 without having to perform any data manipulation or changing the input file.  In
 this tutorial, we will show you how to define the hierarchical structure of your
@@ -117,8 +117,8 @@ setpop(monpop) <- ~Symptom/Tree
 monpop
 ````
 
-Now that we have laid out the basics of manipulating data by hierarchies,
-we will now apply hierarchies for clone correction.
+Now that we have laid out the basics of manipulating data by strata,
+we will now apply strata for clone correction.
 
 Clone correction
 ----

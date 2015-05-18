@@ -151,7 +151,7 @@ that locus, an observed diploid and observed triploid. Note the extra zeroes
 needed to make the genotype tetraploid.
 
 
-Population hierarchies
+Population strata
 ----
 
 A hierarchical sampling approach is necessary to infer structure of populations
@@ -256,7 +256,7 @@ splitStrata(monpop) <- ~Tree/Year/Symptom
 monpop # After (Three distinct levels)
 ```
 
-This is detailed in [our chapter on population hierarchies](Population_Hierarchies.html).
+This is detailed in [our chapter on population strata](Population_Strata.html).
 
 References
 ----------
