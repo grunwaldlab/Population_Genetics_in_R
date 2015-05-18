@@ -46,7 +46,7 @@ if (!require("mmod")){
   install.packages("mmod", repos = "http://cran.at.r-project.org")
   require("mmod")
 }
-data(nancycats)
+data("nancycats")
 nancycats
 ```
 
@@ -252,7 +252,7 @@ no clear pattern. Let's look at the data:
 
 ```{r}
 library("poppr")
-data(Pinf)
+data("Pinf")
 Pinf
 ```
 
