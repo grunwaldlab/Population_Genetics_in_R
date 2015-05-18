@@ -185,13 +185,13 @@ library("poppr")
 library("magrittr")
 data(Pinf)
 
-allelic_diversity <- lapply(seppop(clonecorrect(Pinf, hier = ~Continent/Country)), 
+allelic_diversity <- lapply(seppop(clonecorrect(Pinf, strata= ~Continent/Country)), 
                             FUN = locus_table, info = FALSE)
 
 # VS
 
 allelic_diversity <- Pinf %>%
-  clonecorrect(hier = ~Continent/Country) %>% # clone censor by continent and country.
+  clonecorrect(strata= ~Continent/Country) %>% # clone censor by continent and country.
   seppop() %>%                                # Separate populations (by continent)
   lapply(FUN = locus_table, info = FALSE)     # Apply the function locus_table to both populations
 ```

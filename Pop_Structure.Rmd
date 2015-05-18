@@ -135,7 +135,7 @@ create a tree using `aboot` with Nei's genetic distance.
 microbov <- as.genclone(microbov, strata = other(microbov))
 microbov
 nameStrata(microbov) <- ~Country/Breed/Species
-setpop(microbov) <- ~Country/Breed
+setPop(microbov) <- ~Country/Breed
 
 # Analysis
 set.seed(999)
@@ -196,7 +196,7 @@ We notice that tree number 26 is the only one to have been sampled for all three
 years. Let's use it as an example.
 
 ```{r}
-t26 <- monpop %>% setpop(~Tree) %>% popsub("26") %>% setpop(~Year/Symptom)
+t26 <- monpop %>% setPop(~Tree) %>% popsub("26") %>% setPop(~Year/Symptom)
 t26
 ```
 

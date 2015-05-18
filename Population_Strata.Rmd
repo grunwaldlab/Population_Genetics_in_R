@@ -98,14 +98,14 @@ Year Symptom".
 Next, we analyze the data according to Tree and Year:
 
 ```{r}
-setpop(monpop) <- ~Tree/Year
+setPop(monpop) <- ~Tree/Year
 monpop
 ```
 
 To analyze the data according to Symptom:
 
 ````{r}
-setpop(monpop) <- ~Symptom
+setPop(monpop) <- ~Symptom
 monpop
 ````
 
@@ -113,7 +113,7 @@ Order of the levels that you define is important, so if we wanted to define the
 symptoms according to tree, we would use the following:
 
 ````{r}
-setpop(monpop) <- ~Symptom/Tree
+setPop(monpop) <- ~Symptom/Tree
 monpop
 ````
 
@@ -140,7 +140,7 @@ within each tree per year, how should we go about correcting for the clones? We
 use the function `clonecorrect` specifying the "Tree/Year" strata:
 
 ```{r, clonecorrection}
-mcc_TY <- clonecorrect(monpop, hier = ~Tree/Year, keep = 1:2)
+mcc_TY <- clonecorrect(monpop, strata= ~Tree/Year, keep = 1:2)
 mcc_TY
 ```
 
@@ -152,7 +152,7 @@ representative genotype *per population*. Before we continue, we should set the
 original data to the same strata:
 
 ```{r}
-setpop(monpop) <- ~Tree/Year
+setPop(monpop) <- ~Tree/Year
 ```
 
 Now we can compare the diversity of alleles at each locus using Simpson's index

@@ -29,7 +29,7 @@ For the analysis, we need to read in the data, specify the hierarchical levels i
 library("poppr")
 data(monpop)
 splitStrata(monpop) <- ~Tree/Year/Symptom
-setpop(monpop) <- ~Symptom
+setPop(monpop) <- ~Symptom
 monpop
 ```
 
