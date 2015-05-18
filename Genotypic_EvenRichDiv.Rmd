@@ -23,7 +23,7 @@ For this example, we can explore the hypothesis that the population that infects
 * Is genotypic diversity of BB populations higher for FR populations?
 * Is genotypic evenness higher for BB populations than for FR populations?
 
-For the analysis, we need to read in the data, specify the stratifications in the data, and then set the hierarchical level to symptom so that we can calculate genotypic richness, diversity, and evenness for BB as compared to FR for the entire data set:
+For the analysis, we need to read in the data, specify the stratifications in the data, and then set the stratification to symptom so that we can calculate genotypic richness, diversity, and evenness for BB as compared to FR for the entire data set:
 
 ```{r}
 library("poppr")

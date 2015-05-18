@@ -45,12 +45,12 @@ The steps for working with hierarchical data include:
 
 1.  Import data set with samples labeled according to strata
 2.  Define the stratifications for the data
-3.  Setting the hierarchical level(s) that you want to have analyzed
+3.  Setting the stratification(s) that you want to have analyzed
 
 Importing data labeled according to a strata
 ----
 The easiest way to work with hierarchical data is to label each sample using an
-underscore "\_" to separate each hierarchical level.  This was already done for
+underscore "\_" to separate each stratification.  This was already done for
 the monpop data, where each sample was coded hierarchically by tree, year, and
 symptom in the following format: "Tree\_Year\_Symptom".
 
@@ -70,7 +70,7 @@ think of stratifications as the index names for each of the hierarchical
 levels within your data (so for our data it should be Tree, Year, and Symptom).
 By default, however, no stratifications are defined and so this is "Pop",
 which is the entire dataset of 694 individuals.  Because we labeled each sample
-according to hierarchical level, populations defined shows us our data has 12
+according to stratification, populations defined shows us our data has 12
 groups defined: `r monpop$pop.names`.
 
 Assigning stratifications
@@ -92,7 +92,7 @@ monpop
 > The `splitStrata` command only needs to be run once: right after you import
 > your data. 
 
-After splitting the data populations are specified by hierarchical level: "Tree
+After splitting the data populations are specified by stratification: "Tree
 Year Symptom".
 
 Next, we analyze the data according to Tree and Year:
@@ -131,7 +131,7 @@ This technique is commonly used with the index of association
 and genotypic diversity measures since clone corrected populations approximate behavior of sexual populations. Since we want to only observe unique genotypes per population,
 clone correction requires specification of the stratifications at which
 clones should be censored. This section will show how to clone correct at a
-specific hierarchical level and also compare the results with uncorrected data.
+specific stratification and also compare the results with uncorrected data.
 
 > Question: Will allelic diversity increase or decrease with clone-censored data?
 
@@ -295,7 +295,7 @@ Conclusions
 
 This was a brief introduction to the easiest way to create stratifications
 and apply them in *poppr* to more rapidly analyze your data. By indexing the
-stratifications of your data, you can set the hierarchical level(s) you want
+stratifications of your data, you can set the stratification(s) you want
 to have analyzed in a single command.  This approach avoids having to
 create new sub-sets of the data for each analysis and simultaneously reduces the
 chance of error when manipulating data sets by hand.

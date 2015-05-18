@@ -84,7 +84,7 @@ The first thing to look at are the `$results` element. The degrees of freedom
 subpopulations since we cannot asses within-sample variance of dominant data. 
 
 The `$componentsofcovariance` table shows how much
-variance is detected at each hierarchical level. We expect variations within samples to 
+variance is detected at each stratification. We expect variations within samples to 
 give the greatest amount of variation for populations that are not significantly
 differentiated. `Sigma` represents the variance, $\sigma$, for each hierarchical
 level and to the right is the percent of the total. 
