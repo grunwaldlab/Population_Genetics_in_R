@@ -320,7 +320,7 @@ in several ways:
 </div>
 <div id="using-magrittr" class="section level2">
 <h2>Using <em>magrittr</em></h2>
-<p>Various chapters throughout this primer will have the symbol <code>%&gt;%</code> in the code. This is called a “pipe” operator and it allows code to be more readable by stringing together commands from right to left. When reading code, it can be thought of as equivalent to saying “and then”. For example, if you have three consecutive steps to a process, you would write this in English as:</p>
+<p>Various chapters throughout this primer will have the symbol <code>%&gt;%</code> in the code. This is called a “pipe” operator and it allows code to be more readable by stringing together commands from right to left. Here’s a <a href="http://rforcats.net/#pipes">short description of these “pipes” with cats</a>. When reading code, it can be thought of as equivalent to saying “and then”. For example, if you have three consecutive steps to a process, you would write this in English as:</p>
 <blockquote>
 <p>Take your data <strong>and then</strong> do step one, <strong>and then</strong> do step two, <strong>and then</strong> do step three.</p>
 </blockquote>
@@ -348,7 +348,8 @@ foo_foo %&gt;%
 <span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)
 <span class="kw">data</span>(Pinf)
 
-allelic_diversity &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">seppop</span>(<span class="kw">clonecorrect</span>(Pinf, <span class="dt">hier =</span> ~Continent/Country)), <span class="dt">FUN =</span> locus_table, <span class="dt">info =</span> <span class="ot">FALSE</span>)
+allelic_diversity &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">seppop</span>(<span class="kw">clonecorrect</span>(Pinf, <span class="dt">hier =</span> ~Continent/Country)), 
+                            <span class="dt">FUN =</span> locus_table, <span class="dt">info =</span> <span class="ot">FALSE</span>)
 
 <span class="co"># VS</span>
 
