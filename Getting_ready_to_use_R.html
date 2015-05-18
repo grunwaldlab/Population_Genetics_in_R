@@ -344,18 +344,18 @@ foo_foo %&gt;%
 </div>
 <div id="real-example" class="section level4">
 <h4>Real Example:</h4>
-<p><em>Phytophthora infestans</em> data from North and South America <span class="citation">(Goss et al., 2014)</span>. Calculating allelic diversity per population after clone-correction. This information can be found in our chapters on <a href="Population_Hierarchies.html">Population hierarchies and clone correction</a> and <a href="Locus_Stats.html">Locus based statistics</a>.</p>
+<p><em>Phytophthora infestans</em> data from North and South America <span class="citation">(Goss et al., 2014)</span>. Calculating allelic diversity per population after clone-correction. This information can be found in our chapters on <a href="Population_Strata.html">Population strata and clone correction</a> and <a href="Locus_Stats.html">Locus based statistics</a>.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
 <span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)
 <span class="kw">data</span>(Pinf)
 
-allelic_diversity &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">seppop</span>(<span class="kw">clonecorrect</span>(Pinf, <span class="dt">hier =</span> ~Continent/Country)), 
+allelic_diversity &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">seppop</span>(<span class="kw">clonecorrect</span>(Pinf, <span class="dt">strata=</span> ~Continent/Country)), 
                             <span class="dt">FUN =</span> locus_table, <span class="dt">info =</span> <span class="ot">FALSE</span>)
 
 <span class="co"># VS</span>
 
 allelic_diversity &lt;-<span class="st"> </span>Pinf %&gt;%
-<span class="st">  </span><span class="kw">clonecorrect</span>(<span class="dt">hier =</span> ~Continent/Country) %&gt;%<span class="st"> </span><span class="co"># clone censor by continent and country.</span>
+<span class="st">  </span><span class="kw">clonecorrect</span>(<span class="dt">strata=</span> ~Continent/Country) %&gt;%<span class="st"> </span><span class="co"># clone censor by continent and country.</span>
 <span class="st">  </span><span class="kw">seppop</span>() %&gt;%<span class="st">                                </span><span class="co"># Separate populations (by continent)</span>
 <span class="st">  </span><span class="kw">lapply</span>(<span class="dt">FUN =</span> locus_table, <span class="dt">info =</span> <span class="ot">FALSE</span>)     <span class="co"># Apply the function locus_table to both populations</span></code></pre>
 <p>The <code>%&gt;%</code> operator is thus good if you have to do a lot of small steps in your analysis. It allows your code to be more readable and reproducible.</p>
