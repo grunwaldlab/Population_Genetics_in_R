@@ -16,7 +16,7 @@ title: "10: AMOVA"
 
 In this chapter, we will utilize AMOVA to analyze our populations. AMOVA stands
 for **A**nalysis of **MO**lecular **VA**riance and is a method to detect
-population differentiation utilizing molecular markers `r citep(bib[c("excoffier1992analysis")])`. This procedure was initially implemented for DNA haplotypes, but applies to any marker system. The implementation of AMOVA in *poppr* requires two very basic components: (1) A distance matrix derived from the data and (2) a separate table used to partition the data into different hierarchical levels.
+population differentiation utilizing molecular markers `r citep(bib[c("excoffier1992analysis")])`. This procedure was initially implemented for DNA haplotypes, but applies to any marker system. The implementation of AMOVA in *poppr* requires two very basic components: (1) A distance matrix derived from the data and (2) a separate table used to partition the data into different stratifications.
 
 The distance matrix can be calculated using any distance as long as it is euclidean. The distance that is used in the program Arlequin is the opposite of the Kronecker Delta function that counts the number of differences summed over $L$ loci:
 
@@ -34,7 +34,7 @@ Data set
 ----
 
 To calculate AMOVA in *poppr*, one simply needs to supply a data set with
-hierarchical levels. We will use the *Aphanomyces euteiches* data set from 
+stratifications. We will use the *Aphanomyces euteiches* data set from 
 `r citep(bib["grunwald2006hierarchical"])`.
 
 ```{r}
@@ -43,8 +43,8 @@ data(Aeut)
 Aeut <- as.genclone(Aeut)
 Aeut
 ```
-We can see that this data set contains clonal data and has three hierarchical levels where the first is really a combination of the other levels. We can take a look
-at the different hierarchical levels, populations or subpopulations: 
+We can see that this data set contains clonal data and has three stratifications where the first is really a combination of the other levels. We can take a look
+at the different stratifications, populations or subpopulations: 
 
 ```{r}
 table(strata(Aeut, ~Pop))  # Populations
@@ -164,7 +164,7 @@ Conclusions
 
 AMOVA is a powerful tool that can help support hypotheses of population structure due to clonal reproduction or isolation without making assumptions about Hardy-Weinberg equilibrium. We have shown that we can reject the
 $H_o$ of random mating between the two populations and have strong evidence that
-these populations are significantly differentiated at all hierarchical levels `r citep(bib["grunwald2006hierarchical"])`. From these results, we can investigate
+these populations are significantly differentiated at all stratifications `r citep(bib["grunwald2006hierarchical"])`. From these results, we can investigate
 hypotheses as to why these populations are significantly differentiated.
 
 This example was performed with a data set of dominant (AFLP)

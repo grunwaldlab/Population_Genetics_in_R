@@ -20,7 +20,7 @@ this section, we will focus on the GenAlEx format. Other formats are supported
 and details are given in the R help page for the *adegenet* function
 `import2genind`. We will show examples of haploid, diploid, and polyploid data
 sets and show you how you can format your data if it's grouped into multiple
-hierarchical levels.
+stratifications.
 
 > [Appendix 1](Data_sets.html) provides an overview and description of the data sets used in this primer.
 
@@ -156,8 +156,8 @@ Population strata
 
 A hierarchical sampling approach is necessary to infer structure of populations
 in space or time. *Poppr* facilitates definition of hierarchical data by
-concatenating the different hierarchical levels into a single column by a common
-separator ("\_" by default). Here's an example of the three hierarchical levels
+concatenating the different stratifications into a single column by a common
+separator ("\_" by default). Here's an example of the three stratifications
 of the `monpop` data set introduced above:
 
 

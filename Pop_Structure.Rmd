@@ -126,7 +126,7 @@ gives support that the country of origin is a factor in how these breeds are
 structured. If we wanted to analyze all of the breeds against one another, it
 would be better to create a bootstrapped dendrogram based on a
 genetic distance. To do this, we will create a genclone object that will contain
-3 hierarchical levels: Country, Breed, and Species. We will then set the
+3 stratifications: Country, Breed, and Species. We will then set the
 population to Country by Breed, convert the data to a genpop object and then
 create a tree using `aboot` with Nei's genetic distance.
 
