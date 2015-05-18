@@ -47,8 +47,8 @@ We can see that this data set contains clonal data and has three hierarchical le
 at the different hierarchical levels, populations or subpopulations: 
 
 ```{r}
-table(gethierarchy(Aeut, ~Pop))  # Populations
-table(gethierarchy(Aeut, ~Pop/Subpop, combine = FALSE))  # Subpopulations
+table(strata(Aeut, ~Pop))  # Populations
+table(strata(Aeut, ~Pop/Subpop, combine = FALSE))  # Subpopulations
 ```
 
 
@@ -114,9 +114,9 @@ plot(Aeutsignif)
 Aeutsignif
 ```
 From this output, you can see three histograms representing the distribution of
-the randomized hierarchy. The black line represents the observed data. You can 
+the randomized strata. The black line represents the observed data. You can 
 see a table of observed results in the output showing that there is significant
-population structure considering all levels of the population hierarchy. Of
+population structure considering all levels of the population strata. Of
 course, this could be due to the presence of clones, so let's visualize the
 results from the clone corrected data set below:
 
@@ -137,23 +137,23 @@ and after shuffling:
 
 ```{r}
 Aeut.new <- Aeut
-head(gethierarchy(Aeut)[, -1])
+head(strata(Aeut)[, -1])
 set.seed(9001)
-head(gethierarchy(Aeut)[sample(nInd(Aeut)), -1])
+head(strata(Aeut)[sample(nInd(Aeut)), -1])
 ```
 Here we see that the populations are completely shuffled, so in the next step,
-we will reassign the hierarchy with these newly shuffled populations and rerun
+we will reassign the strata with these newly shuffled populations and rerun
 the AMOVA analysis.
 
-```{r, randomized_hierarchy, cache=TRUE}
+```{r, randomized_strata, cache=TRUE}
 set.seed(9001)
-sethierarchy(Aeut.new) <- gethierarchy(Aeut)[sample(nInd(Aeut)), -1]
+strata(Aeut.new) <- strata(Aeut)[sample(nInd(Aeut)), -1]
 Aeut.new.amova         <- poppr.amova(Aeut.new, ~Pop/Subpop)
 Aeut.new.amova
 Aeut.new.amova.test    <- randtest(Aeut.new.amova, nrepet = 999)
 Aeut.new.amova.test
 ```
-```{r, randomized_hierarchy_plot}
+```{r, randomized_strata_plot}
 plot(Aeut.new.amova.test)
 ```
 

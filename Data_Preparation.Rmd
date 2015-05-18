@@ -95,20 +95,20 @@ how missing data should be coded for codominant markers. Highlighted in blue are
 the parts of the metadata rows used by *poppr*. These three numbers represent:
 
 <table align="left" cellpadding=20 border=2>
-  <thead>
-    <tr>
-      <th class="col-xs-3">A</th>
-      <th class="col-xs-3">B</th>
-      <th class="col-xs-3">C</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="text-center">loci</td>
-      <td class="text-center">samples</td>
-      <td class="text-center">populations</td>
-    </tr>
-  </tbody>
+<thead>
+<tr>
+<th class="col-xs-3">A</th>
+<th class="col-xs-3">B</th>
+<th class="col-xs-3">C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="text-center">loci</td>
+<td class="text-center">samples</td>
+<td class="text-center">populations</td>
+</tr>
+</tbody>
 </table>
 
 ![monpop](images/monpop.png)
@@ -244,15 +244,15 @@ Tree_Year_Symptom
 
 
 > If you do not want to concatenate your population factors into one row,
-save them as a separate csv file and use the functions `read.table` and `sethierarchy`
+save them as a separate csv file and use the functions `read.table` and `strata`
 after you've imported your genetic data to achieve the same result.
 
-The data imported this way can be accessed with the function `splithierarchy`:
+The data imported this way can be accessed with the function `splitStrata`:
 
 ```{r}
 # using monpop from above
 monpop # Before (One level, Pop)
-splithierarchy(monpop) <- ~Tree/Year/Symptom
+splitStrata(monpop) <- ~Tree/Year/Symptom
 monpop # After (Three distinct levels)
 ```
 

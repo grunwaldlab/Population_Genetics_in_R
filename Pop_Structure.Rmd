@@ -132,9 +132,9 @@ create a tree using `aboot` with Nei's genetic distance.
 
 ```{r, cattlepopboot, fig.width = 5, fig.height = 7, cache = TRUE}
 # Setting up the data 
-microbov <- as.genclone(microbov, hierarchy = other(microbov))
+microbov <- as.genclone(microbov, strata = other(microbov))
 microbov
-namehierarchy(microbov) <- ~Country/Breed/Species
+nameStrata(microbov) <- ~Country/Breed/Species
 setpop(microbov) <- ~Country/Breed
 
 # Analysis
@@ -188,7 +188,7 @@ Let's load the data:
 library("poppr")
 library("magrittr")
 data(monpop)
-splithierarchy(monpop) <- ~Tree/Year/Symptom
+splitStrata(monpop) <- ~Tree/Year/Symptom
 summary(monpop)
 ```
 

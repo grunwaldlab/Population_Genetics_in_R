@@ -43,11 +43,11 @@ Working with hierarchical data
 
 The steps for working with hierarchical data include:
 
-1.  Import data set with samples labeled according to hierarchy
+1.  Import data set with samples labeled according to strata
 2.  Define the hierarchical levels for the data
 3.  Setting the hierarchical level(s) that you want to have analyzed
 
-Importing data labeled according to a hierarchy
+Importing data labeled according to a strata
 ----
 The easiest way to work with hierarchical data is to label each sample using an
 underscore "\_" to separate each hierarchical level.  This was already done for
@@ -79,17 +79,17 @@ We imported the data that has three hierarchical levels "Tree\_Year\_Symptom".
 In order to analyze our data according to any combination of those three
 hierarchical levels, we need to tell *poppr* that the 12 groups should be split
 by tree, year, and/or symptom.  Thus, the first step is to split our data
-according to hierarchy so that we can access each of the three hierarchical
-levels in the data.  The `splithierarchy` command is used to index the three
+according to strata so that we can access each of the three hierarchical
+levels in the data.  The `splitStrata` command is used to index the three
 hierarchical levels:
 
 
 ```{r}
-splithierarchy(monpop) <- ~Tree/Year/Symptom
+splitStrata(monpop) <- ~Tree/Year/Symptom
 monpop
 ```
 
-> The `splithierarchy` command only needs to be run once: right after you import
+> The `splitStrata` command only needs to be run once: right after you import
 > your data. 
 
 After splitting the data populations are specified by hierarchical level: "Tree
@@ -137,7 +137,7 @@ specific hierarchical level and also compare the results with uncorrected data.
 
 Using `monpop` as an example, if we wanted to know the diversity of alleles
 within each tree per year, how should we go about correcting for the clones? We
-use the function `clonecorrect` specifying the "Tree/Year" hierarchy:
+use the function `clonecorrect` specifying the "Tree/Year" strata:
 
 ```{r, clonecorrection}
 mcc_TY <- clonecorrect(monpop, hier = ~Tree/Year, keep = 1:2)
@@ -149,7 +149,7 @@ Notice that the number of samples reduced from `r nInd(monpop)` to
 there are duplicated genotypes that cross trees and years, but that's okay
 because of our definition of a clone-corrected data set as having one
 representative genotype *per population*. Before we continue, we should set the
-original data to the same hierarchy:
+original data to the same strata:
 
 ```{r}
 setpop(monpop) <- ~Tree/Year

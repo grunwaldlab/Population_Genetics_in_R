@@ -75,13 +75,13 @@ Function | Description
 ----|----
 `as.genclone` | Converts genind objects to genclone objects
 `setpop` | Set the population using defined hierarchies
-`splithierarchy` | Split a concatenated hierarchy imported as a population
-`sethierarchy` | Define a population hierarchy of a genclone object
-`gethierarchy` | Extract the hierarchy data frame
-`addhierarchy` | Add a vector or data frame to an existing hierarchy
-`namehierarchy` | Rename a population hierarchy
+`splitStrata` | Split a concatenated strata imported as a population
+`strata` | Define a population strata of a genclone object
+`strata` | Extract the strata data frame
+`addStrata` | Add a vector or data frame to an existing strata
+`nameStrata` | Rename a population strata
 `missingno` | Handles missing data
-`clonecorrect` | Clone censors at a specified population hierarchy
+`clonecorrect` | Clone censors at a specified population strata
 `informloci` | Detects and removes phylogenetically uninformative loci
 `popsub` | Subsets genind objects by population
 `shufflepop` | Shuffles genotypes at each locus using four different shuffling algorithms
