@@ -14,8 +14,12 @@
 title: "6: Locus stats, heterozygosity, HWE"
 ---
 
-A rigorous population genetic analysis looks closely at the data to assess quality and identify outliers or problems in the data such as erroneous allele calls. This chapter focuses on analysis on a per-locus level. While there are statistics that analyze populations across loci, it is important to analyze each locus independently to make sure that one locus is not introducing
-bias into the analysis. 
+A rigorous population genetic analysis looks closely at the data to assess
+quality and identify outliers or problems in the data such as erroneous allele
+calls. This chapter focuses on analysis on a per-locus level. While there are
+statistics that analyze populations across loci, it is important to analyze each
+locus independently to make sure that one locus is not introducing bias into the
+analysis.
 
 > **Note:** Many of these statistics are specific to co-dominant data. 
 
@@ -23,29 +27,40 @@ Locus summary statistics
 -----
 
 A quick way to assess quality of the data is to determine the number, diversity,
-expected heterozygosity, and evenness of the alleles at each locus. As an 
-example, we will use data for the fungal-like protist *Phytophthora infestans* from 
-`r citep(bib["goss2014irish"])`. First, we'll use the function `locus_table` to get 
-all of the statistics mentioned above. For documentation on this function type 
-`?locus_table`. Here is a first look at each locus:
+expected heterozygosity, and evenness of the alleles at each locus. As an
+example, we will use data for the fungal-like protist *Phytophthora infestans*
+from `r citep(bib["goss2014irish"])`. First, we'll use the function
+`locus_table` to get all of the statistics mentioned above. For documentation on
+this function type `?locus_table`. Here is a first look at each locus:
 
-```{r, locus_table_stats}
+```{r, locus_table_stats, eval = FALSE}
 library("poppr")     # Make sure poppr is loaded if you haven't done so already.
 library("magrittr")  # We will also use magrittr for part of this chapter
-data(Pinf)           # P. infestans data set from Mexico and South America
+data("Pinf")         # P. infestans data set from Mexico and South America
 locus_table(Pinf)
 ```
 
-We can see here that we have a widely variable number of alleles per locus and 
-that we actually have a single locus that only has two alleles, 
-`r {x <- poppr::locus_table(Pinf); rownames(x)[x[, 1] == 2]}`. 
-This locus also has low diversity, low expected heterozygosity
-and is very uneven in allele distribution. This is a sign that this might be a phylogenetically
-uninformative locus, where we have two alleles and one is occurring at a minor
-frequency. We should explore data analysis with and without this locus. Let's
-first see if both of these alleles exist in both populations of this data set.
+```{r, load_packages, echo = FALSE}
+library("poppr")     # Make sure poppr is loaded if you haven't done so already.
+library("magrittr")  # We will also use magrittr for part of this chapter
+data("Pinf")         # P. infestans data set from Mexico and South America
+```
 
-```{r, locus_table_pops}
+```{r, locus_table_stats_show, echo = FALSE, message = TRUE}
+locus_table(Pinf)
+```
+
+
+We can see here that we have a widely variable number of alleles per locus and
+that we actually have a single locus that only has two alleles, `r {x <-
+poppr::locus_table(Pinf); rownames(x)[x[, 1] == 2]}`. This locus also has low
+diversity, low expected heterozygosity and is very uneven in allele
+distribution. This is a sign that this might be a phylogenetically uninformative
+locus, where we have two alleles and one is occurring at a minor frequency. We
+should explore data analysis with and without this locus. Let's first see if
+both of these alleles exist in both populations of this data set.
+
+```{r, locus_table_pops, message = TRUE}
 locus_table(Pinf, pop = "North America")
 locus_table(Pinf, pop = "South America")
 ```
@@ -59,7 +74,7 @@ do this using the function `informloci`. This will remove loci that contain less
 than a given percentage of divergent individuals (the default is $2/N$, where 
 $N$ equals the number of individuals in the data set). 
 
-```{r, informloci}
+```{r, informloci, message = TRUE}
 nLoc(Pinf)  # Let's look at our data set, note how many loci we have.
 iPinf <- informloci(Pinf)
 nLoc(iPinf) # Note that we have 1 less locus
@@ -74,27 +89,33 @@ poppr(Pinf)
 poppr(iPinf)
 ```
 
-We can see that it increased ever so slightly for the "North America" and "Total" populations, but not the "South America" population as expected given the fixed alleles at locus P33.
+We can see that it increased ever so slightly for the "North America" and
+"Total" populations, but not the "South America" population as expected given
+the fixed alleles at locus P33.
 
 Missing data
 ----
 
-It is often important to asses the percentage of missing data. The *poppr* function `info_table` will help you visualize missing data so that you can assess how to treat these further using the function `missingno`. For this example, we will use the nancycats data set as it contains a wide variety of possibilities for missing data:
+It is often important to asses the percentage of missing data. The *poppr*
+function `info_table` will help you visualize missing data so that you can
+assess how to treat these further using the function `missingno`. For this
+example, we will use the nancycats data set as it contains a wide variety of
+possibilities for missing data:
 
-```{r, missing_table, fig.height=6, fig.width = 10, fig.cap = "Plot of missing data"}
+```{r, missing_table, fig.height=6, fig.width = 10, fig.cap = "Plot of missing data", message = TRUE}
 data(nancycats)
 info_table(nancycats, plot = TRUE)
 ```
 
 Here we see a few things. The data set has an average of 2.34% missing data
-overall. More alarming, perhaps is the fact that population 17 has not been 
+overall. More alarming, perhaps is the fact that population 17 has not been
 genotyped at locus fca45 at all and that locus fca8 shows missing data across
 many populations. Many analyses in *poppr* can be performed with missing data in
 place as it will be either considered an extra allele in the case of MLG
 calculations or will be interpolated to not contribute to the distance measure
-used for the index of association. If you want to specifically treat missing data,
-you can use the function `missingno` to remove loci or individuals, or replace 
-missing data with zeroes or the average values of the locus. 
+used for the index of association. If you want to specifically treat missing
+data, you can use the function `missingno` to remove loci or individuals, or
+replace missing data with zeroes or the average values of the locus.
 
 Removing loci and genotypes
 -----
@@ -102,7 +123,7 @@ Removing loci and genotypes
 When removing loci or genotypes, you can specify a cutoff representing the
 percent missing to be removed. The default is `0.05` (5%).
 
-```{r, fig.cap = "Plot of missing data"}
+```{r, fig.cap = "Plot of missing data", message = TRUE}
 nancycats %>% missingno("loci") %>% info_table(plot = TRUE, scale = FALSE)
 ```
 
@@ -112,13 +133,13 @@ the warmest color corresponds to the highest value.
 We only removed two loci. If we wanted to make sure we removed everything, we
 could set `cutoff = 0`.
 
-```{r}
+```{r, message = TRUE}
 miss <- nancycats %>% missingno("loci", cutoff = 0) %>% info_table(plot = TRUE)
 ```
 
 Again, removing individuals is also relatively easy:
 
-```{r, fig.cap = "Plot of missing data"}
+```{r, fig.cap = "Plot of missing data", message = TRUE}
 miss <- nancycats %>% missingno("geno") %>% info_table(plot = TRUE)
 miss <- nancycats %>% missingno("geno", cutoff = 0) %>% info_table(plot = TRUE)
 ```
@@ -148,69 +169,74 @@ at the first locus. Here is the un-replaced data for reference:
 
 ```{r}
 nan1 <- popsub(nancycats, 1, drop = TRUE) # Dropping alleles not in that population.
-nan1[loc = "L1"]@tab
+tab(nan1[loc = "L1"])
 ```
 
-```{r}
+```{r, message = TRUE}
 nanzero <- missingno(nancycats, "zero")
-popsub(nanzero, 1, drop = TRUE)[loc = "L1"]@tab
+tab(popsub(nanzero, 1, drop = TRUE)[loc = "fca8"])
 ```
 
 The `NA`s have been replaced with zeroes. Now let's look at what happens when we
 replace with `"mean"`.
 
-```{r}
+```{r, message = TRUE}
 nanmean <- missingno(nancycats, "mean")
-popsub(nanmean, 1, drop = TRUE)[loc = "L1"]@tab
+tab(popsub(nanmean, 1, drop = TRUE)[loc = "fca8"])
 ```
 
 Notice that there are a lot more alleles than there were originally. This is
 because the procedure is performed over the entire data set, not by population.
 Let's look at what happens if we perform the same routine on the subsetted data.
 
-```{r}
+```{r, message = TRUE}
 nan1 <- nancycats %>% popsub(1, drop = TRUE) %>% missingno("mean")
-nan1[loc = "L1"]@tab
+tab(nan1[loc = "fca8"])
 ```
 
 Hardy-Weinberg equilibrium
 -----
 
 Next, let's determine if our  populations are in Hardy-Weinberg equilibrium. We
-will again use the nancycats data to test for HWE using genind objects, a
-dataframe particular to the *adegenet* R package:
+will again use the nancycats data to test for HWE using the function `hw.test()`
+from the *pegas* package. This will compute the $\Chi^2$ statistic over the 
+entire data set and compute two P-values, one analytical and one derived from
+permutations:
 
-```{r, hwe}
-if (!require("genetics")){ 
-  install.packages("genetics", repos = "http://cran.at.r-project.org")
-  require("genetics")
-}
-nanhwe.full <- HWE.test.genind(nancycats) # returns a list
-nanhwe.mat  <- HWE.test.genind(nancycats, res.type = "matrix") # returns a matrix
+```{r, hwe, cache = TRUE}
+library("pegas")
+(nanhwe.full <- hw.test(nancycats, B = 1000)) # performs 1000 permuatations
 ```
 
-The full report (`nanhwe.full`) will give us a list of loci, each containing a
-list of populations, where each population is the result of a $\chi^2$ test. We
-will analyze data for a few loci to avoid writing a large amount of data to the
-screen. With the following statements, we can see that at locus1 (`fca8`), we
-have no good evidence to reject the null hypothesis that population 1 (`P01`) is
-not in HWE, but we have evidence that population 2 (`P02`) is not in HWE:
+We can see here that both the analytical p-value and permuted p-value show that
+we have confidence that all loci are not under the null expectation of HWE. This
+makes sense given that these data represent 17 populations of cats. If we wanted
+to check what the HWE statistic for each population, we should first separate
+the populations with the function `seppop()`. For this exercise, we will only
+focus on the analytical p-value by setting `B = 0`.
 
-```{r}
-nanhwe.full$fca8$P01
-nanhwe.full$fca8$P02
+```{r, hwe_pop, cache = TRUE}
+(nanhwe.pop <- seppop(nancycats) %>% lapply(hw.test, B = 0))
 ```
 
-Of course, checking all of these is tedious, but we can look at a matrix for all
-loci by population:
+### Advanced: Visualization of population-wise p-values
 
-```{r}
-nanhwe.mat
+Now we have one matrix per sample, but all we care about are the p-values, which
+are in the third column. We can use the functions `sapply` and `[` to loop to
+create a matrix that only contains populations in columns and loci in rows.
+
+> `[` is used to subset data, and it's also a function! It provides an easy way
+> to subset a list of data.
+
+```{r, hwe_pop_mat, cache = TRUE}
+(nanhwe.mat <- sapply(nanhwe.pop, "[", i = TRUE, j = 3)) # Take the third column with all rows
 ```
 
-However, this is still hard to sift through. We will thus define an $\alpha$
-value and set everything above that value to 1 so that we can visually detect
-candidate loci where we might reject the $H_o$ of HWE.
+This output is still hard to sift through. An easy way to analyze this is by
+visualizing this as a heatmap. Since we only care whether or not a given locus
+is in or out of HWE, we will thus define an $\alpha$ value and set everything
+above that value to 1 so that we can visually detect candidate loci where we
+might reject the $H_o$ of HWE.
 
 ```{r}
 alpha  <- 0.05
@@ -221,7 +247,7 @@ Now we can create a simple heatmap with `levelplot`.
 
 ```{r, fig.height=6, fig.width = 10, fig.cap = "Heatmap showing significant departures from HWE"}
 library("lattice")
-levelplot(newmat)
+levelplot(t(newmat))
 ```
 
 This simple plot shows us loci in rows and populations in columns. Note, that
