@@ -177,40 +177,45 @@ Hardy-Weinberg equilibrium
 -----
 
 Next, let's determine if our  populations are in Hardy-Weinberg equilibrium. We
-will again use the nancycats data to test for HWE using genind objects, a
-dataframe particular to the *adegenet* R package:
+will again use the nancycats data to test for HWE using the function `hw.test()`
+from the *pegas* package. This will compute the $\chi^2$ statistic over the 
+entire data set and compute two P-values, one analytical and one derived from
+permutations:
 
-```{r, hwe}
-if (!require("genetics")){ 
-  install.packages("genetics", repos = "http://cran.at.r-project.org")
-  require("genetics")
-}
-nanhwe.full <- HWE.test.genind(nancycats) # returns a list
-nanhwe.mat  <- HWE.test.genind(nancycats, res.type = "matrix") # returns a matrix
+```{r, hwe, cache = TRUE}
+library("pegas")
+(nanhwe.full <- hw.test(nancycats, B = 1000)) # performs 1000 permuatations
 ```
 
-The full report (`nanhwe.full`) will give us a list of loci, each containing a
-list of populations, where each population is the result of a $\chi^2$ test. We
-will analyze data for a few loci to avoid writing a large amount of data to the
-screen. With the following statements, we can see that at locus1 (`fca8`), we
-have no good evidence to reject the null hypothesis that population 1 (`P01`) is
-not in HWE, but we have evidence that population 2 (`P02`) is not in HWE:
+We can see here that both the analytical p-value and permuted p-value show that
+we have confidence that all loci are not under the null expectation of HWE. This
+makes sense given that these data represent 17 populations of cats. If we wanted
+to check what the HWE statistic for each population, we should first separate
+the populations with the function `seppop()`. For this exercise, we will only
+focus on the analytical p-value by setting `B = 0`.
 
-```{r}
-nanhwe.full$fca8$P01
-nanhwe.full$fca8$P02
+```{r, hwe_pop, cache = TRUE}
+(nanhwe.pop <- seppop(nancycats) %>% lapply(hw.test, B = 0))
 ```
 
-Of course, checking all of these is tedious, but we can look at a matrix for all
-loci by population:
+### Advanced: Visualization of population-wise p-values
 
-```{r}
-nanhwe.mat
+Now we have one matrix per sample, but all we care about are the p-values, which
+are in the third column. We can use the functions `sapply` and `[` to loop to
+create a matrix that only contains populations in columns and loci in rows.
+
+> `[` is used to subset data, and it's also a function! It provides an easy way
+> to subset a list of data.
+
+```{r, hwe_pop_mat, cache = TRUE}
+(nanhwe.mat <- sapply(nanhwe.pop, "[", i = TRUE, j = 3)) # Take the third column with all rows
 ```
 
-However, this is still hard to sift through. We will thus define an $\alpha$
-value and set everything above that value to 1 so that we can visually detect
-candidate loci where we might reject the $H_o$ of HWE.
+This output is still hard to sift through. An easy way to analyze this is by
+visualizing this as a heatmap. Since we only care whether or not a given locus
+is in or out of HWE, we will thus define an $\alpha$ value and set everything
+above that value to 1 so that we can visually detect candidate loci where we
+might reject the $H_o$ of HWE.
 
 ```{r}
 alpha  <- 0.05
@@ -221,7 +226,7 @@ Now we can create a simple heatmap with `levelplot`.
 
 ```{r, fig.height=6, fig.width = 10, fig.cap = "Heatmap showing significant departures from HWE"}
 library("lattice")
-levelplot(newmat)
+levelplot(t(newmat))
 ```
 
 This simple plot shows us loci in rows and populations in columns. Note, that

@@ -521,76 +521,284 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 </div>
 <div id="hardy-weinberg-equilibrium" class="section level2">
 <h2>Hardy-Weinberg equilibrium</h2>
-<p>Next, let’s determine if our populations are in Hardy-Weinberg equilibrium. We will again use the nancycats data to test for HWE using genind objects, a dataframe particular to the <em>adegenet</em> R package:</p>
-<pre class="sourceCode r"><code class="sourceCode r">if (!<span class="kw">require</span>(<span class="st">&quot;genetics&quot;</span>)){ 
-  <span class="kw">install.packages</span>(<span class="st">&quot;genetics&quot;</span>, <span class="dt">repos =</span> <span class="st">&quot;http://cran.at.r-project.org&quot;</span>)
-  <span class="kw">require</span>(<span class="st">&quot;genetics&quot;</span>)
-}
-nanhwe.full &lt;-<span class="st"> </span><span class="kw">HWE.test.genind</span>(nancycats) <span class="co"># returns a list</span>
-nanhwe.mat  &lt;-<span class="st"> </span><span class="kw">HWE.test.genind</span>(nancycats, <span class="dt">res.type =</span> <span class="st">&quot;matrix&quot;</span>) <span class="co"># returns a matrix</span></code></pre>
-<p>The full report (<code>nanhwe.full</code>) will give us a list of loci, each containing a list of populations, where each population is the result of a <span class="math">\(\chi^2\)</span> test. We will analyze data for a few loci to avoid writing a large amount of data to the screen. With the following statements, we can see that at locus1 (<code>fca8</code>), we have no good evidence to reject the null hypothesis that population 1 (<code>P01</code>) is not in HWE, but we have evidence that population 2 (<code>P02</code>) is not in HWE:</p>
-<pre class="sourceCode r"><code class="sourceCode r">nanhwe.full$fca8$P01</code></pre>
-<pre><code>## 
-##  Pearson&#39;s Chi-squared test
+<p>Next, let’s determine if our populations are in Hardy-Weinberg equilibrium. We will again use the nancycats data to test for HWE using the function <code>hw.test()</code> from the <em>pegas</em> package. This will compute the <span class="math">\(\chi^2\)</span> statistic over the entire data set and compute two P-values, one analytical and one derived from permutations:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;pegas&quot;</span>)
+(nanhwe.full &lt;-<span class="st"> </span><span class="kw">hw.test</span>(nancycats, <span class="dt">B =</span> <span class="dv">1000</span>)) <span class="co"># performs 1000 permuatations</span></code></pre>
+<pre><code>##           chi^2  df  Pr(chi^2 &gt;) Pr.exact
+## fca8  395.80006 120 0.000000e+00        0
+## fca23 239.34221  55 0.000000e+00        0
+## fca43 434.33397  45 0.000000e+00        0
+## fca45  66.11849  36 1.622163e-03        0
+## fca77 270.52066  66 0.000000e+00        0
+## fca78 402.80002  28 0.000000e+00        0
+## fca90 217.19836  66 0.000000e+00        0
+## fca96 193.36764  66 1.965095e-14        0
+## fca37 291.00731 153 1.209777e-10        0</code></pre>
+<p>We can see here that both the analytical p-value and permuted p-value show that we have confidence that all loci are not under the null expectation of HWE. This makes sense given that these data represent 17 populations of cats. If we wanted to check what the HWE statistic for each population, we should first separate the populations with the function <code>seppop()</code>. For this exercise, we will only focus on the analytical p-value by setting <code>B = 0</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">(nanhwe.pop &lt;-<span class="st"> </span><span class="kw">seppop</span>(nancycats) %&gt;%<span class="st"> </span><span class="kw">lapply</span>(hw.test, <span class="dt">B =</span> <span class="dv">0</span>))</code></pre>
+<pre><code>## $`1`
+##           chi^2 df Pr(chi^2 &gt;)
+## fca8   5.135802  6 0.526517306
+## fca23 26.049383 10 0.003674334
+## fca43 12.922449 10 0.228040169
+## fca45  2.716049  3 0.437506757
+## fca77 28.122449 15 0.020815001
+## fca78  0.400000  1 0.527089257
+## fca90 13.924320 10 0.176471694
+## fca96  3.071074  3 0.380796192
+## fca37 10.156250  3 0.017283597
 ## 
-## data:  tab
-## X-squared = 5.1358, df = 6, p-value = 0.5265</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">nanhwe.full$fca8$P02</code></pre>
-<pre><code>## 
-##  Pearson&#39;s Chi-squared test
+## $`2`
+##          chi^2 df  Pr(chi^2 &gt;)
+## fca8  29.86239 15 1.242747e-02
+## fca23 23.22222 10 9.955382e-03
+## fca43 27.20034  6 1.328128e-04
+## fca45 12.21716 15 6.625229e-01
+## fca77 86.16667 45 2.152672e-04
+## fca78 11.50468  6 7.397613e-02
+## fca90 56.75227 15 9.039990e-07
+## fca96 92.07157 15 4.066747e-13
+## fca37 13.17284 15 5.889498e-01
 ## 
-## data:  tab
-## X-squared = 29.8624, df = 15, p-value = 0.01243</code></pre>
-<p>Of course, checking all of these is tedious, but we can look at a matrix for all loci by population:</p>
-<pre class="sourceCode r"><code class="sourceCode r">nanhwe.mat</code></pre>
-<pre><code>##            fca8        fca23        fca43      fca45        fca77
-## P01 0.526517306 3.674334e-03 0.2280401694 0.43750676 0.0208150012
-## P02 0.012427474 9.955382e-03 0.0001328128 0.66252290 0.0002152672
-## P03 0.008041715 1.916355e-02 0.5099204974 0.90711298 0.3460930403
-## P04 0.030856739 3.233864e-01 0.7685881191 0.18515049 0.0259007804
-## P05 0.395498917 1.850960e-01 0.2095530108 0.65080395 0.5544311397
-## P06 0.035773418 3.719982e-02 0.3933427435 0.02992243 0.0564054317
-## P07 0.001015109 1.268771e-02 0.9591440521 0.45934725 0.4482332084
-## P08 0.916111766 3.966211e-01 0.0919880072 0.31833436 0.0087893711
-## P09 0.315105915 2.873635e-02 0.6457715350 0.16270652 0.7313057692
-## P10 0.058728516 8.742964e-01 0.3820891009 0.25979323 0.0051378404
-## P11 0.155066305 8.492324e-02 0.1718177965 0.46374114 0.0535610325
-## P12 0.164120103 2.434068e-02 0.0014486207 0.99993750 0.2473302515
-## P13 0.263064520 7.554178e-04 0.0166924694 0.69860814 0.0782627471
-## P14 0.425618273 1.298351e-05 0.0613204016 0.63565380 0.0237132295
-## P15 0.705556557 5.148712e-01 0.5669694621 0.78927714 0.7006924729
-## P16 0.281226569 4.744791e-02 0.4923883264 0.43651121 0.2143387208
-## P17 0.105208495 3.869703e-01 0.0147464047         NA 0.2844189945
-##           fca78        fca90        fca96        fca37
-## P01 1.000000000 1.764717e-01 3.807962e-01 1.728360e-02
-## P02 0.073976130 9.039990e-07 4.067241e-13 5.889498e-01
-## P03 0.007422415 4.881535e-01 5.618907e-01 3.599621e-02
-## P04 0.134971005 2.424509e-04 8.593198e-01 5.749990e-01
-## P05 0.001086817 4.948073e-02 4.641922e-01 3.895597e-05
-## P06 0.166576970 1.440809e-01 3.199573e-01 7.167803e-01
-## P07 0.000760033 2.556088e-01 6.790824e-01 1.943165e-01
-## P08 0.032459406 3.067009e-01 6.612712e-01 4.084806e-02
-## P09 0.123888817 1.948082e-02 8.324384e-01 7.067191e-01
-## P10 0.152917196 3.719982e-02 8.984756e-01 6.182026e-01
-## P11 0.131431929 6.894609e-03 7.233591e-02 7.412148e-02
-## P12 0.394489189 1.449764e-01 9.952821e-01 5.610992e-02
-## P13 0.463144684 6.730596e-02 4.214194e-01 1.384549e-01
-## P14 0.020968325 8.540995e-02 1.128794e-02 9.212362e-01
-## P15 0.004624641 2.562802e-01 3.299178e-02 5.719099e-02
-## P16 0.002939821 1.087867e-01 6.017899e-02 5.609268e-01
-## P17 0.622681015 3.508286e-01 1.000000e+00 1.648068e-01</code></pre>
-<p>However, this is still hard to sift through. We will thus define an <span class="math">\(\alpha\)</span> value and set everything above that value to 1 so that we can visually detect candidate loci where we might reject the <span class="math">\(H_o\)</span> of HWE.</p>
+## $`3`
+##           chi^2 df Pr(chi^2 &gt;)
+## fca8  39.720000 21 0.008041715
+## fca23 45.600000 28 0.019163551
+## fca43 14.206612 15 0.509920497
+## fca45  4.752066 10 0.907112985
+## fca77 11.148148 10 0.346093040
+## fca78 31.544379 15 0.007422415
+## fca90  9.470000 10 0.488153481
+## fca96  4.860000  6 0.561890682
+## fca37 13.481481  6 0.035996207
+## 
+## $`4`
+##          chi^2 df  Pr(chi^2 &gt;)
+## fca8  64.30391 45 0.0308567389
+## fca23 30.85879 28 0.3233864330
+## fca43 10.77193 15 0.7685881191
+## fca45 26.58116 21 0.1851504896
+## fca77 35.34014 21 0.0259007804
+## fca78 21.05849 15 0.1349710053
+## fca90 61.74736 28 0.0002424509
+## fca96 14.23444 21 0.8593197525
+## fca37 25.96444 28 0.5749990390
+## 
+## $`5`
+##           chi^2 df  Pr(chi^2 &gt;)
+## fca8  29.338776 28 3.954989e-01
+## fca23 19.666667 15 1.850960e-01
+## fca43 13.258929 10 2.095530e-01
+## fca45  7.775000 10 6.508040e-01
+## fca77 19.479167 21 5.544311e-01
+## fca78 16.089981  3 1.086817e-03
+## fca90 18.340741 10 4.948073e-02
+## fca96  9.733333 10 4.641922e-01
+## fca37 30.020576  6 3.895597e-05
+## 
+## $`6`
+##           chi^2 df Pr(chi^2 &gt;)
+## fca8  34.052469 21  0.03577342
+## fca23 19.250000 10  0.03719982
+## fca43  6.272727  6  0.39334274
+## fca45 13.974490  6  0.02992243
+## fca77 32.159722 21  0.05640543
+## fca78 20.141354 15  0.16657697
+## fca90 20.777778 15  0.14408091
+## fca96 23.459877 21  0.31995727
+## fca37 39.160000 45  0.71678027
+## 
+## $`7`
+##           chi^2 df Pr(chi^2 &gt;)
+## fca8  37.653061 15 0.001015109
+## fca23 29.793651 15 0.012687711
+## fca43  3.718750 10 0.959144052
+## fca45  5.685319  6 0.459347253
+## fca77  5.780408  6 0.448233208
+## fca78 38.502857 15 0.000760033
+## fca90  7.767857  6 0.255608831
+## fca96  3.982222  6 0.679082361
+## fca37  4.709877  3 0.194316502
+## 
+## $`8`
+##           chi^2 df Pr(chi^2 &gt;)
+## fca8   8.185941 15 0.916111766
+## fca23 10.513889 10 0.396621136
+## fca43 30.000000 21 0.091988007
+## fca45 11.521794 10 0.318334361
+## fca77 39.400000 21 0.008789371
+## fca78 34.444444 21 0.032459406
+## fca90  7.155556  6 0.306700905
+## fca96 12.233560 15 0.661271220
+## fca37 33.511111 21 0.040848059
+## 
+## $`9`
+##           chi^2 df Pr(chi^2 &gt;)
+## fca8   7.062500  6  0.31510592
+## fca23 27.000000 15  0.02873635
+## fca43  1.660408  3  0.64577154
+## fca45 35.250000 28  0.16270652
+## fca77  6.937778 10  0.73130577
+## fca78  5.760000  3  0.12388882
+## fca90 21.240000 10  0.01948082
+## fca96  5.791837 10  0.83243842
+## fca37  3.777778  6  0.70671912
+## 
+## $`10`
+##           chi^2 df Pr(chi^2 &gt;)
+## fca8  12.148889  6  0.05872852
+## fca23  2.447500  6  0.87429636
+## fca43 22.305556 21  0.38208910
+## fca45 24.713333 21  0.25979323
+## fca77 41.306122 21  0.00513784
+## fca78  5.272189  3  0.15291720
+## fca90 19.250000 10  0.03719982
+## fca96  4.888889 10  0.89847559
+## fca37  4.433673  6  0.61820263
+## 
+## $`11`
+##          chi^2 df Pr(chi^2 &gt;)
+## fca8  27.49490 21 0.155066305
+## fca23 58.52901 45 0.084923238
+## fca43 26.97092 21 0.171817797
+## fca45 28.01333 28 0.463741139
+## fca77 50.64042 36 0.053561033
+## fca78 15.01731 10 0.131431929
+## fca90 60.22659 36 0.006894609
+## fca96 39.55940 28 0.072335908
+## fca37 30.97222 21 0.074121484
+## 
+## $`12`
+##            chi^2 df Pr(chi^2 &gt;)
+## fca8  35.2000000 28 0.164120103
+## fca23 35.5833333 21 0.024340677
+## fca43 28.5950000 10 0.001448621
+## fca45  2.2400000 15 0.999937497
+## fca77 18.2978571 15 0.247330251
+## fca78  2.9814815  3 0.394489189
+## fca90 20.7509679 15 0.144976448
+## fca96  0.6616257  6 0.995282078
+## fca37 32.1821433 21 0.056109916
+## 
+## $`13`
+##           chi^2 df  Pr(chi^2 &gt;)
+## fca8  12.338120 10 0.2630645196
+## fca23 30.333333 10 0.0007554178
+## fca43 21.702778 10 0.0166924694
+## fca45 11.739796 15 0.6986081422
+## fca77 16.827778 10 0.0782627471
+## fca78  2.567901  3 0.4631446836
+## fca90 17.333333 10 0.0673059558
+## fca96 10.219876 10 0.4214193724
+## fca37 14.828125 10 0.1384548888
+## 
+## $`14`
+##           chi^2 df  Pr(chi^2 &gt;)
+## fca8  67.500000 66 4.256183e-01
+## fca23 49.799592 15 1.298351e-05
+## fca43 31.801084 21 6.132040e-02
+## fca45  7.930211 10 6.356538e-01
+## fca77 27.672222 15 2.371323e-02
+## fca78 28.097222 15 2.096833e-02
+## fca90 30.337654 21 8.540995e-02
+## fca96 58.085432 36 1.128794e-02
+## fca37  0.489298  3 9.212362e-01
+## 
+## $`15`
+##           chi^2 df Pr(chi^2 &gt;)
+## fca8   3.786395  6 0.705556557
+## fca23  5.228395  6 0.514871229
+## fca43  4.820988  6 0.566969462
+## fca45  6.302083 10 0.789277136
+## fca77  7.260000 10 0.700692473
+## fca78 18.740741  6 0.004624641
+## fca90 18.122500 15 0.256280157
+## fca96 26.510000 15 0.032991782
+## fca37 12.222222  6 0.057190992
+## 
+## $`16`
+##           chi^2 df Pr(chi^2 &gt;)
+## fca8   7.450000  6 0.281226569
+## fca23 12.734694  6 0.047447914
+## fca43  9.424036 10 0.492388326
+## fca45  5.882231  6 0.436511213
+## fca77 18.986667 15 0.214338721
+## fca78 26.666667 10 0.002939821
+## fca90 10.400000  6 0.108786650
+## fca96 17.703333 10 0.060178994
+## fca37  2.055700  3 0.560926769
+## 
+## $`17`
+##           chi^2 df Pr(chi^2 &gt;)
+## fca8  22.100000 15   0.1052085
+## fca23 10.631111 10   0.3869703
+## fca43 22.071111 10   0.0147464
+## fca45        NA NA          NA
+## fca77 24.180000 21   0.2844190
+## fca78  1.764543  3   0.6226810
+## fca90  6.686359  6   0.3508286
+## fca96  0.312500  1   0.5761501
+## fca37  5.097337  3   0.1648068</code></pre>
+<div id="advanced-visualization-of-population-wise-p-values" class="section level3">
+<h3>Advanced: Visualization of population-wise p-values</h3>
+<p>Now we have one matrix per sample, but all we care about are the p-values, which are in the third column. We can use the functions <code>sapply</code> and <code>[</code> to loop to create a matrix that only contains populations in columns and loci in rows.</p>
+<blockquote>
+<p><code>[</code> is used to subset data, and it’s also a function! It provides an easy way to subset a list of data.</p>
+</blockquote>
+<pre class="sourceCode r"><code class="sourceCode r">(nanhwe.mat &lt;-<span class="st"> </span><span class="kw">sapply</span>(nanhwe.pop, <span class="st">&quot;[&quot;</span>, <span class="dt">i =</span> <span class="ot">TRUE</span>, <span class="dt">j =</span> <span class="dv">3</span>)) <span class="co"># Take the third column with all rows</span></code></pre>
+<pre><code>##                 1            2           3            4            5
+## fca8  0.526517306 1.242747e-02 0.008041715 0.0308567389 3.954989e-01
+## fca23 0.003674334 9.955382e-03 0.019163551 0.3233864330 1.850960e-01
+## fca43 0.228040169 1.328128e-04 0.509920497 0.7685881191 2.095530e-01
+## fca45 0.437506757 6.625229e-01 0.907112985 0.1851504896 6.508040e-01
+## fca77 0.020815001 2.152672e-04 0.346093040 0.0259007804 5.544311e-01
+## fca78 0.527089257 7.397613e-02 0.007422415 0.1349710053 1.086817e-03
+## fca90 0.176471694 9.039990e-07 0.488153481 0.0002424509 4.948073e-02
+## fca96 0.380796192 4.066747e-13 0.561890682 0.8593197525 4.641922e-01
+## fca37 0.017283597 5.889498e-01 0.035996207 0.5749990390 3.895597e-05
+##                6           7           8          9         10          11
+## fca8  0.03577342 0.001015109 0.916111766 0.31510592 0.05872852 0.155066305
+## fca23 0.03719982 0.012687711 0.396621136 0.02873635 0.87429636 0.084923238
+## fca43 0.39334274 0.959144052 0.091988007 0.64577154 0.38208910 0.171817797
+## fca45 0.02992243 0.459347253 0.318334361 0.16270652 0.25979323 0.463741139
+## fca77 0.05640543 0.448233208 0.008789371 0.73130577 0.00513784 0.053561033
+## fca78 0.16657697 0.000760033 0.032459406 0.12388882 0.15291720 0.131431929
+## fca90 0.14408091 0.255608831 0.306700905 0.01948082 0.03719982 0.006894609
+## fca96 0.31995727 0.679082361 0.661271220 0.83243842 0.89847559 0.072335908
+## fca37 0.71678027 0.194316502 0.040848059 0.70671912 0.61820263 0.074121484
+##                12           13           14          15          16
+## fca8  0.164120103 0.2630645196 4.256183e-01 0.705556557 0.281226569
+## fca23 0.024340677 0.0007554178 1.298351e-05 0.514871229 0.047447914
+## fca43 0.001448621 0.0166924694 6.132040e-02 0.566969462 0.492388326
+## fca45 0.999937497 0.6986081422 6.356538e-01 0.789277136 0.436511213
+## fca77 0.247330251 0.0782627471 2.371323e-02 0.700692473 0.214338721
+## fca78 0.394489189 0.4631446836 2.096833e-02 0.004624641 0.002939821
+## fca90 0.144976448 0.0673059558 8.540995e-02 0.256280157 0.108786650
+## fca96 0.995282078 0.4214193724 1.128794e-02 0.032991782 0.060178994
+## fca37 0.056109916 0.1384548888 9.212362e-01 0.057190992 0.560926769
+##              17
+## fca8  0.1052085
+## fca23 0.3869703
+## fca43 0.0147464
+## fca45        NA
+## fca77 0.2844190
+## fca78 0.6226810
+## fca90 0.3508286
+## fca96 0.5761501
+## fca37 0.1648068</code></pre>
+<p>This output is still hard to sift through. An easy way to analyze this is by visualizing this as a heatmap. Since we only care whether or not a given locus is in or out of HWE, we will thus define an <span class="math">\(\alpha\)</span> value and set everything above that value to 1 so that we can visually detect candidate loci where we might reject the <span class="math">\(H_o\)</span> of HWE.</p>
 <pre class="sourceCode r"><code class="sourceCode r">alpha  &lt;-<span class="st"> </span><span class="fl">0.05</span>
 newmat &lt;-<span class="st"> </span>nanhwe.mat
 newmat[newmat &gt;<span class="st"> </span>alpha] &lt;-<span class="st"> </span><span class="dv">1</span></code></pre>
 <p>Now we can create a simple heatmap with <code>levelplot</code>.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;lattice&quot;</span>)
-<span class="kw">levelplot</span>(newmat)</code></pre>
-<p><img src="Locus_Stats_files/figure-html/unnamed-chunk-13-1.png" title="Heatmap showing significant departures from HWE" alt="Heatmap showing significant departures from HWE" width="700px" /></p>
+<span class="kw">levelplot</span>(<span class="kw">t</span>(newmat))</code></pre>
+<p><img src="Locus_Stats_files/figure-html/unnamed-chunk-11-1.png" title="Heatmap showing significant departures from HWE" alt="Heatmap showing significant departures from HWE" width="700px" /></p>
 <p>This simple plot shows us loci in rows and populations in columns. Note, that all loci shown in pink are loci suspected for not being in HWE with <span class="math">\(p \leq 0.05\)</span>.</p>
 <div class="references">
 <h2 id="references" class="unnumbered">References</h2>
 <p>Goss E., Tabima J., Cooke D., Restrepo S., Fry W., Forbes G., Fieland V., Cardenas M., Grünwald N. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
+</div>
 </div>
 </div>
 
