@@ -84,13 +84,12 @@ into *poppr*.
 The data format is standard in that individuals are defined in the rows and loci
 are defined in the columns. The first two rows are reserved for metadata and the
 first two columns are reserved for the individual names and population names,
-respectively. The examples we will be using are codominant data, but AFLP data
-is also accepted.
+respectively. The examples we will be using include haploid, diploid and polyploid data.
 
 ### Haploids
 
 Below is what the `monpop` data looks like. Highlighted in red is
-how missing data should be coded for codominant markers. Highlighted in blue are
+how missing data should be coded for SSR markers. Highlighted in blue are
 the parts of the metadata rows used by *poppr*. These three numbers represent:
 
 <table align="left" cellpadding=20 border=2>
