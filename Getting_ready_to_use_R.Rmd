@@ -78,7 +78,7 @@ Use the following script to install these packages:
 install.packages(c("poppr", "mmod", "genetics", "magrittr"))
 ```
 
-We wrote and actively maintain *poppr* `r citep(bib["kamvar2014poppr"])` and it
+We wrote and actively maintain *poppr* `r citep(bib["kamvar2014poppr", "kamvar2015novel"])` and it
 is heavily relied upon in this primer. *Poppr* is an R package. You can think of
 a package as a library of functions written and curated by someone in the R user
 community, which you can be loaded into R for use.
@@ -153,7 +153,7 @@ Below, are two examples of how code can be improved with *magrittr*. [More
 details about magrittr can be found in this
 link.](http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)
 
-#### Fake Example: 
+#### Consider a fake Example: 
 Adapted from 
 [Hadley Wickham](https://twitter.com/_inundata/status/557980236130689024). 
 Based on the children's song, 
@@ -172,10 +172,10 @@ foo_foo %>%
   bop_on(head)
 ```
 
-#### Real Example:
+#### Now for a real Example:
 
-*Phytophthora infestans* data from North and South America 
-`r citep(bib['goss2014irish'])`. Calculating allelic diversity per population
+We will use the *Phytophthora infestans* microsatellite data from North and South America 
+`r citep(bib['goss2014irish'])`. Let's calculate allelic diversity per population
 after clone-correction. This information can be found in our chapters on
 [Population hierarchies and clone correction](Population_Hierarchies.html) and
 [Locus based statistics](Locus_Stats.html).
@@ -185,16 +185,20 @@ library("poppr")
 library("magrittr")
 data(Pinf)
 
+# Compare the traditional R script
+
 allelic_diversity <- lapply(seppop(clonecorrect(Pinf, hier = ~Continent/Country)), 
                             FUN = locus_table, info = FALSE)
 
-# VS
+# versus the magrittr piping:
 
 allelic_diversity <- Pinf %>%
   clonecorrect(hier = ~Continent/Country) %>% # clone censor by continent and country.
   seppop() %>%                                # Separate populations (by continent)
   lapply(FUN = locus_table, info = FALSE)     # Apply the function locus_table to both populations
 ```
+
+> To observe the results type `allelic_diversity` into the console after each statement.
 
 The `%>%` operator is thus good if you have to do a lot of small steps in your
 analysis. It allows your code to be more readable and reproducible.
@@ -207,10 +211,10 @@ One way that R shines above other languages for analysis is the fact that
 R packages in CRAN are all documented. Help files are written in HTML and give
 the user a brief overview of:
 
- - The purpose of a function
- - The parameters it takes
- - The output it yields
- - Some examples demonstrating its usage. 
+ - the purpose of a function,
+ - the parameters it takes,
+ - the output it yields,
+ - and some examples demonstrating its usage. 
 
 To see all of the help topics in a package, you can simply type:
 
