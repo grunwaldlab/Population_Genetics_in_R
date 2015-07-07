@@ -242,32 +242,22 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 }
 <span class="kw">data</span>(<span class="st">&quot;nancycats&quot;</span>)
 nancycats</code></pre>
-<pre><code>## 
-##    #####################
-##    ### Genind object ### 
-##    #####################
-## - genotypes of individuals - 
+<pre><code>## /// GENIND OBJECT /////////
 ## 
-## S4 class:  genind
-## @call: genind(tab = truenames(nancycats)$tab, pop = truenames(nancycats)$pop)
+##  // 237 individuals; 9 loci; 108 alleles; size: 158.4 Kb
 ## 
-## @tab:  237 x 108 matrix of genotypes
+##  // Basic content
+##    @tab:  237 x 108 matrix of allele counts
+##    @loc.n.all: number of alleles per locus (range: 8-18)
+##    @loc.fac: locus factor for the 108 columns of @tab
+##    @all.names: list of allele names for each locus
+##    @ploidy: ploidy of each individual  (range: 2-2)
+##    @type:  codom
+##    @call: genind(tab = truenames(nancycats)$tab, pop = truenames(nancycats)$pop)
 ## 
-## @ind.names: vector of  237 individual names
-## @loc.names: vector of  9 locus names
-## @loc.nall: number of alleles per locus
-## @loc.fac: locus factor for the  108 columns of @tab
-## @all.names: list of  9 components yielding allele names for each locus
-## @ploidy:  2 2 2 2 2 2
-## @type:  codom
-## 
-## Optional contents: 
-## @strata: - empty -
-## @hierarchy:  - empty -
-## @pop:  factor giving the population of each individual
-## @pop.names:  character giving the name of each population
-## 
-## @other: a list containing: xy</code></pre>
+##  // Optional content
+##    @pop: population of each individual (group size range: 9-23)
+##    @other: a list containing: xy</code></pre>
 <p>Now we will use Hendrick’s standardized <span class="math">\(G_{ST}\)</span> to assess population structure among these populations <span class="citation">(Hedrick, 2005)</span>.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Gst_Hedrick</span>(nancycats)</code></pre>
 <pre><code>## $per.locus
@@ -391,7 +381,7 @@ microbov</code></pre>
 ## -------------------------
 ## Genotype information:
 ## 
-##    704 multilocus genotypes
+##    704 original multilocus genotypes 
 ##    704 diploid individuals
 ##     30 codominant loci
 ## 
@@ -535,7 +525,7 @@ t26</code></pre>
 ## -------------------------
 ## Genotype information:
 ## 
-##    155 multilocus genotypes
+##    155 multilocus genotypes 
 ##    390 haploid individuals
 ##     13 codominant loci
 ## 
@@ -575,7 +565,7 @@ Pinf</code></pre>
 ## -------------------------
 ## Genotype information:
 ## 
-##    72 multilocus genotypes
+##    72 multilocus genotypes 
 ##    86 tetraploid individuals
 ##    11 codominant loci
 ## 
@@ -604,21 +594,21 @@ MXclust &lt;-<span class="st"> </span><span class="kw">find.clusters</span>(MX)<
 ## 
 ## $grp
 ##  PiMX01  PiMX02  PiMX03  PiMX04  PiMX05  PiMX06  PiMX07  PiMX10  PiMX11 
-##       1       1       2       3       3       3       3       2       2 
+##       2       2       3       1       1       1       1       3       3 
 ##  PiMX12  PiMX13  PiMX14  PiMX15  PiMX16  PiMX17  PiMX18  PiMX19  PiMX20 
-##       3       2       2       1       2       1       3       3       3 
+##       1       3       3       2       3       2       1       1       1 
 ##  PiMX21  PiMX22  PiMX23  PiMX24  PiMX25  PiMX26  PiMX27  PiMX28  PiMX29 
-##       1       2       1       2       3       1       2       2       3 
+##       2       3       2       3       1       2       3       3       1 
 ##  PiMX30  PiMX40  PiMX41  PiMX42  PiMX43  PiMX44  PiMX45  PiMX46  PiMX47 
-##       2       2       1       1       1       1       1       1       1 
+##       3       3       2       2       2       2       2       2       2 
 ##  PiMX48  PiMX49  PiMX50 PiMXT01 PiMXT02 PiMXT03 PiMXT04 PiMXT05 PiMXT06 
-##       2       2       2       1       1       3       3       1       3 
+##       3       3       3       2       2       1       1       2       1 
 ## PiMXT07 PiMXt48 PiMXt68 
-##       3       3       3 
+##       1       1       1 
 ## Levels: 1 2 3
 ## 
 ## $size
-## [1] 17 15 16</code></pre>
+## [1] 16 17 15</code></pre>
 <p>We will go through the same procedure for the South American population.</p>
 <pre class="sourceCode r"><code class="sourceCode r">SA &lt;-<span class="st"> </span><span class="kw">popsub</span>(Pinf, <span class="st">&quot;South America&quot;</span>)
 SAclust &lt;-<span class="st"> </span><span class="kw">find.clusters</span>(SA)</code></pre>

@@ -256,7 +256,7 @@ Aeut</code></pre>
 ## -------------------------
 ## Genotype information:
 ## 
-##    119 multilocus genotypes
+##    119 original multilocus genotypes 
 ##    187 diploid individuals
 ##     56 dominant loci
 ## 
@@ -266,9 +266,14 @@ Aeut</code></pre>
 ##      2 populations defined - Athena Mt. Vernon</code></pre>
 <p>We can see that this data set contains clonal data and has three stratifications where the first is really a combination of the other levels. We can take a look at the different stratifications, populations or subpopulations:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(<span class="kw">strata</span>(Aeut, ~Pop))  <span class="co"># Populations</span></code></pre>
-<pre><code>## &lt; table of extent 0 &gt;</code></pre>
+<pre><code>## 
+##     Athena Mt. Vernon 
+##         97         90</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(<span class="kw">strata</span>(Aeut, ~Pop/Subpop, <span class="dt">combine =</span> <span class="ot">FALSE</span>))  <span class="co"># Subpopulations</span></code></pre>
-<pre><code>## &lt; table of extent 0 &gt;</code></pre>
+<pre><code>##             Subpop
+## Pop           1  2  3  4  5  6  7  8  9 10
+##   Athena      9 12 10 13 10  5 11  8 10  9
+##   Mt. Vernon 10  6  8 12 17 12 12 13  0  0</code></pre>
 <p>In this example, we have a data set of 187 individuals sampled from two fields located in Athena or Mt. Vernon over 8 or 10 different soil samples within each field. We want to see if most of the variance is observed at the sample, field, or regional level.</p>
 </div>
 <div id="analysis" class="section level2">
@@ -378,12 +383,22 @@ Aeutccsignif &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeut
 <p>Since AMOVA is used to detect whether or not there is significant population structure, we can see what happens when we randomly shuffle the population assignments in our data. Here we will show what the populations look like before and after shuffling:</p>
 <pre class="sourceCode r"><code class="sourceCode r">Aeut.new &lt;-<span class="st"> </span>Aeut
 <span class="kw">head</span>(<span class="kw">strata</span>(Aeut)[, -<span class="dv">1</span>])</code></pre>
-<pre><code>## [1] 1 1 1 1 1 1
-## Levels: 1 2 3 4 5 6 7 8 9 10</code></pre>
+<pre><code>##        Pop Subpop
+## 001 Athena      1
+## 002 Athena      1
+## 003 Athena      1
+## 004 Athena      1
+## 005 Athena      1
+## 006 Athena      1</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">9001</span>)
 <span class="kw">head</span>(<span class="kw">strata</span>(Aeut)[<span class="kw">sample</span>(<span class="kw">nInd</span>(Aeut)), -<span class="dv">1</span>])</code></pre>
-<pre><code>## [1] 4 8 4 4 1 4
-## Levels: 1 2 3 4 5 6 7 8 9 10</code></pre>
+<pre><code>##            Pop Subpop
+## 044     Athena      4
+## 177 Mt. Vernon      8
+## 036     Athena      4
+## 127 Mt. Vernon      4
+## 008     Athena      1
+## 039     Athena      4</code></pre>
 <p>Here we see that the populations are completely shuffled, so in the next step, we will reassign the strata with these newly shuffled populations and rerun the AMOVA analysis.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">9001</span>)
 <span class="kw">strata</span>(Aeut.new) &lt;-<span class="st"> </span><span class="kw">strata</span>(Aeut)[<span class="kw">sample</span>(<span class="kw">nInd</span>(Aeut)), -<span class="dv">1</span>]

@@ -62,7 +62,6 @@ data(monpop)
 monpop
 ```
 
-
 **Genotype information** shows us that the data contains 264 multilocus
 genotypes among 694 haploid individuals with 13 loci. **Population information**
 has two items, the stratifications and the populations defined.  You can
@@ -71,7 +70,7 @@ levels within your data (so for our data it should be Tree, Year, and Symptom).
 By default, however, no stratifications are defined and so this is "Pop",
 which is the entire dataset of 694 individuals.  Because we labeled each sample
 according to stratification, populations defined shows us our data has 12
-groups defined: `r monpop$pop.names`.
+groups defined: `r c(adegenet::popNames(monpop)[-12], paste("and", adegenet::popNames(monpop)[12]))`.
 
 Assigning stratifications
 ----
@@ -278,7 +277,7 @@ construct a *for loop* that will analyze each one.
 ```{r}
 par(mfrow = c(2, 3)) # Set up the graphics to have two rows and three columns
 
-for (i in monpop@pop.names){
+for (i in popNames(monpop)){
   plot_simp_diff(i, mcc_TY, monpop)
 }
 

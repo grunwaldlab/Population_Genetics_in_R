@@ -285,22 +285,20 @@ in several ways:
 </ol>
 <p>Use the following script to install these packages:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;poppr&quot;</span>, <span class="st">&quot;mmod&quot;</span>, <span class="st">&quot;genetics&quot;</span>, <span class="st">&quot;magrittr&quot;</span>))</code></pre>
-<p>We wrote and actively maintain <em>poppr</em> <span class="citation">(Kamvar, Tabima &amp; Grünwald, 2014)</span> and it is heavily relied upon in this primer. <em>Poppr</em> is an R package. You can think of a package as a library of functions written and curated by someone in the R user community, which you can be loaded into R for use.</p>
+<p>We wrote and actively maintain <em>poppr</em> <span class="citation">(Kamvar, Tabima &amp; Grünwald, 2014; Kamvar, Brooks &amp; Gr<span>ü</span>nwald, 2015)</span> and it is heavily relied upon in this primer. <em>Poppr</em> is an R package. You can think of a package as a library of functions written and curated by someone in the R user community, which you can be loaded into R for use.</p>
 <p>Once you’ve installed <em>poppr</em>, you can invoke (i.e., load) it by typing or cutting and pasting:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</code></pre>
 <pre><code>## Loading required package: adegenet
 ## Loading required package: ade4
-##    ==========================
-##     adegenet 2.0.0 is loaded
-##    ==========================
 ## 
-##  - to start: type &#39;?adegenet&#39;
-##  - to browse the adegenet website: type &#39;adegenetWeb()&#39;
-##  - to post questions/comments: adegenet-forum@lists.r-forge.r-project.org
-##  - to report bugs, request features, contribute: http://goo.gl/dZuu5X
+##    /// adegenet 2.0.0 is loaded ////////////
+## 
+##    &gt; overview: &#39;?adegenet&#39;
+##    &gt; tutorials/doc/questions: &#39;adegenetWeb()&#39; 
+##    &gt; bug reports/feature resquests: adegenetIssues()
 ## 
 ## 
-## This is poppr version 1.1.5.99.439. To get started, type package?poppr</code></pre>
+## This is poppr version 1.1.5.99.673. To get started, type package?poppr</code></pre>
 <p>This will load <em>poppr</em> and all dependent packages, such as <em>adegenet</em> and <em>ade4</em>. You will recognize loading by the prompts written to your screen.</p>
 <p>Congratulations. You should now be all set for using R. Loading data and conducting your first analysis will be the topic of the next chapter. But before we go there lets provide a few useful resources.</p>
 </div>
@@ -328,8 +326,8 @@ in several ways:
 <p>In R code with <em>magrittr</em>, assuming that each step is a function, it might be written as:</p>
 <pre class="sourceCode r"><code class="sourceCode r">result &lt;-<span class="st"> </span>data %&gt;%<span class="st"> </span><span class="kw">step_one</span>() %&gt;%<span class="st"> </span><span class="kw">step_two</span>() %&gt;%<span class="st"> </span><span class="kw">step_three</span>()</code></pre>
 <p>Below, are two examples of how code can be improved with <em>magrittr</em>. <a href="http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html">More details about magrittr can be found in this link.</a></p>
-<div id="fake-example" class="section level4">
-<h4>Fake Example:</h4>
+<div id="consider-a-fake-example" class="section level4">
+<h4>Consider a fake Example:</h4>
 <p>Adapted from <a href="https://twitter.com/_inundata/status/557980236130689024">Hadley Wickham</a>. Based on the children’s song, <a href="http://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo">Little bunny foo foo</a>.</p>
 <pre class="sourceCode r"><code class="sourceCode r">foo_foo &lt;-<span class="st"> </span><span class="kw">little_bunny</span>()
 
@@ -342,22 +340,27 @@ foo_foo %&gt;%
 <span class="st">  </span><span class="kw">scoop_up</span>(field_mouse) %&gt;%
 <span class="st">  </span><span class="kw">bop_on</span>(head)</code></pre>
 </div>
-<div id="real-example" class="section level4">
-<h4>Real Example:</h4>
-<p><em>Phytophthora infestans</em> data from North and South America <span class="citation">(Goss et al., 2014)</span>. Calculating allelic diversity per population after clone-correction. This information can be found in our chapters on <a href="Population_Strata.html">Population strata and clone correction</a> and <a href="Locus_Stats.html">Locus based statistics</a>.</p>
+<div id="now-for-a-real-example" class="section level4">
+<h4>Now for a real Example:</h4>
+<p>We will use the <em>Phytophthora infestans</em> microsatellite data from North and South America <span class="citation">(Goss et al., 2014)</span>. Let’s calculate allelic diversity per population after clone-correction. This information can be found in our chapters on <a href="Population_Strata.html">Population strata and clone correction</a> and <a href="Locus_Stats.html">Locus based statistics</a>.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
 <span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)
 <span class="kw">data</span>(Pinf)
 
-allelic_diversity &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">seppop</span>(<span class="kw">clonecorrect</span>(Pinf, <span class="dt">strata=</span> ~Continent/Country)), 
+<span class="co"># Compare the traditional R script</span>
+
+allelic_diversity &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">seppop</span>(<span class="kw">clonecorrect</span>(Pinf, <span class="dt">strata =</span> ~Continent/Country)), 
                             <span class="dt">FUN =</span> locus_table, <span class="dt">info =</span> <span class="ot">FALSE</span>)
 
-<span class="co"># VS</span>
+<span class="co"># versus the magrittr piping:</span>
 
 allelic_diversity &lt;-<span class="st"> </span>Pinf %&gt;%
 <span class="st">  </span><span class="kw">clonecorrect</span>(<span class="dt">strata=</span> ~Continent/Country) %&gt;%<span class="st"> </span><span class="co"># clone censor by continent and country.</span>
 <span class="st">  </span><span class="kw">seppop</span>() %&gt;%<span class="st">                                </span><span class="co"># Separate populations (by continent)</span>
 <span class="st">  </span><span class="kw">lapply</span>(<span class="dt">FUN =</span> locus_table, <span class="dt">info =</span> <span class="ot">FALSE</span>)     <span class="co"># Apply the function locus_table to both populations</span></code></pre>
+<blockquote>
+<p>To observe the results type <code>allelic_diversity</code> into the console after each statement.</p>
+</blockquote>
 <p>The <code>%&gt;%</code> operator is thus good if you have to do a lot of small steps in your analysis. It allows your code to be more readable and reproducible.</p>
 </div>
 </div>
@@ -365,10 +368,10 @@ allelic_diversity &lt;-<span class="st"> </span>Pinf %&gt;%
 <h2>Packages and getting help</h2>
 <p>One way that R shines above other languages for analysis is the fact that R packages in CRAN are all documented. Help files are written in HTML and give the user a brief overview of:</p>
 <ul>
-<li>The purpose of a function</li>
-<li>The parameters it takes</li>
-<li>The output it yields</li>
-<li>Some examples demonstrating its usage.</li>
+<li>the purpose of a function,</li>
+<li>the parameters it takes,</li>
+<li>the output it yields,</li>
+<li>and some examples demonstrating its usage.</li>
 </ul>
 <p>To see all of the help topics in a package, you can simply type:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(<span class="dt">package =</span> <span class="st">&quot;poppr&quot;</span>) <span class="co"># Get help for a package.</span>
@@ -380,13 +383,14 @@ allelic_diversity &lt;-<span class="st"> </span>Pinf %&gt;%
 <span class="kw">browseVignettes</span>(<span class="dt">package =</span> <span class="st">&#39;poppr&#39;</span>)    <span class="co"># see vignettes from a specific package.</span></code></pre>
 <p>and to look at a specific vignette you can type:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="st">&#39;poppr_manual&#39;</span>)</code></pre>
-<p>Next, consider browsing the Appendix 3 on Introduction to R if you are not yet familiar with R and Rstudio. Otherwise, you are now ready to think about formatting and loading population genetic data into R.</p>
+<p>Next, consider browsing Appendix 3 on “Introduction to R” if you are not yet familiar with R and Rstudio. Otherwise, you are now ready to think about formatting and loading population genetic data into R.</p>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>
 <!---->
 <div class="references">
 <p>Goss E., Tabima J., Cooke D., Restrepo S., Fry W., Forbes G., Fieland V., Cardenas M., Grünwald N. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
+<p>Kamvar ZN., Brooks JC., Gr<span>ü</span>nwald NJ. 2015. Novel r tools for analysis of genome-wide population genetic data with emphasis on clonality. <em>Name: Frontiers in Genetics</em> 6:208. Available at: <a href="http://dx.doi.org/10.3389/fgene.2015.00208" class="uri">http://dx.doi.org/10.3389/fgene.2015.00208</a></p>
 <p>Kamvar Z., Tabima J., Grünwald N. 2014. <span class="math">\(Poppr\)</span>: An R package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281" class="uri">http://dx.doi.org/10.7717/peerj.281</a></p>
 </div>
 </div>

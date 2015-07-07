@@ -4,6 +4,8 @@ title: "Preface"
 
 We had a great time writing this primer thanks to the ready availability of many open source tools. This primer was written using open source tools including [Markdown](http://daringfireball.net/projects/markdown/), [Rstudio IDE](http://www.rstudio.com/ide/), [Knitr](http://yihui.name/knitr/), the [R](http://www.r-project.org) statistical computing and graphing language, [knitcitations](https://github.com/cboettig/knitcitations), [poppr](http://cran.r-project.org/web/packages/poppr/index.html) and other dependent R packages.
 
+Zhian and Nik recently participated in the [R hackathon for Population Genetics](https://github.com/NESCent/r-popgen-hackathon/wiki) in Durham, NC. As a result of this hackathon major upgrades to several packages including *adegenet*, *pegas*, and *poppr* are being released. We are currenlty incorporating any resulting changes into this primer.
+
 If you find errors or lacking information please let us know. We are actively working to improve this primer and *poppr*. We are also delighted to hear about features in *poppr* you might want to see, although we cannot promise that we can implement these. At the same time we have already implemented several user suggested features that much improved *poppr*. We hope you find this primer useful in your own work!
 
 *Niklaus J. Gr&uuml;nwald, Zhian N. Kamvar, and Sydney E. Everhart*

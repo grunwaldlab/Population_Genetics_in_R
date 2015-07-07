@@ -261,7 +261,7 @@ monpop</code></pre>
 ## -------------------------
 ## Genotype information:
 ## 
-##    264 multilocus genotypes
+##    264 multilocus genotypes 
 ##    694 haploid individuals
 ##     13 codominant loci
 ## 
@@ -270,7 +270,7 @@ monpop</code></pre>
 ##      1 stratification - Pop
 ##     12 populations defined - 7_09_BB 26_09_BB 26_09_FR ... 45_10_FR 
 ## 26_11_BB 26_11_FR</code></pre>
-<p><strong>Genotype information</strong> shows us that the data contains 264 multilocus genotypes among 694 haploid individuals with 13 loci. <strong>Population information</strong> has two items, the stratifications and the populations defined. You can think of stratifications as the index names for each of the hierarchical levels within your data (so for our data it should be Tree, Year, and Symptom). By default, however, no stratifications are defined and so this is “Pop”, which is the entire dataset of 694 individuals. Because we labeled each sample according to stratification, populations defined shows us our data has 12 groups defined: 7_09_BB, 26_09_BB, 26_09_FR, 7_09_FR, 26_10_BB, 45_10_BB, 79_10_BB, 79_10_FR, 26_10_FR, 45_10_FR, 26_11_BB, 26_11_FR.</p>
+<p><strong>Genotype information</strong> shows us that the data contains 264 multilocus genotypes among 694 haploid individuals with 13 loci. <strong>Population information</strong> has two items, the stratifications and the populations defined. You can think of stratifications as the index names for each of the hierarchical levels within your data (so for our data it should be Tree, Year, and Symptom). By default, however, no stratifications are defined and so this is “Pop”, which is the entire dataset of 694 individuals. Because we labeled each sample according to stratification, populations defined shows us our data has 12 groups defined: 7_09_BB, 26_09_BB, 26_09_FR, 7_09_FR, 26_10_BB, 45_10_BB, 79_10_BB, 79_10_FR, 26_10_FR, 45_10_FR, 26_11_BB, and 26_11_FR.</p>
 </div>
 <div id="assigning-stratifications" class="section level2">
 <h2>Assigning stratifications</h2>
@@ -282,7 +282,7 @@ monpop</code></pre>
 ## -------------------------
 ## Genotype information:
 ## 
-##    264 multilocus genotypes
+##    264 multilocus genotypes 
 ##    694 haploid individuals
 ##     13 codominant loci
 ## 
@@ -303,7 +303,7 @@ monpop</code></pre>
 ## -------------------------
 ## Genotype information:
 ## 
-##    264 multilocus genotypes
+##    264 multilocus genotypes 
 ##    694 haploid individuals
 ##     13 codominant loci
 ## 
@@ -319,7 +319,7 @@ monpop</code></pre>
 ## -------------------------
 ## Genotype information:
 ## 
-##    264 multilocus genotypes
+##    264 multilocus genotypes 
 ##    694 haploid individuals
 ##     13 codominant loci
 ## 
@@ -335,7 +335,7 @@ monpop</code></pre>
 ## -------------------------
 ## Genotype information:
 ## 
-##    264 multilocus genotypes
+##    264 multilocus genotypes 
 ##    694 haploid individuals
 ##     13 codominant loci
 ## 
@@ -359,7 +359,7 @@ mcc_TY</code></pre>
 ## -------------------------
 ## Genotype information:
 ## 
-##    264 multilocus genotypes
+##    264 multilocus genotypes 
 ##    278 haploid individuals
 ##     13 codominant loci
 ## 
@@ -464,7 +464,7 @@ rmean &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="dv
 <p>Now that we have our function written, let’s gather the population names and construct a <em>for loop</em> that will analyze each one.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)) <span class="co"># Set up the graphics to have two rows and three columns</span>
 
-for (i in monpop@pop.names){
+for (i in <span class="kw">popNames</span>(monpop)){
   <span class="kw">plot_simp_diff</span>(i, mcc_TY, monpop)
 }</code></pre>
 <p><img src="Population_Strata_files/figure-html/unnamed-chunk-12-1.png" title="" alt="" width="960" /></p>

@@ -199,7 +199,7 @@ Hardy-Weinberg equilibrium
 
 Next, let's determine if our  populations are in Hardy-Weinberg equilibrium. We
 will again use the nancycats data to test for HWE using the function `hw.test()`
-from the *pegas* package. This will compute the $\Chi^2$ statistic over the 
+from the *pegas* package. This will compute the $\chi^2$ statistic over the 
 entire data set and compute two P-values, one analytical and one derived from
 permutations:
 
