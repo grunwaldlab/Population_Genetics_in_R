@@ -239,7 +239,7 @@ and to look at a specific vignette you can type:
 vignette('poppr_manual')
 ```
 
-Next, consider browsing the Appendix 3 on Introduction to R if you are not yet
+Next, consider browsing  Appendix 3 on "Introduction to R" if you are not yet
 familiar with R and Rstudio. Otherwise, you are now ready to think about
 formatting and loading population genetic data into R.
 

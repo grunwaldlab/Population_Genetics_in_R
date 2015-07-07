@@ -61,7 +61,7 @@ console for details.
 
 ### Other data formats
 
-Being based on *adegenet*, users can import data from the following formats
+Given dependence of *poppr* on *adegenet*, users can import data from the following formats
 
 - **FSTAT** (file.dat)
 - **GENETIX** (file.gtx)
@@ -70,8 +70,7 @@ Being based on *adegenet*, users can import data from the following formats
 
 The *adegenet* function `import2genind` will import all of these formats. 
 If you have sequence data, you can use the `read.FASTA` function from the *ape* 
-package.
-If your data is in any other format, type `help("df2genind")` for guidance.
+package. If your data is in any other format, type `help("df2genind")` for guidance.
 
 GenAlEx data format
 ----
