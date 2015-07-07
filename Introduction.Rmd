@@ -159,7 +159,7 @@ include indices of linkage disequiblibrium among markers that are used to infer
 if populations are reproducing sexually or clonally. We will explore these
 analyses bit by bit throughout this primer. The *poppr* R package was
 specifically developed to facilitate analyses of clonal populations 
-`r citep(bib[c("kamvar2014poppr")])`.
+`r citep(bib[c("kamvar2014poppr", "kamvar2015novel")])`.
 
 Marker systems, ploidy and other kinds of data
 ----
