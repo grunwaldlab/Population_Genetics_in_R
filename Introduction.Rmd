@@ -1,3 +1,6 @@
+---
+output: pdf_document
+---
 ```{r,message=FALSE,echo=FALSE}
   library("knitcitations")
   bib <- read.bibtex("bibtexlib.bib")
