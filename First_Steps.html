@@ -280,8 +280,9 @@ Pinf       <span class="co"># We expect a maximum of 72 Multilocus Genotypes</sp
 ##   Pi70  3.000  0.279  0.419    0.580
 ##   Pi89 11.000  0.615  0.677    0.578
 ##   mean  8.636  0.517  0.620    0.602</code></pre>
+<p>We see that we have anywhere from 2 to 25 microsatellite alleles per locus. Locus D13 has the highest Simpson diversity (0.884) and Pi04 has the most evenly distirbuted alleles (0.785). We also observe between 1-10% missing data in the ‘North America’ population:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">info_table</span>(Pinf, <span class="dt">type =</span> <span class="st">&quot;missing&quot;</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre>
-<p><img src="First_Steps_files/figure-html/unnamed-chunk-3-1.png" title="Missing data plot" alt="Missing data plot" width="1152" /></p>
+<p><img src="First_Steps_files/figure-html/unnamed-chunk-4-1.png" title="Missing data plot" alt="Missing data plot" width="1152" /></p>
 <pre><code>##                Locus
 ## Population      Pi02   D13 Pi33 Pi04 Pi4B  Pi16 G11 Pi56  Pi63 Pi70  Pi89
 ##   South America    .     .    .    .    .     .   .    .     .    .     .
@@ -292,7 +293,6 @@ Pinf       <span class="co"># We expect a maximum of 72 Multilocus Genotypes</sp
 ##   South America     .
 ##   North America 0.019
 ##   Total         0.011</code></pre>
-<p>We see that we have anywhere from 2 to 25 microsatellite alleles per locus. We also observe between 1-10% missing data in the ‘North America’ population.</p>
 <p>If your data consists of polyploid SSR markers, you would code the unobserved alleles as ‘0’. The <code>Pinf</code> data set is a perfect example of this. It is a subset of a slightly larger tetraploid data set. In this example, each row represents an isolate and each column represents a locus:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(<span class="kw">genind2df</span>(Pinf, <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>))</code></pre>
 <pre><code>##                  pop            Pi02             D13            Pi33
@@ -322,7 +322,7 @@ Pinf       <span class="co"># We expect a maximum of 72 Multilocus Genotypes</sp
 <p>Notice you can change the colors of the plot by setting a “low” color and a “high” color.</p>
 </blockquote>
 <pre class="sourceCode r"><code class="sourceCode r">Pinf.ploidy &lt;-<span class="st"> </span><span class="kw">info_table</span>(Pinf, <span class="dt">type =</span> <span class="st">&quot;ploidy&quot;</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>, <span class="dt">low =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;orange&quot;</span>)</code></pre>
-<p><img src="First_Steps_files/figure-html/unnamed-chunk-5-1.png" title="Plot of ploidy" alt="Plot of ploidy" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="First_Steps_files/figure-html/unnamed-chunk-6-1.png" title="Plot of ploidy" alt="Plot of ploidy" width="480" style="display: block; margin: auto;" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(Pinf.ploidy)</code></pre>
 <pre><code>##         Loci
 ## Samples  Pi02 D13 Pi33 Pi04 Pi4B Pi16 G11 Pi56 Pi63 Pi70 Pi89
@@ -364,9 +364,9 @@ Pinf       <span class="co"># We expect a maximum of 72 Multilocus Genotypes</sp
 <p>Next, let’s calculate <span class="math">\(MLG\)</span> for each population, e.g. “South America” and “North America” populations:</p>
 <pre class="sourceCode r"><code class="sourceCode r">P.tab &lt;-<span class="st"> </span><span class="kw">mlg.table</span>(Pinf)</code></pre>
 <pre><code>## | South America</code></pre>
-<p><img src="First_Steps_files/figure-html/unnamed-chunk-7-1.png" title="Multilocus Genotype Table" alt="Multilocus Genotype Table" width="960" /></p>
+<p><img src="First_Steps_files/figure-html/unnamed-chunk-8-1.png" title="Multilocus Genotype Table" alt="Multilocus Genotype Table" width="960" /></p>
 <pre><code>## | North America</code></pre>
-<p><img src="First_Steps_files/figure-html/unnamed-chunk-7-2.png" title="Multilocus Genotype Table" alt="Multilocus Genotype Table" width="960" /></p>
+<p><img src="First_Steps_files/figure-html/unnamed-chunk-8-2.png" title="Multilocus Genotype Table" alt="Multilocus Genotype Table" width="960" /></p>
 <p>The figures provide histograms to see how evenly <span class="math">\(MLGs\)</span> are distributed within each population. Both populations have genotypes that occur a few times and only a few genotypes that occur more than 2 times (as expected from the high <span class="math">\(E_5\)</span> discussed above). Try this analysis on other published data sets such as that of the root rot pathogen <em>Aphanomyces euteiches</em>, stored in <em>poppr</em> as <code>Aeut</code>. See if you can produce similar tables and graphs and compare it to the published paper <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>.</p>
 </div>
 <div id="conclusions" class="section level2">
@@ -382,13 +382,13 @@ Pinf       <span class="co"># We expect a maximum of 72 Multilocus Genotypes</sp
 <p>Goss E., Tabima J., Cooke D., Restrepo S., Fry W., Forbes G., Fieland V., Cardenas M., Grünwald N. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
 <p>Grünwald N., Goodwin S., Milgroom M., Fry W. 2003. Analysis of genotypic diversity data for populations of microorganisms. <em>Phytopathology</em> 93:738–746. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738" class="uri">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738</a></p>
 <p>Grünwald N., Hoheisel G-A. 2006. Hierarchical analysis of diversity, selfing, and genetic differentiation in populations of the oomycete <em>Aphanomyces euteiches</em>. <em>Phytopathology</em> 96:1134–1141. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134" class="uri">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134</a></p>
-<p>Hurlbert S. 1971. The nonconcept of species diversity: A critique and alternative parameters. <em>Ecology</em> 52:577–586. Available at: <a href="http://www.jstor.org/discover/10.2307/1934145?uid=3739856&amp;uid=2&amp;uid=4&amp;uid=3739256&amp;sid=21103760010461" class="uri">http://www.jstor.org/discover/10.2307/1934145?uid=3739856&amp;uid=2&amp;uid=4&amp;uid=3739256&amp;sid=21103760010461</a></p>
-<p>Ludwig J., Reynolds J. 1988. <em>Statistical ecology: A primer in methods and computing</em>. Wiley.com.</p>
+<p>Hurlbert S. 1971. The nonconcept of species diversity: a critique and alternative parameters. <em>Ecology</em> 52:577–586. Available at: <a href="http://www.jstor.org/discover/10.2307/1934145?uid=3739856&amp;uid=2&amp;uid=4&amp;uid=3739256&amp;sid=21103760010461" class="uri">http://www.jstor.org/discover/10.2307/1934145?uid=3739856&amp;uid=2&amp;uid=4&amp;uid=3739256&amp;sid=21103760010461</a></p>
+<p>Ludwig J., Reynolds J. 1988. <em>Statistical ecology: a primer in methods and computing</em>. Wiley.com.</p>
 <p>Nei M. 1978. Estimation of average heterozygosity and genetic distance from a small number of individuals. <em>Genetics</em> 89:583–590. Available at: <a href="http://www.genetics.org/content/89/3/583.abstract" class="uri">http://www.genetics.org/content/89/3/583.abstract</a></p>
 <p>Pielou E. 1975. <em>Ecological diversity</em>. Wiley New York.</p>
 <p>Shannon C. 2001. A mathematical theory of communication. <em>ACM SIGMOBILE Mobile Computing and Communications Review</em> 5:3–55. Available at: <a href="http://cm.bell-labs.com/cm/ms/what/shannonday/shannon1948.pdf" class="uri">http://cm.bell-labs.com/cm/ms/what/shannonday/shannon1948.pdf</a></p>
 <p>Smith J., Smith N., O’Rourke M., Spratt B. 1993. How clonal are bacteria. <em>Proceedings of the National Academy of Sciences</em> 90:4384–4388. Available at: <a href="http://www.pnas.org/content/90/10/4384" class="uri">http://www.pnas.org/content/90/10/4384</a></p>
-<p>Stoddart J., Taylor J. 1988. Genotypic diversity: Estimation and prediction in samples. <em>Genetics</em> 118:705–711. Available at: <a href="http://www.genetics.org/content/118/4/705" class="uri">http://www.genetics.org/content/118/4/705</a></p>
+<p>Stoddart J., Taylor J. 1988. Genotypic diversity: estimation and prediction in samples. <em>Genetics</em> 118:705–711. Available at: <a href="http://www.genetics.org/content/118/4/705" class="uri">http://www.genetics.org/content/118/4/705</a></p>
 </div>
 </div>
 
