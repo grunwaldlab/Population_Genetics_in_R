@@ -262,11 +262,6 @@ Pinf         <span class="co"># We expect a maximum of 72 Multilocus Genotypes</
 <p>A good first step after loading data is to look for missing data, rare alleles and overall quality of your data:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;Pinf&quot;</span>)
 <span class="kw">locus_table</span>(Pinf)</code></pre>
-<pre><code>## 
-## allele = Number of observed alleles
-## 1-D = Simpson index
-## Hexp = Nei&#39;s 1978 expected heterozygosity
-## ------------------------------------------</code></pre>
 <pre><code>##       summary
 ## locus  allele    1-D   Hexp Evenness
 ##   Pi02 10.000  0.633  0.703    0.663
@@ -281,8 +276,9 @@ Pinf         <span class="co"># We expect a maximum of 72 Multilocus Genotypes</
 ##   Pi70  3.000  0.279  0.419    0.580
 ##   Pi89 11.000  0.615  0.677    0.578
 ##   mean  8.636  0.517  0.620    0.602</code></pre>
+<p>We see that we have anywhere from 2 to 25 microsatellite alleles per locus. Locus D13 has the highest Simpson diversity (0.884) and Pi04 has the most evenly distirbuted alleles (0.785). We also observe between 1-10% missing data in the ‘North America’ population:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">info_table</span>(Pinf, <span class="dt">type =</span> <span class="st">&quot;missing&quot;</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre>
-<p><img src="First_Steps_files/figure-html/unnamed-chunk-3-1.png" title="Missing data plot" alt="Missing data plot" width="1152" /></p>
+<p><img src="First_Steps_files/figure-html/unnamed-chunk-4-1.png" title="Missing data plot" alt="Missing data plot" width="1152" /></p>
 <pre><code>##                Locus
 ## Population      Pi02   D13 Pi33 Pi04 Pi4B  Pi16 G11 Pi56  Pi63 Pi70  Pi89
 ##   South America    .     .    .    .    .     .   .    .     .    .     .
@@ -293,7 +289,6 @@ Pinf         <span class="co"># We expect a maximum of 72 Multilocus Genotypes</
 ##   South America     .
 ##   North America 0.019
 ##   Total         0.011</code></pre>
-<p>We see that we have anywhere from 2 to 25 microsatellite alleles per locus. We also observe between 1-10% missing data in the ‘North America’ population.</p>
 <p>If your data consists of polyploid SSR markers, you would code the unobserved alleles as ‘0’. The <code>Pinf</code> data set is a perfect example of this. It is a subset of a slightly larger tetraploid data set. In this example, each row represents an isolate and each column represents a locus:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(<span class="kw">genind2df</span>(Pinf, <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>))</code></pre>
 <pre><code>##                  pop            Pi02             D13            Pi33
@@ -323,7 +318,7 @@ Pinf         <span class="co"># We expect a maximum of 72 Multilocus Genotypes</
 <p>Notice you can change the colors of the plot by setting a “low” color and a “high” color.</p>
 </blockquote>
 <pre class="sourceCode r"><code class="sourceCode r">Pinf.ploidy &lt;-<span class="st"> </span><span class="kw">info_table</span>(Pinf, <span class="dt">type =</span> <span class="st">&quot;ploidy&quot;</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>, <span class="dt">low =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;orange&quot;</span>)</code></pre>
-<p><img src="First_Steps_files/figure-html/unnamed-chunk-5-1.png" title="Plot of ploidy" alt="Plot of ploidy" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="First_Steps_files/figure-html/unnamed-chunk-6-1.png" title="Plot of ploidy" alt="Plot of ploidy" width="480" style="display: block; margin: auto;" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(Pinf.ploidy)</code></pre>
 <pre><code>##         Loci
 ## Samples  Pi02 D13 Pi33 Pi04 Pi4B Pi16 G11 Pi56 Pi63 Pi70 Pi89
@@ -343,14 +338,10 @@ Pinf         <span class="co"># We expect a maximum of 72 Multilocus Genotypes</
 <pre><code>## | South America 
 ## | North America 
 ## | Total</code></pre>
-<pre><code>##             Pop  N MLG eMLG    SE    H    G lambda   E.5  Hexp    Ia
-## 1 South America 38  29 29.0 0.000 3.27 23.3  0.957 0.883 0.764 2.873
-## 2 North America 48  43 34.5 0.989 3.69 34.9  0.971 0.871 0.608 0.223
-## 3         Total 86  72 34.6 1.529 4.19 57.8  0.983 0.875 0.620 0.652
-##    rbarD File
-## 1 0.3446 Pinf
-## 2 0.0240 Pinf
-## 3 0.0717 Pinf</code></pre>
+<pre><code>##             Pop  N MLG eMLG    SE    H    G  Hexp   E.5    Ia  rbarD File
+## 1 South America 38  29 29.0 0.000 3.27 23.3 0.983 0.883 2.873 0.3446 Pinf
+## 2 North America 48  43 34.5 0.989 3.69 34.9 0.992 0.871 0.223 0.0240 Pinf
+## 3         Total 86  72 34.6 1.529 4.19 57.8 0.994 0.875 0.652 0.0717 Pinf</code></pre>
 <p>We can see statistics printed for each individual and the total population. The fields you see in the output include:</p>
 <ul>
 <li><code>Pop</code> - Population name.</li>
@@ -368,7 +359,10 @@ Pinf         <span class="co"># We expect a maximum of 72 Multilocus Genotypes</
 <p>What does all this mean? Both populations have a similar number of individuals (<span class="math">\(N\)</span> = 38 and 48) sampled. However, one population has 29 and the other 43 <span class="math">\(MLG\)</span> while both populations together have combined 86 <span class="math">\(MLG\)</span>. Genotypic diversity (either <span class="math">\(H\)</span> or <span class="math">\(G\)</span>) is higher in population 2 than population 1, while evenness is similar. Let’s ignore <span class="math">\(I_A\)</span> and <span class="math">\(\bar{r}_d\)</span> for now, as these are measures of linkage disequilibrium that will be covered in <a href="Linkage_disequilibrium.html">Chapter 8</a>.</p>
 <p>Next, let’s calculate <span class="math">\(MLG\)</span> for each population, e.g. “South America” and “North America” populations:</p>
 <pre class="sourceCode r"><code class="sourceCode r">P.tab &lt;-<span class="st"> </span><span class="kw">mlg.table</span>(Pinf)</code></pre>
-<p><img src="First_Steps_files/figure-html/unnamed-chunk-7-1.png" title="Multilocus Genotype Table" alt="Multilocus Genotype Table" width="960" /></p>
+<pre><code>## | South America</code></pre>
+<p><img src="First_Steps_files/figure-html/unnamed-chunk-8-1.png" title="Multilocus Genotype Table" alt="Multilocus Genotype Table" width="960" /></p>
+<pre><code>## | North America</code></pre>
+<p><img src="First_Steps_files/figure-html/unnamed-chunk-8-2.png" title="Multilocus Genotype Table" alt="Multilocus Genotype Table" width="960" /></p>
 <p>The figures provide histograms to see how evenly <span class="math">\(MLGs\)</span> are distributed within each population. Both populations have genotypes that occur a few times and only a few genotypes that occur more than 2 times (as expected from the high <span class="math">\(E_5\)</span> discussed above). Try this analysis on other published data sets such as that of the root rot pathogen <em>Aphanomyces euteiches</em>, stored in <em>poppr</em> as <code>Aeut</code>. See if you can produce similar tables and graphs and compare it to the published paper <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>.</p>
 </div>
 <div id="conclusions" class="section level2">

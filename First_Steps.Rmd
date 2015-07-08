@@ -44,13 +44,16 @@ Allele frequencies, missing data, and ploidy
 
 A good first step after loading data is to look for missing data, rare alleles and overall quality of your data:
 
-```{r, fig.cap = "Missing data plot", fig.width = 12, fig.height = 5, message = TRUE}
+```{r}
 data("Pinf")
 locus_table(Pinf)
-info_table(Pinf, type = "missing", plot = TRUE)
 ```
 
-We see that we have anywhere from 2 to 25 microsatellite alleles per locus. We also observe between 1-10% missing data in the 'North America' population. 
+We see that we have anywhere from 2 to 25 microsatellite alleles per locus. Locus D13 has the highest Simpson diversity (0.884) and Pi04 has the most evenly distirbuted alleles (0.785). We also observe between 1-10% missing data in the 'North America' population:
+
+```{r, fig.cap = "Missing data plot", fig.width = 12, fig.height = 5}
+info_table(Pinf, type = "missing", plot = TRUE)
+```
 
 If your data consists of polyploid SSR markers, you would code the unobserved alleles as
 '0'. The `Pinf` data set is a perfect example of this. It is a subset of a slightly larger tetraploid data set. In this example, each row represents an isolate and each column represents a locus:
