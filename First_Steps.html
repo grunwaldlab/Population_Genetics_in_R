@@ -338,10 +338,14 @@ Pinf         <span class="co"># We expect a maximum of 72 Multilocus Genotypes</
 <pre><code>## | South America 
 ## | North America 
 ## | Total</code></pre>
-<pre><code>##             Pop  N MLG eMLG    SE    H    G  Hexp   E.5    Ia  rbarD File
-## 1 South America 38  29 29.0 0.000 3.27 23.3 0.983 0.883 2.873 0.3446 Pinf
-## 2 North America 48  43 34.5 0.989 3.69 34.9 0.992 0.871 0.223 0.0240 Pinf
-## 3         Total 86  72 34.6 1.529 4.19 57.8 0.994 0.875 0.652 0.0717 Pinf</code></pre>
+<pre><code>##             Pop  N MLG eMLG    SE    H    G lambda   E.5  Hexp    Ia
+## 1 South America 38  29 29.0 0.000 3.27 23.3  0.957 0.883 0.764 2.873
+## 2 North America 48  43 34.5 0.989 3.69 34.9  0.971 0.871 0.608 0.223
+## 3         Total 86  72 34.6 1.529 4.19 57.8  0.983 0.875 0.620 0.652
+##    rbarD File
+## 1 0.3446 Pinf
+## 2 0.0240 Pinf
+## 3 0.0717 Pinf</code></pre>
 <p>We can see statistics printed for each individual and the total population. The fields you see in the output include:</p>
 <ul>
 <li><code>Pop</code> - Population name.</li>
@@ -359,10 +363,7 @@ Pinf         <span class="co"># We expect a maximum of 72 Multilocus Genotypes</
 <p>What does all this mean? Both populations have a similar number of individuals (<span class="math">\(N\)</span> = 38 and 48) sampled. However, one population has 29 and the other 43 <span class="math">\(MLG\)</span> while both populations together have combined 86 <span class="math">\(MLG\)</span>. Genotypic diversity (either <span class="math">\(H\)</span> or <span class="math">\(G\)</span>) is higher in population 2 than population 1, while evenness is similar. Let’s ignore <span class="math">\(I_A\)</span> and <span class="math">\(\bar{r}_d\)</span> for now, as these are measures of linkage disequilibrium that will be covered in <a href="Linkage_disequilibrium.html">Chapter 8</a>.</p>
 <p>Next, let’s calculate <span class="math">\(MLG\)</span> for each population, e.g. “South America” and “North America” populations:</p>
 <pre class="sourceCode r"><code class="sourceCode r">P.tab &lt;-<span class="st"> </span><span class="kw">mlg.table</span>(Pinf)</code></pre>
-<pre><code>## | South America</code></pre>
 <p><img src="First_Steps_files/figure-html/unnamed-chunk-8-1.png" title="Multilocus Genotype Table" alt="Multilocus Genotype Table" width="960" /></p>
-<pre><code>## | North America</code></pre>
-<p><img src="First_Steps_files/figure-html/unnamed-chunk-8-2.png" title="Multilocus Genotype Table" alt="Multilocus Genotype Table" width="960" /></p>
 <p>The figures provide histograms to see how evenly <span class="math">\(MLGs\)</span> are distributed within each population. Both populations have genotypes that occur a few times and only a few genotypes that occur more than 2 times (as expected from the high <span class="math">\(E_5\)</span> discussed above). Try this analysis on other published data sets such as that of the root rot pathogen <em>Aphanomyces euteiches</em>, stored in <em>poppr</em> as <code>Aeut</code>. See if you can produce similar tables and graphs and compare it to the published paper <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>.</p>
 </div>
 <div id="conclusions" class="section level2">
