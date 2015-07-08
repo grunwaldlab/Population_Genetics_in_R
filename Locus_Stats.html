@@ -171,7 +171,7 @@ img {
                <li><a href="Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
                <li><a href="Data_Preparation.html">3. Data preparation</a></li>
                <li><a href="First_Steps.html">4. First steps</a></li>
-               <li><a href="Population_Hierarchies.html">5. Population hierarchies and clone correction</a></li>
+               <li><a href="Population_Strata.html">5. Population strata and clone correction</a></li>
                <li><a href="Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
                <li><a href="Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
                <li><a href="Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
@@ -242,12 +242,12 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <p>A quick way to assess quality of the data is to determine the number, diversity, expected heterozygosity, and evenness of the alleles at each locus. As an example, we will use data for the fungal-like protist <em>Phytophthora infestans</em> from <span class="citation">(Goss et al., 2014)</span>. First, we’ll use the function <code>locus_table</code> to get all of the statistics mentioned above. For documentation on this function type <code>?locus_table</code>. Here is a first look at each locus:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)     <span class="co"># Make sure poppr is loaded if you haven&#39;t done so already.</span>
 <span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)  <span class="co"># We will also use magrittr for part of this chapter</span>
-<span class="kw">data</span>(Pinf)           <span class="co"># P. infestans data set from Mexico and South America</span>
+<span class="kw">data</span>(<span class="st">&quot;Pinf&quot;</span>)         <span class="co"># P. infestans data set from Mexico and South America</span>
 <span class="kw">locus_table</span>(Pinf)</code></pre>
 <pre><code>## 
-##  allele = Number of observed alleles
-##  1-D = Simpson index
-##  Hexp = Nei&#39;s 1978 expected heterozygosity
+## allele = Number of observed alleles
+## 1-D = Simpson index
+## Hexp = Nei&#39;s 1978 expected heterozygosity
 ## ------------------------------------------</code></pre>
 <pre><code>##       summary
 ## locus  allele    1-D   Hexp Evenness
@@ -266,9 +266,9 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <p>We can see here that we have a widely variable number of alleles per locus and that we actually have a single locus that only has two alleles, Pi33. This locus also has low diversity, low expected heterozygosity and is very uneven in allele distribution. This is a sign that this might be a phylogenetically uninformative locus, where we have two alleles and one is occurring at a minor frequency. We should explore data analysis with and without this locus. Let’s first see if both of these alleles exist in both populations of this data set.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">locus_table</span>(Pinf, <span class="dt">pop =</span> <span class="st">&quot;North America&quot;</span>)</code></pre>
 <pre><code>## 
-##  allele = Number of observed alleles
-##  1-D = Simpson index
-##  Hexp = Nei&#39;s 1978 expected heterozygosity
+## allele = Number of observed alleles
+## 1-D = Simpson index
+## Hexp = Nei&#39;s 1978 expected heterozygosity
 ## ------------------------------------------</code></pre>
 <pre><code>##       summary
 ## locus  allele    1-D   Hexp Evenness
@@ -286,9 +286,9 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ##   mean  7.364  0.497  0.608    0.607</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">locus_table</span>(Pinf, <span class="dt">pop =</span> <span class="st">&quot;South America&quot;</span>)</code></pre>
 <pre><code>## 
-##  allele = Number of observed alleles
-##  1-D = Simpson index
-##  Hexp = Nei&#39;s 1978 expected heterozygosity
+## allele = Number of observed alleles
+## 1-D = Simpson index
+## Hexp = Nei&#39;s 1978 expected heterozygosity
 ## ------------------------------------------</code></pre>
 <pre><code>##       summary
 ## locus  allele   1-D  Hexp Evenness
@@ -311,8 +311,14 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nLoc</span>(Pinf)  <span class="co"># Let&#39;s look at our data set, note how many loci we have.</span></code></pre>
 <pre><code>## [1] 11</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">iPinf &lt;-<span class="st"> </span><span class="kw">informloci</span>(Pinf)</code></pre>
-<pre><code>## cutoff value: 2.325581 percent ( 2 individuals ).
-## 1 uninformative locus found: Pi33</code></pre>
+<pre><code>## cutoff value: 2.32558139534884 % ( 2 samples ).
+## MAF         : 0.01
+## 
+##  Found 1 uninformative locus 
+##  ============================ 
+##  1 locus found with a cutoff of 2 samples :
+##  Pi33 
+##  0 loci found with MAF &lt; 0.01</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nLoc</span>(iPinf) <span class="co"># Note that we have 1 less locus</span></code></pre>
 <pre><code>## [1] 10</code></pre>
 <p>So, how does this affect multi-locus based statistics? We can see immediately that it didn’t affect the number of multilocus genotypes, let’s take a look at the index of association:</p>
@@ -320,18 +326,26 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <pre><code>## | South America 
 ## | North America 
 ## | Total</code></pre>
-<pre><code>##             Pop  N MLG eMLG    SE    H    G  Hexp   E.5    Ia  rbarD File
-## 1 South America 38  29 29.0 0.000 3.27 23.3 0.983 0.883 2.873 0.3446 Pinf
-## 2 North America 48  43 34.5 0.989 3.69 34.9 0.992 0.871 0.223 0.0240 Pinf
-## 3         Total 86  72 34.6 1.529 4.19 57.8 0.994 0.875 0.652 0.0717 Pinf</code></pre>
+<pre><code>##             Pop  N MLG eMLG    SE    H    G lambda   E.5  Hexp    Ia
+## 1 South America 38  29 29.0 0.000 3.27 23.3  0.957 0.883 0.764 2.873
+## 2 North America 48  43 34.5 0.989 3.69 34.9  0.971 0.871 0.608 0.223
+## 3         Total 86  72 34.6 1.529 4.19 57.8  0.983 0.875 0.620 0.652
+##    rbarD File
+## 1 0.3446 Pinf
+## 2 0.0240 Pinf
+## 3 0.0717 Pinf</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">poppr</span>(iPinf)</code></pre>
 <pre><code>## | South America 
 ## | North America 
 ## | Total</code></pre>
-<pre><code>##             Pop  N MLG eMLG    SE    H    G  Hexp   E.5    Ia  rbarD  File
-## 1 South America 38  29 29.0 0.000 3.27 23.3 0.983 0.883 2.873 0.3446 iPinf
-## 2 North America 48  43 34.5 0.989 3.69 34.9 0.992 0.871 0.225 0.0255 iPinf
-## 3         Total 86  72 34.6 1.529 4.19 57.8 0.994 0.875 0.655 0.0750 iPinf</code></pre>
+<pre><code>##             Pop  N MLG eMLG    SE    H    G lambda   E.5  Hexp    Ia
+## 1 South America 38  29 29.0 0.000 3.27 23.3  0.957 0.883 0.764 2.873
+## 2 North America 48  43 34.5 0.989 3.69 34.9  0.971 0.871 0.664 0.225
+## 3         Total 86  72 34.6 1.529 4.19 57.8  0.983 0.875 0.680 0.655
+##    rbarD  File
+## 1 0.3446 iPinf
+## 2 0.0255 iPinf
+## 3 0.0750 iPinf</code></pre>
 <p>We can see that it increased ever so slightly for the “North America” and “Total” populations, but not the “South America” population as expected given the fixed alleles at locus P33.</p>
 </div>
 <div id="missing-data" class="section level2">
@@ -342,23 +356,23 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <p><img src="Locus_Stats_files/figure-html/missing_table-1.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
 <pre><code>##           Locus
 ## Population  fca8 fca23 fca43 fca45 fca77 fca78 fca90 fca96 fca37  Mean
-##      1     0.200     .     .     .     .     .     .     .     . 0.022
-##      2         .     .     .     .     .     .     .     .     .     .
-##      3         .     .     .     .     .     .     .     .     .     .
-##      4         .     .     .     .     .     .     .     .     .     .
-##      5         .     .     .     .     .     .     .     .     .     .
-##      6         .     .     .     .     .     .     .     .     .     .
-##      7     0.357     .     .     .     .     .     .     .     . 0.040
-##      8         .     .     .     .     .     .     .     .     .     .
-##      9         .     .     .     .     .     .     .     .     .     .
-##      10        .     .     .     .     .     .     .     .     .     .
-##      11    0.150     .     . 0.400     .     .     . 0.050     . 0.067
-##      12    0.214     .     .     .     .     .     .     .     . 0.024
-##      13        .     .     .     .     .     .     .     .     .     .
-##      14    0.412     .     .     .     .     .     .     .     . 0.046
-##      15        .     .     .     .     .     .     .     .     .     .
-##      16        .     .     .     .     .     .     .     .     .     .
-##      17        .     .     . 1.000     .     .     . 0.615     . 0.179
+##      P01   0.200     .     .     .     .     .     .     .     . 0.022
+##      P02       .     .     .     .     .     .     .     .     .     .
+##      P03       .     .     .     .     .     .     .     .     .     .
+##      P04       .     .     .     .     .     .     .     .     .     .
+##      P05       .     .     .     .     .     .     .     .     .     .
+##      P06       .     .     .     .     .     .     .     .     .     .
+##      P07   0.357     .     .     .     .     .     .     .     . 0.040
+##      P08       .     .     .     .     .     .     .     .     .     .
+##      P09       .     .     .     .     .     .     .     .     .     .
+##      P10       .     .     .     .     .     .     .     .     .     .
+##      P11   0.150     .     . 0.400     .     .     . 0.050     . 0.067
+##      P12   0.214     .     .     .     .     .     .     .     . 0.024
+##      P13       .     .     .     .     .     .     .     .     .     .
+##      P14   0.412     .     .     .     .     .     .     .     . 0.046
+##      P15       .     .     .     .     .     .     .     .     .     .
+##      P16       .     .     .     .     .     .     .     .     .     .
+##      P17       .     .     . 1.000     .     .     . 0.615     . 0.179
 ##      Total 0.084     .     . 0.089     .     .     . 0.038     . 0.023</code></pre>
 <p>Here we see a few things. The data set has an average of 2.34% missing data overall. More alarming, perhaps is the fact that population 17 has not been genotyped at locus fca45 at all and that locus fca8 shows missing data across many populations. Many analyses in <em>poppr</em> can be performed with missing data in place as it will be either considered an extra allele in the case of MLG calculations or will be interpolated to not contribute to the distance measure used for the index of association. If you want to specifically treat missing data, you can use the function <code>missingno</code> to remove loci or individuals, or replace missing data with zeroes or the average values of the locus.</p>
 </div>
@@ -367,29 +381,30 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <p>When removing loci or genotypes, you can specify a cutoff representing the percent missing to be removed. The default is <code>0.05</code> (5%).</p>
 <pre class="sourceCode r"><code class="sourceCode r">nancycats %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;loci&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="ot">FALSE</span>)</code></pre>
 <pre><code>## 
-##  Found 617 missing values.
+##  Found 617 missing values.</code></pre>
+<pre><code>## 
 ##  2 loci contained missing values greater than 5%.
 ##  Removing 2 loci : fca8 fca45</code></pre>
 <p><img src="Locus_Stats_files/figure-html/unnamed-chunk-2-1.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
 <pre><code>##           Locus
 ## Population fca23 fca43 fca77 fca78 fca90  fca96 fca37   Mean
-##      1         .     .     .     .     .      .     .      .
-##      2         .     .     .     .     .      .     .      .
-##      3         .     .     .     .     .      .     .      .
-##      4         .     .     .     .     .      .     .      .
-##      5         .     .     .     .     .      .     .      .
-##      6         .     .     .     .     .      .     .      .
-##      7         .     .     .     .     .      .     .      .
-##      8         .     .     .     .     .      .     .      .
-##      9         .     .     .     .     .      .     .      .
-##      10        .     .     .     .     .      .     .      .
-##      11        .     .     .     .     . 0.0500     . 0.0071
-##      12        .     .     .     .     .      .     .      .
-##      13        .     .     .     .     .      .     .      .
-##      14        .     .     .     .     .      .     .      .
-##      15        .     .     .     .     .      .     .      .
-##      16        .     .     .     .     .      .     .      .
-##      17        .     .     .     .     . 0.6154     . 0.0879
+##      P01       .     .     .     .     .      .     .      .
+##      P02       .     .     .     .     .      .     .      .
+##      P03       .     .     .     .     .      .     .      .
+##      P04       .     .     .     .     .      .     .      .
+##      P05       .     .     .     .     .      .     .      .
+##      P06       .     .     .     .     .      .     .      .
+##      P07       .     .     .     .     .      .     .      .
+##      P08       .     .     .     .     .      .     .      .
+##      P09       .     .     .     .     .      .     .      .
+##      P10       .     .     .     .     .      .     .      .
+##      P11       .     .     .     .     . 0.0500     . 0.0071
+##      P12       .     .     .     .     .      .     .      .
+##      P13       .     .     .     .     .      .     .      .
+##      P14       .     .     .     .     .      .     .      .
+##      P15       .     .     .     .     .      .     .      .
+##      P16       .     .     .     .     .      .     .      .
+##      P17       .     .     .     .     . 0.6154     . 0.0879
 ##      Total     .     .     .     .     . 0.0380     . 0.0054</code></pre>
 <blockquote>
 <p><strong>Advanced Users:</strong> when <code>scale = TRUE</code>, the color scale will be set so that the warmest color corresponds to the highest value.</p>
@@ -397,36 +412,35 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <p>We only removed two loci. If we wanted to make sure we removed everything, we could set <code>cutoff = 0</code>.</p>
 <pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;loci&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">0</span>) %&gt;%<span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre>
 <pre><code>## 
-##  Found 617 missing values.
+##  Found 617 missing values.</code></pre>
+<pre><code>## 
 ##  3 loci contained missing values greater than 0%.
-##  Removing 3 loci : fca8 fca45 fca96 
-## 
-## No Missing Data Found!</code></pre>
+##  Removing 3 loci : fca8 fca45 fca96</code></pre>
+<pre><code>## No Missing Data Found!</code></pre>
 <p>Again, removing individuals is also relatively easy:</p>
 <pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre>
 <pre><code>## 
-##  Found 617 missing values.
+##  Found 617 missing values.</code></pre>
+<pre><code>## 
 ##  38 genotypes contained missing values greater than 5%.
 ##  Removing 38 genotypes : N215 N216 N188 N189 N190 N191 N192 N298 N299 N300 
 ## N301 N302 N303 N304 N310 N195 N197 N198 N199 N200 N201 N206 N182 N184 N186 N282 
-## N283 N288 N291 N292 N293 N294 N295 N296 N297 N281 N289 N290 
-## 
-## No Missing Data Found!</code></pre>
+## N283 N288 N291 N292 N293 N294 N295 N296 N297 N281 N289 N290</code></pre>
+<pre><code>## No Missing Data Found!</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">0</span>) %&gt;%<span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre>
 <pre><code>## 
-##  Found 617 missing values.
+##  Found 617 missing values.</code></pre>
+<pre><code>## 
 ##  38 genotypes contained missing values greater than 0%.
 ##  Removing 38 genotypes : N215 N216 N188 N189 N190 N191 N192 N298 N299 N300 
 ## N301 N302 N303 N304 N310 N195 N197 N198 N199 N200 N201 N206 N182 N184 N186 N282 
-## N283 N288 N291 N292 N293 N294 N295 N296 N297 N281 N289 N290 
-## 
-## No Missing Data Found!</code></pre>
+## N283 N288 N291 N292 N293 N294 N295 N296 N297 N281 N289 N290</code></pre>
+<pre><code>## No Missing Data Found!</code></pre>
 <p>The function <code>missingno</code> removes individuals based on the percent of missing data relative to the number of loci. Let’s remove all individuals with 2 missing loci:</p>
 <pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">2</span>/<span class="kw">nLoc</span>(nancycats)) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre>
 <pre><code>## 
-##  Found 617 missing values.
 ##  1 genotype contained missing values greater than 22.2222222222222%.
 ##  Removing 1 genotype : N310</code></pre>
 <p><img src="Locus_Stats_files/figure-html/unnamed-chunk-5-1.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
@@ -437,87 +451,87 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <p>Replacement of missing data occurs for each allele over all loci. It will replace all missing data in your data set. There are two options: replacement of missing data with zeroes, in fact recoding these as another allelic state, or replacement of missing data with the average allele frequency observed.</p>
 <p>Note that the first population in the data set has 20% missing data at the first locus. Here is the un-replaced data for reference:</p>
 <pre class="sourceCode r"><code class="sourceCode r">nan1 &lt;-<span class="st"> </span><span class="kw">popsub</span>(nancycats, <span class="dv">1</span>, <span class="dt">drop =</span> <span class="ot">TRUE</span>) <span class="co"># Dropping alleles not in that population.</span>
-nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
-<pre><code>##    L1.1 L1.2 L1.3 L1.4
-## 01   NA   NA   NA   NA
-## 02   NA   NA   NA   NA
-## 03  0.0  0.5  0.0  0.5
-## 04  0.5  0.5  0.0  0.0
-## 05  0.5  0.5  0.0  0.0
-## 06  0.0  0.5  0.0  0.5
-## 07  0.0  1.0  0.0  0.0
-## 08  0.0  0.5  0.0  0.5
-## 09  0.0  0.0  0.5  0.5
-## 10  0.0  1.0  0.0  0.0</code></pre>
+<span class="kw">tab</span>(nan1[<span class="dt">loc =</span> <span class="st">&quot;L1&quot;</span>])</code></pre>
+<pre><code>##     
+## N215
+## N216
+## N217
+## N218
+## N219
+## N220
+## N221
+## N222
+## N223
+## N224</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">nanzero &lt;-<span class="st"> </span><span class="kw">missingno</span>(nancycats, <span class="st">&quot;zero&quot;</span>)</code></pre>
 <pre><code>## 
-##  Replaced 617 missing values</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">popsub</span>(nanzero, <span class="dv">1</span>, <span class="dt">drop =</span> <span class="ot">TRUE</span>)[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
-<pre><code>##    L1.1 L1.2 L1.3 L1.4
-## 01  0.0  0.0  0.0  0.0
-## 02  0.0  0.0  0.0  0.0
-## 03  0.0  0.5  0.0  0.5
-## 04  0.5  0.5  0.0  0.0
-## 05  0.5  0.5  0.0  0.0
-## 06  0.0  0.5  0.0  0.5
-## 07  0.0  1.0  0.0  0.0
-## 08  0.0  0.5  0.0  0.5
-## 09  0.0  0.0  0.5  0.5
-## 10  0.0  1.0  0.0  0.0</code></pre>
+##  Replaced 617 missing values.</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tab</span>(<span class="kw">popsub</span>(nanzero, <span class="dv">1</span>, <span class="dt">drop =</span> <span class="ot">TRUE</span>)[<span class="dt">loc =</span> <span class="st">&quot;fca8&quot;</span>])</code></pre>
+<pre><code>##      fca8.133 fca8.135 fca8.137 fca8.143
+## N215        0        0        0        0
+## N216        0        0        0        0
+## N217        0        1        0        1
+## N218        1        1        0        0
+## N219        1        1        0        0
+## N220        0        1        0        1
+## N221        0        2        0        0
+## N222        0        1        0        1
+## N223        0        0        1        1
+## N224        0        2        0        0</code></pre>
 <p>The <code>NA</code>s have been replaced with zeroes. Now let’s look at what happens when we replace with <code>&quot;mean&quot;</code>.</p>
 <pre class="sourceCode r"><code class="sourceCode r">nanmean &lt;-<span class="st"> </span><span class="kw">missingno</span>(nancycats, <span class="st">&quot;mean&quot;</span>)</code></pre>
 <pre><code>## 
-##  Replaced 617 missing values</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">popsub</span>(nanmean, <span class="dv">1</span>, <span class="dt">drop =</span> <span class="ot">TRUE</span>)[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
-<pre><code>##          L1.01       L1.02      L1.03      L1.04       L1.05      L1.06
-## 01 0.002304147 0.002304147 0.01382488 0.06682028 0.002304147 0.04608295
-## 02 0.002304147 0.002304147 0.01382488 0.06682028 0.002304147 0.04608295
-## 03 0.000000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
-## 04 0.000000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
-## 05 0.000000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
-## 06 0.000000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
-## 07 0.000000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
-## 08 0.000000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
-## 09 0.000000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
-## 10 0.000000000 0.000000000 0.00000000 0.00000000 0.000000000 0.00000000
-##         L1.07      L1.08     L1.09     L1.10      L1.11      L1.12
-## 01 0.05069124 0.07603687 0.2419355 0.1912442 0.06221198 0.09447005
-## 02 0.05069124 0.07603687 0.2419355 0.1912442 0.06221198 0.09447005
-## 03 0.00000000 0.00000000 0.5000000 0.0000000 0.00000000 0.00000000
-## 04 0.00000000 0.50000000 0.5000000 0.0000000 0.00000000 0.00000000
-## 05 0.00000000 0.50000000 0.5000000 0.0000000 0.00000000 0.00000000
-## 06 0.00000000 0.00000000 0.5000000 0.0000000 0.00000000 0.00000000
-## 07 0.00000000 0.00000000 1.0000000 0.0000000 0.00000000 0.00000000
-## 08 0.00000000 0.00000000 0.5000000 0.0000000 0.00000000 0.00000000
-## 09 0.00000000 0.00000000 0.0000000 0.5000000 0.00000000 0.00000000
-## 10 0.00000000 0.00000000 1.0000000 0.0000000 0.00000000 0.00000000
-##        L1.13      L1.14       L1.15      L1.16
-## 01 0.1013825 0.02534562 0.006912442 0.01612903
-## 02 0.1013825 0.02534562 0.006912442 0.01612903
-## 03 0.5000000 0.00000000 0.000000000 0.00000000
-## 04 0.0000000 0.00000000 0.000000000 0.00000000
-## 05 0.0000000 0.00000000 0.000000000 0.00000000
-## 06 0.5000000 0.00000000 0.000000000 0.00000000
-## 07 0.0000000 0.00000000 0.000000000 0.00000000
-## 08 0.5000000 0.00000000 0.000000000 0.00000000
-## 09 0.5000000 0.00000000 0.000000000 0.00000000
-## 10 0.0000000 0.00000000 0.000000000 0.00000000</code></pre>
+##  Replaced 617 missing values.</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tab</span>(<span class="kw">popsub</span>(nanmean, <span class="dv">1</span>, <span class="dt">drop =</span> <span class="ot">TRUE</span>)[<span class="dt">loc =</span> <span class="st">&quot;fca8&quot;</span>])</code></pre>
+<pre><code>##         fca8.117    fca8.119   fca8.121  fca8.123    fca8.127  fca8.129
+## N215 0.004608295 0.004608295 0.02764977 0.1336406 0.004608295 0.0921659
+## N216 0.004608295 0.004608295 0.02764977 0.1336406 0.004608295 0.0921659
+## N217 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
+## N218 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
+## N219 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
+## N220 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
+## N221 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
+## N222 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
+## N223 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
+## N224 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
+##       fca8.131  fca8.133 fca8.135  fca8.137 fca8.139  fca8.141 fca8.143
+## N215 0.1013825 0.1520737 0.483871 0.3824885 0.124424 0.1889401 0.202765
+## N216 0.1013825 0.1520737 0.483871 0.3824885 0.124424 0.1889401 0.202765
+## N217 0.0000000 0.0000000 1.000000 0.0000000 0.000000 0.0000000 1.000000
+## N218 0.0000000 1.0000000 1.000000 0.0000000 0.000000 0.0000000 0.000000
+## N219 0.0000000 1.0000000 1.000000 0.0000000 0.000000 0.0000000 0.000000
+## N220 0.0000000 0.0000000 1.000000 0.0000000 0.000000 0.0000000 1.000000
+## N221 0.0000000 0.0000000 2.000000 0.0000000 0.000000 0.0000000 0.000000
+## N222 0.0000000 0.0000000 1.000000 0.0000000 0.000000 0.0000000 1.000000
+## N223 0.0000000 0.0000000 0.000000 1.0000000 0.000000 0.0000000 1.000000
+## N224 0.0000000 0.0000000 2.000000 0.0000000 0.000000 0.0000000 0.000000
+##        fca8.145   fca8.147   fca8.149
+## N215 0.05069124 0.01382488 0.03225806
+## N216 0.05069124 0.01382488 0.03225806
+## N217 0.00000000 0.00000000 0.00000000
+## N218 0.00000000 0.00000000 0.00000000
+## N219 0.00000000 0.00000000 0.00000000
+## N220 0.00000000 0.00000000 0.00000000
+## N221 0.00000000 0.00000000 0.00000000
+## N222 0.00000000 0.00000000 0.00000000
+## N223 0.00000000 0.00000000 0.00000000
+## N224 0.00000000 0.00000000 0.00000000</code></pre>
 <p>Notice that there are a lot more alleles than there were originally. This is because the procedure is performed over the entire data set, not by population. Let’s look at what happens if we perform the same routine on the subsetted data.</p>
 <pre class="sourceCode r"><code class="sourceCode r">nan1 &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span><span class="kw">popsub</span>(<span class="dv">1</span>, <span class="dt">drop =</span> <span class="ot">TRUE</span>) %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;mean&quot;</span>)</code></pre>
 <pre><code>## 
-##  Replaced 8 missing values</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
-<pre><code>##     L1.1   L1.2   L1.3 L1.4
-## 01 0.125 0.5625 0.0625 0.25
-## 02 0.125 0.5625 0.0625 0.25
-## 03 0.000 0.5000 0.0000 0.50
-## 04 0.500 0.5000 0.0000 0.00
-## 05 0.500 0.5000 0.0000 0.00
-## 06 0.000 0.5000 0.0000 0.50
-## 07 0.000 1.0000 0.0000 0.00
-## 08 0.000 0.5000 0.0000 0.50
-## 09 0.000 0.0000 0.5000 0.50
-## 10 0.000 1.0000 0.0000 0.00</code></pre>
+##  Replaced 8 missing values.</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tab</span>(nan1[<span class="dt">loc =</span> <span class="st">&quot;fca8&quot;</span>])</code></pre>
+<pre><code>##      fca8.133 fca8.135 fca8.137 fca8.143
+## N215     0.25    1.125    0.125      0.5
+## N216     0.25    1.125    0.125      0.5
+## N217     0.00    1.000    0.000      1.0
+## N218     1.00    1.000    0.000      0.0
+## N219     1.00    1.000    0.000      0.0
+## N220     0.00    1.000    0.000      1.0
+## N221     0.00    2.000    0.000      0.0
+## N222     0.00    1.000    0.000      1.0
+## N223     0.00    0.000    1.000      1.0
+## N224     0.00    2.000    0.000      0.0</code></pre>
 </div>
 <div id="hardy-weinberg-equilibrium" class="section level2">
 <h2>Hardy-Weinberg equilibrium</h2>
@@ -536,7 +550,7 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 ## fca37 291.00731 153 1.209777e-10        0</code></pre>
 <p>We can see here that both the analytical p-value and permuted p-value show that we have confidence that all loci are not under the null expectation of HWE. This makes sense given that these data represent 17 populations of cats. If we wanted to check what the HWE statistic for each population, we should first separate the populations with the function <code>seppop()</code>. For this exercise, we will only focus on the analytical p-value by setting <code>B = 0</code>.</p>
 <pre class="sourceCode r"><code class="sourceCode r">(nanhwe.pop &lt;-<span class="st"> </span><span class="kw">seppop</span>(nancycats) %&gt;%<span class="st"> </span><span class="kw">lapply</span>(hw.test, <span class="dt">B =</span> <span class="dv">0</span>))</code></pre>
-<pre><code>## $`1`
+<pre><code>## $P01
 ##           chi^2 df Pr(chi^2 &gt;)
 ## fca8   5.135802  6 0.526517306
 ## fca23 26.049383 10 0.003674334
@@ -548,7 +562,7 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 ## fca96  3.071074  3 0.380796192
 ## fca37 10.156250  3 0.017283597
 ## 
-## $`2`
+## $P02
 ##          chi^2 df  Pr(chi^2 &gt;)
 ## fca8  29.86239 15 1.242747e-02
 ## fca23 23.22222 10 9.955382e-03
@@ -560,7 +574,7 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 ## fca96 92.07157 15 4.066747e-13
 ## fca37 13.17284 15 5.889498e-01
 ## 
-## $`3`
+## $P03
 ##           chi^2 df Pr(chi^2 &gt;)
 ## fca8  39.720000 21 0.008041715
 ## fca23 45.600000 28 0.019163551
@@ -572,7 +586,7 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 ## fca96  4.860000  6 0.561890682
 ## fca37 13.481481  6 0.035996207
 ## 
-## $`4`
+## $P04
 ##          chi^2 df  Pr(chi^2 &gt;)
 ## fca8  64.30391 45 0.0308567389
 ## fca23 30.85879 28 0.3233864330
@@ -584,7 +598,7 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 ## fca96 14.23444 21 0.8593197525
 ## fca37 25.96444 28 0.5749990390
 ## 
-## $`5`
+## $P05
 ##           chi^2 df  Pr(chi^2 &gt;)
 ## fca8  29.338776 28 3.954989e-01
 ## fca23 19.666667 15 1.850960e-01
@@ -596,7 +610,7 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 ## fca96  9.733333 10 4.641922e-01
 ## fca37 30.020576  6 3.895597e-05
 ## 
-## $`6`
+## $P06
 ##           chi^2 df Pr(chi^2 &gt;)
 ## fca8  34.052469 21  0.03577342
 ## fca23 19.250000 10  0.03719982
@@ -608,7 +622,7 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 ## fca96 23.459877 21  0.31995727
 ## fca37 39.160000 45  0.71678027
 ## 
-## $`7`
+## $P07
 ##           chi^2 df Pr(chi^2 &gt;)
 ## fca8  37.653061 15 0.001015109
 ## fca23 29.793651 15 0.012687711
@@ -620,7 +634,7 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 ## fca96  3.982222  6 0.679082361
 ## fca37  4.709877  3 0.194316502
 ## 
-## $`8`
+## $P08
 ##           chi^2 df Pr(chi^2 &gt;)
 ## fca8   8.185941 15 0.916111766
 ## fca23 10.513889 10 0.396621136
@@ -632,7 +646,7 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 ## fca96 12.233560 15 0.661271220
 ## fca37 33.511111 21 0.040848059
 ## 
-## $`9`
+## $P09
 ##           chi^2 df Pr(chi^2 &gt;)
 ## fca8   7.062500  6  0.31510592
 ## fca23 27.000000 15  0.02873635
@@ -644,7 +658,7 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 ## fca96  5.791837 10  0.83243842
 ## fca37  3.777778  6  0.70671912
 ## 
-## $`10`
+## $P10
 ##           chi^2 df Pr(chi^2 &gt;)
 ## fca8  12.148889  6  0.05872852
 ## fca23  2.447500  6  0.87429636
@@ -656,7 +670,7 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 ## fca96  4.888889 10  0.89847559
 ## fca37  4.433673  6  0.61820263
 ## 
-## $`11`
+## $P11
 ##          chi^2 df Pr(chi^2 &gt;)
 ## fca8  27.49490 21 0.155066305
 ## fca23 58.52901 45 0.084923238
@@ -668,7 +682,7 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 ## fca96 39.55940 28 0.072335908
 ## fca37 30.97222 21 0.074121484
 ## 
-## $`12`
+## $P12
 ##            chi^2 df Pr(chi^2 &gt;)
 ## fca8  35.2000000 28 0.164120103
 ## fca23 35.5833333 21 0.024340677
@@ -680,7 +694,7 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 ## fca96  0.6616257  6 0.995282078
 ## fca37 32.1821433 21 0.056109916
 ## 
-## $`13`
+## $P13
 ##           chi^2 df  Pr(chi^2 &gt;)
 ## fca8  12.338120 10 0.2630645196
 ## fca23 30.333333 10 0.0007554178
@@ -692,7 +706,7 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 ## fca96 10.219876 10 0.4214193724
 ## fca37 14.828125 10 0.1384548888
 ## 
-## $`14`
+## $P14
 ##           chi^2 df  Pr(chi^2 &gt;)
 ## fca8  67.500000 66 4.256183e-01
 ## fca23 49.799592 15 1.298351e-05
@@ -704,7 +718,7 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 ## fca96 58.085432 36 1.128794e-02
 ## fca37  0.489298  3 9.212362e-01
 ## 
-## $`15`
+## $P15
 ##           chi^2 df Pr(chi^2 &gt;)
 ## fca8   3.786395  6 0.705556557
 ## fca23  5.228395  6 0.514871229
@@ -716,7 +730,7 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 ## fca96 26.510000 15 0.032991782
 ## fca37 12.222222  6 0.057190992
 ## 
-## $`16`
+## $P16
 ##           chi^2 df Pr(chi^2 &gt;)
 ## fca8   7.450000  6 0.281226569
 ## fca23 12.734694  6 0.047447914
@@ -728,7 +742,7 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 ## fca96 17.703333 10 0.060178994
 ## fca37  2.055700  3 0.560926769
 ## 
-## $`17`
+## $P17
 ##           chi^2 df Pr(chi^2 &gt;)
 ## fca8  22.100000 15   0.1052085
 ## fca23 10.631111 10   0.3869703
@@ -746,7 +760,7 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 <p><code>[</code> is used to subset data, and it’s also a function! It provides an easy way to subset a list of data.</p>
 </blockquote>
 <pre class="sourceCode r"><code class="sourceCode r">(nanhwe.mat &lt;-<span class="st"> </span><span class="kw">sapply</span>(nanhwe.pop, <span class="st">&quot;[&quot;</span>, <span class="dt">i =</span> <span class="ot">TRUE</span>, <span class="dt">j =</span> <span class="dv">3</span>)) <span class="co"># Take the third column with all rows</span></code></pre>
-<pre><code>##                 1            2           3            4            5
+<pre><code>##               P01          P02         P03          P04          P05
 ## fca8  0.526517306 1.242747e-02 0.008041715 0.0308567389 3.954989e-01
 ## fca23 0.003674334 9.955382e-03 0.019163551 0.3233864330 1.850960e-01
 ## fca43 0.228040169 1.328128e-04 0.509920497 0.7685881191 2.095530e-01
@@ -756,7 +770,7 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 ## fca90 0.176471694 9.039990e-07 0.488153481 0.0002424509 4.948073e-02
 ## fca96 0.380796192 4.066747e-13 0.561890682 0.8593197525 4.641922e-01
 ## fca37 0.017283597 5.889498e-01 0.035996207 0.5749990390 3.895597e-05
-##                6           7           8          9         10          11
+##              P06         P07         P08        P09        P10         P11
 ## fca8  0.03577342 0.001015109 0.916111766 0.31510592 0.05872852 0.155066305
 ## fca23 0.03719982 0.012687711 0.396621136 0.02873635 0.87429636 0.084923238
 ## fca43 0.39334274 0.959144052 0.091988007 0.64577154 0.38208910 0.171817797
@@ -766,7 +780,7 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 ## fca90 0.14408091 0.255608831 0.306700905 0.01948082 0.03719982 0.006894609
 ## fca96 0.31995727 0.679082361 0.661271220 0.83243842 0.89847559 0.072335908
 ## fca37 0.71678027 0.194316502 0.040848059 0.70671912 0.61820263 0.074121484
-##                12           13           14          15          16
+##               P12          P13          P14         P15         P16
 ## fca8  0.164120103 0.2630645196 4.256183e-01 0.705556557 0.281226569
 ## fca23 0.024340677 0.0007554178 1.298351e-05 0.514871229 0.047447914
 ## fca43 0.001448621 0.0166924694 6.132040e-02 0.566969462 0.492388326
@@ -776,7 +790,7 @@ nan1[loc =<span class="st"> &quot;L1&quot;</span>]@tab</code></pre>
 ## fca90 0.144976448 0.0673059558 8.540995e-02 0.256280157 0.108786650
 ## fca96 0.995282078 0.4214193724 1.128794e-02 0.032991782 0.060178994
 ## fca37 0.056109916 0.1384548888 9.212362e-01 0.057190992 0.560926769
-##              17
+##             P17
 ## fca8  0.1052085
 ## fca23 0.3869703
 ## fca43 0.0147464

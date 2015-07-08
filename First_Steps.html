@@ -171,7 +171,7 @@ img {
                <li><a href="Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
                <li><a href="Data_Preparation.html">3. Data preparation</a></li>
                <li><a href="First_Steps.html">4. First steps</a></li>
-               <li><a href="Population_Hierarchies.html">5. Population hierarchies and clone correction</a></li>
+               <li><a href="Population_Strata.html">5. Population strata and clone correction</a></li>
                <li><a href="Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
                <li><a href="Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
                <li><a href="Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
@@ -237,20 +237,21 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div id="the-genotype-accumulation-curve" class="section level2">
 <h2>The genotype accumulation curve</h2>
 <p>A genotype accumulation curve is a tool that allows you to assess how much power you have to discriminate between unique individuals given a random sample of <span class="math">\(n\)</span> loci. This analysis is particularly important for clonal organisms to confirm that a plateau has been reached in the number of loci necessary to discriminate individuals. Below, we will analyze the <code>Pinf</code> data set.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Pinf) <span class="co"># Load the data</span>
-Pinf       <span class="co"># We expect a maximum of 72 Multilocus Genotypes</span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
+<span class="kw">data</span>(<span class="st">&quot;Pinf&quot;</span>) <span class="co"># Load the data</span>
+Pinf         <span class="co"># We expect a maximum of 72 Multilocus Genotypes</span></code></pre>
 <pre><code>## 
 ## This is a genclone object
 ## -------------------------
 ## Genotype information:
 ## 
-##    72 multilocus genotypes
+##    72 multilocus genotypes 
 ##    86 tetraploid individuals
 ##    11 codominant loci
 ## 
 ## Population information:
 ## 
-##     2 hierarchical levels - Continent Country
+##     2 strata - Continent Country
 ##     2 populations defined - South America North America</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">gac &lt;-<span class="st"> </span><span class="kw">genotype_curve</span>(Pinf, <span class="dt">sample =</span> <span class="dv">1000</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)</code></pre>
 <p><img src="First_Steps_files/figure-html/unnamed-chunk-2-1.png" title="Genotype accumulation curve" alt="Genotype accumulation curve" width="960" /></p>
@@ -259,13 +260,8 @@ Pinf       <span class="co"># We expect a maximum of 72 Multilocus Genotypes</sp
 <div id="allele-frequencies-missing-data-and-ploidy" class="section level2">
 <h2>Allele frequencies, missing data, and ploidy</h2>
 <p>A good first step after loading data is to look for missing data, rare alleles and overall quality of your data:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Pinf)
-<span class="kw">locus_table</span>(Pinf)</code></pre>
-<pre><code>## 
-##  allele = Number of observed alleles
-##  1-D = Simpson index
-##  Hexp = Nei&#39;s 1978 expected heterozygosity
-## ------------------------------------------</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;Pinf&quot;</span>)
+(pinflt &lt;-<span class="st"> </span><span class="kw">locus_table</span>(Pinf))</code></pre>
 <pre><code>##       summary
 ## locus  allele    1-D   Hexp Evenness
 ##   Pi02 10.000  0.633  0.703    0.663
@@ -280,8 +276,9 @@ Pinf       <span class="co"># We expect a maximum of 72 Multilocus Genotypes</sp
 ##   Pi70  3.000  0.279  0.419    0.580
 ##   Pi89 11.000  0.615  0.677    0.578
 ##   mean  8.636  0.517  0.620    0.602</code></pre>
+<p>We see that we have anywhere from 2 to 25 microsatellite alleles per locus. Locus D13 has the highest Simpson diversity (0.884) and Pi04 has the most evenly distirbuted alleles (0.785). We also observe between 1-10% missing data in the ‘North America’ population:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">info_table</span>(Pinf, <span class="dt">type =</span> <span class="st">&quot;missing&quot;</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre>
-<p><img src="First_Steps_files/figure-html/unnamed-chunk-3-1.png" title="Missing data plot" alt="Missing data plot" width="1152" /></p>
+<p><img src="First_Steps_files/figure-html/unnamed-chunk-4-1.png" title="Missing data plot" alt="Missing data plot" width="1152" /></p>
 <pre><code>##                Locus
 ## Population      Pi02   D13 Pi33 Pi04 Pi4B  Pi16 G11 Pi56  Pi63 Pi70  Pi89
 ##   South America    .     .    .    .    .     .   .    .     .    .     .
@@ -292,7 +289,6 @@ Pinf       <span class="co"># We expect a maximum of 72 Multilocus Genotypes</sp
 ##   South America     .
 ##   North America 0.019
 ##   Total         0.011</code></pre>
-<p>We see that we have anywhere from 2 to 25 microsatellite alleles per locus. We also observe between 1-10% missing data in the ‘North America’ population.</p>
 <p>If your data consists of polyploid SSR markers, you would code the unobserved alleles as ‘0’. The <code>Pinf</code> data set is a perfect example of this. It is a subset of a slightly larger tetraploid data set. In this example, each row represents an isolate and each column represents a locus:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(<span class="kw">genind2df</span>(Pinf, <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>))</code></pre>
 <pre><code>##                  pop            Pi02             D13            Pi33
@@ -322,7 +318,7 @@ Pinf       <span class="co"># We expect a maximum of 72 Multilocus Genotypes</sp
 <p>Notice you can change the colors of the plot by setting a “low” color and a “high” color.</p>
 </blockquote>
 <pre class="sourceCode r"><code class="sourceCode r">Pinf.ploidy &lt;-<span class="st"> </span><span class="kw">info_table</span>(Pinf, <span class="dt">type =</span> <span class="st">&quot;ploidy&quot;</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>, <span class="dt">low =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;orange&quot;</span>)</code></pre>
-<p><img src="First_Steps_files/figure-html/unnamed-chunk-5-1.png" title="Plot of ploidy" alt="Plot of ploidy" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="First_Steps_files/figure-html/unnamed-chunk-6-1.png" title="Plot of ploidy" alt="Plot of ploidy" width="480" style="display: block; margin: auto;" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(Pinf.ploidy)</code></pre>
 <pre><code>##         Loci
 ## Samples  Pi02 D13 Pi33 Pi04 Pi4B Pi16 G11 Pi56 Pi63 Pi70 Pi89
@@ -364,14 +360,14 @@ Pinf       <span class="co"># We expect a maximum of 72 Multilocus Genotypes</sp
 <p>Next, let’s calculate <span class="math">\(MLG\)</span> for each population, e.g. “South America” and “North America” populations:</p>
 <pre class="sourceCode r"><code class="sourceCode r">P.tab &lt;-<span class="st"> </span><span class="kw">mlg.table</span>(Pinf)</code></pre>
 <pre><code>## | South America</code></pre>
-<p><img src="First_Steps_files/figure-html/unnamed-chunk-7-1.png" title="Multilocus Genotype Table" alt="Multilocus Genotype Table" width="960" /></p>
+<p><img src="First_Steps_files/figure-html/unnamed-chunk-8-1.png" title="Multilocus Genotype Table" alt="Multilocus Genotype Table" width="960" /></p>
 <pre><code>## | North America</code></pre>
-<p><img src="First_Steps_files/figure-html/unnamed-chunk-7-2.png" title="Multilocus Genotype Table" alt="Multilocus Genotype Table" width="960" /></p>
+<p><img src="First_Steps_files/figure-html/unnamed-chunk-8-2.png" title="Multilocus Genotype Table" alt="Multilocus Genotype Table" width="960" /></p>
 <p>The figures provide histograms to see how evenly <span class="math">\(MLGs\)</span> are distributed within each population. Both populations have genotypes that occur a few times and only a few genotypes that occur more than 2 times (as expected from the high <span class="math">\(E_5\)</span> discussed above). Try this analysis on other published data sets such as that of the root rot pathogen <em>Aphanomyces euteiches</em>, stored in <em>poppr</em> as <code>Aeut</code>. See if you can produce similar tables and graphs and compare it to the published paper <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>.</p>
 </div>
 <div id="conclusions" class="section level2">
 <h2>Conclusions</h2>
-<p>Going through many of these steps will give you a valuable first look at your data. These analyses can give you insight into what methods you are able to use in your analysis. The genotype curve can tell you if you’ve sampled enough loci (or if you have over sampled) and <code>info_table</code> provides a nice visualization to aid assessing whether or not there are missing data in your sample. For clonal populations, the genotypic diversity table is valuable for informing you of how to clone-correct populations, which we will tackle in the <a href="Population_Hierarchies.html">next chapter</a>.</p>
+<p>Going through many of these steps will give you a valuable first look at your data. These analyses can give you insight into what methods you are able to use in your analysis. The genotype curve can tell you if you’ve sampled enough loci (or if you have over sampled) and <code>info_table</code> provides a nice visualization to aid assessing whether or not there are missing data in your sample. For clonal populations, the genotypic diversity table is valuable for informing you of how to clone-correct populations, which we will tackle in the <a href="Population_Strata.html">next chapter</a>.</p>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>

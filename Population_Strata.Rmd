@@ -1,0 +1,305 @@
+```{r,message=FALSE,echo=FALSE}
+  library("knitcitations")
+  library("knitr")
+  cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
+  bib <- read.bibtex("bibtexlib.bib")
+  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, cache = TRUE) 
+  # use this to set knitr options: 
+  # http://yihui.name/knitr/options #chunk_options
+```
+---
+title: "5: Populations strata: subsetting and clone correction"
+---
+
+Populations are best sampled hierarchically on a range of scales from
+subpopulations (e.g. fields, valleys, ranges) to regions (e.g. valleys, states,
+countries or continents) or across time (years or decades). This approach is
+useful because population structure and evolutionary processes may not be
+discernible *a priori*. Most of the times we do not know if population are
+differentiated spatially or temporaly.  Thus, a combination
+of targeted local sampling with sampling over larger spatial or temporal scales
+is necessary to detect population structure over different scales, without using
+intense sampling throughout the entire range.
+
+The methods implemented in *poppr* allow specification of which strata you
+want to analyze.  This is a rapid way of working with subsets of your data
+without having to perform any data manipulation or changing the input file.  In
+this tutorial, we will show you how to define the hierarchical structure of your
+data and  how to specify specific levels that you might want to analyze.
+
+Data used in this example
+----
+For this example, we will use  the `monpop` data set 
+`r citep(bib[c("everhart2014finescale")])`. This microsatellite data consists
+of 13 loci for 694 individuals of the haploid fungal pathogen *Monilinia
+fructicola* that infects peach flowers and fruits in commercial orchards.  The
+monpop population came from four trees within a single orchard (trees 26, 45,
+and 7). Each tree was sampled in 2009, 2010, and/or 2011.  Additionally, each
+sample was noted as to whether it came from a blossom or a fruit. This example
+data set is included with the *poppr* package.
+
+Working with stratified data
+----
+
+The steps for working with stratified data include:
+
+1.  Import data set with samples labeled according to strata
+2.  Define the stratifications for the data
+3.  Setting the stratification(s) that you want to have analyzed
+
+Importing data labeled according to a strata
+----
+The easiest way to work with stratified data is to label each sample using an
+underscore "\_" to separate each stratification.  This was already done for
+the monpop data, where each sample was coded hierarchically by tree, year, and
+symptom in the following format: "Tree\_Year\_Symptom".
+
+Let's load the hierarchically labeled example data:
+
+```{r}
+library("poppr")
+data(monpop)
+monpop
+```
+
+**Genotype information** shows us that the data contains 264 multilocus
+genotypes among 694 haploid individuals with 13 loci. **Population information**
+has two items, the stratifications and the populations defined.  You can
+think of stratifications as the index names for each of the hierarchical
+levels within your data (so for our data it should be Tree, Year, and Symptom).
+By default, however, no stratifications are defined and so this is "Pop",
+which is the entire dataset of 694 individuals.  Because we labeled each sample
+according to stratification, populations defined shows us our data has 12
+groups defined: `r c(adegenet::popNames(monpop)[-12], paste("and", adegenet::popNames(monpop)[12]))`.
+
+Assigning stratifications
+----
+We imported the data that has three stratifications "Tree\_Year\_Symptom".
+In order to analyze our data according to any combination of those three
+stratifications, we need to tell *poppr* that the 12 groups should be split
+by tree, year, and/or symptom.  Thus, the first step is to split our data
+according to strata so that we can access each of the three hierarchical
+levels in the data.  The `splitStrata` command is used to index the three
+stratifications:
+
+
+```{r}
+splitStrata(monpop) <- ~Tree/Year/Symptom
+monpop
+```
+
+> The `splitStrata` command only needs to be run once: right after you import
+> your data. 
+
+After splitting the data populations are specified by stratification: "Tree
+Year Symptom".
+
+Next, we analyze the data according to Tree and Year:
+
+```{r}
+setPop(monpop) <- ~Tree/Year
+monpop
+```
+
+To analyze the data according to Symptom:
+
+````{r}
+setPop(monpop) <- ~Symptom
+monpop
+````
+
+Order of the levels that you define is important, so if we wanted to define the
+symptoms according to tree, we would use the following:
+
+````{r}
+setPop(monpop) <- ~Symptom/Tree
+monpop
+````
+
+Now that we have laid out the basics of manipulating data by strata,
+we will now apply strata for clone correction.
+
+Clone correction
+----
+
+When dealing with clonal populations, analyses are typically conducted with and
+without clone correction. Clone correction is a method of censoring a data set
+such that only one individual per MLG is represented per population
+`r citep(bib[c('milgroom1996recombination', 'grunwald2003', 'grunwald2006hierarchical')])`. 
+This technique is commonly used with the index of association
+and genotypic diversity measures since clone corrected populations approximate behavior of sexual populations. Since we want to only observe unique genotypes per population,
+clone correction requires specification of the stratifications at which
+clones should be censored. This section will show how to clone correct at a
+specific stratification and also compare the results with uncorrected data.
+
+> Question: Will allelic diversity increase or decrease with clone-censored data?
+
+Using `monpop` as an example, if we wanted to know the diversity of alleles
+within each tree per year, how should we go about correcting for the clones? We
+use the function `clonecorrect` specifying the "Tree/Year" strata:
+
+```{r, clonecorrection}
+mcc_TY <- clonecorrect(monpop, strata= ~Tree/Year, keep = 1:2)
+mcc_TY
+```
+
+Notice that the number of samples reduced from `r nInd(monpop)` to 
+`r nInd(mcc_TY)`, but is still more than the number of MLGs. This indicates that
+there are duplicated genotypes that cross trees and years, but that's okay
+because of our definition of a clone-corrected data set as having one
+representative genotype *per population*. Before we continue, we should set the
+original data to the same strata:
+
+```{r}
+setPop(monpop) <- ~Tree/Year
+```
+
+Now we can compare the diversity of alleles at each locus using Simpson's index
+($1-D$) as implemented in the function `locus_table` (Detailed in our 
+[chapter on locus based statistics](Locus_Stats.html)). We will do this in three
+steps:
+
+1. Calculate diversity of the clone corrected data
+2. Calculate diversity of the uncorrected data
+3. Take the difference of **step 1** from **step 2**.
+
+```{r, simpdiv}
+cc <- locus_table(mcc_TY, info = FALSE)
+mp <- locus_table(monpop, info = FALSE)
+mp - cc
+```
+
+Let's plot $1-D$ so that we can see it better:
+
+```{r, simpdivplot}
+locus_diff <- mp - cc
+
+# Note that I need to select the column containing Simpson's Index. That's
+# labeled as "1-D".
+barplot(locus_diff[, "1-D"], ylab = "Change in Simpson's Index", xlab = "Locus",
+        main = "Comparison of clone-corrected vs. uncorrected data")
+```
+
+We can see quite a difference in some loci after clone correcting based on 
+tree in the overall data set showing that, while some loci show a decrease,
+many loci show an increase in allelic diversity after clone-correction. 
+
+### Advanced R: writing your own functions
+
+Of course, we still want to analyze each tree/year combination separately.
+Instead of typing those commands above for each combination, we can write a
+function to do it for us.
+
+A function can be thought of as a set of instructions that tells the computer
+what to do. You have been using funcitons before such as `poppr()`. A function is written  like this:
+
+```{r, eval = FALSE}
+fun_name <- function(arguments){
+  # instructions
+}
+```
+
+`fun_name` is the name of the function, the R command `function` tells R that 
+you are about to write a function. Arguments are variables that you will pass
+to the function and the curly braces (`{` and `}`) provide the area where you write 
+all the steps of the function. Next, we will go through an example of writing 
+a function. 
+
+#### Example: harmonic mean
+
+Let's write a function that will take the harmonic mean
+of a vector of numbers. First, we'll see how to do this calculation step by step before we write a function.
+
+> The harmonic mean has been utilized to estimate effective population size of a
+population that has undergone drastic changes in population size 
+`r citep(bib["nielsen2013"])`. 
+
+```{r}
+psize <- c(10, 100, 50, 80, 20, 500)
+# Arithmetic mean
+mean(psize)
+# Harmonic mean
+rmean <- mean(1/psize)
+1/rmean
+```
+
+Notice that there are two steps to calculating the harmonic mean. 
+If we wanted to calculate the harmonic mean of a lot of different vectors,
+this would get really repetitive. A function is a way of encapsulating a lot
+of instructions to reduce the number of steps (and potential errors) you would
+need to take in your analysis. Below, we will write a function to calculate
+the harmonic mean using the steps above. 
+
+> Note here that the *argument* is **x** and it is a placeholder for any value
+you put into the function.
+
+```{r}
+hmean <- function(x){
+  rmean <- mean(1/x)
+  1/rmean
+}
+mean(psize)
+hmean(psize)
+```
+
+#### Writing a function for comparing clone corrected and uncorrected data
+
+We will simply take the steps from above and turn them into a function to 
+calculate the difference in Simpson's diversity for a given population. In order
+to do that, we will need to compute three steps:
+
+1. the name of the population
+2. the clone-corrected data set
+3. the uncorrected data set
+
+From there, we can construct the function.
+
+```{r}
+plot_simp_diff <- function(pop_name, clone_corrected, un_corrected){
+
+  # Step 1: calculate diversity for clone-corrected data
+  cc <- locus_table(clone_corrected, pop = pop_name, info = FALSE)
+
+  # Step 2: calculate diversity for uncorrected data
+  uc <- locus_table(un_corrected, pop = pop_name, info = FALSE)
+
+  # Step 3: Take the difference
+  res <- uc - cc
+
+  # Step 4: Plot Simpson's index.
+  barplot(res[, "1-D"], main = pop_name, ylab = "Change in Simpson's Index", xlab = "Locus")
+}
+```
+
+Now that we have our function written, let's gather the population names and
+construct a *for loop* that will analyze each one. 
+
+```{r}
+par(mfrow = c(2, 3)) # Set up the graphics to have two rows and three columns
+
+for (i in popNames(monpop)){
+  plot_simp_diff(i, mcc_TY, monpop)
+}
+
+par(mfrow = c(1, 1))
+```
+
+These barplots show the difference in Simpson's index of original minus clone
+corrected data for each population per locus. We can see that  allelic diversity
+generally is lower in the total data set (containing some repeated MLGs)
+relative to clone corrected data.
+
+Conclusions
+----
+
+This was a brief introduction to the easiest way to create stratifications
+and apply them in *poppr* to more rapidly analyze your data. By indexing the
+stratifications of your data, you can set the stratification(s) you want
+to have analyzed in a single command.  This approach avoids having to
+create new sub-sets of the data for each analysis and simultaneously reduces the
+chance of error when manipulating data sets by hand.
+
+References
+----------
+
+<!-------->

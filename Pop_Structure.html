@@ -171,7 +171,7 @@ img {
                <li><a href="Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
                <li><a href="Data_Preparation.html">3. Data preparation</a></li>
                <li><a href="First_Steps.html">4. First steps</a></li>
-               <li><a href="Population_Hierarchies.html">5. Population hierarchies and clone correction</a></li>
+               <li><a href="Population_Strata.html">5. Population strata and clone correction</a></li>
                <li><a href="Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
                <li><a href="Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
                <li><a href="Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
@@ -240,42 +240,34 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
   <span class="kw">install.packages</span>(<span class="st">&quot;mmod&quot;</span>, <span class="dt">repos =</span> <span class="st">&quot;http://cran.at.r-project.org&quot;</span>)
   <span class="kw">require</span>(<span class="st">&quot;mmod&quot;</span>)
 }
-<span class="kw">data</span>(nancycats)
+<span class="kw">data</span>(<span class="st">&quot;nancycats&quot;</span>)
 nancycats</code></pre>
-<pre><code>## 
-##    #####################
-##    ### Genind object ### 
-##    #####################
-## - genotypes of individuals - 
+<pre><code>## /// GENIND OBJECT /////////
 ## 
-## S4 class:  genind
-## @call: genind(tab = truenames(nancycats)$tab, pop = truenames(nancycats)$pop)
+##  // 237 individuals; 9 loci; 108 alleles; size: 158.4 Kb
 ## 
-## @tab:  237 x 108 matrix of genotypes
+##  // Basic content
+##    @tab:  237 x 108 matrix of allele counts
+##    @loc.n.all: number of alleles per locus (range: 8-18)
+##    @loc.fac: locus factor for the 108 columns of @tab
+##    @all.names: list of allele names for each locus
+##    @ploidy: ploidy of each individual  (range: 2-2)
+##    @type:  codom
+##    @call: genind(tab = truenames(nancycats)$tab, pop = truenames(nancycats)$pop)
 ## 
-## @ind.names: vector of  237 individual names
-## @loc.names: vector of  9 locus names
-## @loc.nall: number of alleles per locus
-## @loc.fac: locus factor for the  108 columns of @tab
-## @all.names: list of  9 components yielding allele names for each locus
-## @ploidy:  2
-## @type:  codom
-## 
-## Optional contents: 
-## @pop:  factor giving the population of each individual
-## @pop.names:  factor giving the population of each individual
-## 
-## @other: a list containing: xy</code></pre>
+##  // Optional content
+##    @pop: population of each individual (group size range: 9-23)
+##    @other: a list containing: xy</code></pre>
 <p>Now we will use Hendrick’s standardized <span class="math">\(G_{ST}\)</span> to assess population structure among these populations <span class="citation">(Hedrick, 2005)</span>.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Gst_Hedrick</span>(nancycats)</code></pre>
 <pre><code>## $per.locus
-##        fca8       fca23       fca43       fca45       fca77       fca78 
-##  0.47504450  0.29566884  0.26757664 -0.05705814  0.48558285  0.19333266 
-##       fca90       fca96       fca37 
-##  0.38075783  0.39139242  0.16095760 
+##       fca8      fca23      fca43      fca45      fca77      fca78 
+##  1.0398743  1.4899782  1.5691427  3.4876251  1.0142322 -0.6831738 
+##      fca90      fca96      fca37 
+##  1.3796335  4.2219618 -0.2544441 
 ## 
 ## $global
-## [1] 0.2820551</code></pre>
+## [1] 2.975657</code></pre>
 <p>What does this output tell us?</p>
 <p>Next we will look at genetic distance to find related groups of individuals.</p>
 </div>
@@ -380,26 +372,26 @@ micdist</code></pre>
 ##  100, NA, NA, 70, NA, NA, ...
 ## 
 ## Unrooted; includes branch lengths.</code></pre>
-<p>The bootstrap value of 100 on the node separating the French and African samples gives support that the country of origin is a factor in how these breeds are structured. If we wanted to analyze all of the breeds against one another, it would be better to create a bootstrapped dendrogram based on a genetic distance. To do this, we will create a genclone object that will contain 3 hierarchical levels: Country, Breed, and Species. We will then set the population to Country by Breed, convert the data to a genpop object and then create a tree using <code>aboot</code> with Nei’s genetic distance.</p>
+<p>The bootstrap value of 100 on the node separating the French and African samples gives support that the country of origin is a factor in how these breeds are structured. If we wanted to analyze all of the breeds against one another, it would be better to create a bootstrapped dendrogram based on a genetic distance. To do this, we will create a genclone object that will contain 3 stratifications: Country, Breed, and Species. We will then set the population to Country by Breed, convert the data to a genpop object and then create a tree using <code>aboot</code> with Nei’s genetic distance.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Setting up the data </span>
-microbov &lt;-<span class="st"> </span><span class="kw">as.genclone</span>(microbov, <span class="dt">hierarchy =</span> <span class="kw">other</span>(microbov))
+microbov &lt;-<span class="st"> </span><span class="kw">as.genclone</span>(microbov, <span class="dt">strata =</span> <span class="kw">other</span>(microbov))
 microbov</code></pre>
 <pre><code>## 
 ## This is a genclone object
 ## -------------------------
 ## Genotype information:
 ## 
-##    704 multilocus genotypes
+##    704 original multilocus genotypes 
 ##    704 diploid individuals
 ##     30 codominant loci
 ## 
 ## Population information:
 ## 
-##      3 hierarchical levels - coun breed spe
+##      0 strata.
 ##     15 populations defined - Borgou Zebu Lagunaire ... MaineAnjou 
 ## Montbeliard Salers</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">namehierarchy</span>(microbov) &lt;-<span class="st"> </span><span class="er">~</span>Country/Breed/Species
-<span class="kw">setpop</span>(microbov) &lt;-<span class="st"> </span><span class="er">~</span>Country/Breed
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nameStrata</span>(microbov) &lt;-<span class="st"> </span><span class="er">~</span>Country/Breed/Species
+<span class="kw">setPop</span>(microbov) &lt;-<span class="st"> </span><span class="er">~</span>Country/Breed
 
 <span class="co"># Analysis</span>
 <span class="kw">set.seed</span>(<span class="dv">999</span>)
@@ -415,7 +407,7 @@ microbov %&gt;%<span class="st"> </span>
 ## Phylogenetic tree with 15 tips and 14 internal nodes.
 ## 
 ## Tip labels:
-##  AF_Borgou, AF_Zebu, AF_Lagunaire, AF_NDama, AF_Somba, FR_Aubrac, ...
+##  Borgou, Zebu, Lagunaire, NDama, Somba, Aubrac, ...
 ## Node labels:
 ##  100, 100, 99.8, 92.5, 92.4, 63.6, ...
 ## 
@@ -494,7 +486,7 @@ microbov %&gt;%<span class="st"> </span>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
 <span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)
 <span class="kw">data</span>(monpop)
-<span class="kw">splithierarchy</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree/Year/Symptom
+<span class="kw">splitStrata</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree/Year/Symptom
 <span class="kw">summary</span>(monpop)</code></pre>
 <pre><code>## 
 ##  # Total number of genotypes:  694 
@@ -506,12 +498,16 @@ microbov %&gt;%<span class="st"> </span>
 ##       85      130       30       97 
 ## 
 ##  # Number of alleles per locus:  
-## L01 L02 L03 L04 L05 L06 L07 L08 L09 L10 L11 L12 L13 
-##   3   6   3  11   9   5   8   7   5   9   8  11  10 
+##  CHMFc4  CHMFc5 CHMFc12     SEA     SED     SEE     SEG     SEI     SEL 
+##       3       6       3      11       9       5       8       7       5 
+##     SEN     SEP     SEQ     SER 
+##       9       8      11      10 
 ## 
 ##  # Number of alleles per population:  
-## 01 02 03 04 05 06 07 08 09 10 11 12 
-## 48 53 58 48 37 40 13 44 60 64 60 63 
+##  7_09_BB 26_09_BB 26_09_FR  7_09_FR 26_10_BB 45_10_BB 79_10_BB 79_10_FR 
+##       48       53       58       48       37       40       13       44 
+## 26_10_FR 45_10_FR 26_11_BB 26_11_FR 
+##       60       64       60       63 
 ## 
 ##  # Percentage of missing data:  
 ## [1] 0.5098648
@@ -522,20 +518,20 @@ microbov %&gt;%<span class="st"> </span>
 ##  # Expected heterozygosity:  
 ## [1] 0</code></pre>
 <p>We notice that tree number 26 is the only one to have been sampled for all three years. Let’s use it as an example.</p>
-<pre class="sourceCode r"><code class="sourceCode r">t26 &lt;-<span class="st"> </span>monpop %&gt;%<span class="st"> </span><span class="kw">setpop</span>(~Tree) %&gt;%<span class="st"> </span><span class="kw">popsub</span>(<span class="st">&quot;26&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">setpop</span>(~Year/Symptom)
+<pre class="sourceCode r"><code class="sourceCode r">t26 &lt;-<span class="st"> </span>monpop %&gt;%<span class="st"> </span><span class="kw">setPop</span>(~Tree) %&gt;%<span class="st"> </span><span class="kw">popsub</span>(<span class="st">&quot;26&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">setPop</span>(~Year/Symptom)
 t26</code></pre>
 <pre><code>## 
 ## This is a genclone object
 ## -------------------------
 ## Genotype information:
 ## 
-##    155 multilocus genotypes
+##    155 multilocus genotypes 
 ##    390 haploid individuals
 ##     13 codominant loci
 ## 
 ## Population information:
 ## 
-##      3 hierarchical levels - Tree Year Symptom
+##      3 strata - Tree Year Symptom
 ##      6 populations defined - 9_BB 9_FR 10_BB 10_FR 11_BB 11_FR</code></pre>
 <p>Now that we have our tree, let’s calculate a MSN using Bruvo’s distance <span class="citation">(Bruvo et al., 2004)</span>. Remember that this distance is based on a stepwise mutation model, so we have to first specify what kind of repeats units we have in our data (eg. dinucleotide = 2, trinucleotide = 3, etc.):</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set up our repeat lengths and populations to analyze</span>
@@ -562,20 +558,20 @@ t26.9msn &lt;-<span class="st"> </span><span class="kw">bruvo.msn</span>(t26, <s
 <h2>K-means hierarchical clustering</h2>
 <p>A recent study reported that the origin of the potato late blight pathogen <em>Phytophthora infestans</em> lies in Mexico as opposed to South America <span class="citation">(Goss et al., 2014)</span>. We saw in the previous chapter that South American populations showed signatures of clonal reproduction while Mexican populations showed no evidence rejecting the null hypothesis of random mating. In this section, we will use K-means clustering in combination with bootstrapped dendrograms to see how well this pattern holds up. Clonal populations should have short terminal branch lengths and should cluster according to those branches. Panmictic populations will show no clear pattern. Let’s look at the data:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
-<span class="kw">data</span>(Pinf)
+<span class="kw">data</span>(<span class="st">&quot;Pinf&quot;</span>)
 Pinf</code></pre>
 <pre><code>## 
 ## This is a genclone object
 ## -------------------------
 ## Genotype information:
 ## 
-##    72 multilocus genotypes
+##    72 multilocus genotypes 
 ##    86 tetraploid individuals
 ##    11 codominant loci
 ## 
 ## Population information:
 ## 
-##     2 hierarchical levels - Continent Country
+##     2 strata - Continent Country
 ##     2 populations defined - South America North America</code></pre>
 <p>First, we will perform a cluster analysis:</p>
 <pre class="sourceCode r"><code class="sourceCode r">MX &lt;-<span class="st"> </span><span class="kw">popsub</span>(Pinf, <span class="st">&quot;North America&quot;</span>)
@@ -598,21 +594,21 @@ MXclust &lt;-<span class="st"> </span><span class="kw">find.clusters</span>(MX)<
 ## 
 ## $grp
 ##  PiMX01  PiMX02  PiMX03  PiMX04  PiMX05  PiMX06  PiMX07  PiMX10  PiMX11 
-##       1       1       2       3       3       3       3       2       2 
+##       2       2       3       1       1       1       1       3       3 
 ##  PiMX12  PiMX13  PiMX14  PiMX15  PiMX16  PiMX17  PiMX18  PiMX19  PiMX20 
-##       3       2       2       1       2       1       3       3       3 
+##       1       3       3       2       3       2       1       1       1 
 ##  PiMX21  PiMX22  PiMX23  PiMX24  PiMX25  PiMX26  PiMX27  PiMX28  PiMX29 
-##       1       2       1       2       3       1       2       2       3 
+##       2       3       2       3       1       2       3       3       1 
 ##  PiMX30  PiMX40  PiMX41  PiMX42  PiMX43  PiMX44  PiMX45  PiMX46  PiMX47 
-##       2       2       1       1       1       1       1       1       1 
+##       3       3       2       2       2       2       2       2       2 
 ##  PiMX48  PiMX49  PiMX50 PiMXT01 PiMXT02 PiMXT03 PiMXT04 PiMXT05 PiMXT06 
-##       2       2       2       1       1       3       3       1       3 
+##       3       3       3       2       2       1       1       2       1 
 ## PiMXT07 PiMXt48 PiMXt68 
-##       3       3       3 
+##       1       1       1 
 ## Levels: 1 2 3
 ## 
 ## $size
-## [1] 17 15 16</code></pre>
+## [1] 16 17 15</code></pre>
 <p>We will go through the same procedure for the South American population.</p>
 <pre class="sourceCode r"><code class="sourceCode r">SA &lt;-<span class="st"> </span><span class="kw">popsub</span>(Pinf, <span class="st">&quot;South America&quot;</span>)
 SAclust &lt;-<span class="st"> </span><span class="kw">find.clusters</span>(SA)</code></pre>

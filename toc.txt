@@ -8,7 +8,7 @@ Introduction
 Getting_ready_to_use_R
 Data_Preparation
 First_Steps
-Population_Hierarchies
+Population_Strata
 Locus_Stats
 Genotypic_EvenRichDiv
 Linkage_disequilibrium

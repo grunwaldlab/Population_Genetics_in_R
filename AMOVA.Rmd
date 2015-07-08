@@ -16,7 +16,7 @@ title: "10: AMOVA"
 
 In this chapter, we will utilize AMOVA to analyze our populations. AMOVA stands
 for **A**nalysis of **MO**lecular **VA**riance and is a method to detect
-population differentiation utilizing molecular markers `r citep(bib[c("excoffier1992analysis")])`. This procedure was initially implemented for DNA haplotypes, but applies to any marker system. The implementation of AMOVA in *poppr* requires two very basic components: (1) A distance matrix derived from the data and (2) a separate table used to partition the data into different hierarchical levels.
+population differentiation utilizing molecular markers `r citep(bib[c("excoffier1992analysis")])`. This procedure was initially implemented for DNA haplotypes, but applies to any marker system. The implementation of AMOVA in *poppr* requires two very basic components: (1) A distance matrix derived from the data and (2) a separate table used to partition the data into different stratifications.
 
 The distance matrix can be calculated using any distance as long as it is euclidean. The distance that is used in the program Arlequin is the opposite of the Kronecker Delta function that counts the number of differences summed over $L$ loci:
 
@@ -34,21 +34,22 @@ Data set
 ----
 
 To calculate AMOVA in *poppr*, one simply needs to supply a data set with
-hierarchical levels. We will use the *Aphanomyces euteiches* data set from 
+stratifications. We will use the *Aphanomyces euteiches* data set from 
 `r citep(bib["grunwald2006hierarchical"])`.
 
 ```{r}
 library("poppr")
-data(Aeut)
+data("Aeut")
+strata(Aeut) <- data.frame(other(Aeut)$population_hierarchy)
 Aeut <- as.genclone(Aeut)
 Aeut
 ```
-We can see that this data set contains clonal data and has three hierarchical levels where the first is really a combination of the other levels. We can take a look
-at the different hierarchical levels, populations or subpopulations: 
+We can see that this data set contains clonal data and has three stratifications where the first is really a combination of the other levels. We can take a look
+at the different stratifications, populations or subpopulations: 
 
 ```{r}
-table(gethierarchy(Aeut, ~Pop))  # Populations
-table(gethierarchy(Aeut, ~Pop/Subpop, combine = FALSE))  # Subpopulations
+table(strata(Aeut, ~Pop))  # Populations
+table(strata(Aeut, ~Pop/Subpop, combine = FALSE))  # Subpopulations
 ```
 
 
@@ -84,7 +85,7 @@ The first thing to look at are the `$results` element. The degrees of freedom
 subpopulations since we cannot asses within-sample variance of dominant data. 
 
 The `$componentsofcovariance` table shows how much
-variance is detected at each hierarchical level. We expect variations within samples to 
+variance is detected at each stratification. We expect variations within samples to 
 give the greatest amount of variation for populations that are not significantly
 differentiated. `Sigma` represents the variance, $\sigma$, for each hierarchical
 level and to the right is the percent of the total. 
@@ -114,9 +115,9 @@ plot(Aeutsignif)
 Aeutsignif
 ```
 From this output, you can see three histograms representing the distribution of
-the randomized hierarchy. The black line represents the observed data. You can 
+the randomized strata. The black line represents the observed data. You can 
 see a table of observed results in the output showing that there is significant
-population structure considering all levels of the population hierarchy. Of
+population structure considering all levels of the population strata. Of
 course, this could be due to the presence of clones, so let's visualize the
 results from the clone corrected data set below:
 
@@ -137,23 +138,23 @@ and after shuffling:
 
 ```{r}
 Aeut.new <- Aeut
-head(gethierarchy(Aeut)[, -1])
+head(strata(Aeut)[, -1])
 set.seed(9001)
-head(gethierarchy(Aeut)[sample(nInd(Aeut)), -1])
+head(strata(Aeut)[sample(nInd(Aeut)), -1])
 ```
 Here we see that the populations are completely shuffled, so in the next step,
-we will reassign the hierarchy with these newly shuffled populations and rerun
+we will reassign the strata with these newly shuffled populations and rerun
 the AMOVA analysis.
 
-```{r, randomized_hierarchy, cache=TRUE}
+```{r, randomized_strata, cache=TRUE}
 set.seed(9001)
-sethierarchy(Aeut.new) <- gethierarchy(Aeut)[sample(nInd(Aeut)), -1]
+strata(Aeut.new) <- strata(Aeut)[sample(nInd(Aeut)), -1]
 Aeut.new.amova         <- poppr.amova(Aeut.new, ~Pop/Subpop)
 Aeut.new.amova
 Aeut.new.amova.test    <- randtest(Aeut.new.amova, nrepet = 999)
 Aeut.new.amova.test
 ```
-```{r, randomized_hierarchy_plot}
+```{r, randomized_strata_plot}
 plot(Aeut.new.amova.test)
 ```
 
@@ -164,7 +165,7 @@ Conclusions
 
 AMOVA is a powerful tool that can help support hypotheses of population structure due to clonal reproduction or isolation without making assumptions about Hardy-Weinberg equilibrium. We have shown that we can reject the
 $H_o$ of random mating between the two populations and have strong evidence that
-these populations are significantly differentiated at all hierarchical levels `r citep(bib["grunwald2006hierarchical"])`. From these results, we can investigate
+these populations are significantly differentiated at all stratifications `r citep(bib["grunwald2006hierarchical"])`. From these results, we can investigate
 hypotheses as to why these populations are significantly differentiated.
 
 This example was performed with a data set of dominant (AFLP)

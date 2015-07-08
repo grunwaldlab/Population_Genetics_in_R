@@ -25,7 +25,7 @@ We will use the seasonal influenza dataset H3N2 data containing 1903 isolates ge
 ```{r}
 # DAPC requires the adegenet package. Let's load this package:
 library("adegenet")
-data(H3N2)      # load the H3N2 inflluenza data. Tye ?H3N2 for more info.
+data(H3N2)      # load the H3N2 influenza data. Tye ?H3N2 for more info.
 pop(H3N2) <- factor(H3N2$other$epid)
 dapc.H3N2 <- dapc(H3N2, var.contrib=TRUE, scale=FALSE, n.pca=30, n.da=10)
 scatter(dapc.H3N2, cell=0, pch=18:23, cstar=0, mstree=TRUE, lwd=2, lty=2)
@@ -47,15 +47,15 @@ Next, let's assess if there are alleles that most differentiate the 2006 cluster
 ```{r}
 set.seed(4)
 contrib <- loadingplot(dapc.H3N2$var.contr, axis=2, thres=.07, lab.jitter=1)
-````
+```
 
 It looks like SNPs at position 384 and 906 are involved. Let's check this further by looking at allele frequencies by year:
 
 
 ```{r}
 temp <- seploc(H3N2)
-snp906 <- truenames(temp[["906"]])$tab #truenames{adegenet} returns elements of a genind object
-snp399 <- truenames(temp[["399"]])$tab
+snp906 <- tab(temp[["906"]]) # tab{adegenet} returns a matrix of genotypes
+snp399 <- tab(temp[["399"]])
 freq906 <- apply(snp906, 2, function(e) tapply(e, pop(H3N2), mean, na.rm=TRUE))
 freq399 <- apply(snp399, 2, function(e) tapply(e, pop(H3N2), mean, na.rm=TRUE))
 freq906

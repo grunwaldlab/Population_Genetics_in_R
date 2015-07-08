@@ -171,7 +171,7 @@ img {
                <li><a href="Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
                <li><a href="Data_Preparation.html">3. Data preparation</a></li>
                <li><a href="First_Steps.html">4. First steps</a></li>
-               <li><a href="Population_Hierarchies.html">5. Population hierarchies and clone correction</a></li>
+               <li><a href="Population_Strata.html">5. Population strata and clone correction</a></li>
                <li><a href="Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
                <li><a href="Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
                <li><a href="Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
@@ -237,7 +237,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <p>We will use the seasonal influenza dataset H3N2 data containing 1903 isolates genotyped for 125 SNPs located in the hemagglutinin segment. This dataset as well as the <code>dapc()</code> function is part of the <a href="http://adegenet.r-forge.r-project.org"><em>adegenet</em></a> package.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># DAPC requires the adegenet package. Let&#39;s load this package:</span>
 <span class="kw">library</span>(<span class="st">&quot;adegenet&quot;</span>)
-<span class="kw">data</span>(H3N2)      <span class="co"># load the H3N2 inflluenza data. Tye ?H3N2 for more info.</span>
+<span class="kw">data</span>(H3N2)      <span class="co"># load the H3N2 influenza data. Tye ?H3N2 for more info.</span>
 <span class="kw">pop</span>(H3N2) &lt;-<span class="st"> </span><span class="kw">factor</span>(H3N2$other$epid)
 dapc.H3N2 &lt;-<span class="st"> </span><span class="kw">dapc</span>(H3N2, <span class="dt">var.contrib=</span><span class="ot">TRUE</span>, <span class="dt">scale=</span><span class="ot">FALSE</span>, <span class="dt">n.pca=</span><span class="dv">30</span>, <span class="dt">n.da=</span><span class="dv">10</span>)
 <span class="kw">scatter</span>(dapc.H3N2, <span class="dt">cell=</span><span class="dv">0</span>, <span class="dt">pch=</span><span class="dv">18</span>:<span class="dv">23</span>, <span class="dt">cstar=</span><span class="dv">0</span>, <span class="dt">mstree=</span><span class="ot">TRUE</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre>
@@ -257,8 +257,8 @@ contrib &lt;-<span class="st"> </span><span class="kw">loadingplot</span>(dapc.H
 <p><img src="DAPC_files/figure-html/unnamed-chunk-3-1.png" title="" alt="" width="960" /></p>
 <p>It looks like SNPs at position 384 and 906 are involved. Let’s check this further by looking at allele frequencies by year:</p>
 <pre class="sourceCode r"><code class="sourceCode r">temp &lt;-<span class="st"> </span><span class="kw">seploc</span>(H3N2)
-snp906 &lt;-<span class="st"> </span><span class="kw">truenames</span>(temp[[<span class="st">&quot;906&quot;</span>]])$tab <span class="co">#truenames{adegenet} returns elements of a genind object</span>
-snp399 &lt;-<span class="st"> </span><span class="kw">truenames</span>(temp[[<span class="st">&quot;399&quot;</span>]])$tab
+snp906 &lt;-<span class="st"> </span><span class="kw">tab</span>(temp[[<span class="st">&quot;906&quot;</span>]]) <span class="co"># tab{adegenet} returns a matrix of genotypes</span>
+snp399 &lt;-<span class="st"> </span><span class="kw">tab</span>(temp[[<span class="st">&quot;399&quot;</span>]])
 freq906 &lt;-<span class="st"> </span><span class="kw">apply</span>(snp906, <span class="dv">2</span>, function(e) <span class="kw">tapply</span>(e, <span class="kw">pop</span>(H3N2), mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))
 freq399 &lt;-<span class="st"> </span><span class="kw">apply</span>(snp399, <span class="dv">2</span>, function(e) <span class="kw">tapply</span>(e, <span class="kw">pop</span>(H3N2), mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))
 freq906</code></pre>

@@ -31,8 +31,9 @@ The genotype accumulation curve
 A genotype accumulation curve is a tool that allows you to assess how much power you have to discriminate between unique individuals given a random sample of $n$ loci. This analysis is particularly important for clonal organisms to confirm that a plateau has been reached in the number of loci necessary to discriminate individuals. Below, we will analyze the `Pinf` data set. 
 
 ```{r, fig.cap = "Genotype accumulation curve"}
-data(Pinf) # Load the data
-Pinf       # We expect a maximum of 72 Multilocus Genotypes
+library("poppr")
+data("Pinf") # Load the data
+Pinf         # We expect a maximum of 72 Multilocus Genotypes
 gac <- genotype_curve(Pinf, sample = 1000, quiet = TRUE)
 ```
 
@@ -43,13 +44,16 @@ Allele frequencies, missing data, and ploidy
 
 A good first step after loading data is to look for missing data, rare alleles and overall quality of your data:
 
-```{r, fig.cap = "Missing data plot", fig.width = 12, fig.height = 5}
-data(Pinf)
-locus_table(Pinf)
-info_table(Pinf, type = "missing", plot = TRUE)
+```{r}
+data("Pinf")
+(pinflt <- locus_table(Pinf))
 ```
 
-We see that we have anywhere from 2 to 25 microsatellite alleles per locus. We also observe between 1-10% missing data in the 'North America' population. 
+We see that we have anywhere from 2 to 25 microsatellite alleles per locus. Locus D13 has the highest Simpson diversity (`r signif(pinflt["D13", "1-D"], 3)`) and Pi04 has the most evenly distirbuted alleles (`r signif(pinflt["Pi04", "Evenness"], 3)`). We also observe between 1-10% missing data in the 'North America' population:
+
+```{r, fig.cap = "Missing data plot", fig.width = 12, fig.height = 5}
+info_table(Pinf, type = "missing", plot = TRUE)
+```
 
 If your data consists of polyploid SSR markers, you would code the unobserved alleles as
 '0'. The `Pinf` data set is a perfect example of this. It is a subset of a slightly larger tetraploid data set. In this example, each row represents an isolate and each column represents a locus:
@@ -66,7 +70,7 @@ To observe the different levels of ploidy in your data, use the function
 > Notice you can change the colors of the plot by setting a "low" color and a
 > "high" color.
 
-```{r, fig.cap = "Plot of ploidy", fig.height = 12, fig.width = 5, fig.align = "center"}
+```{r, fig.cap = "Plot of ploidy", fig.height = 12, fig.width = 5, fig.align = "center", message = TRUE}
 Pinf.ploidy <- info_table(Pinf, type = "ploidy", plot = TRUE, low = "black", high = "orange")
 tail(Pinf.ploidy)
 ```
@@ -113,7 +117,7 @@ The figures provide histograms to see how evenly $MLGs$ are distributed within e
 Conclusions
 ----
 
-Going through many of these steps will give you a valuable first look at your data. These analyses can give you insight into what methods you are able to use in your analysis. The genotype curve can tell you if you've sampled enough loci (or if you have over sampled) and `info_table` provides a nice visualization to aid assessing whether or not there are missing data in your sample. For clonal populations, the genotypic diversity table is valuable for informing you of how to clone-correct populations, which we will tackle in the [next chapter](Population_Hierarchies.html). 
+Going through many of these steps will give you a valuable first look at your data. These analyses can give you insight into what methods you are able to use in your analysis. The genotype curve can tell you if you've sampled enough loci (or if you have over sampled) and `info_table` provides a nice visualization to aid assessing whether or not there are missing data in your sample. For clonal populations, the genotypic diversity table is valuable for informing you of how to clone-correct populations, which we will tackle in the [next chapter](Population_Strata.html). 
 
 References
 ----------

@@ -171,7 +171,7 @@ img {
                <li><a href="Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
                <li><a href="Data_Preparation.html">3. Data preparation</a></li>
                <li><a href="First_Steps.html">4. First steps</a></li>
-               <li><a href="Population_Hierarchies.html">5. Population hierarchies and clone correction</a></li>
+               <li><a href="Population_Strata.html">5. Population strata and clone correction</a></li>
                <li><a href="Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
                <li><a href="Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
                <li><a href="Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
@@ -308,50 +308,46 @@ example(functionname)  # see examples of function calls
 <td align="left">Converts genind objects to genclone objects</td>
 </tr>
 <tr class="even">
-<td align="left"><code>setpop</code></td>
-<td align="left">Set the population using defined hierarchies</td>
+<td align="left"><code>setPop</code></td>
+<td align="left">Set the population using defined strata</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>splithierarchy</code></td>
-<td align="left">Split a concatenated hierarchy imported as a population</td>
+<td align="left"><code>splitStrata</code></td>
+<td align="left">Split a concatenated strata imported as a population</td>
 </tr>
 <tr class="even">
-<td align="left"><code>sethierarchy</code></td>
-<td align="left">Define a population hierarchy of a genclone object</td>
+<td align="left"><code>strata</code></td>
+<td align="left">Define or extract population strata of a genind object</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>gethierarchy</code></td>
-<td align="left">Extract the hierarchy data frame</td>
+<td align="left"><code>addStrata</code></td>
+<td align="left">Add a vector or data frame to an existing strata</td>
 </tr>
 <tr class="even">
-<td align="left"><code>addhierarchy</code></td>
-<td align="left">Add a vector or data frame to an existing hierarchy</td>
+<td align="left"><code>nameStrata</code></td>
+<td align="left">Rename a population strata</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>namehierarchy</code></td>
-<td align="left">Rename a population hierarchy</td>
-</tr>
-<tr class="even">
 <td align="left"><code>missingno</code></td>
 <td align="left">Handles missing data</td>
 </tr>
-<tr class="odd">
-<td align="left"><code>clonecorrect</code></td>
-<td align="left">Clone censors at a specified population hierarchy</td>
-</tr>
 <tr class="even">
+<td align="left"><code>clonecorrect</code></td>
+<td align="left">Clone censors at a specified population strata</td>
+</tr>
+<tr class="odd">
 <td align="left"><code>informloci</code></td>
 <td align="left">Detects and removes phylogenetically uninformative loci</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>popsub</code></td>
 <td align="left">Subsets genind objects by population</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>shufflepop</code></td>
 <td align="left">Shuffles genotypes at each locus using four different shuffling algorithms</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>recode_polyploids</code></td>
 <td align="left">Recodes an imported polyploid data set to observed allelic frequencies</td>
 </tr>

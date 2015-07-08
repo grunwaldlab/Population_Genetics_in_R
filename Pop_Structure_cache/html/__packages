@@ -1,11 +1,10 @@
+base
+knitcitations
+knitr
 ade4
 adegenet
 ape
-base
-bibtex
-knitcitations
-knitr
-mmod
 pegas
+mmod
 poppr
 magrittr

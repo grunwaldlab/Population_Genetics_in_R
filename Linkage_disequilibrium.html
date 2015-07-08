@@ -171,7 +171,7 @@ img {
                <li><a href="Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
                <li><a href="Data_Preparation.html">3. Data preparation</a></li>
                <li><a href="First_Steps.html">4. First steps</a></li>
-               <li><a href="Population_Hierarchies.html">5. Population hierarchies and clone correction</a></li>
+               <li><a href="Population_Strata.html">5. Population strata and clone correction</a></li>
                <li><a href="Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
                <li><a href="Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
                <li><a href="Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
@@ -253,16 +253,16 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ## -------------------------
 ## Genotype information:
 ## 
-##    43 multilocus genotypes
+##    43 multilocus genotypes 
 ##    48 tetraploid individuals
 ##    11 codominant loci
 ## 
 ## Population information:
 ## 
-##     2 hierarchical levels - Continent Country
+##     2 strata - Continent Country
 ##     1 populations defined - North America</code></pre>
 <p>Indeed we observe 43 multilocus genotypes out of 48 samples. We are looking at partial clonality and thus need to use clone-corrected (also called clone- censored) data:</p>
-<pre class="sourceCode r"><code class="sourceCode r">MX %&gt;%<span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">hier =</span> ~Continent/Country) %&gt;%<span class="st"> </span><span class="kw">ia</span>(<span class="dt">sample =</span> <span class="dv">999</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">MX %&gt;%<span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">strata=</span> ~Continent/Country) %&gt;%<span class="st"> </span><span class="kw">ia</span>(<span class="dt">sample =</span> <span class="dv">999</span>)</code></pre>
 <pre><code>## |================================================================| 100%</code></pre>
 <p><img src="Linkage_disequilibrium_files/figure-html/MXiacc-1.png" title="" alt="" width="700px" /></p>
 <pre><code>##          Ia        p.Ia       rbarD        p.rD 
@@ -276,7 +276,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <pre><code>##        Ia      p.Ia     rbarD      p.rD 
 ## 2.8733344 0.0010000 0.3446431 0.0010000</code></pre>
 <p>Here we find significant support for the hypothesis that alleles are linked across loci with <span class="math">\(P &lt; 0.001\)</span>. The observed <span class="math">\(\bar{r}_d = 0.345\)</span> and falls outside of the distribution expected under no linkage. Let’s look at the clone-corrected data and make sure this is not an artifact of clonality:</p>
-<pre class="sourceCode r"><code class="sourceCode r">SA %&gt;%<span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">hier =</span> ~Continent/Country) %&gt;%<span class="st"> </span><span class="kw">ia</span>(<span class="dt">sample=</span><span class="dv">999</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">SA %&gt;%<span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">strata=</span> ~Continent/Country) %&gt;%<span class="st"> </span><span class="kw">ia</span>(<span class="dt">sample=</span><span class="dv">999</span>)</code></pre>
 <pre><code>## |================================================================| 100%</code></pre>
 <p><img src="Linkage_disequilibrium_files/figure-html/SAiacc-1.png" title="" alt="" width="700px" /></p>
 <pre><code>##        Ia      p.Ia     rbarD      p.rD 

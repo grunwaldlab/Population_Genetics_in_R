@@ -46,7 +46,7 @@ if (!require("mmod")){
   install.packages("mmod", repos = "http://cran.at.r-project.org")
   require("mmod")
 }
-data(nancycats)
+data("nancycats")
 nancycats
 ```
 
@@ -126,16 +126,16 @@ gives support that the country of origin is a factor in how these breeds are
 structured. If we wanted to analyze all of the breeds against one another, it
 would be better to create a bootstrapped dendrogram based on a
 genetic distance. To do this, we will create a genclone object that will contain
-3 hierarchical levels: Country, Breed, and Species. We will then set the
+3 stratifications: Country, Breed, and Species. We will then set the
 population to Country by Breed, convert the data to a genpop object and then
 create a tree using `aboot` with Nei's genetic distance.
 
 ```{r, cattlepopboot, fig.width = 5, fig.height = 7, cache = TRUE}
 # Setting up the data 
-microbov <- as.genclone(microbov, hierarchy = other(microbov))
+microbov <- as.genclone(microbov, strata = other(microbov))
 microbov
-namehierarchy(microbov) <- ~Country/Breed/Species
-setpop(microbov) <- ~Country/Breed
+nameStrata(microbov) <- ~Country/Breed/Species
+setPop(microbov) <- ~Country/Breed
 
 # Analysis
 set.seed(999)
@@ -188,7 +188,7 @@ Let's load the data:
 library("poppr")
 library("magrittr")
 data(monpop)
-splithierarchy(monpop) <- ~Tree/Year/Symptom
+splitStrata(monpop) <- ~Tree/Year/Symptom
 summary(monpop)
 ```
 
@@ -196,7 +196,7 @@ We notice that tree number 26 is the only one to have been sampled for all three
 years. Let's use it as an example.
 
 ```{r}
-t26 <- monpop %>% setpop(~Tree) %>% popsub("26") %>% setpop(~Year/Symptom)
+t26 <- monpop %>% setPop(~Tree) %>% popsub("26") %>% setPop(~Year/Symptom)
 t26
 ```
 
@@ -252,7 +252,7 @@ no clear pattern. Let's look at the data:
 
 ```{r}
 library("poppr")
-data(Pinf)
+data("Pinf")
 Pinf
 ```
 

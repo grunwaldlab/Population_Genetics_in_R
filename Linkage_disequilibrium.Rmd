@@ -80,12 +80,12 @@ partial clonality and thus need to use clone-corrected (also called clone-
 censored) data:
 
 ```{r, eval=FALSE}
-MX %>% clonecorrect(hier = ~Continent/Country) %>% ia(sample = 999)
+MX %>% clonecorrect(strata= ~Continent/Country) %>% ia(sample = 999)
 ```
 ```{r, MXiacc, echo=FALSE}
 cat("|================================================================| 100%\n")
 set.seed(20154)
-MX %>% clonecorrect(hier = ~Continent/Country) %>% ia(sample = 999, quiet = TRUE)
+MX %>% clonecorrect(strata= ~Continent/Country) %>% ia(sample = 999, quiet = TRUE)
 ```
 
 Now $\bar{r}_d$ is located more centrally in the distribution expected from
@@ -115,12 +115,12 @@ and falls outside of the distribution expected under no linkage. Let's look at
 the clone-corrected data and make sure this is not an artifact of clonality:
 
 ```{r, eval=FALSE}
-SA %>% clonecorrect(hier = ~Continent/Country) %>% ia(sample=999)
+SA %>% clonecorrect(strata= ~Continent/Country) %>% ia(sample=999)
 ```
 ```{r, SAiacc, echo=FALSE}
 cat("|================================================================| 100%\n")
 set.seed(9999)
-SA %>% clonecorrect(hier = ~Continent/Country) %>% ia(sample=999, quiet=TRUE)
+SA %>% clonecorrect(strata= ~Continent/Country) %>% ia(sample=999, quiet=TRUE)
 ```
 
 Both clone-corrected ($N = 29$) and uncorrected data ($N = 38$) reject the
