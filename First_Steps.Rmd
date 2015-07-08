@@ -46,10 +46,10 @@ A good first step after loading data is to look for missing data, rare alleles a
 
 ```{r}
 data("Pinf")
-locus_table(Pinf)
+(pinflt <- locus_table(Pinf))
 ```
 
-We see that we have anywhere from 2 to 25 microsatellite alleles per locus. Locus D13 has the highest Simpson diversity (0.884) and Pi04 has the most evenly distirbuted alleles (0.785). We also observe between 1-10% missing data in the 'North America' population:
+We see that we have anywhere from 2 to 25 microsatellite alleles per locus. Locus D13 has the highest Simpson diversity (`r signif(pinflt["D13", "1-D"], 3)`) and Pi04 has the most evenly distirbuted alleles (`r signif(pinflt["Pi04", "Evenness"], 3)`). We also observe between 1-10% missing data in the 'North America' population:
 
 ```{r, fig.cap = "Missing data plot", fig.width = 12, fig.height = 5}
 info_table(Pinf, type = "missing", plot = TRUE)

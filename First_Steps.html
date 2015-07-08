@@ -261,7 +261,7 @@ Pinf         <span class="co"># We expect a maximum of 72 Multilocus Genotypes</
 <h2>Allele frequencies, missing data, and ploidy</h2>
 <p>A good first step after loading data is to look for missing data, rare alleles and overall quality of your data:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;Pinf&quot;</span>)
-<span class="kw">locus_table</span>(Pinf)</code></pre>
+(pinflt &lt;-<span class="st"> </span><span class="kw">locus_table</span>(Pinf))</code></pre>
 <pre><code>##       summary
 ## locus  allele    1-D   Hexp Evenness
 ##   Pi02 10.000  0.633  0.703    0.663
