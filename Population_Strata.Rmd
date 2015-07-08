@@ -184,14 +184,14 @@ We can see quite a difference in some loci after clone correcting based on
 tree in the overall data set showing that, while some loci show a decrease,
 many loci show an increase in allelic diversity after clone-correction. 
 
-### Advanced R: writing your own functions
+### Advanced R: writing your own functions for analysis by stratum
 
 Of course, we still want to analyze each tree/year combination separately.
 Instead of typing those commands above for each combination, we can write a
 function to do it for us.
 
 A function can be thought of as a set of instructions that tells the computer
-what to do. You have been using funcitons before such as `poppr()`. A function is written  like this:
+what to do. You have been using functions before such as `poppr()`. A function is written  like this:
 
 ```{r, eval = FALSE}
 fun_name <- function(arguments){
