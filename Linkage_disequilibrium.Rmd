@@ -4,7 +4,7 @@
   library("knitr")
   cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
   bib <- read.bibtex("bibtexlib.bib")
-  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, cache = TRUE)
+  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, cache = TRUE, fig.width = 7, fig.height = 7)
   if (html) opts_chunk$set(out.width = "700px", dpi = 300) 
   # use this to set knitr options: 
   # http://yihui.name/knitr/options #chunk_options
@@ -22,8 +22,7 @@ sexual while alleles recombine freely  into new genotypes during the process of
 sexual reproduction. In molecular ecology we typically use the index of
 association or related indices to test this phenomenon.
 
-The index of association
------
+# The index of association
 
 The index of association ($I_A$) was originally proposed by Brown et al. 
 `r citep(bib[c("brown1980multilocus")])` and implemented in the *poppr* R
@@ -74,6 +73,8 @@ data.
 ```{r}
 MX
 ```
+
+## Clone correction
 
 Indeed we observe 43 multilocus genotypes out of 48 samples. We are looking at
 partial clonality and thus need to use clone-corrected (also called clone-
@@ -131,6 +132,63 @@ This approach has been applied to provide support for Mexico as the putative
 center of origin of the potato late blight pathogen *P. infestans* 
 `r citep(bib[c("goss2014irish")])`. At the center of origin this organism is
 expected to reproduce sexually, while South American populations are clonal.
+
+## Pairwise $\bar{r}_d$ over all loci
+
+To ensure that the pattern of linkage disequilibrium seen is not due to a single
+pair of loci, you can calculate $I_A$ and $\bar{r}_d$ over all pairs of loci.
+We'll perform this on the clone-corrected samples as above.
+
+Pairwise for the Mexican population:
+
+```{r, eval = FALSE}
+mxpair <- MX %>% clonecorrect(strata = ~Continent/Country) %>% pair.ia
+```
+
+```{r, echo = FALSE}
+cat("|================================================================| 100%\n")
+mxpair <- MX %>% clonecorrect(strata = ~Continent/Country) %>% pair.ia(quiet = TRUE)
+```
+
+Pairwise for the South American population:
+
+```{r, eval = FALSE}
+sapair <- SA %>% clonecorrect(strata = ~Continent/Country) %>% pair.ia
+```
+
+```{r, echo = FALSE}
+cat("|================================================================| 100%\n")
+sapair <- SA %>% clonecorrect(strata = ~Continent/Country) %>% pair.ia(quiet = TRUE)
+```
+
+The heatmaps produced make it look like there is more linkage in the Mexican 
+population! But this is where looks can be deceiving. The color palettes are
+scaled to the data. We can confirm it by looking at the values:
+
+```{r}
+head(mxpair, 10) # Mexico
+head(sapair, 10) # South America
+```
+
+We can see that most of the values from South America are indeed higher than
+Mexico. Notice that value that says "NaN" in the South American data? That
+represents missing data. If you recall from the chapter on [Locus
+Stats](Locus_Stats.Rmd), the number of alleles at locus Pi33 for the South
+American population was 1. If you try to analyze the index of association on a
+locus with only one allele, you will get an undefined value. This is why the
+heatmap for the South American population has grey squares in it.
+
+### Plotting the output of pair.ia
+
+The output of pair.ia is a matrix that also has a class of "pairia". It has a
+specific plot method that we can use to plot the output again and set a standard 
+limit to the plot by specifying a range. 
+
+```{r}
+plotrange <- range(c(mxpair, sapair), na.rm = TRUE)
+plot(mxpair, limits = plotrange)
+plot(sapair, limits = plotrange) 
+```
 
 References
 ----------
