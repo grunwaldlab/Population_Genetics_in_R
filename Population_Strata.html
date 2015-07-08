@@ -226,7 +226,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <ul>
 <li><a href="#data-used-in-this-example">Data used in this example</a></li>
 <li><a href="#working-with-stratified-data">Working with stratified data</a></li>
-<li><a href="#importing-data-labeled-according-to-a-strata">Importing data labeled according to a strata</a></li>
+<li><a href="#importing-data-labeled-according-to-a-stratum">Importing data labeled according to a stratum</a></li>
 <li><a href="#assigning-stratifications">Assigning stratifications</a></li>
 <li><a href="#clone-correction">Clone correction</a></li>
 <li><a href="#conclusions">Conclusions</a></li>
@@ -249,9 +249,9 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <li>Setting the stratification(s) that you want to have analyzed</li>
 </ol>
 </div>
-<div id="importing-data-labeled-according-to-a-strata" class="section level2">
-<h2>Importing data labeled according to a strata</h2>
-<p>The easiest way to work with stratified data is to label each sample using an underscore “_” to separate each stratification. This was already done for the monpop data, where each sample was coded hierarchically by tree, year, and symptom in the following format: “Tree_Year_Symptom”.</p>
+<div id="importing-data-labeled-according-to-a-stratum" class="section level2">
+<h2>Importing data labeled according to a stratum</h2>
+<p>The easiest way to work with stratified data is to label each sample using an underscore “_” to separate each level. This was already done for the monpop data, where each sample was coded hierarchically by tree, year, and symptom in the following format: “Tree_Year_Symptom”.</p>
 <p>Let’s load the hierarchically labeled example data:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
 <span class="kw">data</span>(monpop)

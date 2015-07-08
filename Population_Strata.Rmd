@@ -47,10 +47,10 @@ The steps for working with stratified data include:
 2.  Define the stratifications for the data
 3.  Setting the stratification(s) that you want to have analyzed
 
-Importing data labeled according to a strata
+Importing data labeled according to a stratum
 ----
 The easiest way to work with stratified data is to label each sample using an
-underscore "\_" to separate each stratification.  This was already done for
+underscore "\_" to separate each level. This was already done for
 the monpop data, where each sample was coded hierarchically by tree, year, and
 symptom in the following format: "Tree\_Year\_Symptom".
 
