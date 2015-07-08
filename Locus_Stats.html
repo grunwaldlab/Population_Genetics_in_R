@@ -233,7 +233,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </ul>
 </div>
 
-<p>A rigorous population genetic analysis looks closely at the data to assess quality and identify outliers or problems in the data such as erroneous allele calls. This chapter focuses on analysis on a per-locus level. While there are statistics that analyze populations across loci, it is important to analyze each locus independently to make sure that one locus is not introducing bias into the analysis.</p>
+<p>A rigorous population genetic analysis looks closely at the data to assess quality and identify outliers or problems in the data such as erroneous allele calls. This chapter focuses on analysis on a per-locus level. While there are statistics that analyze populations across loci, it is important to analyze each locus independently to make sure that one locus is not introducing bias or spurious errors into the analysis.</p>
 <blockquote>
 <p><strong>Note:</strong> Many of these statistics are specific to co-dominant data.</p>
 </blockquote>
@@ -263,7 +263,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ##   Pi70  3.000  0.279  0.419    0.580
 ##   Pi89 11.000  0.615  0.677    0.578
 ##   mean  8.636  0.517  0.620    0.602</code></pre>
-<p>We can see here that we have a widely variable number of alleles per locus and that we actually have a single locus that only has two alleles, Pi33. This locus also has low diversity, low expected heterozygosity and is very uneven in allele distribution. This is a sign that this might be a phylogenetically uninformative locus, where we have two alleles and one is occurring at a minor frequency. We should explore data analysis with and without this locus. Let’s first see if both of these alleles exist in both populations of this data set.</p>
+<p>We can see here that we have a widely variable number of alleles per locus and that we actually have a single locus that only has two alleles, Pi33. This locus also has low diversity, low expected heterozygosity and is very uneven in allele distribution. This is a sign that this might be a phylogenetically uninformative locus, where we have two alleles and one is occurring at a minor frequency. We will explore analysis with and without this locus. Let’s first see if both of these alleles exist in both populations of this data set.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">locus_table</span>(Pinf, <span class="dt">pop =</span> <span class="st">&quot;North America&quot;</span>)</code></pre>
 <pre><code>## 
 ## allele = Number of observed alleles
@@ -516,7 +516,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ## N222 0.00000000 0.00000000 0.00000000
 ## N223 0.00000000 0.00000000 0.00000000
 ## N224 0.00000000 0.00000000 0.00000000</code></pre>
-<p>Notice that there are a lot more alleles than there were originally. This is because the procedure is performed over the entire data set, not by population. Let’s look at what happens if we perform the same routine on the subsetted data.</p>
+<p>Notice that there are a lot more alleles than there were originally. This is because the procedure is performed over the entire data set, not by population. Let’s look at what happens if we perform the same routine on the subset data.</p>
 <pre class="sourceCode r"><code class="sourceCode r">nan1 &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span><span class="kw">popsub</span>(<span class="dv">1</span>, <span class="dt">drop =</span> <span class="ot">TRUE</span>) %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;mean&quot;</span>)</code></pre>
 <pre><code>## 
 ##  Replaced 8 missing values.</code></pre>
@@ -548,7 +548,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ## fca90 217.19836  66 0.000000e+00        0
 ## fca96 193.36764  66 1.965095e-14        0
 ## fca37 291.00731 153 1.209777e-10        0</code></pre>
-<p>We can see here that both the analytical p-value and permuted p-value show that we have confidence that all loci are not under the null expectation of HWE. This makes sense given that these data represent 17 populations of cats. If we wanted to check what the HWE statistic for each population, we should first separate the populations with the function <code>seppop()</code>. For this exercise, we will only focus on the analytical p-value by setting <code>B = 0</code>.</p>
+<p>We can see here that both the analytical p-value and permuted p-value show that we have confidence that all loci are not under the null expectation of HWE. This makes sense given that these data represent 17 populations of cats. If we wanted to check what the HWE statistic for each population is, we should first separate the populations with the function <code>seppop()</code>. For this exercise, we will only focus on the analytical p-value by setting <code>B = 0</code>.</p>
 <pre class="sourceCode r"><code class="sourceCode r">(nanhwe.pop &lt;-<span class="st"> </span><span class="kw">seppop</span>(nancycats) %&gt;%<span class="st"> </span><span class="kw">lapply</span>(hw.test, <span class="dt">B =</span> <span class="dv">0</span>))</code></pre>
 <pre><code>## $P01
 ##           chi^2 df Pr(chi^2 &gt;)
@@ -808,9 +808,9 @@ newmat[newmat &gt;<span class="st"> </span>alpha] &lt;-<span class="st"> </span>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;lattice&quot;</span>)
 <span class="kw">levelplot</span>(<span class="kw">t</span>(newmat))</code></pre>
 <p><img src="Locus_Stats_files/figure-html/unnamed-chunk-11-1.png" title="Heatmap showing significant departures from HWE" alt="Heatmap showing significant departures from HWE" width="700px" /></p>
-<p>This simple plot shows us loci in rows and populations in columns. Note, that all loci shown in pink are loci suspected for not being in HWE with <span class="math">\(p \leq 0.05\)</span>.</p>
+<p>This simple plot shows us loci in rows and populations in columns. Note, that all loci shown in pink are loci suspected of not being in HWE with <span class="math">\(p \leq 0.05\)</span>.</p>
 <div class="references">
-<h2 id="references" class="unnumbered">References</h2>
+<h2>References</h2>
 <p>Goss E., Tabima J., Cooke D., Restrepo S., Fry W., Forbes G., Fieland V., Cardenas M., Grünwald N. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
 </div>
 </div>
