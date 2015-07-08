@@ -67,15 +67,15 @@ The following packages are utilized in this primer:
 
 1. [poppr](http://cran.r-project.org/web/packages/poppr/index.html)
 2. [adegenet](http://cran.r-project.org/web/packages/adegenet/index.html)
+2. [ape](http://cran.r-project.org/web/packages/ape/index.html)
 4. [ggplot2](http://cran.r-project.org/web/packages/ggplot2/index.html)
 5. [mmod](http://cran.r-project.org/web/packages/mmod/index.html)
-3. [genetics](http://cran.r-project.org/web/packages/genetics/index.html)
 6. [magrittr](http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)
 
 Use the following script to install these packages:
 
 ```{r, eval = FALSE}
-install.packages(c("poppr", "mmod", "genetics", "magrittr"))
+install.packages(c("poppr", "mmod", "magrittr"))
 ```
 
 We wrote and actively maintain *poppr* `r citep(bib["kamvar2014poppr", "kamvar2015novel"])` and it
