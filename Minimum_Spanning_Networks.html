@@ -228,6 +228,8 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <li><a href="#interactive-viewer">Interactive viewer</a><ul>
 <li><a href="#parameters-sidebar">Parameters (sidebar)</a></li>
 <li><a href="#output-tabs">Output (tabs)</a></li>
+<li><a href="#re-creating-msns">Re-creating MSNs</a></li>
+<li><a href="#your-turn-data-phytophthora-ramorum">Your turn (Data: <em>Phytophthora ramorum</em>)</a></li>
 </ul></li>
 </ul>
 </div>
@@ -388,7 +390,7 @@ t26.9msn &lt;-<span class="st"> </span><span class="kw">bruvo.msn</span>(t26, <s
 <div id="command" class="section level3">
 <h3>Command</h3>
 <p><img src="images/imsn_command.png" alt="partial_clone command" /></p>
-<p>If you copy and paste this command into your R console, you can recreate the minimum spanning network you see.</p>
+<p>If you copy and paste this command into your R console, you can recreate the minimum spanning network. This is important to make sure that your figure is reproducible.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;partial_clone&quot;</span>) <span class="co"># Don&#39;t forget to load the data</span>
 partial_clone_sub &lt;-<span class="st"> </span><span class="kw">popsub</span>(partial_clone, <span class="dt">blacklist =</span> <span class="kw">character</span>(<span class="dv">0</span>))
 partial_clone_dist &lt;-<span class="st"> </span><span class="kw">diss.dist</span>(partial_clone_sub, <span class="dt">percent =</span> <span class="ot">FALSE</span>, <span class="dt">mat =</span> <span class="ot">FALSE</span>)
@@ -406,7 +408,94 @@ min_span_net &lt;-<span class="st"> </span><span class="kw">poppr.msn</span>(par
            <span class="dt">quantiles =</span> <span class="ot">FALSE</span>,
            <span class="dt">beforecut =</span> <span class="ot">TRUE</span>)</code></pre>
 <p><img src="Minimum_Spanning_Networks_files/figure-html/partial_clone_reproduce-1.png" title="" alt="" width="700px" /></p>
+</div>
+<div id="save-plot" class="section level3">
+<h3>Save Plot</h3>
+<p><img src="images/imsn_save.png" /></p>
+<p>This allows you to save the plot to your computer in pdf or png format.</p>
+</div>
+<div id="session-information" class="section level3">
+<h3>Session Information</h3>
+<p><img src="images/imsn_sessioninfo.png" /></p>
+<p>This shows you what package versions were used to create the graph.</p>
+</div>
+</div>
+<div id="re-creating-msns" class="section level2">
+<h2>Re-creating MSNs</h2>
+<p>We will now recreate the minimum spanning network that was displayed for the monpop data set.</p>
+<p>First, choose the <code>t26</code> data set that we defined above:</p>
+<p><img src="images/imsn_monpop_data.png" /></p>
+<p>Next, make sure you only select the “9_BB” and “9_FR” populations.</p>
+<p><img src="images/imsn_monpop_pops.png" /></p>
+<p>Now, Select “Bruvo’s Distance”:</p>
+<p><img src="images/imsn_monpop_bruvo.png" /></p>
+<p>Notice how the options have now changed. This is because bruvo’s distance is a special distance that is parametric. Don’t worry about the model for missing data, but in the SSR repeat lengths section, type “reps” (we defined this earlier):</p>
+<p><img src="images/imsn_monpop_bruvo_opts.png" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">reps <span class="co"># our previous definition of &quot;reps&quot;</span></code></pre>
+<pre><code>##  CHMFc4  CHMFc5 CHMFc12     SEA     SED     SEE     SEG     SEI     SEL 
+##       7       2       4       4       4       2       6       3       4 
+##     SEN     SEP     SEQ     SER 
+##       2       4       2       4</code></pre>
+<p>Now, modify the following graphical parameters:</p>
+<ul>
+<li>seed: <strong>120</strong></li>
+<li>Node Size Scale: <strong>1.25</strong> (this is the option <code>nodebase</code>)</li>
+<li>Labels: <strong>none</strong> (this is the option <code>inds</code>)</li>
+<li>Palette: <strong>cm.colors</strong></li>
+</ul>
+<p>Once everthing is set, hit <strong>reData</strong> and the graph will reset just like this:</p>
+<p><img src="images/imsn_monpop_plot.png" /></p>
+</div>
+<div id="your-turn-data-phytophthora-ramorum" class="section level2">
+<h2>Your turn (Data: <em>Phytophthora ramorum</em>)</h2>
+<p>Now we will use data from @. This is the Sudden Oak Death pathogen collected from forests in Curry County Oregon and Nurseries in California and Oregon [@]. We will use this data set to see why reticulations are important for highly clonal organisms.</p>
+<div id="load-the-data" class="section level3">
+<h3>Load the data</h3>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;Pram&quot;</span>)
+Pram</code></pre>
+<pre><code>## 
+## This is a genclone object
+## -------------------------
+## Genotype information:
+## 
+##     98 multilocus genotypes 
+##    729 diploid individuals
+##      5 codominant loci
+## 
+## Population information:
+## 
+##      3 strata - SOURCE YEAR STATE
+##      9 populations defined - Nursery_CA Nursery_OR JHallCr_OR ... 
+## Winchuck_OR ChetcoMain_OR PistolRSF_OR</code></pre>
+<p>This data has a few things in the “other” slot that we need. First is the repeat lengths called “REPLEN” and the other is a vector of hexadecimal colors for each population called “comparePal”.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">other</span>(Pram)$REPLEN</code></pre>
+<pre><code>##  PrMS6A1  Pr9C3A1 PrMS39A1 PrMS45A1 PrMS43A1 
+##  3.00000  2.00000  4.00001  4.00000  4.00000</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">other</span>(Pram)$comparePal</code></pre>
+<pre><code>##    Nursery_CA    Nursery_OR    JHallCr_OR NFChetHigh_OR      Coast_OR 
+##     &quot;#000000&quot;     &quot;#808080&quot;     &quot;#A6CEE3&quot;     &quot;#99CD91&quot;     &quot;#B89B74&quot; 
+##   HunterCr_OR   Winchuck_OR ChetcoMain_OR  PistolRSF_OR 
+##     &quot;#F06C45&quot;     &quot;#ED8F47&quot;     &quot;#825D99&quot;     &quot;#B15928&quot;</code></pre>
+<p>We will use these to create the following minimum spanning network:</p>
+<p><img src="Minimum_Spanning_Networks_files/figure-html/prammsn-1.png" title="" alt="" width="700px" /></p>
+<p>Here are the parameters you should use:</p>
+<ul>
+<li>Data:
+<ul>
+<li>Dataset: <strong>Pram</strong></li>
+<li>Distance: <strong>Bruvo</strong></li>
+<li>SSR Repeat Lengths: <strong><code>other(Pram)$REPLEN</code></strong></li>
+</ul></li>
+<li>Graphical:
+<ul>
+<li>Grey Scale: <strong>9</strong></li>
+<li>Node Size Scale: <strong>1.95</strong></li>
+<li>Labels: <strong>none</strong></li>
+<li>Palette: <strong>Custom: <code>function(x) other(Pram)$comparePal</code></strong></li>
+</ul></li>
+</ul>
 <div class="references">
+<h1 id="references" class="unnumbered">References</h1>
 <p>Bruvo R., Michiels NK., D’Souza TG., Schulenburg H. 2004. A simple method for the calculation of microsatellite genotype distances irrespective of ploidy level. <em>Molecular Ecology</em> 13:2101–2106. Available at: <a href="http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x" class="uri">http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x</a></p>
 <p>Everhart S., Scherm H. 2015. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> 105:542–549.</p>
 </div>

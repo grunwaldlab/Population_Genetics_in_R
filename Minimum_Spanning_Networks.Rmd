@@ -224,3 +224,109 @@ plot_poppr_msn(partial_clone,
 	       beforecut = TRUE)
 ```
 
+### Save Plot
+
+![](images/imsn_save.png)
+
+This allows you to save the plot to your computer in pdf or png format.
+
+### Session Information 
+
+![](images/imsn_sessioninfo.png)
+
+This shows you what package versions were used to create the graph.
+
+
+## Re-creating MSNs
+
+We will now recreate the minimum spanning network that was displayed for the 
+monpop data set. 
+
+First, choose the `t26` data set that we defined above:
+
+![](images/imsn_monpop_data.png)
+
+Next, make sure you only select the "9\_BB" and "9\_FR" populations.
+
+![](images/imsn_monpop_pops.png)
+
+Now, Select "Bruvo's Distance":
+
+![](images/imsn_monpop_bruvo.png)
+
+Notice how the options have now changed. This is because bruvo's distance is a
+special distance that is parametric. Don't worry about the model for missing data, but in the SSR repeat lengths section, type "reps" (we defined this earlier):
+
+![](images/imsn_monpop_bruvo_opts.png)
+
+```{r}
+reps # our previous definition of "reps"
+```
+
+Now, modify the following graphical parameters:
+
+- seed: **120**
+- Node Size Scale: **1.25** (this is the option `nodebase`)
+- Labels: **none** (this is the option `inds`)
+- Palette: **cm.colors**
+
+Once everthing is set, hit **reData** and the graph will reset just like this:
+
+![](images/imsn_monpop_plot.png)
+
+## Your turn (Data: *Phytophthora ramorum*)
+
+Now we will use data from `r citet(bib["kamvar2015spatial"])`. This is the
+Sudden Oak Death pathogen collected from forests in Curry County Oregon and 
+Nurseries in California and Oregon `r citep(bib["goss2009population"])`. We will
+use this data set to see why reticulations are important for highly clonal
+organisms.
+
+### Load the data
+
+```{r, pramorum}
+data("Pram")
+Pram
+```
+
+This data has a few things in the "other" slot that we need. First is the repeat
+lengths called "REPLEN" and the other is a vector of hexadecimal colors for each
+population called "comparePal". 
+
+```{r, pramother}
+other(Pram)$REPLEN
+other(Pram)$comparePal
+```
+
+We will use these to create the following minimum spanning network:
+
+```{r, prammsn, echo = FALSE, fig.width = 10, fig.height = 10}
+Pram_sub <- popsub(Pram, blacklist = character(0))
+min_span_net <- bruvo.msn(Pram_sub, replen = other(Pram)$REPLEN, add = TRUE, loss = TRUE, showplot = FALSE, include.ties = TRUE)
+set.seed(78)
+plot_poppr_msn(Pram,
+	       min_span_net,
+	       inds = "none",
+	       mlg = FALSE,
+	       gadj = 9,
+	       nodebase = 1.95,
+	       palette = function(x) other(Pram)$comparePal,
+	       cutoff = NULL,
+	       quantiles = FALSE,
+	       beforecut = TRUE)
+```
+
+Here are the parameters you should use:
+
+- Data:
+    - Dataset: **Pram**
+    - Distance: **Bruvo**
+    - SSR Repeat Lengths: **`other(Pram)$REPLEN`**
+- Graphical:
+    - Grey Scale: **9**
+    - Node Size Scale: **1.95**
+    - Labels: **none**
+    - Palette: **Custom: `function(x) other(Pram)$comparePal`**
+
+
+# References
