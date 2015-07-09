@@ -12,7 +12,7 @@
 ```
 
 ---
-title: "99: Minimum Spanning Networks"
+title: "10: Minimum Spanning Networks"
 ---
 
 Minimum spanning networks are a great way to be able to visualize the
