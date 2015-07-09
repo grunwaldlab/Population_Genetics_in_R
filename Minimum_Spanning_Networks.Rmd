@@ -15,9 +15,13 @@
 title: "99: Minimum Spanning Networks"
 ---
 
-Minimum spanning networks are a great way to be able to visualize the connections between samples in your data set. In terms of clonal organisms, it can be a more powerful visualization tool than trees, especially for clonal organisms. 
+Minimum spanning networks are a great way to be able to visualize the connections between samples in your data set. In terms of clonal organisms, it can be a more powerful visualization tool than trees, especially for clonal organisms. In this chapter, we will show you how to construct and view minimum spanning networks on the command line and in an interactive viewer. 
 
-The rest of this chapter will utilize Bruvo's distance `r citep(bib['bruvo2004simple'])`. 
+# From the command line
+
+### Note:
+
+This section will utilize Bruvo's distance `r citep(bib['bruvo2004simple'])`. 
 It is important to note that calculating Bruvo's distance is computationally
 different than other distances, so it has its own specialized functions for
 minimum spanning networks and bootstrapping that do not need a distance matrix:
@@ -27,11 +31,11 @@ minimum spanning networks and bootstrapping that do not need a distance matrix:
 | `poppr.msn` | `bruvo.msn` |
 | `aboot` | `bruvo.boot` |
 
-Minimum spanning network
-----
+
+### Minimum spanning network
 
 For this section, we will use the `monpop` data set from `r citep(bib['everhart2014finescale'])`. 
-See [Chapter6](Genotypic_EvenRichDiv.html) for more details. We will be focusing
+See [Chapter 6](Genotypic_EvenRichDiv.html) for more details. We will be focusing
 on sources of multilocus genotypes. The life cycle of the pathogen *Monilinia
 fructicola* begins with an ascospore (sexual propagule) released from a
 mummified peach fruit that had overwintered on the ground. It infects an
@@ -41,10 +45,9 @@ cyclical infections. We might have questions such as:
 1. Are the major genotypes of Fruit Rot (FR) samples closely related?
 2. To what degree do the Blossom Blight (BB) samples contribute to the FR?
 
-
 Let's load the data:
 
-```{r}
+```{r, setup}
 library("poppr")
 library("magrittr")
 data(monpop)
@@ -55,7 +58,7 @@ summary(monpop)
 We notice that tree number 26 is the only one to have been sampled for all three
 years. Let's use it as an example.
 
-```{r}
+```{r, setup_data}
 t26 <- monpop %>% setPop(~Tree) %>% popsub("26") %>% setPop(~Year/Symptom)
 t26
 ```
@@ -65,7 +68,7 @@ Now that we have our tree, let's calculate a MSN using Bruvo's distance
 stepwise mutation model, so we have to first specify what kind of repeats units 
 we have in our data (eg. dinucleotide = 2, trinucleotide = 3, etc.):
 
-```{r}
+```{r, calculate_msn}
 # Set up our repeat lengths and populations to analyze
 reps <- c(CHMFc4 = 7, CHMFc5 = 2, CHMFc12 = 4, 
           SEA = 4, SED = 4, SEE = 2, SEG = 6,
@@ -85,9 +88,9 @@ samples, color populations using the "cm.colors" palette and scale the size of
 the nodes to $log_{1.25}$. If you want to know what other things this function
 can do, simply type `help("plot_poppr_msn")`
 
-```{r, fig.width = 7, fig.height = 7}
+```{r, visualize_msn, fig.width = 7, fig.height = 7}
 # Visualize the network
-set.seed(9001)
+set.seed(120)
 plot_poppr_msn(t26, t26.9msn, inds = "none", palette = cm.colors, nodebase = 1.25)
 ```
 
@@ -96,3 +99,28 @@ contributed to the major groups of MLGs found in the Fruit Rot (blue pie
 pieces).
 
 > **Try it!** See if you can produce similar graphs with the 2010 and 2011 populations.
+
+
+# Interactive viewer
+
+
+That seems like a lot of work to create a minimum spanning network, right? 
+If you look at the all of the arguments for `plot\_poppr\_msn`, there are a whole 
+lot of them:
+
+```{r, plot_poppr_msn_args}
+args(plot_poppr_msn)
+```
+
+This is overwhelming even for people who are comfortable with R. Since this
+function is designed to provide a visualization after calculation, it only makes
+sense to have an interactive, visual interface. This interface is called
+`imsn()`. Let's try to recreate the plot above using the `imsn()` function. Note
+that the function takes no arguments.
+
+```{r, imsn, eval = FALSE}
+imsn()
+```
+
+![Intial view of imsn](images/imsn_initial.png)
+
