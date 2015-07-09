@@ -125,13 +125,80 @@ par(mfrow = c(1, 1), mar = c(5, 4, 4, 2) + 0.1, las = 0)
 This plot nicely illustrates the effect of mutation, followed by selection or
 drift in the seasonal H3N2 influenza virus.
 
-# DAPC analysis of *Phytophthora ramorum* from Forests and Nurseries.
+# Cross Validation: DAPC analysis of *Phytophthora ramorum* from Forests and Nurseries.
 
+Above we showed a nice example of a story that shows how two loci can
+drastically influence an epidemic. It, however, might be a mystery as to how the
+number of principal components (PC) was chosen for the analysis. It is important
+to carefully choose the correct number of PC because if you choose too few, you
+lose resolution, but if you choose too many, you end up over-fitting your data.
+One way of ensuring that you have selected the correct number of PC is to do
+cross-validation. This is a procedure in which you leave out a certain
+percentage of your data, run DAPC, and then see if the data that was left out is
+correctly placed into the population.
 
+Since the H3N2 data set is quite large, we will use *Phytophthora ramorum* data
+from Nurseries in California and Oregon `r citep(bib["goss2009population"])` and
+Forests in Curry County, Oregon `r citep(bib['kamvar2015spatial'])`. These data
+represent the Sudden Oak Death epidemic in Curry County, OR from 2001-2014
+separated into different watershed regions. In `r citet(bib["kamvar2015spatial"])`,
+the "Hunter Creek (HunterCr)" population was
+shown to be the result of a second introduction, likely from nurseries. Part of
+the evidence to support this conclusion was from DAPC results. Here, we will
+recreate the process of cross validation and reporting.
 
+If we run the function `xvalDapc` with default parameters, it will run 30
+replicates of cross-validation for a number of PCs less than the total number
+of alleles in the data. This is a good way to get an idea of where to focus
+more intense cross-validation runs:
 
-Conclusions
-----
+```{r}
+library("poppr")
+data("Pram", package = "poppr")
+Pram
+set.seed(999)
+pramx <- xvalDapc(tab(Pram, NA.method = "mean"), pop(Pram))
+```
+
+You can see that we have a peak around 15 PC. From here, we can narrow the search
+by specifying the number of PC to try with `n.pca` and centering it around 15,
+and doing 1000 replicates each (Note, this will take a long time).
+
+> Windows users: change parallel to "snow".
+
+```{r, Pramshow, eval = FALSE}
+set.seed(999)
+system.time(pramx <- xvalDapc(tab(Pram, NA.method = "mean"), pop(Pram), 
+                             n.pca = 10:20, n.rep = 1000, 
+                             parallel = "multicore", ncpus = 4L))
+```
+
+```{r, Pramhide, echo = FALSE}
+set.seed(999)
+system.time(pramx <- xvalDapc(tab(Pram, NA.method = "mean"), pop(Pram), 
+                             n.pca = 10:20, n.rep = 1000, 
+                             parallel = "multicore", ncpus = 4L))
+```
+
+We can see that it's basically a flat line all the way. If we take a look at
+the object, we see that 16 PCs give us the highest percent of correctly predicted
+subsamples with the lowest error.
+
+```{r }
+names(pramx) # The first element are all the samples
+pramx[-1]
+```
+
+We also have a DAPC object there. We can plot that, too. Compare to figure 4
+of `r citet(bib["kamvar2015spatial"])`
+```{r}
+scatter(pramx$DAPC, col = other(Pram)$comparePal, cex = 2, legend = TRUE, 
+        clabel = FALSE,
+        posi.leg = "bottomleft", scree.pca = TRUE, posi.pca = "topleft",
+        cleg = 0.75, xax = 1, yax = 2, inset.solid = 1)
+```
+
+# Conclusions
 
 DAPC is a wonderful tool for exploring structure of populations based on PCA and
 DA without making assumptions of panmixia. Thus, this technique provides a
@@ -143,7 +210,6 @@ DAPC analysis is inherently interactive and cannot be scripted *a priori*.
 Please refer to the [vignette](http://adegenet.r-forge.r-project.org/files
 /tutorial-dapc.pdf) written by Thibaut Jombart for a more interactive analysis.
 
-References
-----------
+# References
 
 <!--------------->
