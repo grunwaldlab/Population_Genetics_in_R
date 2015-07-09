@@ -225,7 +225,10 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div id="TOC">
 <ul>
 <li><a href="#from-the-command-line">From the command line</a></li>
-<li><a href="#interactive-viewer">Interactive viewer</a></li>
+<li><a href="#interactive-viewer">Interactive viewer</a><ul>
+<li><a href="#parameters-sidebar">Parameters (sidebar)</a></li>
+<li><a href="#output-tabs">Output (tabs)</a></li>
+</ul></li>
 </ul>
 </div>
 
@@ -349,21 +352,64 @@ t26.9msn &lt;-<span class="st"> </span><span class="kw">bruvo.msn</span>(t26, <s
 <p>(Note: you probably will not see the whole screen like this, but you can still scroll down)</p>
 <p><img src="images/imsn_initial.png" alt="Intial view of imsn" /></p>
 <p>We can see that there are five tabs and a sidebar. For now, we’ll explain what is on the sidebar. The first thing you see is a green bar that says “ready”. This means that there are no processes going on in the background and that it’s ready for input. Below that are three buttons, <strong>Go!</strong>, <strong>reData</strong>, and <strong>reGraph</strong>. These buttons are how you will tell the program that you are ready for it to make your graph.</p>
+<div id="parameters-sidebar" class="section level2">
+<h2>Parameters (sidebar)</h2>
 <p>Notice that there are two main sections, <strong>Data Parameters</strong> and <strong>Graphical Parameters</strong>.</p>
 <div id="data-parameters" class="section level3">
 <h3>Data Parameters</h3>
-<p>As you can expect, these options represent parameters that will manipulate your data. Changing any of these choices means that the distance matrix will be recalculated. You see here four choices presented:</p>
+<p>As you can expect, these options represent parameters that will manipulate your data. Changing any of these choices means that the distance matrix will be recalculated. When you modify things in this section and are satisfied with your choices, you can use the <strong>reData</strong> button to update the graph. You see here four choices presented:</p>
 <ol style="list-style-type: decimal">
-<li>choose dataset - This dropdown menu allows you to choose your data set.<br /><img src="images/imsn_data_choose.png" alt="choose dataset" /></li>
-<li>choose populations - this will change based on your data set, but it allows you to select different populations with which to subset your data<br /><img src="images/imsn_population_choose.png" alt="choose populations" /></li>
-<li>convert to genclone? - If your data is in genind format, you can convert it to genclone (minimally reduces time for clonal organisms)<br /><img src="images/imsn_convert.png" alt="convert to genclone?" /></li>
-<li>choose distance calculation - The distance measure to calculate from your data (notice that there’s “Custom” at the bottom)<br /><img src="images/imsn_distance_choose.png" alt="choose distance calculation" /></li>
-<li>Distance arguments - every distance has different arguments, this is where you can modify them<br /><img src="images/imsn_distance_args.png" alt="Distance arguments" /></li>
-<li>include reticulations? - This is an important parameter that will include reticulations in the minimum spanning network. We’ll explore this with the <code>Pram</code> data set later.<br /><img src="images/imsn_reticulate.png" alt="include reticulations?" /></li>
+<li>choose dataset - This dropdown menu allows you to choose your data set.<br /> <img src="images/imsn_data_choose.png" alt="choose dataset" /></li>
+<li>choose populations - this will change based on your data set, but it allows you to select different populations with which to subset your data<br /> <img src="images/imsn_population_choose.png" alt="choose populations" /></li>
+<li>convert to genclone? - If your data is in genind format, you can convert it to genclone (minimally reduces time for clonal organisms)<br /> <img src="images/imsn_convert.png" alt="convert to genclone?" /></li>
+<li>choose distance calculation - The distance measure to calculate from your data (notice that there’s “Custom” at the bottom)<br /> <img src="images/imsn_distance_choose.png" alt="choose distance calculation" /></li>
+<li>Distance arguments - every distance has different arguments, this is where you can modify them<br /> <img src="images/imsn_distance_args.png" alt="Distance arguments" /></li>
+<li>include reticulations? - This is an important parameter that will include reticulations in the minimum spanning network. We’ll explore this with the <code>Pram</code> data set later.<br /> <img src="images/imsn_reticulate.png" alt="include reticulations?" /></li>
 </ol>
+</div>
+<div id="graphical-parameters" class="section level3">
+<h3>Graphical Parameters</h3>
+<p>The parameters listed here allow you to modify the look and feel of the graph without having to recalculate the data. We encourage the user to play around with these to see what the different sliders and buttons do.</p>
+</div>
+</div>
+<div id="output-tabs" class="section level2">
+<h2>Output (tabs)</h2>
+<div id="plot" class="section level3">
+<h3>Plot</h3>
+<p>This is the tab you see immediately. It has nothing in it because we haven’t told imsn to do anything. Let’s hit <strong>Go!</strong> with our default parameters and see what happens.</p>
+<p><img src="images/imsn_go.png" alt="minimum spanning network of partial_clone" /></p>
+<p>We now have a minimum spanning network of partial clone based a dissimilarity distance (“diss.dist”) where the distance is represented as counts of dissimilar alleles.</p>
+</div>
+<div id="data" class="section level3">
+<h3>Data</h3>
+<p><img src="images/imsn_data.png" alt="partial_clone output" /></p>
+<p>This is the output of your data set. You can use this to confirm that your data is what you expect.</p>
+</div>
+<div id="command" class="section level3">
+<h3>Command</h3>
+<p><img src="images/imsn_command.png" alt="partial_clone command" /></p>
+<p>If you copy and paste this command into your R console, you can recreate the minimum spanning network you see.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;partial_clone&quot;</span>) <span class="co"># Don&#39;t forget to load the data</span>
+partial_clone_sub &lt;-<span class="st"> </span><span class="kw">popsub</span>(partial_clone, <span class="dt">blacklist =</span> <span class="kw">character</span>(<span class="dv">0</span>))
+partial_clone_dist &lt;-<span class="st"> </span><span class="kw">diss.dist</span>(partial_clone_sub, <span class="dt">percent =</span> <span class="ot">FALSE</span>, <span class="dt">mat =</span> <span class="ot">FALSE</span>)
+min_span_net &lt;-<span class="st"> </span><span class="kw">poppr.msn</span>(partial_clone_sub, partial_clone_dist, <span class="dt">showplot =</span> <span class="ot">FALSE</span>, <span class="dt">include.ties =</span> <span class="ot">TRUE</span>)
+
+<span class="kw">set.seed</span>(<span class="dv">69</span>)
+<span class="kw">plot_poppr_msn</span>(partial_clone,
+           min_span_net,
+           <span class="dt">inds =</span> <span class="st">&quot;ALL&quot;</span>,
+           <span class="dt">mlg =</span> <span class="ot">FALSE</span>,
+           <span class="dt">gadj =</span> <span class="dv">3</span>,
+           <span class="dt">nodebase =</span> <span class="fl">1.15</span>,
+           <span class="dt">palette =</span> rainbow,
+           <span class="dt">cutoff =</span> <span class="ot">NULL</span>,
+           <span class="dt">quantiles =</span> <span class="ot">FALSE</span>,
+           <span class="dt">beforecut =</span> <span class="ot">TRUE</span>)</code></pre>
+<p><img src="Minimum_Spanning_Networks_files/figure-html/partial_clone_reproduce-1.png" title="" alt="" width="700px" /></p>
 <div class="references">
 <p>Bruvo R., Michiels NK., D’Souza TG., Schulenburg H. 2004. A simple method for the calculation of microsatellite genotype distances irrespective of ploidy level. <em>Molecular Ecology</em> 13:2101–2106. Available at: <a href="http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x" class="uri">http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x</a></p>
 <p>Everhart S., Scherm H. 2015. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> 105:542–549.</p>
+</div>
 </div>
 </div>
 </div>

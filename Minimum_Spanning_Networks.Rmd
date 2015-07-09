@@ -15,7 +15,11 @@
 title: "99: Minimum Spanning Networks"
 ---
 
-Minimum spanning networks are a great way to be able to visualize the connections between samples in your data set. In terms of clonal organisms, it can be a more powerful visualization tool than trees, especially for clonal organisms. In this chapter, we will show you how to construct and view minimum spanning networks on the command line and in an interactive viewer. 
+Minimum spanning networks are a great way to be able to visualize the
+connections between samples in your data set. In terms of clonal organisms, it
+can be a more powerful visualization tool than trees, especially for clonal
+organisms. In this chapter, we will show you how to construct and view minimum
+spanning networks on the command line and in an interactive viewer.
 
 # From the command line
 
@@ -98,14 +102,15 @@ We can see that the Blossom Blight in the tree (pink pie pieces) heavily
 contributed to the major groups of MLGs found in the Fruit Rot (blue pie
 pieces).
 
-> **Try it!** See if you can produce similar graphs with the 2010 and 2011 populations.
+> **Try it!** See if you can produce similar graphs with the 2010 and 2011
+> populations.
 
 
 # Interactive viewer
 
 
-That seems like a lot of work to create a minimum spanning network, right? 
-If you look at the all of the arguments for `plot\_poppr\_msn`, there are a whole 
+That seems like a lot of work to create a minimum spanning network, right? If
+you look at the all of the arguments for `plot\_poppr\_msn`, there are a whole
 lot of them:
 
 ```{r, plot_poppr_msn_args}
@@ -130,26 +135,92 @@ scroll down)
 We can see that there are five tabs and a sidebar. For now, we'll explain what
 is on the sidebar. The first thing you see is a green bar that says "ready".
 This means that there are no processes going on in the background and that it's
-ready for input. Below that are three buttons, **Go!**, **reData**, and **reGraph**. These buttons are how you will tell the program that you are ready for it to make
-your graph. 
+ready for input. Below that are three buttons, **Go!**, **reData**, and
+**reGraph**. These buttons are how you will tell the program that you are ready
+for it to make your graph.
 
-Notice that there are two main sections, **Data Parameters** and **Graphical Parameters**.
+## Parameters (sidebar)
+
+Notice that there are two main sections, **Data Parameters** and **Graphical
+Parameters**.
 
 ### Data Parameters
 
 As you can expect, these options represent parameters that will manipulate your
-data. Changing any of these choices means that the distance matrix will be recalculated. You see here four choices presented:
+data. Changing any of these choices means that the distance matrix will be
+recalculated. When you modify things in this section and are satisfied with your
+choices, you can use the **reData** button to update the graph. You see here
+four choices presented:
 
-1. choose dataset - This dropdown menu allows you to choose your data set.     
-![choose dataset](images/imsn_data_choose.png)
-2. choose populations - this will change based on your data set, but it allows you to select different populations with which to subset your data    
-![choose populations](images/imsn_population_choose.png)
-3. convert to genclone? - If your data is in genind format, you can convert it to genclone (minimally reduces time for clonal organisms)    
-![convert to genclone?](images/imsn_convert.png)
-3. choose distance calculation - The distance measure to calculate from your data (notice that there's "Custom" at the bottom)    
-![choose distance calculation](images/imsn_distance_choose.png)
-4. Distance arguments - every distance has different arguments, this is where you can modify them    
-![Distance arguments](images/imsn_distance_args.png)
-6. include reticulations? - This is an important parameter that will include reticulations in the minimum spanning network. We'll explore this with the
-`Pram` data set later.    
-![include reticulations?](images/imsn_reticulate.png)
+1. choose dataset - This dropdown menu allows you to choose your data set.    
+   ![choose dataset](images/imsn_data_choose.png)
+2. choose populations - this will change based on your data set, but it allows
+   you to select different populations with which to subset your data     
+   ![choose populations](images/imsn_population_choose.png)
+3. convert to genclone? - If your data is in genind format, you can convert it
+   to genclone (minimally reduces time for clonal organisms)     
+   ![convert to genclone?](images/imsn_convert.png)
+3. choose distance calculation - The distance measure to calculate from your
+   data (notice that there's "Custom" at the bottom)     
+   ![choose distance calculation](images/imsn_distance_choose.png)
+4. Distance arguments - every distance has different arguments, this is where
+   you can modify them     
+   ![Distance arguments](images/imsn_distance_args.png)
+6. include reticulations? - This is an important parameter that will include
+   reticulations in the minimum spanning network. We'll explore this with the
+   `Pram` data set later.     
+   ![include reticulations?](images/imsn_reticulate.png)
+
+### Graphical Parameters
+
+The parameters listed here allow you to modify the look and feel of the graph
+without having to recalculate the data. We encourage the user to play around
+with these to see what the different sliders and buttons do. 
+
+## Output (tabs)
+
+### Plot
+
+This is the tab you see immediately. It has nothing in it because we haven't 
+told imsn to do anything. Let's hit **Go!** with our default parameters and 
+see what happens.
+
+![minimum spanning network of partial_clone](images/imsn_go.png)
+
+We now have a minimum spanning network of partial clone based a dissimilarity
+distance ("diss.dist") where the distance is represented as counts of dissimilar alleles. 
+
+### Data
+
+![partial_clone output](images/imsn_data.png)
+
+This is the output of your data set. You can use this to confirm that your data
+is what you expect.
+
+### Command
+
+![partial_clone command](images/imsn_command.png)
+
+If you copy and paste this command into your R console, you can recreate the
+minimum spanning network. This is important to make sure that your figure is
+reproducible.
+
+```{r, partial_clone_reproduce, fig.width = 7, fig.height = 7}
+data("partial_clone") # Don't forget to load the data
+partial_clone_sub <- popsub(partial_clone, blacklist = character(0))
+partial_clone_dist <- diss.dist(partial_clone_sub, percent = FALSE, mat = FALSE)
+min_span_net <- poppr.msn(partial_clone_sub, partial_clone_dist, showplot = FALSE, include.ties = TRUE)
+
+set.seed(69)
+plot_poppr_msn(partial_clone,
+	       min_span_net,
+	       inds = "ALL",
+	       mlg = FALSE,
+	       gadj = 3,
+	       nodebase = 1.15,
+	       palette = rainbow,
+	       cutoff = NULL,
+	       quantiles = FALSE,
+	       beforecut = TRUE)
+```
+
