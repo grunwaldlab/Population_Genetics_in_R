@@ -198,6 +198,9 @@ scatter(pramx$DAPC, col = other(Pram)$comparePal, cex = 2, legend = TRUE,
         cleg = 0.75, xax = 1, yax = 2, inset.solid = 1)
 ```
 
+We can see that this shows the clear separation of Hunter Creek from the rest
+of the epidemic, providing evidence that it was a separately introduced strain.
+
 # Conclusions
 
 DAPC is a wonderful tool for exploring structure of populations based on PCA and
@@ -207,8 +210,9 @@ robust alternative to Bayesian clustering methods like STRUCTURE
 partially clonal populations.
 
 DAPC analysis is inherently interactive and cannot be scripted *a priori*.
-Please refer to the [vignette](http://adegenet.r-forge.r-project.org/files
-/tutorial-dapc.pdf) written by Thibaut Jombart for a more interactive analysis.
+Please refer to the 
+[vignette](https://github.com/thibautjombart/adegenet/blob/master/tutorials/tutorial-dapc.pdf) 
+written by Thibaut Jombart for a more interactive analysis.
 
 # References
 
