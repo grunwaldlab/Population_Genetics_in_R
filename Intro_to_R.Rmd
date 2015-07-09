@@ -89,7 +89,7 @@ R studio has a very useful feature called code completion using the
 type `hel` and hit <kbd>Tab</kbd> and you will see several functions pop up and
 you can select `help()`.
 
-This also work inside a function to find function arguments. Type `help(` and
+This also works inside a function to find function arguments. Type `help(` and
 hit <kbd>Tab</kbd> to select arguments for the help function.
 
 R studio records your command history. Thus you can scroll up or down the
@@ -156,7 +156,7 @@ Useful resources to learn R
 
 *Books*:
 
- - [R in a Nutshell](http://oreilly.com/catalog/9780596801717) 
- - [R cookbook]() is a nice quick reference and tutorial for general R use.
- - [ggplot2: Elegant Graphics for Data Analysis]() is a useful, bu dated reference if you want to customize graphs for publication. 
+ - [R in a Nutshell](http://shop.oreilly.com/product/0636920022008.do) 
+ - [R cookbook](http://www.cookbook-r.com/) is a nice quick reference and tutorial for general R use.
+ - [ggplot2 book](http://ggplot2.org/book/) is a useful reference if you want to customize graphs for publication. 
 
