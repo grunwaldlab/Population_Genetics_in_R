@@ -346,10 +346,29 @@ t26.9msn &lt;-<span class="st"> </span><span class="kw">bruvo.msn</span>(t26, <s
 ## NULL</code></pre>
 <p>This is overwhelming even for people who are comfortable with R. Since this function is designed to provide a visualization after calculation, it only makes sense to have an interactive, visual interface. This interface is called <code>imsn()</code>. Let’s try to recreate the plot above using the <code>imsn()</code> function. Note that the function takes no arguments.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">imsn</span>()</code></pre>
+<p>(Note: you probably will not see the whole screen like this, but you can still scroll down)</p>
 <p><img src="images/imsn_initial.png" alt="Intial view of imsn" /></p>
+<p>We can see that there are five tabs and a sidebar. For now, we’ll explain what is on the sidebar. The first thing you see is a green bar that says “ready”. This means that there are no processes going on in the background and that it’s ready for input. Below that are three buttons, <strong>Go!</strong>, <strong>reData</strong>, and <strong>reGraph</strong>. These buttons are how you will tell the program that you are ready for it to make your graph.</p>
+<p>Notice that there are two main sections, <strong>Data Parameters</strong> and <strong>Graphical Parameters</strong>.</p>
+<div id="data-parameters" class="section level3">
+<h3>Data Parameters</h3>
+<p>As you can expect, these options represent parameters that will manipulate your data. You see here four choices presented:</p>
+<ol style="list-style-type: decimal">
+<li>choose dataset - This dropdown menu allows you to choose your data set.<br /><img src="images/imsn_data_choose.png" /></li>
+<li>choose populations - this will change based on your data set, but it allows you to select different populations with which to subset your data<br /><img src="images/imsn_population_choose.png" /></li>
+<li>choose distance calculation - The distance measure to calculate from your data<br /><img src="images/imsn_distance_choose.png" /></li>
+<li>Distance arguments - every distance has different arguments, this is where you can modify them<br /><img src="images/imsn_distance_args.png" /></li>
+</ol>
+<p>Recall that there are two steps to making a minimum spanning network:</p>
+<ol style="list-style-type: decimal">
+<li>Calculate a genetic distance</li>
+<li>Calculate a minimum spanning network from that distance</li>
+</ol>
+<p>Above, we showed you how to create a minimum spanning network from Bruvo’s distance, but there are many more distances possible.</p>
 <div class="references">
 <p>Bruvo R., Michiels NK., D’Souza TG., Schulenburg H. 2004. A simple method for the calculation of microsatellite genotype distances irrespective of ploidy level. <em>Molecular Ecology</em> 13:2101–2106. Available at: <a href="http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x" class="uri">http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x</a></p>
 <p>Everhart S., Scherm H. 2015. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> 105:542–549.</p>
+</div>
 </div>
 </div>
 
