@@ -39,6 +39,7 @@ processes of emerging pathogens using population genetic and evolutionary
 approaches.
 <p>
 <a href="http://grunwaldlab.cgrb.oregonstate.edu/">Gr&uuml;nwald lab</a> | 
+<a href="https://scholar.google.com/citations?user=t55Dt5sAAAAJ&hl=en">Google scholar</a> | 
 <a href="http://www.researcherid.com/rid/K-6041-2013">ResearcherID</a> | 
 <a href="http://orcid.org/0000-0003-1656-7602">Orcid</a> | 
 <a href="https://www.researchgate.net/profile/Niklaus_Grunwald/?ev=hdr_xprf">ResearchGate</a> | 
@@ -64,8 +65,8 @@ ZHIAN'S PROFILE
 <small>
 **Zhian N. Kamvar** is a graduate student in the Department of Botany and Pant
 Pathology at Oregon State University. His research is focused on genome
-sequencing and population genomics of the nursery pathogen *Phytophthora
-syringae*. He is the lead developer of the [*poppr* R
+sequencing and population genomics of the nursery pathogens *Phytophthora
+syringae* and *P. ramorum*. He is the lead developer of the [*poppr* R
 package](http://github.com/grunwaldlab/poppr) and a contributor to the
 [*adegenet* R package](http://github.com/thibautjombart/adegenet). Zhian is also
 co-host of the award-winning radio program [Inspiration
@@ -98,6 +99,7 @@ developed the micrsoatellite markers and data used in the
 [`monpop`](Data_sets.html#microsatellite-haploid-clonal-monpop) data set and
 currently works with genomes, GBS data, and SSR data for *Phytophthora ramorum*.
 <p>
+<a href="http://everhart.unl.edu/">Everhart lab</a> | 
 <a href="https://twitter.com/SydneyEverhart" class="twitter-follow-button" data-show-count="false">
 Follow &#64;SydneyEverhart
 </a>
