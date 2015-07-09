@@ -33,8 +33,7 @@ assess if loci are linked as described previously by Agapow and Burt
 $\bar{r}_d$ that accounts for the number of loci sampled that is less biased and
 will be used here. The data we will use in this chapter are populations of
 *Phytophthora infestans* from North and South America 
-`r citep(bib["goss2014irish"])`. We will use the index of association to give
-support to they hypothesis that Mexico is the putative origin of *P. infestans* where populations are expected to be sexual.
+`r citep(bib["goss2014irish"])`. We will use the index of association to test the hypothesis that Mexico is the putative origin of *P. infestans* where populations are expected to be sexual while populations in South America are expected to be clonal.
 
 First, we need to load the packages needed for this analysis.
 
@@ -91,7 +90,7 @@ MX %>% clonecorrect(strata= ~Continent/Country) %>% ia(sample = 999, quiet = TRU
 Now $\bar{r}_d$ is located more centrally in the distribution expected from
 unlinked loci. Note that $P$ has improved and we fail to reject the null
 hypothesis of no linkage among markers. Thus it appears that populations in
-Mexico are partially sexual.
+Mexico are sexual.
 
 Next let's use the same process to evaluate the South American population:
 

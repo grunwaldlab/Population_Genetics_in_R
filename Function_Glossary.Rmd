@@ -75,12 +75,12 @@ Function | Description
 ----|----
 `as.genclone` | Converts genind objects to genclone objects
 `setPop` | Set the population using defined strata
-`splitStrata` | Split a concatenated strata imported as a population
+`splitStrata` | Split concatenated strata imported as a population
 `strata` | Define or extract population strata of a genind object
 `addStrata` | Add a vector or data frame to an existing strata
 `nameStrata` | Rename a population strata
 `missingno` | Handles missing data
-`clonecorrect` | Clone censors at a specified population strata
+`clonecorrect` | Clone censor at a specified population stratum
 `informloci` | Detects and removes phylogenetically uninformative loci
 `popsub` | Subsets genind objects by population
 `shufflepop` | Shuffles genotypes at each locus using four different shuffling algorithms
