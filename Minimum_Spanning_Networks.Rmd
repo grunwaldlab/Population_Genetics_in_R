@@ -134,21 +134,21 @@ recalculated. When you modify things in this section and are satisfied with your
 choices, you can use the **reData** button to update the graph. You see here
 four choices presented:
 
-1. choose dataset - This dropdown menu allows you to choose your data set.    
+1. **Choose dataset** - This dropdown menu allows you to choose your data set.    
    ![choose dataset](images/imsn_data_choose.png)
-2. choose populations - this will change based on your data set, but it allows
+2. **Choose populations** - this will change based on your data set, but it allows
    you to select different populations with which to subset your data     
    ![choose populations](images/imsn_population_choose.png)
-3. convert to genclone? - If your data is in genind format, you can convert it
+3. **Convert to genclone?** - If your data is in genind format, you can convert it
    to genclone (minimally reduces time for clonal organisms)     
    ![convert to genclone?](images/imsn_convert.png)
-3. choose distance calculation - The distance measure to calculate from your
+3. **Choose distance calculation** - The distance measure to calculate from your
    data (notice that there's "Custom" at the bottom)     
    ![choose distance calculation](images/imsn_distance_choose.png)
-4. Distance arguments - every distance has different arguments, this is where
+4. **Distance arguments** - every distance has different arguments, this is where
    you can modify them     
    ![Distance arguments](images/imsn_distance_args.png)
-6. include reticulations? - This is an important parameter that will include
+6. **Include reticulations?** - This is an important parameter that will include
    reticulations in the minimum spanning network. We'll explore this with the
    `Pram` data set later.     
    ![include reticulations?](images/imsn_reticulate.png)
@@ -161,10 +161,12 @@ with these to see what the different sliders and buttons do.
 
 ## Output (tabs)
 
+Next let's explore the different tabs on the MSN popup window:
+
 ### Plot
 
 This is the tab you see immediately. It has nothing in it because we haven't 
-told imsn to do anything. Let's hit **Go!** with our default parameters and 
+told `imsn()` to do anything. Let's hit **Go!** with our default parameters and 
 see what happens.
 
 ![minimum spanning network of partial_clone](images/imsn_go.png)
@@ -247,8 +249,8 @@ reps # our previous definition of "reps"
 
 Now, modify the following graphical parameters:
 
-- seed: **120**
 - Node Size Scale: **1.25** (this is the option `nodebase`)
+- Random seed: **120**
 - Labels: **none** (this is the option `inds`)
 - Palette: **cm.colors**
 
@@ -256,15 +258,17 @@ Once everthing is set, hit **reData** and the graph will reset just like this:
 
 ![](images/imsn_monpop_plot.png)
 
-## Your turn (Data: *Phytophthora ramorum*)
+## Your turn (use the data for *Phytophthora ramorum*)
 
 Now we will use data from `r citet(bib["kamvar2015spatial"])`. This is the
-Sudden Oak Death pathogen collected from forests in Curry County Oregon and 
-Nurseries in California and Oregon `r citep(bib["goss2009population"])`. We will
+Sudden Oak Death pathogen collected from forests in Curry County, Oregon and 
+nurseries in California and Oregon `r citep(bib["goss2009population"])`. We will
 use this data set to see why reticulations are important for highly clonal
 organisms.
 
 ### Load the data
+
+Exit the 'imsn()'and execute the following statements:
 
 ```{r, pramorum}
 data("Pram")
@@ -303,12 +307,13 @@ Here are the parameters you should use:
 - Data:
     - Dataset: **Pram**
     - Distance: **Bruvo**
-    - SSR Repeat Lengths: **`other(Pram)$REPLEN`**
+    - SSR Repeat Lengths: **`other(Pram)$REPLEN`** (Paste code into the popup app.)
 - Graphical:
     - Grey Scale: **9**
     - Node Size Scale: **1.95**
     - Labels: **none**
-    - Palette: **Custom: `function(x) other(Pram)$comparePal`**
-
+    - Palette: **Custom: `function(x) other(Pram)$comparePal`** (Paste code into the popup app.)
+    
+To exit the popup app, hit the close button at the top right.
 
 # References
