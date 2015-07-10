@@ -325,7 +325,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ## Pi02:Pi63  0.673519987  0.684987213
 ## Pi02:Pi70  0.349111187  0.397116239
 ## Pi02:Pi89  0.355279336  0.368027168</code></pre>
-<p>We can see that most of the values from South America are indeed higher than Mexico. Notice that value that says “NaN” in the South American data? That represents missing data. If you recall from the chapter on <a href="Locus_Stats.Rmd">Locus Stats</a>, the number of alleles at locus Pi33 for the South American population was 1. If you try to analyze the index of association on a locus with only one allele, you will get an undefined value. This is why the heatmap for the South American population has grey squares in it.</p>
+<p>We can see that most of the values from South America are indeed higher than in Mexico. Notice the value that says “NaN” in the South American data? That represents missing data. If you recall from the chapter on <a href="Locus_Stats.Rmd">Locus Stats</a>, the number of alleles at locus Pi33 for the South American population was 1. If you try to analyze the index of association on a locus with only one allele, you will get an undefined value. This is why the heatmap for the South American population has grey squares in it.</p>
 <div id="plotting-the-output-of-pair.ia" class="section level3">
 <h3>Plotting the output of pair.ia</h3>
 <p>The output of pair.ia is a matrix that also has a class of “pairia”. It has a specific plot method that we can use to plot the output again and set a standard limit to the plot by specifying a range.</p>
@@ -335,11 +335,11 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(sapair, <span class="dt">limits =</span> plotrange) </code></pre>
 <p><img src="Linkage_disequilibrium_files/figure-html/unnamed-chunk-13-2.png" title="" alt="" width="700px" /></p>
 <div class="references">
-<h2 id="references" class="unnumbered">References</h2>
+<h2>References</h2>
 <p>Agapow P-M., Burt A. 2001. Indices of multilocus linkage disequilibrium. <em>Molecular Ecology Notes</em> 1:101–102. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract" class="uri">http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract</a></p>
 <p>Brown A., Feldman M., Nevo E. 1980. Multilocus structure of natural populations of <em>Hordeum spontaneum</em>. <em>Genetics</em> 96:523–536. Available at: <a href="http://www.genetics.org/content/96/2/523" class="uri">http://www.genetics.org/content/96/2/523</a></p>
 <p>Goss E., Tabima J., Cooke D., Restrepo S., Fry W., Forbes G., Fieland V., Cardenas M., Grünwald N. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
-<p>Kamvar Z., Tabima J., Grünwald N. 2014. <span class="math">\(Poppr\)</span>: An R package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281" class="uri">http://dx.doi.org/10.7717/peerj.281</a></p>
+<p>Kamvar Z., Tabima J., Grünwald N. 2014. <span class="math">\(Poppr\)</span>: an R package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281" class="uri">http://dx.doi.org/10.7717/peerj.281</a></p>
 </div>
 </div>
 </div>

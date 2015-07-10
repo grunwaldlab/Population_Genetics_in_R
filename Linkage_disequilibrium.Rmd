@@ -170,8 +170,8 @@ head(mxpair, 10) # Mexico
 head(sapair, 10) # South America
 ```
 
-We can see that most of the values from South America are indeed higher than
-Mexico. Notice that value that says "NaN" in the South American data? That
+We can see that most of the values from South America are indeed higher than in
+Mexico. Notice the value that says "NaN" in the South American data? That
 represents missing data. If you recall from the chapter on [Locus
 Stats](Locus_Stats.Rmd), the number of alleles at locus Pi33 for the South
 American population was 1. If you try to analyze the index of association on a
