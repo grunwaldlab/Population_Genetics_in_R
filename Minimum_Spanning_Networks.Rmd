@@ -133,7 +133,11 @@ scroll down)
 ![Intial view of imsn](images/imsn_initial.png)
 
 We can see that there are five tabs and a sidebar. For now, we'll explain what
-is on the sidebar. The first thing you see is a green bar that says "ready".
+is on the sidebar. 
+
+![status view](images/imsn_status.png)
+
+The first thing you see is a green bar that says "ready".
 This means that there are no processes going on in the background and that it's
 ready for input. Below that are three buttons, **Go!**, **reData**, and
 **reGraph**. These buttons are how you will tell the program that you are ready
