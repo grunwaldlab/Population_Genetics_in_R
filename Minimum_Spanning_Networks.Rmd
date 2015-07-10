@@ -15,7 +15,7 @@
 title: "10: Minimum Spanning Networks"
 ---
 
-Minimum spanning networks (MSN) are a great way to visualize relationships among individuals in your data. In terms of clonal organisms, it can be a more powerful visualization tool than trees, especially for clonal organisms. In this chapter, we will show you how to construct and view minimum spanning networks on the command line and in an interactive viewer.
+Minimum spanning networks (MSN) are a great way to visualize relationships among individuals in your data. Particularly for clonal organisms it can be a more powerful visualization tool than trees. In this chapter, we will show you how to construct and view minimum spanning networks on the command line and in an interactive viewer.
 
 # From the command line
 
@@ -33,7 +33,7 @@ This section will utilize Bruvo’s distance (Bruvo et al., 2004). Calculating B
 
 For this section, we will use the `monpop` data set from `r citep(bib['everhart2014finescale'])`. 
 See [Chapter 6](Genotypic_EvenRichDiv.html) for more details. We will be focusing
-on sources of multilocus genotypes. The seasonal epidemic of the pathogen Monilinia fructicola begins with an ascospore (sexual propagule) released from a mummified peach fruit that had overwintered on the ground. It infects an emerging blossom that, in turn, asexually infects fruit, which proceed with cyclical, asexual infections. Two obvious questions are:
+on sources of multilocus genotypes. The seasonal epidemic of the pathogen *Monilinia fructicola* begins with an ascospore (sexual propagule) released from a mummified peach fruit that had overwintered on the ground. It infects an emerging blossom that, in turn, asexually infects fruit, which proceed with cyclical, asexual infections. Two obvious questions are:
 
 1. Are the major genotypes of Fruit Rot (FR) samples closely related?
 2. To what degree do the Blossom Blight (BB) samples contribute to the FR?
@@ -97,13 +97,13 @@ pieces).
 
 # Interactive viewer
 
-Creating a customized, publishable MSN is somewhat daunting as `plot\_poppr\_msn` has a whole lot arguments:
+Creating a customized, publishable MSN is somewhat daunting as the `plot_poppr_msn` function has a whole lot arguments:
 
 ```{r, plot_poppr_msn_args}
 args(plot_poppr_msn)
 ```
 
-We created the interactive tool `imsn()` to facilitate interactive plotting. Let’s try to recreate the plot above using the imsn() function. Note that the function takes no arguments.
+We created the interactive tool `imsn()` to facilitate interactive plotting. Let’s try to recreate the plot above using the `imsn()` function. Note that the function takes no arguments.
 
 ```{r, imsn, eval = FALSE}
 imsn()
@@ -117,9 +117,9 @@ scroll down)
 We can see that there are five tabs and a sidebar. For now, we'll explain what
 is on the sidebar. The first thing you see is a green bar that says "ready".
 This means that there are no processes going on in the background and that it's
-waiting  for input. Below that are three buttons, **Go!**, **reData**, and
-**reGraph**. These buttons are how you will tell the program that you are ready
-for it to make your graph.
+waiting  for input. Below that are three buttons: **Go!**, **reData**, and
+**reGraph**. These tell the program that you are ready
+render your graphs.
 
 ## Parameters (sidebar)
 

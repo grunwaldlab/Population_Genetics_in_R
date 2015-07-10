@@ -235,12 +235,12 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </ul>
 </div>
 
-<p>Minimum spanning networks (MSN) are a great way to visualize relationships among individuals in your data. In terms of clonal organisms, it can be a more powerful visualization tool than trees, especially for clonal organisms. In this chapter, we will show you how to construct and view minimum spanning networks on the command line and in an interactive viewer.</p>
+<p>Minimum spanning networks (MSN) are a great way to visualize relationships among individuals in your data. Particularly for clonal organisms it can be a more powerful visualization tool than trees. In this chapter, we will show you how to construct and view minimum spanning networks on the command line and in an interactive viewer.</p>
 <div id="from-the-command-line" class="section level1">
 <h1>From the command line</h1>
 <div id="note" class="section level3">
 <h3>Note:</h3>
-<p>This section will utilize Bruvo’s distance <span class="citation">(Bruvo et al., 2004)</span>. It is important to note that calculating Bruvo’s distance is computationally different than other distances, so it has its own specialized functions for minimum spanning networks and bootstrapping that do not need a distance matrix:</p>
+<p>This section will utilize Bruvo’s distance (Bruvo et al., 2004). Calculating Bruvo’s distance is computationally different to other distances; hence, this requires specialized functions for minimum spanning networks and bootstrapping that do not require a distance matrix:</p>
 <table>
 <thead>
 <tr class="header">
@@ -262,7 +262,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </div>
 <div id="minimum-spanning-network" class="section level3">
 <h3>Minimum spanning network</h3>
-<p>For this section, we will use the <code>monpop</code> data set from <span class="citation">(Everhart &amp; Scherm, 2015)</span>. See <a href="Genotypic_EvenRichDiv.html">Chapter 6</a> for more details. We will be focusing on sources of multilocus genotypes. The life cycle of the pathogen <em>Monilinia fructicola</em> begins with an ascospore (sexual propagule) released from a mummified peach fruit that had overwintered on the ground. It infects an emerging blossom that, in turn, asexually infects fruit, which proceed with cyclical infections. We might have questions such as:</p>
+<p>For this section, we will use the <code>monpop</code> data set from <span class="citation">(Everhart &amp; Scherm, 2015)</span>. See <a href="Genotypic_EvenRichDiv.html">Chapter 6</a> for more details. We will be focusing on sources of multilocus genotypes. The seasonal epidemic of the pathogen <em>Monilinia fructicola</em> begins with an ascospore (sexual propagule) released from a mummified peach fruit that had overwintered on the ground. It infects an emerging blossom that, in turn, asexually infects fruit, which proceed with cyclical, asexual infections. Two obvious questions are:</p>
 <ol style="list-style-type: decimal">
 <li>Are the major genotypes of Fruit Rot (FR) samples closely related?</li>
 <li>To what degree do the Blossom Blight (BB) samples contribute to the FR?</li>
@@ -329,20 +329,20 @@ sub9 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&q
 
 <span class="co"># Calculate the MSN</span>
 t26.9msn &lt;-<span class="st"> </span><span class="kw">bruvo.msn</span>(t26, <span class="dt">replen =</span> reps, <span class="dt">sublist =</span> sub9, <span class="dt">showplot =</span> <span class="ot">FALSE</span>)</code></pre>
-<p>The minimum spanning network is calculated via <code>bruvo.msn</code>. I’ve set the argument <code>showplot = FALSE</code> because I want to use the more powerful function <code>plot_poppr_msn</code> to view the MSN. In this, I’m telling it to lable none of the samples, color populations using the “cm.colors” palette and scale the size of the nodes to <span class="math">\(log_{1.25}\)</span>. If you want to know what other things this function can do, simply type <code>help(&quot;plot_poppr_msn&quot;)</code></p>
+<p>The minimum spanning network is calculated via <code>bruvo.msn</code>. We have set the argument <code>showplot = FALSE</code> because we want to use the more powerful function <code>plot_poppr_msn</code> to view the MSN. I am telling it to label none of the samples, color populations using the “cm.colors” palette and scale the size of the nodes to <span class="math">\(log_{1.25}\)</span>. If you want to know what other things this function can do, simply type <code>help(&quot;plot_poppr_msn&quot;)</code></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Visualize the network</span>
 <span class="kw">set.seed</span>(<span class="dv">120</span>)
 <span class="kw">plot_poppr_msn</span>(t26, t26.9msn, <span class="dt">inds =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">palette =</span> cm.colors, <span class="dt">nodebase =</span> <span class="fl">1.25</span>)</code></pre>
 <p><img src="Minimum_Spanning_Networks_files/figure-html/visualize_msn-1.png" title="" alt="" width="700px" /></p>
-<p>We can see that the Blossom Blight in the tree (pink pie pieces) heavily contributed to the major groups of MLGs found in the Fruit Rot (blue pie pieces).</p>
+<p>We can see that the Blossom Blight in the tree (pink pie slices) heavily contributed to the major groups of MLGs found in the Fruit Rot (blue pie pieces).</p>
 <blockquote>
-<p><strong>Try it!</strong> See if you can produce similar graphs with the 2010 and 2011 populations.</p>
+<p><strong>Try it for yourself!</strong> See if you can produce similar graphs with the 2010 and 2011 populations.</p>
 </blockquote>
 </div>
 </div>
 <div id="interactive-viewer" class="section level1">
 <h1>Interactive viewer</h1>
-<p>That seems like a lot of work to create a minimum spanning network, right? If you look at the all of the arguments for <code>plot\_poppr\_msn</code>, there are a whole lot of them:</p>
+<p>Creating a customized, publishable MSN is somewhat daunting as the <code>plot_poppr_msn</code> function has a whole lot arguments:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(plot_poppr_msn)</code></pre>
 <pre><code>## function (x, poppr_msn, gscale = TRUE, gadj = 3, mlg.compute = &quot;original&quot;, 
 ##     glim = c(0, 0.8), gweight = 1, wscale = TRUE, nodebase = 1.15, 
@@ -350,11 +350,11 @@ t26.9msn &lt;-<span class="st"> </span><span class="kw">bruvo.msn</span>(t26, <s
 ##     cutoff = NULL, palette = NULL, layfun = layout.auto, beforecut = FALSE, 
 ##     pop.leg = TRUE, scale.leg = TRUE, ...) 
 ## NULL</code></pre>
-<p>This is overwhelming even for people who are comfortable with R. Since this function is designed to provide a visualization after calculation, it only makes sense to have an interactive, visual interface. This interface is called <code>imsn()</code>. Let’s try to recreate the plot above using the <code>imsn()</code> function. Note that the function takes no arguments.</p>
+<p>We created the interactive tool <code>imsn()</code> to facilitate interactive plotting. Let’s try to recreate the plot above using the <code>imsn()</code> function. Note that the function takes no arguments.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">imsn</span>()</code></pre>
 <p>(Note: you probably will not see the whole screen like this, but you can still scroll down)</p>
 <p><img src="images/imsn_initial.png" alt="Intial view of imsn" /></p>
-<p>We can see that there are five tabs and a sidebar. For now, we’ll explain what is on the sidebar. The first thing you see is a green bar that says “ready”. This means that there are no processes going on in the background and that it’s ready for input. Below that are three buttons, <strong>Go!</strong>, <strong>reData</strong>, and <strong>reGraph</strong>. These buttons are how you will tell the program that you are ready for it to make your graph.</p>
+<p>We can see that there are five tabs and a sidebar. For now, we’ll explain what is on the sidebar. The first thing you see is a green bar that says “ready”. This means that there are no processes going on in the background and that it’s waiting for input. Below that are three buttons: <strong>Go!</strong>, <strong>reData</strong>, and <strong>reGraph</strong>. These tell the program that you are ready render your graphs.</p>
 <div id="parameters-sidebar" class="section level2">
 <h2>Parameters (sidebar)</h2>
 <p>Notice that there are two main sections, <strong>Data Parameters</strong> and <strong>Graphical Parameters</strong>.</p>
