@@ -125,13 +125,12 @@ par(mfrow = c(1, 1), mar = c(5, 4, 4, 2) + 0.1, las = 0)
 This plot nicely illustrates the effect of mutation, followed by selection or
 drift in the seasonal H3N2 influenza virus.
 
-# Cross Validation: DAPC analysis of *Phytophthora ramorum* from Forests and Nurseries.
+# Cross validation: DAPC analysis of *Phytophthora ramorum* from forests and nurseries
 
 Above we showed a nice example of a story that shows how two loci can
 drastically influence an epidemic. It, however, might be a mystery as to how the
 number of principal components (PC) was chosen for the analysis. It is important
-to carefully choose the correct number of PC because if you choose too few, you
-lose resolution, but if you choose too many, you end up over-fitting your data.
+to carefully choose the correct number of PCs so as to include most soruces of variation explained by an appropirate number of PCs retained.
 One way of ensuring that you have selected the correct number of PC is to do
 cross-validation. This is a procedure in which you leave out a certain
 percentage of your data, run DAPC, and then see if the data that was left out is
