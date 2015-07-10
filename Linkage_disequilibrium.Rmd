@@ -173,7 +173,7 @@ head(sapair, 10) # South America
 We can see that most of the values from South America are indeed higher than in
 Mexico. Notice the value that says "NaN" in the South American data? That
 represents missing data. If you recall from the chapter on [Locus
-Stats](Locus_Stats.Rmd), the number of alleles at locus Pi33 for the South
+Stats](Locus_Stats.html), the number of alleles at locus Pi33 for the South
 American population was 1. If you try to analyze the index of association on a
 locus with only one allele, you will get an undefined value. This is why the
 heatmap for the South American population has grey squares in it.
