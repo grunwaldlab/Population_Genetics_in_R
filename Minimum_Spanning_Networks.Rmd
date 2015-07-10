@@ -91,26 +91,19 @@ We can see that the Blossom Blight in the tree (pink pie slices) heavily
 contributed to the major groups of MLGs found in the Fruit Rot (blue pie
 pieces).
 
-> **Try it!** See if you can produce similar graphs with the 2010 and 2011
+> **Try it for yourself!** See if you can produce similar graphs with the 2010 and 2011
 > populations.
 
 
 # Interactive viewer
 
-
-That seems like a lot of work to create a minimum spanning network, right? If
-you look at the all of the arguments for `plot\_poppr\_msn`, there are a whole
-lot of them:
+Creating a customized, publishable MSN is somewhat daunting as `plot\_poppr\_msn` has a whole lot arguments:
 
 ```{r, plot_poppr_msn_args}
 args(plot_poppr_msn)
 ```
 
-This is overwhelming even for people who are comfortable with R. Since this
-function is designed to provide a visualization after calculation, it only makes
-sense to have an interactive, visual interface. This interface is called
-`imsn()`. Let's try to recreate the plot above using the `imsn()` function. Note
-that the function takes no arguments.
+We created the interactive tool `imsn()` to facilitate interactive plotting. Let’s try to recreate the plot above using the imsn() function. Note that the function takes no arguments.
 
 ```{r, imsn, eval = FALSE}
 imsn()
@@ -124,7 +117,7 @@ scroll down)
 We can see that there are five tabs and a sidebar. For now, we'll explain what
 is on the sidebar. The first thing you see is a green bar that says "ready".
 This means that there are no processes going on in the background and that it's
-ready for input. Below that are three buttons, **Go!**, **reData**, and
+waiting  for input. Below that are three buttons, **Go!**, **reData**, and
 **reGraph**. These buttons are how you will tell the program that you are ready
 for it to make your graph.
 
