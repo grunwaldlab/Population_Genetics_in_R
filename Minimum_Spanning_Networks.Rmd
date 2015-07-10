@@ -329,6 +329,7 @@ Here are the parameters you should use:
 - Graphical:
     - Grey Scale: **9**
     - Node Size Scale: **1.95**
+    - Random Seed: **78**
     - Labels: **none**
     - Palette: **Custom: `function(x) other(Pram)$comparePal`**
 
