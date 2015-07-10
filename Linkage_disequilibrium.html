@@ -225,13 +225,16 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 
 <div id="TOC">
 <ul>
-<li><a href="#the-index-of-association">The index of association</a></li>
+<li><a href="#the-index-of-association">The index of association</a><ul>
+<li><a href="#clone-correction">Clone correction</a></li>
+<li><a href="#pairwise-barr_d-over-all-loci">Pairwise <span class="math">\(\bar{r}_d\)</span> over all loci</a></li>
+</ul></li>
 </ul>
 </div>
 
 <p>In this chapter we will formally test if populations are in linkage disequilibrium or not. This test is useful to determine if populations are clonal (where significant disequilibrium is expected due to linkage among loci) or sexual (where linkage among loci is not expected). The null hypothesis tested is that alleles observed at different loci are not linked if populations are sexual while alleles recombine freely into new genotypes during the process of sexual reproduction. In molecular ecology we typically use the index of association or related indices to test this phenomenon.</p>
-<div id="the-index-of-association" class="section level2">
-<h2>The index of association</h2>
+<div id="the-index-of-association" class="section level1">
+<h1>The index of association</h1>
 <p>The index of association (<span class="math">\(I_A\)</span>) was originally proposed by Brown et al. <span class="citation">(Brown, Feldman &amp; Nevo, 1980)</span> and implemented in the <em>poppr</em> R package <span class="citation">(Kamvar, Tabima &amp; Grünwald, 2014)</span> using a permutation approach to assess if loci are linked as described previously by Agapow and Burt <span class="citation">(Agapow &amp; Burt, 2001)</span>. Agapow and Burt also described the index <span class="math">\(\bar{r}_d\)</span> that accounts for the number of loci sampled that is less biased and will be used here. The data we will use in this chapter are populations of <em>Phytophthora infestans</em> from North and South America <span class="citation">(Goss et al., 2014)</span>. We will use the index of association to test the hypothesis that Mexico is the putative origin of <em>P. infestans</em> where populations are expected to be sexual while populations in South America are expected to be clonal.</p>
 <p>First, we need to load the packages needed for this analysis.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
@@ -262,6 +265,8 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ## 
 ##     2 strata - Continent Country
 ##     1 populations defined - North America</code></pre>
+<div id="clone-correction" class="section level2">
+<h2>Clone correction</h2>
 <p>Indeed we observe 43 multilocus genotypes out of 48 samples. We are looking at partial clonality and thus need to use clone-corrected (also called clone- censored) data:</p>
 <pre class="sourceCode r"><code class="sourceCode r">MX %&gt;%<span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">strata=</span> ~Continent/Country) %&gt;%<span class="st"> </span><span class="kw">ia</span>(<span class="dt">sample =</span> <span class="dv">999</span>)</code></pre>
 <pre><code>## |================================================================| 100%</code></pre>
@@ -284,12 +289,60 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ## 2.6335025 0.0010000 0.3145711 0.0010000</code></pre>
 <p>Both clone-corrected (<span class="math">\(N = 29\)</span>) and uncorrected data (<span class="math">\(N = 38\)</span>) reject the hypothesis of no linkage among markers. We thus have support for populations in Mexico being sexual while those in South America are clonal.</p>
 <p>This approach has been applied to provide support for Mexico as the putative center of origin of the potato late blight pathogen <em>P. infestans</em> <span class="citation">(Goss et al., 2014)</span>. At the center of origin this organism is expected to reproduce sexually, while South American populations are clonal.</p>
+</div>
+<div id="pairwise-barr_d-over-all-loci" class="section level2">
+<h2>Pairwise <span class="math">\(\bar{r}_d\)</span> over all loci</h2>
+<p>To ensure that the pattern of linkage disequilibrium seen is not due to a single pair of loci, you can calculate <span class="math">\(I_A\)</span> and <span class="math">\(\bar{r}_d\)</span> over all pairs of loci. We’ll perform this on the clone-corrected samples as above.</p>
+<p>Pairwise for the Mexican population:</p>
+<pre class="sourceCode r"><code class="sourceCode r">mxpair &lt;-<span class="st"> </span>MX %&gt;%<span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">strata =</span> ~Continent/Country) %&gt;%<span class="st"> </span>pair.ia</code></pre>
+<pre><code>## |================================================================| 100%</code></pre>
+<p><img src="Linkage_disequilibrium_files/figure-html/unnamed-chunk-9-1.png" title="" alt="" width="700px" /></p>
+<p>Pairwise for the South American population:</p>
+<pre class="sourceCode r"><code class="sourceCode r">sapair &lt;-<span class="st"> </span>SA %&gt;%<span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">strata =</span> ~Continent/Country) %&gt;%<span class="st"> </span>pair.ia</code></pre>
+<pre><code>## |================================================================| 100%</code></pre>
+<p><img src="Linkage_disequilibrium_files/figure-html/unnamed-chunk-11-1.png" title="" alt="" width="700px" /></p>
+<p>The heatmaps produced make it look like there is more linkage in the Mexican population! But this is where looks can be deceiving. The color palettes are scaled to the data. We can confirm it by looking at the values:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(mxpair, <span class="dv">10</span>) <span class="co"># Mexico</span></code></pre>
+<pre><code>##                    Ia       rbarD
+## Pi02:D13   0.03952145  0.04195430
+## Pi02:Pi33  0.05386977  0.09014200
+## Pi02:Pi04  0.06845658  0.06944477
+## Pi02:Pi4B -0.08388353 -0.08457969
+## Pi02:Pi16  0.13698795  0.13710471
+## Pi02:G11   0.11013984  0.11014617
+## Pi02:Pi56  0.11255045  0.11365168
+## Pi02:Pi63 -0.06903465 -0.06918173
+## Pi02:Pi70  0.05049544  0.05049764
+## Pi02:Pi89  0.03529987  0.03621175</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(sapair, <span class="dv">10</span>) <span class="co"># South America</span></code></pre>
+<pre><code>##                     Ia        rbarD
+## Pi02:D13   0.006586122  0.006730583
+## Pi02:Pi33  0.000000000          NaN
+## Pi02:Pi04 -0.017633090 -0.017647437
+## Pi02:Pi4B  0.288949585  0.301335905
+## Pi02:Pi16  0.126278265  0.142859861
+## Pi02:G11   0.600576689  0.609929970
+## Pi02:Pi56  0.190590008  0.215322486
+## Pi02:Pi63  0.673519987  0.684987213
+## Pi02:Pi70  0.349111187  0.397116239
+## Pi02:Pi89  0.355279336  0.368027168</code></pre>
+<p>We can see that most of the values from South America are indeed higher than in Mexico. Notice the value that says “NaN” in the South American data? That represents missing data. If you recall from the chapter on <a href="Locus_Stats.html">Locus Stats</a>, the number of alleles at locus Pi33 for the South American population was 1. If you try to analyze the index of association on a locus with only one allele, you will get an undefined value. This is why the heatmap for the South American population has grey squares in it.</p>
+<div id="plotting-the-output-of-pair.ia" class="section level3">
+<h3>Plotting the output of pair.ia</h3>
+<p>The output of pair.ia is a matrix that also has a class of “pairia”. It has a specific plot method that we can use to plot the output again and set a standard limit to the plot by specifying a range.</p>
+<pre class="sourceCode r"><code class="sourceCode r">plotrange &lt;-<span class="st"> </span><span class="kw">range</span>(<span class="kw">c</span>(mxpair, sapair), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+<span class="kw">plot</span>(mxpair, <span class="dt">limits =</span> plotrange)</code></pre>
+<p><img src="Linkage_disequilibrium_files/figure-html/unnamed-chunk-13-1.png" title="" alt="" width="700px" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(sapair, <span class="dt">limits =</span> plotrange) </code></pre>
+<p><img src="Linkage_disequilibrium_files/figure-html/unnamed-chunk-13-2.png" title="" alt="" width="700px" /></p>
 <div class="references">
 <h2 id="references" class="unnumbered">References</h2>
 <p>Agapow P-M., Burt A. 2001. Indices of multilocus linkage disequilibrium. <em>Molecular Ecology Notes</em> 1:101–102. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract" class="uri">http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8278.2000.00014.x/abstract</a></p>
 <p>Brown AHD., Feldman MW., Nevo E. 1980. Multilocus structure of natural populations of <em>Hordeum spontaneum</em>. <em>Genetics</em> 96:523–536. Available at: <a href="http://www.genetics.org/content/96/2/523" class="uri">http://www.genetics.org/content/96/2/523</a></p>
 <p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
 <p>Kamvar ZN., Tabima JF., Grünwald NJ. 2014. <span class="math">\(Poppr\)</span>: An R package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281" class="uri">http://dx.doi.org/10.7717/peerj.281</a></p>
+</div>
+</div>
 </div>
 </div>
 
