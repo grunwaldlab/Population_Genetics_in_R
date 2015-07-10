@@ -240,7 +240,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <h1>From the command line</h1>
 <div id="note" class="section level3">
 <h3>Note:</h3>
-<p>This section will utilize Bruvo’s distance <span class="citation">(Bruvo et al., 2004)</span>. It is important to note that calculating Bruvo’s distance is computationally different than other distances, so it has its own specialized functions for minimum spanning networks and bootstrapping that do not need a distance matrix:</p>
+<p>This section will utilize Bruvo’s distance (Bruvo et al., 2004). Calculating Bruvo’s distance is computationally different to other distances; hence, this requires specialized functions for minimum spanning networks and bootstrapping that do not require a distance matrix:</p>
 <table>
 <thead>
 <tr class="header">
@@ -262,7 +262,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </div>
 <div id="minimum-spanning-network" class="section level3">
 <h3>Minimum spanning network</h3>
-<p>For this section, we will use the <code>monpop</code> data set from <span class="citation">(Everhart &amp; Scherm, 2015)</span>. See <a href="Genotypic_EvenRichDiv.html">Chapter 6</a> for more details. We will be focusing on sources of multilocus genotypes. The life cycle of the pathogen <em>Monilinia fructicola</em> begins with an ascospore (sexual propagule) released from a mummified peach fruit that had overwintered on the ground. It infects an emerging blossom that, in turn, asexually infects fruit, which proceed with cyclical infections. We might have questions such as:</p>
+<p>For this section, we will use the <code>monpop</code> data set from <span class="citation">(Everhart &amp; Scherm, 2015)</span>. See <a href="Genotypic_EvenRichDiv.html">Chapter 6</a> for more details. We will be focusing on sources of multilocus genotypes. The seasonal epidemic of the pathogen Monilinia fructicola begins with an ascospore (sexual propagule) released from a mummified peach fruit that had overwintered on the ground. It infects an emerging blossom that, in turn, asexually infects fruit, which proceed with cyclical, asexual infections. Two obvious questions are:</p>
 <ol style="list-style-type: decimal">
 <li>Are the major genotypes of Fruit Rot (FR) samples closely related?</li>
 <li>To what degree do the Blossom Blight (BB) samples contribute to the FR?</li>
@@ -329,12 +329,12 @@ sub9 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&q
 
 <span class="co"># Calculate the MSN</span>
 t26.9msn &lt;-<span class="st"> </span><span class="kw">bruvo.msn</span>(t26, <span class="dt">replen =</span> reps, <span class="dt">sublist =</span> sub9, <span class="dt">showplot =</span> <span class="ot">FALSE</span>)</code></pre>
-<p>The minimum spanning network is calculated via <code>bruvo.msn</code>. I’ve set the argument <code>showplot = FALSE</code> because I want to use the more powerful function <code>plot_poppr_msn</code> to view the MSN. In this, I’m telling it to lable none of the samples, color populations using the “cm.colors” palette and scale the size of the nodes to <span class="math">\(log_{1.25}\)</span>. If you want to know what other things this function can do, simply type <code>help(&quot;plot_poppr_msn&quot;)</code></p>
+<p>The minimum spanning network is calculated via <code>bruvo.msn</code>. We have set the argument <code>showplot = FALSE</code> because we want to use the more powerful function <code>plot_poppr_msn</code> to view the MSN. I am telling it to label none of the samples, color populations using the “cm.colors” palette and scale the size of the nodes to <span class="math">\(log_{1.25}\)</span>. If you want to know what other things this function can do, simply type <code>help(&quot;plot_poppr_msn&quot;)</code></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Visualize the network</span>
 <span class="kw">set.seed</span>(<span class="dv">120</span>)
 <span class="kw">plot_poppr_msn</span>(t26, t26.9msn, <span class="dt">inds =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">palette =</span> cm.colors, <span class="dt">nodebase =</span> <span class="fl">1.25</span>)</code></pre>
 <p><img src="Minimum_Spanning_Networks_files/figure-html/visualize_msn-1.png" title="" alt="" width="700px" /></p>
-<p>We can see that the Blossom Blight in the tree (pink pie pieces) heavily contributed to the major groups of MLGs found in the Fruit Rot (blue pie pieces).</p>
+<p>We can see that the Blossom Blight in the tree (pink pie slices) heavily contributed to the major groups of MLGs found in the Fruit Rot (blue pie pieces).</p>
 <blockquote>
 <p><strong>Try it!</strong> See if you can produce similar graphs with the 2010 and 2011 populations.</p>
 </blockquote>
@@ -499,7 +499,7 @@ Pram</code></pre>
 </ul></li>
 </ul>
 <div class="references">
-<h1>References</h1>
+<h1 id="references" class="unnumbered">References</h1>
 <p>Bruvo R., Michiels NK., D’Souza TG., Schulenburg H. 2004. A simple method for the calculation of microsatellite genotype distances irrespective of ploidy level. <em>Molecular Ecology</em> 13:2101–2106. Available at: <a href="http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x" class="uri">http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x</a></p>
 <p>Everhart S., Scherm H. 2015. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> 105:542–549.</p>
 </div>
