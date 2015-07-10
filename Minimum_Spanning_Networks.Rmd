@@ -15,11 +15,7 @@
 title: "10: Minimum Spanning Networks"
 ---
 
-Minimum spanning networks are a great way to be able to visualize the
-connections between samples in your data set. In terms of clonal organisms, it
-can be a more powerful visualization tool than trees, especially for clonal
-organisms. In this chapter, we will show you how to construct and view minimum
-spanning networks on the command line and in an interactive viewer.
+Minimum spanning networks (MSN) are a great way to visualize relationships among individuals in your data. In terms of clonal organisms, it can be a more powerful visualization tool than trees, especially for clonal organisms. In this chapter, we will show you how to construct and view minimum spanning networks on the command line and in an interactive viewer.
 
 # From the command line
 
