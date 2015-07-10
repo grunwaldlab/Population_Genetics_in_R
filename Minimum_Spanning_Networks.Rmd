@@ -21,10 +21,7 @@ Minimum spanning networks (MSN) are a great way to visualize relationships among
 
 ### Note:
 
-This section will utilize Bruvo's distance `r citep(bib['bruvo2004simple'])`. 
-It is important to note that calculating Bruvo's distance is computationally
-different than other distances, so it has its own specialized functions for
-minimum spanning networks and bootstrapping that do not need a distance matrix:
+This section will utilize Bruvo’s distance (Bruvo et al., 2004). Calculating Bruvo’s distance is computationally different to other distances; hence, this requires specialized functions for minimum spanning networks and bootstrapping that do not require a distance matrix:
 
 | General function | Bruvo specific |
 | ---- | ---- |
