@@ -48,24 +48,29 @@ well as the `dapc()` function is part of the
 ```{r}
 # DAPC requires the adegenet package. Let's load this package:
 library("adegenet")
-data(H3N2)      # load the H3N2 influenza data. Tye ?H3N2 for more info.
+data(H3N2) # load the H3N2 influenza data. Type ?H3N2 for more info.
 pop(H3N2) <- factor(H3N2$other$epid)
-dapc.H3N2 <- dapc(H3N2, var.contrib = TRUE, scale = FALSE, n.pca = 30, n.da = 10)
+dapc.H3N2 <- dapc(H3N2, var.contrib = TRUE, scale = FALSE, n.pca = 30, n.da = nPop(H3N2) - 1)
 scatter(dapc.H3N2, cell = 0, pch = 18:23, cstar = 0, mstree = TRUE, lwd = 2, lty = 2)
 ```
 
-The `dapc()` variables refer to:
+The `dapc()` arguments we used refer to:
 
 - the dataset H3N2
-- `var.contrib` when set to FALSE, flag removes contribution from original
-  variables from output. We will look at this later to see which loci are
-  responsible for separating populations.
+- `var.contrib` this is set to `TRUE`, meaning that we want to retain the
+  variables contributing to the analysis in our output. We will use this later
+  to see which loci are responsible for separating populations.
+- `center` this is set to `FALSE`, indicating that we do not want the data to be
+  rescaled so the mean = 0.
 - `n.pca` is the number of axes retained in the Principal Component Analysis
-  (PCA). If set to NULL selection is interactive, which we avoid here but can be
-  explored by the user.
-- `n.da` is the  number of axes retained in the Discriminant Analysis (DA). If
-  set to NULL selection is interactive, which we avoid here but can be explored
-  by the user.
+  (PCA). By default, it is set to `NULL`.
+- `n.da` is the  number of axes retained in the Discriminant Analysis (DA). By
+  default, it is set to `NULL`.
+
+> It is important to set `n.pca = NULL` when you analyze your data because the
+> number of principal components retained has a large effect on the outcome of
+> the data. See the section below for a statistical method called cross-
+> validation as an aid for choosing `n.pca`
 
 The `scatter()` function is part of the *ade4* package and plots results of a
 DAPC analysis.
@@ -88,13 +93,13 @@ further by looking at allele frequencies by year:
 
 
 ```{r}
-temp    <- seploc(H3N2)
-snp906  <- tab(temp[["906"]]) # tab{adegenet} returns a matrix of genotypes
+temp    <- seploc(H3N2)       # seploc {adegenet} creates a list of individual loci.
+snp906  <- tab(temp[["906"]]) # tab {adegenet} returns a matrix of genotypes
 snp399  <- tab(temp[["399"]])
-freq906 <- apply(snp906, 2, function(e) tapply(e, pop(H3N2), mean, na.rm = TRUE))
-freq399 <- apply(snp399, 2, function(e) tapply(e, pop(H3N2), mean, na.rm = TRUE))
-freq906
-freq399
+
+# The following two commands find the average allele frequencies per population
+(freq906 <- apply(snp906, 2, function(e) tapply(e, pop(H3N2), mean, na.rm = TRUE)))
+(freq399 <- apply(snp399, 2, function(e) tapply(e, pop(H3N2), mean, na.rm = TRUE)))
 ```
 
 Note that a new allele appeared in 2005 for SNP locus 906 and 2004 for locus 399

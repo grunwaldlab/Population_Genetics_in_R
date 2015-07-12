@@ -242,18 +242,22 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <p>We will use the seasonal influenza dataset H3N2 data containing 1903 isolates genotyped for 125 SNPs located in the hemagglutinin segment. This dataset as well as the <code>dapc()</code> function is part of the <a href="http://adegenet.r-forge.r-project.org"><em>adegenet</em></a> package.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># DAPC requires the adegenet package. Let&#39;s load this package:</span>
 <span class="kw">library</span>(<span class="st">&quot;adegenet&quot;</span>)
-<span class="kw">data</span>(H3N2)      <span class="co"># load the H3N2 influenza data. Tye ?H3N2 for more info.</span>
+<span class="kw">data</span>(H3N2) <span class="co"># load the H3N2 influenza data. Type ?H3N2 for more info.</span>
 <span class="kw">pop</span>(H3N2) &lt;-<span class="st"> </span><span class="kw">factor</span>(H3N2$other$epid)
-dapc.H3N2 &lt;-<span class="st"> </span><span class="kw">dapc</span>(H3N2, <span class="dt">var.contrib =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="ot">FALSE</span>, <span class="dt">n.pca =</span> <span class="dv">30</span>, <span class="dt">n.da =</span> <span class="dv">10</span>)
+dapc.H3N2 &lt;-<span class="st"> </span><span class="kw">dapc</span>(H3N2, <span class="dt">var.contrib =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="ot">FALSE</span>, <span class="dt">n.pca =</span> <span class="dv">30</span>, <span class="dt">n.da =</span> <span class="kw">nPop</span>(H3N2) -<span class="st"> </span><span class="dv">1</span>)
 <span class="kw">scatter</span>(dapc.H3N2, <span class="dt">cell =</span> <span class="dv">0</span>, <span class="dt">pch =</span> <span class="dv">18</span>:<span class="dv">23</span>, <span class="dt">cstar =</span> <span class="dv">0</span>, <span class="dt">mstree =</span> <span class="ot">TRUE</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</code></pre>
 <p><img src="DAPC_files/figure-html/unnamed-chunk-2-1.png" title="" alt="" width="960" /></p>
-<p>The <code>dapc()</code> variables refer to:</p>
+<p>The <code>dapc()</code> arguments we used refer to:</p>
 <ul>
 <li>the dataset H3N2</li>
-<li><code>var.contrib</code> when set to FALSE, flag removes contribution from original variables from output. We will look at this later to see which loci are responsible for separating populations.</li>
-<li><code>n.pca</code> is the number of axes retained in the Principal Component Analysis (PCA). If set to NULL selection is interactive, which we avoid here but can be explored by the user.</li>
-<li><code>n.da</code> is the number of axes retained in the Discriminant Analysis (DA). If set to NULL selection is interactive, which we avoid here but can be explored by the user.</li>
+<li><code>var.contrib</code> this is set to <code>TRUE</code>, meaning that we want to retain the variables contributing to the analysis in our output. We will use this later to see which loci are responsible for separating populations.</li>
+<li><code>center</code> this is set to <code>FALSE</code>, indicating that we do not want the data to be rescaled so the mean = 0.</li>
+<li><code>n.pca</code> is the number of axes retained in the Principal Component Analysis (PCA). By default, it is set to <code>NULL</code>.</li>
+<li><code>n.da</code> is the number of axes retained in the Discriminant Analysis (DA). By default, it is set to <code>NULL</code>.</li>
 </ul>
+<blockquote>
+<p>It is important to set <code>n.pca = NULL</code> when you analyze your data because the number of principal components retained has a large effect on the outcome of the data. See the section below for a statistical method called cross- validation as an aid for choosing <code>n.pca</code></p>
+</blockquote>
 <p>The <code>scatter()</code> function is part of the <em>ade4</em> package and plots results of a DAPC analysis.</p>
 <p>As you can see, each year between 2001 to 2005 is a cluster of H3N2 strains separated by axis 1. In contrast, axis 2 separates the strains observed in the 2006 cluster from the clusters observed during 2001-5, indicating that the strains observed in 2006 are genetically distinct.</p>
 <p>Next, let’s assess if there are alleles that most differentiate the 2006 cluster from those in other years.</p>
@@ -261,12 +265,12 @@ dapc.H3N2 &lt;-<span class="st"> </span><span class="kw">dapc</span>(H3N2, <span
 contrib &lt;-<span class="st"> </span><span class="kw">loadingplot</span>(dapc.H3N2$var.contr, <span class="dt">axis =</span> <span class="dv">2</span>, <span class="dt">thres =</span> <span class="fl">0.07</span>, <span class="dt">lab.jitter =</span> <span class="dv">1</span>)</code></pre>
 <p><img src="DAPC_files/figure-html/unnamed-chunk-3-1.png" title="" alt="" width="960" /></p>
 <p>It looks like SNPs at position 384 and 906 are involved. Let’s check this further by looking at allele frequencies by year:</p>
-<pre class="sourceCode r"><code class="sourceCode r">temp    &lt;-<span class="st"> </span><span class="kw">seploc</span>(H3N2)
-snp906  &lt;-<span class="st"> </span><span class="kw">tab</span>(temp[[<span class="st">&quot;906&quot;</span>]]) <span class="co"># tab{adegenet} returns a matrix of genotypes</span>
+<pre class="sourceCode r"><code class="sourceCode r">temp    &lt;-<span class="st"> </span><span class="kw">seploc</span>(H3N2)       <span class="co"># seploc {adegenet} creates a list of individual loci.</span>
+snp906  &lt;-<span class="st"> </span><span class="kw">tab</span>(temp[[<span class="st">&quot;906&quot;</span>]]) <span class="co"># tab {adegenet} returns a matrix of genotypes</span>
 snp399  &lt;-<span class="st"> </span><span class="kw">tab</span>(temp[[<span class="st">&quot;399&quot;</span>]])
-freq906 &lt;-<span class="st"> </span><span class="kw">apply</span>(snp906, <span class="dv">2</span>, function(e) <span class="kw">tapply</span>(e, <span class="kw">pop</span>(H3N2), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
-freq399 &lt;-<span class="st"> </span><span class="kw">apply</span>(snp399, <span class="dv">2</span>, function(e) <span class="kw">tapply</span>(e, <span class="kw">pop</span>(H3N2), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
-freq906</code></pre>
+
+<span class="co"># The following two commands find the average allele frequencies per population</span>
+(freq906 &lt;-<span class="st"> </span><span class="kw">apply</span>(snp906, <span class="dv">2</span>, function(e) <span class="kw">tapply</span>(e, <span class="kw">pop</span>(H3N2), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))</code></pre>
 <pre><code>##            906.c     906.t
 ## 2001 0.000000000 1.0000000
 ## 2002 0.000000000 1.0000000
@@ -274,7 +278,7 @@ freq906</code></pre>
 ## 2004 0.000000000 1.0000000
 ## 2005 0.002155172 0.9978448
 ## 2006 0.616071429 0.3839286</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">freq399</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">(freq399 &lt;-<span class="st"> </span><span class="kw">apply</span>(snp399, <span class="dv">2</span>, function(e) <span class="kw">tapply</span>(e, <span class="kw">pop</span>(H3N2), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))</code></pre>
 <pre><code>##            399.c     399.t
 ## 2001 0.000000000 1.0000000
 ## 2002 0.000000000 1.0000000
@@ -431,7 +435,7 @@ pramx &lt;-<span class="st"> </span><span class="kw">xvalDapc</span>(<span class
 <div class="references">
 <p>Goss EM., Larsen M., Chastagner GA., Givens DR., Gr<span>ü</span>nwald NJ. 2009. Population genetic analysis infers migration pathways of phytophthora ramorum in uS nurseries. <em>PLoS Pathog</em> 5:e1000583. Available at: <a href="http://dx.doi.org/10.1371/journal.ppat.1000583" class="uri">http://dx.doi.org/10.1371/journal.ppat.1000583</a></p>
 <p>Grünwald NJ., Goss EM. 2011. Evolution and population genetics of exotic and re-emerging pathogens: Novel tools and approaches. <em>Annual Review of Phytopathology</em> 49:249–267. Available at: <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-phyto-072910-095246?journalCode=phyto" class="uri">http://www.annualreviews.org/doi/abs/10.1146/annurev-phyto-072910-095246?journalCode=phyto</a></p>
-<p>Jombart T., Devillard S., Balloux F. 2010. Discriminant analysis of principal components: a new method for the analysis of genetically structured populations. <em>BMC genetics</em> 11:94. Available at: <a href="http://www.biomedcentral.com/1471-2156/11/94" class="uri">http://www.biomedcentral.com/1471-2156/11/94</a></p>
+<p>Jombart T., Devillard S., Balloux F. 2010. Discriminant analysis of principal components: A new method for the analysis of genetically structured populations. <em>BMC genetics</em> 11:94. Available at: <a href="http://www.biomedcentral.com/1471-2156/11/94" class="uri">http://www.biomedcentral.com/1471-2156/11/94</a></p>
 <p>Kamvar Z., Larsen M., Kanaskie A., Hansen E., Gr<span>ü</span>nwald N. 2015. Spatial and temporal analysis of populations of the sudden oak death pathogen in oregon forests. <em>Phytopathology</em>:PHYTO–12. Available at: <a href="http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI" class="uri">http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI</a></p>
 <p>Pritchard JK., Stephens M., Donnelly P. 2000. Inference of population structure using multilocus genotype data. <em>Genetics</em> 155:945–959. Available at: <a href="http://www.genetics.org/content/155/2/945.abstract" class="uri">http://www.genetics.org/content/155/2/945.abstract</a></p>
 </div>
