@@ -350,7 +350,12 @@ t26.9msn &lt;-<span class="st"> </span><span class="kw">bruvo.msn</span>(t26, <s
 ##     cutoff = NULL, palette = NULL, layfun = layout.auto, beforecut = FALSE, 
 ##     pop.leg = TRUE, scale.leg = TRUE, ...) 
 ## NULL</code></pre>
-<p>We created the interactive tool <code>imsn()</code> to facilitate interactive plotting. Let’s try to recreate the plot above using the <code>imsn()</code> function. Note that the function takes no arguments.</p>
+<p>We created the interactive tool <code>imsn()</code> to facilitate interactive plotting. This function will be able to create minimum spanning networks from all genind objects in your current R session. In this section, we will recreate the plot above. First we will make sure that we have all the data we need and then we will run <code>imsn()</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>() <span class="co"># Show all the data we have in our workspace</span></code></pre>
+<pre><code>## [1] &quot;monpop&quot;   &quot;reps&quot;     &quot;sub9&quot;     &quot;t26&quot;      &quot;t26.9msn&quot;</code></pre>
+<blockquote>
+<p>Note: you will not be able to access your R console after running this function until you close the pop-up app.</p>
+</blockquote>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">imsn</span>()</code></pre>
 <p>(Note: you probably will not see the whole screen like this, but you can still scroll down)</p>
 <p><img src="images/imsn_initial.png" alt="Intial view of imsn" /></p>
@@ -455,7 +460,7 @@ min_span_net &lt;-<span class="st"> </span><span class="kw">poppr.msn</span>(par
 <p>Now we will use data from <span class="citation">Kamvar et al. (2015)</span>. This is the Sudden Oak Death pathogen collected from forests in Curry County, Oregon and nurseries in California and Oregon <span class="citation">(Goss et al., 2009)</span>. We will use this data set to see why reticulations are important for highly clonal organisms.</p>
 <div id="load-the-data" class="section level3">
 <h3>Load the data</h3>
-<p>Exit the ’imsn()’and execute the following statements:</p>
+<p>Exit the <code>imsn()</code> graphical window and execute the following statements:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;Pram&quot;</span>)
 Pram</code></pre>
 <pre><code>## 
@@ -489,7 +494,7 @@ Pram</code></pre>
 <ul>
 <li>Dataset: <strong>Pram</strong></li>
 <li>Distance: <strong>Bruvo</strong></li>
-<li>SSR Repeat Lengths: <strong><code>other(Pram)$REPLEN</code></strong> (Paste code into the popup app.)</li>
+<li>SSR Repeat Lengths: <strong><code>other(Pram)$REPLEN</code></strong> (Paste code into the pop-up app.)</li>
 </ul></li>
 <li>Graphical:
 <ul>
@@ -497,12 +502,12 @@ Pram</code></pre>
 <li>Node Size Scale: <strong>1.95</strong></li>
 <li>Random Seed: <strong>78</strong></li>
 <li>Labels: <strong>none</strong></li>
-<li>Palette: <strong>Custom: <code>function(x) other(Pram)$comparePal</code></strong> (Paste code into the popup app.)</li>
+<li>Palette: <strong>Custom: <code>function(x) other(Pram)$comparePal</code></strong> (Paste code into the pop-up app.)</li>
 </ul></li>
 </ul>
-<p>To exit the popup app, hit the close button at the top right.</p>
+<p>When you finish your session, you can exit the app by closing the window.</p>
 <div class="references">
-<h1>References</h1>
+<h1 id="references" class="unnumbered">References</h1>
 <p>Bruvo R., Michiels NK., D’Souza TG., Schulenburg H. 2004. A simple method for the calculation of microsatellite genotype distances irrespective of ploidy level. <em>Molecular Ecology</em> 13:2101–2106. Available at: <a href="http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x" class="uri">http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x</a></p>
 <p>Everhart S., Scherm H. 2015. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> 105:542–549.</p>
 <p>Goss EM., Larsen M., Chastagner GA., Givens DR., Gr<span>ü</span>nwald NJ. 2009. Population genetic analysis infers migration pathways of phytophthora ramorum in uS nurseries. <em>PLoS Pathog</em> 5:e1000583.</p>
