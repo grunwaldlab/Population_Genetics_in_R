@@ -35,17 +35,14 @@ you into the direction of a package dedicated to Modern Methods of
 Differentiation called *mmod*. We will use the data set *nancycats* containing
 17 colonies of cats collected from Nancy, France. As cats tend to stay within
 small groups, we expect to see some population differentiation. In terms of
-these diversity measures, an index of $G_{ST}$ = 0 indicates no differentiation,
-whereas $G_{ST}$ = 1 indicates that populations are segregating for differing
+these diversity measures, an index of $G_{ST} = 0$ indicates no differentiation,
+whereas $G_{ST} = 1$ indicates that populations are segregating for differing
 alleles.
 
 Let's load the package and the example data set:
 
-```{r loadstuff}
-if (!require("mmod")){
-  install.packages("mmod", repos = "http://cran.at.r-project.org")
-  require("mmod")
-}
+```{r, loadstuff}
+library("mmod")
 data("nancycats")
 nancycats
 ```
@@ -53,7 +50,7 @@ nancycats
 Now we will use Hendrick's standardized $G_{ST}$ to assess population structure 
 among these populations `r citep(bib['hedrick2005standardized'])`.
 
-```{r nancycats}
+```{r, nancycats}
 Gst_Hedrick(nancycats)
 ```
 What does this output tell us?

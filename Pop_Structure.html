@@ -234,12 +234,9 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <p>In this chapter we explore various ways of assessing if population are structured (e.g., differentiated). You can think of population structure as identifying clusters or groups of more closely related individuals resulting from reduced gene flow among these groups. Populations can be studied to determine if they are structured by using for example population differentiation (e.g. <span class="math">\(G_{ST}\)</span>), clustering, or graphing of minimum spanning networks (MSN). Note, that this chapter will utilize many data sets due to the unique features offered by each. Let’s first look at an example of population differentiation based on <span class="math">\(G_{ST}\)</span>.</p>
 <div id="g_st-an-example-with-felis-catus-data." class="section level2">
 <h2><span class="math">\(G_{ST}\)</span> an example with <em>Felis catus</em> data.</h2>
-<p>Assessing genetic diversity almost always starts with an analysis of a parameter such as <span class="math">\(G_{ST}\)</span>. There are <a href="http://www.molecularecologist.com/2011/03/should-i-use-fst-gst-or-d-2/">lengthy debates</a> as to what measure of differentiation is better <span class="citation">(Meirmans &amp; Hedrick, 2011)</span>. Instead of going into that lengthy debate, it would be more worthwhile to point you into the direction of a package dedicated to Modern Methods of Differentiation called <em>mmod</em>. We will use the data set <em>nancycats</em> containing 17 colonies of cats collected from Nancy, France. As cats tend to stay within small groups, we expect to see some population differentiation. In terms of these diversity measures, an index of <span class="math">\(G_{ST}\)</span> = 0 indicates no differentiation, whereas <span class="math">\(G_{ST}\)</span> = 1 indicates that populations are segregating for differing alleles.</p>
+<p>Assessing genetic diversity almost always starts with an analysis of a parameter such as <span class="math">\(G_{ST}\)</span>. There are <a href="http://www.molecularecologist.com/2011/03/should-i-use-fst-gst-or-d-2/">lengthy debates</a> as to what measure of differentiation is better <span class="citation">(Meirmans &amp; Hedrick, 2011)</span>. Instead of going into that lengthy debate, it would be more worthwhile to point you into the direction of a package dedicated to Modern Methods of Differentiation called <em>mmod</em>. We will use the data set <em>nancycats</em> containing 17 colonies of cats collected from Nancy, France. As cats tend to stay within small groups, we expect to see some population differentiation. In terms of these diversity measures, an index of <span class="math">\(G_{ST} = 0\)</span> indicates no differentiation, whereas <span class="math">\(G_{ST} = 1\)</span> indicates that populations are segregating for differing alleles.</p>
 <p>Let’s load the package and the example data set:</p>
-<pre class="sourceCode r"><code class="sourceCode r">if (!<span class="kw">require</span>(<span class="st">&quot;mmod&quot;</span>)){
-  <span class="kw">install.packages</span>(<span class="st">&quot;mmod&quot;</span>, <span class="dt">repos =</span> <span class="st">&quot;http://cran.at.r-project.org&quot;</span>)
-  <span class="kw">require</span>(<span class="st">&quot;mmod&quot;</span>)
-}
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;mmod&quot;</span>)
 <span class="kw">data</span>(<span class="st">&quot;nancycats&quot;</span>)
 nancycats</code></pre>
 <pre><code>## /// GENIND OBJECT /////////
@@ -261,13 +258,13 @@ nancycats</code></pre>
 <p>Now we will use Hendrick’s standardized <span class="math">\(G_{ST}\)</span> to assess population structure among these populations <span class="citation">(Hedrick, 2005)</span>.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Gst_Hedrick</span>(nancycats)</code></pre>
 <pre><code>## $per.locus
-##       fca8      fca23      fca43      fca45      fca77      fca78 
-##  1.0398743  1.4899782  1.5691427  3.4876251  1.0142322 -0.6831738 
-##      fca90      fca96      fca37 
-##  1.3796335  4.2219618 -0.2544441 
+##      fca8     fca23     fca43     fca45     fca77     fca78     fca90 
+## 0.4750445 0.2956688 0.2675766 0.2653163 0.4855829 0.1933327 0.3807578 
+##     fca96     fca37 
+## 0.3913924 0.1609576 
 ## 
 ## $global
-## [1] 2.975657</code></pre>
+## [1] 0.3084895</code></pre>
 <p>What does this output tell us?</p>
 <p>Next we will look at genetic distance to find related groups of individuals.</p>
 </div>
@@ -646,12 +643,12 @@ cols &lt;-<span class="st"> </span><span class="kw">rainbow</span>(<span class="
 <p>Everything clusters together nicely, further supporting a non-panmictic population.</p>
 <div class="references">
 <h2 id="references" class="unnumbered">References</h2>
-<p>Bruvo R., Michiels N., D’Souza T., Schulenburg H. 2004. A simple method for the calculation of microsatellite genotype distances irrespective of ploidy level. <em>Molecular Ecology</em> 13:2101–2106. Available at: <a href="http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x" class="uri">http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x</a></p>
+<p>Bruvo R., Michiels NK., D’Souza TG., Schulenburg H. 2004. A simple method for the calculation of microsatellite genotype distances irrespective of ploidy level. <em>Molecular Ecology</em> 13:2101–2106. Available at: <a href="http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x" class="uri">http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x</a></p>
 <p>Everhart S., Scherm H. 2015. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> 105:542–549.</p>
-<p>Goss E., Tabima J., Cooke D., Restrepo S., Fry W., Forbes G., Fieland V., Cardenas M., Grünwald N. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
-<p>Hedrick P. 2005. A standardized genetic differentiation measure. <em>Evolution</em> 59:1633–1638. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.0014-3820.2005.tb01814.x/abstract" class="uri">http://onlinelibrary.wiley.com/doi/10.1111/j.0014-3820.2005.tb01814.x/abstract</a></p>
+<p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
+<p>Hedrick PW. 2005. A standardized genetic differentiation measure. <em>Evolution</em> 59:1633–1638. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.0014-3820.2005.tb01814.x/abstract" class="uri">http://onlinelibrary.wiley.com/doi/10.1111/j.0014-3820.2005.tb01814.x/abstract</a></p>
 <p>Laloe D., Jombart T., Dufour A-B., Moazami-Goudarzi K. 2007. Consensus genetic structuring and typological value of markers using multiple co-inertia analysis. <em>Genetics Selection Evolution</em> 39:545–567. Available at: <a href="http://dx.doi.org/10.1051/gse:2007021" class="uri">http://dx.doi.org/10.1051/gse:2007021</a></p>
-<p>Meirmans P., Hedrick P. 2011. Assessing population structure: <span class="math">\(F_{ST}\)</span> And related measures. <em>Molecular Ecology Resources</em> 11:5–18. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full" class="uri">http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full</a></p>
+<p>Meirmans PG., Hedrick PW. 2011. Assessing population structure: <span class="math">\(F_{ST}\)</span> and related measures. <em>Molecular Ecology Resources</em> 11:5–18. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full" class="uri">http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full</a></p>
 </div>
 </div>
 </div>
