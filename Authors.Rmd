@@ -67,14 +67,18 @@ ZHIAN'S PROFILE
 Pathology at Oregon State University. His research is focused on genome
 sequencing and population genomics of the nursery pathogens *Phytophthora
 syringae* and *P. ramorum*. He is the lead developer of the [*poppr* R
-package](http://github.com/grunwaldlab/poppr) and a contributor to the
-[*adegenet* R package](http://github.com/thibautjombart/adegenet). Zhian is also
-co-host of the award-winning radio program [Inspiration
-Dissemination](http://poweredbyorange.com/2013/12/17/science-through-a-microphone/).
+package](http://github.com/grunwaldlab/poppr) and a contributor to other packages such as the
+[*adegenet* R package](http://github.com/thibautjombart/adegenet) and the 
+[*mmod* R package](http://github.com/dwinter/mmod). Zhian is also
+co-host of the award-winning radio program [Inspiration](http://blogs.oregonstate.edu/inspiration)
+[Dissemination](http://poweredbyorange.com/2013/12/17/science-through-a-microphone/).
 <p>
+<a href="https://scholar.google.com/citations?user=UPGtLSkAAAAJ&hl=en">Google scholar</a> | 
+<a href="https://www.researchgate.net/profile/Zhian_Kamvar">ResearchGate</a> | 
+<a href="http://orcid.org/0000-0003-1458-7108">Orcid</a> | 
 <a href="https://twitter.com/ZKamvar" class="twitter-follow-button" data-show-count="false">
 	Follow &#64;ZKamvar
-</a>
+</a> |
 </p>
 </small>
 </div>
