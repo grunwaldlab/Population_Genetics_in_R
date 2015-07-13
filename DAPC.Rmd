@@ -1,4 +1,4 @@
-```{r,message=FALSE,echo=FALSE}
+```{r,message = FALSE,echo = FALSE}
   library("knitcitations")
   library("knitr")
   cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
@@ -9,80 +9,210 @@
   # http://yihui.name/knitr/options #chunk_options
 ```
 ---
-title: '11: Discriminant analysis of principal components (DAPC)'
-output: pdf_document
+title: '12: Discriminant analysis of principal components (DAPC)'
 ---
 
-Often we want to infer population structure by determining the number of clusters (groups) observed without prior knowledge. Several approaches can be used to infer groups such as for example K-means clustering, Bayesian clustering using STRUCTURE, and multivariate methods such as Discriminant Analysis of Principal Components (DAPC) `r citep(bib[c("jombart2010discriminant", "pritchard2000inference", "grunwald2011evolution")])`. A STRUCTURE-like approach assumes that markers are not linked and that populations are panmictic `r citep(bib[c("pritchard2000inference")])`. To use model-free methods K-means clustering based on genetic distance or DAPC are more convenient approaches for populations that are clonal or partially clonal. Here we explore DAPC further.
+# Introduction
 
-DAPC analysis of the H3N2 influenza strains
-----
+Often we want to infer population structure by determining the number of
+clusters (groups) observed without prior knowledge. Several approaches can be
+used to infer groups such as for example K-means clustering, Bayesian clustering
+using STRUCTURE, and multivariate methods such as Discriminant Analysis of
+Principal Components (DAPC) 
+`r citep(bib[c("jombart2010discriminant", "pritchard2000inference", "grunwald2011evolution")])`. 
+A STRUCTURE-like approach assumes that markers are not linked and that
+populations are panmictic `r citep(bib[c("pritchard2000inference")])`. To use
+model-free methods K-means clustering based on genetic distance or DAPC are more
+convenient approaches for populations that are clonal or partially clonal. Here
+we explore DAPC further.
 
-DAPC was pioneered by Jombart and colleagues `r citep(bib[c("jombart2010discriminant")])` and can be used to infer the number of clusters of genetically related individuals. In this multivariate statistical approach variance in the sample is partitioned into a between-group and within-group component, in an effort to maximize discrimination between groups. In DAPC, data is first transformed using a principal components analysis (PCA) and subsequently clusters are identified using discriminant analysis (DA). This tutorial is based on the [vignette](http://adegenet.r-forge.r-project.org/files/tutorial-dapc.pdf) written by Thibaut Jombart. We encourage the user to explore this vignette further. The vignette can also be opened within R by executing `adegenetTutorial("dapc")`.
+# DAPC analysis of the H3N2 influenza strains
 
-We will use the seasonal influenza dataset H3N2 data containing 1903 isolates genotyped for 125 SNPs located in the hemagglutinin segment. This dataset as well as the `dapc()` function is part of the [*adegenet*](http://adegenet.r-forge.r-project.org) package. 
+DAPC was pioneered by Jombart and colleagues `r citep(bib[c("jombart2010discriminant")])` 
+and can be used to infer the number of clusters of genetically related
+individuals. In this multivariate statistical approach variance in the sample is
+partitioned into a between-group and within- group component, in an effort to
+maximize discrimination between groups. In DAPC, data is first transformed using
+a principal components analysis (PCA) and subsequently clusters are identified
+using discriminant analysis (DA). This tutorial is based on the
+[vignette](http://adegenet.r-forge.r-project.org/files /tutorial-dapc.pdf)
+written by Thibaut Jombart. We encourage the user to explore this vignette
+further. The vignette can also be opened within R by executing
+`adegenetTutorial("dapc")`.
+
+We will use the seasonal influenza dataset H3N2 data containing 1903 isolates
+genotyped for 125 SNPs located in the hemagglutinin segment. This dataset as
+well as the `dapc()` function is part of the
+[*adegenet*](http://adegenet.r-forge.r-project.org) package.
 
 ```{r}
 # DAPC requires the adegenet package. Let's load this package:
 library("adegenet")
-data(H3N2)      # load the H3N2 influenza data. Tye ?H3N2 for more info.
-pop(H3N2) <- factor(H3N2$other$epid)
-dapc.H3N2 <- dapc(H3N2, var.contrib=TRUE, scale=FALSE, n.pca=30, n.da=10)
-scatter(dapc.H3N2, cell=0, pch=18:23, cstar=0, mstree=TRUE, lwd=2, lty=2)
+data(H3N2) # load the H3N2 influenza data. Type ?H3N2 for more info.
+pop(H3N2) <- H3N2$other$epid
+dapc.H3N2 <- dapc(H3N2, var.contrib = TRUE, scale = FALSE, n.pca = 30, n.da = nPop(H3N2) - 1)
+scatter(dapc.H3N2, cell = 0, pch = 18:23, cstar = 0, mstree = TRUE, lwd = 2, lty = 2)
 ```
 
-The `dapc()` variables refer to:
+The `dapc()` arguments we used refer to:
 
 - the dataset H3N2
-- `var.contrib` when set to FALSE, flag removes contribution from original variables from output. We will look at this later to see which loci are responsible for separatig populations. 
-- `n.pca` is the number of axes retained in the Principal Component Analysis (PCA). If set to NULL selection is interactive, which we avoid here but can be explored by the user.
-- `n.da` is the  number of axes retained in the Discriminant Analysis (DA). If set to NULL selection is interactive, which we avoid here but can be explored by the user.
+- `var.contrib` this is set to `TRUE`, meaning that we want to retain the
+  variables contributing to the analysis in our output. We will use this later
+  to see which loci are responsible for separating populations.
+- `center` this is set to `FALSE`, indicating that we do not want the data to be
+  rescaled so the mean = 0.
+- `n.pca` is the number of axes retained in the Principal Component Analysis
+  (PCA). By default, it is set to `NULL`.
+- `n.da` is the  number of axes retained in the Discriminant Analysis (DA). By
+  default, it is set to `NULL`.
 
-The `scatter()` function is part of the *ade4* pacakge and plots results of a DAPC analysis. 
+> It is important to set `n.pca = NULL` when you analyze your data because the
+> number of principal components retained has a large effect on the outcome of
+> the data. See the section below for a statistical method called cross-
+> validation as an aid for choosing `n.pca`
 
-As you can see, each year between 2001 to 2005 is a cluster of H3N2 strains separated by axis 1. In contrast, axis 2 separates the strains observed in the 2006 cluster from the clusters observed during 2001-5, indicating that the strains observed in 2006 are genetically distinct.
+The `scatter()` function is part of the *ade4* package and plots results of a
+DAPC analysis.
 
-Next, let's assess if there are alleles that most differentiate the 2006 cluster from those in other years. 
+As you can see, each year between 2001 to 2005 is a cluster of H3N2 strains
+separated by axis 1. In contrast, axis 2 separates the strains observed in the
+2006 cluster from the clusters observed during 2001-5, indicating that the
+strains observed in 2006 are genetically distinct.
+
+Next, let's assess if there are alleles that most differentiate the 2006 cluster
+from those in other years.
 
 ```{r}
 set.seed(4)
-contrib <- loadingplot(dapc.H3N2$var.contr, axis=2, thres=.07, lab.jitter=1)
+contrib <- loadingplot(dapc.H3N2$var.contr, axis = 2, thres = 0.07, lab.jitter = 1)
 ```
 
-It looks like SNPs at position 384 and 906 are involved. Let's check this further by looking at allele frequencies by year:
+It looks like SNPs at position 384 and 906 are involved. Let's check this
+further by looking at allele frequencies by year:
 
 
 ```{r}
-temp <- seploc(H3N2)
-snp906 <- tab(temp[["906"]]) # tab{adegenet} returns a matrix of genotypes
-snp399 <- tab(temp[["399"]])
-freq906 <- apply(snp906, 2, function(e) tapply(e, pop(H3N2), mean, na.rm=TRUE))
-freq399 <- apply(snp399, 2, function(e) tapply(e, pop(H3N2), mean, na.rm=TRUE))
-freq906
-freq399
+temp    <- seploc(H3N2)       # seploc {adegenet} creates a list of individual loci.
+snp906  <- tab(temp[["906"]]) # tab {adegenet} returns a matrix of genotypes
+snp399  <- tab(temp[["399"]])
+
+# The following two commands find the average allele frequencies per population
+(freq906 <- apply(snp906, 2, function(e) tapply(e, pop(H3N2), mean, na.rm = TRUE)))
+(freq399 <- apply(snp399, 2, function(e) tapply(e, pop(H3N2), mean, na.rm = TRUE)))
 ```
 
-Note that a new allele appeared in 2005 for SNP locus 906 and 2004 for locus 399 separating populations along axis 2.
+Note that a new allele appeared in 2005 for SNP locus 906 and 2004 for locus 399
+separating populations along axis 2.
 
 
 ```{r}
-par(mfrow=c(1,2), mar=c(5.1,4.1,4.1,.1),las=3)
-matplot(freq906, pch=c("c","t"), type="b",xlab="year",ylab="allele frequency", xaxt="n", cex=1.5, main="SNP # 906")
-axis(side=1, at=1:6, lab=2001:2006)
-matplot(freq399, pch=c("c","t"), type="b", xlab="year",ylab="allele frequency", xaxt="n", cex=1.5, main="SNP #399")
-axis(side=1, at=1:6, lab=2001:2006)
+# First, set the plotting parameters
+# mfrow = number of columns, rows
+# mar   = plot margin size
+# las   = axis label style (3: always vertical)
+par(mfrow = c(1, 2), mar = c(5, 4, 4, 0) + 0.1, las = 3)
+
+matplot(freq906,  pch = c("c", "t"), type = "b", 
+        xlab = "year", ylab = "allele frequency", main = "SNP # 906",
+        xaxt = "n", cex = 1.5)
+axis(side = 1, at = 1:6, lab = 2001:2006)
+
+matplot(freq399, pch = c("c", "t"), type = "b", 
+        xlab = "year", ylab = "allele frequency", main = "SNP #399",
+        xaxt = "n", cex = 1.5)
+axis(side = 1, at = 1:6, lab = 2001:2006)
+
+# Now we reset the plotting parameters to default
+par(mfrow = c(1, 1), mar = c(5, 4, 4, 2) + 0.1, las = 0)
 ```
 
-This plot nicely illustrates the effect of mutation, followed by selection or drift in the seasonal H3N2 influenza virus.
+This plot nicely illustrates the effect of mutation, followed by selection or
+drift in the seasonal H3N2 influenza virus.
 
-Conclusions
-----
+# Cross validation: DAPC analysis of *Phytophthora ramorum* from forests and nurseries
 
-DAPC is a wonderful tool for exploring structure of populations based on PCA and DA without making assumptions of panmixia. Thus, this technique provides a robust alternative to Bayesian clustering methods like STRUCTURE `r citep(bib[c("pritchard2000inference")])` that should not be used for clonal or partially clonal populations.
+Above we showed a nice example of a story that shows how two loci can
+drastically influence an epidemic. Next we will spend some time establishing what the appropriate
+number of principal components (PC) is for the analysis. It is important
+to carefully choose the correct number of PCs so as to include most sources of
+variation explained by an appropriate number of PCs retained. One way of
+ensuring that you have selected the correct number of PCs is to do cross-validation. 
+This is a procedure in which you leave out a certain percentage of
+your data, run DAPC, and then see if the data that was left out is correctly
+placed into the population.
 
-DAPC analysis is inherently interactive and cannot be scripted *a priori*. Please refer to the [vignette](http://adegenet.r-forge.r-project.org/files/tutorial-dapc.pdf) written by Thibaut Jombart for a more interactive analysis.
+Since the H3N2 data set is quite large, we will use *Phytophthora ramorum* data
+from nurseries in California and Oregon `r citep(bib["goss2009population"])` and
+forests in Curry County, Oregon `r citep(bib['kamvar2015spatial'])`. These data
+represent the Sudden Oak Death epidemic in Curry County, OR from 2001-2014
+separated into different watershed regions. In `r citet(bib["kamvar2015spatial"])`,
+the "Hunter Creek (HunterCr)" population was shown to be the result of a second
+introduction, likely from nurseries. Part of the evidence to support this
+conclusion came from DAPC results. Here, we will recreate the process of cross
+validation and reporting.
 
-References
-----------
+If we run the function `xvalDapc()` with default parameters, it will run 30
+replicates of cross-validation for a number of PCs less than the total number
+of alleles in the data. This is a good way to get an idea of where to focus
+more intense cross-validation runs:
 
-<!--------------->
+> By default `xvalDapc()` needs two parameters: 1. The genotype matrix, 2. The
+> population factors.
+
+```{r}
+library("poppr")
+data("Pram", package = "poppr")
+Pram
+set.seed(999)
+pramx <- xvalDapc(tab(Pram, NA.method = "mean"), pop(Pram))
+```
+
+You can see that we have a peak around 15 PC. From here, we can narrow the search
+by specifying the number of PC to try with `n.pca` and centering it around 15,
+and doing 1000 replicates each (Note, this will take a long time).
+
+> Windows users: change parallel to "snow".
+
+```{r, Pramhide}
+set.seed(999)
+system.time(pramx <- xvalDapc(tab(Pram, NA.method = "mean"), pop(Pram), 
+                             n.pca = 10:20, n.rep = 1000, 
+                             parallel = "multicore", ncpus = 4L))
+```
+
+We can see that it's basically a flat line all the way. If we take a look at
+the object, we see that 16 PCs give us the highest percent of correctly predicted
+subsamples with the lowest error.
+
+```{r }
+names(pramx) # The first element are all the samples
+pramx[-1]
+```
+
+We also have a DAPC object that we can plot comparable to figure 4
+in `r citet(bib["kamvar2015spatial"])`:
+
+```{r}
+scatter(pramx$DAPC, col = other(Pram)$comparePal, cex = 2, legend = TRUE, 
+        clabel = FALSE, posi.leg = "bottomleft", scree.pca = TRUE, 
+        posi.pca = "topleft", cleg = 0.75, xax = 1, yax = 2, inset.solid = 1)
+```
+
+We can see that this shows the clear separation of Hunter Creek from the rest
+of the epidemic, providing evidence that this population arose from a separate introduction.
+
+# Conclusions
+
+DAPC is a wonderful tool for exploring structure of populations based on PCA and
+DA without making assumptions of panmixia. Thus, this technique provides a
+robust alternative to Bayesian clustering methods like STRUCTURE 
+`r citep(bib[c("pritchard2000inference")])` that should not be used for clonal or
+partially clonal populations.
+
+DAPC analysis is inherently interactive and cannot be scripted *a priori*.
+Please refer to the 
+[vignette](https://github.com/thibautjombart/adegenet/blob/master/tutorials/tutorial-dapc.pdf) 
+written by Thibaut Jombart for a more interactive analysis.
+
+# References

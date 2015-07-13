@@ -36,6 +36,12 @@ fruits (termed "FR" for fruit rot).  There are a total of 694 isolates with 65
 to 173 isolates within each canopy population that were characterized using a
 set of 13 microsatellite markers.
 
+Microsatellite (diploid, sexual): `microbov`
+----
+
+This data set contains 704 bovine samples over 30 microsatellite loci for 15
+breeds, 2 species and 2 countries. From `r citep(bib["laloe2007consensus"])`.
+
 Microsatellite (diploid, sexual): `nancycats`
 ----
 
@@ -44,20 +50,24 @@ This is a data set of 217 cats *Felis catus* L. from Nancy, France genotyped ove
 coordinates in the `@other` slot. It comes from the *adegenet* package without
 a published reference. Likely, the source paper is [here](http://dx.doi.org/10.1016/j.mambio.2008.01.001).
 
-Microsatellite (diploid, sexual): `microbov`
-----
-
-This data set contains 704 bovine samples over 30 microsatellite loci for 15
-breeds, 2 species and 2 countries. From `r citep(bib["laloe2007consensus"])`.
-
 Microsatellite (triploid, sexual/clonal): `Pinf`
 ----
 
-This microsatellite data comes from a larger data set of popualtions of
+This microsatellite data comes from a larger data set of populations of
 *Phytophthora infestans* `r citep(bib["goss2014irish"])`. It contains 86
 individuals representing 72 multilocus genotypes that have been genotyped over
 11 loci. They are grouped by continent and country. This data set is used to
 demonstrate clone correction and linkage disequilibrium.
+
+Microsatellite (diploid, clonal): `Pram`
+----
+
+This data set contains populations of *Phytophthora ramorum* from Nurseries in
+California and Oregon `r citep(bib["goss2009population"])` and Forests in Curry
+County, Oregon from 2001 to 2014 `r citep(bib['kamvar2015spatial'])`. There are
+729 samples representing 98 multilocus genotypes genotyped over 5 microsatellite
+loci.
+
 
 SNP (haploid, clonal): `H3N2`
 ----

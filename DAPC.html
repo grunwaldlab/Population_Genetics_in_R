@@ -10,7 +10,7 @@
 
 
 
-<title>11: Discriminant analysis of principal components (DAPC)</title>
+<title>12: Discriminant analysis of principal components (DAPC)</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -176,8 +176,9 @@ img {
                <li><a href="Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
                <li><a href="Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
                <li><a href="Pop_Structure.html">9. Population structure</a></li>
-               <li><a href="AMOVA.html">10. AMOVA</a></li>
-               <li><a href="DAPC.html">11. Discriminant analysis of principal components (DAPC)</a></li>
+               <li><a href="Minimum_Spanning_Networks.html">10. Minimum Spanning Networks</a></li>
+               <li><a href="AMOVA.html">11. AMOVA</a></li>
+               <li><a href="DAPC.html">12. Discriminant analysis of principal components (DAPC)</a></li>
             </ol>
         </li>
         <!-- Appendices dropdown -->
@@ -219,49 +220,57 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div class="span10 offset1"> -->
 
 <div id="header">
-<h1 class="title">11: Discriminant analysis of principal components (DAPC)</h1>
+<h1 class="title">12: Discriminant analysis of principal components (DAPC)</h1>
 </div>
 
 <div id="TOC">
 <ul>
+<li><a href="#introduction">Introduction</a></li>
 <li><a href="#dapc-analysis-of-the-h3n2-influenza-strains">DAPC analysis of the H3N2 influenza strains</a></li>
+<li><a href="#cross-validation-dapc-analysis-of-phytophthora-ramorum-from-forests-and-nurseries">Cross validation: DAPC analysis of <em>Phytophthora ramorum</em> from forests and nurseries</a></li>
 <li><a href="#conclusions">Conclusions</a></li>
-<li><a href="#references">References</a></li>
 </ul>
 </div>
 
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
 <p>Often we want to infer population structure by determining the number of clusters (groups) observed without prior knowledge. Several approaches can be used to infer groups such as for example K-means clustering, Bayesian clustering using STRUCTURE, and multivariate methods such as Discriminant Analysis of Principal Components (DAPC) <span class="citation">(Pritchard, Stephens &amp; Donnelly, 2000; Jombart, Devillard &amp; Balloux, 2010; Grünwald &amp; Goss, 2011)</span>. A STRUCTURE-like approach assumes that markers are not linked and that populations are panmictic <span class="citation">(Pritchard et al., 2000)</span>. To use model-free methods K-means clustering based on genetic distance or DAPC are more convenient approaches for populations that are clonal or partially clonal. Here we explore DAPC further.</p>
-<div id="dapc-analysis-of-the-h3n2-influenza-strains" class="section level2">
-<h2>DAPC analysis of the H3N2 influenza strains</h2>
-<p>DAPC was pioneered by Jombart and colleagues <span class="citation">(Jombart et al., 2010)</span> and can be used to infer the number of clusters of genetically related individuals. In this multivariate statistical approach variance in the sample is partitioned into a between-group and within-group component, in an effort to maximize discrimination between groups. In DAPC, data is first transformed using a principal components analysis (PCA) and subsequently clusters are identified using discriminant analysis (DA). This tutorial is based on the <a href="http://adegenet.r-forge.r-project.org/files/tutorial-dapc.pdf">vignette</a> written by Thibaut Jombart. We encourage the user to explore this vignette further. The vignette can also be opened within R by executing <code>adegenetTutorial(&quot;dapc&quot;)</code>.</p>
+</div>
+<div id="dapc-analysis-of-the-h3n2-influenza-strains" class="section level1">
+<h1>DAPC analysis of the H3N2 influenza strains</h1>
+<p>DAPC was pioneered by Jombart and colleagues <span class="citation">(Jombart et al., 2010)</span> and can be used to infer the number of clusters of genetically related individuals. In this multivariate statistical approach variance in the sample is partitioned into a between-group and within- group component, in an effort to maximize discrimination between groups. In DAPC, data is first transformed using a principal components analysis (PCA) and subsequently clusters are identified using discriminant analysis (DA). This tutorial is based on the <a href="http://adegenet.r-forge.r-project.org/files%20/tutorial-dapc.pdf">vignette</a> written by Thibaut Jombart. We encourage the user to explore this vignette further. The vignette can also be opened within R by executing <code>adegenetTutorial(&quot;dapc&quot;)</code>.</p>
 <p>We will use the seasonal influenza dataset H3N2 data containing 1903 isolates genotyped for 125 SNPs located in the hemagglutinin segment. This dataset as well as the <code>dapc()</code> function is part of the <a href="http://adegenet.r-forge.r-project.org"><em>adegenet</em></a> package.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># DAPC requires the adegenet package. Let&#39;s load this package:</span>
 <span class="kw">library</span>(<span class="st">&quot;adegenet&quot;</span>)
-<span class="kw">data</span>(H3N2)      <span class="co"># load the H3N2 influenza data. Tye ?H3N2 for more info.</span>
-<span class="kw">pop</span>(H3N2) &lt;-<span class="st"> </span><span class="kw">factor</span>(H3N2$other$epid)
-dapc.H3N2 &lt;-<span class="st"> </span><span class="kw">dapc</span>(H3N2, <span class="dt">var.contrib=</span><span class="ot">TRUE</span>, <span class="dt">scale=</span><span class="ot">FALSE</span>, <span class="dt">n.pca=</span><span class="dv">30</span>, <span class="dt">n.da=</span><span class="dv">10</span>)
-<span class="kw">scatter</span>(dapc.H3N2, <span class="dt">cell=</span><span class="dv">0</span>, <span class="dt">pch=</span><span class="dv">18</span>:<span class="dv">23</span>, <span class="dt">cstar=</span><span class="dv">0</span>, <span class="dt">mstree=</span><span class="ot">TRUE</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre>
+<span class="kw">data</span>(H3N2) <span class="co"># load the H3N2 influenza data. Type ?H3N2 for more info.</span>
+<span class="kw">pop</span>(H3N2) &lt;-<span class="st"> </span>H3N2$other$epid
+dapc.H3N2 &lt;-<span class="st"> </span><span class="kw">dapc</span>(H3N2, <span class="dt">var.contrib =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="ot">FALSE</span>, <span class="dt">n.pca =</span> <span class="dv">30</span>, <span class="dt">n.da =</span> <span class="kw">nPop</span>(H3N2) -<span class="st"> </span><span class="dv">1</span>)
+<span class="kw">scatter</span>(dapc.H3N2, <span class="dt">cell =</span> <span class="dv">0</span>, <span class="dt">pch =</span> <span class="dv">18</span>:<span class="dv">23</span>, <span class="dt">cstar =</span> <span class="dv">0</span>, <span class="dt">mstree =</span> <span class="ot">TRUE</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</code></pre>
 <p><img src="DAPC_files/figure-html/unnamed-chunk-2-1.png" title="" alt="" width="960" /></p>
-<p>The <code>dapc()</code> variables refer to:</p>
+<p>The <code>dapc()</code> arguments we used refer to:</p>
 <ul>
 <li>the dataset H3N2</li>
-<li><code>var.contrib</code> when set to FALSE, flag removes contribution from original variables from output. We will look at this later to see which loci are responsible for separatig populations.</li>
-<li><code>n.pca</code> is the number of axes retained in the Principal Component Analysis (PCA). If set to NULL selection is interactive, which we avoid here but can be explored by the user.</li>
-<li><code>n.da</code> is the number of axes retained in the Discriminant Analysis (DA). If set to NULL selection is interactive, which we avoid here but can be explored by the user.</li>
+<li><code>var.contrib</code> this is set to <code>TRUE</code>, meaning that we want to retain the variables contributing to the analysis in our output. We will use this later to see which loci are responsible for separating populations.</li>
+<li><code>center</code> this is set to <code>FALSE</code>, indicating that we do not want the data to be rescaled so the mean = 0.</li>
+<li><code>n.pca</code> is the number of axes retained in the Principal Component Analysis (PCA). By default, it is set to <code>NULL</code>.</li>
+<li><code>n.da</code> is the number of axes retained in the Discriminant Analysis (DA). By default, it is set to <code>NULL</code>.</li>
 </ul>
-<p>The <code>scatter()</code> function is part of the <em>ade4</em> pacakge and plots results of a DAPC analysis.</p>
+<blockquote>
+<p>It is important to set <code>n.pca = NULL</code> when you analyze your data because the number of principal components retained has a large effect on the outcome of the data. See the section below for a statistical method called cross- validation as an aid for choosing <code>n.pca</code></p>
+</blockquote>
+<p>The <code>scatter()</code> function is part of the <em>ade4</em> package and plots results of a DAPC analysis.</p>
 <p>As you can see, each year between 2001 to 2005 is a cluster of H3N2 strains separated by axis 1. In contrast, axis 2 separates the strains observed in the 2006 cluster from the clusters observed during 2001-5, indicating that the strains observed in 2006 are genetically distinct.</p>
 <p>Next, let’s assess if there are alleles that most differentiate the 2006 cluster from those in other years.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">4</span>)
-contrib &lt;-<span class="st"> </span><span class="kw">loadingplot</span>(dapc.H3N2$var.contr, <span class="dt">axis=</span><span class="dv">2</span>, <span class="dt">thres=</span>.<span class="dv">07</span>, <span class="dt">lab.jitter=</span><span class="dv">1</span>)</code></pre>
+contrib &lt;-<span class="st"> </span><span class="kw">loadingplot</span>(dapc.H3N2$var.contr, <span class="dt">axis =</span> <span class="dv">2</span>, <span class="dt">thres =</span> <span class="fl">0.07</span>, <span class="dt">lab.jitter =</span> <span class="dv">1</span>)</code></pre>
 <p><img src="DAPC_files/figure-html/unnamed-chunk-3-1.png" title="" alt="" width="960" /></p>
 <p>It looks like SNPs at position 384 and 906 are involved. Let’s check this further by looking at allele frequencies by year:</p>
-<pre class="sourceCode r"><code class="sourceCode r">temp &lt;-<span class="st"> </span><span class="kw">seploc</span>(H3N2)
-snp906 &lt;-<span class="st"> </span><span class="kw">tab</span>(temp[[<span class="st">&quot;906&quot;</span>]]) <span class="co"># tab{adegenet} returns a matrix of genotypes</span>
-snp399 &lt;-<span class="st"> </span><span class="kw">tab</span>(temp[[<span class="st">&quot;399&quot;</span>]])
-freq906 &lt;-<span class="st"> </span><span class="kw">apply</span>(snp906, <span class="dv">2</span>, function(e) <span class="kw">tapply</span>(e, <span class="kw">pop</span>(H3N2), mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))
-freq399 &lt;-<span class="st"> </span><span class="kw">apply</span>(snp399, <span class="dv">2</span>, function(e) <span class="kw">tapply</span>(e, <span class="kw">pop</span>(H3N2), mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))
-freq906</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">temp    &lt;-<span class="st"> </span><span class="kw">seploc</span>(H3N2)       <span class="co"># seploc {adegenet} creates a list of individual loci.</span>
+snp906  &lt;-<span class="st"> </span><span class="kw">tab</span>(temp[[<span class="st">&quot;906&quot;</span>]]) <span class="co"># tab {adegenet} returns a matrix of genotypes</span>
+snp399  &lt;-<span class="st"> </span><span class="kw">tab</span>(temp[[<span class="st">&quot;399&quot;</span>]])
+
+<span class="co"># The following two commands find the average allele frequencies per population</span>
+(freq906 &lt;-<span class="st"> </span><span class="kw">apply</span>(snp906, <span class="dv">2</span>, function(e) <span class="kw">tapply</span>(e, <span class="kw">pop</span>(H3N2), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))</code></pre>
 <pre><code>##            906.c     906.t
 ## 2001 0.000000000 1.0000000
 ## 2002 0.000000000 1.0000000
@@ -269,7 +278,7 @@ freq906</code></pre>
 ## 2004 0.000000000 1.0000000
 ## 2005 0.002155172 0.9978448
 ## 2006 0.616071429 0.3839286</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">freq399</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">(freq399 &lt;-<span class="st"> </span><span class="kw">apply</span>(snp399, <span class="dv">2</span>, function(e) <span class="kw">tapply</span>(e, <span class="kw">pop</span>(H3N2), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))</code></pre>
 <pre><code>##            399.c     399.t
 ## 2001 0.000000000 1.0000000
 ## 2002 0.000000000 1.0000000
@@ -278,25 +287,155 @@ freq906</code></pre>
 ## 2005 0.002079002 0.9979210
 ## 2006 0.357142857 0.6428571</code></pre>
 <p>Note that a new allele appeared in 2005 for SNP locus 906 and 2004 for locus 399 separating populations along axis 2.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">mar=</span><span class="kw">c</span>(<span class="fl">5.1</span>,<span class="fl">4.1</span>,<span class="fl">4.1</span>,.<span class="dv">1</span>),<span class="dt">las=</span><span class="dv">3</span>)
-<span class="kw">matplot</span>(freq906, <span class="dt">pch=</span><span class="kw">c</span>(<span class="st">&quot;c&quot;</span>,<span class="st">&quot;t&quot;</span>), <span class="dt">type=</span><span class="st">&quot;b&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;year&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;allele frequency&quot;</span>, <span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span>, <span class="dt">cex=</span><span class="fl">1.5</span>, <span class="dt">main=</span><span class="st">&quot;SNP # 906&quot;</span>)
-<span class="kw">axis</span>(<span class="dt">side=</span><span class="dv">1</span>, <span class="dt">at=</span><span class="dv">1</span>:<span class="dv">6</span>, <span class="dt">lab=</span><span class="dv">2001</span>:<span class="dv">2006</span>)
-<span class="kw">matplot</span>(freq399, <span class="dt">pch=</span><span class="kw">c</span>(<span class="st">&quot;c&quot;</span>,<span class="st">&quot;t&quot;</span>), <span class="dt">type=</span><span class="st">&quot;b&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;year&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;allele frequency&quot;</span>, <span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span>, <span class="dt">cex=</span><span class="fl">1.5</span>, <span class="dt">main=</span><span class="st">&quot;SNP #399&quot;</span>)
-<span class="kw">axis</span>(<span class="dt">side=</span><span class="dv">1</span>, <span class="dt">at=</span><span class="dv">1</span>:<span class="dv">6</span>, <span class="dt">lab=</span><span class="dv">2001</span>:<span class="dv">2006</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># First, set the plotting parameters</span>
+<span class="co"># mfrow = number of columns, rows</span>
+<span class="co"># mar   = plot margin size</span>
+<span class="co"># las   = axis label style (3: always vertical)</span>
+<span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">0</span>) +<span class="st"> </span><span class="fl">0.1</span>, <span class="dt">las =</span> <span class="dv">3</span>)
+
+<span class="kw">matplot</span>(freq906,  <span class="dt">pch =</span> <span class="kw">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;t&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, 
+        <span class="dt">xlab =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;allele frequency&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;SNP # 906&quot;</span>,
+        <span class="dt">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)
+<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>, <span class="dt">at =</span> <span class="dv">1</span>:<span class="dv">6</span>, <span class="dt">lab =</span> <span class="dv">2001</span>:<span class="dv">2006</span>)
+
+<span class="kw">matplot</span>(freq399, <span class="dt">pch =</span> <span class="kw">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;t&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, 
+        <span class="dt">xlab =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;allele frequency&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;SNP #399&quot;</span>,
+        <span class="dt">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)
+<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>, <span class="dt">at =</span> <span class="dv">1</span>:<span class="dv">6</span>, <span class="dt">lab =</span> <span class="dv">2001</span>:<span class="dv">2006</span>)</code></pre>
 <p><img src="DAPC_files/figure-html/unnamed-chunk-5-1.png" title="" alt="" width="960" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Now we reset the plotting parameters to default</span>
+<span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>) +<span class="st"> </span><span class="fl">0.1</span>, <span class="dt">las =</span> <span class="dv">0</span>)</code></pre>
 <p>This plot nicely illustrates the effect of mutation, followed by selection or drift in the seasonal H3N2 influenza virus.</p>
 </div>
-<div id="conclusions" class="section level2">
-<h2>Conclusions</h2>
-<p>DAPC is a wonderful tool for exploring structure of populations based on PCA and DA without making assumptions of panmixia. Thus, this technique provides a robust alternative to Bayesian clustering methods like STRUCTURE <span class="citation">(Pritchard et al., 2000)</span> that should not be used for clonal or partially clonal populations.</p>
-<p>DAPC analysis is inherently interactive and cannot be scripted <em>a priori</em>. Please refer to the <a href="http://adegenet.r-forge.r-project.org/files/tutorial-dapc.pdf">vignette</a> written by Thibaut Jombart for a more interactive analysis.</p>
+<div id="cross-validation-dapc-analysis-of-phytophthora-ramorum-from-forests-and-nurseries" class="section level1">
+<h1>Cross validation: DAPC analysis of <em>Phytophthora ramorum</em> from forests and nurseries</h1>
+<p>Above we showed a nice example of a story that shows how two loci can drastically influence an epidemic. Next we will spend some time establishing what the appropriate number of principal components (PC) is for the analysis. It is important to carefully choose the correct number of PCs so as to include most sources of variation explained by an appropriate number of PCs retained. One way of ensuring that you have selected the correct number of PCs is to do cross-validation. This is a procedure in which you leave out a certain percentage of your data, run DAPC, and then see if the data that was left out is correctly placed into the population.</p>
+<p>Since the H3N2 data set is quite large, we will use <em>Phytophthora ramorum</em> data from nurseries in California and Oregon <span class="citation">(Goss et al., 2009)</span> and forests in Curry County, Oregon <span class="citation">(Kamvar et al., 2015)</span>. These data represent the Sudden Oak Death epidemic in Curry County, OR from 2001-2014 separated into different watershed regions. In <span class="citation">Kamvar et al. (2015)</span>, the “Hunter Creek (HunterCr)” population was shown to be the result of a second introduction, likely from nurseries. Part of the evidence to support this conclusion came from DAPC results. Here, we will recreate the process of cross validation and reporting.</p>
+<p>If we run the function <code>xvalDapc()</code> with default parameters, it will run 30 replicates of cross-validation for a number of PCs less than the total number of alleles in the data. This is a good way to get an idea of where to focus more intense cross-validation runs:</p>
+<blockquote>
+<p>By default <code>xvalDapc()</code> needs two parameters: 1. The genotype matrix, 2. The population factors.</p>
+</blockquote>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
+<span class="kw">data</span>(<span class="st">&quot;Pram&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;poppr&quot;</span>)
+Pram</code></pre>
+<pre><code>## 
+## This is a genclone object
+## -------------------------
+## Genotype information:
+## 
+##     98 multilocus genotypes 
+##    729 diploid individuals
+##      5 codominant loci
+## 
+## Population information:
+## 
+##      3 strata - SOURCE YEAR STATE
+##      9 populations defined - Nursery_CA Nursery_OR JHallCr_OR ... 
+## Winchuck_OR ChetcoMain_OR PistolRSF_OR</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">999</span>)
+pramx &lt;-<span class="st"> </span><span class="kw">xvalDapc</span>(<span class="kw">tab</span>(Pram, <span class="dt">NA.method =</span> <span class="st">&quot;mean&quot;</span>), <span class="kw">pop</span>(Pram))</code></pre>
+<p><img src="DAPC_files/figure-html/unnamed-chunk-6-1.png" title="" alt="" width="960" /></p>
+<p>You can see that we have a peak around 15 PC. From here, we can narrow the search by specifying the number of PC to try with <code>n.pca</code> and centering it around 15, and doing 1000 replicates each (Note, this will take a long time).</p>
+<blockquote>
+<p>Windows users: change parallel to “snow”.</p>
+</blockquote>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">999</span>)
+<span class="kw">system.time</span>(pramx &lt;-<span class="st"> </span><span class="kw">xvalDapc</span>(<span class="kw">tab</span>(Pram, <span class="dt">NA.method =</span> <span class="st">&quot;mean&quot;</span>), <span class="kw">pop</span>(Pram), 
+                             <span class="dt">n.pca =</span> <span class="dv">10</span>:<span class="dv">20</span>, <span class="dt">n.rep =</span> <span class="dv">1000</span>, 
+                             <span class="dt">parallel =</span> <span class="st">&quot;multicore&quot;</span>, <span class="dt">ncpus =</span> 4L))</code></pre>
+<p><img src="DAPC_files/figure-html/Pramhide-1.png" title="" alt="" width="960" /></p>
+<pre><code>##    user  system elapsed 
+## 301.018  13.703  92.020</code></pre>
+<p>We can see that it’s basically a flat line all the way. If we take a look at the object, we see that 16 PCs give us the highest percent of correctly predicted subsamples with the lowest error.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(pramx) <span class="co"># The first element are all the samples</span></code></pre>
+<pre><code>## [1] &quot;Cross-Validation Results&quot;                          
+## [2] &quot;Median and Confidence Interval for Random Chance&quot;  
+## [3] &quot;Mean Successful Assignment by Number of PCs of PCA&quot;
+## [4] &quot;Number of PCs Achieving Highest Mean Success&quot;      
+## [5] &quot;Root Mean Squared Error by Number of PCs of PCA&quot;   
+## [6] &quot;Number of PCs Achieving Lowest MSE&quot;                
+## [7] &quot;DAPC&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">pramx[-<span class="dv">1</span>]</code></pre>
+<pre><code>## $`Median and Confidence Interval for Random Chance`
+##       2.5%        50%      97.5% 
+## 0.08877753 0.11059297 0.13502193 
+## 
+## $`Mean Successful Assignment by Number of PCs of PCA`
+##        10        11        12        13        14        15        16 
+## 0.6486965 0.6448524 0.6440806 0.6485620 0.6552312 0.6680440 0.6723537 
+##        17        18        19        20 
+## 0.6693699 0.6697285 0.6693772 0.6660466 
+## 
+## $`Number of PCs Achieving Highest Mean Success`
+## [1] &quot;16&quot;
+## 
+## $`Root Mean Squared Error by Number of PCs of PCA`
+##        10        11        12        13        14        15        16 
+## 0.3529967 0.3568602 0.3578741 0.3533184 0.3464742 0.3337505 0.3295806 
+##        17        18        19        20 
+## 0.3325182 0.3321929 0.3323520 0.3357224 
+## 
+## $`Number of PCs Achieving Lowest MSE`
+## [1] &quot;16&quot;
+## 
+## $DAPC
+##  #################################################
+##  # Discriminant Analysis of Principal Components #
+##  #################################################
+## class: dapc
+## $call: dapc.data.frame(x = as.data.frame(x), grp = ..1, n.pca = ..2, 
+##     n.da = ..3)
+## 
+## $n.pca: 16 first PCs of PCA used
+## $n.da: 8 discriminant functions saved
+## $var (proportion of conserved variance): 0.984
+## 
+## $eig (eigenvalues): 881.9 207.4 97.39 57.36 49.03 ...
+## 
+##   vector    length content                   
+## 1 $eig      8      eigenvalues               
+## 2 $grp      729    prior group assignment    
+## 3 $prior    9      prior group probabilities 
+## 4 $assign   729    posterior group assignment
+## 5 $pca.cent 38     centring vector of PCA    
+## 6 $pca.norm 38     scaling vector of PCA     
+## 7 $pca.eig  33     eigenvalues of PCA        
+## 
+##   data.frame    nrow ncol
+## 1 $tab          729  16  
+## 2 $means        9    16  
+## 3 $loadings     16   8   
+## 4 $ind.coord    729  8   
+## 5 $grp.coord    9    8   
+## 6 $posterior    729  9   
+## 7 $pca.loadings 38   16  
+## 8 $var.contr    38   8   
+##   content                                          
+## 1 retained PCs of PCA                              
+## 2 group means                                      
+## 3 loadings of variables                            
+## 4 coordinates of individuals (principal components)
+## 5 coordinates of groups                            
+## 6 posterior membership probabilities               
+## 7 PCA loadings of original variables               
+## 8 contribution of original variables</code></pre>
+<p>We also have a DAPC object that we can plot comparable to figure 4 in <span class="citation">Kamvar et al. (2015)</span>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">scatter</span>(pramx$DAPC, <span class="dt">col =</span> <span class="kw">other</span>(Pram)$comparePal, <span class="dt">cex =</span> <span class="dv">2</span>, <span class="dt">legend =</span> <span class="ot">TRUE</span>, 
+        <span class="dt">clabel =</span> <span class="ot">FALSE</span>, <span class="dt">posi.leg =</span> <span class="st">&quot;bottomleft&quot;</span>, <span class="dt">scree.pca =</span> <span class="ot">TRUE</span>, 
+        <span class="dt">posi.pca =</span> <span class="st">&quot;topleft&quot;</span>, <span class="dt">cleg =</span> <span class="fl">0.75</span>, <span class="dt">xax =</span> <span class="dv">1</span>, <span class="dt">yax =</span> <span class="dv">2</span>, <span class="dt">inset.solid =</span> <span class="dv">1</span>)</code></pre>
+<p><img src="DAPC_files/figure-html/unnamed-chunk-8-1.png" title="" alt="" width="960" /></p>
+<p>We can see that this shows the clear separation of Hunter Creek from the rest of the epidemic, providing evidence that this population arose from a separate introduction.</p>
 </div>
-<div id="references" class="section level2">
-<h2>References</h2>
-<!--------------->
+<div id="conclusions" class="section level1">
+<h1>Conclusions</h1>
+<p>DAPC is a wonderful tool for exploring structure of populations based on PCA and DA without making assumptions of panmixia. Thus, this technique provides a robust alternative to Bayesian clustering methods like STRUCTURE <span class="citation">(Pritchard et al., 2000)</span> that should not be used for clonal or partially clonal populations.</p>
+<p>DAPC analysis is inherently interactive and cannot be scripted <em>a priori</em>. Please refer to the <a href="https://github.com/thibautjombart/adegenet/blob/master/tutorials/tutorial-dapc.pdf">vignette</a> written by Thibaut Jombart for a more interactive analysis.</p>
 <div class="references">
+<h1 id="references" class="unnumbered">References</h1>
+<p>Goss EM., Larsen M., Chastagner GA., Givens DR., Gr<span>ü</span>nwald NJ. 2009. Population genetic analysis infers migration pathways of phytophthora ramorum in uS nurseries. <em>PLoS Pathog</em> 5:e1000583. Available at: <a href="http://dx.doi.org/10.1371/journal.ppat.1000583" class="uri">http://dx.doi.org/10.1371/journal.ppat.1000583</a></p>
 <p>Grünwald NJ., Goss EM. 2011. Evolution and population genetics of exotic and re-emerging pathogens: Novel tools and approaches. <em>Annual Review of Phytopathology</em> 49:249–267. Available at: <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-phyto-072910-095246?journalCode=phyto" class="uri">http://www.annualreviews.org/doi/abs/10.1146/annurev-phyto-072910-095246?journalCode=phyto</a></p>
 <p>Jombart T., Devillard S., Balloux F. 2010. Discriminant analysis of principal components: A new method for the analysis of genetically structured populations. <em>BMC genetics</em> 11:94. Available at: <a href="http://www.biomedcentral.com/1471-2156/11/94" class="uri">http://www.biomedcentral.com/1471-2156/11/94</a></p>
+<p>Kamvar Z., Larsen M., Kanaskie A., Hansen E., Gr<span>ü</span>nwald N. 2015. Spatial and temporal analysis of populations of the sudden oak death pathogen in oregon forests. <em>Phytopathology</em>:PHYTO–12. Available at: <a href="http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI" class="uri">http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI</a></p>
 <p>Pritchard JK., Stephens M., Donnelly P. 2000. Inference of population structure using multilocus genotype data. <em>Genetics</em> 155:945–959. Available at: <a href="http://www.genetics.org/content/155/2/945.abstract" class="uri">http://www.genetics.org/content/155/2/945.abstract</a></p>
 </div>
 </div>

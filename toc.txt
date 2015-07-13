@@ -13,6 +13,7 @@ Locus_Stats
 Genotypic_EvenRichDiv
 Linkage_disequilibrium
 Pop_Structure
+Minimum_Spanning_Networks
 AMOVA
 DAPC
 
