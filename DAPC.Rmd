@@ -49,7 +49,7 @@ well as the `dapc()` function is part of the
 # DAPC requires the adegenet package. Let's load this package:
 library("adegenet")
 data(H3N2) # load the H3N2 influenza data. Type ?H3N2 for more info.
-pop(H3N2) <- factor(H3N2$other$epid)
+pop(H3N2) <- H3N2$other$epid
 dapc.H3N2 <- dapc(H3N2, var.contrib = TRUE, scale = FALSE, n.pca = 30, n.da = nPop(H3N2) - 1)
 scatter(dapc.H3N2, cell = 0, pch = 18:23, cstar = 0, mstree = TRUE, lwd = 2, lty = 2)
 ```
@@ -133,23 +133,23 @@ drift in the seasonal H3N2 influenza virus.
 # Cross validation: DAPC analysis of *Phytophthora ramorum* from forests and nurseries
 
 Above we showed a nice example of a story that shows how two loci can
-drastically influence an epidemic. It, however, might be a mystery as to how the
-number of principal components (PC) was chosen for the analysis. It is important
+drastically influence an epidemic. Next we will spend some time establishing what the appropriate
+number of principal components (PC) is for the analysis. It is important
 to carefully choose the correct number of PCs so as to include most sources of
 variation explained by an appropriate number of PCs retained. One way of
-ensuring that you have selected the correct number of PC is to do cross-
-validation. This is a procedure in which you leave out a certain percentage of
+ensuring that you have selected the correct number of PCs is to do cross-validation. 
+This is a procedure in which you leave out a certain percentage of
 your data, run DAPC, and then see if the data that was left out is correctly
 placed into the population.
 
 Since the H3N2 data set is quite large, we will use *Phytophthora ramorum* data
-from Nurseries in California and Oregon `r citep(bib["goss2009population"])` and
-Forests in Curry County, Oregon `r citep(bib['kamvar2015spatial'])`. These data
+from nurseries in California and Oregon `r citep(bib["goss2009population"])` and
+forests in Curry County, Oregon `r citep(bib['kamvar2015spatial'])`. These data
 represent the Sudden Oak Death epidemic in Curry County, OR from 2001-2014
 separated into different watershed regions. In `r citet(bib["kamvar2015spatial"])`,
 the "Hunter Creek (HunterCr)" population was shown to be the result of a second
 introduction, likely from nurseries. Part of the evidence to support this
-conclusion was from DAPC results. Here, we will recreate the process of cross
+conclusion came from DAPC results. Here, we will recreate the process of cross
 validation and reporting.
 
 If we run the function `xvalDapc()` with default parameters, it will run 30
@@ -190,8 +190,8 @@ names(pramx) # The first element are all the samples
 pramx[-1]
 ```
 
-We also have a DAPC object there. We can plot that, too. Compare to figure 4
-of `r citet(bib["kamvar2015spatial"])`
+We also have a DAPC object that we can plot comparable to figure 4
+in `r citet(bib["kamvar2015spatial"])`:
 
 ```{r}
 scatter(pramx$DAPC, col = other(Pram)$comparePal, cex = 2, legend = TRUE, 
@@ -200,7 +200,7 @@ scatter(pramx$DAPC, col = other(Pram)$comparePal, cex = 2, legend = TRUE,
 ```
 
 We can see that this shows the clear separation of Hunter Creek from the rest
-of the epidemic, providing evidence that it was a separately introduced strain.
+of the epidemic, providing evidence that this population arose from a separate introduction.
 
 # Conclusions
 
