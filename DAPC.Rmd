@@ -9,7 +9,7 @@
   # http://yihui.name/knitr/options #chunk_options
 ```
 ---
-title: '11: Discriminant analysis of principal components (DAPC)'
+title: '12: Discriminant analysis of principal components (DAPC)'
 ---
 
 # Introduction

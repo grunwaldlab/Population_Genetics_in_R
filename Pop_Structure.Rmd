@@ -11,18 +11,18 @@
   # http://yihui.name/knitr/options #chunk_options
 ```
 ---
-title: '9: Population structure: $G_{ST}$, genetic distance, clustering, and minimum spanning networks'
+title: '9: Population structure: $G_{ST}$, genetic distance, and clustering'
 ---
 
 In this chapter we explore various ways of assessing if population are
 structured (e.g., differentiated). You can think of population structure as
 identifying clusters or groups of more closely related individuals resulting
 from reduced gene flow among these groups. Populations can be studied to
-determine if they are structured by using for example population differentiation
-(e.g. $G_{ST}$), clustering, or graphing of minimum spanning networks (MSN).
-Note, that this chapter will utilize many data sets due to the unique features
-offered by each. Let's first look at an example of population differentiation
-based on $G_{ST}$.
+determine if they are structured by using, for example, population
+differentiation summary statistics (e.g. $G_{ST}$), clustering or [minimum
+spanning networks](Minimum_Spanning_Networks.html). Note, that this chapter will
+utilize many data sets due to the unique features offered by each. Let's first
+look at an example of population differentiation based on $G_{ST}$.
 
 $G_{ST}$ an example with *Felis catus* data.
 ----
@@ -74,6 +74,7 @@ there are several distances available:
  | Provesti's distance | `provesti.dist` | any | yes |
  | Reynolds' distance | `reynolds.dist` | any | no |
  | Rogers' distance | `rogers.dist` | any | no |
+ | Provesti's distance | `bitwise.dist` | SNP | yes |
 
 One common way to visualize a genetic distance is with a dendrogram. For this
 example, we will use the *microbov* data set `r citep(bib["laloe2007consensus"])`. 
@@ -91,9 +92,8 @@ library("magrittr")
 data(microbov)
 set.seed(10)
 ten_samples <- sample(nInd(microbov), 10)
-mic10 <- microbov[ten_samples]
-micdist <- provesti.dist(mic10)
-micdist
+mic10       <- microbov[ten_samples]
+(micdist    <- provesti.dist(mic10))
 ```
 
 The above represents the pairwise distances between these 10 samples. We will 
@@ -113,7 +113,7 @@ correspondingly. Of course, a tree is a hypothesis and one way of generating
 support is to bootstrap loci. This can be achieved with the *poppr* function
 `aboot`.
 
-```{r, fig.width = 5, fig.height = 7}
+```{r, cattleboot, fig.width = 5, fig.height = 7}
 set.seed(999)
 aboot(mic10, dist = provesti.dist, sample = 200, tree = "nj", cutoff = 50, quiet = TRUE)
 ```
@@ -121,23 +121,22 @@ aboot(mic10, dist = provesti.dist, sample = 200, tree = "nj", cutoff = 50, quiet
 The bootstrap value of 100 on the node separating the French and African samples
 gives support that the country of origin is a factor in how these breeds are
 structured. If we wanted to analyze all of the breeds against one another, it
-would be better to create a bootstrapped dendrogram based on a
-genetic distance. To do this, we will create a genclone object that will contain
-3 stratifications: Country, Breed, and Species. We will then set the
-population to Country by Breed, convert the data to a genpop object and then
-create a tree using `aboot` with Nei's genetic distance.
+would be better to create a bootstrapped dendrogram based on a genetic distance.
+To do this, we will add 3 stratifications to the microbov data set: Country,
+Breed, and Species. We will then set the population to Country by Breed, convert
+the data to a genpop object and then create a tree using `aboot` with Nei's
+genetic distance.
 
 ```{r, cattlepopboot, fig.width = 5, fig.height = 7, cache = TRUE}
 # Setting up the data 
-microbov <- as.genclone(microbov, strata = other(microbov))
+strata(microbov) <- data.frame(other(microbov))
 microbov
 nameStrata(microbov) <- ~Country/Breed/Species
-setPop(microbov) <- ~Country/Breed
 
 # Analysis
 set.seed(999)
 microbov %>% 
-  genind2genpop() %>%
+  genind2genpop(pop = ~Country/Breed) %>%
   aboot(cutoff = 50, quiet = TRUE, sample = 1000, distance = nei.dist) 
 ```
 
@@ -152,87 +151,8 @@ of the different analyses for which you can utilize genetic distance:
 | Mantel Test | `mantel.randtest` | *ade4* | To be used with geographic distance matrix | 
 | Principle Coordinates Analysis | `cmdscale` | *stats* |  | 
 | [DAPC](DAPC.html) | `dapc` | *adegenet* | Convert to matrix with `as.matrix` | 
-| Minimum Spanning Networks | `poppr.msn` | *poppr* | requires a distance matrix; cannot handle genpop | 
+| [Minimum Spanning Networks](Minimum_Spanning_Networks.html) | `poppr.msn` | *poppr* | requires a distance matrix; cannot handle genpop | 
 
-The rest of this chapter will utilize Bruvo's distance `r citep(bib['bruvo2004simple'])`. 
-It is important to note that calculating Bruvo's distance is computationally
-different than other distances, so it has its own specialized functions for
-minimum spanning networks and bootstrapping that do not need a distance matrix:
-
-| General function | Bruvo specific |
-| ---- | ---- |
-| `poppr.msn` | `bruvo.msn` |
-| `aboot` | `bruvo.boot` |
-
-Minimum spanning network
-----
-
-For this section, we will use the `monpop` data set from `r citep(bib['everhart2014finescale'])`. 
-See [Chapter6](Genotypic_EvenRichDiv.html) for more details. We will be focusing
-on sources of multilocus genotypes. The life cycle of the pathogen *Monilinia
-fructicola* begins with an ascospore (sexual propagule) released from a
-mummified peach fruit that had overwintered on the ground. It infects an
-emerging blossom that, in turn, asexually infects fruit, which proceed with
-cyclical infections. We might have questions such as:
-
-1. Are the major genotypes of Fruit Rot (FR) samples closely related?
-2. To what degree do the Blossom Blight (BB) samples contribute to the FR?
-
-
-Let's load the data:
-
-```{r}
-library("poppr")
-library("magrittr")
-data(monpop)
-splitStrata(monpop) <- ~Tree/Year/Symptom
-summary(monpop)
-```
-
-We notice that tree number 26 is the only one to have been sampled for all three
-years. Let's use it as an example.
-
-```{r}
-t26 <- monpop %>% setPop(~Tree) %>% popsub("26") %>% setPop(~Year/Symptom)
-t26
-```
-
-Now that we have our tree, let's calculate a MSN using Bruvo's distance 
-`r citep(bib['bruvo2004simple'])`. Remember that this distance is based on a 
-stepwise mutation model, so we have to first specify what kind of repeats units 
-we have in our data (eg. dinucleotide = 2, trinucleotide = 3, etc.):
-
-```{r}
-# Set up our repeat lengths and populations to analyze
-reps <- c(CHMFc4 = 7, CHMFc5 = 2, CHMFc12 = 4, 
-          SEA = 4, SED = 4, SEE = 2, SEG = 6,
-          SEI = 3, SEL = 4, SEN = 2, 
-          SEP = 4, SEQ = 2, SER = 4)
-
-sub9 <- c("9_BB", "9_FR")
-
-# Calculate the MSN
-t26.9msn <- bruvo.msn(t26, replen = reps, sublist = sub9, showplot = FALSE)
-```
-
-The minimum spanning network is calculated via `bruvo.msn`. I've set the
-argument `showplot = FALSE` because I want to use the more powerful function
-`plot_poppr_msn` to view the MSN. In this, I'm telling it to lable none of the
-samples, color populations using the "cm.colors" palette and scale the size of
-the nodes to $log_{1.25}$. If you want to know what other things this function
-can do, simply type `help("plot_poppr_msn")`
-
-```{r, fig.width = 7, fig.height = 7}
-# Visualize the network
-set.seed(9001)
-plot_poppr_msn(t26, t26.9msn, inds = "none", palette = cm.colors, nodebase = 1.25)
-```
-
-We can see that the Blossom Blight in the tree (pink pie pieces) heavily
-contributed to the major groups of MLGs found in the Fruit Rot (blue pie
-pieces).
-
-> **Try it!** See if you can produce similar graphs with the 2010 and 2011 populations.
 
 K-means hierarchical clustering
 ----

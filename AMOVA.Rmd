@@ -11,7 +11,7 @@
   # http://yihui.name/knitr/options #chunk_options
 ```
 ---
-title: "10: AMOVA"
+title: "11: AMOVA"
 ---
 
 In this chapter, we will utilize AMOVA to analyze our populations. AMOVA stands
