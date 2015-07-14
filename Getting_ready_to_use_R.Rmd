@@ -71,11 +71,13 @@ The following packages are utilized in this primer:
 4. [ggplot2](http://cran.r-project.org/web/packages/ggplot2/index.html)
 5. [mmod](http://cran.r-project.org/web/packages/mmod/index.html)
 6. [magrittr](http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)
+7. [dplyr](http://cran.r-project.org/web/packages/dplyr/vignettes/introduction.html)
+8. [treemap](http://cran.r-project.org/web/packages/treemap/index.html)
 
 Use the following script to install these packages:
 
 ```{r, eval = FALSE}
-install.packages(c("poppr", "mmod", "magrittr"))
+install.packages(c("poppr", "mmod", "magrittr", "treemap"))
 ```
 
 We wrote and actively maintain *poppr* `r citep(bib["kamvar2014poppr", "kamvar2015novel"])` and it
