@@ -305,7 +305,7 @@ monpop</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;dplyr&quot;</span>)
 monstrata &lt;-<span class="st"> </span><span class="kw">strata</span>(monpop) %&gt;%<span class="st">     </span>
 <span class="st">  </span><span class="kw">group_by</span>(Tree, Year, Symptom) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Count =</span> <span class="kw">n</span>()) %&gt;%<span class="st"> </span><span class="co"># n() is a dplyr function that counts unique rows.</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Count =</span> <span class="kw">n</span>()) %&gt;%<span class="st"> </span><span class="co"># n() {dplyr} counts the number of samples in a group.</span>
 <span class="st">  </span>as.data.frame 
 
 monstrata</code></pre>
@@ -356,7 +356,7 @@ label_size     &lt;-<span class="st"> </span><span class="kw">c</span>(<span cla
 <span class="kw">treemap</span>(<span class="dt">dtf =</span> monstrata, <span class="dt">index =</span> <span class="kw">nameStrata</span>(monpop), <span class="dt">vSize =</span> <span class="st">&quot;Count&quot;</span>, 
         <span class="dt">type =</span> <span class="st">&quot;categorical&quot;</span>, <span class="dt">vColor =</span> <span class="st">&quot;Tree&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;M. fructicola&quot;</span>, 
         <span class="dt">align.labels =</span> label_position, <span class="dt">fontsize.labels =</span> label_size)</code></pre>
-<p><img src="Population_Strata_files/figure-html/unnamed-chunk-5-1.png" title="" alt="" width="960" /></p>
+<p><img src="Population_Strata_files/figure-html/treemap-1.png" title="" alt="" width="960" /></p>
 <p>Next, we analyze the data according to Tree and Year:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setPop</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree/Year
 monpop</code></pre>
@@ -529,7 +529,7 @@ rmean &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="dv
 for (i in <span class="kw">popNames</span>(monpop)){
   <span class="kw">plot_simp_diff</span>(i, mcc_TY, monpop)
 }</code></pre>
-<p><img src="Population_Strata_files/figure-html/unnamed-chunk-14-1.png" title="" alt="" width="960" /></p>
+<p><img src="Population_Strata_files/figure-html/unnamed-chunk-13-1.png" title="" alt="" width="960" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)) <span class="co"># Next we reset the graphics to have one row and one column</span></code></pre>
 <p>These barplots show the difference in Simpson’s index of original minus clone corrected data for each population per locus. We can see that allelic diversity generally is lower in the total data set (containing some repeated MLGs) relative to clone corrected data.</p>
 </div>

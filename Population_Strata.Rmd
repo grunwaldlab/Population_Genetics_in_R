@@ -109,7 +109,7 @@ will:
 library("dplyr")
 monstrata <- strata(monpop) %>%     
   group_by(Tree, Year, Symptom) %>% 
-  summarize(Count = n()) %>% # n() is a dplyr function that counts unique rows.
+  summarize(Count = n()) %>% # n() {dplyr} counts the number of samples in a group.
   as.data.frame	
 
 monstrata
@@ -127,7 +127,7 @@ All the other arguments we are using here give various aesthetics. If you want
 to know more about how they work, you can peruse the manual for the treemap
 function by typing `help("treemap", "treemap")`.
 
-```{r, fig.width = 10, fig.height = 10}
+```{r, treemap, fig.width = 10, fig.height = 10}
 library("treemap")
 monstrata          # Our data frame
 nameStrata(monpop) # The order of our variables
