@@ -16,16 +16,16 @@ subpopulations (e.g. fields, valleys, ranges) to regions (e.g. valleys, states,
 countries or continents) or across time (years or decades). This approach is
 useful because population structure and evolutionary processes may not be
 discernible *a priori*. Most of the times we do not know if population are
-differentiated spatially or temporaly.  Thus, a combination
-of targeted local sampling with sampling over larger spatial or temporal scales
-is necessary to detect population structure over different scales, without using
-intense sampling throughout the entire range.
+differentiated spatially or temporally.  Thus, a combination of targeted local
+sampling with sampling over larger spatial or temporal scales is necessary to
+detect population structure over different scales, without using intense
+sampling throughout the entire range.
 
-The methods implemented in *poppr* allow specification of which strata you
-want to analyze.  This is a rapid way of working with subsets of your data
-without having to perform any data manipulation or changing the input file.  In
-this tutorial, we will show you how to define the hierarchical structure of your
-data and  how to specify specific levels that you might want to analyze.
+The methods implemented in *poppr* allow specification of which strata you want
+to analyze.  This is a rapid way of working with subsets of your data without
+having to perform any data manipulation or changing the input file.  In this
+tutorial, we will show you how to define the hierarchical structure of your data
+and  how to specify specific levels that you might want to analyze.
 
 Data used in this example
 ----
@@ -74,14 +74,13 @@ groups defined: `r c(adegenet::popNames(monpop)[-12], paste("and", adegenet::pop
 
 Assigning stratifications
 ----
-We imported the data that has three stratifications "Tree\_Year\_Symptom".
-In order to analyze our data according to any combination of those three
-stratifications, we need to tell *poppr* that the 12 groups should be split
-by tree, year, and/or symptom.  Thus, the first step is to split our data
-according to strata so that we can access each of the three hierarchical
-levels in the data.  The `splitStrata` command is used to index the three
-stratifications:
 
+We imported the data that has three stratifications "Tree\_Year\_Symptom". In
+order to analyze our data according to any combination of those three
+stratifications, we need to tell *poppr* that the 12 groups should be split by
+tree, year, and/or symptom.  Thus, the first step is to split our data according
+to strata so that we can access each of the three hierarchical levels in the
+data.  The `splitStrata` command is used to index the three stratifications:
 
 ```{r}
 splitStrata(monpop) <- ~Tree/Year/Symptom
@@ -89,10 +88,60 @@ monpop
 ```
 
 > The `splitStrata` command only needs to be run once: right after you import
-> your data. 
+> your data.
 
-After splitting the data populations are specified by stratification: "Tree
-Year Symptom".
+After splitting the data populations are specified by stratification: "Tree Year
+Symptom".
+
+We can look at how the stratifications are distributed by using a **treemap**
+plot. This is a plot that allows us to visualize hierarchical stratifications.
+The function we'll use is called `treemap()` from the *treemap* package.
+
+The `treemap()` function needs only a data frame containing the strata and their
+respective counts. This can easily be done with the *dplyr* package where we
+will:
+
+1. Group our strata by Tree, Year, and Symptom
+2. Summarize the data by counting how many times we see each specific
+   combination
+
+```{r}
+library("dplyr")
+monstrata <- strata(monpop) %>%     
+  group_by(Tree, Year, Symptom) %>% 
+  summarize(Count = n()) %>% # n() {dplyr} counts the number of samples in a group.
+  as.data.frame	
+
+monstrata
+```
+
+Now we can use the `treemap()` function to plot the data. Note that it has a lot
+of arguments to allow you to properly manipulate the graphic, but we will only
+use the very necessary components to visualize the distribution of the strata:
+
+ - **dtf** - The data frame containing the stratifications and counts
+ - **index** - The variables used for nesting (in order)
+ - **vSize** - The variable to use to compute the size of the blocks
+
+All the other arguments we are using here give various aesthetics. If you want
+to know more about how they work, you can peruse the manual for the treemap
+function by typing `help("treemap", "treemap")`.
+
+```{r, treemap, fig.width = 10, fig.height = 10}
+library("treemap")
+monstrata          # Our data frame
+nameStrata(monpop) # The order of our variables
+monstrata$Count    # The variable used for the block size
+
+# Adjusting the aesthetics for the labels
+label_position <- list(c("center", "top"), c("center", "center"), c("center", "bottom"))
+label_size     <- c(Tree = 0, Year = 15, Symptom = 15)
+
+# Plotting, First three arguments are necessary.
+treemap(dtf = monstrata, index = nameStrata(monpop), vSize = "Count", 
+        type = "categorical", vColor = "Tree", title = "M. fructicola", 
+        align.labels = label_position, fontsize.labels = label_size)
+```
 
 Next, we analyze the data according to Tree and Year:
 
@@ -126,11 +175,12 @@ When dealing with clonal populations, analyses are typically conducted with and
 without clone correction. Clone correction is a method of censoring a data set
 such that only one individual per MLG is represented per population
 `r citep(bib[c('milgroom1996recombination', 'grunwald2003', 'grunwald2006hierarchical')])`. 
-This technique is commonly used with the index of association
-and genotypic diversity measures since clone corrected populations approximate behavior of sexual populations. Since we want to only observe unique genotypes per population,
-clone correction requires specification of the stratifications at which
-clones should be censored. This section will show how to clone correct at a
-specific stratification and also compare the results with uncorrected data.
+This technique is commonly used with the index of association and genotypic
+diversity measures since clone corrected populations approximate behavior of
+sexual populations. Since we want to only observe unique genotypes per
+population, clone correction requires specification of the stratifications at
+which clones should be censored. This section will show how to clone correct at
+a specific stratification and also compare the results with uncorrected data.
 
 > Question: Will allelic diversity increase or decrease with clone-censored data?
 
@@ -139,7 +189,7 @@ within each tree per year, how should we go about correcting for the clones? We
 use the function `clonecorrect` specifying the "Tree/Year" strata:
 
 ```{r, clonecorrection}
-mcc_TY <- clonecorrect(monpop, strata= ~Tree/Year, keep = 1:2)
+mcc_TY <- clonecorrect(monpop, strata = ~Tree/Year, keep = 1:2)
 mcc_TY
 ```
 
