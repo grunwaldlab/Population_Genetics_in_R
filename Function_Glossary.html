@@ -226,51 +226,30 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div id="TOC">
 <ul>
 <li><a href="#navigation-in-r">Navigation in R</a></li>
-<li><a href="#poppr-functions"><em>Poppr</em> functions</a></li>
+<li><a href="#poppr-functions"><em>Poppr</em> functions</a><ul>
+<li><a href="#data-importexport">Data import/export</a></li>
+<li><a href="#data-manipulation">Data manipulation</a></li>
+<li><a href="#genetic-distances">Genetic distances</a></li>
+<li><a href="#bootstrapping">Bootstrapping</a></li>
+<li><a href="#analysis">Analysis</a></li>
+<li><a href="#visualization">Visualization</a></li>
+</ul></li>
 </ul>
 </div>
 
-<!---To quit R you can either use the Rstudio>Quit Rstudio pulldown menu command or execute ⌘+Q (OS X) or CTRL+Q (PC). 
-
-Navigation in R
-----
-
----->
-<!--```{r, eval=FALSE}
-getwd()        # this command will print the current working directory
-ls()           # list objects in the current workspace
-help(options)  # learn about available options
-history()      # viewing your command history
-data(*dsname*) # access builtin database *dsname*; must have pacakge loaded containing it
-q()            # quit your R session
-
-# default for saving history is ".Rhistory"
-savehistory(file="myfile")  # save your command history for whole session
-loadhistory(file= "myfile") # recall command history save
-
-# Package specific information
-installed.packages()[,c("Package","Version")] #list packages & versions installed
-browseVignettes()                     # see vignettes from all packages
-
-#Help on functions
-help(functionname)     # Display documentation for a function
-args(functionname)     # What are the arguments for a given function
-example(functionname)  # see examples of function calls
-```
--->
-<div id="navigation-in-r" class="section level2">
-<h2>Navigation in R</h2>
+<div id="navigation-in-r" class="section level1">
+<h1>Navigation in R</h1>
 <p>Our primer is heavily based on the <em>poppr</em> and <em>adegenet</em> packages. To get help on any of their functions type a question mark before the empty function call as in:</p>
-<pre class="sourceCode r"><code class="sourceCode r">?mlg <span class="co"># open the R documentiaon of the function mlg</span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">?mlg <span class="co"># open the R documentation of the function mlg</span></code></pre>
 <p>Other information can be obtained with the following commands.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">browseVignettes</span>(<span class="dt">package =</span> <span class="st">&#39;poppr&#39;</span>) <span class="co"># see vignettes for poppr</span>
 <span class="kw">vignette</span>(<span class="st">&#39;poppr_manual&#39;</span>)           <span class="co"># see manual for poppr</span>
-<span class="kw">help</span>(<span class="dt">package=</span><span class="st">&quot;poppr&quot;</span>)              <span class="co"># shows all functions contained in poppr package</span></code></pre>
+<span class="kw">help</span>(<span class="dt">package =</span> <span class="st">&quot;poppr&quot;</span>)            <span class="co"># shows all functions contained in poppr package</span></code></pre>
 </div>
-<div id="poppr-functions" class="section level2">
-<h2><em>Poppr</em> functions</h2>
-<div id="importexport" class="section level3">
-<h3>Import/Export</h3>
+<div id="poppr-functions" class="section level1">
+<h1><em>Poppr</em> functions</h1>
+<div id="data-importexport" class="section level2">
+<h2>Data import/export</h2>
 <table>
 <thead>
 <tr class="header">
@@ -285,17 +264,21 @@ example(functionname)  # see examples of function calls
 </tr>
 <tr class="even">
 <td align="left"><code>read.genalex</code></td>
-<td align="left">Read <em>GenAlEx</em> formatted csv files to a genind object</td>
+<td align="left">Reads GenAlEx formatted csv files to a genind object</td>
 </tr>
 <tr class="odd">
 <td align="left"><code>genind2genalex</code></td>
-<td align="left">Converts genind objects to <em>GenAlEx</em> formatted csv files</td>
+<td align="left">Converts genind objects to GenAlEx formatted csv files</td>
+</tr>
+<tr class="even">
+<td align="left"><code>genclone2genind</code></td>
+<td align="left">Removes the @mlg slot from genclone objects</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="manipulation" class="section level3">
-<h3>Manipulation</h3>
+<div id="data-manipulation" class="section level2">
+<h2>Data manipulation</h2>
 <table>
 <thead>
 <tr class="header">
@@ -309,54 +292,34 @@ example(functionname)  # see examples of function calls
 <td align="left">Converts genind objects to genclone objects</td>
 </tr>
 <tr class="even">
-<td align="left"><code>setPop</code></td>
-<td align="left">Set the population using defined strata</td>
-</tr>
-<tr class="odd">
-<td align="left"><code>splitStrata</code></td>
-<td align="left">Split concatenated strata imported as a population</td>
-</tr>
-<tr class="even">
-<td align="left"><code>strata</code></td>
-<td align="left">Define or extract population strata of a genind object</td>
-</tr>
-<tr class="odd">
-<td align="left"><code>addStrata</code></td>
-<td align="left">Add a vector or data frame to an existing strata</td>
-</tr>
-<tr class="even">
-<td align="left"><code>nameStrata</code></td>
-<td align="left">Rename a population strata</td>
-</tr>
-<tr class="odd">
 <td align="left"><code>missingno</code></td>
 <td align="left">Handles missing data</td>
 </tr>
-<tr class="even">
-<td align="left"><code>clonecorrect</code></td>
-<td align="left">Clone censor at a specified population stratum</td>
-</tr>
 <tr class="odd">
+<td align="left"><code>clonecorrect</code></td>
+<td align="left">Clone-censors at a specified population hierarchy</td>
+</tr>
+<tr class="even">
 <td align="left"><code>informloci</code></td>
 <td align="left">Detects and removes phylogenetically uninformative loci</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>popsub</code></td>
 <td align="left">Subsets genind objects by population</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>shufflepop</code></td>
 <td align="left">Shuffles genotypes at each locus using four different shuffling algorithms</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>recode_polyploids</code></td>
-<td align="left">Recodes an imported polyploid data set to observed allelic frequencies</td>
+<td align="left">Recodes polyploid data sets with missing alleles imported as “0”</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="distances" class="section level3">
-<h3>Distances</h3>
+<div id="genetic-distances" class="section level2">
+<h2>Genetic distances</h2>
 <table>
 <thead>
 <tr class="header">
@@ -367,7 +330,7 @@ example(functionname)  # see examples of function calls
 <tbody>
 <tr class="odd">
 <td align="left"><code>bruvo.dist</code></td>
-<td align="left">Bruvo’s distance</td>
+<td align="left">Bruvo’s distance (see also: <code>fix_replen</code>)</td>
 </tr>
 <tr class="even">
 <td align="left"><code>diss.dist</code></td>
@@ -393,11 +356,15 @@ example(functionname)  # see examples of function calls
 <td align="left"><code>provesti.dist</code></td>
 <td align="left">Provesti’s absolute genetic distance</td>
 </tr>
+<tr class="even">
+<td align="left"><code>bitwise.dist</code></td>
+<td align="left">Calculates fast pairwise distances for genlight objects.</td>
+</tr>
 </tbody>
 </table>
 </div>
-<div id="bootstrapping" class="section level3">
-<h3>Bootstrapping</h3>
+<div id="bootstrapping" class="section level2">
+<h2>Bootstrapping</h2>
 <table>
 <thead>
 <tr class="header">
@@ -414,11 +381,86 @@ example(functionname)  # see examples of function calls
 <td align="left"><code>bruvo.boot</code></td>
 <td align="left">Produces dendrograms with bootstrap support based on Bruvo’s distance</td>
 </tr>
+<tr class="odd">
+<td align="left"><code>diversity_boot</code></td>
+<td align="left">Generates boostrap distributions of diversity statistics for multilocus genotypes</td>
+</tr>
+<tr class="even">
+<td align="left"><code>diversity_ci</code></td>
+<td align="left">Generates confidence intervals for multilocus genotype diversity.</td>
+</tr>
 </tbody>
 </table>
 </div>
-<div id="analysis" class="section level3">
-<h3>Analysis</h3>
+<div id="analysis" class="section level2">
+<h2>Analysis</h2>
+<div id="multilocus-genotypes" class="section level3">
+<h3>Multilocus Genotypes</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Function</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>mlg</code></td>
+<td align="left">Calculates the number of multilocus genotypes</td>
+</tr>
+<tr class="even">
+<td align="left"><code>mll</code></td>
+<td align="left">Displays the current multilocus lineages (genotypes) defined.</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>nmll</code></td>
+<td align="left">Same as .</td>
+</tr>
+<tr class="even">
+<td align="left"><code>mlg.crosspop</code></td>
+<td align="left">Finds all multilocus genotypes that cross populations</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>mlg.table</code></td>
+<td align="left">Returns a table of populations by multilocus genotypes</td>
+</tr>
+<tr class="even">
+<td align="left"><code>mlg.vector</code></td>
+<td align="left">Returns a vector of a numeric multilocus genotype assignment for each individual</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>mlg.id</code></td>
+<td align="left">Finds all individuals associated with a single multilocus genotype</td>
+</tr>
+<tr class="even">
+<td align="left"><code>mlg.filter</code></td>
+<td align="left">Collapses MLGs by genetic distance</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>filter_stats</code></td>
+<td align="left">Calculates mlg.filter for all algorithms and plots</td>
+</tr>
+<tr class="even">
+<td align="left"><code>cutoff_predictor</code></td>
+<td align="left">Predicts cutoff threshold from mlg.filter.</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>mll.custom</code></td>
+<td align="left">Allows for the custom definition of multilocus lineages</td>
+</tr>
+<tr class="even">
+<td align="left"><code>mll.levels</code></td>
+<td align="left">Allows the user to change levels of custom MLLs.</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>diversity_stats</code></td>
+<td align="left">Creates a table of diversity indices for multilocus genotypes.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="other" class="section level3">
+<h3>Other</h3>
 <table>
 <thead>
 <tr class="header">
@@ -436,24 +478,16 @@ example(functionname)  # see examples of function calls
 <td align="left">Calculates the index of association</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>mlg</code></td>
-<td align="left">Calculates the number of multilocus genotypes</td>
+<td align="left"><code>pair.ia</code></td>
+<td align="left">Calculates the index of association for all loci pairs.</td>
 </tr>
 <tr class="even">
-<td align="left"><code>mlg.crosspop</code></td>
-<td align="left">Finds all multilocus genotypes that cross populations</td>
+<td align="left"><code>win.ia</code></td>
+<td align="left">Index of association windows for genlight objects.</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>mlg.table</code></td>
-<td align="left">Returns a table of populations by multilocus genotypes</td>
-</tr>
-<tr class="even">
-<td align="left"><code>mlg.vector</code></td>
-<td align="left">Returns a vector of a numeric multilocus genotype assignment for each individual</td>
-</tr>
-<tr class="odd">
-<td align="left"><code>mlg.id</code></td>
-<td align="left">Finds all individuals associated with each multilocus genotype</td>
+<td align="left"><code>samp.ia</code></td>
+<td align="left">Index of association on random subsets of loci for genlight objects.</td>
 </tr>
 <tr class="even">
 <td align="left"><code>poppr</code></td>
@@ -465,17 +499,18 @@ example(functionname)  # see examples of function calls
 </tr>
 <tr class="even">
 <td align="left"><code>private_alleles</code></td>
-<td align="left">Tabulates the occurences of alleles that only occur in one population</td>
+<td align="left">Tabulates the occurrences of alleles that only occur in one population.</td>
 </tr>
 <tr class="odd">
 <td align="left"><code>locus_table</code></td>
-<td align="left">Create a table of summary statistics per locus</td>
+<td align="left">Creates a table of summary statistics per locus.</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="visualization" class="section level3">
-<h3>Visualization</h3>
+</div>
+<div id="visualization" class="section level2">
+<h2>Visualization</h2>
 <table>
 <thead>
 <tr class="header">
@@ -485,28 +520,32 @@ example(functionname)  # see examples of function calls
 </thead>
 <tbody>
 <tr class="odd">
+<td align="left"><code>imsn</code></td>
+<td align="left">Interactive construction and visualization of minimum spanning networks</td>
+</tr>
+<tr class="even">
 <td align="left"><code>plot_poppr_msn</code></td>
 <td align="left">Plots minimum spanning networks produced in poppr with scale bar and legend</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>greycurve</code></td>
 <td align="left">Helper to determine the appropriate parameters for adjusting the grey level for msn functions</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>bruvo.msn</code></td>
 <td align="left">Produces minimum spanning networks based off Bruvo’s distance colored by population</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>poppr.msn</code></td>
 <td align="left">Produces a minimum spanning network for any pairwise distance matrix related to the data</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>info_table</code></td>
 <td align="left">Creates a heatmap representing missing data or observed ploidy</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>genotype_curve</code></td>
-<td align="left">Creates a series of boxplots to demonstrate how many markers are needed to represent the diversity of your data</td>
+<td align="left">Creates a series of boxplots to demonstrate how many markers are needed to represent the diversity of your data.</td>
 </tr>
 </tbody>
 </table>
