@@ -9,47 +9,14 @@
 title: "A2: Function glossary"
 ---
 
-<!---To quit R you can either use the Rstudio>Quit Rstudio pulldown menu command or execute ⌘+Q (OS X) or CTRL+Q (PC). 
-
-Navigation in R
-----
-
----->
- 
-
-<!--```{r, eval=FALSE}
-getwd()        # this command will print the current working directory
-ls()           # list objects in the current workspace
-help(options)  # learn about available options
-history()      # viewing your command history
-data(*dsname*) # access builtin database *dsname*; must have pacakge loaded containing it
-q()            # quit your R session
-
-# default for saving history is ".Rhistory"
-savehistory(file="myfile")  # save your command history for whole session
-loadhistory(file= "myfile") # recall command history save
-
-# Package specific information
-installed.packages()[,c("Package","Version")] #list packages & versions installed
-browseVignettes()                     # see vignettes from all packages
-
-#Help on functions
-help(functionname)     # Display documentation for a function
-args(functionname)     # What are the arguments for a given function
-example(functionname)  # see examples of function calls
-```
--->
-
-
-Navigation in R
-----
+# Navigation in R
 
 Our primer is heavily based on the *poppr* and *adegenet* packages. To get help
 on any of their functions type a question mark before the empty function call as
 in:
 
 ```{r, eval=FALSE}
-?mlg # open the R documentiaon of the function mlg
+?mlg # open the R documentation of the function mlg
 ```
 
 Other information can be obtained with the following commands.
@@ -57,74 +24,92 @@ Other information can be obtained with the following commands.
 ```{r, eval = FALSE}
 browseVignettes(package = 'poppr') # see vignettes for poppr
 vignette('poppr_manual')           # see manual for poppr
-help(package="poppr")              # shows all functions contained in poppr package
+help(package = "poppr")            # shows all functions contained in poppr package
 ```
 
-*Poppr* functions
-----
+# *Poppr* functions
 
-### Import/Export
+
+## Data import/export
 Function | Description    
-----|----
+---------|------------
 `getfile` | Provides a quick GUI to grab files for import
-`read.genalex` | Read *GenAlEx* formatted csv files to a genind object
-`genind2genalex` | Converts genind objects to *GenAlEx* formatted csv files
+`read.genalex` | Reads GenAlEx formatted csv files to a genind object
+`genind2genalex` | Converts genind objects to GenAlEx formatted csv files
+`genclone2genind` | Removes the \@mlg slot from genclone objects
 
-### Manipulation
+## Data manipulation
 Function | Description    
-----|----
+---------|------------
 `as.genclone` | Converts genind objects to genclone objects
-`setPop` | Set the population using defined strata
-`splitStrata` | Split concatenated strata imported as a population
-`strata` | Define or extract population strata of a genind object
-`addStrata` | Add a vector or data frame to an existing strata
-`nameStrata` | Rename a population strata
 `missingno` | Handles missing data
-`clonecorrect` | Clone censor at a specified population stratum
+`clonecorrect` | Clone-censors at a specified population hierarchy
 `informloci` | Detects and removes phylogenetically uninformative loci
 `popsub` | Subsets genind objects by population
 `shufflepop` | Shuffles genotypes at each locus using four different shuffling algorithms
-`recode_polyploids` | Recodes an imported polyploid data set to observed allelic frequencies
+`recode_polyploids` | Recodes polyploid data sets with missing alleles imported as "0"
 
-
-### Distances
+## Genetic distances
 Function | Description    
-----|----
-`bruvo.dist` | Bruvo’s distance
+---------|------------
+`bruvo.dist` | Bruvo's distance (see also: `fix_replen`)
 `diss.dist` | Absolute genetic distance (see `provesti.dist`)
-`nei.dist` | Nei’s 1978 genetic distance
-`rogers.dist` | Rogers’ euclidean distance
-`reynolds.dist` | Reynolds’ coancestry distance
-`edwards.dist` | Edwards’ angular distance
-`provesti.dist` | Provesti’s absolute genetic distance
+`nei.dist` | Nei's 1978 genetic distance
+`rogers.dist` | Rogers' euclidean distance
+`reynolds.dist` | Reynolds' coancestry distance
+`edwards.dist` | Edwards' angular distance
+`provesti.dist` | Provesti's absolute genetic distance
+`bitwise.dist` | Calculates fast pairwise distances for genlight objects. 
 
-### Bootstrapping
+## Bootstrapping
 Function | Description    
-----|----
+---------|------------
 `aboot` | Creates a bootstrapped dendrogram for any distance measure
-`bruvo.boot` | Produces dendrograms with bootstrap support based on Bruvo’s distance
+`bruvo.boot` | Produces dendrograms with bootstrap support based on Bruvo's distance
+`diversity_boot` | Generates boostrap distributions of diversity statistics for multilocus genotypes
+`diversity_ci` | Generates confidence intervals for multilocus genotype diversity.
 
-### Analysis
+## Analysis
+
+### Multilocus Genotypes
 Function | Description    
-----|----
-`poppr.amova` | Analysis of Molecular Variance (as implemented in ade4)
-`ia` | Calculates the index of association
+---------|------------
 `mlg` | Calculates the number of multilocus genotypes
+`mll` | Displays the current multilocus lineages (genotypes) defined.
+`nmll` | Same as \code\linkmlg.
 `mlg.crosspop` | Finds all multilocus genotypes that cross populations
 `mlg.table` | Returns a table of populations by multilocus genotypes
 `mlg.vector` | Returns a vector of a numeric multilocus genotype assignment for each individual
-`mlg.id` | Finds all individuals associated with each multilocus genotype
+`mlg.id` | Finds all individuals associated with a single multilocus genotype
+`mlg.filter` | Collapses MLGs by genetic distance
+`filter_stats` | Calculates mlg.filter for all algorithms and plots
+`cutoff_predictor` | Predicts cutoff threshold from mlg.filter. 
+`mll.custom` | Allows for the custom definition of multilocus lineages
+`mll.levels` | Allows the user to change levels of custom MLLs. 
+`diversity_stats` | Creates a table of diversity indices for multilocus genotypes. 
+
+
+### Other
+Function | Description    
+---------|------------
+`poppr.amova` | Analysis of Molecular Variance (as implemented in ade4)
+`ia` | Calculates the index of association
+`pair.ia` | Calculates the index of association for all loci pairs.
+`win.ia` | Index of association windows for genlight objects.
+`samp.ia` | Index of association on random subsets of loci for genlight objects.
 `poppr` | Returns a diversity table by population
 `poppr.all` | Returns a diversity table by population for all compatible files specified
-`private_alleles` | Tabulates the occurences of alleles that only occur in one population
-`locus_table` | Create a table of summary statistics per locus
+`private_alleles` | Tabulates the occurrences of alleles that only occur in one population.
+`locus_table` | Creates a table of summary statistics per locus.
 
-### Visualization
+
+## Visualization
 Function | Description    
-----|----
+---------|------------
+`imsn` | Interactive construction and visualization of minimum spanning networks
 `plot_poppr_msn` | Plots minimum spanning networks produced in poppr with scale bar and legend
 `greycurve` | Helper to determine the appropriate parameters for adjusting the grey level for msn functions
-`bruvo.msn` | Produces minimum spanning networks based off Bruvo’s distance colored by population
+`bruvo.msn` | Produces minimum spanning networks based off Bruvo's distance colored by population
 `poppr.msn` | Produces a minimum spanning network for any pairwise distance matrix related to the data
 `info_table` | Creates a heatmap representing missing data or observed ploidy
-`genotype_curve` | Creates a series of boxplots to demonstrate how many markers are needed to represent the diversity of your data
+`genotype_curve` | Creates a series of boxplots to demonstrate how many markers are needed to represent the diversity of your data. 
