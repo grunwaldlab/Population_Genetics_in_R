@@ -235,7 +235,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </ul>
 </div>
 
-<p>Populations are best sampled hierarchically on a range of scales from subpopulations (e.g. fields, valleys, ranges) to regions (e.g. valleys, states, countries or continents) or across time (years or decades). This approach is useful because population structure and evolutionary processes may not be discernible <em>a priori</em>. Most of the times we do not know if population are differentiated spatially or temporaly. Thus, a combination of targeted local sampling with sampling over larger spatial or temporal scales is necessary to detect population structure over different scales, without using intense sampling throughout the entire range.</p>
+<p>Populations are best sampled hierarchically on a range of scales from subpopulations (e.g. fields, valleys, ranges) to regions (e.g. valleys, states, countries or continents) or across time (years or decades). This approach is useful because population structure and evolutionary processes may not be discernible <em>a priori</em>. Most of the times we do not know if population are differentiated spatially or temporally. Thus, a combination of targeted local sampling with sampling over larger spatial or temporal scales is necessary to detect population structure over different scales, without using intense sampling throughout the entire range.</p>
 <p>The methods implemented in <em>poppr</em> allow specification of which strata you want to analyze. This is a rapid way of working with subsets of your data without having to perform any data manipulation or changing the input file. In this tutorial, we will show you how to define the hierarchical structure of your data and how to specify specific levels that you might want to analyze.</p>
 <div id="data-used-in-this-example" class="section level2">
 <h2>Data used in this example</h2>
@@ -296,6 +296,67 @@ monpop</code></pre>
 <p>The <code>splitStrata</code> command only needs to be run once: right after you import your data.</p>
 </blockquote>
 <p>After splitting the data populations are specified by stratification: “Tree Year Symptom”.</p>
+<p>We can look at how the stratifications are distributed by using a <strong>treemap</strong> plot. This is a plot that allows us to visualize hierarchical stratifications. The function we’ll use is called <code>treemap()</code> from the <em>treemap</em> package.</p>
+<p>The <code>treemap()</code> function needs only a data frame containing the strata and their respective counts. This can easily be done with the <em>dplyr</em> package where we will:</p>
+<ol style="list-style-type: decimal">
+<li>Group our strata by Tree, Year, and Symptom</li>
+<li>Summarize the data by counting how many times we see each specific combination</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;dplyr&quot;</span>)
+monstrata &lt;-<span class="st"> </span><span class="kw">strata</span>(monpop) %&gt;%<span class="st">     </span>
+<span class="st">  </span><span class="kw">group_by</span>(Tree, Year, Symptom) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Count =</span> <span class="kw">n</span>()) %&gt;%<span class="st"> </span><span class="co"># n() is a dplyr function that counts unique rows.</span>
+<span class="st">  </span>as.data.frame 
+
+monstrata</code></pre>
+<pre><code>##    Tree Year Symptom Count
+## 1     7    9      BB    23
+## 2     7    9      FR    73
+## 3    26    9      BB    41
+## 4    26    9      FR   132
+## 5    26   10      BB     5
+## 6    26   10      FR    85
+## 7    26   11      BB    30
+## 8    26   11      FR    97
+## 9    45   10      BB    13
+## 10   45   10      FR   130
+## 11   79   10      BB     1
+## 12   79   10      FR    64</code></pre>
+<p>Now we can use the <code>treemap()</code> function to plot the data. Note that it has a lot of arguments to allow you to properly manipulate the graphic, but we will only use the very necessary components to visualize the distribution of the strata:</p>
+<ul>
+<li><strong>dtf</strong> - The data frame containing the stratifications and counts</li>
+<li><strong>index</strong> - The variables used for nesting (in order)</li>
+<li><strong>vSize</strong> - The variable to use to compute the size of the blocks</li>
+</ul>
+<p>All the other arguments we are using here give various aesthetics. If you want to know more about how they work, you can peruse the manual for the treemap function by typing <code>help(&quot;treemap&quot;, &quot;treemap&quot;)</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;treemap&quot;</span>)
+monstrata          <span class="co"># Our data frame</span></code></pre>
+<pre><code>##    Tree Year Symptom Count
+## 1     7    9      BB    23
+## 2     7    9      FR    73
+## 3    26    9      BB    41
+## 4    26    9      FR   132
+## 5    26   10      BB     5
+## 6    26   10      FR    85
+## 7    26   11      BB    30
+## 8    26   11      FR    97
+## 9    45   10      BB    13
+## 10   45   10      FR   130
+## 11   79   10      BB     1
+## 12   79   10      FR    64</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nameStrata</span>(monpop) <span class="co"># The order of our variables</span></code></pre>
+<pre><code>## [1] &quot;Tree&quot;    &quot;Year&quot;    &quot;Symptom&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">monstrata$Count    <span class="co"># The variable used for the block size</span></code></pre>
+<pre><code>##  [1]  23  73  41 132   5  85  30  97  13 130   1  64</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Adjusting the aesthetics for the labels</span>
+label_position &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;top&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;center&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;bottom&quot;</span>))
+label_size     &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">Tree =</span> <span class="dv">0</span>, <span class="dt">Year =</span> <span class="dv">15</span>, <span class="dt">Symptom =</span> <span class="dv">15</span>)
+
+<span class="co"># Plotting, First three arguments are necessary.</span>
+<span class="kw">treemap</span>(<span class="dt">dtf =</span> monstrata, <span class="dt">index =</span> <span class="kw">nameStrata</span>(monpop), <span class="dt">vSize =</span> <span class="st">&quot;Count&quot;</span>, 
+        <span class="dt">type =</span> <span class="st">&quot;categorical&quot;</span>, <span class="dt">vColor =</span> <span class="st">&quot;Tree&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;M. fructicola&quot;</span>, 
+        <span class="dt">align.labels =</span> label_position, <span class="dt">fontsize.labels =</span> label_size)</code></pre>
+<p><img src="Population_Strata_files/figure-html/unnamed-chunk-5-1.png" title="" alt="" width="960" /></p>
 <p>Next, we analyze the data according to Tree and Year:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setPop</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree/Year
 monpop</code></pre>
@@ -353,7 +414,7 @@ monpop</code></pre>
 <p>Question: Will allelic diversity increase or decrease with clone-censored data?</p>
 </blockquote>
 <p>Using <code>monpop</code> as an example, if we wanted to know the diversity of alleles within each tree per year, how should we go about correcting for the clones? We use the function <code>clonecorrect</code> specifying the “Tree/Year” strata:</p>
-<pre class="sourceCode r"><code class="sourceCode r">mcc_TY &lt;-<span class="st"> </span><span class="kw">clonecorrect</span>(monpop, <span class="dt">strata=</span> ~Tree/Year, <span class="dt">keep =</span> <span class="dv">1</span>:<span class="dv">2</span>)
+<pre class="sourceCode r"><code class="sourceCode r">mcc_TY &lt;-<span class="st"> </span><span class="kw">clonecorrect</span>(monpop, <span class="dt">strata =</span> ~Tree/Year, <span class="dt">keep =</span> <span class="dv">1</span>:<span class="dv">2</span>)
 mcc_TY</code></pre>
 <pre><code>## 
 ## This is a genclone object
@@ -468,7 +529,7 @@ rmean &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="dv
 for (i in <span class="kw">popNames</span>(monpop)){
   <span class="kw">plot_simp_diff</span>(i, mcc_TY, monpop)
 }</code></pre>
-<p><img src="Population_Strata_files/figure-html/unnamed-chunk-12-1.png" title="" alt="" width="960" /></p>
+<p><img src="Population_Strata_files/figure-html/unnamed-chunk-14-1.png" title="" alt="" width="960" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)) <span class="co"># Next we reset the graphics to have one row and one column</span></code></pre>
 <p>These barplots show the difference in Simpson’s index of original minus clone corrected data for each population per locus. We can see that allelic diversity generally is lower in the total data set (containing some repeated MLGs) relative to clone corrected data.</p>
 </div>
