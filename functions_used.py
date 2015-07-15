@@ -35,7 +35,7 @@ for package in pkgs:
 	funks = robjects.r[package + '.funks']
 	# print(funks)
 	for funk in funks:
-		if not re.match('\$|\[|\<|\+', funk, re.UNICODE):
+		if not re.match('\$|\[|\<|\+|(^plot$)', funk, re.UNICODE):
 			if not functions.has_key(funk):
 				functions[funk] = package
 
@@ -50,7 +50,7 @@ def find_functions(line, functions, outset):
 			for funk in funks:
 				if functions.has_key(funk):
 					pkg = functions[funk]
-					funk_out = funk + u' [(' + pkg + u')](http://cran.r-project.org/package=' + pkg + u')'
+					funk_out = u'**`' + funk + u'`** | [*' + pkg + u'*](http://cran.r-project.org/package=' + pkg + u') |'
 					# print(funk_out)
 					outset.add(funk_out)
 		else:
@@ -123,19 +123,24 @@ for chapter in chapters.keys():
 	table_of_fun[chapter] = funset
 
 funpendix = io.open("funpendix.Rmd", "w")
-funpendix.writelines([u'---\n', u'title: A2: Function Glossary\n', u'---\n'])
+funpendix.writelines([u'---\n', u'title: "A2: Function Glossary"\n', u'---\n'])
 funpendix.writelines([u'\n\nBelow are functions that were utilized in the making ',
 					u'of this primer with links to their respective packages.', 
 					u' Note that this list was automatically generated and might '
 					u'be missing some functions.', u'\n\n'])
 for chapter in chapterlist:
 	the_title = get_chapter_title(chapter)
-	funpendix.writelines(u'# ' + the_title + u'\n\n')
+	funpendix.writelines(u'### [' + the_title + u'](' + chapter + u'.html)\n\n')
 	funlist = list(table_of_fun[chapter])
 	funlist.sort()
-	for function in funlist:
-		# print(function)
-		funpendix.writelines(u' - ' + function + u'\n')
+	if len(funlist) > 0:
+		funpendix.writelines([u' | **Function** | **Package** |\n',
+							  u' |--------------|-------------|\n'])
+		for function in funlist:
+			# print(function)
+			funpendix.writelines(u' | ' + function + u'\n')
+	else:
+		funpendix.writelines(u'No functions used in this chapter.\n')
 	funpendix.writelines(u'\n')
 
 funpendix.close()
