@@ -29,24 +29,40 @@ robjects.r('''
 		treemap.funks <- ls('package:treemap')
         ''')
 
-pkgdict = dict()
+functions = dict()
 for package in pkgs:
 	print('Package: ' + package + '\n==========\n')
 	funks = robjects.r[package + '.funks']
 	print(funks)
-	funklist = list()
 	for funk in funks:
-		if not re.match('\$|\[|\<|\+', funk):
-			funklist.append(funk)
-	pkgdict[package] = funklist
+		if not re.match('\$|\[|\<|\+', funk, re.UNICODE):
+			if not functions.has_key(funk):
+				functions[funk] = package
 
+def find_functions(line, functions, outset):
+	words = line.strip().split(u' ')
+	# print(words)
+	for word in words:
+		if len(word) < 1:
+			next
+		funks = word.split(u'(')
+		if len(funks) > 1:
+			for funk in funks:
+				if functions.has_key(funk):
+					pkg = functions[funk]
+					funk_out = funk + u' [(' + pkg + u')](http://cran.r-project.org/package=' + pkg + u')'
+					print(funk_out)
+					outset.add(funk_out)
+		else:
+			next
+	return(outset)
 
-
-# make another loop through pkgdict and write the appendix by package.
+# make another loop through functions and write the appendix by package.
 
 # Read in toc.txt
 toc = io.open("toc.txt")
 chapters = dict()
+chapterlist = list()
 startin = False
 for line in toc:
 	line.strip()
@@ -56,7 +72,9 @@ for line in toc:
 		startin = False
 		next
 	if startin == True:
-		chapters[line.strip()] = list()
+		the_chapter = line.strip()
+		chapters[the_chapter] = list()
+		chapterlist.append(the_chapter)
 
 toc.close()
 
@@ -65,31 +83,40 @@ for chapter in chapters.keys():
 	chapter_file = io.open(chapter + u'.Rmd')
 	its_a_chunk = False
 	for line in chapter_file:
-		chunk_start = re.match(r'```\{r', line)
-		chunk_hide = re.match(r'```\{r.+?echo\s*\=\s*FALSE', line)
-		chunk_end = re.match(r'```\n', line)
-		if chunk_start and not chunk_hide:
+		chunk_start = re.match(r'```\{r', line, re.UNICODE)
+		chunk_hide = re.match(r'```\{r.+?echo\s*\=\s*FALSE', line, re.UNICODE)
+		chunk_end = re.match(r'```\n', line, re.UNICODE)
+
+		if chunk_start and not chunk_hide and not its_a_chunk:
 			its_a_chunk = True
 
 		if its_a_chunk and chunk_end: 
 			its_a_chunk = False
 
-		if its_a_chunk:
+		if its_a_chunk and not chunk_start:
 			chapters[chapter].append(line.strip())
 
 	chapter_file.close()
 
-funpendix = io.open("funpendix.Rmd", "w")
-funpendix.writelines([u'---\n', u'title: A2: Function Glossary\n', u'---\n'])
+table_of_fun = dict()
 for chapter in chapters.keys():
-	funpendix.writelines(u'# ' + chapter + u'\n\n')
+	funset = set()
 	for line in chapters[chapter]:
 		if re.match("^\#", line):
 			next
-		for package in pkgdict.keys():
-			for funk in pkgdict[package]:
-				if re.match(funk, line):
-					funpendix.writelines(u' - ' + funk + u'\n')
+		else:
+			funlist = find_functions(line, functions, funset)
+	table_of_fun[chapter] = funset
+
+funpendix = io.open("funpendix.Rmd", "w")
+funpendix.writelines([u'---\n', u'title: A2: Function Glossary\n', u'---\n'])
+for chapter in chapterlist:
+	funpendix.writelines(u'# ' + chapter + u'\n\n')
+	funlist = list(table_of_fun[chapter])
+	funlist.sort()
+	for function in funlist:
+		print(function)
+		funpendix.writelines(u' - ' + function + u'\n')
 	funpendix.writelines(u'\n')
 
 funpendix.close()

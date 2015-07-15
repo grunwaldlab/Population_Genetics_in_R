@@ -1,0 +1,121 @@
+---
+title: A2: Function Glossary
+---
+# Introduction
+
+
+# Getting_ready_to_use_R
+
+ - clonecorrect [(poppr)](http://cran.r-project.org/package=poppr)
+ - mlg [(poppr)](http://cran.r-project.org/package=poppr)
+ - seppop [(adegenet)](http://cran.r-project.org/package=adegenet)
+
+# Data_Preparation
+
+ - read.genalex [(poppr)](http://cran.r-project.org/package=poppr)
+ - splitStrata [(adegenet)](http://cran.r-project.org/package=adegenet)
+
+# First_Steps
+
+ - genind2df [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - genotype_curve [(poppr)](http://cran.r-project.org/package=poppr)
+ - info_table [(poppr)](http://cran.r-project.org/package=poppr)
+ - locus_table [(poppr)](http://cran.r-project.org/package=poppr)
+ - mlg.table [(poppr)](http://cran.r-project.org/package=poppr)
+ - poppr [(poppr)](http://cran.r-project.org/package=poppr)
+
+# Population_Strata
+
+ - clonecorrect [(poppr)](http://cran.r-project.org/package=poppr)
+ - locus_table [(poppr)](http://cran.r-project.org/package=poppr)
+ - nameStrata [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - popNames [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - setPop [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - splitStrata [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - strata [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - treemap [(treemap)](http://cran.r-project.org/package=treemap)
+
+# Locus_Stats
+
+ - hw.test [(pegas)](http://cran.r-project.org/package=pegas)
+ - info_table [(poppr)](http://cran.r-project.org/package=poppr)
+ - informloci [(poppr)](http://cran.r-project.org/package=poppr)
+ - locus_table [(poppr)](http://cran.r-project.org/package=poppr)
+ - missingno [(poppr)](http://cran.r-project.org/package=poppr)
+ - nLoc [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - plot [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - poppr [(poppr)](http://cran.r-project.org/package=poppr)
+ - popsub [(poppr)](http://cran.r-project.org/package=poppr)
+ - seppop [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - tab [(adegenet)](http://cran.r-project.org/package=adegenet)
+
+# Genotypic_EvenRichDiv
+
+ - mlg.table [(poppr)](http://cran.r-project.org/package=poppr)
+ - poppr [(poppr)](http://cran.r-project.org/package=poppr)
+ - setPop [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - splitStrata [(adegenet)](http://cran.r-project.org/package=adegenet)
+
+# Linkage_disequilibrium
+
+ - clonecorrect [(poppr)](http://cran.r-project.org/package=poppr)
+ - ia [(poppr)](http://cran.r-project.org/package=poppr)
+ - plot [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - popsub [(poppr)](http://cran.r-project.org/package=poppr)
+ - strata [(adegenet)](http://cran.r-project.org/package=adegenet)
+
+# Pop_Structure
+
+ - Gst_Hedrick [(mmod)](http://cran.r-project.org/package=mmod)
+ - aboot [(poppr)](http://cran.r-project.org/package=poppr)
+ - add.scale.bar [(ape)](http://cran.r-project.org/package=ape)
+ - axisPhylo [(ape)](http://cran.r-project.org/package=ape)
+ - bruvo.boot [(poppr)](http://cran.r-project.org/package=poppr)
+ - find.clusters [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - genind2genpop [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - ladderize [(ape)](http://cran.r-project.org/package=ape)
+ - nInd [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - nameStrata [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - nj [(ape)](http://cran.r-project.org/package=ape)
+ - nodelabels [(ape)](http://cran.r-project.org/package=ape)
+ - other [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - plot [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - plot.phylo [(ape)](http://cran.r-project.org/package=ape)
+ - pop [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - popsub [(poppr)](http://cran.r-project.org/package=poppr)
+ - provesti.dist [(poppr)](http://cran.r-project.org/package=poppr)
+ - strata [(adegenet)](http://cran.r-project.org/package=adegenet)
+
+# Minimum_Spanning_Networks
+
+ - bruvo.msn [(poppr)](http://cran.r-project.org/package=poppr)
+ - diss.dist [(poppr)](http://cran.r-project.org/package=poppr)
+ - imsn [(poppr)](http://cran.r-project.org/package=poppr)
+ - other [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - plot_poppr_msn [(poppr)](http://cran.r-project.org/package=poppr)
+ - poppr.msn [(poppr)](http://cran.r-project.org/package=poppr)
+ - popsub [(poppr)](http://cran.r-project.org/package=poppr)
+ - setPop [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - splitStrata [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - summary [(adegenet)](http://cran.r-project.org/package=adegenet)
+
+# AMOVA
+
+ - as.genclone [(poppr)](http://cran.r-project.org/package=poppr)
+ - nInd [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - other [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - plot [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - poppr.amova [(poppr)](http://cran.r-project.org/package=poppr)
+ - strata [(adegenet)](http://cran.r-project.org/package=adegenet)
+
+# DAPC
+
+ - dapc [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - loadingplot [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - nPop [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - other [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - pop [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - seploc [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - tab [(adegenet)](http://cran.r-project.org/package=adegenet)
+ - xvalDapc [(adegenet)](http://cran.r-project.org/package=adegenet)
+
