@@ -1,0 +1,144 @@
+---
+title: "A2: Function Glossary"
+---
+
+
+Below are functions that were utilized in the making of this primer with links to their respective packages. Note that this list was automatically generated and might be missing some functions.
+
+### [1: Introduction](Introduction.html)
+
+No functions used in this chapter.
+
+### [2: Getting ready to use R](Getting_ready_to_use_R.html)
+
+ | **Function** | **Package** |
+ |--------------|-------------|
+ | **`clonecorrect`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`mlg`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`seppop`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+
+### [3: Data Preparation](Data_Preparation.html)
+
+ | **Function** | **Package** |
+ |--------------|-------------|
+ | **`read.genalex`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`splitStrata`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+
+### [4: First Analysis](First_Steps.html)
+
+ | **Function** | **Package** |
+ |--------------|-------------|
+ | **`genind2df`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`genotype_curve`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`info_table`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`locus_table`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`mlg.table`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`poppr`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+
+### [5: Populations strata: subsetting and clone correction](Population_Strata.html)
+
+ | **Function** | **Package** |
+ |--------------|-------------|
+ | **`clonecorrect`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`locus_table`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`nameStrata`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`popNames`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`setPop`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`splitStrata`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`strata`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`treemap`** | [*treemap*](http://cran.r-project.org/package=treemap) |
+
+### [6: Locus stats, heterozygosity, HWE](Locus_Stats.html)
+
+ | **Function** | **Package** |
+ |--------------|-------------|
+ | **`hw.test`** | [*pegas*](http://cran.r-project.org/package=pegas) |
+ | **`info_table`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`informloci`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`locus_table`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`missingno`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`nLoc`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`poppr`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`popsub`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`seppop`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`tab`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+
+### [7: Genotypic richness, diversity, and evenness](Genotypic_EvenRichDiv.html)
+
+ | **Function** | **Package** |
+ |--------------|-------------|
+ | **`mlg.table`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`poppr`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`setPop`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`splitStrata`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+
+### [8: Linkage disequilibrium](Linkage_disequilibrium.html)
+
+ | **Function** | **Package** |
+ |--------------|-------------|
+ | **`clonecorrect`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`ia`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`popsub`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`strata`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+
+### [9: Population structure: $G_{ST}$, genetic distance, and clustering](Pop_Structure.html)
+
+ | **Function** | **Package** |
+ |--------------|-------------|
+ | **`Gst_Hedrick`** | [*mmod*](http://cran.r-project.org/package=mmod) |
+ | **`aboot`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`add.scale.bar`** | [*ape*](http://cran.r-project.org/package=ape) |
+ | **`axisPhylo`** | [*ape*](http://cran.r-project.org/package=ape) |
+ | **`bruvo.boot`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`find.clusters`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`genind2genpop`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`ladderize`** | [*ape*](http://cran.r-project.org/package=ape) |
+ | **`nInd`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`nameStrata`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`nj`** | [*ape*](http://cran.r-project.org/package=ape) |
+ | **`nodelabels`** | [*ape*](http://cran.r-project.org/package=ape) |
+ | **`other`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`plot.phylo`** | [*ape*](http://cran.r-project.org/package=ape) |
+ | **`pop`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`popsub`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`provesti.dist`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`strata`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+
+### [10: Minimum Spanning Networks](Minimum_Spanning_Networks.html)
+
+ | **Function** | **Package** |
+ |--------------|-------------|
+ | **`bruvo.msn`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`diss.dist`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`imsn`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`other`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`plot_poppr_msn`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`poppr.msn`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`popsub`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`setPop`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`splitStrata`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`summary`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+
+### [11: AMOVA](AMOVA.html)
+
+ | **Function** | **Package** |
+ |--------------|-------------|
+ | **`as.genclone`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`nInd`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`other`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`poppr.amova`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`strata`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+
+### [12: Discriminant analysis of principal components (DAPC)](DAPC.html)
+
+ | **Function** | **Package** |
+ |--------------|-------------|
+ | **`dapc`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`loadingplot`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`nPop`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`other`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`pop`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`seploc`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`tab`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+ | **`xvalDapc`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
+
