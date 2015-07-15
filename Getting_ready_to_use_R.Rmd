@@ -25,7 +25,7 @@ development environment, open R, and load R packages.
 You must have:
 
 1. The latest version of [R](http://www.r-project.org) **(3.1.0)**
-2. [Rstudio](http://www.rstudio.com/ide/). Think of this as kind of a GUI for R.
+2. [RStudio Desktop](http://www.rstudio.com/ide/). Think of this as kind of a GUI for R.
 3. The latest development version of *poppr* (1.1.0.99) (see below)
 
 **You must download the development version of poppr** (1.1.0.99). You may do this
@@ -56,9 +56,7 @@ Installing R
    and graphing environment. This works cross-platform on Windows, OS X and
    Linux operating systems.
 
-2. Download and install the [Rstudio IDE](http://www.rstudio.com/ide/) that we
-   recommend as an integrated development environment.
-
+2. Download and install the free, open source edition of the [RStudio Desktop](http://www.rstudio.com/ide/) integrated development environment (IDE) that we recommend.
 
 Installing the required packages
 ----
@@ -99,17 +97,17 @@ Congratulations. You should now be all set for using R. Loading data and
 conducting your first analysis will be the topic of the next chapter. But before
 we go there lets provide a few useful resources.
 
-A quick introduction to R using Rstudio
+A quick introduction to R using RStudio
 ----
 
 Next, let's review some of the basic features and functions of R. To start R,
-open the Rstudio application from your programs folder or start menu. This will
-initialize your R session. To exit R, simply close the Rstudio application.
+open the RStudio application from your programs folder or start menu. This will
+initialize your R session. To exit R, simply close the RStudio application.
 
 > Note that R is a case sensitive language!
 
 Let's get comfortable with R by submitting the following command on the command
-line (where R prompts you with a `>` in the lower left Rstudio window pane) that
+line (where R prompts you with a `>` in the lower left RStudio window pane) that
 will retrieve the current working directory on your machine:
 
 ```{r, eval=FALSE}
@@ -127,7 +125,7 @@ in:
 ?mlg # open the R documentation of the function mlg()
 ```
 
-To quit R you can either use the <kbd>Rstudio > Quit</kbd> pull-down menu
+To quit R you can either use the <kbd>RStudio > Quit</kbd> pull-down menu
 command or execute <kbd>⌘ + Q</kbd> (OS X) or <kbd>ctrl + Q</kbd> (PC).
 
 Using *magrittr*
@@ -242,7 +240,7 @@ vignette('poppr_manual')
 ```
 
 Next, consider browsing  Appendix 3 on "Introduction to R" if you are not yet
-familiar with R and Rstudio. Otherwise, you are now ready to think about
+familiar with R and RStudio. Otherwise, you are now ready to think about
 formatting and loading population genetic data into R.
 
 References
