@@ -31,5 +31,19 @@ robjects.r('''
 		treemap.funks <- ls('package:treemap')
         ''')
 
+pkgdict = dict()
+for package in pkgs:
+	print('Package: ' + package + '\n==========\n')
+	funks = robjects.r[package + '.funks']
+	print(funks)
+	funkdict = dict()
+	for funk in funks:
+		funkdict[funk] = 0
+	pkgdict[package] = funkdict
+
+for package in pkgdict.keys():
+	pkg = pkgdict[package]
+	print(pkg.keys())
+
 # make list of lists
 # add functions to list by grabbing with robjects.r['package.funks']
