@@ -57,6 +57,20 @@ def find_functions(line, functions, outset):
 			next
 	return(outset)
 
+def get_chapter_title(chapter):
+	chapfile = io.open(chapter + u'.Rmd')
+	got_it = False
+	for line in chapfile:
+		if re.match(r'title: ', line, re.UNICODE):
+			the_line = line.strip()
+			the_line = line.split("'")
+			if (len(the_line)) == 1:
+				the_line = line.split("\"")
+			the_line = the_line[1]
+			break
+	chapfile.close()
+	return(the_line)
+
 # make another loop through functions and write the appendix by package.
 
 # Read in toc.txt
@@ -110,8 +124,13 @@ for chapter in chapters.keys():
 
 funpendix = io.open("funpendix.Rmd", "w")
 funpendix.writelines([u'---\n', u'title: A2: Function Glossary\n', u'---\n'])
+funpendix.writelines([u'\n\nBelow are functions that were utilized in the making ',
+					u'of this primer with links to their respective packages.', 
+					u' Note that this list was automatically generated and might '
+					u'be missing some functions.', u'\n\n'])
 for chapter in chapterlist:
-	funpendix.writelines(u'# ' + chapter + u'\n\n')
+	the_title = get_chapter_title(chapter)
+	funpendix.writelines(u'# ' + the_title + u'\n\n')
 	funlist = list(table_of_fun[chapter])
 	funlist.sort()
 	for function in funlist:
