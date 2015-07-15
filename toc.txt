@@ -20,5 +20,5 @@ DAPC
 prefix:A
 start:1
 Data_sets
-Function_Glossary
+funpendix
 Intro_to_R
