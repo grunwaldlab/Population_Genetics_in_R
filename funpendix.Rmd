@@ -1,21 +1,25 @@
 ---
 title: A2: Function Glossary
 ---
-# Introduction
 
 
-# Getting_ready_to_use_R
+Below are functions that were utilized in the making of this primer with links to their respective packages. Note that this list was automatically generated and might be missing some functions.
+
+# 1: Introduction
+
+
+# 2: Getting ready to use R
 
  - clonecorrect [(poppr)](http://cran.r-project.org/package=poppr)
  - mlg [(poppr)](http://cran.r-project.org/package=poppr)
  - seppop [(adegenet)](http://cran.r-project.org/package=adegenet)
 
-# Data_Preparation
+# 3: Data Preparation
 
  - read.genalex [(poppr)](http://cran.r-project.org/package=poppr)
  - splitStrata [(adegenet)](http://cran.r-project.org/package=adegenet)
 
-# First_Steps
+# 4: First Analysis
 
  - genind2df [(adegenet)](http://cran.r-project.org/package=adegenet)
  - genotype_curve [(poppr)](http://cran.r-project.org/package=poppr)
@@ -24,7 +28,7 @@ title: A2: Function Glossary
  - mlg.table [(poppr)](http://cran.r-project.org/package=poppr)
  - poppr [(poppr)](http://cran.r-project.org/package=poppr)
 
-# Population_Strata
+# 5: Populations strata: subsetting and clone correction
 
  - clonecorrect [(poppr)](http://cran.r-project.org/package=poppr)
  - locus_table [(poppr)](http://cran.r-project.org/package=poppr)
@@ -35,7 +39,7 @@ title: A2: Function Glossary
  - strata [(adegenet)](http://cran.r-project.org/package=adegenet)
  - treemap [(treemap)](http://cran.r-project.org/package=treemap)
 
-# Locus_Stats
+# 6: Locus stats, heterozygosity, HWE
 
  - hw.test [(pegas)](http://cran.r-project.org/package=pegas)
  - info_table [(poppr)](http://cran.r-project.org/package=poppr)
@@ -49,14 +53,14 @@ title: A2: Function Glossary
  - seppop [(adegenet)](http://cran.r-project.org/package=adegenet)
  - tab [(adegenet)](http://cran.r-project.org/package=adegenet)
 
-# Genotypic_EvenRichDiv
+# 7: Genotypic richness, diversity, and evenness
 
  - mlg.table [(poppr)](http://cran.r-project.org/package=poppr)
  - poppr [(poppr)](http://cran.r-project.org/package=poppr)
  - setPop [(adegenet)](http://cran.r-project.org/package=adegenet)
  - splitStrata [(adegenet)](http://cran.r-project.org/package=adegenet)
 
-# Linkage_disequilibrium
+# 8: Linkage disequilibrium
 
  - clonecorrect [(poppr)](http://cran.r-project.org/package=poppr)
  - ia [(poppr)](http://cran.r-project.org/package=poppr)
@@ -64,7 +68,7 @@ title: A2: Function Glossary
  - popsub [(poppr)](http://cran.r-project.org/package=poppr)
  - strata [(adegenet)](http://cran.r-project.org/package=adegenet)
 
-# Pop_Structure
+# 9: Population structure: $G_{ST}$, genetic distance, and clustering
 
  - Gst_Hedrick [(mmod)](http://cran.r-project.org/package=mmod)
  - aboot [(poppr)](http://cran.r-project.org/package=poppr)
@@ -86,7 +90,7 @@ title: A2: Function Glossary
  - provesti.dist [(poppr)](http://cran.r-project.org/package=poppr)
  - strata [(adegenet)](http://cran.r-project.org/package=adegenet)
 
-# Minimum_Spanning_Networks
+# 10: Minimum Spanning Networks
 
  - bruvo.msn [(poppr)](http://cran.r-project.org/package=poppr)
  - diss.dist [(poppr)](http://cran.r-project.org/package=poppr)
@@ -99,7 +103,7 @@ title: A2: Function Glossary
  - splitStrata [(adegenet)](http://cran.r-project.org/package=adegenet)
  - summary [(adegenet)](http://cran.r-project.org/package=adegenet)
 
-# AMOVA
+# 11: AMOVA
 
  - as.genclone [(poppr)](http://cran.r-project.org/package=poppr)
  - nInd [(adegenet)](http://cran.r-project.org/package=adegenet)
@@ -108,7 +112,7 @@ title: A2: Function Glossary
  - poppr.amova [(poppr)](http://cran.r-project.org/package=poppr)
  - strata [(adegenet)](http://cran.r-project.org/package=adegenet)
 
-# DAPC
+# 12: Discriminant analysis of principal components (DAPC)
 
  - dapc [(adegenet)](http://cran.r-project.org/package=adegenet)
  - loadingplot [(adegenet)](http://cran.r-project.org/package=adegenet)

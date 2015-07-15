@@ -31,9 +31,9 @@ robjects.r('''
 
 functions = dict()
 for package in pkgs:
-	print('Package: ' + package + '\n==========\n')
+	# print('Package: ' + package + '\n==========\n')
 	funks = robjects.r[package + '.funks']
-	print(funks)
+	# print(funks)
 	for funk in funks:
 		if not re.match('\$|\[|\<|\+', funk, re.UNICODE):
 			if not functions.has_key(funk):
@@ -51,7 +51,7 @@ def find_functions(line, functions, outset):
 				if functions.has_key(funk):
 					pkg = functions[funk]
 					funk_out = funk + u' [(' + pkg + u')](http://cran.r-project.org/package=' + pkg + u')'
-					print(funk_out)
+					# print(funk_out)
 					outset.add(funk_out)
 		else:
 			next
@@ -134,7 +134,7 @@ for chapter in chapterlist:
 	funlist = list(table_of_fun[chapter])
 	funlist.sort()
 	for function in funlist:
-		print(function)
+		# print(function)
 		funpendix.writelines(u' - ' + function + u'\n')
 	funpendix.writelines(u'\n')
 
