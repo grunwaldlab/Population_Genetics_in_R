@@ -227,7 +227,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <ul>
 <li><a href="#installing-r">Installing R</a></li>
 <li><a href="#installing-the-required-packages">Installing the required packages</a></li>
-<li><a href="#a-quick-introduction-to-r-using-rstudio">A quick introduction to R using Rstudio</a></li>
+<li><a href="#a-quick-introduction-to-r-using-rstudio">A quick introduction to R using RStudio</a></li>
 <li><a href="#using-magrittr">Using <em>magrittr</em></a></li>
 <li><a href="#packages-and-getting-help">Packages and getting help</a></li>
 <li><a href="#references">References</a></li>
@@ -242,7 +242,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 You must have:
 
 1. The latest version of [R](http://www.r-project.org) **(3.1.0)**
-2. [Rstudio](http://www.rstudio.com/ide/). Think of this as kind of a GUI for R.
+2. [RStudio Desktop](http://www.rstudio.com/ide/). Think of this as kind of a GUI for R.
 3. The latest development version of *poppr* (1.1.0.99) (see below)
 
 **You must download the development version of poppr** (1.1.0.99). You may do this
@@ -270,7 +270,7 @@ in several ways:
 <h2>Installing R</h2>
 <ol style="list-style-type: decimal">
 <li><p>Download and install the <a href="http://www.r-project.org">R</a> statistical computing and graphing environment. This works cross-platform on Windows, OS X and Linux operating systems.</p></li>
-<li><p>Download and install the <a href="http://www.rstudio.com/ide/">Rstudio IDE</a> that we recommend as an integrated development environment.</p></li>
+<li><p>Download and install the free, open source edition of the <a href="http://www.rstudio.com/ide/">RStudio Desktop</a> integrated development environment (IDE) that we recommend.</p></li>
 </ol>
 </div>
 <div id="installing-the-required-packages" class="section level2">
@@ -294,32 +294,31 @@ in several ways:
 <pre><code>## Loading required package: adegenet
 ## Loading required package: ade4
 ## 
-##    /// adegenet 2.0.0 is loaded ////////////
+##    /// adegenet 2.0.1 is loaded ////////////
 ## 
 ##    &gt; overview: &#39;?adegenet&#39;
 ##    &gt; tutorials/doc/questions: &#39;adegenetWeb()&#39; 
 ##    &gt; bug reports/feature resquests: adegenetIssues()
 ## 
 ## 
-## This is poppr version 2.0.1. To get started, type package?poppr
-## OMP parallel support: available</code></pre>
+## This is poppr version 2.0.0. To get started, type package?poppr</code></pre>
 <p>This will load <em>poppr</em> and all dependent packages, such as <em>adegenet</em> and <em>ade4</em>. You will recognize loading by the prompts written to your screen.</p>
 <p>Congratulations. You should now be all set for using R. Loading data and conducting your first analysis will be the topic of the next chapter. But before we go there lets provide a few useful resources.</p>
 </div>
 <div id="a-quick-introduction-to-r-using-rstudio" class="section level2">
-<h2>A quick introduction to R using Rstudio</h2>
-<p>Next, let’s review some of the basic features and functions of R. To start R, open the Rstudio application from your programs folder or start menu. This will initialize your R session. To exit R, simply close the Rstudio application.</p>
+<h2>A quick introduction to R using RStudio</h2>
+<p>Next, let’s review some of the basic features and functions of R. To start R, open the RStudio application from your programs folder or start menu. This will initialize your R session. To exit R, simply close the RStudio application.</p>
 <blockquote>
 <p>Note that R is a case sensitive language!</p>
 </blockquote>
-<p>Let’s get comfortable with R by submitting the following command on the command line (where R prompts you with a <code>&gt;</code> in the lower left Rstudio window pane) that will retrieve the current working directory on your machine:</p>
+<p>Let’s get comfortable with R by submitting the following command on the command line (where R prompts you with a <code>&gt;</code> in the lower left RStudio window pane) that will retrieve the current working directory on your machine:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>() <span class="co"># this command will print the current working directory</span></code></pre>
 <blockquote>
 <p>Note that the symbol ‘#’ is used to add comments to your code and you just type <code>getwd()</code> after the “&gt;”.</p>
 </blockquote>
 <p>Our primer is heavily based on the <em>poppr</em> and <em>adegenet</em> packages. To get help on any of their functions type a question mark before the empty function call as in:</p>
 <pre class="sourceCode r"><code class="sourceCode r">?mlg <span class="co"># open the R documentation of the function mlg()</span></code></pre>
-<p>To quit R you can either use the <kbd>Rstudio &gt; Quit</kbd> pull-down menu command or execute <kbd>⌘ + Q</kbd> (OS X) or <kbd>ctrl + Q</kbd> (PC).</p>
+<p>To quit R you can either use the <kbd>RStudio &gt; Quit</kbd> pull-down menu command or execute <kbd>⌘ + Q</kbd> (OS X) or <kbd>ctrl + Q</kbd> (PC).</p>
 </div>
 <div id="using-magrittr" class="section level2">
 <h2>Using <em>magrittr</em></h2>
@@ -387,7 +386,7 @@ allelic_diversity &lt;-<span class="st"> </span>Pinf %&gt;%
 <span class="kw">browseVignettes</span>(<span class="dt">package =</span> <span class="st">&#39;poppr&#39;</span>)    <span class="co"># see vignettes from a specific package.</span></code></pre>
 <p>and to look at a specific vignette you can type:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="st">&#39;poppr_manual&#39;</span>)</code></pre>
-<p>Next, consider browsing Appendix 3 on “Introduction to R” if you are not yet familiar with R and Rstudio. Otherwise, you are now ready to think about formatting and loading population genetic data into R.</p>
+<p>Next, consider browsing Appendix 3 on “Introduction to R” if you are not yet familiar with R and RStudio. Otherwise, you are now ready to think about formatting and loading population genetic data into R.</p>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>
@@ -395,7 +394,7 @@ allelic_diversity &lt;-<span class="st"> </span>Pinf %&gt;%
 <div class="references">
 <p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
 <p>Kamvar ZN., Brooks JC., Gr<span>ü</span>nwald NJ. 2015. Novel R tools for analysis of genome-wide population genetic data with emphasis on clonality. <em>Name: Frontiers in Genetics</em> 6:208. Available at: <a href="http://dx.doi.org/10.3389/fgene.2015.00208" class="uri">http://dx.doi.org/10.3389/fgene.2015.00208</a></p>
-<p>Kamvar ZN., Tabima JF., Grünwald NJ. 2014. <span class="math">\(Poppr\)</span>: An R package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281" class="uri">http://dx.doi.org/10.7717/peerj.281</a></p>
+<p>Kamvar ZN., Tabima JF., Grünwald NJ. 2014. <span class="math">\(Poppr\)</span>: an R package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281" class="uri">http://dx.doi.org/10.7717/peerj.281</a></p>
 </div>
 </div>
 
