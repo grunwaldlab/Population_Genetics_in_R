@@ -40,12 +40,12 @@ for package in pkgs:
 	pkgdict[package] = funkdict
 
 
-# Scan through files and save the code chunks in list
+
 # make another loop through pkgdict and write the appendix by package.
 
 # Read in toc.txt
 toc = io.open("toc.txt")
-tocdict = dict()
+chapters = dict()
 startin = False
 for line in toc:
 	line.strip()
@@ -55,26 +55,28 @@ for line in toc:
 		startin = False
 		next
 	if startin == True:
-		tocdict[line.strip()] = list()
+		chapters[line.strip()] = list()
 
 toc.close()
 
-for chapter in tocdict.keys():
+# Scan through files and save the code chunks in list
+for chapter in chapters.keys():
 	chapter_file = io.open(chapter + u'.Rmd')
-	is_chunk = False
+	its_a_chunk = False
 	for line in chapter_file:
 		chunk_start = re.match(r'```\{r', line)
 		chunk_end = re.match(r'```\n', line)
 		if chunk_start:
-			is_chunk = True
+			its_a_chunk = True
 
-		if is_chunk and chunk_end: 
-			is_chunk = False
+		if its_a_chunk and chunk_end: 
+			its_a_chunk = False
 
-		if is_chunk:
-			tocdict[chapter].append(line.strip())
+		if its_a_chunk:
+			chapters[chapter].append(line.strip())
 
 	chapter_file.close()
+
 
 
 # for package in pkgdict.keys():
