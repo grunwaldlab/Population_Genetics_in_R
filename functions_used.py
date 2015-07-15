@@ -34,10 +34,11 @@ for package in pkgs:
 	print('Package: ' + package + '\n==========\n')
 	funks = robjects.r[package + '.funks']
 	print(funks)
-	funkdict = dict()
+	funklist = list()
 	for funk in funks:
-		funkdict[funk] = 0
-	pkgdict[package] = funkdict
+		if not re.match('\$|\[|\<|\+', funk):
+			funklist.append(funk)
+	pkgdict[package] = funklist
 
 
 
@@ -65,8 +66,9 @@ for chapter in chapters.keys():
 	its_a_chunk = False
 	for line in chapter_file:
 		chunk_start = re.match(r'```\{r', line)
+		chunk_hide = re.match(r'```\{r.+?echo\s*\=\s*FALSE', line)
 		chunk_end = re.match(r'```\n', line)
-		if chunk_start:
+		if chunk_start and not chunk_hide:
 			its_a_chunk = True
 
 		if its_a_chunk and chunk_end: 
@@ -77,8 +79,20 @@ for chapter in chapters.keys():
 
 	chapter_file.close()
 
+funpendix = io.open("funpendix.Rmd", "w")
+funpendix.writelines([u'---\n', u'title: A2: Function Glossary\n', u'---\n'])
+for chapter in chapters.keys():
+	funpendix.writelines(u'# ' + chapter + u'\n\n')
+	for line in chapters[chapter]:
+		if re.match("^\#", line):
+			next
+		for package in pkgdict.keys():
+			for funk in pkgdict[package]:
+				if re.match(funk, line):
+					funpendix.writelines(u' - ' + funk + u'\n')
+	funpendix.writelines(u'\n')
 
-
+funpendix.close()
 # for package in pkgdict.keys():
 # 	pkg = pkgdict[package]
 # 	print(pkg.keys())
