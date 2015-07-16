@@ -7,7 +7,7 @@ toc:
 	perl update_toc.pl -t toc.txt -v -html include/before_body.html
 
 appendix:
-	python make_appendix.py
+	python make_appendix.py -v
 
 html: $(HTML_FILES)
 

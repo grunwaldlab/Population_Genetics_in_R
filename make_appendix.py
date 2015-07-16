@@ -32,12 +32,23 @@ Execution:
 	over in order and the functions are written to a table in the output file.
 '''
 
-
+import getopt
+import sys
 import io 
 import re 
 import rpy2
 import rpy2.robjects as robjects
 import rpy2.robjects.packages as rpackages
+
+def usage():
+	print("\n%s by Zhian N. Kamvar, 2015-07-15" % sys.argv[0])
+	print("Software comes with no warranty.")
+	print("Usage:\n\tpython %s [-vh]" % sys.argv[0])
+	print("Optional:")
+	print("\t-v = verbose")
+	print("\t-v = show this help and exit")
+	print("")
+	sys.exit(2)
 
 '''
 Try to find all the functions in a line of code.
@@ -84,117 +95,146 @@ def get_chapter_title(chapter):
 	chapfile.close()
 	return(the_line)
 
+if __name__ == '__main__':
 
-# Load all of the R packages and grab their namespaces
-#-------------------------------------|
-poppr = rpackages.importr('poppr')
-pegas = rpackages.importr('pegas')
-adegenet = rpackages.importr('adegenet')
-ape = rpackages.importr('ape')
-mmod = rpackages.importr('mmod')
-magrittr = rpackages.importr('magrittr')
-treemap = rpackages.importr('treemap')
+	verbose = False
+	myopts, args = getopt.getopt(sys.argv[1:2], "vh")
+	for opt, arg in myopts:
+		if opt == "-v":
+			verbose = True
+		if opt == "-h":
+			usage()
 
-pkgs = ["poppr", "pegas", "adegenet", "ape", "mmod", "magrittr", "treemap"]
+	# Load all of the R packages and grab their namespaces
+	#-------------------------------------|
+	if verbose:
+		print("Importing packages ...")
+	poppr = rpackages.importr('poppr')
+	pegas = rpackages.importr('pegas')
+	adegenet = rpackages.importr('adegenet')
+	ape = rpackages.importr('ape')
+	mmod = rpackages.importr('mmod')
+	magrittr = rpackages.importr('magrittr')
+	treemap = rpackages.importr('treemap')
 
-robjects.r('''
-        poppr.funks <- ls('package:poppr')
-        pegas.funks <- ls('package:pegas')
-		adegenet.funks <- ls('package:adegenet')
-		ape.funks <- ls('package:ape')
-		mmod.funks <- ls('package:mmod')
-		magrittr.funks <- ls('package:magrittr')
-		treemap.funks <- ls('package:treemap')
-        ''')
+	pkgs = ["poppr", 
+			"pegas", 
+			"adegenet", 
+			"ape", 
+			"mmod", 
+			"magrittr", 
+			"treemap"]
 
-functions = dict()
-for package in pkgs:
-	# print('Package: ' + package + '\n==========\n')
-	funks = robjects.r[package + '.funks']
-	# print(funks)
-	for funk in funks:
-		if not re.match('\$|\[|\<|\+|(^plot$)', funk, re.UNICODE):
-			if not functions.has_key(funk):
-				functions[funk] = package
+	if verbose:
+		print("Gathering functions ...")
+	robjects.r('''
+			poppr.funks    <- ls('package:poppr')
+			pegas.funks    <- ls('package:pegas')
+			adegenet.funks <- ls('package:adegenet')
+			ape.funks      <- ls('package:ape')
+			mmod.funks     <- ls('package:mmod')
+			magrittr.funks <- ls('package:magrittr')
+			treemap.funks  <- ls('package:treemap')
+	        ''')
+	if verbose:
+		print("Creating function dictionary ...")
+	functions = dict()
+	for package in pkgs:
+		# print('Package: ' + package + '\n==========\n')
+		funks = robjects.r[package + '.funks']
+		# print(funks)
+		for funk in funks:
+			if not re.match('\$|\[|\<|\+|(^plot$)', funk, re.UNICODE):
+				if not functions.has_key(funk):
+					functions[funk] = package
 
-# Read in toc.txt
-#-------------------------------------|
-toc = io.open("toc.txt")
-chapters = dict()
-chapterlist = list()
-startin = False
-for line in toc:
-	line.strip()
-	if re.match("Introduction", line):
-		startin = True
-	if not line.strip():
-		startin = False
-		next
-	if startin == True:
-		the_chapter = line.strip()
-		chapters[the_chapter] = list()
-		chapterlist.append(the_chapter)
+	# Read in toc.txt
+	#-------------------------------------|
 
-toc.close()
-
-# Scan through files and save the code chunks in list
-#-------------------------------------|
-for chapter in chapters.keys():
-	chapter_file = io.open(chapter + u'.Rmd')
-	its_a_chunk = False
-	for line in chapter_file:
-		chunk_start = re.match(r'```\{r', line, re.UNICODE)
-		chunk_hide = re.match(r'```\{r.+?echo\s*\=\s*FALSE', line, re.UNICODE)
-		chunk_end = re.match(r'```\n', line, re.UNICODE)
-
-		if chunk_start and not chunk_hide and not its_a_chunk:
-			its_a_chunk = True
-
-		if its_a_chunk and chunk_end: 
-			its_a_chunk = False
-
-		if its_a_chunk and not chunk_start:
-			chapters[chapter].append(line.strip())
-
-	chapter_file.close()
-
-# Create a dictionary of the functions for each chapter
-#-------------------------------------|
-table_of_fun = dict()
-for chapter in chapters.keys():
-	funset = set()
-	for line in chapters[chapter]:
-		if re.match("^\#", line):
+	toc = io.open("toc.txt")
+	chapters = dict()
+	chapterlist = list()
+	startin = False
+	for line in toc:
+		line.strip()
+		if re.match("Introduction", line):
+			startin = True
+		if not line.strip():
+			startin = False
 			next
+		if startin == True:
+			the_chapter = line.strip()
+			chapters[the_chapter] = list()
+			chapterlist.append(the_chapter)
+
+	toc.close()
+
+	# Scan through files and save the code chunks in list
+	#-------------------------------------|
+	if verbose:
+		print("Scanning chapters for code chunks ...")
+	for chapter in chapters.keys():
+		chapter_file = io.open(chapter + u'.Rmd')
+		its_a_chunk = False
+		for line in chapter_file:
+			chunk_start = re.match(r'```\{r', line, re.UNICODE)
+			chunk_hide = re.match(r'```\{r.+?echo\s*\=\s*FALSE', line, re.UNICODE)
+			chunk_end = re.match(r'```\n', line, re.UNICODE)
+
+			if chunk_start and not chunk_hide and not its_a_chunk:
+				its_a_chunk = True
+
+			if its_a_chunk and chunk_end: 
+				its_a_chunk = False
+
+			if its_a_chunk and not chunk_start:
+				chapters[chapter].append(line.strip())
+
+		chapter_file.close()
+
+	# Create a dictionary of the functions for each chapter
+	#-------------------------------------|
+	if verbose:
+		print("Extracting functions ...")
+	table_of_fun = dict()
+	for chapter in chapters.keys():
+		funset = set()
+		for line in chapters[chapter]:
+			if re.match("^\#", line):
+				next
+			else:
+				funlist = find_functions(line, functions, funset)
+		table_of_fun[chapter] = funset
+
+	# Open a new file and write the header
+	#-------------------------------------|
+	if verbose:
+		print("Writing funpendix.Rmd ...")
+	funpendix = io.open("funpendix.Rmd", "w")
+	funpendix.writelines([u'---\n', u'title: "A2: Function Glossary"\n', u'---\n'])
+	funpendix.writelines([u'\n\nBelow are functions that were utilized in the making ',
+				u'of this primer with links to their respective packages.', 
+				u' Note that this list was automatically generated and might '
+				u'be missing some functions.', u'\n\n'])
+
+	# Move through the chapters in order and print the section header with the
+	# function table.
+	#-------------------------------------|
+	for chapter in chapterlist:
+		the_title = get_chapter_title(chapter)
+		funpendix.writelines(u'### [' + the_title + u'](' + chapter + u'.html)\n\n')
+		funlist = list(table_of_fun[chapter])
+		funlist.sort()
+		if len(funlist) > 0:
+			funpendix.writelines([u' | **Function** | **Package** |\n',
+						u' |--------------|-------------|\n'])
+			for function in funlist:
+				# print(function)
+				funpendix.writelines(u' | ' + function + u'\n')
 		else:
-			funlist = find_functions(line, functions, funset)
-	table_of_fun[chapter] = funset
+			funpendix.writelines(u'No functions used in this chapter.\n')
+		funpendix.writelines(u'\n')
 
-# Open a new file and write the header
-#-------------------------------------|
-funpendix = io.open("funpendix.Rmd", "w")
-funpendix.writelines([u'---\n', u'title: "A2: Function Glossary"\n', u'---\n'])
-funpendix.writelines([u'\n\nBelow are functions that were utilized in the making ',
-					u'of this primer with links to their respective packages.', 
-					u' Note that this list was automatically generated and might '
-					u'be missing some functions.', u'\n\n'])
-
-# Move through the chapters in order and print the section header with the
-# function table.
-#-------------------------------------|
-for chapter in chapterlist:
-	the_title = get_chapter_title(chapter)
-	funpendix.writelines(u'### [' + the_title + u'](' + chapter + u'.html)\n\n')
-	funlist = list(table_of_fun[chapter])
-	funlist.sort()
-	if len(funlist) > 0:
-		funpendix.writelines([u' | **Function** | **Package** |\n',
-							  u' |--------------|-------------|\n'])
-		for function in funlist:
-			# print(function)
-			funpendix.writelines(u' | ' + function + u'\n')
-	else:
-		funpendix.writelines(u'No functions used in this chapter.\n')
-	funpendix.writelines(u'\n')
-
-funpendix.close()
+	funpendix.close()
+	if verbose:
+		print("Done.")
