@@ -345,7 +345,7 @@ pramx &lt;-<span class="st"> </span><span class="kw">xvalDapc</span>(<span class
                              <span class="dt">parallel =</span> <span class="st">&quot;multicore&quot;</span>, <span class="dt">ncpus =</span> 4L))</code></pre>
 <p><img src="DAPC_files/figure-html/Pramhide-1.png" title="" alt="" width="960" /></p>
 <pre><code>##    user  system elapsed 
-## 301.018  13.703  92.020</code></pre>
+## 279.623  18.102  94.438</code></pre>
 <p>We can see that it’s basically a flat line all the way. If we take a look at the object, we see that 16 PCs give us the highest percent of correctly predicted subsamples with the lowest error.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(pramx) <span class="co"># The first element are all the samples</span></code></pre>
 <pre><code>## [1] &quot;Cross-Validation Results&quot;                          
@@ -362,18 +362,18 @@ pramx &lt;-<span class="st"> </span><span class="kw">xvalDapc</span>(<span class
 ## 
 ## $`Mean Successful Assignment by Number of PCs of PCA`
 ##        10        11        12        13        14        15        16 
-## 0.6486965 0.6448524 0.6440806 0.6485620 0.6552312 0.6680440 0.6723537 
+## 0.6475030 0.6486178 0.6470662 0.6479970 0.6562557 0.6680145 0.6731030 
 ##        17        18        19        20 
-## 0.6693699 0.6697285 0.6693772 0.6660466 
+## 0.6719462 0.6714665 0.6698316 0.6685285 
 ## 
 ## $`Number of PCs Achieving Highest Mean Success`
 ## [1] &quot;16&quot;
 ## 
 ## $`Root Mean Squared Error by Number of PCs of PCA`
 ##        10        11        12        13        14        15        16 
-## 0.3529967 0.3568602 0.3578741 0.3533184 0.3464742 0.3337505 0.3295806 
+## 0.3542804 0.3532723 0.3546470 0.3538558 0.3455363 0.3338911 0.3287561 
 ##        17        18        19        20 
-## 0.3325182 0.3321929 0.3323520 0.3357224 
+## 0.3300150 0.3305061 0.3320348 0.3333303 
 ## 
 ## $`Number of PCs Achieving Lowest MSE`
 ## [1] &quot;16&quot;

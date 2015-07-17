@@ -248,63 +248,63 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <pre><code>## 
 ## allele = Number of observed alleles
 ## 1-D = Simpson index
-## Hexp = Nei&#39;s 1978 expected heterozygosity
+## Hexp = Nei&#39;s 1978 gene diversity
 ## ------------------------------------------</code></pre>
 <pre><code>##       summary
 ## locus  allele    1-D   Hexp Evenness
-##   Pi02 10.000  0.633  0.703    0.663
-##   D13  25.000  0.884  0.921    0.587
-##   Pi33  2.000  0.012  0.023    0.322
-##   Pi04  4.000  0.578  0.771    0.785
-##   Pi4B  7.000  0.669  0.780    0.707
-##   Pi16  6.000  0.403  0.484    0.507
-##   G11  21.000  0.839  0.881    0.544
-##   Pi56  3.000  0.361  0.541    0.707
-##   Pi63  3.000  0.413  0.619    0.641
-##   Pi70  3.000  0.279  0.419    0.580
-##   Pi89 11.000  0.615  0.677    0.578
-##   mean  8.636  0.517  0.620    0.602</code></pre>
+##   Pi02 10.000  0.633  0.637    0.663
+##   D13  25.000  0.884  0.889    0.587
+##   Pi33  2.000  0.012  0.012    0.322
+##   Pi04  4.000  0.578  0.582    0.785
+##   Pi4B  7.000  0.669  0.672    0.707
+##   Pi16  6.000  0.403  0.406    0.507
+##   G11  21.000  0.839  0.844    0.544
+##   Pi56  3.000  0.361  0.363    0.707
+##   Pi63  3.000  0.413  0.415    0.641
+##   Pi70  3.000  0.279  0.281    0.580
+##   Pi89 11.000  0.615  0.619    0.578
+##   mean  8.636  0.517  0.520    0.602</code></pre>
 <p>We can see here that we have a widely variable number of alleles per locus and that we actually have a single locus that only has two alleles, Pi33. This locus also has low diversity, low expected heterozygosity and is very uneven in allele distribution. This is a sign that this might be a phylogenetically uninformative locus, where we have two alleles and one is occurring at a minor frequency. We will explore analysis with and without this locus. Let’s first see if both of these alleles exist in both populations of this data set.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">locus_table</span>(Pinf, <span class="dt">pop =</span> <span class="st">&quot;North America&quot;</span>)</code></pre>
 <pre><code>## 
 ## allele = Number of observed alleles
 ## 1-D = Simpson index
-## Hexp = Nei&#39;s 1978 expected heterozygosity
+## Hexp = Nei&#39;s 1978 gene diversity
 ## ------------------------------------------</code></pre>
 <pre><code>##       summary
 ## locus  allele    1-D   Hexp Evenness
-##   Pi02  9.000  0.690  0.776    0.653
-##   D13  21.000  0.895  0.940    0.684
-##   Pi33  2.000  0.021  0.041    0.353
-##   Pi04  4.000  0.545  0.727    0.764
-##   Pi4B  5.000  0.596  0.745    0.736
-##   Pi16  6.000  0.425  0.510    0.498
-##   G11  15.000  0.824  0.883    0.625
-##   Pi56  3.000  0.335  0.502    0.647
-##   Pi63  3.000  0.310  0.465    0.568
-##   Pi70  2.000  0.203  0.406    0.595
-##   Pi89 11.000  0.627  0.690    0.549
-##   mean  7.364  0.497  0.608    0.607</code></pre>
+##   Pi02  9.000  0.690  0.697    0.653
+##   D13  21.000  0.895  0.906    0.684
+##   Pi33  2.000  0.021  0.021    0.353
+##   Pi04  4.000  0.545  0.551    0.764
+##   Pi4B  5.000  0.596  0.603    0.736
+##   Pi16  6.000  0.425  0.430    0.498
+##   G11  15.000  0.824  0.833    0.625
+##   Pi56  3.000  0.335  0.338    0.647
+##   Pi63  3.000  0.310  0.313    0.568
+##   Pi70  2.000  0.203  0.205    0.595
+##   Pi89 11.000  0.627  0.634    0.549
+##   mean  7.364  0.497  0.503    0.607</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">locus_table</span>(Pinf, <span class="dt">pop =</span> <span class="st">&quot;South America&quot;</span>)</code></pre>
 <pre><code>## 
 ## allele = Number of observed alleles
 ## 1-D = Simpson index
-## Hexp = Nei&#39;s 1978 expected heterozygosity
+## Hexp = Nei&#39;s 1978 gene diversity
 ## ------------------------------------------</code></pre>
 <pre><code>##       summary
 ## locus  allele   1-D  Hexp Evenness
-##   Pi02   5.00  0.54  0.67     0.83
-##   D13   13.00  0.83  0.90     0.67
-##   Pi33   1.00     .               
-##   Pi04   4.00  0.61  0.81     0.81
-##   Pi4B   7.00  0.70  0.82     0.78
-##   Pi16   3.00  0.35  0.53     0.69
-##   G11   14.00  0.80  0.87     0.63
-##   Pi56   2.00  0.39  0.78     0.81
-##   Pi63   3.00  0.50  0.75     0.73
-##   Pi70   3.00  0.37  0.55     0.62
-##   Pi89   2.00  0.48  0.97     0.97
-##   mean   5.18  0.51  0.76     0.75</code></pre>
+##   Pi02   5.00  0.54  0.54     0.83
+##   D13   13.00  0.83  0.84     0.67
+##   Pi33   1.00     .     .         
+##   Pi04   4.00  0.61  0.62     0.81
+##   Pi4B   7.00  0.70  0.71     0.78
+##   Pi16   3.00  0.35  0.36     0.69
+##   G11   14.00  0.80  0.81     0.63
+##   Pi56   2.00  0.39  0.39     0.81
+##   Pi63   3.00  0.50  0.51     0.73
+##   Pi70   3.00  0.37  0.37     0.62
+##   Pi89   2.00  0.48  0.49     0.97
+##   mean   5.18  0.51  0.51     0.75</code></pre>
 </div>
 <div id="phylogenetically-uninformative-loci" class="section level2">
 <h2>Phylogenetically uninformative loci</h2>
@@ -328,9 +328,9 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ## | North America 
 ## | Total</code></pre>
 <pre><code>##             Pop  N MLG eMLG    SE    H    G lambda   E.5  Hexp    Ia
-## 1 South America 38  29 29.0 0.000 3.27 23.3  0.957 0.883 0.764 2.873
-## 2 North America 48  43 34.5 0.989 3.69 34.9  0.971 0.871 0.608 0.223
-## 3         Total 86  72 34.6 1.529 4.19 57.8  0.983 0.875 0.620 0.652
+## 1 South America 38  29 29.0 0.000 3.27 23.3  0.957 0.883 0.513 2.873
+## 2 North America 48  43 34.5 0.989 3.69 34.9  0.971 0.871 0.503 0.223
+## 3         Total 86  72 34.6 1.529 4.19 57.8  0.983 0.875 0.520 0.652
 ##    rbarD File
 ## 1 0.3446 Pinf
 ## 2 0.0240 Pinf
@@ -340,9 +340,9 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ## | North America 
 ## | Total</code></pre>
 <pre><code>##             Pop  N MLG eMLG    SE    H    G lambda   E.5  Hexp    Ia
-## 1 South America 38  29 29.0 0.000 3.27 23.3  0.957 0.883 0.764 2.873
-## 2 North America 48  43 34.5 0.989 3.69 34.9  0.971 0.871 0.664 0.225
-## 3         Total 86  72 34.6 1.529 4.19 57.8  0.983 0.875 0.680 0.655
+## 1 South America 38  29 29.0 0.000 3.27 23.3  0.957 0.883 0.565 2.873
+## 2 North America 48  43 34.5 0.989 3.69 34.9  0.971 0.871 0.551 0.225
+## 3         Total 86  72 34.6 1.529 4.19 57.8  0.983 0.875 0.571 0.655
 ##    rbarD  File
 ## 1 0.3446 iPinf
 ## 2 0.0255 iPinf
@@ -540,15 +540,15 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;pegas&quot;</span>)
 (nanhwe.full &lt;-<span class="st"> </span><span class="kw">hw.test</span>(nancycats, <span class="dt">B =</span> <span class="dv">1000</span>)) <span class="co"># performs 1000 permuatations</span></code></pre>
 <pre><code>##           chi^2  df  Pr(chi^2 &gt;) Pr.exact
-## fca8  395.80006 120 0.000000e+00        0
-## fca23 239.34221  55 0.000000e+00        0
-## fca43 434.33397  45 0.000000e+00        0
-## fca45  66.11849  36 1.622163e-03        0
-## fca77 270.52066  66 0.000000e+00        0
-## fca78 402.80002  28 0.000000e+00        0
-## fca90 217.19836  66 0.000000e+00        0
-## fca96 193.36764  66 1.965095e-14        0
-## fca37 291.00731 153 1.209777e-10        0</code></pre>
+## fca8  395.80006 120 0.000000e+00    0.000
+## fca23 239.34221  55 0.000000e+00    0.000
+## fca43 434.33397  45 0.000000e+00    0.000
+## fca45  66.11849  36 1.622163e-03    0.001
+## fca77 270.52066  66 0.000000e+00    0.000
+## fca78 402.80002  28 0.000000e+00    0.000
+## fca90 217.19836  66 0.000000e+00    0.000
+## fca96 193.36764  66 1.965095e-14    0.000
+## fca37 291.00731 153 1.209777e-10    0.000</code></pre>
 <p>We can see here that both the analytical p-value and permuted p-value show that we have confidence that all loci are not under the null expectation of HWE. This makes sense given that these data represent 17 populations of cats. If we wanted to check what the HWE statistic for each population is, we should first separate the populations with the function <code>seppop()</code>. For this exercise, we will only focus on the analytical p-value by setting <code>B = 0</code>.</p>
 <pre class="sourceCode r"><code class="sourceCode r">(nanhwe.pop &lt;-<span class="st"> </span><span class="kw">seppop</span>(nancycats) %&gt;%<span class="st"> </span><span class="kw">lapply</span>(hw.test, <span class="dt">B =</span> <span class="dv">0</span>))</code></pre>
 <pre><code>## $P01
