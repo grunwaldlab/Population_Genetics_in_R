@@ -116,6 +116,7 @@ if __name__ == '__main__':
 	mmod = rpackages.importr('mmod')
 	magrittr = rpackages.importr('magrittr')
 	treemap = rpackages.importr('treemap')
+	vegan = rpackages.importr('vegan')
 
 	pkgs = ["poppr", 
 			"pegas", 
@@ -123,7 +124,8 @@ if __name__ == '__main__':
 			"ape", 
 			"mmod", 
 			"magrittr", 
-			"treemap"]
+			"treemap",
+			"vegan"]
 
 	if verbose:
 		print("Gathering functions ...")
@@ -135,6 +137,7 @@ if __name__ == '__main__':
 			mmod.funks     <- ls('package:mmod')
 			magrittr.funks <- ls('package:magrittr')
 			treemap.funks  <- ls('package:treemap')
+			vegan.funks  <- ls('package:vegan')
 	        ''')
 	if verbose:
 		print("Creating function dictionary ...")

@@ -69,6 +69,7 @@ No functions used in this chapter.
  |--------------|-------------|
  | **`mlg.table`** | [*poppr*](http://cran.r-project.org/package=poppr) |
  | **`poppr`** | [*poppr*](http://cran.r-project.org/package=poppr) |
+ | **`rarecurve`** | [*vegan*](http://cran.r-project.org/package=vegan) |
  | **`setPop`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
  | **`splitStrata`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
 
