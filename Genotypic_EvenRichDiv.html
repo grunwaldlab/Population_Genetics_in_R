@@ -260,7 +260,7 @@ monpop</code></pre>
 ##      3 strata - Tree Year Symptom
 ##      2 populations defined - BB FR</code></pre>
 <p>To calculate genotypic richness, diversity, and evenness, we can use the <code>poppr</code> function:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">poppr</span>(monpop)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">(monpop_diversity &lt;-<span class="st"> </span><span class="kw">poppr</span>(monpop))</code></pre>
 <pre><code>## | BB 
 ## | FR 
 ## | Total</code></pre>
@@ -269,22 +269,67 @@ monpop</code></pre>
 ## 2    FR 581 191 66.6 4.17 4.58 53.4  0.981 0.543 0.588 0.809 0.0679 monpop
 ## 3 Total 694 264 73.6 4.33 4.89 65.0  0.985 0.486 0.589 0.729 0.0611 monpop</code></pre>
 <p>This shows us several summary statistics:</p>
-<ul>
-<li><code>Pop</code> - Population name.</li>
-<li><code>N</code> - Number of individuals observed.</li>
-<li><code>MLG</code> - Number of multilocus genotypes (MLG) observed.</li>
-<li><code>eMLG</code> - The number of expected MLG at the smallest sample size ≥ 10 based on rarefaction <span class="citation">(Hurlbert, 1971)</span>.</li>
-<li><code>SE</code> - Standard error based on eMLG.</li>
-<li><code>H</code> - Shannon-Wiener Index of MLG diversity <span class="citation">(Shannon, 2001)</span>.</li>
-<li><code>G</code> - Stoddart and Taylor’s Index of MLG diversity <span class="citation">(Stoddart &amp; Taylor, 1988)</span>.</li>
-<li><code>Hexp</code> - Unbiased genotypic diversity <span class="citation">(Nei, 1978)</span>.</li>
-<li><code>E.5</code> - Evenness, E5 <span class="citation">(Pielou, 1975; Ludwig &amp; Reynolds, 1988; Grünwald et al., 2003)</span>.</li>
-<li><code>Ia</code> - The index of association, <span class="math">\(I_A\)</span> <span class="citation">(Brown, Feldman &amp; Nevo, 1980; Smith et al., 1993)</span>.</li>
-<li><code>rbarD</code> - The standardized index of association, <span class="math">\(\bar{r}_d\)</span> <span class="citation">(Agapow &amp; Burt, 2001)</span>.</li>
-</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Abbreviation</th>
+<th align="left">Statistic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Pop</td>
+<td align="left">Population name.</td>
+</tr>
+<tr class="even">
+<td align="left">N</td>
+<td align="left">Number of individuals observed.</td>
+</tr>
+<tr class="odd">
+<td align="left">MLG</td>
+<td align="left">Number of multilocus genotypes (MLG) observed.</td>
+</tr>
+<tr class="even">
+<td align="left">eMLG</td>
+<td align="left">The number of expected MLG at the smallest sample size ≥ 10 based on rarefaction <span class="citation">(Hurlbert, 1971)</span>.</td>
+</tr>
+<tr class="odd">
+<td align="left">SE</td>
+<td align="left">Standard error based on eMLG.</td>
+</tr>
+<tr class="even">
+<td align="left">H</td>
+<td align="left">Shannon-Wiener Index of MLG diversity <span class="citation">(Shannon, 2001)</span>.</td>
+</tr>
+<tr class="odd">
+<td align="left">G</td>
+<td align="left">Stoddart and Taylor’s Index of MLG diversity <span class="citation">(Stoddart &amp; Taylor, 1988)</span>.</td>
+</tr>
+<tr class="even">
+<td align="left">lambda</td>
+<td align="left">Simpson’s Index <span class="citation">(Simpson, 1949)</span>.</td>
+</tr>
+<tr class="odd">
+<td align="left">E.5</td>
+<td align="left">Evenness, <span class="math">\(E_5\)</span> <span class="citation">(Pielou, 1975; Ludwig &amp; Reynolds, 1988; Grünwald et al., 2003)</span>.</td>
+</tr>
+<tr class="even">
+<td align="left">Hexp</td>
+<td align="left">Nei’s unbiased gene diversity <span class="citation">(Nei, 1978)</span>.</td>
+</tr>
+<tr class="odd">
+<td align="left">Ia</td>
+<td align="left">The index of association, <span class="math">\(I_A\)</span> <span class="citation">(Brown, Feldman &amp; Nevo, 1980; Smith et al., 1993)</span>.</td>
+</tr>
+<tr class="even">
+<td align="left">rbarD</td>
+<td align="left">The standardized index of association, <span class="math">\(\bar{r}_d\)</span> <span class="citation">(Agapow &amp; Burt, 2001)</span>.</td>
+</tr>
+</tbody>
+</table>
 <div id="genotypic-richness" class="section level2">
 <h2>Genotypic richness</h2>
-<p>The number of observed <span class="math">\(MLGs\)</span> is equivalent to genotypic richness. We expect that the BB population would have a higher genotypic richness than the FR population. However, looking at the raw number of MLGs for each symptom type, it shows us the opposite: there are 94 MLGs for BB and 191 MLGs for FR. This discrepancy has to do with the sample size differences, namely <span class="math">\(N\)</span> = 113 for BB and <span class="math">\(N\)</span> = 581 for FR. A more appropriate comparison is the <span class="math">\(eMLG\)</span> value, which is an approximation of the number of genotypes that would be observed at the smallest sample size (<span class="math">\(N\)</span> = 113) based on rarefaction. For BB (<span class="math">\(N\)</span>=113) the <span class="math">\(eMLG\)</span> = 94 and for FR (where <span class="math">\(N\)</span> is set to 113) the <span class="math">\(eMLG\)</span> = 66.6. Thus, genotypic richness is indeed higher in the BB populations than the FR population when considering equal sample sizes.</p>
+<p>The number of observed <span class="math">\(MLGs\)</span> is equivalent to genotypic richness. We expect that the BB population would have a higher genotypic richness than the FR population. However, looking at the raw number of MLGs for each symptom type, it shows us the opposite: there are 94 MLGs for BB and 191 MLGs for FR. This discrepancy has to do with the sample size differences, namely <span class="math">\(N = 113\)</span> for BB and <span class="math">\(N = 581\)</span> for FR. A more appropriate comparison is the <span class="math">\(eMLG\)</span> value, which is an approximation of the number of genotypes that would be observed at the smallest sample size (<span class="math">\(N = 113\)</span>) based on rarefaction. For BB (<span class="math">\(N = 113\)</span>) the <span class="math">\(eMLG = 94\)</span> and for FR (where <span class="math">\(N\)</span> is set to 113) the <span class="math">\(eMLG\)</span> = 66.6. Thus, genotypic richness is indeed higher in the BB populations than the FR population when considering equal sample sizes.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;vegan&quot;</span>)
 mon.tab &lt;-<span class="st"> </span><span class="kw">mlg.table</span>(monpop, <span class="dt">plot =</span> <span class="ot">FALSE</span>)
 min_sample &lt;-<span class="st"> </span><span class="kw">min</span>(<span class="kw">rowSums</span>(mon.tab))
@@ -294,12 +339,20 @@ min_sample &lt;-<span class="st"> </span><span class="kw">min</span>(<span class
 </div>
 <div id="genotypic-diversity" class="section level2">
 <h2>Genotypic diversity</h2>
-<p>Diversity measures incorporate both genotypic richness and abundance. There are three measures of genotypic diversity employed by <em>poppr</em>, the Shannon-Wiener Index (H), Stoddart and Taylor’s Index (G), and what we call unbiased genotypic diversity (Hexp), which is an analog of expected heterozygosity. In our example, comparing the diversity of BB to FR shows that H is greater for FR (4.58 vs. 4.40), but G is lower (53.4 vs. 61.7). Thus, our expectation that diversity is lower for FR than BB is rejected in the case of H, which is likely due to the sensitivity of the Shannon-Wiener Index to genotypic richness in the uneven sample sizes, and accepted in the case of G. To be fair, the sample size used to calculate these diversity measures is different and is therefore not an appropriate comparison.</p>
-<p>Unlike H and G, the genotypic diversity measure, Hexp, is calculated using genotype frequencies and scaled according to sample size, with a range from 0 to 1. This measure provides an estimation of the probability that two randomly selected genotypes are different. In the data above, it shows us that the genotypic diversity of the BB is higher (0.993) than that of FR (0.983), thus we have a higher probability that two randomly selected BB individuals have a different genotype as compared to the FR population.</p>
+<p>Diversity measures incorporate both genotypic richness and abundance. There are three measures of genotypic diversity employed by <em>poppr</em>, the Shannon-Wiener Index (H), Stoddart and Taylor’s Index (G), and Simpson’s Index (lambda). In our example, comparing the diversity of BB to FR shows that H is greater for FR (4.58 vs. 4.4), but G is lower (53.4 vs. 61.7). Thus, our expectation that diversity is lower for FR than BB is rejected in the case of H, which is likely due to the sensitivity of the Shannon-Wiener Index to genotypic richness in the uneven sample sizes, and accepted in the case of G. To be fair, the sample size used to calculate these diversity measures is different and is therefore not an appropriate comparison.</p>
+<p>For an easier statistic to grasp, we have included the Simpson index, which is simply one minus the sum of squared genotype frequencies. This measure provides an estimation of the probability that two randomly selected genotypes are different and scales from 0 (no genotypes are different) to 1 (all genotypes are different). In the data above, we can see that lambda is just barely higher in BB than FR (0.984 vs. 0.981). Since this might be an artifact of sample size, we can explore a correction of Simpson’s index for sample size by multiplying lambda by <span class="math">\(N/(N - 1)\)</span>. Since R is vectorized, we can do this for all of our populations at once:</p>
+<pre class="sourceCode r"><code class="sourceCode r">N      &lt;-<span class="st"> </span>monpop_diversity$N      <span class="co"># number of samples</span>
+lambda &lt;-<span class="st"> </span>monpop_diversity$lambda <span class="co"># Simpson&#39;s index</span>
+(N/(N -<span class="st"> </span><span class="dv">1</span>)) *<span class="st"> </span>lambda              <span class="co"># Corrected Simpson&#39;s index</span></code></pre>
+<pre><code>## [1] 0.9925727 0.9829604 0.9860399</code></pre>
+<p>Now we can see that, even after correction, Simpson’s index is still higher for BB.</p>
+<blockquote>
+<p>You try it! Can you calculate the clonal fraction for each population (<span class="math">\(\frac{N}{MLG}\)</span>)?</p>
+</blockquote>
 </div>
 <div id="genotypic-evenness" class="section level2">
 <h2>Genotypic evenness</h2>
-<p>Evenness is a measure of the distribution of genotype abundances, wherein a population with equally abundant genotypes yields a value equal to 1 and a population dominated by a single genotype is closer to zero. In the example above, the BB population has <span class="math">\(E.5\)</span> = 0.755 and the FR population has <span class="math">\(E.5\)</span> = 0.543. This indicates that the MLGs observed in the BB population are closer to equal abundance than those in the FR population. Indeed, when we look at a distribution of the <span class="math">\(MLGs\)</span> for each symptom type it shows us there are many more unique BB symptoms as compared to the FR symptoms.</p>
+<p>Evenness is a measure of the distribution of genotype abundances, wherein a population with equally abundant genotypes yields a value equal to 1 and a population dominated by a single genotype is closer to zero. In the example above, the BB population has <span class="math">\(E.5 = 0.755\)</span> and the FR population has <span class="math">\(E.5 = 0.543\)</span> . This indicates that the MLGs observed in the BB population are closer to equal abundance than those in the FR population. Indeed, when we look at a distribution of the <span class="math">\(MLGs\)</span> for each symptom type it shows us there are many more unique BB symptoms as compared to the FR symptoms.</p>
 <pre class="sourceCode r"><code class="sourceCode r">mon.tab &lt;-<span class="st"> </span><span class="kw">mlg.table</span>(monpop)</code></pre>
 <p><img src="Genotypic_EvenRichDiv_files/figure-html/symptom_table-1.png" title="" alt="" width="1000px" /></p>
 </div>
@@ -319,6 +372,7 @@ min_sample &lt;-<span class="st"> </span><span class="kw">min</span>(<span class
 <p>Nei M. 1978. Estimation of average heterozygosity and genetic distance from a small number of individuals. <em>Genetics</em> 89:583–590. Available at: <a href="http://www.genetics.org/content/89/3/583.abstract" class="uri">http://www.genetics.org/content/89/3/583.abstract</a></p>
 <p>Pielou EC. 1975. <em>Ecological diversity</em>. Wiley New York.</p>
 <p>Shannon CE. 2001. A mathematical theory of communication. <em>ACM SIGMOBILE Mobile Computing and Communications Review</em> 5:3–55. Available at: <a href="http://cm.bell-labs.com/cm/ms/what/shannonday/shannon1948.pdf" class="uri">http://cm.bell-labs.com/cm/ms/what/shannonday/shannon1948.pdf</a></p>
+<p>Simpson E. 1949. Measurement of diversity. <em>Nature</em> 163:688.</p>
 <p>Smith JM., Smith NH., O’Rourke M., Spratt BG. 1993. How clonal are bacteria. <em>Proceedings of the National Academy of Sciences</em> 90:4384–4388. Available at: <a href="http://www.pnas.org/content/90/10/4384" class="uri">http://www.pnas.org/content/90/10/4384</a></p>
 <p>Stoddart JA., Taylor JF. 1988. Genotypic diversity: Estimation and prediction in samples. <em>Genetics</em> 118:705–711. Available at: <a href="http://www.genetics.org/content/118/4/705" class="uri">http://www.genetics.org/content/118/4/705</a></p>
 </div>
