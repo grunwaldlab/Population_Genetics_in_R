@@ -305,11 +305,13 @@ monpop</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;dplyr&quot;</span>)
 monstrata &lt;-<span class="st"> </span><span class="kw">strata</span>(monpop) %&gt;%<span class="st">     </span>
 <span class="st">  </span><span class="kw">group_by</span>(Tree, Year, Symptom) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Count =</span> <span class="kw">n</span>()) %&gt;%<span class="st"> </span><span class="co"># n() {dplyr} counts the number of samples in a group.</span>
-<span class="st">  </span>as.data.frame 
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Count =</span> <span class="kw">n</span>()) 
 
 monstrata</code></pre>
-<pre><code>##    Tree Year Symptom Count
+<pre><code>## Source: local data frame [12 x 4]
+## Groups: Tree, Year
+## 
+##    Tree Year Symptom Count
 ## 1     7    9      BB    23
 ## 2     7    9      FR    73
 ## 3    26    9      BB    41
@@ -357,6 +359,9 @@ label_size     &lt;-<span class="st"> </span><span class="kw">c</span>(<span cla
         <span class="dt">type =</span> <span class="st">&quot;categorical&quot;</span>, <span class="dt">vColor =</span> <span class="st">&quot;Tree&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;M. fructicola&quot;</span>, 
         <span class="dt">align.labels =</span> label_position, <span class="dt">fontsize.labels =</span> label_size)</code></pre>
 <p><img src="Population_Strata_files/figure-html/treemap-1.png" title="" alt="" width="960" /></p>
+<blockquote>
+<p>You can also use the <code>itreemap()</code> function for an interactive exploration.</p>
+</blockquote>
 <p>Next, we analyze the data according to Tree and Year:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setPop</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree/Year
 monpop</code></pre>

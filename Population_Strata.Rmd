@@ -109,8 +109,7 @@ will:
 library("dplyr")
 monstrata <- strata(monpop) %>%     
   group_by(Tree, Year, Symptom) %>% 
-  summarize(Count = n()) %>% # n() {dplyr} counts the number of samples in a group.
-  as.data.frame	
+  summarize(Count = n()) 
 
 monstrata
 ```
@@ -142,6 +141,8 @@ treemap(dtf = monstrata, index = nameStrata(monpop), vSize = "Count",
         type = "categorical", vColor = "Tree", title = "M. fructicola", 
         align.labels = label_position, fontsize.labels = label_size)
 ```
+
+> You can also use the `itreemap()` function for an interactive exploration.
 
 Next, we analyze the data according to Tree and Year:
 
