@@ -229,7 +229,6 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <li><a href="#phylogenetically-uninformative-loci">Phylogenetically uninformative loci</a></li>
 <li><a href="#missing-data">Missing data</a></li>
 <li><a href="#removing-loci-and-genotypes">Removing loci and genotypes</a></li>
-<li><a href="#replacing-missing-data">Replacing missing data</a></li>
 <li><a href="#hardy-weinberg-equilibrium">Hardy-Weinberg equilibrium</a></li>
 </ul>
 </div>
@@ -446,14 +445,26 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ##  Removing 1 genotype : N310</code></pre>
 <p><img src="Locus_Stats_files/figure-html/unnamed-chunk-5-1.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
 <p>We only found one individual in population 11.</p>
-</div>
-<div id="replacing-missing-data" class="section level2">
-<h2>Replacing missing data</h2>
-<p>Replacement of missing data occurs for each allele over all loci. It will replace all missing data in your data set. There are two options: replacement of missing data with zeroes, in fact recoding these as another allelic state, or replacement of missing data with the average allele frequency observed.</p>
-<p>Note that the first population in the data set has 20% missing data at the first locus. Here is the un-replaced data for reference:</p>
-<pre class="sourceCode r"><code class="sourceCode r">nan1 &lt;-<span class="st"> </span><span class="kw">popsub</span>(nancycats, <span class="dv">1</span>, <span class="dt">drop =</span> <span class="ot">TRUE</span>) <span class="co"># Dropping alleles not in that population.</span>
-<span class="kw">tab</span>(nan1[<span class="dt">loc =</span> <span class="st">&quot;L1&quot;</span>])</code></pre>
-<pre><code>##     
+<!--
+Replacing missing data
+----
+
+Replacement of missing data occurs for each allele over all loci. It will
+replace all missing data in your data set. There are two options: replacement of
+missing data with zeroes, in fact recoding these as another allelic state, or
+replacement of missing data with the average allele frequency observed.
+
+Note that the first population in the data set has 20% missing data
+at the first locus. Here is the un-replaced data for reference:
+
+
+```r
+nan1 <- popsub(nancycats, 1, drop = TRUE) # Dropping alleles not in that population.
+tab(nan1[loc = "L1"])
+```
+
+```
+##     
 ## N215
 ## N216
 ## N217
@@ -463,12 +474,25 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ## N221
 ## N222
 ## N223
-## N224</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">nanzero &lt;-<span class="st"> </span><span class="kw">missingno</span>(nancycats, <span class="st">&quot;zero&quot;</span>)</code></pre>
-<pre><code>## 
-##  Replaced 617 missing values.</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tab</span>(<span class="kw">popsub</span>(nanzero, <span class="dv">1</span>, <span class="dt">drop =</span> <span class="ot">TRUE</span>)[<span class="dt">loc =</span> <span class="st">&quot;fca8&quot;</span>])</code></pre>
-<pre><code>##      fca8.133 fca8.135 fca8.137 fca8.143
+## N224
+```
+
+
+```r
+nanzero <- missingno(nancycats, "zero")
+```
+
+```
+## 
+##  Replaced 617 missing values.
+```
+
+```r
+tab(popsub(nanzero, 1, drop = TRUE)[loc = "fca8"])
+```
+
+```
+##      fca8.133 fca8.135 fca8.137 fca8.143
 ## N215        0        0        0        0
 ## N216        0        0        0        0
 ## N217        0        1        0        1
@@ -478,13 +502,28 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ## N221        0        2        0        0
 ## N222        0        1        0        1
 ## N223        0        0        1        1
-## N224        0        2        0        0</code></pre>
-<p>The <code>NA</code>s have been replaced with zeroes. Now let’s look at what happens when we replace with <code>&quot;mean&quot;</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">nanmean &lt;-<span class="st"> </span><span class="kw">missingno</span>(nancycats, <span class="st">&quot;mean&quot;</span>)</code></pre>
-<pre><code>## 
-##  Replaced 617 missing values.</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tab</span>(<span class="kw">popsub</span>(nanmean, <span class="dv">1</span>, <span class="dt">drop =</span> <span class="ot">TRUE</span>)[<span class="dt">loc =</span> <span class="st">&quot;fca8&quot;</span>])</code></pre>
-<pre><code>##         fca8.117    fca8.119   fca8.121  fca8.123    fca8.127  fca8.129
+## N224        0        2        0        0
+```
+
+The `NA`s have been replaced with zeroes. Now let's look at what happens when we
+replace with `"mean"`.
+
+
+```r
+nanmean <- missingno(nancycats, "mean")
+```
+
+```
+## 
+##  Replaced 617 missing values.
+```
+
+```r
+tab(popsub(nanmean, 1, drop = TRUE)[loc = "fca8"])
+```
+
+```
+##         fca8.117    fca8.119   fca8.121  fca8.123    fca8.127  fca8.129
 ## N215 0.004608295 0.004608295 0.02764977 0.1336406 0.004608295 0.0921659
 ## N216 0.004608295 0.004608295 0.02764977 0.1336406 0.004608295 0.0921659
 ## N217 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
@@ -516,13 +555,29 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ## N221 0.00000000 0.00000000 0.00000000
 ## N222 0.00000000 0.00000000 0.00000000
 ## N223 0.00000000 0.00000000 0.00000000
-## N224 0.00000000 0.00000000 0.00000000</code></pre>
-<p>Notice that there are a lot more alleles than there were originally. This is because the procedure is performed over the entire data set, not by population. Let’s look at what happens if we perform the same routine on the subset data.</p>
-<pre class="sourceCode r"><code class="sourceCode r">nan1 &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span><span class="kw">popsub</span>(<span class="dv">1</span>, <span class="dt">drop =</span> <span class="ot">TRUE</span>) %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;mean&quot;</span>)</code></pre>
-<pre><code>## 
-##  Replaced 8 missing values.</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tab</span>(nan1[<span class="dt">loc =</span> <span class="st">&quot;fca8&quot;</span>])</code></pre>
-<pre><code>##      fca8.133 fca8.135 fca8.137 fca8.143
+## N224 0.00000000 0.00000000 0.00000000
+```
+
+Notice that there are a lot more alleles than there were originally. This is
+because the procedure is performed over the entire data set, not by population.
+Let's look at what happens if we perform the same routine on the subset data.
+
+
+```r
+nan1 <- nancycats %>% popsub(1, drop = TRUE) %>% missingno("mean")
+```
+
+```
+## 
+##  Replaced 8 missing values.
+```
+
+```r
+tab(nan1[loc = "fca8"])
+```
+
+```
+##      fca8.133 fca8.135 fca8.137 fca8.143
 ## N215     0.25    1.125    0.125      0.5
 ## N216     0.25    1.125    0.125      0.5
 ## N217     0.00    1.000    0.000      1.0
@@ -532,7 +587,10 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ## N221     0.00    2.000    0.000      0.0
 ## N222     0.00    1.000    0.000      1.0
 ## N223     0.00    0.000    1.000      1.0
-## N224     0.00    2.000    0.000      0.0</code></pre>
+## N224     0.00    2.000    0.000      0.0
+```
+
+-->
 </div>
 <div id="hardy-weinberg-equilibrium" class="section level2">
 <h2>Hardy-Weinberg equilibrium</h2>

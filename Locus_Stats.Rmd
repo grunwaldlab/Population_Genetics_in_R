@@ -18,8 +18,8 @@ A rigorous population genetic analysis looks closely at the data to assess
 quality and identify outliers or problems in the data such as erroneous allele
 calls. This chapter focuses on analysis on a per-locus level. While there are
 statistics that analyze populations across loci, it is important to analyze each
-locus independently to make sure that one locus is not introducing bias or spurious errors into the
-analysis.
+locus independently to make sure that one locus is not introducing bias or
+spurious errors into the analysis.
 
 > **Note:** Many of these statistics are specific to co-dominant data. 
 
@@ -156,6 +156,7 @@ miss <- nancycats %>%
 
 We only found one individual in population 11.
 
+<!--
 Replacing missing data
 ----
 
@@ -193,6 +194,8 @@ Let's look at what happens if we perform the same routine on the subset data.
 nan1 <- nancycats %>% popsub(1, drop = TRUE) %>% missingno("mean")
 tab(nan1[loc = "fca8"])
 ```
+
+-->
 
 Hardy-Weinberg equilibrium
 -----

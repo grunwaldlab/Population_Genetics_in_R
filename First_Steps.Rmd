@@ -91,17 +91,21 @@ poppr(Pinf)
 
 We can see statistics printed for each individual and the total population. The fields you see in the output include:
 
-- `Pop`  -  Population name.
-- `N` -  Number of individuals observed.
-- `MLG` - Number of multilocus genotypes (MLG) observed.
-- `eMLG` - The number of expected MLG at the smallest sample size ≥ 10 based on rarefaction `r citep(bib[c("hurlbert1971nonconcept")])`.
-- `SE` - Standard error based on eMLG.
-- `H` - Shannon-Wiener Index of MLG diversity `r citep(bib[c("shannon2001mathematical")])`.
-- `G` - Stoddart and Taylor’s Index of MLG diversity  `r citep(bib[c("stoddart1988genotypic")])`.
-- `Hexp` - Nei’s expected heterozygosity (denoted elsewhere as D)  `r citep(bib[c("nei1978estimation")])`.
-- `E.5` - Evenness, E5 `r citep(bib[c("pielou1975ecological","ludwig1988statistical","grunwald2003")])`.
-- `Ia` - The index of association, $I_A$ `r citep(bib[c("brown1980multilocus","smith1993clonal")])`.
-- `rbarD` - The standardized index of association, $\bar{r}_d$ `r citep(bib[c("agapow2001indices")])`.
+Abbreviation | Statistic
+----|---- 
+`Pop` |  Population name.
+`N` |  Number of individuals observed.
+`MLG` | Number of multilocus genotypes (MLG) observed.
+`eMLG` | The number of expected MLG at the smallest sample size ≥ 10 based on rarefaction `r citep(bib[c("hurlbert1971nonconcept")])`.
+`SE` | Standard error based on eMLG.
+`H` | Shannon-Wiener Index of MLG diversity `r citep(bib[c("shannon2001mathematical")])`.
+`G` | Stoddart and Taylor’s Index of MLG diversity  `r citep(bib[c("stoddart1988genotypic")])`.
+`lambda` | Simpson's Index `r citep(bib[c("simpson1949measurement")])`.
+`E.5` | Evenness, $E_5$ `r citep(bib[c("pielou1975ecological","ludwig1988statistical","grunwald2003")])`.
+`Hexp` | Nei's unbiased gene diversity `r citep(bib[c("nei1978estimation")])`.
+`Ia` | The index of association, $I_A$ `r citep(bib[c("brown1980multilocus","smith1993clonal")])`.
+`rbarD` | The standardized index of association, $\bar{r}_d$ `r citep(bib[c("agapow2001indices")])`.
+
 
 What does all this mean? Both populations have a similar number of individuals ($N$ = 38 and 48) sampled. However, one population has 29 and the other 43 $MLG$ while both populations together have combined 86 $MLG$. Genotypic diversity (either $H$ or $G$) is higher in population 2 than population 1, while evenness is similar. Let's ignore $I_A$ and $\bar{r}_d$ for now, as these are measures of linkage disequilibrium that will be covered in [Chapter 8](Linkage_disequilibrium.html). 
 
