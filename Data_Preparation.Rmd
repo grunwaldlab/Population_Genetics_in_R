@@ -22,7 +22,8 @@ and details are given in the R help page for the *adegenet* function
 sets and show you how you can format your data if it's grouped into multiple
 stratifications.
 
-> [Appendix 1](Data_sets.html) provides an overview and description of the data sets used in this primer.
+> [Appendix 1](Data_sets.html) provides an overview and description of the data
+> sets used in this primer.
 
 Importing data
 ------
@@ -31,14 +32,15 @@ Importing data
 
 To start simple, let's examine the input file for the `monpop` data set
 containing 694 isolates of the plant pathogen *Monilinia fructicola* genotyped
-over 13 haploid microsatellite loci `r citep(bib["everhart2014finescale"])`. The data set is
-called **monpop.csv**.
+over 13 haploid microsatellite loci `r citep(bib["everhart2014finescale"])`. The
+data set is called **monpop.csv**.
 
 ><a class="btn btn-info btn-sm" target = "blank" href="https://github.com/grunwaldlab/Population_Genetics_in_R/blob/master/monpop.csv" role="button">view</a> 
 or
 <a class="btn btn-primary btn-sm" target = "blank" href="http://grunwaldlab.github.io/Population_Genetics_in_R/monpop.csv" role="button"> download</a> monpop.csv
 
-> Note that `*.csv` stands for comma-separated-value. This can be opened in a text editor or excel. `*.csv` is a good format for portability into R.
+> Note that `*.csv` stands for comma-separated-value. This can be opened in a
+> text editor or excel. `*.csv` is a good format for portability into R.
 
 To import GenAlEx formatted data into *poppr*, you should use the function
 `read.genalex`. Below is an example using **monpop.csv**.
@@ -55,9 +57,9 @@ data(monpop)
 monpop
 ```
 
-> There are other options for genalex formatted data, such as xy coordinates. 
-We won't cover the other options, but type `help("read.genalex")` in your R 
-console for details.
+> There are other options for genalex formatted data, such as xy coordinates. We
+> won't cover the other options, but type `help("read.genalex")` in your R
+> console for details.
 
 ### Other data formats
 
@@ -75,20 +77,21 @@ package. If your data is in any other format, type `help("df2genind")` for guida
 GenAlEx data format
 ----
 
-[GenAlEx](http://biology-assets.anu.edu.au/GenAlEx/Welcome.html) is a very popular add-on for Microsoft Excel. It is relatively easy to
-use because of its familiar, menu-driven interface. It also gives the user the
-option to include information on population groupings, regional groupings, and
-xy coordinates. The flexibility of this format made it a clear choice for import
-into *poppr*.
+[GenAlEx](http://biology-assets.anu.edu.au/GenAlEx/Welcome.html) is a very
+popular add-on for Microsoft Excel. It is relatively easy to use because of its
+familiar, menu-driven interface. It also gives the user the option to include
+information on population groupings, regional groupings, and xy coordinates. The
+flexibility of this format made it a clear choice for import into *poppr*.
 
-The data format is standard in that individuals are defined in the rows and loci
-are defined in the columns. The first two rows are reserved for metadata and the
-first two columns are reserved for the individual names and population names,
-respectively. The examples we will be using include haploid, diploid and polyploid data.
+The data format is standard in that *individuals are defined in the rows* and
+*loci are defined in the columns*. The first two rows are reserved for metadata
+and the first two columns are reserved for the individual names and population
+names, respectively. The examples we will be using include haploid, diploid and
+polyploid data.
 
-### Haploids
+### Basic Format
 
-Below is what the `monpop` data looks like. Highlighted in red is
+Below is what the `monpop` (haploid) data looks like. Highlighted in red is
 how missing data should be coded for SSR markers. Highlighted in blue are
 the parts of the metadata rows used by *poppr*. These three numbers represent:
 
