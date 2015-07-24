@@ -236,37 +236,40 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <p>After installing both R and RStudio, please proceed to open RStudio. RStudio should look something like:</p>
 <p><img src="images/Rstudio.png" alt="RStudio" /></p>
 <p>The top left panel is a text-box where you can write a script. The bottom left panel is the console (or command line) where you directly execute commands and R writes results to the console; for example, type in <code>x &lt;- 1</code> hit return and then type <code>x</code> and hit return again and watch the console:</p>
-<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">1</span>
-x</code></pre>
-<pre><code>## [1] 1</code></pre>
-<p>You just assigned the value 1 to the variable <code>x</code> with the assignment operator <span class="math">\(&lt;-\)</span>. The second command asks R to show the value assigned to R. Finally, the top right panel shows variables loaded into the environment and the bottom right panel is useful for loading files, plotting graphs, installing packages and getting help. Feel free to explore all the various tabs or elements of each panel.</p>
+<blockquote>
+<p>Note: the “&gt;” symbol is R’s prompt for you to type something in the console.</p>
+</blockquote>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">1</span>
+&gt;<span class="st"> </span>x</code></pre>
+<pre><code>[1] 1</code></pre>
+<p>You just assigned the value 1 to the variable <code>x</code> with the assignment operator <code>&lt;-</code>. The second command asks R to show the value assigned to R. Finally, the top right panel shows variables loaded into the environment and the bottom right panel is useful for loading files, plotting graphs, installing packages and getting help. Feel free to explore all the various tabs or elements of each panel.</p>
 <div id="assignment-data-types-and-operations" class="section level2">
 <h2>Assignment, data types and operations</h2>
 <p>Let’s learn a few simple facts about R:</p>
 <p>R uses # to add comments to code:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Add 1 + 1 and write to console</span>
-<span class="dv">1</span> +<span class="st"> </span><span class="dv">1</span></code></pre>
-<pre><code>## [1] 2</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Add 1 + 1 and write to console</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="dv">1</span> +<span class="st"> </span><span class="dv">1</span></code></pre>
+<pre><code>[1] 2</code></pre>
 <p>This is very useful when developing reusable code or when you want to remember a few months later what you actually did.</p>
 <p>R is case sensitive so that <code>x &lt;- 5</code> is not the same as <code>X &lt;- x + 1</code>. Try typing this into your console and look at <code>x</code> and <code>X</code>, respectively:</p>
-<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">5</span>
-X &lt;-<span class="st"> </span>x +<span class="st"> </span><span class="dv">1</span>
-x</code></pre>
-<pre><code>## [1] 5</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">X</code></pre>
-<pre><code>## [1] 6</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">5</span>
+&gt;<span class="st"> </span>X &lt;-<span class="st"> </span>x +<span class="st"> </span><span class="dv">1</span>
+&gt;<span class="st"> </span>x</code></pre>
+<pre><code>[1] 5</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>X</code></pre>
+<pre><code>[1] 6</code></pre>
 <p>Next, let’s assign numbers to a vector:</p>
-<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)
-x</code></pre>
-<pre><code>## [1] 1 2 3 4 5</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)
+&gt;<span class="st"> </span>x</code></pre>
+<pre><code>[1] 1 2 3 4 5</code></pre>
 <p>You can see several important traits of R. The <code>c()</code> command (which stands for combine) can be used to make a list (e.g., a vector) of data. We can overwrite the variable <code>x</code> with new content and we can assign another data type (e.g., a single number becomes a vector). To compound things further you can even change the data type to strings overwriting the previous content:</p>
-<pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Paris&quot;</span>, <span class="st">&quot;Tokyo&quot;</span>, <span class="st">&quot;Seattle&quot;</span>)
-a</code></pre>
-<pre><code>## [1] &quot;Paris&quot;   &quot;Tokyo&quot;   &quot;Seattle&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Paris&quot;</span>, <span class="st">&quot;Tokyo&quot;</span>, <span class="st">&quot;Seattle&quot;</span>)
+&gt;<span class="st"> </span>a</code></pre>
+<pre><code>[1] &quot;Paris&quot;   &quot;Tokyo&quot;   &quot;Seattle&quot;</code></pre>
 <p>Note that we use quotes to denote the string data type containing text.</p>
 <p>To access individual elements of a vector, in this case the second element, we execute:</p>
-<pre class="sourceCode r"><code class="sourceCode r">a[<span class="dv">2</span>]</code></pre>
-<pre><code>## [1] &quot;Tokyo&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>a[<span class="dv">2</span>]</code></pre>
+<pre><code>[1] &quot;Tokyo&quot;</code></pre>
 </div>
 <div id="console-tricks-code-completion-command-history" class="section level2">
 <h2>Console tricks: Code completion &amp; command history</h2>
@@ -294,7 +297,6 @@ a</code></pre>
 <span class="kw">browseVignettes</span>(<span class="dt">package =</span> <span class="st">&#39;poppr&#39;</span>) <span class="co"># see vignettes from a specific package.</span></code></pre>
 <p>and to look at a specific vignette you can type:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="st">&#39;poppr_manual&#39;</span>)</code></pre>
-<p>Next, consider browsing the R tutorial chapter if you are not yet familiar with R and RStudio. Otherwise, you are now ready to think about formatting and loading population genetic data into R.</p>
 </div>
 <div id="useful-resources-to-learn-r" class="section level2">
 <h2>Useful resources to learn R</h2>
