@@ -9,22 +9,31 @@
 title: "A3: Introduction to R"
 ---
 
-This appendix introduces basic use of the [R](http://www.r-project.org) statistical and computer language
-and the [RStudio Desktop](http://www.rstudio.com/ide/) integrated development environment (IDE). We assume you installed the needed resources mentioned in chapter 2 on getting ready to use R.
+This appendix introduces basic use of the [R](http://www.r-project.org)
+statistical and computer language and the [RStudio
+Desktop](http://www.rstudio.com/ide/) integrated development environment (IDE).
+We assume you installed the needed resources mentioned in chapter 2 on getting
+ready to use R.
 
-After installing both R and RStudio, please proceed to open RStudio. RStudio should look something like:
+After installing both R and RStudio, please proceed to open RStudio. RStudio
+should look something like:
 
 ![RStudio](images/Rstudio.png)
 
-The top left panel is a text-box where you can write a script. The bottom left panel is the console (or command line) where you directly execute commands and R writes results to the console; for example, type in `x <- 1` hit return and then type `x` and hit return again and watch the console:
+The top left panel is a text-box where you can write a script. The bottom left
+panel is the console (or command line) where you directly execute commands and R
+writes results to the console; for example, type in `x <- 1` hit return and then
+type `x` and hit return again and watch the console:
 
-```{r}
+> Note: the ">" symbol is R's prompt for you to type something in the console.
+
+```{r, prompt = TRUE, comment = NA}
 x <- 1
 x
 ```
 
 You just assigned the value 1 to the variable `x` with the assignment operator
-$<-$. The second command asks R to show the value assigned to R. Finally, the
+`<-`. The second command asks R to show the value assigned to R. Finally, the
 top right panel shows variables loaded into the environment and the bottom right
 panel is useful for loading files, plotting graphs, installing packages and
 getting help. Feel free to explore all the various tabs or elements of each
@@ -37,7 +46,7 @@ Let's learn a few simple facts about R:
 
 R uses # to add comments to code:
 
-```{r}
+```{r, prompt = TRUE, comment = NA}
 # Add 1 + 1 and write to console
 1 + 1
 ```
@@ -48,7 +57,7 @@ few months later what you actually did.
 R is case sensitive so that `x <- 5` is not the same as  `X <- x + 1`. Try
 typing this into your console and look at `x` and `X`, respectively:
 
-```{r}
+```{r, prompt = TRUE, comment = NA}
 x <- 5
 X <- x + 1
 x
@@ -57,7 +66,7 @@ X
 
 Next, let's assign numbers to a vector:
 
-```{r}
+```{r, prompt = TRUE, comment = NA}
 x <- c(1, 2, 3, 4, 5)
 x
 ```
@@ -68,7 +77,7 @@ the variable `x` with new content and we can assign another data type (e.g., a
 single number becomes a vector). To compound things further you can even change
 the data type to strings overwriting the previous content:
 
-```{r}
+```{r, prompt = TRUE, comment = NA}
 a <- c("Paris", "Tokyo", "Seattle")
 a
 ```
@@ -77,7 +86,7 @@ Note that we use quotes to denote the string data type containing text.
 To access individual elements of a vector, in this case the second element, we
 execute:
 
-```{r}
+```{r, prompt = TRUE, comment = NA}
 a[2]
 ```
 
@@ -133,11 +142,6 @@ and to look at a specific vignette you can type:
 ```{r, eval=FALSE}
 vignette('poppr_manual')
 ```
-
-Next, consider browsing the R tutorial chapter if you are not yet familiar with
-R and RStudio. Otherwise, you are now ready to think about formatting and
-loading population genetic data into R.
-
 
 Useful resources to learn R
 ---
