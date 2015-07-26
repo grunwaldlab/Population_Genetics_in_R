@@ -75,7 +75,7 @@ The following packages are utilized in this primer:
 Use the following script to install these packages:
 
 ```{r, eval = FALSE}
-install.packages(c("poppr", "mmod", "magrittr", "treemap"))
+install.packages(c("poppr", "mmod", "magrittr", "treemap"), repos = "http://cran.rstudio.com", dependencies = TRUE)
 ```
 
 We wrote and actively maintain *poppr* `r citep(bib["kamvar2014poppr", "kamvar2015novel"])` and it
