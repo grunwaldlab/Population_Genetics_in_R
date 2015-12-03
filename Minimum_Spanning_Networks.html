@@ -274,34 +274,12 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <span class="kw">splitStrata</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree/Year/Symptom
 <span class="kw">summary</span>(monpop)</code></pre>
 <pre><code>## 
-##  # Total number of genotypes:  694 
-## 
-##  # Population sample sizes:  
-##  7_09_BB 26_09_BB 26_09_FR  7_09_FR 26_10_BB 45_10_BB 79_10_BB 79_10_FR 
-##       23       41      132       73        5       13        1       64 
-## 26_10_FR 45_10_FR 26_11_BB 26_11_FR 
-##       85      130       30       97 
-## 
-##  # Number of alleles per locus:  
-##  CHMFc4  CHMFc5 CHMFc12     SEA     SED     SEE     SEG     SEI     SEL 
-##       3       6       3      11       9       5       8       7       5 
-##     SEN     SEP     SEQ     SER 
-##       9       8      11      10 
-## 
-##  # Number of alleles per population:  
-##  7_09_BB 26_09_BB 26_09_FR  7_09_FR 26_10_BB 45_10_BB 79_10_BB 79_10_FR 
-##       48       53       58       48       37       40       13       44 
-## 26_10_FR 45_10_FR 26_11_BB 26_11_FR 
-##       60       64       60       63 
-## 
-##  # Percentage of missing data:  
-## [1] 0.5098648
-## 
-##  # Observed heterozygosity:  
-## [1] 0
-## 
-##  # Expected heterozygosity:  
-## [1] 0</code></pre>
+## // Number of individuals: 694
+## // Group sizes: 23 41 132 73 5 13 1 64 85 130 30 97
+## // Number of alleles per locus: 3 6 3 11 9 5 8 7 5 9 8 11 10
+## // Number of alleles per group: 48 53 58 48 37 40 13 44 60 64 60 63
+## // Percentage of missing data: 0.51 %
+## // Observed heterozygosity: 0</code></pre>
 <p>We notice that tree number 26 is the only one to have been sampled for all three years. Let’s use it as an example.</p>
 <pre class="sourceCode r"><code class="sourceCode r">t26 &lt;-<span class="st"> </span>monpop %&gt;%<span class="st"> </span><span class="kw">setPop</span>(~Tree) %&gt;%<span class="st"> </span><span class="kw">popsub</span>(<span class="st">&quot;26&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">setPop</span>(~Year/Symptom)
 t26</code></pre>
@@ -502,7 +480,7 @@ Pram</code></pre>
 <li>Node Size Scale: <strong>1.95</strong></li>
 <li>Random Seed: <strong>78</strong></li>
 <li>Labels: <strong>none</strong></li>
-<li>Palette: <strong>Custom: <code>function(x) other(Pram)$comparePal</code></strong> (Paste code into the pop-up app.)</li>
+<li>Palette: <strong>Custom: <code>other(Pram)$comparePal</code></strong> (Paste code into the pop-up app.)</li>
 </ul></li>
 </ul>
 <p>When you finish your session, you can exit the app by closing the window.</p>

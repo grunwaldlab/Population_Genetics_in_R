@@ -598,15 +598,15 @@ tab(nan1[loc = "fca8"])
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;pegas&quot;</span>)
 (nanhwe.full &lt;-<span class="st"> </span><span class="kw">hw.test</span>(nancycats, <span class="dt">B =</span> <span class="dv">1000</span>)) <span class="co"># performs 1000 permuatations</span></code></pre>
 <pre><code>##           chi^2  df  Pr(chi^2 &gt;) Pr.exact
-## fca8  395.80006 120 0.000000e+00    0.000
-## fca23 239.34221  55 0.000000e+00    0.000
-## fca43 434.33397  45 0.000000e+00    0.000
-## fca45  66.11849  36 1.622163e-03    0.001
-## fca77 270.52066  66 0.000000e+00    0.000
-## fca78 402.80002  28 0.000000e+00    0.000
-## fca90 217.19836  66 0.000000e+00    0.000
-## fca96 193.36764  66 1.965095e-14    0.000
-## fca37 291.00731 153 1.209777e-10    0.000</code></pre>
+## fca8  395.80006 120 0.000000e+00        0
+## fca23 239.34221  55 0.000000e+00        0
+## fca43 434.33397  45 0.000000e+00        0
+## fca45  66.11849  36 1.622163e-03        0
+## fca77 270.52066  66 0.000000e+00        0
+## fca78 402.80002  28 0.000000e+00        0
+## fca90 217.19836  66 0.000000e+00        0
+## fca96 193.36764  66 1.965095e-14        0
+## fca37 291.00731 153 1.209777e-10        0</code></pre>
 <p>We can see here that both the analytical p-value and permuted p-value show that we have confidence that all loci are not under the null expectation of HWE. This makes sense given that these data represent 17 populations of cats. If we wanted to check what the HWE statistic for each population is, we should first separate the populations with the function <code>seppop()</code>. For this exercise, we will only focus on the analytical p-value by setting <code>B = 0</code>.</p>
 <pre class="sourceCode r"><code class="sourceCode r">(nanhwe.pop &lt;-<span class="st"> </span><span class="kw">seppop</span>(nancycats) %&gt;%<span class="st"> </span><span class="kw">lapply</span>(hw.test, <span class="dt">B =</span> <span class="dv">0</span>))</code></pre>
 <pre><code>## $P01

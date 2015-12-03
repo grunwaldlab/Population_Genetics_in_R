@@ -345,7 +345,7 @@ pramx &lt;-<span class="st"> </span><span class="kw">xvalDapc</span>(<span class
                              <span class="dt">parallel =</span> <span class="st">&quot;multicore&quot;</span>, <span class="dt">ncpus =</span> 4L))</code></pre>
 <p><img src="DAPC_files/figure-html/Pramhide-1.png" title="" alt="" width="960" /></p>
 <pre><code>##    user  system elapsed 
-## 279.623  18.102  94.438</code></pre>
+## 269.485  18.923  89.259</code></pre>
 <p>We can see that it’s basically a flat line all the way. If we take a look at the object, we see that 16 PCs give us the highest percent of correctly predicted subsamples with the lowest error.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(pramx) <span class="co"># The first element are all the samples</span></code></pre>
 <pre><code>## [1] &quot;Cross-Validation Results&quot;                          
@@ -358,25 +358,25 @@ pramx &lt;-<span class="st"> </span><span class="kw">xvalDapc</span>(<span class
 <pre class="sourceCode r"><code class="sourceCode r">pramx[-<span class="dv">1</span>]</code></pre>
 <pre><code>## $`Median and Confidence Interval for Random Chance`
 ##       2.5%        50%      97.5% 
-## 0.08877753 0.11059297 0.13502193 
+## 0.08877822 0.11112549 0.13205190 
 ## 
 ## $`Mean Successful Assignment by Number of PCs of PCA`
 ##        10        11        12        13        14        15        16 
-## 0.6475030 0.6486178 0.6470662 0.6479970 0.6562557 0.6680145 0.6731030 
+## 0.6483875 0.6467781 0.6461882 0.6471254 0.6569716 0.6697095 0.6715953 
 ##        17        18        19        20 
-## 0.6719462 0.6714665 0.6698316 0.6685285 
+## 0.6708500 0.6715335 0.6717581 0.6679035 
 ## 
 ## $`Number of PCs Achieving Highest Mean Success`
-## [1] &quot;16&quot;
+## [1] &quot;19&quot;
 ## 
 ## $`Root Mean Squared Error by Number of PCs of PCA`
 ##        10        11        12        13        14        15        16 
-## 0.3542804 0.3532723 0.3546470 0.3538558 0.3455363 0.3338911 0.3287561 
+## 0.3534432 0.3550136 0.3557297 0.3547620 0.3448086 0.3322424 0.3303311 
 ##        17        18        19        20 
-## 0.3300150 0.3305061 0.3320348 0.3333303 
+## 0.3311181 0.3305509 0.3303118 0.3340518 
 ## 
 ## $`Number of PCs Achieving Lowest MSE`
-## [1] &quot;16&quot;
+## [1] &quot;19&quot;
 ## 
 ## $DAPC
 ##  #################################################
@@ -386,11 +386,11 @@ pramx &lt;-<span class="st"> </span><span class="kw">xvalDapc</span>(<span class
 ## $call: dapc.data.frame(x = as.data.frame(x), grp = ..1, n.pca = ..2, 
 ##     n.da = ..3)
 ## 
-## $n.pca: 16 first PCs of PCA used
+## $n.pca: 19 first PCs of PCA used
 ## $n.da: 8 discriminant functions saved
-## $var (proportion of conserved variance): 0.984
+## $var (proportion of conserved variance): 0.989
 ## 
-## $eig (eigenvalues): 881.9 207.4 97.39 57.36 49.03 ...
+## $eig (eigenvalues): 890.7 214.8 99.55 58.37 49.21 ...
 ## 
 ##   vector    length content                   
 ## 1 $eig      8      eigenvalues               
@@ -402,13 +402,13 @@ pramx &lt;-<span class="st"> </span><span class="kw">xvalDapc</span>(<span class
 ## 7 $pca.eig  33     eigenvalues of PCA        
 ## 
 ##   data.frame    nrow ncol
-## 1 $tab          729  16  
-## 2 $means        9    16  
-## 3 $loadings     16   8   
+## 1 $tab          729  19  
+## 2 $means        9    19  
+## 3 $loadings     19   8   
 ## 4 $ind.coord    729  8   
 ## 5 $grp.coord    9    8   
 ## 6 $posterior    729  9   
-## 7 $pca.loadings 38   16  
+## 7 $pca.loadings 38   19  
 ## 8 $var.contr    38   8   
 ##   content                                          
 ## 1 retained PCs of PCA                              
