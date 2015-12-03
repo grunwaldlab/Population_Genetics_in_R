@@ -309,21 +309,22 @@ monstrata &lt;-<span class="st"> </span><span class="kw">strata</span>(monpop) %
 
 monstrata</code></pre>
 <pre><code>## Source: local data frame [12 x 4]
-## Groups: Tree, Year
+## Groups: Tree, Year [?]
 ## 
-##    Tree Year Symptom Count
-## 1     7    9      BB    23
-## 2     7    9      FR    73
-## 3    26    9      BB    41
-## 4    26    9      FR   132
-## 5    26   10      BB     5
-## 6    26   10      FR    85
-## 7    26   11      BB    30
-## 8    26   11      FR    97
-## 9    45   10      BB    13
-## 10   45   10      FR   130
-## 11   79   10      BB     1
-## 12   79   10      FR    64</code></pre>
+##      Tree   Year Symptom Count
+##    (fctr) (fctr)  (fctr) (int)
+## 1       7      9      BB    23
+## 2       7      9      FR    73
+## 3      26      9      BB    41
+## 4      26      9      FR   132
+## 5      26     10      BB     5
+## 6      26     10      FR    85
+## 7      26     11      BB    30
+## 8      26     11      FR    97
+## 9      45     10      BB    13
+## 10     45     10      FR   130
+## 11     79     10      BB     1
+## 12     79     10      FR    64</code></pre>
 <p>Now we can use the <code>treemap()</code> function to plot the data. Note that it has a lot of arguments to allow you to properly manipulate the graphic, but we will only use the very necessary components to visualize the distribution of the strata:</p>
 <ul>
 <li><strong>dtf</strong> - The data frame containing the stratifications and counts</li>
@@ -333,19 +334,23 @@ monstrata</code></pre>
 <p>All the other arguments we are using here give various aesthetics. If you want to know more about how they work, you can peruse the manual for the treemap function by typing <code>help(&quot;treemap&quot;, &quot;treemap&quot;)</code>.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;treemap&quot;</span>)
 monstrata          <span class="co"># Our data frame</span></code></pre>
-<pre><code>##    Tree Year Symptom Count
-## 1     7    9      BB    23
-## 2     7    9      FR    73
-## 3    26    9      BB    41
-## 4    26    9      FR   132
-## 5    26   10      BB     5
-## 6    26   10      FR    85
-## 7    26   11      BB    30
-## 8    26   11      FR    97
-## 9    45   10      BB    13
-## 10   45   10      FR   130
-## 11   79   10      BB     1
-## 12   79   10      FR    64</code></pre>
+<pre><code>## Source: local data frame [12 x 4]
+## Groups: Tree, Year [?]
+## 
+##      Tree   Year Symptom Count
+##    (fctr) (fctr)  (fctr) (int)
+## 1       7      9      BB    23
+## 2       7      9      FR    73
+## 3      26      9      BB    41
+## 4      26      9      FR   132
+## 5      26     10      BB     5
+## 6      26     10      FR    85
+## 7      26     11      BB    30
+## 8      26     11      FR    97
+## 9      45     10      BB    13
+## 10     45     10      FR   130
+## 11     79     10      BB     1
+## 12     79     10      FR    64</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nameStrata</span>(monpop) <span class="co"># The order of our variables</span></code></pre>
 <pre><code>## [1] &quot;Tree&quot;    &quot;Year&quot;    &quot;Symptom&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">monstrata$Count    <span class="co"># The variable used for the block size</span></code></pre>

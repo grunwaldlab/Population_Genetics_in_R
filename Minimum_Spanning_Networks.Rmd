@@ -328,7 +328,7 @@ plot_poppr_msn(Pram,
 	       mlg = FALSE,
 	       gadj = 9,
 	       nodebase = 1.95,
-	       palette = function(x) other(Pram)$comparePal,
+	       palette = other(Pram)$comparePal,
 	       cutoff = NULL,
 	       quantiles = FALSE,
 	       beforecut = TRUE)
@@ -345,7 +345,7 @@ Here are the parameters you should use:
     - Node Size Scale: **1.95**
     - Random Seed: **78**
     - Labels: **none**
-    - Palette: **Custom: `function(x) other(Pram)$comparePal`** (Paste code into the pop-up app.)
+    - Palette: **Custom: `other(Pram)$comparePal`** (Paste code into the pop-up app.)
     
 When you finish your session, you can exit the app by closing the window.
 
