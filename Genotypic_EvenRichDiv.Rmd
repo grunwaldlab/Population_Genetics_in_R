@@ -87,7 +87,7 @@ lambda <- monpop_diversity$lambda # Simpson's index
 
 Now we can see that, even after correction, Simpson's index is still higher for BB. 
 
-> You try it! Can you calculate the clonal fraction for each population ($\frac{N}{MLG}$)?
+> You try it! Can you calculate the clonal fraction for each population (1 - (MLG/N))?
 
 Genotypic evenness
 -----
