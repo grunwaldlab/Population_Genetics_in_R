@@ -10,14 +10,15 @@
 
 
 
+
 <title>9: Population structure: G_{ST}, genetic distance, and clustering</title>
 
-<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/readable.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<link href="libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -99,24 +100,41 @@ body {
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
 pre, code { background-color: #f8f8f8; }
-code > span.kw { color: #204a87; font-weight: bold; }
-code > span.dt { color: #204a87; }
-code > span.dv { color: #0000cf; }
-code > span.bn { color: #0000cf; }
-code > span.fl { color: #0000cf; }
-code > span.ch { color: #4e9a06; }
-code > span.st { color: #4e9a06; }
-code > span.co { color: #8f5902; font-style: italic; }
-code > span.ot { color: #8f5902; }
-code > span.al { color: #ef2929; }
-code > span.fu { color: #000000; }
-code > span.er { font-weight: bold; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
 </style>
 <style type="text/css">
   pre:not([class]) {
@@ -124,6 +142,33 @@ code > span.er { font-weight: bold; }
   }
 </style>
 
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 
 </head>
@@ -140,12 +185,34 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
 }
 </style>
+
+
 <div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="libs/navigation-1.0/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
 
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -219,26 +286,31 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div class="row">
 <div class="span10 offset1"> -->
 
-<div id="header">
-<h1 class="title">9: Population structure: <span class="math">\(G_{ST}\)</span>, genetic distance, and clustering</h1>
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">9: Population structure: <span class="math inline">\(G_{ST}\)</span>, genetic distance, and clustering</h1>
+
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#g_st-an-example-with-felis-catus-data."><span class="math">\(G_{ST}\)</span> an example with <em>Felis catus</em> data.</a></li>
+<li><a href="#g_st-an-example-with-felis-catus-data."><span class="math inline">\(G_{ST}\)</span> an example with <em>Felis catus</em> data.</a></li>
 <li><a href="#genetic-distance">Genetic Distance</a></li>
 <li><a href="#k-means-hierarchical-clustering">K-means hierarchical clustering</a></li>
+<li><a href="#references">References</a></li>
 </ul>
 </div>
 
-<p>In this chapter we explore various ways of assessing if population are structured (e.g., differentiated). You can think of population structure as identifying clusters or groups of more closely related individuals resulting from reduced gene flow among these groups. Populations can be studied to determine if they are structured by using, for example, population differentiation summary statistics (e.g. <span class="math">\(G_{ST}\)</span>), clustering or <a href="Minimum_Spanning_Networks.html">minimum spanning networks</a>. Note, that this chapter will utilize many data sets due to the unique features offered by each. Let’s first look at an example of population differentiation based on <span class="math">\(G_{ST}\)</span>.</p>
+<p>In this chapter we explore various ways of assessing if population are structured (e.g., differentiated). You can think of population structure as identifying clusters or groups of more closely related individuals resulting from reduced gene flow among these groups. Populations can be studied to determine if they are structured by using, for example, population differentiation summary statistics (e.g. <span class="math inline">\(G_{ST}\)</span>), clustering or <a href="Minimum_Spanning_Networks.html">minimum spanning networks</a>. Note, that this chapter will utilize many data sets due to the unique features offered by each. Let’s first look at an example of population differentiation based on <span class="math inline">\(G_{ST}\)</span>.</p>
 <div id="g_st-an-example-with-felis-catus-data." class="section level2">
-<h2><span class="math">\(G_{ST}\)</span> an example with <em>Felis catus</em> data.</h2>
-<p>Assessing genetic diversity almost always starts with an analysis of a parameter such as <span class="math">\(G_{ST}\)</span>. There are <a href="http://www.molecularecologist.com/2011/03/should-i-use-fst-gst-or-d-2/">lengthy debates</a> as to what measure of differentiation is better <span class="citation">(Meirmans &amp; Hedrick, 2011)</span>. Instead of going into that lengthy debate, it would be more worthwhile to point you into the direction of a package dedicated to Modern Methods of Differentiation called <em>mmod</em>. We will use the data set <em>nancycats</em> containing 17 colonies of cats collected from Nancy, France. As cats tend to stay within small groups, we expect to see some population differentiation. In terms of these diversity measures, an index of <span class="math">\(G_{ST} = 0\)</span> indicates no differentiation, whereas <span class="math">\(G_{ST} = 1\)</span> indicates that populations are segregating for differing alleles.</p>
+<h2><span class="math inline">\(G_{ST}\)</span> an example with <em>Felis catus</em> data.</h2>
+<p>Assessing genetic diversity almost always starts with an analysis of a parameter such as <span class="math inline">\(G_{ST}\)</span>. There are <a href="http://www.molecularecologist.com/2011/03/should-i-use-fst-gst-or-d-2/">lengthy debates</a> as to what measure of differentiation is better <span class="citation">(Meirmans &amp; Hedrick, 2011)</span>. Instead of going into that lengthy debate, it would be more worthwhile to point you into the direction of a package dedicated to Modern Methods of Differentiation called <em>mmod</em>. We will use the data set <em>nancycats</em> containing 17 colonies of cats collected from Nancy, France. As cats tend to stay within small groups, we expect to see some population differentiation. In terms of these diversity measures, an index of <span class="math inline">\(G_{ST} = 0\)</span> indicates no differentiation, whereas <span class="math inline">\(G_{ST} = 1\)</span> indicates that populations are segregating for differing alleles.</p>
 <p>Let’s load the package and the example data set:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;mmod&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;mmod&quot;</span>)
 <span class="kw">data</span>(<span class="st">&quot;nancycats&quot;</span>)
-nancycats</code></pre>
+nancycats</code></pre></div>
 <pre><code>## /// GENIND OBJECT /////////
 ## 
 ##  // 237 individuals; 9 loci; 108 alleles; size: 145.3 Kb
@@ -255,8 +327,8 @@ nancycats</code></pre>
 ##  // Optional content
 ##    @pop: population of each individual (group size range: 9-23)
 ##    @other: a list containing: xy</code></pre>
-<p>Now we will use Hendrick’s standardized <span class="math">\(G_{ST}\)</span> to assess population structure among these populations <span class="citation">(Hedrick, 2005)</span>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Gst_Hedrick</span>(nancycats)</code></pre>
+<p>Now we will use Hendrick’s standardized <span class="math inline">\(G_{ST}\)</span> to assess population structure among these populations <span class="citation">(Hedrick, 2005)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Gst_Hedrick</span>(nancycats)</code></pre></div>
 <pre><code>## $per.locus
 ##      fca8     fca23     fca43     fca45     fca77     fca78     fca90 
 ## 0.4750445 0.2956688 0.2675766 0.2653163 0.4855829 0.1933327 0.3807578 
@@ -326,14 +398,14 @@ nancycats</code></pre>
 </tbody>
 </table>
 <p>One common way to visualize a genetic distance is with a dendrogram. For this example, we will use the <em>microbov</em> data set <span class="citation">(Laloe et al., 2007)</span>. This contains information on 704 cattle from both Africa and France over several different breeds. We can create a dendrogram over all 704 samples, but that would be difficult to visualize. For our purposes, let’s take ten random samples and calculate Provesti’s distance, which will return the fraction of the number of differences between samples:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
 <span class="kw">library</span>(<span class="st">&quot;ape&quot;</span>) <span class="co"># To visualize the tree using the &quot;nj&quot; function</span>
 <span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)
 <span class="kw">data</span>(microbov)
 <span class="kw">set.seed</span>(<span class="dv">10</span>)
 ten_samples &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nInd</span>(microbov), <span class="dv">10</span>)
 mic10       &lt;-<span class="st"> </span>microbov[ten_samples]
-(micdist    &lt;-<span class="st"> </span><span class="kw">provesti.dist</span>(mic10))</code></pre>
+(micdist    &lt;-<span class="st"> </span><span class="kw">provesti.dist</span>(mic10))</code></pre></div>
 <pre><code>##              FRBTBDA35243 AFBTSOM9386 FRBTBAZ26396 FRBTGAS9052 AFBIZEB9462
 ## AFBTSOM9386     0.7500000                                                 
 ## FRBTBAZ26396    0.6000000   0.6833333                                     
@@ -355,15 +427,15 @@ mic10       &lt;-<span class="st"> </span>microbov[ten_samples]
 ## FRBTCHA25069 0.6500000   0.7333333   0.7166667             
 ## FRBTBAZ26388 0.6000000   0.6666667   0.6833333    0.6166667</code></pre>
 <p>The above represents the pairwise distances between these 10 samples. We will use this distance matrix to create a neighbor-joining tree.</p>
-<pre class="sourceCode r"><code class="sourceCode r">theTree &lt;-<span class="st"> </span>micdist %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">theTree &lt;-<span class="st"> </span>micdist %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">nj</span>() %&gt;%<span class="st">    </span><span class="co"># calculate neighbor-joining tree</span>
 <span class="st">  </span><span class="kw">ladderize</span>() <span class="co"># organize branches by clade</span>
 <span class="kw">plot</span>(theTree)
-<span class="kw">add.scale.bar</span>(<span class="dt">length =</span> <span class="fl">0.05</span>) <span class="co"># add a scale bar showing 5% difference.</span></code></pre>
+<span class="kw">add.scale.bar</span>(<span class="dt">length =</span> <span class="fl">0.05</span>) <span class="co"># add a scale bar showing 5% difference.</span></code></pre></div>
 <p><img src="Pop_Structure_files/figure-html/cattleplot-1.png" title="" alt="" width="700px" /></p>
 <p>Notice that the sample names start with either “AF” or “FR”. This indicates their country of origin and we are seeing that the populations cluster correspondingly. Of course, a tree is a hypothesis and one way of generating support is to bootstrap loci. This can be achieved with the <em>poppr</em> function <code>aboot</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">999</span>)
-<span class="kw">aboot</span>(mic10, <span class="dt">dist =</span> provesti.dist, <span class="dt">sample =</span> <span class="dv">200</span>, <span class="dt">tree =</span> <span class="st">&quot;nj&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">999</span>)
+<span class="kw">aboot</span>(mic10, <span class="dt">dist =</span> provesti.dist, <span class="dt">sample =</span> <span class="dv">200</span>, <span class="dt">tree =</span> <span class="st">&quot;nj&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="Pop_Structure_files/figure-html/cattleboot-1.png" title="" alt="" width="700px" /></p>
 <pre><code>## 
 ## Phylogenetic tree with 10 tips and 8 internal nodes.
@@ -375,9 +447,9 @@ mic10       &lt;-<span class="st"> </span>microbov[ten_samples]
 ## 
 ## Unrooted; includes branch lengths.</code></pre>
 <p>The bootstrap value of 100 on the node separating the French and African samples gives support that the country of origin is a factor in how these breeds are structured. If we wanted to analyze all of the breeds against one another, it would be better to create a bootstrapped dendrogram based on a genetic distance. To do this, we will add 3 stratifications to the microbov data set: Country, Breed, and Species. We will then set the population to Country by Breed, convert the data to a genpop object and then create a tree using <code>aboot</code> with Nei’s genetic distance.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Setting up the data </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Setting up the data </span>
 <span class="kw">strata</span>(microbov) &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">other</span>(microbov))
-microbov</code></pre>
+microbov</code></pre></div>
 <pre><code>## /// GENIND OBJECT /////////
 ## 
 ##  // 704 individuals; 30 loci; 373 alleles; size: 1.1 Mb
@@ -395,13 +467,13 @@ microbov</code></pre>
 ##    @pop: population of each individual (group size range: 30-61)
 ##    @strata: a data frame with 3 columns ( coun, breed, spe )
 ##    @other: a list containing: coun  breed  spe</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nameStrata</span>(microbov) &lt;-<span class="st"> </span><span class="er">~</span>Country/Breed/Species
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nameStrata</span>(microbov) &lt;-<span class="st"> </span><span class="er">~</span>Country/Breed/Species
 
 <span class="co"># Analysis</span>
 <span class="kw">set.seed</span>(<span class="dv">999</span>)
 microbov %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">genind2genpop</span>(<span class="dt">pop =</span> ~Country/Breed) %&gt;%
-<span class="st">  </span><span class="kw">aboot</span>(<span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>, <span class="dt">sample =</span> <span class="dv">1000</span>, <span class="dt">distance =</span> nei.dist) </code></pre>
+<span class="st">  </span><span class="kw">aboot</span>(<span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>, <span class="dt">sample =</span> <span class="dv">1000</span>, <span class="dt">distance =</span> nei.dist) </code></pre></div>
 <pre><code>## 
 ##  Converting data from a genind to a genpop object... 
 ## 
@@ -417,7 +489,13 @@ microbov %&gt;%<span class="st"> </span>
 ## 
 ## Rooted; includes branch lengths.</code></pre>
 <p>Now we can see that, in all 1,000 bootstrapped trees, the African and French samples were each in separate clades. Of course, dendrograms are only one type of analysis you can use genetic distances for. Below is a table describing some of the different analyses for which you can utilize genetic distance:</p>
-<table>
+<table style="width:29%;">
+<colgroup>
+<col width="6%" />
+<col width="8%" />
+<col width="6%" />
+<col width="6%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Analysis</th>
@@ -463,9 +541,9 @@ microbov %&gt;%<span class="st"> </span>
 <div id="k-means-hierarchical-clustering" class="section level2">
 <h2>K-means hierarchical clustering</h2>
 <p>A recent study reported that the origin of the potato late blight pathogen <em>Phytophthora infestans</em> lies in Mexico as opposed to South America <span class="citation">(Goss et al., 2014)</span>. We saw in the previous chapter that South American populations showed signatures of clonal reproduction while Mexican populations showed no evidence rejecting the null hypothesis of random mating. In this section, we will use K-means clustering in combination with bootstrapped dendrograms to see how well this pattern holds up. Clonal populations should have short terminal branch lengths and should cluster according to those branches. Panmictic populations will show no clear pattern. Let’s look at the data:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
 <span class="kw">data</span>(<span class="st">&quot;Pinf&quot;</span>)
-Pinf</code></pre>
+Pinf</code></pre></div>
 <pre><code>## 
 ## This is a genclone object
 ## -------------------------
@@ -480,18 +558,24 @@ Pinf</code></pre>
 ##     2 strata - Continent Country
 ##     2 populations defined - South America North America</code></pre>
 <p>First, we will perform a cluster analysis:</p>
-<pre class="sourceCode r"><code class="sourceCode r">MX &lt;-<span class="st"> </span><span class="kw">popsub</span>(Pinf, <span class="st">&quot;North America&quot;</span>)
-MXclust &lt;-<span class="st"> </span><span class="kw">find.clusters</span>(MX)</code></pre>
-<p><img src="Pop_Structure_files/figure-html/MXPCA.png" alt="MX_PCA" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MX &lt;-<span class="st"> </span><span class="kw">popsub</span>(Pinf, <span class="st">&quot;North America&quot;</span>)
+MXclust &lt;-<span class="st"> </span><span class="kw">find.clusters</span>(MX)</code></pre></div>
+<div class="figure">
+<img src="Pop_Structure_files/figure-html/MXPCA.png" alt="MX_PCA" />
+<p class="caption">MX_PCA</p>
+</div>
 <pre><code>## Choose the number PCs to retain (&gt;=1):</code></pre>
 <pre><code>&gt; 50</code></pre>
 <p>PC stands for principal components, which are unit-less transformations of your data that explain the variance observed. For the purposes of <code>find.clusters</code>, we can keep as many as we want.</p>
-<p><img src="Pop_Structure_files/figure-html/MXCLUST.png" alt="MX_CLUSTER" /></p>
+<div class="figure">
+<img src="Pop_Structure_files/figure-html/MXCLUST.png" alt="MX_CLUSTER" />
+<p class="caption">MX_CLUSTER</p>
+</div>
 <pre><code>## Choose the number PCs to retain (&gt;=2:</code></pre>
 <pre><code>&gt; 3</code></pre>
 <p>BIC stands for “Bayesian Information Criterion”. The lower the BIC value, the better. On the x axis are the number of clusters. We see that there is a bend at 3 clusters, indicating that the data clusters optimally into three groups.</p>
 <p>And now we can see the cluster assignments:</p>
-<pre class="sourceCode r"><code class="sourceCode r">MXclust</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MXclust</code></pre></div>
 <pre><code>## $Kstat
 ## NULL
 ## 
@@ -516,46 +600,62 @@ MXclust &lt;-<span class="st"> </span><span class="kw">find.clusters</span>(MX)<
 ## $size
 ## [1] 15 16 17</code></pre>
 <p>We will go through the same procedure for the South American population.</p>
-<pre class="sourceCode r"><code class="sourceCode r">SA &lt;-<span class="st"> </span><span class="kw">popsub</span>(Pinf, <span class="st">&quot;South America&quot;</span>)
-SAclust &lt;-<span class="st"> </span><span class="kw">find.clusters</span>(SA)</code></pre>
-<p><img src="Pop_Structure_files/figure-html/SAPCA.png" alt="SA_PCA" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">SA &lt;-<span class="st"> </span><span class="kw">popsub</span>(Pinf, <span class="st">&quot;South America&quot;</span>)
+SAclust &lt;-<span class="st"> </span><span class="kw">find.clusters</span>(SA)</code></pre></div>
+<div class="figure">
+<img src="Pop_Structure_files/figure-html/SAPCA.png" alt="SA_PCA" />
+<p class="caption">SA_PCA</p>
+</div>
 <pre><code>## Choose the number PCs to retain (&gt;=1):</code></pre>
 <pre><code>&gt; 30</code></pre>
-<p><img src="Pop_Structure_files/figure-html/SACLUST.png" alt="SA_CLUSTER" /></p>
+<div class="figure">
+<img src="Pop_Structure_files/figure-html/SACLUST.png" alt="SA_CLUSTER" />
+<p class="caption">SA_CLUSTER</p>
+</div>
 <pre><code>## Choose the number PCs to retain (&gt;=2):</code></pre>
 <pre><code>&gt; 4</code></pre>
 <p>Notice here that there is no local minimum in the curve. This indicates that there <a href="http://lists.r-forge.r-project.org/pipermail/adegenet-forum/2011-June/000303.html">might not be enough information in the data set to properly cluster</a>. We will go ahead by choosing the highest number of clusters:</p>
 <div id="trees" class="section level3">
 <h3>Trees</h3>
 <p>Now we will build trees. We are using Bruvo’s distance since polyploids bias calculation of other distances:</p>
-<pre class="sourceCode r"><code class="sourceCode r">pinfreps &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>)
-MXtree &lt;-<span class="st"> </span><span class="kw">bruvo.boot</span>(MX, <span class="dt">replen =</span> pinfreps, <span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pinfreps &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>)
+MXtree &lt;-<span class="st"> </span><span class="kw">bruvo.boot</span>(MX, <span class="dt">replen =</span> pinfreps, <span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="Pop_Structure_files/figure-html/trees-1.png" title="" alt="" width="700px" /></p>
-<pre class="sourceCode r"><code class="sourceCode r">SAtree &lt;-<span class="st"> </span><span class="kw">bruvo.boot</span>(SA, <span class="dt">replen =</span> pinfreps, <span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">SAtree &lt;-<span class="st"> </span><span class="kw">bruvo.boot</span>(SA, <span class="dt">replen =</span> pinfreps, <span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="Pop_Structure_files/figure-html/trees-2.png" title="" alt="" width="700px" /></p>
 <p>We see very long terminal branches in the MX tree. Let’s see how the groups we found with the clustering algorithm match up:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;ape&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;ape&quot;</span>)
 cols &lt;-<span class="st"> </span><span class="kw">rainbow</span>(<span class="dv">4</span>)
 <span class="kw">plot.phylo</span>(MXtree, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">font =</span> <span class="dv">2</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">tip.color =</span> cols[MXclust$grp],
            <span class="dt">label.offset =</span> <span class="fl">0.0125</span>)
 <span class="kw">nodelabels</span>(MXtree$node.label, <span class="dt">adj =</span> <span class="kw">c</span>(<span class="fl">1.3</span>, -<span class="fl">0.5</span>), <span class="dt">frame =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>, 
            <span class="dt">font =</span> <span class="dv">3</span>, <span class="dt">xpd =</span> <span class="ot">TRUE</span>)
-<span class="kw">axisPhylo</span>(<span class="dv">3</span>)</code></pre>
+<span class="kw">axisPhylo</span>(<span class="dv">3</span>)</code></pre></div>
 <p><img src="Pop_Structure_files/figure-html/grouptree-1.png" title="" alt="" width="700px" /></p>
 <p>You can see that the assigned clusters don’t necessarily group with the dendrogram clusters. Let’s see what happens when we view this with the South American population:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot.phylo</span>(SAtree, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">font =</span> <span class="dv">2</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">tip.color =</span> cols[SAclust$grp],
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot.phylo</span>(SAtree, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">font =</span> <span class="dv">2</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">tip.color =</span> cols[SAclust$grp],
            <span class="dt">label.offset =</span> <span class="fl">0.0125</span>)
 <span class="kw">nodelabels</span>(SAtree$node.label, <span class="dt">adj =</span> <span class="kw">c</span>(<span class="fl">1.3</span>, -<span class="fl">0.5</span>), <span class="dt">frame =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>, 
            <span class="dt">font =</span> <span class="dv">3</span>, <span class="dt">xpd =</span> <span class="ot">TRUE</span>)
-<span class="kw">axisPhylo</span>(<span class="dv">3</span>)</code></pre>
+<span class="kw">axisPhylo</span>(<span class="dv">3</span>)</code></pre></div>
 <p><img src="Pop_Structure_files/figure-html/grouptreeSA-1.png" title="" alt="" width="700px" /></p>
 <p>Everything clusters together nicely, further supporting a non-panmictic population.</p>
-<div class="references">
-<h2 id="references" class="unnumbered">References</h2>
+</div>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2>References</h2>
+<div id="refs" class="references">
+<div id="ref-goss2014irish">
 <p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
+</div>
+<div id="ref-hedrick2005standardized">
 <p>Hedrick PW. 2005. A standardized genetic differentiation measure. <em>Evolution</em> 59:1633–1638. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.0014-3820.2005.tb01814.x/abstract" class="uri">http://onlinelibrary.wiley.com/doi/10.1111/j.0014-3820.2005.tb01814.x/abstract</a></p>
+</div>
+<div id="ref-laloe2007consensus">
 <p>Laloe D., Jombart T., Dufour A-B., Moazami-Goudarzi K. 2007. Consensus genetic structuring and typological value of markers using multiple co-inertia analysis. <em>Genetics Selection Evolution</em> 39:545–567. Available at: <a href="http://dx.doi.org/10.1051/gse:2007021" class="uri">http://dx.doi.org/10.1051/gse:2007021</a></p>
-<p>Meirmans PG., Hedrick PW. 2011. Assessing population structure: <span class="math">\(F_{ST}\)</span> and related measures. <em>Molecular Ecology Resources</em> 11:5–18. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full" class="uri">http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full</a></p>
+</div>
+<div id="ref-meirmans2011assessing">
+<p>Meirmans PG., Hedrick PW. 2011. Assessing population structure: <span class="math inline">\(F_{ST}\)</span> and related measures. <em>Molecular Ecology Resources</em> 11:5–18. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full" class="uri">http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full</a></p>
 </div>
 </div>
 </div>
@@ -564,6 +664,8 @@ cols &lt;-<span class="st"> </span><span class="kw">rainbow</span>(<span class="
 </div>
 </div>
  -->
+
+
 
 </div>
 

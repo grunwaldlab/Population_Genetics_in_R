@@ -10,14 +10,15 @@
 
 
 
+
 <title>10: Minimum Spanning Networks</title>
 
-<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/readable.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<link href="libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -99,24 +100,41 @@ body {
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
 pre, code { background-color: #f8f8f8; }
-code > span.kw { color: #204a87; font-weight: bold; }
-code > span.dt { color: #204a87; }
-code > span.dv { color: #0000cf; }
-code > span.bn { color: #0000cf; }
-code > span.fl { color: #0000cf; }
-code > span.ch { color: #4e9a06; }
-code > span.st { color: #4e9a06; }
-code > span.co { color: #8f5902; font-style: italic; }
-code > span.ot { color: #8f5902; }
-code > span.al { color: #ef2929; }
-code > span.fu { color: #000000; }
-code > span.er { font-weight: bold; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
 </style>
 <style type="text/css">
   pre:not([class]) {
@@ -124,6 +142,33 @@ code > span.er { font-weight: bold; }
   }
 </style>
 
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 
 </head>
@@ -140,12 +185,34 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
 }
 </style>
+
+
 <div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="libs/navigation-1.0/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
 
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -219,8 +286,12 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div class="row">
 <div class="span10 offset1"> -->
 
-<div id="header">
-<h1 class="title">10: Minimum Spanning Networks</h1>
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">10: Minimum Spanning Networks</h1>
+
 </div>
 
 <div id="TOC">
@@ -232,6 +303,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <li><a href="#re-creating-msns">Re-creating MSNs</a></li>
 <li><a href="#your-turn-use-the-data-for-phytophthora-ramorum">Your turn (use the data for <em>Phytophthora ramorum</em>)</a></li>
 </ul></li>
+<li><a href="#references">References</a></li>
 </ul>
 </div>
 
@@ -268,11 +340,11 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <li>To what degree do the Blossom Blight (BB) samples contribute to the FR?</li>
 </ol>
 <p>Let’s load the data:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
 <span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)
 <span class="kw">data</span>(monpop)
 <span class="kw">splitStrata</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree/Year/Symptom
-<span class="kw">summary</span>(monpop)</code></pre>
+<span class="kw">summary</span>(monpop)</code></pre></div>
 <pre><code>## 
 ## // Number of individuals: 694
 ## // Group sizes: 23 41 132 73 5 13 1 64 85 130 30 97
@@ -281,8 +353,8 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ## // Percentage of missing data: 0.51 %
 ## // Observed heterozygosity: 0</code></pre>
 <p>We notice that tree number 26 is the only one to have been sampled for all three years. Let’s use it as an example.</p>
-<pre class="sourceCode r"><code class="sourceCode r">t26 &lt;-<span class="st"> </span>monpop %&gt;%<span class="st"> </span><span class="kw">setPop</span>(~Tree) %&gt;%<span class="st"> </span><span class="kw">popsub</span>(<span class="st">&quot;26&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">setPop</span>(~Year/Symptom)
-t26</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t26 &lt;-<span class="st"> </span>monpop %&gt;%<span class="st"> </span><span class="kw">setPop</span>(~Tree) %&gt;%<span class="st"> </span><span class="kw">popsub</span>(<span class="st">&quot;26&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">setPop</span>(~Year/Symptom)
+t26</code></pre></div>
 <pre><code>## 
 ## This is a genclone object
 ## -------------------------
@@ -297,7 +369,7 @@ t26</code></pre>
 ##      3 strata - Tree Year Symptom
 ##      6 populations defined - 9_BB 9_FR 10_BB 10_FR 11_BB 11_FR</code></pre>
 <p>Now that we have our tree, let’s calculate a MSN using Bruvo’s distance <span class="citation">(Bruvo et al., 2004)</span>. Remember that this distance is based on a stepwise mutation model, so we have to first specify what kind of repeats units we have in our data (eg. dinucleotide = 2, trinucleotide = 3, etc.):</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set up our repeat lengths and populations to analyze</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set up our repeat lengths and populations to analyze</span>
 reps &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">CHMFc4 =</span> <span class="dv">7</span>, <span class="dt">CHMFc5 =</span> <span class="dv">2</span>, <span class="dt">CHMFc12 =</span> <span class="dv">4</span>, 
           <span class="dt">SEA =</span> <span class="dv">4</span>, <span class="dt">SED =</span> <span class="dv">4</span>, <span class="dt">SEE =</span> <span class="dv">2</span>, <span class="dt">SEG =</span> <span class="dv">6</span>,
           <span class="dt">SEI =</span> <span class="dv">3</span>, <span class="dt">SEL =</span> <span class="dv">4</span>, <span class="dt">SEN =</span> <span class="dv">2</span>, 
@@ -306,11 +378,11 @@ reps &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">CH
 sub9 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;9_BB&quot;</span>, <span class="st">&quot;9_FR&quot;</span>)
 
 <span class="co"># Calculate the MSN</span>
-t26.9msn &lt;-<span class="st"> </span><span class="kw">bruvo.msn</span>(t26, <span class="dt">replen =</span> reps, <span class="dt">sublist =</span> sub9, <span class="dt">showplot =</span> <span class="ot">FALSE</span>)</code></pre>
-<p>The minimum spanning network is calculated via <code>bruvo.msn</code>. We have set the argument <code>showplot = FALSE</code> because we want to use the more powerful function <code>plot_poppr_msn</code> to view the MSN. I am telling it to label none of the samples, color populations using the “cm.colors” palette and scale the size of the nodes to <span class="math">\(log_{1.25}\)</span>. If you want to know what other things this function can do, simply type <code>help(&quot;plot_poppr_msn&quot;)</code></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Visualize the network</span>
+t26.9msn &lt;-<span class="st"> </span><span class="kw">bruvo.msn</span>(t26, <span class="dt">replen =</span> reps, <span class="dt">sublist =</span> sub9, <span class="dt">showplot =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>The minimum spanning network is calculated via <code>bruvo.msn</code>. We have set the argument <code>showplot = FALSE</code> because we want to use the more powerful function <code>plot_poppr_msn</code> to view the MSN. I am telling it to label none of the samples, color populations using the “cm.colors” palette and scale the size of the nodes to <span class="math inline">\(log_{1.25}\)</span>. If you want to know what other things this function can do, simply type <code>help(&quot;plot_poppr_msn&quot;)</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Visualize the network</span>
 <span class="kw">set.seed</span>(<span class="dv">120</span>)
-<span class="kw">plot_poppr_msn</span>(t26, t26.9msn, <span class="dt">inds =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">palette =</span> cm.colors, <span class="dt">nodebase =</span> <span class="fl">1.25</span>)</code></pre>
+<span class="kw">plot_poppr_msn</span>(t26, t26.9msn, <span class="dt">inds =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">palette =</span> cm.colors, <span class="dt">nodebase =</span> <span class="fl">1.25</span>)</code></pre></div>
 <p><img src="Minimum_Spanning_Networks_files/figure-html/visualize_msn-1.png" title="" alt="" width="700px" /></p>
 <p>We can see that the Blossom Blight in the tree (pink pie slices) heavily contributed to the major groups of MLGs found in the Fruit Rot (blue pie pieces).</p>
 <blockquote>
@@ -321,7 +393,7 @@ t26.9msn &lt;-<span class="st"> </span><span class="kw">bruvo.msn</span>(t26, <s
 <div id="interactive-viewer" class="section level1">
 <h1>Interactive viewer</h1>
 <p>Creating a customized, publishable MSN is somewhat daunting as the <code>plot_poppr_msn</code> function has a whole lot arguments:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(plot_poppr_msn)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(plot_poppr_msn)</code></pre></div>
 <pre><code>## function (x, poppr_msn, gscale = TRUE, gadj = 3, mlg.compute = &quot;original&quot;, 
 ##     glim = c(0, 0.8), gweight = 1, wscale = TRUE, nodebase = 1.15, 
 ##     nodelab = 2, inds = &quot;ALL&quot;, mlg = FALSE, quantiles = TRUE, 
@@ -329,16 +401,22 @@ t26.9msn &lt;-<span class="st"> </span><span class="kw">bruvo.msn</span>(t26, <s
 ##     pop.leg = TRUE, scale.leg = TRUE, ...) 
 ## NULL</code></pre>
 <p>We created the interactive tool <code>imsn()</code> to facilitate interactive plotting. This function will be able to create minimum spanning networks from all genind objects in your current R session. In this section, we will recreate the plot above. First we will make sure that we have all the data we need and then we will run <code>imsn()</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>() <span class="co"># Show all the data we have in our workspace</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>() <span class="co"># Show all the data we have in our workspace</span></code></pre></div>
 <pre><code>## [1] &quot;monpop&quot;   &quot;reps&quot;     &quot;sub9&quot;     &quot;t26&quot;      &quot;t26.9msn&quot;</code></pre>
 <blockquote>
 <p>Note: you will not be able to access your R console after running this function until you close the pop-up app.</p>
 </blockquote>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">imsn</span>()</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">imsn</span>()</code></pre></div>
 <p>(Note: you probably will not see the whole screen like this, but you can still scroll down)</p>
-<p><img src="images/imsn_initial.png" alt="Intial view of imsn" /></p>
+<div class="figure">
+<img src="images/imsn_initial.png" alt="Intial view of imsn" />
+<p class="caption">Intial view of imsn</p>
+</div>
 <p>We can see that there are five tabs and a sidebar. For now, we’ll explain what is on the sidebar.</p>
-<p><img src="images/imsn_status.png" alt="status view" /></p>
+<div class="figure">
+<img src="images/imsn_status.png" alt="status view" />
+<p class="caption">status view</p>
+</div>
 <p>The first thing you see is a green bar that says “ready”. This means that there are no processes going on in the background and that it’s waiting for input. Below that are three buttons: <strong>Go!</strong>, <strong>reData</strong>, and <strong>reGraph</strong>. These tell the program that you are ready render your graphs.</p>
 <div id="parameters-sidebar" class="section level2">
 <h2>Parameters (sidebar)</h2>
@@ -347,12 +425,18 @@ t26.9msn &lt;-<span class="st"> </span><span class="kw">bruvo.msn</span>(t26, <s
 <h3>Data Parameters</h3>
 <p>As you can expect, these options represent parameters that will manipulate your data. Changing any of these choices means that the distance matrix will be recalculated. When you modify things in this section and are satisfied with your choices, you can use the <strong>reData</strong> button to update the graph. You see here four choices presented:</p>
 <ol style="list-style-type: decimal">
-<li><strong>Choose dataset</strong> - This dropdown menu allows you to choose your data set.<br /> <img src="images/imsn_data_choose.png" alt="choose dataset" /></li>
-<li><strong>Choose populations</strong> - this will change based on your data set, but it allows you to select different populations with which to subset your data<br /> <img src="images/imsn_population_choose.png" alt="choose populations" /></li>
-<li><strong>Convert to genclone?</strong> - If your data is in genind format, you can convert it to genclone (minimally reduces time for clonal organisms)<br /> <img src="images/imsn_convert.png" alt="convert to genclone?" /></li>
-<li><strong>Choose distance calculation</strong> - The distance measure to calculate from your data (notice that there’s “Custom” at the bottom)<br /> <img src="images/imsn_distance_choose.png" alt="choose distance calculation" /></li>
-<li><strong>Distance arguments</strong> - every distance has different arguments, this is where you can modify them<br /> <img src="images/imsn_distance_args.png" alt="Distance arguments" /></li>
-<li><strong>Include reticulations?</strong> - This is an important parameter that will include reticulations in the minimum spanning network. We’ll explore this with the <code>Pram</code> data set later.<br /> <img src="images/imsn_reticulate.png" alt="include reticulations?" /></li>
+<li><strong>Choose dataset</strong> - This dropdown menu allows you to choose your data set.<br />
+<img src="images/imsn_data_choose.png" alt="choose dataset" /></li>
+<li><strong>Choose populations</strong> - this will change based on your data set, but it allows you to select different populations with which to subset your data<br />
+<img src="images/imsn_population_choose.png" alt="choose populations" /></li>
+<li><strong>Convert to genclone?</strong> - If your data is in genind format, you can convert it to genclone (minimally reduces time for clonal organisms)<br />
+<img src="images/imsn_convert.png" alt="convert to genclone?" /></li>
+<li><strong>Choose distance calculation</strong> - The distance measure to calculate from your data (notice that there’s “Custom” at the bottom)<br />
+<img src="images/imsn_distance_choose.png" alt="choose distance calculation" /></li>
+<li><strong>Distance arguments</strong> - every distance has different arguments, this is where you can modify them<br />
+<img src="images/imsn_distance_args.png" alt="Distance arguments" /></li>
+<li><strong>Include reticulations?</strong> - This is an important parameter that will include reticulations in the minimum spanning network. We’ll explore this with the <code>Pram</code> data set later.<br />
+<img src="images/imsn_reticulate.png" alt="include reticulations?" /></li>
 </ol>
 </div>
 <div id="graphical-parameters" class="section level3">
@@ -366,19 +450,28 @@ t26.9msn &lt;-<span class="st"> </span><span class="kw">bruvo.msn</span>(t26, <s
 <div id="plot" class="section level3">
 <h3>Plot</h3>
 <p>This is the tab you see immediately. It has nothing in it because we haven’t told <code>imsn()</code> to do anything. Let’s hit <strong>Go!</strong> with our default parameters and see what happens.</p>
-<p><img src="images/imsn_go.png" alt="minimum spanning network of partial_clone" /></p>
+<div class="figure">
+<img src="images/imsn_go.png" alt="minimum spanning network of partial_clone" />
+<p class="caption">minimum spanning network of partial_clone</p>
+</div>
 <p>We now have a minimum spanning network of partial clone based a dissimilarity distance (“diss.dist”) where the distance is represented as counts of dissimilar alleles.</p>
 </div>
 <div id="data" class="section level3">
 <h3>Data</h3>
-<p><img src="images/imsn_data.png" alt="partial_clone output" /></p>
+<div class="figure">
+<img src="images/imsn_data.png" alt="partial_clone output" />
+<p class="caption">partial_clone output</p>
+</div>
 <p>This is the output of your data set. You can use this to confirm that your data is what you expect.</p>
 </div>
 <div id="command" class="section level3">
 <h3>Command</h3>
-<p><img src="images/imsn_command.png" alt="partial_clone command" /></p>
+<div class="figure">
+<img src="images/imsn_command.png" alt="partial_clone command" />
+<p class="caption">partial_clone command</p>
+</div>
 <p>If you copy and paste this command into your R console, you can recreate the minimum spanning network. This is important to make sure that your figure is reproducible.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;partial_clone&quot;</span>) <span class="co"># Don&#39;t forget to load the data</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;partial_clone&quot;</span>) <span class="co"># Don&#39;t forget to load the data</span>
 partial_clone_sub &lt;-<span class="st"> </span><span class="kw">popsub</span>(partial_clone, <span class="dt">blacklist =</span> <span class="kw">character</span>(<span class="dv">0</span>))
 partial_clone_dist &lt;-<span class="st"> </span><span class="kw">diss.dist</span>(partial_clone_sub, <span class="dt">percent =</span> <span class="ot">FALSE</span>, <span class="dt">mat =</span> <span class="ot">FALSE</span>)
 min_span_net &lt;-<span class="st"> </span><span class="kw">poppr.msn</span>(partial_clone_sub, partial_clone_dist, <span class="dt">showplot =</span> <span class="ot">FALSE</span>, <span class="dt">include.ties =</span> <span class="ot">TRUE</span>)
@@ -393,17 +486,23 @@ min_span_net &lt;-<span class="st"> </span><span class="kw">poppr.msn</span>(par
            <span class="dt">palette =</span> rainbow,
            <span class="dt">cutoff =</span> <span class="ot">NULL</span>,
            <span class="dt">quantiles =</span> <span class="ot">FALSE</span>,
-           <span class="dt">beforecut =</span> <span class="ot">TRUE</span>)</code></pre>
+           <span class="dt">beforecut =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="Minimum_Spanning_Networks_files/figure-html/partial_clone_reproduce-1.png" title="" alt="" width="700px" /></p>
 </div>
 <div id="save-plot" class="section level3">
 <h3>Save Plot</h3>
-<p><img src="images/imsn_save.png" /></p>
+<div class="figure">
+<img src="images/imsn_save.png" />
+
+</div>
 <p>This allows you to save the plot to your computer in pdf or png format.</p>
 </div>
 <div id="session-information" class="section level3">
 <h3>Session Information</h3>
-<p><img src="images/imsn_sessioninfo.png" /></p>
+<div class="figure">
+<img src="images/imsn_sessioninfo.png" />
+
+</div>
 <p>This shows you what package versions were used to create the graph.</p>
 </div>
 </div>
@@ -411,14 +510,26 @@ min_span_net &lt;-<span class="st"> </span><span class="kw">poppr.msn</span>(par
 <h2>Re-creating MSNs</h2>
 <p>We will now recreate the minimum spanning network that was displayed for the monpop data set.</p>
 <p>First, choose the <code>t26</code> data set that we defined above:</p>
-<p><img src="images/imsn_monpop_data.png" /></p>
+<div class="figure">
+<img src="images/imsn_monpop_data.png" />
+
+</div>
 <p>Next, make sure you only select the “9_BB” and “9_FR” populations.</p>
-<p><img src="images/imsn_monpop_pops.png" /></p>
+<div class="figure">
+<img src="images/imsn_monpop_pops.png" />
+
+</div>
 <p>Now, Select “Bruvo’s Distance”:</p>
-<p><img src="images/imsn_monpop_bruvo.png" /></p>
+<div class="figure">
+<img src="images/imsn_monpop_bruvo.png" />
+
+</div>
 <p>Notice how the options have now changed. This is because bruvo’s distance is a special distance that is parametric. Don’t worry about the model for missing data, but in the SSR repeat lengths section, type “reps” (we defined this earlier):</p>
-<p><img src="images/imsn_monpop_bruvo_opts.png" /></p>
-<pre class="sourceCode r"><code class="sourceCode r">reps <span class="co"># our previous definition of &quot;reps&quot;</span></code></pre>
+<div class="figure">
+<img src="images/imsn_monpop_bruvo_opts.png" />
+
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reps <span class="co"># our previous definition of &quot;reps&quot;</span></code></pre></div>
 <pre><code>##  CHMFc4  CHMFc5 CHMFc12     SEA     SED     SEE     SEG     SEI     SEL 
 ##       7       2       4       4       4       2       6       3       4 
 ##     SEN     SEP     SEQ     SER 
@@ -431,7 +542,10 @@ min_span_net &lt;-<span class="st"> </span><span class="kw">poppr.msn</span>(par
 <li>Palette: <strong>cm.colors</strong></li>
 </ul>
 <p>Once everthing is set, hit <strong>reData</strong> and the graph will reset just like this:</p>
-<p><img src="images/imsn_monpop_plot.png" /></p>
+<div class="figure">
+<img src="images/imsn_monpop_plot.png" />
+
+</div>
 </div>
 <div id="your-turn-use-the-data-for-phytophthora-ramorum" class="section level2">
 <h2>Your turn (use the data for <em>Phytophthora ramorum</em>)</h2>
@@ -439,8 +553,8 @@ min_span_net &lt;-<span class="st"> </span><span class="kw">poppr.msn</span>(par
 <div id="load-the-data" class="section level3">
 <h3>Load the data</h3>
 <p>Exit the <code>imsn()</code> graphical window and execute the following statements:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;Pram&quot;</span>)
-Pram</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;Pram&quot;</span>)
+Pram</code></pre></div>
 <pre><code>## 
 ## This is a genclone object
 ## -------------------------
@@ -456,10 +570,10 @@ Pram</code></pre>
 ##      9 populations defined - Nursery_CA Nursery_OR JHallCr_OR ... 
 ## Winchuck_OR ChetcoMain_OR PistolRSF_OR</code></pre>
 <p>This data has a few things in the “other” slot that we need. First is the repeat lengths called “REPLEN” and the other is a vector of hexadecimal colors for each population called “comparePal”.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">other</span>(Pram)$REPLEN</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">other</span>(Pram)$REPLEN</code></pre></div>
 <pre><code>##  PrMS6A1  Pr9C3A1 PrMS39A1 PrMS45A1 PrMS43A1 
 ##  3.00000  2.00000  4.00001  4.00000  4.00000</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">other</span>(Pram)$comparePal</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">other</span>(Pram)$comparePal</code></pre></div>
 <pre><code>##    Nursery_CA    Nursery_OR    JHallCr_OR NFChetHigh_OR      Coast_OR 
 ##     &quot;#000000&quot;     &quot;#808080&quot;     &quot;#A6CEE3&quot;     &quot;#99CD91&quot;     &quot;#B89B74&quot; 
 ##   HunterCr_OR   Winchuck_OR ChetcoMain_OR  PistolRSF_OR 
@@ -484,13 +598,23 @@ Pram</code></pre>
 </ul></li>
 </ul>
 <p>When you finish your session, you can exit the app by closing the window.</p>
-<div class="references">
-<h1 id="references" class="unnumbered">References</h1>
-<p>Bruvo R., Michiels NK., D’Souza TG., Schulenburg H. 2004. A simple method for the calculation of microsatellite genotype distances irrespective of ploidy level. <em>Molecular Ecology</em> 13:2101–2106. Available at: <a href="http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x" class="uri">http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x</a></p>
-<p>Everhart S., Scherm H. 2015. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> 105:542–549.</p>
-<p>Goss EM., Larsen M., Chastagner GA., Givens DR., Gr<span>ü</span>nwald NJ. 2009. Population genetic analysis infers migration pathways of phytophthora ramorum in uS nurseries. <em>PLoS Pathog</em> 5:e1000583. Available at: <a href="http://dx.doi.org/10.1371/journal.ppat.1000583" class="uri">http://dx.doi.org/10.1371/journal.ppat.1000583</a></p>
-<p>Kamvar Z., Larsen M., Kanaskie A., Hansen E., Gr<span>ü</span>nwald N. 2015. Spatial and temporal analysis of populations of the sudden oak death pathogen in oregon forests. <em>Phytopathology</em>:PHYTO–12. Available at: <a href="http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI" class="uri">http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI</a></p>
 </div>
+</div>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-bruvo2004simple">
+<p>Bruvo R., Michiels NK., D’Souza TG., Schulenburg H. 2004. A simple method for the calculation of microsatellite genotype distances irrespective of ploidy level. <em>Molecular Ecology</em> 13:2101–2106. Available at: <a href="http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x" class="uri">http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x</a></p>
+</div>
+<div id="ref-everhart2014finescale">
+<p>Everhart S., Scherm H. 2015. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> 105:542–549.</p>
+</div>
+<div id="ref-goss2009population">
+<p>Goss EM., Larsen M., Chastagner GA., Givens DR., Grünwald NJ. 2009. Population genetic analysis infers migration pathways of phytophthora ramorum in uS nurseries. <em>PLoS Pathog</em> 5:e1000583. Available at: <a href="http://dx.doi.org/10.1371/journal.ppat.1000583" class="uri">http://dx.doi.org/10.1371/journal.ppat.1000583</a></p>
+</div>
+<div id="ref-kamvar2015spatial">
+<p>Kamvar Z., Larsen M., Kanaskie A., Hansen E., Grünwald N. 2015. Spatial and temporal analysis of populations of the sudden oak death pathogen in oregon forests. <em>Phytopathology</em>:PHYTO–12. Available at: <a href="http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI" class="uri">http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI</a></p>
 </div>
 </div>
 </div>
@@ -499,6 +623,8 @@ Pram</code></pre>
 </div>
 </div>
  -->
+
+
 
 </div>
 
