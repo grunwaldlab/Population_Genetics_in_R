@@ -10,14 +10,15 @@
 
 
 
+
 <title>11: AMOVA</title>
 
-<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/readable.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<link href="libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -99,24 +100,41 @@ body {
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
 pre, code { background-color: #f8f8f8; }
-code > span.kw { color: #204a87; font-weight: bold; }
-code > span.dt { color: #204a87; }
-code > span.dv { color: #0000cf; }
-code > span.bn { color: #0000cf; }
-code > span.fl { color: #0000cf; }
-code > span.ch { color: #4e9a06; }
-code > span.st { color: #4e9a06; }
-code > span.co { color: #8f5902; font-style: italic; }
-code > span.ot { color: #8f5902; }
-code > span.al { color: #ef2929; }
-code > span.fu { color: #000000; }
-code > span.er { font-weight: bold; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
 </style>
 <style type="text/css">
   pre:not([class]) {
@@ -124,6 +142,33 @@ code > span.er { font-weight: bold; }
   }
 </style>
 
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 
 </head>
@@ -140,12 +185,34 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
 }
 </style>
+
+
 <div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="libs/navigation-1.0/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
 
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -219,8 +286,12 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div class="row">
 <div class="span10 offset1"> -->
 
-<div id="header">
-<h1 class="title">11: AMOVA</h1>
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">11: AMOVA</h1>
+
 </div>
 
 <div id="TOC">
@@ -235,23 +306,23 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </div>
 
 <p>In this chapter, we will utilize AMOVA to analyze our populations. AMOVA stands for <strong>A</strong>nalysis of <strong>MO</strong>lecular <strong>VA</strong>riance and is a method to detect population differentiation utilizing molecular markers <span class="citation">(Excoffier, Smouse &amp; Quattro, 1992)</span>. This procedure was initially implemented for DNA haplotypes, but applies to any marker system. The implementation of AMOVA in <em>poppr</em> requires two very basic components: (1) A distance matrix derived from the data and (2) a separate table used to partition the data into different stratifications.</p>
-<p>The distance matrix can be calculated using any distance as long as it is euclidean. The distance that is used in the program Arlequin is the opposite of the Kronecker Delta function that counts the number of differences summed over <span class="math">\(L\)</span> loci:</p>
-<p><span class="math">\[
+<p>The distance matrix can be calculated using any distance as long as it is euclidean. The distance that is used in the program Arlequin is the opposite of the Kronecker Delta function that counts the number of differences summed over <span class="math inline">\(L\)</span> loci:</p>
+<p><span class="math display">\[
 \delta_{l,m} = \begin{cases}
 1 \text{ if } m = l,\\
 0 \text{ if } m \neq l
 \end{cases}
-\]</span> <span class="math">\[
+\]</span> <span class="math display">\[
 d_{i,j} = \sum_{L = 1}^L 1 - \delta_{i,j}
 \]</span></p>
 <div id="data-set" class="section level2">
 <h2>Data set</h2>
 <p>To calculate AMOVA in <em>poppr</em>, one simply needs to supply a data set with stratifications. We will use the <em>Aphanomyces euteiches</em> data set from <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
 <span class="kw">data</span>(<span class="st">&quot;Aeut&quot;</span>)
 <span class="kw">strata</span>(Aeut) &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">other</span>(Aeut)$population_hierarchy)
 Aeut &lt;-<span class="st"> </span><span class="kw">as.genclone</span>(Aeut)
-Aeut</code></pre>
+Aeut</code></pre></div>
 <pre><code>## 
 ## This is a genclone object
 ## -------------------------
@@ -266,11 +337,11 @@ Aeut</code></pre>
 ##      3 strata - Pop_Subpop Pop Subpop
 ##      2 populations defined - Athena Mt. Vernon</code></pre>
 <p>We can see that this data set contains clonal data and has three stratifications where the first is really a combination of the other levels. We can take a look at the different stratifications, populations or subpopulations:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(<span class="kw">strata</span>(Aeut, ~Pop))  <span class="co"># Populations</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(<span class="kw">strata</span>(Aeut, ~Pop))  <span class="co"># Populations</span></code></pre></div>
 <pre><code>## 
 ##     Athena Mt. Vernon 
 ##         97         90</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(<span class="kw">strata</span>(Aeut, ~Pop/Subpop, <span class="dt">combine =</span> <span class="ot">FALSE</span>))  <span class="co"># Subpopulations</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(<span class="kw">strata</span>(Aeut, ~Pop/Subpop, <span class="dt">combine =</span> <span class="ot">FALSE</span>))  <span class="co"># Subpopulations</span></code></pre></div>
 <pre><code>##             Subpop
 ## Pop           1  2  3  4  5  6  7  8  9 10
 ##   Athena      9 12 10 13 10  5 11  8 10  9
@@ -281,10 +352,10 @@ Aeut</code></pre>
 <h2>Analysis</h2>
 <p>In panmictic populations, we would expect to see most of the variance arise from within samples. If we see that the most of the variance occurs among samples within populations or among populations, then there is evidence that we have some sort of population structure. In the case of clonal organisms, this would help support a hypothesis of clonal reproduction. Since <em>Aphanomyces eutieches</em> is known to be clonal, we would not expect most of the variance to come from within samples.</p>
 <p>Let’s invoke the AMOVA functions with and without clone correction:</p>
-<pre class="sourceCode r"><code class="sourceCode r">Aeutamova &lt;-<span class="st"> </span><span class="kw">poppr.amova</span>(Aeut, ~Pop/Subpop)
-Aeutamovacc &lt;-<span class="st"> </span><span class="kw">poppr.amova</span>(Aeut, ~Pop/Subpop, <span class="dt">clonecorrect =</span> <span class="ot">TRUE</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Aeutamova &lt;-<span class="st"> </span><span class="kw">poppr.amova</span>(Aeut, ~Pop/Subpop)
+Aeutamovacc &lt;-<span class="st"> </span><span class="kw">poppr.amova</span>(Aeut, ~Pop/Subpop, <span class="dt">clonecorrect =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p>We’ll look at the AMOVA results for both analyses.</p>
-<pre class="sourceCode r"><code class="sourceCode r">Aeutamova</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Aeutamova</code></pre></div>
 <pre><code>## $call
 ## ade4::amova(samples = xtab, distances = xdist, structures = xstruct)
 ## 
@@ -307,7 +378,7 @@ Aeutamovacc &lt;-<span class="st"> </span><span class="kw">poppr.amova</span>(Ae
 ## Phi-samples-total 0.7841427
 ## Phi-samples-Pop   0.2803128
 ## Phi-Pop-total     0.7000679</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">Aeutamovacc</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Aeutamovacc</code></pre></div>
 <pre><code>## $call
 ## ade4::amova(samples = xtab, distances = xdist, structures = xstruct)
 ## 
@@ -330,21 +401,21 @@ Aeutamovacc &lt;-<span class="st"> </span><span class="kw">poppr.amova</span>(Ae
 ## Phi-samples-total 0.7288303
 ## Phi-samples-Pop   0.1837727
 ## Phi-Pop-total     0.6677768</code></pre>
-<p>The first thing to look at are the <code>$results</code> element. The degrees of freedom (the <code>Df</code> column) should match what we expect from our (not clone-corrected) data. The number in the <code>Total</code> row should equal 186 or <span class="math">\(N - 1\)</span>, where values are calculated from pooled data. Note that here, “samples” actually refers to subpopulations since we cannot asses within-sample variance of dominant data.</p>
-<p>The <code>$componentsofcovariance</code> table shows how much variance is detected at each stratification. We expect variations within samples to give the greatest amount of variation for populations that are not significantly differentiated. <code>Sigma</code> represents the variance, <span class="math">\(\sigma\)</span>, for each hierarchical level and to the right is the percent of the total.</p>
-<p>Finally, <code>$statphi</code> provides the <span class="math">\(\phi\)</span> population differentiation statistics. These are used to test hypotheses about population differentiation. We would expect a higher <span class="math">\(\phi\)</span> statistic to represent a higher amount of differentiation.</p>
+<p>The first thing to look at are the <code>$results</code> element. The degrees of freedom (the <code>Df</code> column) should match what we expect from our (not clone-corrected) data. The number in the <code>Total</code> row should equal 186 or <span class="math inline">\(N - 1\)</span>, where values are calculated from pooled data. Note that here, “samples” actually refers to subpopulations since we cannot asses within-sample variance of dominant data.</p>
+<p>The <code>$componentsofcovariance</code> table shows how much variance is detected at each stratification. We expect variations within samples to give the greatest amount of variation for populations that are not significantly differentiated. <code>Sigma</code> represents the variance, <span class="math inline">\(\sigma\)</span>, for each hierarchical level and to the right is the percent of the total.</p>
+<p>Finally, <code>$statphi</code> provides the <span class="math inline">\(\phi\)</span> population differentiation statistics. These are used to test hypotheses about population differentiation. We would expect a higher <span class="math inline">\(\phi\)</span> statistic to represent a higher amount of differentiation.</p>
 <p>Note, if you want to make a table of any of these components, you can isolate them by using the <code>$</code> operator and then export it to a table with <code>write.table</code>. Here’s an example with the components of covariance:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.table</span>(Aeutamova$componentsofcovariance, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">file =</span> <span class="st">&quot;~/Documents/AeutiechesAMOVA.csv&quot;</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.table</span>(Aeutamova$componentsofcovariance, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">file =</span> <span class="st">&quot;~/Documents/AeutiechesAMOVA.csv&quot;</span>)</code></pre></div>
 </div>
 <div id="significance-testing" class="section level2">
 <h2>Significance testing</h2>
 <p>To test if populations are significantly different, we perform a randomization test using the function <code>randtest()</code> from the <em>ade4</em> package. This will randomly permute the sample matrices as described in <span class="citation">(Excoffier et al., 1992)</span>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1999</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1999</span>)
 Aeutsignif   &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeutamova, <span class="dt">nrepet =</span> <span class="dv">999</span>)
-Aeutccsignif &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeutamovacc, <span class="dt">nrepet =</span> <span class="dv">999</span>)</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Aeutsignif)</code></pre>
+Aeutccsignif &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeutamovacc, <span class="dt">nrepet =</span> <span class="dv">999</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Aeutsignif)</code></pre></div>
 <p><img src="AMOVA_files/figure-html/Aeut_random_plot-1.png" title="" alt="" width="700px" /></p>
-<pre class="sourceCode r"><code class="sourceCode r">Aeutsignif</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Aeutsignif</code></pre></div>
 <pre><code>## class: krandtest 
 ## Monte-Carlo tests
 ## Call: randtest.amova(xtest = Aeutamova, nrepet = 999)
@@ -360,9 +431,9 @@ Aeutccsignif &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeut
 ## 
 ## other elements: adj.method call</code></pre>
 <p>From this output, you can see three histograms representing the distribution of the randomized strata. The black line represents the observed data. You can see a table of observed results in the output showing that there is significant population structure considering all levels of the population strata. Of course, this could be due to the presence of clones, so let’s visualize the results from the clone corrected data set below:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Aeutccsignif)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Aeutccsignif)</code></pre></div>
 <p><img src="AMOVA_files/figure-html/Aeut_clonecorrect_random_plot-1.png" title="" alt="" width="700px" /></p>
-<pre class="sourceCode r"><code class="sourceCode r">Aeutccsignif</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Aeutccsignif</code></pre></div>
 <pre><code>## class: krandtest 
 ## Monte-Carlo tests
 ## Call: randtest.amova(xtest = Aeutamovacc, nrepet = 999)
@@ -377,13 +448,13 @@ Aeutccsignif &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeut
 ## 3     Variations between Pop 10.4131525   9.983940 greater  0.001
 ## 
 ## other elements: adj.method call</code></pre>
-<p>The above graphs show significant population differentiation at all levels given that the observed <span class="math">\(\phi\)</span> does not fall within the distribution expected from the permutation. Compare the results of our AMOVA analysis to those published in <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>. They should be identical.</p>
+<p>The above graphs show significant population differentiation at all levels given that the observed <span class="math inline">\(\phi\)</span> does not fall within the distribution expected from the permutation. Compare the results of our AMOVA analysis to those published in <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>. They should be identical.</p>
 </div>
 <div id="randomized-population-structure" class="section level2">
 <h2>Randomized population structure</h2>
 <p>Since AMOVA is used to detect whether or not there is significant population structure, we can see what happens when we randomly shuffle the population assignments in our data. Here we will show what the populations look like before and after shuffling:</p>
-<pre class="sourceCode r"><code class="sourceCode r">Aeut.new &lt;-<span class="st"> </span>Aeut
-<span class="kw">head</span>(<span class="kw">strata</span>(Aeut)[, -<span class="dv">1</span>])</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Aeut.new &lt;-<span class="st"> </span>Aeut
+<span class="kw">head</span>(<span class="kw">strata</span>(Aeut)[, -<span class="dv">1</span>])</code></pre></div>
 <pre><code>##        Pop Subpop
 ## 001 Athena      1
 ## 002 Athena      1
@@ -391,8 +462,8 @@ Aeutccsignif &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeut
 ## 004 Athena      1
 ## 005 Athena      1
 ## 006 Athena      1</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">9001</span>)
-<span class="kw">head</span>(<span class="kw">strata</span>(Aeut)[<span class="kw">sample</span>(<span class="kw">nInd</span>(Aeut)), -<span class="dv">1</span>])</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">9001</span>)
+<span class="kw">head</span>(<span class="kw">strata</span>(Aeut)[<span class="kw">sample</span>(<span class="kw">nInd</span>(Aeut)), -<span class="dv">1</span>])</code></pre></div>
 <pre><code>##            Pop Subpop
 ## 044     Athena      4
 ## 177 Mt. Vernon      8
@@ -401,10 +472,10 @@ Aeutccsignif &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeut
 ## 008     Athena      1
 ## 039     Athena      4</code></pre>
 <p>Here we see that the populations are completely shuffled, so in the next step, we will reassign the strata with these newly shuffled populations and rerun the AMOVA analysis.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">9001</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">9001</span>)
 <span class="kw">strata</span>(Aeut.new) &lt;-<span class="st"> </span><span class="kw">strata</span>(Aeut)[<span class="kw">sample</span>(<span class="kw">nInd</span>(Aeut)), -<span class="dv">1</span>]
 Aeut.new.amova         &lt;-<span class="st"> </span><span class="kw">poppr.amova</span>(Aeut.new, ~Pop/Subpop)
-Aeut.new.amova</code></pre>
+Aeut.new.amova</code></pre></div>
 <pre><code>## $call
 ## ade4::amova(samples = xtab, distances = xdist, structures = xstruct)
 ## 
@@ -427,8 +498,8 @@ Aeut.new.amova</code></pre>
 ## Phi-samples-total -0.001402074
 ## Phi-samples-Pop   -0.017106288
 ## Phi-Pop-total      0.015440091</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">Aeut.new.amova.test    &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeut.new.amova, <span class="dt">nrepet =</span> <span class="dv">999</span>)
-Aeut.new.amova.test</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Aeut.new.amova.test    &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeut.new.amova, <span class="dt">nrepet =</span> <span class="dv">999</span>)
+Aeut.new.amova.test</code></pre></div>
 <pre><code>## class: krandtest 
 ## Monte-Carlo tests
 ## Call: randtest.amova(xtest = Aeut.new.amova, nrepet = 999)
@@ -443,21 +514,25 @@ Aeut.new.amova.test</code></pre>
 ## 3     Variations between Pop  0.1588974  1.2656780 greater  0.123
 ## 
 ## other elements: adj.method call</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Aeut.new.amova.test)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Aeut.new.amova.test)</code></pre></div>
 <p><img src="AMOVA_files/figure-html/randomized_strata_plot-1.png" title="" alt="" width="700px" /></p>
 <p>We see that there now is no significant population structure.</p>
 </div>
 <div id="conclusions" class="section level2">
 <h2>Conclusions</h2>
-<p>AMOVA is a powerful tool that can help support hypotheses of population structure due to clonal reproduction or isolation without making assumptions about Hardy-Weinberg equilibrium. We have shown that we can reject the <span class="math">\(H_o\)</span> of random mating between the two populations and have strong evidence that these populations are significantly differentiated at all stratifications <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>. From these results, we can investigate hypotheses as to why these populations are significantly differentiated.</p>
+<p>AMOVA is a powerful tool that can help support hypotheses of population structure due to clonal reproduction or isolation without making assumptions about Hardy-Weinberg equilibrium. We have shown that we can reject the <span class="math inline">\(H_o\)</span> of random mating between the two populations and have strong evidence that these populations are significantly differentiated at all stratifications <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>. From these results, we can investigate hypotheses as to why these populations are significantly differentiated.</p>
 <p>This example was performed with a data set of dominant (AFLP) markers, but it can also be performed on codominant markers such as SNPs or SSRs. These provide more information because within sample (individual) variance is also assessed. If one wants to utilize a genetic distance that has biological relevance, a different distance matrix can be chosen. See <code>help('amova', package = 'poppr')</code> for more details.</p>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>
 <!----------->
-<div class="references">
+<div id="refs" class="references">
+<div id="ref-excoffier1992analysis">
 <p>Excoffier L., Smouse PE., Quattro JM. 1992. Analysis of molecular variance inferred from metric distances among dNA haplotypes: Application to human mitochondrial dNA restriction data. <em>Genetics</em> 131:479–491. Available at: <a href="http://www.genetics.org/content/131/2/479.abstract" class="uri">http://www.genetics.org/content/131/2/479.abstract</a></p>
+</div>
+<div id="ref-grunwald2006hierarchical">
 <p>Grünwald NJ., Hoheisel G-A. 2006. Hierarchical analysis of diversity, selfing, and genetic differentiation in populations of the oomycete <em>Aphanomyces euteiches</em>. <em>Phytopathology</em> 96:1134–1141. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134" class="uri">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134</a></p>
+</div>
 </div>
 </div>
 
@@ -465,6 +540,8 @@ Aeut.new.amova.test</code></pre>
 </div>
 </div>
  -->
+
+
 
 </div>
 

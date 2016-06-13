@@ -10,14 +10,15 @@
 
 
 
+
 <title>A1: Data sets used in this primer</title>
 
-<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/readable.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<link href="libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -99,6 +100,34 @@ body {
 
 
 
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
 </head>
 
 <body>
@@ -113,12 +142,34 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
 }
 </style>
+
+
 <div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="libs/navigation-1.0/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
 
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -192,8 +243,12 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div class="row">
 <div class="span10 offset1"> -->
 
-<div id="header">
-<h1 class="title">A1: Data sets used in this primer</h1>
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">A1: Data sets used in this primer</h1>
+
 </div>
 
 <div id="TOC">
@@ -205,6 +260,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <li><a href="#microsatellite-triploid-sexualclonal-pinf">Microsatellite (triploid, sexual/clonal): <code>Pinf</code></a></li>
 <li><a href="#microsatellite-diploid-clonal-pram">Microsatellite (diploid, clonal): <code>Pram</code></a></li>
 <li><a href="#snp-haploid-clonal-h3n2">SNP (haploid, clonal): <code>H3N2</code></a></li>
+<li><a href="#references">References</a></li>
 </ul>
 </div>
 
@@ -235,14 +291,28 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div id="snp-haploid-clonal-h3n2" class="section level2">
 <h2>SNP (haploid, clonal): <code>H3N2</code></h2>
 <p>This is a SNP data set from the hemaglutinin segment of the H3N2 strain of seasonal influenza contained within the <em>adegenet</em> package. It contains 1902 samples genotyped over 125 SNP markers. It contains a wealth of information in the <code>@other</code> slot including year isolated, month isolated, country of origin, and more. This data set is utilized to demonstrate the DAPC function in <em>adegenet</em>.</p>
-<div class="references">
-<h2 id="references" class="unnumbered">References</h2>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2>References</h2>
+<div id="refs" class="references">
+<div id="ref-everhart2014finescale">
 <p>Everhart S., Scherm H. 2015. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> 105:542–549.</p>
-<p>Goss EM., Larsen M., Chastagner GA., Givens DR., Gr<span>ü</span>nwald NJ. 2009. Population genetic analysis infers migration pathways of phytophthora ramorum in uS nurseries. <em>PLoS Pathog</em> 5:e1000583. Available at: <a href="http://dx.doi.org/10.1371/journal.ppat.1000583" class="uri">http://dx.doi.org/10.1371/journal.ppat.1000583</a></p>
+</div>
+<div id="ref-goss2009population">
+<p>Goss EM., Larsen M., Chastagner GA., Givens DR., Grünwald NJ. 2009. Population genetic analysis infers migration pathways of phytophthora ramorum in uS nurseries. <em>PLoS Pathog</em> 5:e1000583. Available at: <a href="http://dx.doi.org/10.1371/journal.ppat.1000583" class="uri">http://dx.doi.org/10.1371/journal.ppat.1000583</a></p>
+</div>
+<div id="ref-goss2014irish">
 <p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
+</div>
+<div id="ref-grunwald2006hierarchical">
 <p>Grünwald NJ., Hoheisel G-A. 2006. Hierarchical analysis of diversity, selfing, and genetic differentiation in populations of the oomycete <em>Aphanomyces euteiches</em>. <em>Phytopathology</em> 96:1134–1141. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134" class="uri">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134</a></p>
-<p>Kamvar Z., Larsen M., Kanaskie A., Hansen E., Gr<span>ü</span>nwald N. 2015. Spatial and temporal analysis of populations of the sudden oak death pathogen in oregon forests. <em>Phytopathology</em>:PHYTO–12. Available at: <a href="http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI" class="uri">http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI</a></p>
+</div>
+<div id="ref-kamvar2015spatial">
+<p>Kamvar Z., Larsen M., Kanaskie A., Hansen E., Grünwald N. 2015. Spatial and temporal analysis of populations of the sudden oak death pathogen in oregon forests. <em>Phytopathology</em>:PHYTO–12. Available at: <a href="http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI" class="uri">http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI</a></p>
+</div>
+<div id="ref-laloe2007consensus">
 <p>Laloe D., Jombart T., Dufour A-B., Moazami-Goudarzi K. 2007. Consensus genetic structuring and typological value of markers using multiple co-inertia analysis. <em>Genetics Selection Evolution</em> 39:545–567. Available at: <a href="http://dx.doi.org/10.1051/gse:2007021" class="uri">http://dx.doi.org/10.1051/gse:2007021</a></p>
+</div>
 </div>
 </div>
 
@@ -250,6 +320,8 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </div>
 </div>
  -->
+
+
 
 </div>
 

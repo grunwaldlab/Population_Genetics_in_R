@@ -10,14 +10,15 @@
 
 
 
+
 <title>1: Introduction</title>
 
-<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/readable.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<link href="libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -99,6 +100,34 @@ body {
 
 
 
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
 </head>
 
 <body>
@@ -113,12 +142,34 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
 }
 </style>
+
+
 <div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="libs/navigation-1.0/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
 
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -192,8 +243,12 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div class="row">
 <div class="span10 offset1"> -->
 
-<div id="header">
-<h1 class="title">1: Introduction</h1>
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">1: Introduction</h1>
+
 </div>
 
 <div id="TOC">
@@ -221,26 +276,26 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <h2>Population genetics</h2>
 <p>Traditional population genetics is based on analysis of observed allele frequencies compared to frequencies expected, assuming a population genetic model. For example, under a <strong>Wright-Fisher model</strong> you might expect to see populations of diploid individuals that reproduce sexually, with non-overlapping generations. This model ignores effects such as mutation, recombination, selection or changes in population size or structure. More complex models can incorporate different aspects of effects observed in real populations. However, most of these models assume that populations reproduce sexually.</p>
 <p>Here, we briefly review some terminology but assume that the reader has a basic understanding of theory and applications of population genetics.</p>
-<p>A <strong>locus</strong> is a position in the genome where we can observe one or several alleles in different individuals. Loci used in population genetics are assumed to be selectively neutral and can be an anonymous or non-coding region such as a microsatellite locus (SSR), a single nucleotide polymorphism (SNP) or the presence/absence of a band on a gel. A <strong>genotype</strong> is the combination of alleles carried by a given individual at a particular set of loci. Individuals carrying the same set of alleles are considered to have the same <strong>multilocus genotype</strong> <span class="math">\(MLG\)</span>.</p>
-<p>Basic metrics of interest in populations are polymorphisms, allele frequencies and genotype frequencies. Polymorphism can be estimated in several ways, such as the total number of loci observed that have more than one allele. The frequency of an allele is calculated as the number of allele copies observed in a population divided by the total number of individuals, times the ploidy (<span class="math">\(N\)</span> in haploids or <span class="math">\(2N\)</span> in diploids) in the population. For diploids we would observe frequency <span class="math">\(f_{A}\)</span> and <span class="math">\(f_{a}\)</span> for alleles <span class="math">\(A\)</span> and <span class="math">\(a\)</span>, respectively:</p>
-<p><span class="math">\(f_{A} = \frac{N_{A}}{2N}\)</span> and <span class="math">\(f_{a} = \frac{N_{a}}{2N}\)</span></p>
-<p>where <span class="math">\(N_{A}\)</span> are the numbers of allele <span class="math">\(A\)</span> segregating in the population genotyped.</p>
+<p>A <strong>locus</strong> is a position in the genome where we can observe one or several alleles in different individuals. Loci used in population genetics are assumed to be selectively neutral and can be an anonymous or non-coding region such as a microsatellite locus (SSR), a single nucleotide polymorphism (SNP) or the presence/absence of a band on a gel. A <strong>genotype</strong> is the combination of alleles carried by a given individual at a particular set of loci. Individuals carrying the same set of alleles are considered to have the same <strong>multilocus genotype</strong> <span class="math inline">\(MLG\)</span>.</p>
+<p>Basic metrics of interest in populations are polymorphisms, allele frequencies and genotype frequencies. Polymorphism can be estimated in several ways, such as the total number of loci observed that have more than one allele. The frequency of an allele is calculated as the number of allele copies observed in a population divided by the total number of individuals, times the ploidy (<span class="math inline">\(N\)</span> in haploids or <span class="math inline">\(2N\)</span> in diploids) in the population. For diploids we would observe frequency <span class="math inline">\(f_{A}\)</span> and <span class="math inline">\(f_{a}\)</span> for alleles <span class="math inline">\(A\)</span> and <span class="math inline">\(a\)</span>, respectively:</p>
+<p><span class="math inline">\(f_{A} = \frac{N_{A}}{2N}\)</span> and <span class="math inline">\(f_{a} = \frac{N_{a}}{2N}\)</span></p>
+<p>where <span class="math inline">\(N_{A}\)</span> are the numbers of allele <span class="math inline">\(A\)</span> segregating in the population genotyped.</p>
 <p>By definition, at a biallelic locus frequencies sum to 1:</p>
-<p><span class="math">\(f_{A} + f_{a} = 1\)</span>.</p>
-<p>Genotype frequencies are the relative frequencies of each <span class="math">\(MLG\)</span> observed in a population. Thus, for diploids at a <strong>biallelic locus</strong> we can observe three genotypes: <span class="math">\(AA\)</span>, <span class="math">\(Aa\)</span>, and <span class="math">\(aa\)</span> and their respective frequencies:</p>
-<p><span class="math">\(f_{AA} = \frac{N_{AA}}{2N}\)</span> and <span class="math">\(f_{Aa} = \frac{N_{Aa}}{2N}\)</span> and <span class="math">\(f_{aa} = \frac{N_{aa}}{2N}\)</span></p>
-<p>These frequencies again add up to 1. In diploid organisms we can also calculate the frequency of <strong>homozygotes</strong> (<span class="math">\(AA\)</span> or <span class="math">\(aa\)</span>) or <strong>heterozygotes</strong> (<span class="math">\(Aa\)</span>) as the proportion of individuals falling into each class. The proportion of individuals that are heterozygous is given by <span class="math">\(f_{Aa}\)</span> while the homozygous proportion is given by <span class="math">\(1-f_{Aa} = f_{AA}+f_{aa}\)</span>.</p>
-<p>An important aspect of population structure is the heterozygosity observed within subdivided populations <span class="math">\(H_{S}\)</span> and across total populations <span class="math">\(H_{T}\)</span>. If we assume presence of two populations in Hardy-Weinberg equilibrium then frequencies of Allele <span class="math">\(A\)</span> in populations 1 and 2 pooled over both populations would be:</p>
-<p><span class="math">\(f_{A} = \frac{2N_{1}f_{A1} + 2N_{2}f_{A2}}{2N_{1} + 2N_{2}}\)</span></p>
-<p>where each allele frequency is multiplied by population size <span class="math">\(N_{1}\)</span> and <span class="math">\(N_{2}\)</span> and divided by total number of alleles <span class="math">\(2N_{1} + 2N_{2}\)</span>. Remember, that in a diploid population there are 2 alleles per locus per individual and hence every frequency is multiplied by 2.</p>
-<p>Genetic differentiation of two populations (e.g. subdivision of populations) occurs if we observe differences in polymorphism, allele frequencies, genotype frequencies, and heterozygosity. Wright’s <span class="math">\(F_{st}\)</span> is a commonly used measure of differences in heterozygosity observed in the overall population relative to the subdivided populations and is defined as the differences between <span class="math">\(H_{T}\)</span> and <span class="math">\(H_{S}\)</span> relative to <span class="math">\(H_{T}\)</span>:</p>
-<p><span class="math">\(F_{ST} = \frac{H_{T}-H_{S}}{H_{T}}\)</span></p>
-<p>If allele frequencies are identical in both subpopulations then <span class="math">\(H_{T} = H_{S}\)</span>. If, on the other hand, allele frequencies vary between subdivided populations, then <span class="math">\(H_{T} &gt; H_{S}\)</span> and populations are considered to be genetically differentiated.</p>
-<p>Besides calculation of <span class="math">\(F_{st}\)</span> other approaches can be used to assess population structure including clustering. These approaches will be explored in subsequent chapters.</p>
+<p><span class="math inline">\(f_{A} + f_{a} = 1\)</span>.</p>
+<p>Genotype frequencies are the relative frequencies of each <span class="math inline">\(MLG\)</span> observed in a population. Thus, for diploids at a <strong>biallelic locus</strong> we can observe three genotypes: <span class="math inline">\(AA\)</span>, <span class="math inline">\(Aa\)</span>, and <span class="math inline">\(aa\)</span> and their respective frequencies:</p>
+<p><span class="math inline">\(f_{AA} = \frac{N_{AA}}{2N}\)</span> and <span class="math inline">\(f_{Aa} = \frac{N_{Aa}}{2N}\)</span> and <span class="math inline">\(f_{aa} = \frac{N_{aa}}{2N}\)</span></p>
+<p>These frequencies again add up to 1. In diploid organisms we can also calculate the frequency of <strong>homozygotes</strong> (<span class="math inline">\(AA\)</span> or <span class="math inline">\(aa\)</span>) or <strong>heterozygotes</strong> (<span class="math inline">\(Aa\)</span>) as the proportion of individuals falling into each class. The proportion of individuals that are heterozygous is given by <span class="math inline">\(f_{Aa}\)</span> while the homozygous proportion is given by <span class="math inline">\(1-f_{Aa} = f_{AA}+f_{aa}\)</span>.</p>
+<p>An important aspect of population structure is the heterozygosity observed within subdivided populations <span class="math inline">\(H_{S}\)</span> and across total populations <span class="math inline">\(H_{T}\)</span>. If we assume presence of two populations in Hardy-Weinberg equilibrium then frequencies of Allele <span class="math inline">\(A\)</span> in populations 1 and 2 pooled over both populations would be:</p>
+<p><span class="math inline">\(f_{A} = \frac{2N_{1}f_{A1} + 2N_{2}f_{A2}}{2N_{1} + 2N_{2}}\)</span></p>
+<p>where each allele frequency is multiplied by population size <span class="math inline">\(N_{1}\)</span> and <span class="math inline">\(N_{2}\)</span> and divided by total number of alleles <span class="math inline">\(2N_{1} + 2N_{2}\)</span>. Remember, that in a diploid population there are 2 alleles per locus per individual and hence every frequency is multiplied by 2.</p>
+<p>Genetic differentiation of two populations (e.g. subdivision of populations) occurs if we observe differences in polymorphism, allele frequencies, genotype frequencies, and heterozygosity. Wright’s <span class="math inline">\(F_{st}\)</span> is a commonly used measure of differences in heterozygosity observed in the overall population relative to the subdivided populations and is defined as the differences between <span class="math inline">\(H_{T}\)</span> and <span class="math inline">\(H_{S}\)</span> relative to <span class="math inline">\(H_{T}\)</span>:</p>
+<p><span class="math inline">\(F_{ST} = \frac{H_{T}-H_{S}}{H_{T}}\)</span></p>
+<p>If allele frequencies are identical in both subpopulations then <span class="math inline">\(H_{T} = H_{S}\)</span>. If, on the other hand, allele frequencies vary between subdivided populations, then <span class="math inline">\(H_{T} &gt; H_{S}\)</span> and populations are considered to be genetically differentiated.</p>
+<p>Besides calculation of <span class="math inline">\(F_{st}\)</span> other approaches can be used to assess population structure including clustering. These approaches will be explored in subsequent chapters.</p>
 </div>
 <div id="the-special-case-of-clonal-organisms" class="section level2">
 <h2>The special case of clonal organisms</h2>
-<p>Plants and microorganisms such as fungi, oomycetes, and bacteria often reproduce clonally or follow a mixed reproductive system, including various degrees of clonality and sexuality <span class="citation">(Halkett, Simon &amp; Balloux, 2005)</span>. Traditional population genetic theory does not apply and these populations violate basic assumptions in the corresponding analyses. Thus, a different set of tools are required for analyses of clonal populations <span class="citation">(Anderson &amp; Kohn, 1995; Milgroom, 1996; Balloux, Lehmann &amp; Mee<span>û</span>s, 2003; Halkett et al., 2005; De Mee<span>û</span>s, Lehmann &amp; Balloux, 2006; Grünwald &amp; Goss, 2011)</span>. Typically these focus on metrics that are model free and do not assume random mating or random sampling of alleles. Model free metrics suitable for analyzing these populations include measures of genotypic diversity or evenness, as well as cluster analysis based on genetic distance. Additional useful measures include indices of linkage disequiblibrium among markers that are used to infer if populations are reproducing sexually or clonally. We will explore these analyses bit by bit throughout this primer. The <em>poppr</em> R package was specifically developed to facilitate analyses of clonal populations <span class="citation">(Kamvar, Tabima &amp; Grünwald, 2014; Kamvar, Brooks &amp; Gr<span>ü</span>nwald, 2015)</span>.</p>
+<p>Plants and microorganisms such as fungi, oomycetes, and bacteria often reproduce clonally or follow a mixed reproductive system, including various degrees of clonality and sexuality <span class="citation">(Halkett, Simon &amp; Balloux, 2005)</span>. Traditional population genetic theory does not apply and these populations violate basic assumptions in the corresponding analyses. Thus, a different set of tools are required for analyses of clonal populations <span class="citation">(Anderson &amp; Kohn, 1995; Milgroom, 1996; Balloux, Lehmann &amp; Meeûs, 2003; Halkett et al., 2005; De Meeûs, Lehmann &amp; Balloux, 2006; Grünwald &amp; Goss, 2011)</span>. Typically these focus on metrics that are model free and do not assume random mating or random sampling of alleles. Model free metrics suitable for analyzing these populations include measures of genotypic diversity or evenness, as well as cluster analysis based on genetic distance. Additional useful measures include indices of linkage disequiblibrium among markers that are used to infer if populations are reproducing sexually or clonally. We will explore these analyses bit by bit throughout this primer. The <em>poppr</em> R package was specifically developed to facilitate analyses of clonal populations <span class="citation">(Kamvar, Tabima &amp; Grünwald, 2014; Kamvar, Brooks &amp; Grünwald, 2015)</span>.</p>
 </div>
 <div id="marker-systems-ploidy-and-other-kinds-of-data" class="section level2">
 <h2>Marker systems, ploidy and other kinds of data</h2>
@@ -261,22 +316,52 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div id="references" class="section level2">
 <h2>References</h2>
 <!--- ref --->
-<div class="references">
+<div id="refs" class="references">
+<div id="ref-anderson1995clonality">
 <p>Anderson JB., Kohn LM. 1995. Clonality in soilborne, plant-pathogenic fungi. <em>Annual Review of Phytopathology</em> 33:369–391. Available at: <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev.py.33.090195.002101" class="uri">http://www.annualreviews.org/doi/abs/10.1146/annurev.py.33.090195.002101</a></p>
-<p>Balloux F., Lehmann L., Mee<span>û</span>s T de. 2003. The population genetics of clonal and partially clonal diploids. <em>Genetics</em> 164:1635–1644. Available at: <a href="http://www.genetics.org/content/164/4/1635.full" class="uri">http://www.genetics.org/content/164/4/1635.full</a></p>
-<p>De Mee<span>û</span>s T., Lehmann L., Balloux F. 2006. Molecular epidemiology of clonal diploids: A quick overview and a short dIY (do it yourself) notice. <em>Infection, Genetics and Evolution</em> 6:163–170. Available at: <a href="http://www.ncbi.nlm.nih.gov/pubmed/16290062" class="uri">http://www.ncbi.nlm.nih.gov/pubmed/16290062</a></p>
+</div>
+<div id="ref-balloux2003population">
+<p>Balloux F., Lehmann L., Meeûs T de. 2003. The population genetics of clonal and partially clonal diploids. <em>Genetics</em> 164:1635–1644. Available at: <a href="http://www.genetics.org/content/164/4/1635.full" class="uri">http://www.genetics.org/content/164/4/1635.full</a></p>
+</div>
+<div id="ref-de2006molecular">
+<p>De Meeûs T., Lehmann L., Balloux F. 2006. Molecular epidemiology of clonal diploids: A quick overview and a short dIY (do it yourself) notice. <em>Infection, Genetics and Evolution</em> 6:163–170. Available at: <a href="http://www.ncbi.nlm.nih.gov/pubmed/16290062" class="uri">http://www.ncbi.nlm.nih.gov/pubmed/16290062</a></p>
+</div>
+<div id="ref-grunwald2003">
 <p>Grünwald NJ., Goodwin SB., Milgroom MG., Fry WE. 2003. Analysis of genotypic diversity data for populations of microorganisms. <em>Phytopathology</em> 93:738–746. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738" class="uri">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738</a></p>
+</div>
+<div id="ref-grunwald2011evolution">
 <p>Grünwald NJ., Goss EM. 2011. Evolution and population genetics of exotic and re-emerging pathogens: Novel tools and approaches. <em>Annual Review of Phytopathology</em> 49:249–267. Available at: <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-phyto-072910-095246?journalCode=phyto" class="uri">http://www.annualreviews.org/doi/abs/10.1146/annurev-phyto-072910-095246?journalCode=phyto</a></p>
+</div>
+<div id="ref-halkett2005tackling">
 <p>Halkett F., Simon J-C., Balloux F. 2005. Tackling the population genetics of clonal and partially clonal organisms. <em>Trends in Ecology &amp; Evolution</em> 20:194–201. Available at: <a href="http://www.ncbi.nlm.nih.gov/pubmed/16701368" class="uri">http://www.ncbi.nlm.nih.gov/pubmed/16701368</a></p>
+</div>
+<div id="ref-hartl2007">
 <p>Hartl D., Clark A. 2007. <em>Principles of population genetics</em>. Sinauer Associates, Incorporated. Available at: <a href="http://books.google.com/books?id=SB1vQgAACAAJ" class="uri">http://books.google.com/books?id=SB1vQgAACAAJ</a></p>
+</div>
+<div id="ref-hein2004">
 <p>Hein J., Schierup M., Wiuf C. 2004. <em>Gene genealogies, variation and evolution: A primer in coalescent theory</em>. Oxford University Press, USA. Available at: <a href="http://books.google.com/books?id=QBC\_SFOamksC" class="uri">http://books.google.com/books?id=QBC\_SFOamksC</a></p>
-<p>Kamvar ZN., Brooks JC., Gr<span>ü</span>nwald NJ. 2015. Novel R tools for analysis of genome-wide population genetic data with emphasis on clonality. <em>Name: Frontiers in Genetics</em> 6:208. Available at: <a href="http://dx.doi.org/10.3389/fgene.2015.00208" class="uri">http://dx.doi.org/10.3389/fgene.2015.00208</a></p>
-<p>Kamvar ZN., Tabima JF., Grünwald NJ. 2014. <span class="math">\(Poppr\)</span>: An R package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281" class="uri">http://dx.doi.org/10.7717/peerj.281</a></p>
+</div>
+<div id="ref-kamvar2015novel">
+<p>Kamvar ZN., Brooks JC., Grünwald NJ. 2015. Novel R tools for analysis of genome-wide population genetic data with emphasis on clonality. <em>Name: Frontiers in Genetics</em> 6:208. Available at: <a href="http://dx.doi.org/10.3389/fgene.2015.00208" class="uri">http://dx.doi.org/10.3389/fgene.2015.00208</a></p>
+</div>
+<div id="ref-kamvar2014poppr">
+<p>Kamvar ZN., Tabima JF., Grünwald NJ. 2014. <span class="math inline">\(Poppr\)</span>: An R package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281" class="uri">http://dx.doi.org/10.7717/peerj.281</a></p>
+</div>
+<div id="ref-milgroom1996recombination">
 <p>Milgroom MG. 1996. Recombination and the multilocus structure of fungal populations. <em>Annual review of phytopathology</em> 34:457–477. Available at: <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev.phyto.34.1.457" class="uri">http://www.annualreviews.org/doi/abs/10.1146/annurev.phyto.34.1.457</a></p>
+</div>
+<div id="ref-nielsen2013">
 <p>Nielsen R., Slatkin M. 2013. <em>An introduction to population genetics: Theory and applications</em>. Sinauer Associates, Incorporated. Available at: <a href="http://books.google.com/books?id=Iy08kgEACAAJ" class="uri">http://books.google.com/books?id=Iy08kgEACAAJ</a></p>
+</div>
+<div id="ref-templeton2006">
 <p>Templeton A. 2006. <em>Population genetics and microevolutionary theory</em>. Wiley. Available at: <a href="http://books.google.com/books?id=tJVreQjInt0C" class="uri">http://books.google.com/books?id=tJVreQjInt0C</a></p>
+</div>
+<div id="ref-wakeley2009">
 <p>Wakeley J. 2009. <em>Coalescent theory: An introduction</em>. Roberts &amp; Company Publishers. Available at: <a href="http://books.google.com/books?id=x30RAgAACAAJ" class="uri">http://books.google.com/books?id=x30RAgAACAAJ</a></p>
+</div>
+<div id="ref-weir1996">
 <p>Weir B. 1996. <em>Genetic data analysis 2</em>. Sinauer Associates. Available at: <a href="http://books.google.com/books?id=e9QPAQAAMAAJ" class="uri">http://books.google.com/books?id=e9QPAQAAMAAJ</a></p>
+</div>
 </div>
 </div>
 
@@ -284,6 +369,8 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </div>
 </div>
  -->
+
+
 
 </div>
 

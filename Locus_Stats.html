@@ -10,14 +10,15 @@
 
 
 
+
 <title>6: Locus stats, heterozygosity, HWE</title>
 
-<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/readable.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<link href="libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -99,24 +100,41 @@ body {
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
 pre, code { background-color: #f8f8f8; }
-code > span.kw { color: #204a87; font-weight: bold; }
-code > span.dt { color: #204a87; }
-code > span.dv { color: #0000cf; }
-code > span.bn { color: #0000cf; }
-code > span.fl { color: #0000cf; }
-code > span.ch { color: #4e9a06; }
-code > span.st { color: #4e9a06; }
-code > span.co { color: #8f5902; font-style: italic; }
-code > span.ot { color: #8f5902; }
-code > span.al { color: #ef2929; }
-code > span.fu { color: #000000; }
-code > span.er { font-weight: bold; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
 </style>
 <style type="text/css">
   pre:not([class]) {
@@ -124,6 +142,33 @@ code > span.er { font-weight: bold; }
   }
 </style>
 
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 
 </head>
@@ -140,12 +185,34 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
 }
 </style>
+
+
 <div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="libs/navigation-1.0/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
 
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -219,8 +286,12 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div class="row">
 <div class="span10 offset1"> -->
 
-<div id="header">
-<h1 class="title">6: Locus stats, heterozygosity, HWE</h1>
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">6: Locus stats, heterozygosity, HWE</h1>
+
 </div>
 
 <div id="TOC">
@@ -230,6 +301,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <li><a href="#missing-data">Missing data</a></li>
 <li><a href="#removing-loci-and-genotypes">Removing loci and genotypes</a></li>
 <li><a href="#hardy-weinberg-equilibrium">Hardy-Weinberg equilibrium</a></li>
+<li><a href="#references">References</a></li>
 </ul>
 </div>
 
@@ -240,10 +312,10 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div id="locus-summary-statistics" class="section level2">
 <h2>Locus summary statistics</h2>
 <p>A quick way to assess quality of the data is to determine the number, diversity, expected heterozygosity, and evenness of the alleles at each locus. As an example, we will use data for the fungal-like protist <em>Phytophthora infestans</em> from <span class="citation">(Goss et al., 2014)</span>. First, we’ll use the function <code>locus_table</code> to get all of the statistics mentioned above. For documentation on this function type <code>?locus_table</code>. Here is a first look at each locus:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)     <span class="co"># Make sure poppr is loaded if you haven&#39;t done so already.</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)     <span class="co"># Make sure poppr is loaded if you haven&#39;t done so already.</span>
 <span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)  <span class="co"># We will also use magrittr for part of this chapter</span>
 <span class="kw">data</span>(<span class="st">&quot;Pinf&quot;</span>)         <span class="co"># P. infestans data set from Mexico and South America</span>
-<span class="kw">locus_table</span>(Pinf)</code></pre>
+<span class="kw">locus_table</span>(Pinf)</code></pre></div>
 <pre><code>## 
 ## allele = Number of observed alleles
 ## 1-D = Simpson index
@@ -264,7 +336,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ##   Pi89 11.000  0.615  0.619    0.578
 ##   mean  8.636  0.517  0.520    0.602</code></pre>
 <p>We can see here that we have a widely variable number of alleles per locus and that we actually have a single locus that only has two alleles, Pi33. This locus also has low diversity, low expected heterozygosity and is very uneven in allele distribution. This is a sign that this might be a phylogenetically uninformative locus, where we have two alleles and one is occurring at a minor frequency. We will explore analysis with and without this locus. Let’s first see if both of these alleles exist in both populations of this data set.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">locus_table</span>(Pinf, <span class="dt">pop =</span> <span class="st">&quot;North America&quot;</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">locus_table</span>(Pinf, <span class="dt">pop =</span> <span class="st">&quot;North America&quot;</span>)</code></pre></div>
 <pre><code>## 
 ## allele = Number of observed alleles
 ## 1-D = Simpson index
@@ -284,7 +356,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ##   Pi70  2.000  0.203  0.205    0.595
 ##   Pi89 11.000  0.627  0.634    0.549
 ##   mean  7.364  0.497  0.503    0.607</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">locus_table</span>(Pinf, <span class="dt">pop =</span> <span class="st">&quot;South America&quot;</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">locus_table</span>(Pinf, <span class="dt">pop =</span> <span class="st">&quot;South America&quot;</span>)</code></pre></div>
 <pre><code>## 
 ## allele = Number of observed alleles
 ## 1-D = Simpson index
@@ -307,10 +379,10 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </div>
 <div id="phylogenetically-uninformative-loci" class="section level2">
 <h2>Phylogenetically uninformative loci</h2>
-<p>We can see that the South American populations is fixed for one allele, thus it would not be a bad idea to remove that locus from downstream analyses. We can do this using the function <code>informloci</code>. This will remove loci that contain less than a given percentage of divergent individuals (the default is <span class="math">\(2/N\)</span>, where <span class="math">\(N\)</span> equals the number of individuals in the data set).</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nLoc</span>(Pinf)  <span class="co"># Let&#39;s look at our data set, note how many loci we have.</span></code></pre>
+<p>We can see that the South American populations is fixed for one allele, thus it would not be a bad idea to remove that locus from downstream analyses. We can do this using the function <code>informloci</code>. This will remove loci that contain less than a given percentage of divergent individuals (the default is <span class="math inline">\(2/N\)</span>, where <span class="math inline">\(N\)</span> equals the number of individuals in the data set).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nLoc</span>(Pinf)  <span class="co"># Let&#39;s look at our data set, note how many loci we have.</span></code></pre></div>
 <pre><code>## [1] 11</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">iPinf &lt;-<span class="st"> </span><span class="kw">informloci</span>(Pinf)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">iPinf &lt;-<span class="st"> </span><span class="kw">informloci</span>(Pinf)</code></pre></div>
 <pre><code>## cutoff value: 2.32558139534884 % ( 2 samples ).
 ## MAF         : 0.01
 ## 
@@ -319,10 +391,10 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ##  1 locus found with a cutoff of 2 samples :
 ##  Pi33 
 ##  0 loci found with MAF &lt; 0.01</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nLoc</span>(iPinf) <span class="co"># Note that we have 1 less locus</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nLoc</span>(iPinf) <span class="co"># Note that we have 1 less locus</span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
 <p>So, how does this affect multi-locus based statistics? We can see immediately that it didn’t affect the number of multilocus genotypes, let’s take a look at the index of association:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">poppr</span>(Pinf)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">poppr</span>(Pinf)</code></pre></div>
 <pre><code>## | South America 
 ## | North America 
 ## | Total</code></pre>
@@ -334,7 +406,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ## 1 0.3446 Pinf
 ## 2 0.0240 Pinf
 ## 3 0.0717 Pinf</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">poppr</span>(iPinf)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">poppr</span>(iPinf)</code></pre></div>
 <pre><code>## | South America 
 ## | North America 
 ## | Total</code></pre>
@@ -351,8 +423,8 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div id="missing-data" class="section level2">
 <h2>Missing data</h2>
 <p>It is often important to asses the percentage of missing data. The <em>poppr</em> function <code>info_table</code> will help you visualize missing data so that you can assess how to treat these further using the function <code>missingno</code>. For this example, we will use the nancycats data set as it contains a wide variety of possibilities for missing data:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(nancycats)
-<span class="kw">info_table</span>(nancycats, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(nancycats)
+<span class="kw">info_table</span>(nancycats, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="Locus_Stats_files/figure-html/missing_table-1.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
 <pre><code>##           Locus
 ## Population  fca8 fca23 fca43 fca45 fca77 fca78 fca90 fca96 fca37  Mean
@@ -379,7 +451,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div id="removing-loci-and-genotypes" class="section level2">
 <h2>Removing loci and genotypes</h2>
 <p>When removing loci or genotypes, you can specify a cutoff representing the percent missing to be removed. The default is <code>0.05</code> (5%).</p>
-<pre class="sourceCode r"><code class="sourceCode r">nancycats %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;loci&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="ot">FALSE</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nancycats %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;loci&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## 
 ##  Found 617 missing values.</code></pre>
 <pre><code>## 
@@ -410,7 +482,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <p><strong>Advanced Users:</strong> when <code>scale = TRUE</code>, the color scale will be set so that the warmest color corresponds to the highest value.</p>
 </blockquote>
 <p>We only removed two loci. If we wanted to make sure we removed everything, we could set <code>cutoff = 0</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;loci&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">0</span>) %&gt;%<span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;loci&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">0</span>) %&gt;%<span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## 
 ##  Found 617 missing values.</code></pre>
 <pre><code>## 
@@ -418,7 +490,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ##  Removing 3 loci : fca8 fca45 fca96</code></pre>
 <pre><code>## No Missing Data Found!</code></pre>
 <p>Again, removing individuals is also relatively easy:</p>
-<pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## 
 ##  Found 617 missing values.</code></pre>
 <pre><code>## 
@@ -427,7 +499,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ## N301 N302 N303 N304 N310 N195 N197 N198 N199 N200 N201 N206 N182 N184 N186 N282 
 ## N283 N288 N291 N292 N293 N294 N295 N296 N297 N281 N289 N290</code></pre>
 <pre><code>## No Missing Data Found!</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">0</span>) %&gt;%<span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">0</span>) %&gt;%<span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## 
 ##  Found 617 missing values.</code></pre>
 <pre><code>## 
@@ -437,9 +509,9 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ## N283 N288 N291 N292 N293 N294 N295 N296 N297 N281 N289 N290</code></pre>
 <pre><code>## No Missing Data Found!</code></pre>
 <p>The function <code>missingno</code> removes individuals based on the percent of missing data relative to the number of loci. Let’s remove all individuals with 2 missing loci:</p>
-<pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">2</span>/<span class="kw">nLoc</span>(nancycats)) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre>
+<span class="st">  </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## 
 ##  1 genotype contained missing values greater than 22.2222222222222%.
 ##  Removing 1 genotype : N310</code></pre>
@@ -594,9 +666,9 @@ tab(nan1[loc = "fca8"])
 </div>
 <div id="hardy-weinberg-equilibrium" class="section level2">
 <h2>Hardy-Weinberg equilibrium</h2>
-<p>Next, let’s determine if our populations are in Hardy-Weinberg equilibrium. We will again use the nancycats data to test for HWE using the function <code>hw.test()</code> from the <em>pegas</em> package. This will compute the <span class="math">\(\chi^2\)</span> statistic over the entire data set and compute two P-values, one analytical and one derived from permutations:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;pegas&quot;</span>)
-(nanhwe.full &lt;-<span class="st"> </span><span class="kw">hw.test</span>(nancycats, <span class="dt">B =</span> <span class="dv">1000</span>)) <span class="co"># performs 1000 permuatations</span></code></pre>
+<p>Next, let’s determine if our populations are in Hardy-Weinberg equilibrium. We will again use the nancycats data to test for HWE using the function <code>hw.test()</code> from the <em>pegas</em> package. This will compute the <span class="math inline">\(\chi^2\)</span> statistic over the entire data set and compute two P-values, one analytical and one derived from permutations:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;pegas&quot;</span>)
+(nanhwe.full &lt;-<span class="st"> </span><span class="kw">hw.test</span>(nancycats, <span class="dt">B =</span> <span class="dv">1000</span>)) <span class="co"># performs 1000 permuatations</span></code></pre></div>
 <pre><code>##           chi^2  df  Pr(chi^2 &gt;) Pr.exact
 ## fca8  395.80006 120 0.000000e+00        0
 ## fca23 239.34221  55 0.000000e+00        0
@@ -608,7 +680,7 @@ tab(nan1[loc = "fca8"])
 ## fca96 193.36764  66 1.965095e-14        0
 ## fca37 291.00731 153 1.209777e-10        0</code></pre>
 <p>We can see here that both the analytical p-value and permuted p-value show that we have confidence that all loci are not under the null expectation of HWE. This makes sense given that these data represent 17 populations of cats. If we wanted to check what the HWE statistic for each population is, we should first separate the populations with the function <code>seppop()</code>. For this exercise, we will only focus on the analytical p-value by setting <code>B = 0</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">(nanhwe.pop &lt;-<span class="st"> </span><span class="kw">seppop</span>(nancycats) %&gt;%<span class="st"> </span><span class="kw">lapply</span>(hw.test, <span class="dt">B =</span> <span class="dv">0</span>))</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(nanhwe.pop &lt;-<span class="st"> </span><span class="kw">seppop</span>(nancycats) %&gt;%<span class="st"> </span><span class="kw">lapply</span>(hw.test, <span class="dt">B =</span> <span class="dv">0</span>))</code></pre></div>
 <pre><code>## $P01
 ##           chi^2 df Pr(chi^2 &gt;)
 ## fca8   5.135802  6 0.526517306
@@ -818,7 +890,7 @@ tab(nan1[loc = "fca8"])
 <blockquote>
 <p><code>[</code> is used to subset data, and it’s also a function! It provides an easy way to subset a list of data.</p>
 </blockquote>
-<pre class="sourceCode r"><code class="sourceCode r">(nanhwe.mat &lt;-<span class="st"> </span><span class="kw">sapply</span>(nanhwe.pop, <span class="st">&quot;[&quot;</span>, <span class="dt">i =</span> <span class="ot">TRUE</span>, <span class="dt">j =</span> <span class="dv">3</span>)) <span class="co"># Take the third column with all rows</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(nanhwe.mat &lt;-<span class="st"> </span><span class="kw">sapply</span>(nanhwe.pop, <span class="st">&quot;[&quot;</span>, <span class="dt">i =</span> <span class="ot">TRUE</span>, <span class="dt">j =</span> <span class="dv">3</span>)) <span class="co"># Take the third column with all rows</span></code></pre></div>
 <pre><code>##               P01          P02         P03          P04          P05
 ## fca8  0.526517306 1.242747e-02 0.008041715 0.0308567389 3.954989e-01
 ## fca23 0.003674334 9.955382e-03 0.019163551 0.3233864330 1.850960e-01
@@ -859,17 +931,21 @@ tab(nan1[loc = "fca8"])
 ## fca90 0.3508286
 ## fca96 0.5761501
 ## fca37 0.1648068</code></pre>
-<p>This output is still hard to sift through. An easy way to analyze this is by visualizing this as a heatmap. Since we only care whether or not a given locus is in or out of HWE, we will thus define an <span class="math">\(\alpha\)</span> value and set everything above that value to 1 so that we can visually detect candidate loci where we might reject the <span class="math">\(H_o\)</span> of HWE.</p>
-<pre class="sourceCode r"><code class="sourceCode r">alpha  &lt;-<span class="st"> </span><span class="fl">0.05</span>
+<p>This output is still hard to sift through. An easy way to analyze this is by visualizing this as a heatmap. Since we only care whether or not a given locus is in or out of HWE, we will thus define an <span class="math inline">\(\alpha\)</span> value and set everything above that value to 1 so that we can visually detect candidate loci where we might reject the <span class="math inline">\(H_o\)</span> of HWE.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">alpha  &lt;-<span class="st"> </span><span class="fl">0.05</span>
 newmat &lt;-<span class="st"> </span>nanhwe.mat
-newmat[newmat &gt;<span class="st"> </span>alpha] &lt;-<span class="st"> </span><span class="dv">1</span></code></pre>
+newmat[newmat &gt;<span class="st"> </span>alpha] &lt;-<span class="st"> </span><span class="dv">1</span></code></pre></div>
 <p>Now we can create a simple heatmap with <code>levelplot</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;lattice&quot;</span>)
-<span class="kw">levelplot</span>(<span class="kw">t</span>(newmat))</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;lattice&quot;</span>)
+<span class="kw">levelplot</span>(<span class="kw">t</span>(newmat))</code></pre></div>
 <p><img src="Locus_Stats_files/figure-html/unnamed-chunk-11-1.png" title="Heatmap showing significant departures from HWE" alt="Heatmap showing significant departures from HWE" width="700px" /></p>
-<p>This simple plot shows us loci in rows and populations in columns. Note, that all loci shown in pink are loci suspected of not being in HWE with <span class="math">\(p \leq 0.05\)</span>.</p>
-<div class="references">
-<h2 id="references" class="unnumbered">References</h2>
+<p>This simple plot shows us loci in rows and populations in columns. Note, that all loci shown in pink are loci suspected of not being in HWE with <span class="math inline">\(p \leq 0.05\)</span>.</p>
+</div>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2>References</h2>
+<div id="refs" class="references">
+<div id="ref-goss2014irish">
 <p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
 </div>
 </div>
@@ -879,6 +955,8 @@ newmat[newmat &gt;<span class="st"> </span>alpha] &lt;-<span class="st"> </span>
 </div>
 </div>
  -->
+
+
 
 </div>
 

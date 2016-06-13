@@ -10,14 +10,15 @@
 
 
 
+
 <title></title>
 
-<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/readable.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<link href="libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -99,6 +100,34 @@ body {
 
 
 
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
 </head>
 
 <body>
@@ -113,12 +142,34 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
 }
 </style>
+
+
 <div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="libs/navigation-1.0/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
 
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -192,6 +243,12 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div class="row">
 <div class="span10 offset1"> -->
 
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
 
 
 <script>
@@ -219,7 +276,7 @@ NIK'S PROFILE
 <div class="col-md-6">
 <small> <strong>Niklaus J. Grünwald</strong> is a plant pathologist with the USDA Agricultural Research Service and a Professor in the Department of Botany and Pant Pathology and the Center for Genome Research and Biocomputing at Oregon State University. He received his PhD from UC Davis and conducted postdoctoral research at Cornell University. His research focuses on understanding the evolutionary patterns and processes of emerging pathogens using population genetic and evolutionary approaches.
 <p>
-<a href="http://grunwaldlab.cgrb.oregonstate.edu/">Grünwald lab</a> | <a href="https://scholar.google.com/citations?user=t55Dt5sAAAAJ&hl=en">Google scholar</a> | <a href="http://www.researcherid.com/rid/K-6041-2013">ResearcherID</a> | <a href="http://orcid.org/0000-0003-1656-7602">Orcid</a> | <a href="https://www.researchgate.net/profile/Niklaus_Grunwald/?ev=hdr_xprf">ResearchGate</a> | <a href="https://twitter.com/PhytophthoraLab" class="twitter-follow-button" data-show-count="false"> Follow @PhytophthoraLab </a>
+<a href="http://grunwaldlab.cgrb.oregonstate.edu/">Grünwald lab</a> | &lt;a href=“<a href="https://scholar.google.com/citations?user=t55Dt5sAAAAJ&amp;hl=en" class="uri">https://scholar.google.com/citations?user=t55Dt5sAAAAJ&amp;hl=en</a>”&gt;Google scholar</a> | <a href="http://www.researcherid.com/rid/K-6041-2013">ResearcherID</a> | <a href="http://orcid.org/0000-0003-1656-7602">Orcid</a> | <a href="https://www.researchgate.net/profile/Niklaus_Grunwald/?ev=hdr_xprf">ResearchGate</a> | <a href="https://twitter.com/PhytophthoraLab" class="twitter-follow-button" data-show-count="false"> Follow @PhytophthoraLab </a>
 </p>
 <p></small></p>
 </div>
@@ -236,7 +293,7 @@ ZHIAN'S PROFILE
 <div class="col-md-6">
 <small> <strong>Zhian N. Kamvar</strong> is a graduate student in the Department of Botany and Pant Pathology at Oregon State University. His research is focused on genome sequencing and population genomics of the nursery pathogens <em>Phytophthora syringae</em> and <em>P. ramorum</em>. He is the lead developer of the <a href="http://github.com/grunwaldlab/poppr"><em>poppr</em> R package</a> and a contributor to other packages such as the <a href="http://github.com/thibautjombart/adegenet"><em>adegenet</em> R package</a> and the <a href="http://github.com/dwinter/mmod"><em>mmod</em> R package</a>. Zhian is also co-host of the award-winning radio program <a href="http://blogs.oregonstate.edu/inspiration">Inspiration</a> <a href="http://poweredbyorange.com/2013/12/17/science-through-a-microphone/">Dissemination</a>.
 <p>
-<a href="https://scholar.google.com/citations?user=UPGtLSkAAAAJ&hl=en">Google scholar</a> | <a href="https://www.researchgate.net/profile/Zhian_Kamvar">ResearchGate</a> | <a href="http://orcid.org/0000-0003-1458-7108">Orcid</a> | <a href="https://twitter.com/ZKamvar" class="twitter-follow-button" data-show-count="false"> Follow @ZKamvar </a> |
+&lt;a href=“<a href="https://scholar.google.com/citations?user=UPGtLSkAAAAJ&amp;hl=en" class="uri">https://scholar.google.com/citations?user=UPGtLSkAAAAJ&amp;hl=en</a>”&gt;Google scholar</a> | <a href="https://www.researchgate.net/profile/Zhian_Kamvar">ResearchGate</a> | <a href="http://orcid.org/0000-0003-1458-7108">Orcid</a> | <a href="https://twitter.com/ZKamvar" class="twitter-follow-button" data-show-count="false"> Follow @ZKamvar </a> |
 </p>
 <p></small></p>
 </div>
@@ -259,7 +316,7 @@ SYDNEY'S PROFILE
 </div>
 </div>
 </div>
-<div class="references">
+<div id="refs" class="references">
 
 </div>
 
@@ -267,6 +324,8 @@ SYDNEY'S PROFILE
 </div>
 </div>
  -->
+
+
 
 </div>
 

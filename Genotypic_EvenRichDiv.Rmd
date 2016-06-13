@@ -41,20 +41,20 @@ To calculate genotypic richness, diversity, and evenness, we can use the `poppr`
 
 This shows us several summary statistics:
 
-Abbreviation | Statistic
-----|---- 
-`Pop` |  Population name.
-`N` |  Number of individuals observed.
-`MLG` | Number of multilocus genotypes (MLG) observed.
-`eMLG` | The number of expected MLG at the smallest sample size ≥ 10 based on rarefaction `r citep(bib[c("hurlbert1971nonconcept")])`.
-`SE` | Standard error based on eMLG.
-`H` | Shannon-Wiener Index of MLG diversity `r citep(bib[c("shannon2001mathematical")])`.
-`G` | Stoddart and Taylor’s Index of MLG diversity  `r citep(bib[c("stoddart1988genotypic")])`.
-`lambda` | Simpson's Index `r citep(bib[c("simpson1949measurement")])`.
-`E.5` | Evenness, $E_5$ `r citep(bib[c("pielou1975ecological","ludwig1988statistical","grunwald2003")])`.
-`Hexp` | Nei's unbiased gene diversity `r citep(bib[c("nei1978estimation")])`.
-`Ia` | The index of association, $I_A$ `r citep(bib[c("brown1980multilocus","smith1993clonal")])`.
-`rbarD` | The standardized index of association, $\bar{r}_d$ `r citep(bib[c("agapow2001indices")])`.
+| Abbreviation | Statistic |
+|------|---------------------------------------------------------------|
+|`Pop` |  Population name.|
+|`N` |  Number of individuals observed.|
+|`MLG` | Number of multilocus genotypes (MLG) observed.|
+|`eMLG` | The number of expected MLG at the smallest sample size ≥ 10 based on rarefaction |`r citep(bib[c("hurlbert1971nonconcept")])`.|
+|`SE` | Standard error based on eMLG.|
+|`H` | Shannon-Wiener Index of MLG diversity `r citep(bib[c("shannon2001mathematical")])`.|
+|`G` | Stoddart and Taylor’s Index of MLG diversity  `r citep(bib[c("stoddart1988genotypic")])`.|
+|`lambda` | Simpson's Index `r citep(bib[c("simpson1949measurement")])`.|
+|`E.5` | Evenness, $E_5$ `r citep(bib[c("pielou1975ecological","ludwig1988statistical","grunwald2003")])`.|
+|`Hexp` | Nei's unbiased gene diversity `r citep(bib[c("nei1978estimation")])`.|
+|`Ia` | The index of association, $I_A$ `r citep(bib[c("brown1980multilocus","smith1993clonal")])`.|
+|`rbarD` | The standardized index of association, $\bar{r}_d$ `r citep(bib[c("agapow2001indices")])`.|
 
 
 Genotypic richness

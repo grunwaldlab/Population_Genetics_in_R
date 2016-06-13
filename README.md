@@ -69,9 +69,9 @@ For example, if you wanted to add a new chapter called "Mantel Tests" after the
 Population Structure chapter, you would do the following:
 
 - Name the file `Mantel_Test.Rmd`
-- In `toc.txt`, add the name of the file (Note, Arrows added for emphasis.):
+- In `toc.txt`, add the name of the file (Higlighted in green; you do not have to include the `+`.):
 
-```
+```diff
 prefix:
 start:i
 Preface
@@ -87,7 +87,7 @@ Locus_Stats
 Genotypic_EvenRichDiv
 Linkage_disequilibrium
 Pop_Structure
->>> Mantel_Test <<<
++Mantel_Test
 AMOVA
 DAPC
 
@@ -100,11 +100,11 @@ Intro_to_R
 
 - Modify `include/before_body.html` and run `make all`:
 
-```html
+```diff
 <!-- Some stuff up here -->
                <li><a href="Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
                <li><a href="Pop_Structure.html">9. Population structure</a></li>
-<!-- HERE >--> <li><a href="Mantel_Test.html">9. Mantel Tests</a></li> <!-- <<<<<<<< HERE -->
++              <li><a href="Mantel_Test.html">9. Mantel Tests</a></li>
                <li><a href="AMOVA.html">10. AMOVA</a></li>
 <!-- more stuff down here -->
 ```
