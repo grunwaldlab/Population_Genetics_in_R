@@ -1,6 +1,8 @@
 Population Genetics in R
 ---
 
+[![DOI](https://zenodo.org/badge/20031384.svg)](https://zenodo.org/badge/latestdoi/20031384)
+
 *Niklaus J. Gr&uuml;nwald, Zhian N. Kamvar, and Sydney E. Everhart*
 
 Welcome! This primer provides a concise introduction to conducting applied
@@ -23,6 +25,27 @@ suggestions for improvement. The primer is currently published
 >*I was really impressed with what you've accomplished with [poppr], it is very thoughtful and addressed a number of things I never considered but which many pop gen folks that I know deal with all the time and complain about.  I think it is going to be very well received by the community.* 
 
 -- Andy Jones, Assistant Professor, Oregon State University, Corvallis, OR, 2014.
+
+Citation
+========
+
+If you use this primer in your work, please cite as:
+
+Niklaus Grunwald, Zhian N. Kamvar, & Sydney E. Everhart. (2016). grunwaldlab/Population_Genetics_in_R: First release [Data set]. Zenodo. http://doi.org/10.5281/zenodo.160588
+
+If you use BibTeX:
+
+```tex
+@misc{zhian_n_kamvar_2016_160588,
+  author       = {Niklaus J. Grunwald and Zhian N. Kamvar and Sydney E. Everhart},
+  title        = {{grunwaldlab/Population_Genetics_in_R: First release}},
+  month        = oct,
+  year         = 2016,
+  doi          = {10.5281/zenodo.160588},
+  url          = {https://doi.org/10.5281/zenodo.160588}
+}
+```
+
 
 
 Technical details
