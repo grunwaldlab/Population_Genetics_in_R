@@ -198,10 +198,11 @@ button.code-folding-btn:focus {
 </style>
 
 
+
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="libs/navigation-1.0/tabsets.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -370,8 +371,8 @@ in several ways:
 ##    &gt; overview: &#39;?adegenet&#39;
 ##    &gt; tutorials/doc/questions: &#39;adegenetWeb()&#39; 
 ##    &gt; bug reports/feature requests: adegenetIssues()</code></pre>
-<pre><code>## This is poppr version 2.2.0. To get started, type package?poppr
-## OMP parallel support: available</code></pre>
+<pre><code>## This is poppr version 2.2.1. To get started, type package?poppr
+## OMP parallel support: unavailable</code></pre>
 <p>This will load <em>poppr</em> and all dependent packages, such as <em>adegenet</em> and <em>ade4</em>. You will recognize loading by the prompts written to your screen.</p>
 <p>Congratulations. You should now be all set for using R. Loading data and conducting your first analysis will be the topic of the next chapter. But before we go there lets provide a few useful resources.</p>
 </div>
@@ -489,6 +490,7 @@ allelic_diversity &lt;-<span class="st"> </span>Pinf %&gt;%
 $(document).ready(function () {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 });
+
 
 </script>
 
