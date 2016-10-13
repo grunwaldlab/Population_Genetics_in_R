@@ -2,7 +2,7 @@
     "description": "<p>This is the first release of the population genetics in R website.</p>", 
     "license": "other-open", 
     "title": "Population Genetics In R", 
-    "upload_type": "website", 
+    "upload_type": "lessons", 
     "communities": [
         {
             "identifier": "zenodo"
