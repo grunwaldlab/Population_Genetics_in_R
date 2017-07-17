@@ -1,0 +1,83 @@
+---
+title: "vcf2genlight"
+---
+
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Different R packages have created different data structures to hold your data when it is imported into R.
+This is analagous to the different file formats you may have used to analyze your data in software outside of R.
+We've tried to engineer a suite of functions to convert data structures among the various R packages we typically use.
+The R package adegenet is a popular R package used for population genetic analysis and it works on data structures called 'genlight' objects.
+Here we use the function `vcfR2genlight()` to convert our vcfR object to a genlight object.
+This makes our VCF data available to the analyses in adegenet.
+
+
+```{r}
+x <- vcfR2genlight(vcf)
+x
+```
+
+
+A genlight object only supports biallelic, or binary, variants.
+That is, variants with no more than two alleles.
+However, variant call format data can include multiple alleles.
+When we created our genlight object we recieved a warning message indicating that our vcfR object had variants with more than two alleles and that it was being subset to only biallelic variants.
+This is one of several important differences in how data is handled in VCF data versus genlight objects.
+
+
+Another important difference among VCF and genlight data is how the genotypes are stored.
+In VCF data the alleles are delimited by either a pipe or a forward slash ('|', '/' respectively).
+Because genlight objects only use biallelic loci the genotypes can be recoded as 0, 1 and 2.
+These correspond to homozygous for the reference or zero allele, heterozygote or homozygous for the first alternate allele.
+We can validate this by checking a few select genotypes from both the vcfR object and the genlight object.
+
+
+```{r}
+# vcfR
+gt <- extract.gt(vcf, element = "GT")
+gt[c(2,6,18), 1:3]
+# genlight
+t(as.matrix(x))[c(1,5,17), 1:3]
+```
+
+
+Note that in VCF data the samples are in columns and the variants are in rows.
+In genlight objects, and many other R objects, the samples are in rows while the variants are in columns.
+We can use the transpose function (`t()`) to convert between these two states.
+
+
+Yet another difference among VCF data and genlight objects is that in VCF data there is no concept of 'population.'
+The package adegenet was designed specifically for the analysis of population data, so its genlight object has a place (a 'slot') to hold this information.
+Because there is no population data in VCF data, if we want population data we'll have to set it ourselves.
+
+
+```{r}
+library(adegenet)
+pop(x) <- as.factor(c("us", "eu", "us", "af", "eu", "us", "mx", "eu", "eu", "sa", "mx", "sa", "us", "sa", "Pmir", "us", "eu", "eu"))
+popNames(x)
+```
+
+
+Our population designation consists of a vector, that is the same length as the number of samples we have, where each element indicates which population each sample belongs to.
+By using the `as.factor()` function we transform the "vector" into a "factor".
+A factor understands that all of the elements that are named "us" or "eu" are all part of the same group.
+This is why when we ask for the `popNames` we get a vector where each population is represented only once.
+
+
+Yet another difference among VCF data and genlight objects is the concept of ploidy.
+In VCF data each variant is treated independently.
+This means that in theory VCF data may contain data that is of mixed ploidy.
+In a genlight object different samples may be of different ploidy levels, but within each sample all of its loci must be of the same ploidy level.
+Here we'll set the ploidy of all the samples in the genlight object to the same ploidy.
+
+
+```{r}
+ploidy(x) <- 2
+```
+
+
+

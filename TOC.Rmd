@@ -1,0 +1,35 @@
+---
+title: Table of contents
+---
+
+- **Part I:** 
+    - [Introduction](Introduction.html)
+    - [Getting ready to use R](Getting_ready_to_use_R.html) 
+    
+- **Part II: Using traditional markers for population genetic analysis**
+    - [First analysis](First_Steps.html)
+    - [Population strata and clone correction](Population_Strata.html)
+    - [Locus-based statistics and missing data](Locus_Stats.html)
+    - [Genotypic evenness, richness, and diversity](Genotypic_EvenRichDiv.html)
+    - [Linkage disequilibrium](Linkage_disequilibrium.html)
+    - [Population structure](Pop_Structure.html)
+    - [Minimum Spanning Networks](Minimum_Spanning_Networks.html)
+    - [AMOVA](AMOVA.html)
+    - [Discriminant analysis of principal components (DAPC)](DAPC.html) 
+    
+- **Part III: Using genomic data in population genetics**
+    - [Population genomics based on high throughut sequencing (HTS)](intro_vcf.html)
+    - [Reading VCF data](reading_vcf.html)
+    - [Quality control](qc.html)
+    - [Analysis of genomic data](analysis_of_vcf.html)
+    - [Analysis of GBS data](gbs_analysis.html)
+    
+- **About**
+    - [About the authors](Authors.html)
+
+- **Appendices**
+    - [Data sets](Data_sets.html)
+    - [Function glossary](funpendix.html)
+    - [Source code for this primer](https://github.com/grunwaldlab/sandbox1/)
+    - [Introduction to R](intro_to_R.html)
+

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Javier F. Tabima" />
+
+
+<title>gst_gbs_data</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 61px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+
+.section h2 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h3 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h4 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h5 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h6 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Population genetics and genomics in R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="TOC.html">Table of contents</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part I
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="Getting_ready_to_use_R.html">Getting ready to use R</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part II
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Data_Preparation.html">Data preparation</a>
+    </li>
+    <li>
+      <a href="First_Steps.html">First steps</a>
+    </li>
+    <li>
+      <a href="Population_Strata.html">Population strata and clone correction</a>
+    </li>
+    <li>
+      <a href="Locus_Stats.html">Locus-based statistics and missing data</a>
+    </li>
+    <li>
+      <a href="Genotypic_EvenRichDiv.html">Genotypic evenness, richness, and diversity</a>
+    </li>
+    <li>
+      <a href="Linkage_disequilibrium.html">Linkage disequilibrium</a>
+    </li>
+    <li>
+      <a href="Pop_Structure.html">Population structure</a>
+    </li>
+    <li>
+      <a href="Minimum_Spanning_Networks.html">Minimum Spanning Networks</a>
+    </li>
+    <li>
+      <a href="AMOVA.html">AMOVA</a>
+    </li>
+    <li>
+      <a href="DAPC.html">Discriminant analysis of principal components (DAPC)</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part III
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro_vcf.html">Population genomics and HTS</a>
+    </li>
+    <li>
+      <a href="reading_vcf.html">Reading VCF data</a>
+    </li>
+    <li>
+      <a href="qc.html">Quality control</a>
+    </li>
+    <li>
+      <a href="analysis_of_genome.html">Analysis of genomic data</a>
+    </li>
+    <li>
+      <a href="gbs_analysis.html">Analysis of GBS data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Workshop
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="workshop.html">Workshop</a>
+    </li>
+    <li>
+      <a href="intro_vcf.html">Introduction</a>
+    </li>
+    <li>
+      <a href="reading_vcf.html">VCF data</a>
+    </li>
+    <li>
+      <a href="gbs_analysis.html">Analysis of GBS data</a>
+    </li>
+    <li>
+      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    About
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Authors.html">Authors</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Appendices
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro_to_R.html">Introduction to R</a>
+    </li>
+    <li>
+      <a href="Data_sets.html">Data sets</a>
+    </li>
+    <li>
+      <a href="funpendix.html">Function glossary</a>
+    </li>
+    <li>
+      <a href="https://github.com/grunwaldlab/sandbox1/">Source Code</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">gst_gbs_data</h1>
+<h4 class="author"><em>Javier F. Tabima</em></h4>
+<h4 class="date"><em>7/14/2017</em></h4>
+
+</div>
+
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vcfR)
+<span class="kw">library</span>(poppr)
+<span class="kw">library</span>(ape)
+<span class="kw">library</span>(RColorBrewer)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rubi.VCF &lt;-<span class="st"> </span><span class="kw">read.vcfR</span>(<span class="st">&quot;prubi_gbs.vcf.gz&quot;</span>)</code></pre></div>
+<pre><code>## File attributes:
+##   meta lines: 9460
+##   header line: 9461
+##   variant count: 615
+##   column count: 103
+## 
+Meta line 1000 read in.
+Meta line 2000 read in.
+Meta line 3000 read in.
+Meta line 4000 read in.
+Meta line 5000 read in.
+Meta line 6000 read in.
+Meta line 7000 read in.
+Meta line 8000 read in.
+Meta line 9000 read in.
+Meta line 9460 read in.
+## All meta lines processed.
+## In function read_body_gz.
+##   stats(0): 9460
+##   stats(1): 9461
+##   stats(2): 615
+##   stats(3): 103
+## Initializing gt matrix.
+##   nrows: 615
+##   cols.size(): 103
+## gt matrix initialized.
+## Character matrix gt created.
+##   Character matrix gt rows: 615
+##   Character matrix gt cols: 103
+##   skip: 0
+##   nrows: 615
+##   row_num: 0
+## 
+## 
+Processed variant: 615
+## All variants processed</code></pre>
+<div id="additional-step-2-calculating-population-structure-using-f_st" class="section level2">
+<h2>Additional step 2: Calculating population structure using <span class="math inline">\(F_{ST}\)</span></h2>
+<p>A standard way to calculate population structure in population genetics is using the fixation index (<span class="math inline">\(F_{ST}\)</span>) proposed by Sewall Wright <span class="citation">(Wright, 1949, <span class="citation">Wright (1978)</span>)</span>.</p>
+<p>The fixation index measures population differentiation due to genetic structure, and is based on the variance of the allele frequencies between populations. <span class="math inline">\(F_{ST}\)</span> values can be calculated for any molecular marker.</p>
+<p>The R package <em>vcfR</em> includes a function to calculate differentiation measures from VCF data. The function <code>genetic_diff()</code> includes options for Nei’s <span class="math inline">\(G_{ST}\)</span> <span class="citation">(Nei, 1973)</span>, including Hedrick’s <span class="math inline">\(G&#39;_{ST}\)</span> correction for high allelism <span class="citation">(Hedrick, 2005)</span> , as well as Jost’s <span class="math inline">\(D\)</span> <span class="citation">(Jost, 2008)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myDiff &lt;-<span class="st"> </span><span class="kw">genetic_diff</span>(rubi.VCF, pop.data$State, <span class="dt">method =</span> <span class="st">&quot;nei&quot;</span>)
+knitr::<span class="kw">kable</span>(<span class="kw">t</span>(<span class="kw">as.matrix</span>(<span class="kw">round</span>(<span class="kw">colMeans</span>(myDiff[,<span class="kw">c</span>(<span class="dv">3</span>:<span class="dv">10</span>,<span class="dv">13</span>)], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">digits =</span> <span class="dv">3</span>))))</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Hs_CA</th>
+<th align="right">Hs_OR</th>
+<th align="right">Hs_WA</th>
+<th align="right">Ht</th>
+<th align="right">n_CA</th>
+<th align="right">n_OR</th>
+<th align="right">n_WA</th>
+<th align="right">Gst</th>
+<th align="right">Gprimest</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.048</td>
+<td align="right">0.054</td>
+<td align="right">0.059</td>
+<td align="right">0.062</td>
+<td align="right">62.179</td>
+<td align="right">44.25</td>
+<td align="right">72.943</td>
+<td align="right">0.056</td>
+<td align="right">0.084</td>
+</tr>
+</tbody>
+</table>
+<p>The calculation of Nei´s <span class="math inline">\(G_{ST}\)</span> and Hedrick´s <span class="math inline">\(G&#39;_{ST}\)</span> indicate that there is a low degree of population differentiation across states in the western USA. <span class="math inline">\(F_{ST}\)</span> values have a range from 0 (no genetic structure) to 1 (complete population structure). (However, an unbiased estimate may be slightly negative.) Hedrick´s <span class="math inline">\(G&#39;_{ST}\)</span> index rescales Nei´s <span class="math inline">\(G_{ST}\)</span> values into a range from 0 to 1 for loci with many alleles. These indices can be thought of as analogs to <span class="math inline">\(F_{ST}\)</span> values.</p>
+<p>While <span class="math inline">\(F_{ST}\)</span> range from 0 to 1, they do not scale linearly. That is, two populations with an <span class="math inline">\(F_{ST}\)</span> of 0.5 should not be interpreted as being 50% differentiated. Wright suggested the following guidelines for <span class="math inline">\(F_{ST}\)</span> values <span class="citation">(Wright, 1978)</span>:</p>
+<ul>
+<li><span class="math inline">\(F_{ST}\)</span> values from 0 to 0.05: Little genetic differentiation</li>
+<li><span class="math inline">\(F_{ST}\)</span> values from 0.05 to 0.15: Moderate genetic differentiation</li>
+<li><span class="math inline">\(F_{ST}\)</span> values from 0.15 to 0.25: Great genetic differentiation</li>
+<li><span class="math inline">\(F_{ST}\)</span> values greater than 0.25: Very great genetic differentiation</li>
+</ul>
+<p>These guidelines are valid for our <span class="math inline">\(G&#39;_{ST}\)</span> values as well. For a more extensive discussion on the interpretation of <span class="math inline">\(F_{ST}\)</span> values, we recommend chapter 4 in <span class="citation">Hartl &amp; Clark (2007)</span>.</p>
+<p>Both measurements of population differentiation for <em>P. rubi</em> show a moderate degree of differentiation among populations (Hedrick´s <span class="math inline">\(G&#39;_{ST}\)</span> = 0.084).</p>
+<p>However, these results from the population differentiation calculation are obtained by estimating the mean for each of the indices in the function. Each variant has its own estimation for each index in the <code>genetic_diff</code> function. We can visualize the distribution of indices across all variant positions using a violin plot:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dpf &lt;-<span class="st"> </span><span class="kw">melt</span>(myDiff[,<span class="kw">c</span>(<span class="dv">3</span>:<span class="dv">6</span>,<span class="dv">10</span>,<span class="dv">13</span>)], <span class="dt">varnames=</span><span class="kw">c</span>(<span class="st">&#39;Index&#39;</span>, <span class="st">&#39;Sample&#39;</span>), <span class="dt">value.name =</span> <span class="st">&#39;Depth&#39;</span>, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## No id variables; using all as measure variables</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dpf, <span class="kw">aes</span>(<span class="dt">x=</span>variable, <span class="dt">y=</span>Depth)) +<span class="st"> </span><span class="kw">geom_violin</span>(<span class="dt">fill=</span><span class="st">&quot;#8dd3c7&quot;</span>, <span class="dt">adjust =</span> <span class="fl">2.8</span>)
+p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)
+p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>)
+p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">theme_bw</span>()
+p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks=</span><span class="kw">seq</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="dt">by=</span><span class="fl">0.1</span>))
+p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.15</span>, <span class="fl">0.25</span>), <span class="dt">color =</span> <span class="st">&quot;#B22222&quot;</span>, <span class="dt">lwd =</span> <span class="dv">1</span>)
+
+p</code></pre></div>
+<p><img src="GST_gbs_analysis_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>The violin plot shows a high abundance of variants with low values for each index, indicating that the low values of population differentiation are common in our analysis. Nonetheless, we see a number of outlier variants in the high ends of the distribution. These variants represent sites in the genome under high differentiation. We can visualize these results by plotting the value of the index of interest (in this example, Hedrick´s <span class="math inline">\(G&#39;_{ST}\)</span>) against the position in the genome. These “Manhattan plots” allow visualization of differentiation along a portion of the genome:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dv">1</span>:<span class="kw">nrow</span>(myDiff), myDiff$Gprimest, <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">bg =</span> myDiff$CHROM, <span class="dt">yaxt=</span><span class="st">&#39;n&#39;</span>)
+<span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span>)
+<span class="kw">title</span>(<span class="dt">ylab =</span> <span class="kw">expression</span>(<span class="st">&quot;G&#39;&quot;</span>[ST]))
+<span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.15</span>, <span class="fl">0.25</span>), <span class="dt">col =</span> <span class="st">&quot;#B22222&quot;</span>)
+<span class="kw">axis</span>(<span class="dt">side=</span><span class="dv">2</span>, <span class="dt">at=</span><span class="kw">seq</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="dt">by=</span><span class="fl">0.1</span>), <span class="dt">las=</span><span class="dv">2</span>)
+<span class="kw">title</span>(<span class="dt">xlab =</span> <span class="st">&quot;Position&quot;</span>, <span class="dt">line =</span> <span class="dv">1</span>)</code></pre></div>
+<p><img src="GST_gbs_analysis_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>We observe that the majority of variants have very low values of Hedrick´s <span class="math inline">\(G&#39;_{ST}\)</span>, as expected from previous results. However, there are positions in the genome with high Hedrick´s <span class="math inline">\(G&#39;_{ST}\)</span> values. Note however, that GBS data is very different than whole genome sequence data, as the variants that are obtained by GBS do not represent long stretches of the genome but only fragments scattered throughout the genome. We would need variant calls for a whole genome to find regions of divergence.</p>
+<div id="refs" class="references">
+<div id="ref-hartl2007">
+<p>Hartl D., Clark A. 2007. <em>Principles of population genetics</em>. Sinauer Associates, Incorporated. Available at: <a href="http://books.google.com/books?id=SB1vQgAACAAJ" class="uri">http://books.google.com/books?id=SB1vQgAACAAJ</a></p>
+</div>
+<div id="ref-hedrick2005standardized">
+<p>Hedrick PW. 2005. A standardized genetic differentiation measure. <em>Evolution</em> 59:1633–1638. Available at: <a href="http://dx.doi.org/10.1111/j.0014-3820.2005.tb01814.x" class="uri">http://dx.doi.org/10.1111/j.0014-3820.2005.tb01814.x</a></p>
+</div>
+<div id="ref-jost2008gst">
+<p>Jost L. 2008. <span class="math inline">\(G_{ST}\)</span> And its relatives do not measure differentiation. <em>Molecular Ecology</em> 17:4015–4026. Available at: <a href="http://dx.doi.org/10.1111/j.1365-294X.2008.03887.x" class="uri">http://dx.doi.org/10.1111/j.1365-294X.2008.03887.x</a></p>
+</div>
+<div id="ref-nei1973analysis">
+<p>Nei M. 1973. Analysis of gene diversity in subdivided populations. <em>Proceedings of the National Academy of Sciences</em> 70:3321–3323. Available at: <a href="http://www.pnas.org/content/70/12/3321.abstract" class="uri">http://www.pnas.org/content/70/12/3321.abstract</a></p>
+</div>
+<div id="ref-wright1949genetical">
+<p>Wright S. 1949. The genetical structure of populations. <em>Annals of Eugenics</em> 15:323–354. Available at: <a href="http://dx.doi.org/10.1111/j.1469-1809.1949.tb02451.x" class="uri">http://dx.doi.org/10.1111/j.1469-1809.1949.tb02451.x</a></p>
+</div>
+<div id="ref-wright1978evolution">
+<p>Wright S. 1978. Evolution and the genetics of populations. Vol. 4. variability within and among natural populations. <em>University of Chicago Press, Chicago, IL, USA</em>. Available at: <a href="http://www.press.uchicago.edu/ucp/books/book/chicago/E/bo3642015.html" class="uri">http://www.press.uchicago.edu/ucp/books/book/chicago/E/bo3642015.html</a></p>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

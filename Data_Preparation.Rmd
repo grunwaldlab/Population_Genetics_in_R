@@ -4,16 +4,18 @@
   library("knitr")
   cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
   bib <- read.bibtex("bibtexlib.bib")
-  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, 
+  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE,
                  fig.width = 10, fig.height = 6, cache = TRUE)
   if (html) opts_chunk$set(out.width = "700px", dpi = 300)
-  # use this to set knitr options: 
+  # use this to set knitr options:
   # http://yihui.name/knitr/options #chunk_options
 ```
 
 ---
-title: '3: Data Preparation'
+title: 'Data Preparation'
+subtitle: '*ZN Kamvar, SE Everhart and NJ Gr&uuml;nwald*'
 ---
+
 
 This section will briefly go over the basics of data import into *poppr*. For
 this section, we will focus on the GenAlEx format. Other formats are supported
@@ -35,7 +37,7 @@ containing 694 isolates of the plant pathogen *Monilinia fructicola* genotyped
 over 13 haploid microsatellite loci `r citep(bib["everhart2014finescale"])`. The
 data set is called **monpop.csv**.
 
-><a class="btn btn-info btn-sm" target = "blank" href="https://github.com/grunwaldlab/Population_Genetics_in_R/blob/master/monpop.csv" role="button">view</a> 
+><a class="btn btn-info btn-sm" target = "blank" href="https://github.com/grunwaldlab/Population_Genetics_in_R/blob/master/monpop.csv" role="button">view</a>
 or
 <a class="btn btn-primary btn-sm" target = "blank" href="http://grunwaldlab.github.io/Population_Genetics_in_R/monpop.csv" role="button"> download</a> monpop.csv
 
@@ -70,8 +72,8 @@ Given dependence of *poppr* on *adegenet*, users can import data from the follow
 - **GENEPOP** (file.gen)
 - **STRUCTURE** (file.str)
 
-The *adegenet* function `import2genind` will import all of these formats. 
-If you have sequence data, you can use the `read.FASTA` function from the *ape* 
+The *adegenet* function `import2genind` will import all of these formats.
+If you have sequence data, you can use the `read.FASTA` function from the *ape*
 package. If your data is in any other format, type `help("df2genind")` for guidance.
 
 GenAlEx data format
@@ -132,7 +134,7 @@ information in those columns. Try it for yourself.
 Diploid data is only different in the fact that you will have two alleles
 per locus. This is coded such that each allele is in a separate
 column. Below is an example of the `nancycats` data set (from the *adegenet*
-package), exported like above. Highlighted in blue and red are the first and 
+package), exported like above. Highlighted in blue and red are the first and
 second loci, respectively.
 
 ![diploid](images/diploid.png)
@@ -163,53 +165,53 @@ of the `monpop` data set introduced above:
 
 
 <table border=2 cellpadding=20 align=center>
-<tr> <th class="col-xs3"> 
+<tr> <th class="col-xs3">
 Tree
-</th> <th class="col-xs3"> 
+</th> <th class="col-xs3">
 Year
-</th> <th class="col-xs3"> 
+</th> <th class="col-xs3">
 Symptom
 </th>  </tr>
-  <tr> <td align="center"> 
+  <tr> <td align="center">
 7
-</td> <td align="center"> 
+</td> <td align="center">
 9
-</td> <td align="center"> 
+</td> <td align="center">
 BB
 </td> </tr>
-  <tr> <td align="center"> 
+  <tr> <td align="center">
 7
-</td> <td align="center"> 
+</td> <td align="center">
 9
-</td> <td align="center"> 
+</td> <td align="center">
 BB
 </td> </tr>
-  <tr> <td align="center"> 
+  <tr> <td align="center">
 7
-</td> <td align="center"> 
+</td> <td align="center">
 9
-</td> <td align="center"> 
+</td> <td align="center">
 BB
 </td> </tr>
-  <tr> <td align="center"> 
+  <tr> <td align="center">
 7
-</td> <td align="center"> 
+</td> <td align="center">
 9
-</td> <td align="center"> 
+</td> <td align="center">
 BB
 </td> </tr>
-  <tr> <td align="center"> 
+  <tr> <td align="center">
 7
-</td> <td align="center"> 
+</td> <td align="center">
 9
-</td> <td align="center"> 
+</td> <td align="center">
 BB
 </td> </tr>
-  <tr> <td align="center"> 
+  <tr> <td align="center">
 7
-</td> <td align="center"> 
+</td> <td align="center">
 9
-</td> <td align="center"> 
+</td> <td align="center">
 BB
 </td> </tr>
 </table>
@@ -219,25 +221,25 @@ resulting in definition for use in *poppr* as:
 <!-- html table generated in R 3.1.2 by xtable 1.7-4 package -->
 <!-- Fri Jan  9 20:12:57 2015 -->
 <table border=2 cellpadding=20 align=center>
-<tr> <th class="col-xs3"> 
+<tr> <th class="col-xs3">
 Tree_Year_Symptom
 </th>  </tr>
-  <tr> <td align="center"> 
+  <tr> <td align="center">
 7_9_BB
 </td> </tr>
-  <tr> <td align="center"> 
+  <tr> <td align="center">
 7_9_BB
 </td> </tr>
-  <tr> <td align="center"> 
+  <tr> <td align="center">
 7_9_BB
 </td> </tr>
-  <tr> <td align="center"> 
+  <tr> <td align="center">
 7_9_BB
 </td> </tr>
-  <tr> <td align="center"> 
+  <tr> <td align="center">
 7_9_BB
 </td> </tr>
-  <tr> <td align="center"> 
+  <tr> <td align="center">
 7_9_BB
 </td> </tr>
 </table>

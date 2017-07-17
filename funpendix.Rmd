@@ -1,15 +1,17 @@
 ---
-title: "A2: Function Glossary"
+title: "Function Glossary"
 ---
 
 
 Below are functions that were utilized in the making of this primer with links to their respective packages. Note that this list was automatically generated and might be missing some functions.
 
-### [1: Introduction](Introduction.html)
+##  Part I:
+
+### [Introduction](Introduction.html)
 
 No functions used in this chapter.
 
-### [2: Getting ready to use R](Getting_ready_to_use_R.html)
+### [Getting ready to use R](Getting_ready_to_use_R.html)
 
  | **Function** | **Package** |
  |--------------|-------------|
@@ -17,14 +19,16 @@ No functions used in this chapter.
  | **`mlg`** | [*poppr*](http://cran.r-project.org/package=poppr) |
  | **`seppop`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
 
-### [3: Data Preparation](Data_Preparation.html)
+##  Part II:
+
+### [Data Preparation](Data_Preparation.html)
 
  | **Function** | **Package** |
  |--------------|-------------|
  | **`read.genalex`** | [*poppr*](http://cran.r-project.org/package=poppr) |
  | **`splitStrata`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
 
-### [4: First Analysis](First_Steps.html)
+### [First Analysis](First_Steps.html)
 
  | **Function** | **Package** |
  |--------------|-------------|
@@ -35,7 +39,7 @@ No functions used in this chapter.
  | **`mlg.table`** | [*poppr*](http://cran.r-project.org/package=poppr) |
  | **`poppr`** | [*poppr*](http://cran.r-project.org/package=poppr) |
 
-### [5: Populations strata: subsetting and clone correction](Population_Strata.html)
+### [Populations strata: subsetting and clone correction](Population_Strata.html)
 
  | **Function** | **Package** |
  |--------------|-------------|
@@ -48,7 +52,7 @@ No functions used in this chapter.
  | **`strata`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
  | **`treemap`** | [*treemap*](http://cran.r-project.org/package=treemap) |
 
-### [6: Locus stats, heterozygosity, HWE](Locus_Stats.html)
+### [Locus stats, heterozygosity, HWE](Locus_Stats.html)
 
  | **Function** | **Package** |
  |--------------|-------------|
@@ -63,7 +67,7 @@ No functions used in this chapter.
  | **`seppop`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
  | **`tab`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
 
-### [7: Genotypic richness, diversity, and evenness](Genotypic_EvenRichDiv.html)
+### [Genotypic richness, diversity, and evenness](Genotypic_EvenRichDiv.html)
 
  | **Function** | **Package** |
  |--------------|-------------|
@@ -73,7 +77,7 @@ No functions used in this chapter.
  | **`setPop`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
  | **`splitStrata`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
 
-### [8: Linkage disequilibrium](Linkage_disequilibrium.html)
+### [Linkage disequilibrium](Linkage_disequilibrium.html)
 
  | **Function** | **Package** |
  |--------------|-------------|
@@ -82,7 +86,7 @@ No functions used in this chapter.
  | **`popsub`** | [*poppr*](http://cran.r-project.org/package=poppr) |
  | **`strata`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
 
-### [9: Population structure: $G_{ST}$, genetic distance, and clustering](Pop_Structure.html)
+### [Population structure: $G_{ST}$, genetic distance, and clustering](Pop_Structure.html)
 
  | **Function** | **Package** |
  |--------------|-------------|
@@ -105,7 +109,7 @@ No functions used in this chapter.
  | **`provesti.dist`** | [*poppr*](http://cran.r-project.org/package=poppr) |
  | **`strata`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
 
-### [10: Minimum Spanning Networks](Minimum_Spanning_Networks.html)
+### [Minimum Spanning Networks](Minimum_Spanning_Networks.html)
 
  | **Function** | **Package** |
  |--------------|-------------|
@@ -120,7 +124,7 @@ No functions used in this chapter.
  | **`splitStrata`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
  | **`summary`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
 
-### [11: AMOVA](AMOVA.html)
+### [AMOVA](AMOVA.html)
 
  | **Function** | **Package** |
  |--------------|-------------|
@@ -130,7 +134,7 @@ No functions used in this chapter.
  | **`poppr.amova`** | [*poppr*](http://cran.r-project.org/package=poppr) |
  | **`strata`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
 
-### [12: Discriminant analysis of principal components (DAPC)](DAPC.html)
+### [Discriminant analysis of principal components (DAPC)](DAPC.html)
 
  | **Function** | **Package** |
  |--------------|-------------|
@@ -143,3 +147,16 @@ No functions used in this chapter.
  | **`tab`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
  | **`xvalDapc`** | [*adegenet*](http://cran.r-project.org/package=adegenet) |
 
+## Part III
+
+### [Population genomics and HTS](intro_vcf.html)
+  
+No functions used in this chapter.
+
+### [Reading VCF data](reading_vcf.html)
+
+### [Quality control](qc.html)
+
+### [Analysis of genomic data](analysis_of_genome.html)
+
+### [Analysis of GBS data](gbs_analysis.html)

@@ -1,0 +1,56 @@
+
+---
+title: "Quality control"
+subtitle: "*BJ Knaus, JF Tabima and NJ Gr&uuml;nwald*"
+---
+
+```{r setup1, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitcitations::cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
+bib <- knitcitations::read.bibtex("bibtexlib.bib")
+knitr::opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE)
+#knitr::opts_chunk$set(cache = TRUE)
+library("knitcitations")
+```
+
+
+## Quality control of data
+
+
+All data sets are not perfect.
+A critical step in and research project is to ensure the quality of the data and to develop mitigatation strategies to handle low quality data.
+A favorite statistics text poses teh question 'garbage in, roses out?' `r citep(bib[c("tabachnick2001using")])`.
+While we all know the answer to this question, when we are presented with a data and are anxious to see what answers our analyses may present us with, its frequently easy to forget to ask this critical question.
+Many of the existing variant callers state that they aggressively call variants with the hope that these variants are filtered for quality.
+In this section we discuss methods to characterize quality issues and propose methods to mandle these issues.
+
+
+## Missing data
+
+
+```{r child = 'missing_data.Rmd'}
+```
+
+
+## Sequence depth
+
+
+```{r child = 'depth_plot.Rmd'}
+```
+
+
+## Censoring data
+
+
+```{r child = 'censoring_data.Rmd'}
+```
+
+
+## Omitting data
+
+
+```{r child = 'omitting_data.Rmd'}
+```
+
+# References
+

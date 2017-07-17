@@ -1,6 +1,11 @@
 base
+rmarkdown
 knitcitations
 knitr
 ade4
 adegenet
 poppr
+vcfR
+igraph
+RColorBrewer
+ape

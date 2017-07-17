@@ -4,7 +4,7 @@
   # library("knitr")
   # cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
   # bib <- read.bibtex("bibtexlib.bib")
-  # opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, 
+  # opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE,
   #                fig.width = 10, fig.height = 6, cache = TRUE)
   # if (html) opts_chunk$set(out.width = "700px", dpi = 300)
 
@@ -12,23 +12,24 @@
   library("knitr")
   cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
   bib <- read.bibtex("bibtexlib.bib")
-  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, cache = TRUE) 
-  # use this to set knitr options: 
+  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, cache = TRUE)
+  # use this to set knitr options:
   # http://yihui.name/knitr/options #chunk_options
 ```
 ---
-title: "4: First Analysis"
+title: "First Analysis"
+subtitle: "*ZN Kamvar, SE Everhart and NJ Gr&uuml;nwald*"
 ---
 
-This chapter introduces basic use of and navigation in *poppr* as well as good practices when starting an analysis. We take a glance at the genotypic diversity observed in populations and allelic frequencies observed in your loci by population. Both of these are good first steps to eliminate data entry errors, check for missing/rare data, and make sure all loci conform to expectations given your analyses. 
+This chapter introduces basic use of and navigation in *poppr* as well as good practices when starting an analysis. We take a glance at the genotypic diversity observed in populations and allelic frequencies observed in your loci by population. Both of these are good first steps to eliminate data entry errors, check for missing/rare data, and make sure all loci conform to expectations given your analyses.
 
-For these examples, we will be using the data set `Pinf` that is already built into *poppr* containing 86 individuals of the polyploid data for *Phytophthora infestans* genotyped over 11 microsatellite loci `r citep(bib['goss2014irish'])`
+For these examples, we will be using the data set `Pinf` that is already built into *poppr* containing 86 individuals of the polyploid data for *Phytophthora infestans* genotyped over 11 microsatellite loci `r citep(bib['goss2014irish'])`.
 
 
 The genotype accumulation curve
 -----
 
-A genotype accumulation curve is a tool that allows you to assess how much power you have to discriminate between unique individuals given a random sample of $n$ loci. This analysis is particularly important for clonal organisms to confirm that a plateau has been reached in the number of loci necessary to discriminate individuals. Below, we will analyze the `Pinf` data set. 
+A genotype accumulation curve is a tool that allows you to assess how much power you have to discriminate between unique individuals given a random sample of $n$ loci. This analysis is particularly important for clonal organisms to confirm that a plateau has been reached in the number of loci necessary to discriminate individuals. Below, we will analyze the `Pinf` data set.
 
 ```{r, fig.cap = "Genotype accumulation curve"}
 library("poppr")
@@ -37,7 +38,7 @@ Pinf         # We expect a maximum of 72 Multilocus Genotypes
 gac <- genotype_curve(Pinf, sample = 1000, quiet = TRUE)
 ```
 
-We specified `sample = 1000` in our function call. This means that for each boxplot, $n$ loci were randomly sampled 1000 times in order to create the distribution. Since this data has been curated, we can see that we have reached the plateau with 11 loci. Try seeing what happens when you use a data set of sexual populations such as `microbov` or `nancycats`. Also, what happens when you use dominant AFLP data such as `Aeut`? 
+We specified `sample = 1000` in our function call. This means that for each boxplot, $n$ loci were randomly sampled 1000 times in order to create the distribution. Since this data has been curated, we can see that we have reached the plateau with 11 loci. Try seeing what happens when you use a data set of sexual populations such as `microbov` or `nancycats`. Also, what happens when you use dominant AFLP data such as `Aeut`?
 
 Allele frequencies, missing data, and ploidy
 -----
@@ -77,7 +78,7 @@ tail(Pinf.ploidy)
 
 Note that ploidy varies between 2 and 3 among individuals and loci.
 
-You are now able to assess the quality of your data and examine allelic diversity in your populations. 
+You are now able to assess the quality of your data and examine allelic diversity in your populations.
 
 Calculating genotypic diversity
 -----
@@ -107,7 +108,7 @@ We can see statistics printed for each individual and the total population. The 
 |`rbarD` | The standardized index of association, $\bar{r}_d$ `r citep(bib[c("agapow2001indices")])`.|
 
 
-What does all this mean? Both populations have a similar number of individuals ($N$ = 38 and 48) sampled. However, one population has 29 and the other 43 $MLG$ while both populations together have combined 86 $MLG$. Genotypic diversity (either $H$ or $G$) is higher in population 2 than population 1, while evenness is similar. Let's ignore $I_A$ and $\bar{r}_d$ for now, as these are measures of linkage disequilibrium that will be covered in [Chapter 8](Linkage_disequilibrium.html). 
+What does all this mean? Both populations have a similar number of individuals ($N$ = 38 and 48) sampled. However, one population has 29 and the other 43 $MLG$ while both populations together have combined 86 $MLG$. Genotypic diversity (either $H$ or $G$) is higher in population 2 than population 1, while evenness is similar. Let's ignore $I_A$ and $\bar{r}_d$ for now, as these are measures of linkage disequilibrium that will be covered in [Chapter 4](Linkage_disequilibrium.html).
 
 Next, let's calculate $MLG$ for each population, e.g. "South America" and "North America" populations:
 
@@ -121,7 +122,7 @@ The figures provide histograms to see how evenly $MLGs$ are distributed within e
 Conclusions
 ----
 
-Going through many of these steps will give you a valuable first look at your data. These analyses can give you insight into what methods you are able to use in your analysis. The genotype curve can tell you if you've sampled enough loci (or if you have over sampled) and `info_table` provides a nice visualization to aid assessing whether or not there are missing data in your sample. For clonal populations, the genotypic diversity table is valuable for informing you of how to clone-correct populations, which we will tackle in the [next chapter](Population_Strata.html). 
+Going through many of these steps will give you a valuable first look at your data. These analyses can give you insight into what methods you are able to use in your analysis. The genotype curve can tell you if you've sampled enough loci (or if you have over sampled) and `info_table` provides a nice visualization to aid assessing whether or not there are missing data in your sample. For clonal populations, the genotypic diversity table is valuable for informing you of how to clone-correct populations, which we will tackle in the [next chapter](Population_Strata.html).
 
 References
 ----------
