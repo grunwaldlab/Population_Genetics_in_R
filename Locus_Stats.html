@@ -4,98 +4,22 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
 
 
 
-<title>6: Locus stats, heterozygosity, HWE</title>
+<title>Locus stats, heterozygosity, HWE</title>
 
-<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-52691601-2', 'auto');
-  ga('send', 'pageview');
-
-</script>
-
-<!---
-
-<style type="text/css">
-
-/* padding for bootstrap navbar */
-body {
-  padding-top: 50px;
-  padding-bottom: 40px;
-  padding-right: 50px;
-  padding-left: -50px;
-}
-@media (max-width: 979px) {
-  body {
-    padding-top: 0;
-  }
-}
-
- offset scroll position for anchor links (for fixed navbar)  
-@media (min-width: 980px) {
-  .section h2 {
-    padding-top: 52px;
-    margin-top: -52px;
-  }
-  .section h3 {
-    padding-top: 52px;
-    margin-top: -52px;
-  }
-}
-
-
-/* don't use link color in navbar */
-.dropdown-menu>li>a {
-  color: black;
-}
-
-</style>
--->
-
-
-
-<style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 50px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h2 {
-  padding-top: 55px;
-  margin-top: -55px;
-}
-.section h3 {
-  padding-top: 55px;
-  margin-top: -55px;
-}
-/* don't use link color in navbar */
-.dropdown-menu>li>a {
-  color: black;
-}
-/* some padding for disqus */
-#disqus_thread {
-  margin-top: 45px;
-}
-</style>
-
-<link rel="stylesheet" href="libs/font-awesome-4.1.0/css/font-awesome.min.css"/>
+<link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -170,6 +94,7 @@ h6 {
 }
 </style>
 
+<link rel="stylesheet" href="styles.css" type="text/css" />
 
 </head>
 
@@ -198,11 +123,62 @@ button.code-folding-btn:focus {
 </style>
 
 
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 61px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+
+.section h2 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h3 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h4 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h5 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h6 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
 
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -216,7 +192,7 @@ $(document).ready(function () {
 
 
 
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -224,87 +200,165 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <!-- HOME -->
-      <a class="navbar-brand" href="index.html"><b>Population Genetics in R</b></a>
+      <a class="navbar-brand" href="index.html">Population genetics and genomics in R</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <!-- Table of contents -->
-        <li class="dropdown">
-          <!---<a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>-->
-          <a href="chapters" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Chapters <span class="caret"></span></a>
-            <ol class="dropdown-menu">
-               <li><a href="Preface.html">i. Preface</a></li>
-               <li><a href="Introduction.html">1. Introduction</a></li>
-               <li><a href="Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
-               <li><a href="Data_Preparation.html">3. Data preparation</a></li>
-               <li><a href="First_Steps.html">4. First steps</a></li>
-               <li><a href="Population_Strata.html">5. Population strata and clone correction</a></li>
-               <li><a href="Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
-               <li><a href="Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
-               <li><a href="Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
-               <li><a href="Pop_Structure.html">9. Population structure</a></li>
-               <li><a href="Minimum_Spanning_Networks.html">10. Minimum Spanning Networks</a></li>
-               <li><a href="AMOVA.html">11. AMOVA</a></li>
-               <li><a href="DAPC.html">12. Discriminant analysis of principal components (DAPC)</a></li>
-            </ol>
-        </li>
-        <!-- Appendices dropdown -->
-        <li class="dropdown">
-          <!---<a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>-->
-          <a href="appendices" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Appendices <span class="caret"></span></a>
-          <ul class = "dropdown-menu", role = "menu">
-            <li><a href="Data_sets.html">A1. Data sets</a></li>
-            <li><a href="funpendix.html">A2. Function glossary</a></li>
-            <li><a href="Intro_to_R.html">A3. Introduction to R</a></li>
-          </ul>
-        </li>
-        <!-- Author button -->
-        <li class="dropdown">
-        	<a href="about" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">About<span class="caret"></span></a>
-          <ul class = "dropdown-menu", role = "menu">
-        	<li><a href="Authors.html">Authors</a></li>
-        	<li>
-        		<a href="https://github.com/grunwaldlab/Population_Genetics_in_R", target = "blank">
-		    	Source code
-		    	</a>
-		    </li>
-		   </ul>
-        </li>
+        <li>
+  <a href="TOC.html">Table of contents</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part I
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="Getting_ready_to_use_R.html">Getting ready to use R</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part II
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Data_Preparation.html">Data preparation</a>
+    </li>
+    <li>
+      <a href="First_Steps.html">First steps</a>
+    </li>
+    <li>
+      <a href="Population_Strata.html">Population strata and clone correction</a>
+    </li>
+    <li>
+      <a href="Locus_Stats.html">Locus-based statistics and missing data</a>
+    </li>
+    <li>
+      <a href="Genotypic_EvenRichDiv.html">Genotypic evenness, richness, and diversity</a>
+    </li>
+    <li>
+      <a href="Linkage_disequilibrium.html">Linkage disequilibrium</a>
+    </li>
+    <li>
+      <a href="Pop_Structure.html">Population structure</a>
+    </li>
+    <li>
+      <a href="Minimum_Spanning_Networks.html">Minimum Spanning Networks</a>
+    </li>
+    <li>
+      <a href="AMOVA.html">AMOVA</a>
+    </li>
+    <li>
+      <a href="DAPC.html">Discriminant analysis of principal components (DAPC)</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part III
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro_vcf.html">Population genomics and HTS</a>
+    </li>
+    <li>
+      <a href="reading_vcf.html">Reading VCF data</a>
+    </li>
+    <li>
+      <a href="qc.html">Quality control</a>
+    </li>
+    <li>
+      <a href="analysis_of_genome.html">Analysis of genomic data</a>
+    </li>
+    <li>
+      <a href="gbs_analysis.html">Analysis of GBS data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Workshop
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="workshop.html">Workshop</a>
+    </li>
+    <li>
+      <a href="intro_vcf.html">Introduction</a>
+    </li>
+    <li>
+      <a href="reading_vcf.html">VCF data</a>
+    </li>
+    <li>
+      <a href="gbs_analysis.html">Analysis of GBS data</a>
+    </li>
+    <li>
+      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    About
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Authors.html">Authors</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Appendices
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro_to_R.html">Introduction to R</a>
+    </li>
+    <li>
+      <a href="Data_sets.html">Data sets</a>
+    </li>
+    <li>
+      <a href="funpendix.html">Function glossary</a>
+    </li>
+    <li>
+      <a href="https://github.com/grunwaldlab/sandbox1/">Source Code</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
-<!-- 
-
-old rmarkdown version: 
-
-devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa21442203f52face83")
-
-
- -->
-<!-- <div class="container">
-<div class="row">
-<div class="span10 offset1"> -->
 
 <div class="fluid-row" id="header">
 
 
 
-<h1 class="title toc-ignore">6: Locus stats, heterozygosity, HWE</h1>
+<h1 class="title toc-ignore">Locus stats, heterozygosity, HWE</h1>
+<h3 class="subtitle"><em><em>ZN Kamvar, SE Everhart, and NJ Grünwald</em></em></h3>
 
 </div>
 
-<div id="TOC">
-<ul>
-<li><a href="#locus-summary-statistics">Locus summary statistics</a></li>
-<li><a href="#phylogenetically-uninformative-loci">Phylogenetically uninformative loci</a></li>
-<li><a href="#missing-data">Missing data</a></li>
-<li><a href="#removing-loci-and-genotypes">Removing loci and genotypes</a></li>
-<li><a href="#hardy-weinberg-equilibrium">Hardy-Weinberg equilibrium</a></li>
-<li><a href="#references">References</a></li>
-</ul>
-</div>
 
 <p>A rigorous population genetic analysis looks closely at the data to assess quality and identify outliers or problems in the data such as erroneous allele calls. This chapter focuses on analysis on a per-locus level. While there are statistics that analyze populations across loci, it is important to analyze each locus independently to make sure that one locus is not introducing bias or spurious errors into the analysis.</p>
 <blockquote>
@@ -318,10 +372,12 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <span class="kw">data</span>(<span class="st">&quot;Pinf&quot;</span>)         <span class="co"># P. infestans data set from Mexico and South America</span>
 <span class="kw">locus_table</span>(Pinf)</code></pre></div>
 <pre><code>## 
-## allele = Number of observed alleles
-## 1-D = Simpson index
-## Hexp = Nei&#39;s 1978 gene diversity
-## ------------------------------------------</code></pre>
+## allele = Number of observed alleles</code></pre>
+<pre><code>## 
+## 1-D = Simpson index</code></pre>
+<pre><code>## 
+## Hexp = Nei&#39;s 1978 gene diversity</code></pre>
+<pre><code>## ------------------------------------------</code></pre>
 <pre><code>##       summary
 ## locus  allele    1-D   Hexp Evenness
 ##   Pi02 10.000  0.633  0.637    0.663
@@ -339,10 +395,12 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <p>We can see here that we have a widely variable number of alleles per locus and that we actually have a single locus that only has two alleles, Pi33. This locus also has low diversity, low expected heterozygosity and is very uneven in allele distribution. This is a sign that this might be a phylogenetically uninformative locus, where we have two alleles and one is occurring at a minor frequency. We will explore analysis with and without this locus. Let’s first see if both of these alleles exist in both populations of this data set.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">locus_table</span>(Pinf, <span class="dt">pop =</span> <span class="st">&quot;North America&quot;</span>)</code></pre></div>
 <pre><code>## 
-## allele = Number of observed alleles
-## 1-D = Simpson index
-## Hexp = Nei&#39;s 1978 gene diversity
-## ------------------------------------------</code></pre>
+## allele = Number of observed alleles</code></pre>
+<pre><code>## 
+## 1-D = Simpson index</code></pre>
+<pre><code>## 
+## Hexp = Nei&#39;s 1978 gene diversity</code></pre>
+<pre><code>## ------------------------------------------</code></pre>
 <pre><code>##       summary
 ## locus  allele    1-D   Hexp Evenness
 ##   Pi02  9.000  0.690  0.697    0.653
@@ -359,10 +417,12 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ##   mean  7.364  0.497  0.503    0.607</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">locus_table</span>(Pinf, <span class="dt">pop =</span> <span class="st">&quot;South America&quot;</span>)</code></pre></div>
 <pre><code>## 
-## allele = Number of observed alleles
-## 1-D = Simpson index
-## Hexp = Nei&#39;s 1978 gene diversity
-## ------------------------------------------</code></pre>
+## allele = Number of observed alleles</code></pre>
+<pre><code>## 
+## 1-D = Simpson index</code></pre>
+<pre><code>## 
+## Hexp = Nei&#39;s 1978 gene diversity</code></pre>
+<pre><code>## ------------------------------------------</code></pre>
 <pre><code>##       summary
 ## locus  allele   1-D  Hexp Evenness
 ##   Pi02   5.00  0.54  0.54     0.83
@@ -384,9 +444,9 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nLoc</span>(Pinf)  <span class="co"># Let&#39;s look at our data set, note how many loci we have.</span></code></pre></div>
 <pre><code>## [1] 11</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">iPinf &lt;-<span class="st"> </span><span class="kw">informloci</span>(Pinf)</code></pre></div>
-<pre><code>## cutoff value: 2.32558139534884 % ( 2 samples ).
-## MAF         : 0.01
-## 
+<pre><code>## cutoff value: 2.32558139534884 % ( 2 samples ).</code></pre>
+<pre><code>## MAF         : 0.01</code></pre>
+<pre><code>## 
 ##  Found 1 uninformative locus 
 ##  ============================ 
 ##  1 locus found with a cutoff of 2 samples :
@@ -396,9 +456,6 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <pre><code>## [1] 10</code></pre>
 <p>So, how does this affect multi-locus based statistics? We can see immediately that it didn’t affect the number of multilocus genotypes, let’s take a look at the index of association:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">poppr</span>(Pinf)</code></pre></div>
-<pre><code>## | South America 
-## | North America 
-## | Total</code></pre>
 <pre><code>##             Pop  N MLG eMLG    SE    H    G lambda   E.5  Hexp    Ia
 ## 1 South America 38  29 29.0 0.000 3.27 23.3  0.957 0.883 0.513 2.873
 ## 2 North America 48  43 34.5 0.989 3.69 34.9  0.971 0.871 0.503 0.223
@@ -408,9 +465,6 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 ## 2 0.0240 Pinf
 ## 3 0.0717 Pinf</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">poppr</span>(iPinf)</code></pre></div>
-<pre><code>## | South America 
-## | North America 
-## | Total</code></pre>
 <pre><code>##             Pop  N MLG eMLG    SE    H    G lambda   E.5  Hexp    Ia
 ## 1 South America 38  29 29.0 0.000 3.27 23.3  0.957 0.883 0.565 2.873
 ## 2 North America 48  43 34.5 0.989 3.69 34.9  0.971 0.871 0.551 0.225
@@ -426,7 +480,12 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <p>It is often important to asses the percentage of missing data. The <em>poppr</em> function <code>info_table</code> will help you visualize missing data so that you can assess how to treat these further using the function <code>missingno</code>. For this example, we will use the nancycats data set as it contains a wide variety of possibilities for missing data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(nancycats)
 <span class="kw">info_table</span>(nancycats, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="Locus_Stats_files/figure-html/missing_table-1.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
+<div class="figure">
+<img src="Locus_Stats_files/figure-html/missing_table-1.png" alt="Plot of missing data" width="700px" />
+<p class="caption">
+Plot of missing data
+</p>
+</div>
 <pre><code>##           Locus
 ## Population  fca8 fca23 fca43 fca45 fca77 fca78 fca90 fca96 fca37  Mean
 ##      P01   0.200     .     .     .     .     .     .     .     . 0.022
@@ -454,11 +513,17 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <p>When removing loci or genotypes, you can specify a cutoff representing the percent missing to be removed. The default is <code>0.05</code> (5%).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nancycats %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;loci&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## 
-##  Found 617 missing values.</code></pre>
-<pre><code>## 
-##  2 loci contained missing values greater than 5%.
-##  Removing 2 loci : fca8 fca45</code></pre>
-<p><img src="Locus_Stats_files/figure-html/unnamed-chunk-2-1.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
+## Found 617 missing values.
+## 
+## 2 loci contained missing values greater than 5%
+## 
+## Removing 2 loci: fca8, fca45</code></pre>
+<div class="figure">
+<img src="Locus_Stats_files/figure-html/unnamed-chunk-2-1.png" alt="Plot of missing data" width="700px" />
+<p class="caption">
+Plot of missing data
+</p>
+</div>
 <pre><code>##           Locus
 ## Population fca23 fca43 fca77 fca78 fca90  fca96 fca37   Mean
 ##      P01       .     .     .     .     .      .     .      .
@@ -485,38 +550,45 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <p>We only removed two loci. If we wanted to make sure we removed everything, we could set <code>cutoff = 0</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;loci&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">0</span>) %&gt;%<span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## 
-##  Found 617 missing values.</code></pre>
-<pre><code>## 
-##  3 loci contained missing values greater than 0%.
-##  Removing 3 loci : fca8 fca45 fca96</code></pre>
+## Found 617 missing values.
+## 
+## 3 loci contained missing values greater than 0%
+## 
+## Removing 3 loci: fca8, fca45, fca96</code></pre>
 <pre><code>## No Missing Data Found!</code></pre>
 <p>Again, removing individuals is also relatively easy:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## 
-##  Found 617 missing values.</code></pre>
-<pre><code>## 
-##  38 genotypes contained missing values greater than 5%.
-##  Removing 38 genotypes : N215 N216 N188 N189 N190 N191 N192 N298 N299 N300 
-## N301 N302 N303 N304 N310 N195 N197 N198 N199 N200 N201 N206 N182 N184 N186 N282 
-## N283 N288 N291 N292 N293 N294 N295 N296 N297 N281 N289 N290</code></pre>
+## Found 617 missing values.
+## 
+## 38 genotypes contained missing values greater than 5%
+## 
+## Removing 38 genotypes: N215, N216, N188, N189, N190, N191, N192,
+## N298, N299, N300, N301, N302, N303, N304, N310, N195, N197, N198,
+## N199, N200, N201, N206, N182, N184, N186, N282, N283, N288, N291,
+## N292, N293, N294, N295, N296, N297, N281, N289, N290</code></pre>
 <pre><code>## No Missing Data Found!</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">0</span>) %&gt;%<span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## 
-##  Found 617 missing values.</code></pre>
-<pre><code>## 
-##  38 genotypes contained missing values greater than 0%.
-##  Removing 38 genotypes : N215 N216 N188 N189 N190 N191 N192 N298 N299 N300 
-## N301 N302 N303 N304 N310 N195 N197 N198 N199 N200 N201 N206 N182 N184 N186 N282 
-## N283 N288 N291 N292 N293 N294 N295 N296 N297 N281 N289 N290</code></pre>
-<pre><code>## No Missing Data Found!</code></pre>
+## Found 617 missing values.
+## 
+## 38 genotypes contained missing values greater than 0%
+## 
+## Removing 38 genotypes: N215, N216, N188, N189, N190, N191, N192,
+## N298, N299, N300, N301, N302, N303, N304, N310, N195, N197, N198,
+## N199, N200, N201, N206, N182, N184, N186, N282, N283, N288, N291,
+## N292, N293, N294, N295, N296, N297, N281, N289, N290
+## No Missing Data Found!</code></pre>
 <p>The function <code>missingno</code> removes individuals based on the percent of missing data relative to the number of loci. Let’s remove all individuals with 2 missing loci:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">2</span>/<span class="kw">nLoc</span>(nancycats)) %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats %&gt;%
+<span class="st">  </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">2</span>/<span class="kw">nLoc</span>(nancycats)) %&gt;%
 <span class="st">  </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## 
-##  1 genotype contained missing values greater than 22.2222222222222%.
-##  Removing 1 genotype : N310</code></pre>
-<p><img src="Locus_Stats_files/figure-html/unnamed-chunk-5-1.png" title="Plot of missing data" alt="Plot of missing data" width="700px" /></p>
+<div class="figure">
+<img src="Locus_Stats_files/figure-html/unnamed-chunk-5-1.png" alt="Plot of missing data" width="700px" />
+<p class="caption">
+Plot of missing data
+</p>
+</div>
 <p>We only found one individual in population 11.</p>
 <!--
 Replacing missing data
@@ -533,21 +605,21 @@ at the first locus. Here is the un-replaced data for reference:
 
 ```r
 nan1 <- popsub(nancycats, 1, drop = TRUE) # Dropping alleles not in that population.
-tab(nan1[loc = "L1"])
+tab(nan1[loc = "fca8"])
 ```
 
 ```
-##     
-## N215
-## N216
-## N217
-## N218
-## N219
-## N220
-## N221
-## N222
-## N223
-## N224
+##      fca8.133 fca8.135 fca8.137 fca8.143
+## N215       NA       NA       NA       NA
+## N216       NA       NA       NA       NA
+## N217        0        1        0        1
+## N218        1        1        0        0
+## N219        1        1        0        0
+## N220        0        1        0        1
+## N221        0        2        0        0
+## N222        0        1        0        1
+## N223        0        0        1        1
+## N224        0        2        0        0
 ```
 
 
@@ -581,6 +653,10 @@ tab(popsub(nanzero, 1, drop = TRUE)[loc = "fca8"])
 The `NA`s have been replaced with zeroes. Now let's look at what happens when we
 replace with `"mean"`.
 
+> Note: We get a warning with this command that says `@tab does not contain integers`. 
+> This is because the `genind` object should only contain counts of alleles, but 
+> replacing missing data with the mean will give decimal numbers (aka numeric).
+
 
 ```r
 nanmean <- missingno(nancycats, "mean")
@@ -593,6 +669,14 @@ nanmean <- missingno(nancycats, "mean")
 
 ```r
 tab(popsub(nanmean, 1, drop = TRUE)[loc = "fca8"])
+```
+
+```
+## Warning in validityMethod(object): @tab does not contain integers; as of
+## adegenet_2.0-0, numeric values are no longer used
+
+## Warning in validityMethod(object): @tab does not contain integers; as of
+## adegenet_2.0-0, numeric values are no longer used
 ```
 
 ```
@@ -939,7 +1023,12 @@ newmat[newmat &gt;<span class="st"> </span>alpha] &lt;-<span class="st"> </span>
 <p>Now we can create a simple heatmap with <code>levelplot</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;lattice&quot;</span>)
 <span class="kw">levelplot</span>(<span class="kw">t</span>(newmat))</code></pre></div>
-<p><img src="Locus_Stats_files/figure-html/unnamed-chunk-11-1.png" title="Heatmap showing significant departures from HWE" alt="Heatmap showing significant departures from HWE" width="700px" /></p>
+<div class="figure">
+<img src="Locus_Stats_files/figure-html/unnamed-chunk-11-1.png" alt="Heatmap showing significant departures from HWE" width="700px" />
+<p class="caption">
+Heatmap showing significant departures from HWE
+</p>
+</div>
 <p>This simple plot shows us loci in rows and populations in columns. Note, that all loci shown in pink are loci suspected of not being in HWE with <span class="math inline">\(p \leq 0.05\)</span>.</p>
 </div>
 </div>
@@ -947,15 +1036,11 @@ newmat[newmat &gt;<span class="st"> </span>alpha] &lt;-<span class="st"> </span>
 <h2>References</h2>
 <div id="refs" class="references">
 <div id="ref-goss2014irish">
-<p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
+<p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The Irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
 </div>
 </div>
 </div>
 
-<!-- </div>
-</div>
-</div>
- -->
 
 
 
@@ -964,8 +1049,11 @@ newmat[newmat &gt;<span class="st"> </span>alpha] &lt;-<span class="st"> </span>
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 
@@ -976,7 +1064,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

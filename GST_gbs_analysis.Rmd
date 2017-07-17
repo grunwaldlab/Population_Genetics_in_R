@@ -1,0 +1,96 @@
+---
+title: "gst_gbs_data"
+author: "Javier F. Tabima"
+date: "7/14/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message=FALSE}
+library(vcfR)
+library(poppr)
+library(ape)
+library(RColorBrewer)
+```
+
+
+```{r}
+rubi.VCF <- read.vcfR("prubi_gbs.vcf.gz")
+```
+
+## Additional step 2: Calculating population structure using $F_{ST}$
+
+A standard way to calculate population structure in population genetics is using the fixation index ($F_{ST}$) proposed by Sewall Wright [@wright1949genetical, @wright1978evolution].
+
+
+The fixation index measures population differentiation due to genetic structure, and is based on the variance of the allele frequencies between populations.
+$F_{ST}$ values can be calculated for any molecular marker.
+
+The R package *vcfR* includes a function to calculate differentiation measures from VCF data.
+The function `genetic_diff()` includes options for Nei's $G_{ST}$ `r citep(bib[c("nei1973analysis")])`, including Hedrick's $G'_{ST}$ correction for high allelism `r citep(bib[c("hedrick2005standardized")])` , as well as Jost's $D$ `r citep(bib[c("jost2008gst")])`.
+
+
+```{r}
+myDiff <- genetic_diff(rubi.VCF, pop.data$State, method = "nei")
+knitr::kable(t(as.matrix(round(colMeans(myDiff[,c(3:10,13)], na.rm = TRUE), digits = 3))))
+```
+
+The calculation of Nei´s $G_{ST}$ and Hedrick´s $G'_{ST}$ indicate that there is a low degree of  population differentiation across states in the western USA. 
+$F_{ST}$ values have a range from 0 (no genetic structure) to 1 (complete population structure). 
+(However, an unbiased estimate may be slightly negative.)
+Hedrick´s $G'_{ST}$ index rescales Nei´s $G_{ST}$ values into a range from 0 to 1 for loci with many alleles.
+These indices can be thought of as analogs to $F_{ST}$ values.
+
+While $F_{ST}$ range from 0 to 1, they do not scale linearly.
+That is, two populations with an $F_{ST}$ of 0.5 should not be interpreted as being 50% differentiated.
+Wright suggested the following guidelines for $F_{ST}$ values [@wright1978evolution]:
+
+- $F_{ST}$ values from 0 to 0.05: Little genetic differentiation
+- $F_{ST}$ values from 0.05 to 0.15: Moderate genetic differentiation
+- $F_{ST}$ values from 0.15 to 0.25: Great genetic differentiation
+- $F_{ST}$ values greater than 0.25: Very great genetic differentiation
+
+These guidelines are valid for our $G'_{ST}$ values as well.
+For a more extensive discussion on the interpretation of $F_{ST}$ values, we recommend chapter 4 in @hartl2007.
+
+Both measurements of population differentiation for *P. rubi* show a moderate degree of differentiation among populations (Hedrick´s $G'_{ST}$ = 0.084). 
+
+However, these results from the population differentiation calculation are obtained by estimating the mean for each of the indices in the function.
+Each variant has its own estimation for each index in the `genetic_diff` function.
+We can visualize the distribution of indices across all variant positions using a violin plot:
+
+
+```{r, fig.height=6}
+dpf <- melt(myDiff[,c(3:6,10,13)], varnames=c('Index', 'Sample'), value.name = 'Depth', na.rm=TRUE)
+p <- ggplot(dpf, aes(x=variable, y=Depth)) + geom_violin(fill="#8dd3c7", adjust = 2.8)
+p <- p + xlab("")
+p <- p + ylab("")
+p <- p + theme_bw()
+p <- p + scale_y_continuous(breaks=seq(0.05, 0.95, by=0.1))
+p <- p + geom_hline(yintercept = c(0.05, 0.15, 0.25), color = "#B22222", lwd = 1)
+
+p
+```
+
+The violin plot shows a high abundance of variants with low values for each index, indicating that the low values of population differentiation are common in our analysis. 
+Nonetheless, we see a number of outlier variants in the high ends of the distribution. 
+These variants represent sites in the genome under high differentiation.
+We can visualize these results by plotting the value of the index of interest (in this example, Hedrick´s $G'_{ST}$) against the position in the genome. These "Manhattan plots" allow visualization of differentiation along a portion of the genome:
+
+```{r, fig.height=6}
+plot(1:nrow(myDiff), myDiff$Gprimest, xlab = "", ylab = "", xaxt = "n", pch = 21, bg = myDiff$CHROM, yaxt='n')
+abline(h=0)
+title(ylab = expression("G'"[ST]))
+abline(h=c(0.05, 0.15, 0.25), col = "#B22222")
+axis(side=2, at=seq(0.05, 0.95, by=0.1), las=2)
+title(xlab = "Position", line = 1)
+```
+
+
+We observe that the majority of variants have very low values of Hedrick´s $G'_{ST}$, as expected from previous results.
+However, there are positions in the genome with high Hedrick´s $G'_{ST}$ values.
+Note however, that GBS data is very different than whole genome sequence data, as the variants that are obtained by GBS do not represent long stretches of the genome but only fragments scattered throughout the genome.
+We would need variant calls for a whole genome to find regions of divergence.

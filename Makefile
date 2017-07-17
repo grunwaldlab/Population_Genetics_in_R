@@ -1,30 +1,13 @@
 
-HTML_FILES := $(patsubst %.Rmd, %.html ,$(wildcard *.Rmd))
+# http://kbroman.org/minimal_make/
+# http://stackoverflow.com/a/10943794
 
-all: clean toc html
+all:
+	Rscript -e "library(rmarkdown); render_site('.')"
 
-toc:
-	perl update_toc.pl -t toc.txt -v -html include/before_body.html
+#	cd faq; Rscript -e "library(rmarkdown); render('subset_data_to_1chrom.Rmd')"
 
-appendix:
-	python make_appendix.py -v
 
-html: $(HTML_FILES)
-
-oldrmd:
-	R --slave -e "devtools::install_github('rstudio/rmarkdown', ref = 'b96214b9ac86b437067a0aa21442203f52face83')"
-
-newrmd:
-	R --slave -e "install.packages('rmarkdown', repo = 'http://cran.at.r-project.org')"
-
-%.html: %.Rmd
-	R --slave -e "rmarkdown::render('$<')"
-
-# Render a single Rmd file. 
-# $ make render f=myFile.Rmd
-render: $(f) 
-	R --slave -e "rmarkdown::render('$<')"
-
-.PHONY: clean
 clean:
-	$(RM) $(HTML_FILES)
+	@rm -rf *_cache
+	@rm -rf *_files

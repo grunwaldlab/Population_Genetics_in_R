@@ -1,0 +1,19 @@
+---
+title: "GBS pairwise differentation"
+---
+
+The results show that there is a small but notable set of variants evolving independently across the western states in USA, but we cannot determine if the differentiation ocurrs between OR and WA, OR and CA, or CA and WA.
+The `pairwise_genetic_diff()` function allows us to calculate the indices of population differentiation between populations in a pairwise manner.
+To do this we need to create a factor to indicate population membership for each individual.
+We already have this information from the `pop.data` object we created at the beggining of this tutorial.
+
+```{r, eval=FALSE}
+myPops <- as.factor(pop.data$State)
+myDiff <- pairwise_genetic_diff(rubi.VCF, myPops, method = "nei")
+colMeans(myDiff[,c(4:ncol(myDiff))], na.rm = T)
+```
+
+The results from the `pairwise_genetic_diff` indicate that the highest population differentiation ocurrs between CA and OR, while CA-WA and OR-WA have considerably lower values of $G_{ST}$ and $G'_{ST}$. 
+These results support the previous findings, where CA and OR have a higher degree of genetic diversity between states, and WA seems to be very similar to both OR and CA, indicating the presence of gene flow across these states. 
+
+In conclusion, we can say that the pairwise $G_{ST}$ analyses gives support to the conclusions we drew previously: There is low population structure between geographic locations across populations of *P. rubi* in the western USA. Nonetheless, we were able to determine great genetic differentiation between CA and OR. These results indicate that there is more limited gene flow between these two geographic locations than from CA towards Wa and from OR towards WA.

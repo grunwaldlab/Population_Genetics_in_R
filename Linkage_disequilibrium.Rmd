@@ -5,12 +5,13 @@
   cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
   bib <- read.bibtex("bibtexlib.bib")
   opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, cache = TRUE, fig.width = 7, fig.height = 7)
-  if (html) opts_chunk$set(out.width = "700px", dpi = 300) 
-  # use this to set knitr options: 
+  if (html) opts_chunk$set(out.width = "700px", dpi = 300)
+  # use this to set knitr options:
   # http://yihui.name/knitr/options #chunk_options
 ```
 ---
-title: "8: Linkage disequilibrium"
+title: "Linkage disequilibrium"
+subtitle: "*NJ Gr&uuml;nwald, ZN Kamvar and SE Everhart*"
 ---
 
 In this chapter we will formally test if populations are in linkage
@@ -24,14 +25,14 @@ association or related indices to test this phenomenon.
 
 # The index of association
 
-The index of association ($I_A$) was originally proposed by Brown et al. 
+The index of association ($I_A$) was originally proposed by Brown et al.
 `r citep(bib[c("brown1980multilocus")])` and implemented in the *poppr* R
 package `r citep(bib[c("kamvar2014poppr")])` using a permutation approach to
-assess if loci are linked as described previously by Agapow and Burt 
+assess if loci are linked as described previously by Agapow and Burt
 `r citep(bib[c("agapow2001indices")])`. Agapow and Burt also described the index
 $\bar{r}_d$ that accounts for the number of loci sampled that is less biased and
 will be used here. The data we will use in this chapter are populations of
-*Phytophthora infestans* from North and South America 
+*Phytophthora infestans* from North and South America
 `r citep(bib["goss2014irish"])`. We will use the index of association to test the hypothesis that Mexico is the putative origin of *P. infestans* where populations are expected to be sexual while populations in South America are expected to be clonal.
 
 First, we need to load the packages needed for this analysis.
@@ -55,7 +56,7 @@ cat("|================================================================| 100%\n")
 # the function options for ia() include:
 # ia(pop, sample = 0, method = 1, quiet = FALSE, missing = "ignore", hist = TRUE)
 MX <- popsub(Pinf, "North America")
-set.seed(20154) 
+set.seed(20154)
 MXia <- ia(MX, sample = 999, quiet=TRUE)
 MXia
 ```
@@ -104,7 +105,7 @@ cat("|================================================================| 100%\n")
 # the function options for ia() include:
 # ia(pop, sample = 0, method = 1, quiet = FALSE, missing = "ignore", hist = TRUE)
 SA <- popsub(Pinf, "South America")
-set.seed(20154) 
+set.seed(20154)
 SAia <- ia(SA, sample=999, quiet=TRUE)
 SAia
 ```
@@ -128,7 +129,7 @@ hypothesis of no linkage among markers. We thus have support for populations in
 Mexico being sexual while those in South America are clonal.
 
 This approach has been applied to provide support for Mexico as the putative
-center of origin of the potato late blight pathogen *P. infestans* 
+center of origin of the potato late blight pathogen *P. infestans*
 `r citep(bib[c("goss2014irish")])`. At the center of origin this organism is
 expected to reproduce sexually, while South American populations are clonal.
 
@@ -160,7 +161,7 @@ cat("|================================================================| 100%\n")
 sapair <- SA %>% clonecorrect(strata = ~Continent/Country) %>% pair.ia(quiet = TRUE)
 ```
 
-The heatmaps produced make it look like there is more linkage in the Mexican 
+The heatmaps produced make it look like there is more linkage in the Mexican
 population! But this is where looks can be deceiving. The color palettes are
 scaled to the data. We can confirm it by looking at the values:
 
@@ -180,15 +181,14 @@ heatmap for the South American population has grey squares in it.
 ### Plotting the output of pair.ia
 
 The output of pair.ia is a matrix that also has a class of "pairia". It has a
-specific plot method that we can use to plot the output again and set a standard 
-limit to the plot by specifying a range. 
+specific plot method that we can use to plot the output again and set a standard
+limit to the plot by specifying a range.
 
 ```{r}
 plotrange <- range(c(mxpair, sapair), na.rm = TRUE)
 plot(mxpair, limits = plotrange)
-plot(sapair, limits = plotrange) 
+plot(sapair, limits = plotrange)
 ```
 
 References
 ----------
-

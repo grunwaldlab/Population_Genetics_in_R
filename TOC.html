@@ -4,117 +4,54 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
 
 
+
 <title>Table of contents</title>
 
-<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/readable.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
 
-  ga('create', 'UA-52691601-2', 'auto');
-  ga('send', 'pageview');
-
-</script>
-
-<!---
-
-<style type="text/css">
-
-/* padding for bootstrap navbar */
-body {
-  padding-top: 50px;
-  padding-bottom: 40px;
-  padding-right: 50px;
-  padding-left: -50px;
-}
-@media (max-width: 979px) {
-  body {
-    padding-top: 0;
-  }
-}
-
- offset scroll position for anchor links (for fixed navbar)  
-@media (min-width: 980px) {
-  .section h2 {
-    padding-top: 52px;
-    margin-top: -52px;
-  }
-  .section h3 {
-    padding-top: 52px;
-    margin-top: -52px;
-  }
-}
-
-
-/* don't use link color in navbar */
-.dropdown-menu>li>a {
-  color: black;
-}
-
-</style>
--->
 
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 50px;
-  padding-bottom: 40px;
+h1 {
+  font-size: 34px;
 }
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h2 {
-  padding-top: 55px;
-  margin-top: -55px;
+h1.title {
+  font-size: 38px;
 }
-.section h3 {
-  padding-top: 55px;
-  margin-top: -55px;
+h2 {
+  font-size: 30px;
 }
-/* don't use link color in navbar */
-.dropdown-menu>li>a {
-  color: black;
+h3 {
+  font-size: 24px;
 }
-/* some padding for disqus */
-#disqus_thread {
-  margin-top: 45px;
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
 }
 </style>
 
-<link rel="stylesheet" href="libs/font-awesome-4.1.0/css/font-awesome.min.css"/>
-
-<style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
-<script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
-}
-</script>
-
-
+<link rel="stylesheet" href="styles.css" type="text/css" />
 
 </head>
 
@@ -130,15 +67,89 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
 }
 </style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 61px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+
+.section h2 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h3 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h4 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h5 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h6 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
 <div class="container-fluid main-container">
 
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
 
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -146,106 +157,219 @@ img {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <!-- HOME -->
-      <a class="navbar-brand" href="index.html"><b>Population Genetics in R</b></a>
+      <a class="navbar-brand" href="index.html">Population genetics and genomics in R</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <!-- Table of contents -->
-        <li class="dropdown">
-          <!---<a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>-->
-          <a href="chapters" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Chapters <span class="caret"></span></a>
-            <ol class="dropdown-menu">
-               <li><a href="Preface.html">i. Preface</a></li>
-               <li><a href="Introduction.html">1. Introduction</a></li>
-               <li><a href="Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
-               <li><a href="Data_Preparation.html">3. Data preparation</a></li>
-               <li><a href="First_Steps.html">4. First steps</a></li>
-               <li><a href="Population_Hierarchies.html">5. Population hierarchies and clone correction</a></li>
-               <li><a href="Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
-               <li><a href="Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
-               <li><a href="Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
-               <li><a href="Pop_Structure.html">9. Population structure</a></li>
-               <li><a href="AMOVA.html">10. AMOVA</a></li>
-               <li><a href="DAPC.html">11. Discriminant analysis of principal components (DAPC)</a></li>
-            </ol>
-        </li>
-        <!-- Appendices dropdown -->
-        <li class="dropdown">
-          <!---<a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>-->
-          <a href="appendices" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Appendices <span class="caret"></span></a>
-          <ul class = "dropdown-menu", role = "menu">
-            <li><a href="Data_sets.html">A1. Data sets</a></li>
-            <li><a href="Function_Glossary.html">A1. Function glossary</a></li>
-          </ul>
-        </li>
-        <!-- Author button -->
-        <li><a href="Authors.html">About</a></li>
-        <li class="dropdown">
+        <li>
+  <a href="TOC.html">Table of contents</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part I
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="Getting_ready_to_use_R.html">Getting ready to use R</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part II
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Data_Preparation.html">Data preparation</a>
+    </li>
+    <li>
+      <a href="First_Steps.html">First steps</a>
+    </li>
+    <li>
+      <a href="Population_Strata.html">Population strata and clone correction</a>
+    </li>
+    <li>
+      <a href="Locus_Stats.html">Locus-based statistics and missing data</a>
+    </li>
+    <li>
+      <a href="Genotypic_EvenRichDiv.html">Genotypic evenness, richness, and diversity</a>
+    </li>
+    <li>
+      <a href="Linkage_disequilibrium.html">Linkage disequilibrium</a>
+    </li>
+    <li>
+      <a href="Pop_Structure.html">Population structure</a>
+    </li>
+    <li>
+      <a href="Minimum_Spanning_Networks.html">Minimum Spanning Networks</a>
+    </li>
+    <li>
+      <a href="AMOVA.html">AMOVA</a>
+    </li>
+    <li>
+      <a href="DAPC.html">Discriminant analysis of principal components (DAPC)</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part III
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro_vcf.html">Population genomics and HTS</a>
+    </li>
+    <li>
+      <a href="reading_vcf.html">Reading VCF data</a>
+    </li>
+    <li>
+      <a href="qc.html">Quality control</a>
+    </li>
+    <li>
+      <a href="analysis_of_genome.html">Analysis of genomic data</a>
+    </li>
+    <li>
+      <a href="gbs_analysis.html">Analysis of GBS data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Workshop
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="workshop.html">Workshop</a>
+    </li>
+    <li>
+      <a href="intro_vcf.html">Introduction</a>
+    </li>
+    <li>
+      <a href="reading_vcf.html">VCF data</a>
+    </li>
+    <li>
+      <a href="gbs_analysis.html">Analysis of GBS data</a>
+    </li>
+    <li>
+      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    About
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Authors.html">Authors</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Appendices
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro_to_R.html">Introduction to R</a>
+    </li>
+    <li>
+      <a href="Data_sets.html">Data sets</a>
+    </li>
+    <li>
+      <a href="funpendix.html">Function glossary</a>
+    </li>
+    <li>
+      <a href="https://github.com/grunwaldlab/sandbox1/">Source Code</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
-<!-- 
 
-old rmarkdown version: 
-
-devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa21442203f52face83")
+<div class="fluid-row" id="header">
 
 
- -->
-<!-- <div class="container">
-<div class="row">
-<div class="span10 offset1"> -->
 
-<div id="header">
-<h1 class="title">Table of contents</h1>
+<h1 class="title toc-ignore">Table of contents</h1>
+
 </div>
 
 
-<ol style="list-style-type: lower-roman">
-<li><a href="Preface.html">Preface</a></li>
-</ol>
-<div id="chapters" class="section level3">
-<h3>Chapters</h3>
-<ol style="list-style-type: decimal">
+<ul>
+<li><strong>Part I:</strong>
+<ul>
 <li><a href="Introduction.html">Introduction</a></li>
 <li><a href="Getting_ready_to_use_R.html">Getting ready to use R</a></li>
-<li><a href="Data_Preparation.html">Data formating and preparation</a></li>
-<li><a href="First_Steps.html">First steps</a></li>
-<li><a href="Population_Hierarchies.html">Populations hierarchies: subsetting and clone correction</a></li>
-<li><a href="Locus_Stats.html">Locus stats, heterozygosity, and HWE</a></li>
-<li><a href="Genotypic_EvenRichDiv.html">Genotypic richness, diversity, and eveness</a></li>
+</ul></li>
+<li><strong>Part II: Using traditional markers for population genetic analysis</strong>
+<ul>
+<li><a href="First_Steps.html">First analysis</a></li>
+<li><a href="Population_Strata.html">Population strata and clone correction</a></li>
+<li><a href="Locus_Stats.html">Locus-based statistics and missing data</a></li>
+<li><a href="Genotypic_EvenRichDiv.html">Genotypic evenness, richness, and diversity</a></li>
 <li><a href="Linkage_disequilibrium.html">Linkage disequilibrium</a></li>
-<li><a href="Pop_Structure.html">Population structure: differentiation by <span class="math">\(G_{ST}\)</span>, clustering and minimum spanning networks</a></li>
-<li><a href="AMOVA.html">Analysis of molecular variance (AMOVA)</a></li>
+<li><a href="Pop_Structure.html">Population structure</a></li>
+<li><a href="Minimum_Spanning_Networks.html">Minimum Spanning Networks</a></li>
+<li><a href="AMOVA.html">AMOVA</a></li>
 <li><a href="DAPC.html">Discriminant analysis of principal components (DAPC)</a></li>
-</ol>
-</div>
-<div id="appendices" class="section level3">
-<h3>Appendices</h3>
-<ol style="list-style-type: decimal">
+</ul></li>
+<li><strong>Part III: Using genomic data in population genetics</strong>
+<ul>
+<li><a href="intro_vcf.html">Population genomics based on high throughut sequencing (HTS)</a></li>
+<li><a href="reading_vcf.html">Reading VCF data</a></li>
+<li><a href="qc.html">Quality control</a></li>
+<li><a href="analysis_of_vcf.html">Analysis of genomic data</a></li>
+<li><a href="gbs_analysis.html">Analysis of GBS data</a></li>
+</ul></li>
+<li><strong>About</strong>
+<ul>
+<li><a href="Authors.html">About the authors</a></li>
+</ul></li>
+<li><strong>Appendices</strong>
+<ul>
 <li><a href="Data_sets.html">Data sets</a></li>
-<li><a href="Function_Glossary.html">Function glossary</a></li>
-</ol>
-<div class="references">
+<li><a href="funpendix.html">Function glossary</a></li>
+<li><a href="https://github.com/grunwaldlab/sandbox1/">Source code for this primer</a></li>
+<li><a href="intro_to_R.html">Introduction to R</a></li>
+</ul></li>
+</ul>
 
-</div>
-</div>
 
-<!-- </div>
-</div>
-</div>
- -->
+
 
 </div>
 
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
+
 
 </script>
 
@@ -254,7 +378,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

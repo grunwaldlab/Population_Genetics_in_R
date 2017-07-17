@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Depth plot</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 61px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+
+.section h2 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h3 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h4 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h5 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h6 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Population genetics and genomics in R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="TOC.html">Table of contents</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part I
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="Getting_ready_to_use_R.html">Getting ready to use R</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part II
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Data_Preparation.html">Data preparation</a>
+    </li>
+    <li>
+      <a href="First_Steps.html">First steps</a>
+    </li>
+    <li>
+      <a href="Population_Strata.html">Population strata and clone correction</a>
+    </li>
+    <li>
+      <a href="Locus_Stats.html">Locus-based statistics and missing data</a>
+    </li>
+    <li>
+      <a href="Genotypic_EvenRichDiv.html">Genotypic evenness, richness, and diversity</a>
+    </li>
+    <li>
+      <a href="Linkage_disequilibrium.html">Linkage disequilibrium</a>
+    </li>
+    <li>
+      <a href="Pop_Structure.html">Population structure</a>
+    </li>
+    <li>
+      <a href="Minimum_Spanning_Networks.html">Minimum Spanning Networks</a>
+    </li>
+    <li>
+      <a href="AMOVA.html">AMOVA</a>
+    </li>
+    <li>
+      <a href="DAPC.html">Discriminant analysis of principal components (DAPC)</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part III
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro_vcf.html">Population genomics and HTS</a>
+    </li>
+    <li>
+      <a href="reading_vcf.html">Reading VCF data</a>
+    </li>
+    <li>
+      <a href="qc.html">Quality control</a>
+    </li>
+    <li>
+      <a href="analysis_of_genome.html">Analysis of genomic data</a>
+    </li>
+    <li>
+      <a href="gbs_analysis.html">Analysis of GBS data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Workshop
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="workshop.html">Workshop</a>
+    </li>
+    <li>
+      <a href="intro_vcf.html">Introduction</a>
+    </li>
+    <li>
+      <a href="reading_vcf.html">VCF data</a>
+    </li>
+    <li>
+      <a href="gbs_analysis.html">Analysis of GBS data</a>
+    </li>
+    <li>
+      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    About
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Authors.html">Authors</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Appendices
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro_to_R.html">Introduction to R</a>
+    </li>
+    <li>
+      <a href="Data_sets.html">Data sets</a>
+    </li>
+    <li>
+      <a href="funpendix.html">Function glossary</a>
+    </li>
+    <li>
+      <a href="https://github.com/grunwaldlab/sandbox1/">Source Code</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Depth plot</h1>
+
+</div>
+
+
+<p>Once a sequencing run is complete the data are typically mapped to a reference genome, variants are called and these variant are stored in a VCF file. At this point one of the first questions asked is how well did the sequencing go? One measure of sequencing quality is sequence depth or how many times each position was sequenced. In VCF data only information on the variable positions are reported. But this can be used as a convenient subset of an entire genome. Many variant callers report this information, but not all. Make sure to check your variant caller documentation if you do not see this information in your file, there is a chance it was an option that was not selected. Here we visualize the depth information from a VCF file to provide a perspective on sequence quality.</p>
+<p>We can extract the depth data (DP) with the function <code>extract.gt()</code>. This results in a matrix of depth data. We can take a quick peak at this to remind us what it looks like.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vcfR)
+<span class="co">#vcf &lt;- read.vcfR(&#39;TASSEL_GBS0077.vcf.gz&#39;)</span>
+<span class="kw">data</span>(vcfR_example)
+dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp[<span class="dv">1</span>:<span class="dv">4</span>,<span class="dv">1</span>:<span class="dv">5</span>]</code></pre></div>
+<pre><code>##                      BL2009P4_us23 DDR7602 IN2009T1_us22 LBUS5 NL07434
+## Supercontig_1.50_2              62      12            37    12      NA
+## Supercontig_1.50_246            10      NA             3    NA      NA
+## Supercontig_1.50_549            NA      NA             2    NA      NA
+## Supercontig_1.50_668             1      NA             1    NA       1</code></pre>
+<p>We see that it is a large matrix containing lots of numbers, so viewing it directly is of little use. Here we’ll demonstrate the use of barplots and violin plots to visualize this data.</p>
+<div id="base-barplot" class="section level2">
+<h2>Base barplot</h2>
+<p>Base R includes a great selection of graphical tools. One is <code>barplot()</code>. A few things nice about this function is that it is designed to work on matrices, such as the one we have, and that it is quick to execute.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">12</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>))
+<span class="kw">boxplot</span>(dp, <span class="dt">col=</span><span class="dv">2</span>:<span class="dv">8</span>, <span class="dt">las=</span><span class="dv">3</span>)
+<span class="kw">title</span>(<span class="dt">ylab =</span> <span class="st">&quot;Depth (DP)&quot;</span>)</code></pre></div>
+<p><img src="depth_plot_files/figure-html/unnamed-chunk-4-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>))</code></pre></div>
+<p>We’ve generated a box and whisker plot for each sample where 50% of the data is contained within each colored box and outliers are presented as circles. One issue with this plot is that all of the data seem squished at the bottom of the plot. A log transformation could help this plot. Remember that log of zero is undefined, so if you persue a log transformation you may need to handle these cases.</p>
+</div>
+<div id="violin-plot" class="section level2">
+<h2>Violin plot</h2>
+<p>Violin plots are similar to boxplots except that they attempt to present the distribution of the data that would otherwise be represented by a box. We’ll neeed to load a few packages to add functions to help us. I think you’ll see that violin plots are a little more involved to create, and they are slower to render, but many find them to be more informative and more aesthetically pleasing.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(reshape2)
+<span class="kw">library</span>(ggplot2) 
+<span class="kw">library</span>(cowplot)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;cowplot&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     ggsave</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Melt our matrix into a long form data.frame.</span>
+dpf &lt;-<span class="st"> </span><span class="kw">melt</span>(dp, <span class="dt">varnames=</span><span class="kw">c</span>(<span class="st">&#39;Index&#39;</span>, <span class="st">&#39;Sample&#39;</span>), <span class="dt">value.name =</span> <span class="st">&#39;Depth&#39;</span>, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)
+dpf &lt;-<span class="st"> </span>dpf[ dpf$Depth &gt;<span class="st"> </span><span class="dv">0</span>,]
+
+<span class="co"># Create a row designator.</span>
+<span class="co"># You may want to adjust this</span>
+<span class="co">#samps_per_row &lt;- 20</span>
+samps_per_row &lt;-<span class="st"> </span><span class="dv">18</span>
+myRows &lt;-<span class="st"> </span><span class="kw">ceiling</span>(<span class="kw">length</span>(<span class="kw">levels</span>(dpf$Sample))/samps_per_row)
+myList &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="dt">length =</span> myRows)
+
+for(i in <span class="dv">1</span>:myRows){
+  myIndex &lt;-<span class="st"> </span><span class="kw">c</span>(i*samps_per_row -<span class="st"> </span>samps_per_row +<span class="st"> </span><span class="dv">1</span>):<span class="kw">c</span>(i*samps_per_row)
+  myIndex &lt;-<span class="st"> </span>myIndex[myIndex &lt;=<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(dpf$Sample))]
+  myLevels &lt;-<span class="st"> </span><span class="kw">levels</span>(dpf$Sample)[myIndex]
+  myRegex &lt;-<span class="st"> </span><span class="kw">paste</span>(myLevels, <span class="dt">collapse =</span> <span class="st">&quot;$|^&quot;</span>)
+  myRegex &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;^&quot;</span>, myRegex, <span class="st">&quot;$&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)
+  myList[[i]] &lt;-<span class="st"> </span>dpf[<span class="kw">grep</span>(myRegex, dpf$Sample),]
+  myList[[i]]$Sample &lt;-<span class="st"> </span><span class="kw">factor</span>(myList[[i]]$Sample)
+}
+
+<span class="co"># Create the plot.</span>
+myPlots &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="dt">length =</span> myRows)
+for(i in <span class="dv">1</span>:myRows){
+  myPlots[[i]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(myList[[i]], <span class="kw">aes</span>(<span class="dt">x=</span>Sample, <span class="dt">y=</span>Depth)) +<span class="st"> </span>
+<span class="st">                  </span><span class="kw">geom_violin</span>(<span class="dt">fill=</span><span class="st">&quot;#8dd3c7&quot;</span>, <span class="dt">adjust=</span><span class="fl">1.0</span>, <span class="dt">scale =</span> <span class="st">&quot;count&quot;</span>, <span class="dt">trim=</span><span class="ot">TRUE</span>)
+
+  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] +<span class="st"> </span><span class="kw">theme_bw</span>()
+  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] +<span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_blank</span>(), 
+                  <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">60</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))
+  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] +<span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">trans=</span>scales::<span class="kw">log2_trans</span>(), 
+                  <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">800</span>),
+                  <span class="dt">minor_breaks=</span><span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="dv">2</span>:<span class="dv">10</span>*<span class="dv">10</span>, <span class="dv">2</span>:<span class="dv">8</span>*<span class="dv">100</span>))
+  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] +<span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.major.y=</span><span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#A9A9A9&quot;</span>, <span class="dt">size=</span><span class="fl">0.6</span>) )
+  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] +<span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.minor.y=</span><span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#C0C0C0&quot;</span>, <span class="dt">size=</span><span class="fl">0.2</span>) )
+}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot the plot.</span>
+<span class="kw">plot_grid</span>(<span class="dt">plotlist =</span> myPlots, <span class="dt">nrow =</span> myRows)</code></pre></div>
+<p><img src="depth_plot_files/figure-html/unnamed-chunk-6-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>We can see that the log transformation stretches out the smaller values and compresses the larger values. This allows us to focus on where our data has the greatest density. Things to look for in these plots are whether all samples are equally represented, whether there are a few samples of low quality that may need to be omitted from downstream analyses, or if therre are a small number of jackpot samples that received all the reads at the expense of the other samples. Here the samples appear to be fairly eqaully represented.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

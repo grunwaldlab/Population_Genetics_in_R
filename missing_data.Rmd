@@ -1,0 +1,130 @@
+---
+title: "Missing data"
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.align = 'center')
+knitr::opts_chunk$set(fig.width = 12)
+```
+
+
+```{r, results='hide', echo = FALSE}
+suppressPackageStartupMessages( library(vcfR) )
+#vcf <- read.vcfR('TASSEL_GBS0077.vcf.gz')
+data('vcfR_example')
+dp <- extract.gt(vcf, element = "DP", as.numeric=TRUE)
+```
+
+
+As the size of our dataset grow, in terms of samples and variants, the size of our data matrix grows.
+As the size of our data matrix grows, it also increases the opportunity to have missing data.
+Also, some of our quality filtering steps increased the degree of missingness in our data matrix by setting values that we determined to be of unusual quality to NA.
+One way of managing missing data is to use **imputation**, a set of methods that attempts to infer what the most likely genotype should be and replaces the missing genotype with the interpolated genotype.
+However, if your data has a large degree of missingness you may want to attempt to mitigate missingness instead of interpolation
+Or you may want to implement a mitigation step prior to interpolation in the hope that this will improve the performance of the interpolation.
+Missing data can frequently be due to samples (columns) or variants (rows) of low quality.
+Here we demonstrate how to identify samples and variants in the data set that have a high degree of missingness.
+In another section we'll show how to omit them.
+
+
+## Overall missingness
+
+
+A first perspective on how complete our dataset is can be provided by the `show` method for the vcfR object.
+When you invoke the name of an object with no arguments it invokes the show method.
+
+
+```{r}
+vcf
+```
+
+
+The show method for an object typically reports a summary of what is contained in the object.
+Here we see the number of samples and variants in our data.
+We also see a report of what the percentage of missing data is in our object.
+In the context of vcfR this is the proportion of variants scored as NA.
+Note that if a variant includes some data associated with a missing genotype it will not be recognized as missing.
+For example, a missing genotype could be associated with a depth information as follows.
+
+
+```{r, eval=FALSE}
+GT:DP ./.:1
+```
+
+
+Because this variant does include some data it will not be recognized as missing until the genotypes are extracted and queried for missingness.
+This means that the degree of missingness reported by the `show` method may be an under representation.
+It does provide an easily accessed first perspective on the proportion of missing data.
+To determine the cause of this missing data (e.g., are there particular samples or variants of poor quality) we will look further.
+
+
+## Quantifying missingness, one sample
+
+
+To quantify missingness for a single sample we can use the function `is.na()`.
+This function uses a vector as an argument and returns a logical vector (TRUE and FALSE) indicating which values are NA.
+If we remind ourselves that TRUEs and FALSEs are numerically encoded as 1 and 0 it reminds us we can take a sum of this logical vector to determine the degree of missingness.
+
+
+```{r}
+as.numeric(TRUE) # What are you trying to say with this code snippet? Its confusing.
+sum(is.na(dp[,1]))
+```
+
+
+This reports the number of missing variants in the first sample.
+We could similarly count the number of missing samples from a variant by accessing a row instead of a column.
+We could also convert this to a percentage by using `length()` to determine the total number of values in either the column or row and use this as a denominator.
+
+
+## Quantifying missingness, all samples
+
+
+This is illustrative of what we can accomplish for a single sample or variant.
+We typically have many samples an tens of thousand (or more) variants.
+We can extend the functionality of the above example to many columns or rows by using the `apply()` function.
+See the section on [apply](https://stat.ethz.ch/R-manual/R-devel/library/base/html/apply.html) if you are unfamiliar with this function.
+Because we will be summarizing many samples we will use a barplot to visualize the results as opposed to trying to scrutinize the numerical information.
+
+
+```{r}
+myMiss <- apply(dp, MARGIN = 2, function(x){ sum(is.na(x)) })
+myMiss <- myMiss/nrow(vcf)
+
+library(RColorBrewer)
+palette(brewer.pal(n=12, name = 'Set3'))
+
+par(mar = c(12,4,4,2))
+barplot(myMiss, las = 2, col = 1:12)
+title(ylab = "Missingness (%)")
+par(mar = c(5,4,4,2))
+```
+
+
+This allows us to visualize the degree of missingness on a per sample basis.
+We see that the sample P7272 has a particularly high amount of missing genotypes.
+This is because this sample is a different species than the reference it was mapped to.
+One decision could be to omit this sample.
+However, if the goal is to make comparisons among these species we may instead search for variants that are present in both taxa.
+
+
+We can do something similar to query the variants (rows) for missingness.
+However, when we have a large number of variants we wouldn't want to visualize this with a barchart.
+It would require a barchart with 60 thousand bars.
+Instead of using a barchart we'll use a histogram.
+
+
+
+```{r, fig.width=5}
+myMiss <- apply(dp, MARGIN = 1, function(x){ sum(is.na(x)) })
+myMiss <- myMiss/ncol(vcf@gt[,-1])
+
+hist(myMiss, col = "#8DD3C7", xlab = "Missingness (%)", main = "")
+```
+
+
+We've now seen how we can create summaries of our data matrix over both rows and columns.
+Once we have this knowledge in hand we may develop a plan for managing this data.
+

@@ -1,0 +1,90 @@
+---
+title: "Genetic differentiation"
+output: html_document
+bibliography: bibtexlib.bib
+---
+
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.align = 'center')
+knitr::opts_chunk$set(fig.width = 8)
+knitr::opts_chunk$set(fig.height = 8)
+```
+
+
+A fundamental question to most population studies is whether populations are diverse and whether this diversity is shared among the populations?
+To address the question of within population diversity geneticists typically report heterozygosity.
+This is the probability that two alleles randomly chosen from a population will be different [@nei1973analysis].
+Ecologists may know this as Simpson's Index [@simpson1949measurement].
+To address differentiation population geneticists typically utilize $F_{ST}$ or one of its analogues.
+Population differentiation measured by $F_{ST}$ was originally proposed by Sewall Wright [@wright1949genetical].
+This was later extended to a method based on diversity by Masatoshi Nei [@nei1973analysis].
+As researchers applied these metrics to microsatellites, genetic markers with a large number of alleles, it became clear that Nei's measure would not correctly range from zero to one, so Philip Hedrick proposed a correction [@hedrick2005standardized].
+More recently, Lou Jost proposed another alternative [@jost2008gst].
+You can tell a topic is popular when so many variants of it are generated.
+And there are more variants than mentioned here.
+A nice discussion as to which measure may be appropriate for your data was posteed to teh Molecular Ecologist blog titled [should I use $F_{ST}$, $G_{ST}$ or $D$?](http://www.molecularecologist.com/2011/03/should-i-use-fst-gst-or-d-2/).
+
+
+In `vcfR`, the function `genetic_diff()` was implemented to measure population diversity and differentiation.
+Because VCF data typically do not include population information we'll have to supply it as a factor.
+The method 'nei' employed here is based on the methods reported by Hedrick [@hedrick2005standardized].
+The exception is that the heterozygosities are weighted by the number of alleles observed in each population.
+This was inspired by `hierfstat::pairwise.fst()` which uses the number of individuals observed in each population to weight the heterozygosities.
+By using the number of alleles observed instead of the number of individuals we remove an assumption about how many alleles each individual may contribute.
+That is, we should be able to accomodate samples of mixed ploidy.
+
+
+```{r}
+library(vcfR)
+data(vcfR_example)
+pop <- as.factor(c("us", "eu", "us", "af", "eu", "us", "mx", "eu", "eu", "sa", "mx", "sa", "us", "sa", "Pmir", "us", "eu", "eu"))
+myDiff <- genetic_diff(vcf, pops = pop, method = 'nei')
+knitr::kable(head(myDiff[,1:15]))
+```
+
+
+The function returns the chromosome and position of each variant as provided in the VCF data.
+This should allow you to align its output with the VCF data.
+The heterozygosities for each population are reported as well as the total heterozygosity, followed by the number of alleles observed in each population.
+Note that in some populations zero alleles were observed.
+Populations with zero alleles reported heterozygosities of 'NaN' because of this absence of data.
+
+
+```{r}
+knitr::kable(head(myDiff[,16:19]))
+```
+
+
+The remaining columns contain $G_{ST}$, the maximum heterozygosity, the maximum $G_{ST}$ and finally $G'_{ST}$.
+The maximum heterozygosity and the maximum $G_{ST}$ are intermediary values used to calculate $G'_{ST}$.
+They are typically not reported but provide values to help validate that $G'_{ST}$ was calculated correctly.
+Note that the populations that had zero alleles, and therefore a heterozygosity of 'NaN', contributed to $G_{ST}$s that were also 'NaN'.
+To avoid this you may want to consider omitting populations with a small sample size or that contain a large amount of missing data.
+
+
+We now have information for each variant in the VCF data.
+Because this is typically a large quantity of information, we'll want to summarize it.
+One way is to take averages of the data.
+
+
+```{r}
+knitr::kable(round(colMeans(myDiff[,c(3:9,16,19)], na.rm = TRUE), digits = 3))
+```
+
+
+Another way to summarize data is to use violin plots.
+
+
+```{r, fig.height=4}
+library(reshape2)
+library(ggplot2)
+
+dpf <- melt(myDiff[,c(3:8,19)], varnames=c('Index', 'Sample'), value.name = 'Depth', na.rm=TRUE)
+
+p <- ggplot(dpf, aes(x=variable, y=Depth)) + geom_violin(fill="#2ca25f", adjust = 1.2)
+p <- p + xlab("")
+p <- p + ylab("")
+p <- p + theme_bw()
+p
+```

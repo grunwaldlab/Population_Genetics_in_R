@@ -4,15 +4,16 @@
   library("knitr")
   cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
   bib <- read.bibtex("bibtexlib.bib")
-  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, 
+  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE,
                  fig.width = 10, fig.height = 6, cache = TRUE)
   if (html) opts_chunk$set(out.width = "700px", dpi = 300)
-  # use this to set knitr options: 
+  # use this to set knitr options:
   # http://yihui.name/knitr/options #chunk_options
 ```
 
 ---
-title: "10: Minimum Spanning Networks"
+title: "Minimum spanning networks"
+subtitle: "*ZN Kamvar, SE Everhart and NJ Gr&uuml;nwald*"
 ---
 
 Minimum spanning networks (MSN) are a great way to visualize relationships among
@@ -38,8 +39,8 @@ that do not require a distance matrix:
 
 ### Minimum spanning network
 
-For this section, we will use the `monpop` data set from `r citep(bib['everhart2014finescale'])`. 
-See [Chapter 6](Genotypic_EvenRichDiv.html) for more details. We will be
+For this section, we will use the `monpop` data set from `r citep(bib['everhart2014finescale'])`.
+See [Chapter 5](Genotypic_EvenRichDiv.html) for more details. We will be
 focusing on sources of multilocus genotypes. The seasonal epidemic of the
 pathogen *Monilinia fructicola* begins with an ascospore (sexual propagule)
 released from a mummified peach fruit that had overwintered on the ground. It
@@ -67,16 +68,16 @@ t26 <- monpop %>% setPop(~Tree) %>% popsub("26") %>% setPop(~Year/Symptom)
 t26
 ```
 
-Now that we have our tree, let's calculate a MSN using Bruvo's distance 
-`r citep(bib['bruvo2004simple'])`. Remember that this distance is based on a 
-stepwise mutation model, so we have to first specify what kind of repeats units 
+Now that we have our tree, let's calculate a MSN using Bruvo's distance
+`r citep(bib['bruvo2004simple'])`. Remember that this distance is based on a
+stepwise mutation model, so we have to first specify what kind of repeats units
 we have in our data (eg. dinucleotide = 2, trinucleotide = 3, etc.):
 
 ```{r, calculate_msn}
 # Set up our repeat lengths and populations to analyze
-reps <- c(CHMFc4 = 7, CHMFc5 = 2, CHMFc12 = 4, 
+reps <- c(CHMFc4 = 7, CHMFc5 = 2, CHMFc12 = 4,
           SEA = 4, SED = 4, SEE = 2, SEG = 6,
-          SEI = 3, SEL = 4, SEN = 2, 
+          SEI = 3, SEL = 4, SEN = 2,
           SEP = 4, SEQ = 2, SER = 4)
 
 sub9 <- c("9_BB", "9_FR")
@@ -143,7 +144,7 @@ scroll down)
 ![Intial view of imsn](images/imsn_initial.png)
 
 We can see that there are five tabs and a sidebar. For now, we'll explain what
-is on the sidebar. 
+is on the sidebar.
 
 ![status view](images/imsn_status.png)
 
@@ -189,7 +190,7 @@ four choices presented:
 
 The parameters listed here allow you to modify the look and feel of the graph
 without having to recalculate the data. We encourage the user to play around
-with these to see what the different sliders and buttons do. 
+with these to see what the different sliders and buttons do.
 
 ## Output (tabs)
 
@@ -197,14 +198,14 @@ Next let's explore the different tabs on the MSN popup window:
 
 ### Plot
 
-This is the tab you see immediately. It has nothing in it because we haven't 
-told `imsn()` to do anything. Let's hit **Go!** with our default parameters and 
+This is the tab you see immediately. It has nothing in it because we haven't
+told `imsn()` to do anything. Let's hit **Go!** with our default parameters and
 see what happens.
 
 ![minimum spanning network of partial_clone](images/imsn_go.png)
 
 We now have a minimum spanning network of partial clone based a dissimilarity
-distance ("diss.dist") where the distance is represented as counts of dissimilar alleles. 
+distance ("diss.dist") where the distance is represented as counts of dissimilar alleles.
 
 ### Data
 
@@ -246,7 +247,7 @@ plot_poppr_msn(partial_clone,
 
 This allows you to save the plot to your computer in pdf or png format.
 
-### Session Information 
+### Session Information
 
 ![](images/imsn_sessioninfo.png)
 
@@ -255,8 +256,8 @@ This shows you what package versions were used to create the graph.
 
 ## Re-creating MSNs
 
-We will now recreate the minimum spanning network that was displayed for the 
-monpop data set. 
+We will now recreate the minimum spanning network that was displayed for the
+monpop data set.
 
 First, choose the `t26` data set that we defined above:
 
@@ -293,7 +294,7 @@ Once everthing is set, hit **reData** and the graph will reset just like this:
 ## Your turn (use the data for *Phytophthora ramorum*)
 
 Now we will use data from `r citet(bib["kamvar2015spatial"])`. This is the
-Sudden Oak Death pathogen collected from forests in Curry County, Oregon and 
+Sudden Oak Death pathogen collected from forests in Curry County, Oregon and
 nurseries in California and Oregon `r citep(bib["goss2009population"])`. We will
 use this data set to see why reticulations are important for highly clonal
 organisms.
@@ -309,7 +310,7 @@ Pram
 
 This data has a few things in the "other" slot that we need. First is the repeat
 lengths called "REPLEN" and the other is a vector of hexadecimal colors for each
-population called "comparePal". 
+population called "comparePal".
 
 ```{r, pramother}
 other(Pram)$REPLEN
@@ -346,7 +347,7 @@ Here are the parameters you should use:
     - Random Seed: **78**
     - Labels: **none**
     - Palette: **Custom: `other(Pram)$comparePal`** (Paste code into the pop-up app.)
-    
+
 When you finish your session, you can exit the app by closing the window.
 
 # References

@@ -6,7 +6,7 @@
   opts_chunk$set(tidy = FALSE)
 ```
 ---
-title: "A1: Data sets used in this primer"
+title: "Data sets used in this primer"
 ---
 
 AFLP (diploid, clonal): `Aeut`
@@ -78,6 +78,23 @@ samples genotyped over 125 SNP markers. It contains a wealth of information in
 the `@other` slot including year isolated, month isolated, country of origin,
 and more. This data set is utilized to demonstrate the DAPC function in
 *adegenet*.
+
+
+GBS (diploid): `Prubi_gbs`
+----
+
+
+```{r child = 'data_gbs.Rmd'}
+```
+
+
+Genomic (diploid): `pinfsc50`
+----
+
+
+```{r child = 'data_genome.Rmd'}
+```
+
 
 References
 ----------

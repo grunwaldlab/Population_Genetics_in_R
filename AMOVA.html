@@ -4,98 +4,22 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
 
 
 
-<title>11: AMOVA</title>
+<title>AMOVA</title>
 
-<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-52691601-2', 'auto');
-  ga('send', 'pageview');
-
-</script>
-
-<!---
-
-<style type="text/css">
-
-/* padding for bootstrap navbar */
-body {
-  padding-top: 50px;
-  padding-bottom: 40px;
-  padding-right: 50px;
-  padding-left: -50px;
-}
-@media (max-width: 979px) {
-  body {
-    padding-top: 0;
-  }
-}
-
- offset scroll position for anchor links (for fixed navbar)  
-@media (min-width: 980px) {
-  .section h2 {
-    padding-top: 52px;
-    margin-top: -52px;
-  }
-  .section h3 {
-    padding-top: 52px;
-    margin-top: -52px;
-  }
-}
-
-
-/* don't use link color in navbar */
-.dropdown-menu>li>a {
-  color: black;
-}
-
-</style>
--->
-
-
-
-<style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 50px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h2 {
-  padding-top: 55px;
-  margin-top: -55px;
-}
-.section h3 {
-  padding-top: 55px;
-  margin-top: -55px;
-}
-/* don't use link color in navbar */
-.dropdown-menu>li>a {
-  color: black;
-}
-/* some padding for disqus */
-#disqus_thread {
-  margin-top: 45px;
-}
-</style>
-
-<link rel="stylesheet" href="libs/font-awesome-4.1.0/css/font-awesome.min.css"/>
+<link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -170,6 +94,7 @@ h6 {
 }
 </style>
 
+<link rel="stylesheet" href="styles.css" type="text/css" />
 
 </head>
 
@@ -198,11 +123,62 @@ button.code-folding-btn:focus {
 </style>
 
 
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 61px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+
+.section h2 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h3 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h4 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h5 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h6 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
 
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -216,7 +192,7 @@ $(document).ready(function () {
 
 
 
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -224,87 +200,165 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <!-- HOME -->
-      <a class="navbar-brand" href="index.html"><b>Population Genetics in R</b></a>
+      <a class="navbar-brand" href="index.html">Population genetics and genomics in R</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <!-- Table of contents -->
-        <li class="dropdown">
-          <!---<a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>-->
-          <a href="chapters" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Chapters <span class="caret"></span></a>
-            <ol class="dropdown-menu">
-               <li><a href="Preface.html">i. Preface</a></li>
-               <li><a href="Introduction.html">1. Introduction</a></li>
-               <li><a href="Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
-               <li><a href="Data_Preparation.html">3. Data preparation</a></li>
-               <li><a href="First_Steps.html">4. First steps</a></li>
-               <li><a href="Population_Strata.html">5. Population strata and clone correction</a></li>
-               <li><a href="Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
-               <li><a href="Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
-               <li><a href="Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
-               <li><a href="Pop_Structure.html">9. Population structure</a></li>
-               <li><a href="Minimum_Spanning_Networks.html">10. Minimum Spanning Networks</a></li>
-               <li><a href="AMOVA.html">11. AMOVA</a></li>
-               <li><a href="DAPC.html">12. Discriminant analysis of principal components (DAPC)</a></li>
-            </ol>
-        </li>
-        <!-- Appendices dropdown -->
-        <li class="dropdown">
-          <!---<a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>-->
-          <a href="appendices" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Appendices <span class="caret"></span></a>
-          <ul class = "dropdown-menu", role = "menu">
-            <li><a href="Data_sets.html">A1. Data sets</a></li>
-            <li><a href="funpendix.html">A2. Function glossary</a></li>
-            <li><a href="Intro_to_R.html">A3. Introduction to R</a></li>
-          </ul>
-        </li>
-        <!-- Author button -->
-        <li class="dropdown">
-        	<a href="about" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">About<span class="caret"></span></a>
-          <ul class = "dropdown-menu", role = "menu">
-        	<li><a href="Authors.html">Authors</a></li>
-        	<li>
-        		<a href="https://github.com/grunwaldlab/Population_Genetics_in_R", target = "blank">
-		    	Source code
-		    	</a>
-		    </li>
-		   </ul>
-        </li>
+        <li>
+  <a href="TOC.html">Table of contents</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part I
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="Getting_ready_to_use_R.html">Getting ready to use R</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part II
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Data_Preparation.html">Data preparation</a>
+    </li>
+    <li>
+      <a href="First_Steps.html">First steps</a>
+    </li>
+    <li>
+      <a href="Population_Strata.html">Population strata and clone correction</a>
+    </li>
+    <li>
+      <a href="Locus_Stats.html">Locus-based statistics and missing data</a>
+    </li>
+    <li>
+      <a href="Genotypic_EvenRichDiv.html">Genotypic evenness, richness, and diversity</a>
+    </li>
+    <li>
+      <a href="Linkage_disequilibrium.html">Linkage disequilibrium</a>
+    </li>
+    <li>
+      <a href="Pop_Structure.html">Population structure</a>
+    </li>
+    <li>
+      <a href="Minimum_Spanning_Networks.html">Minimum Spanning Networks</a>
+    </li>
+    <li>
+      <a href="AMOVA.html">AMOVA</a>
+    </li>
+    <li>
+      <a href="DAPC.html">Discriminant analysis of principal components (DAPC)</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part III
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro_vcf.html">Population genomics and HTS</a>
+    </li>
+    <li>
+      <a href="reading_vcf.html">Reading VCF data</a>
+    </li>
+    <li>
+      <a href="qc.html">Quality control</a>
+    </li>
+    <li>
+      <a href="analysis_of_genome.html">Analysis of genomic data</a>
+    </li>
+    <li>
+      <a href="gbs_analysis.html">Analysis of GBS data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Workshop
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="workshop.html">Workshop</a>
+    </li>
+    <li>
+      <a href="intro_vcf.html">Introduction</a>
+    </li>
+    <li>
+      <a href="reading_vcf.html">VCF data</a>
+    </li>
+    <li>
+      <a href="gbs_analysis.html">Analysis of GBS data</a>
+    </li>
+    <li>
+      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    About
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Authors.html">Authors</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Appendices
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro_to_R.html">Introduction to R</a>
+    </li>
+    <li>
+      <a href="Data_sets.html">Data sets</a>
+    </li>
+    <li>
+      <a href="funpendix.html">Function glossary</a>
+    </li>
+    <li>
+      <a href="https://github.com/grunwaldlab/sandbox1/">Source Code</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
-<!-- 
-
-old rmarkdown version: 
-
-devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa21442203f52face83")
-
-
- -->
-<!-- <div class="container">
-<div class="row">
-<div class="span10 offset1"> -->
 
 <div class="fluid-row" id="header">
 
 
 
-<h1 class="title toc-ignore">11: AMOVA</h1>
+<h1 class="title toc-ignore">AMOVA</h1>
+<h3 class="subtitle"><em><em>ZN Kamvar, SE Everhart and NJ Grünwald</em></em></h3>
 
 </div>
 
-<div id="TOC">
-<ul>
-<li><a href="#data-set">Data set</a></li>
-<li><a href="#analysis">Analysis</a></li>
-<li><a href="#significance-testing">Significance testing</a></li>
-<li><a href="#randomized-population-structure">Randomized population structure</a></li>
-<li><a href="#conclusions">Conclusions</a></li>
-<li><a href="#references">References</a></li>
-</ul>
-</div>
 
 <p>In this chapter, we will utilize AMOVA to analyze our populations. AMOVA stands for <strong>A</strong>nalysis of <strong>MO</strong>lecular <strong>VA</strong>riance and is a method to detect population differentiation utilizing molecular markers <span class="citation">(Excoffier, Smouse &amp; Quattro, 1992)</span>. This procedure was initially implemented for DNA haplotypes, but applies to any marker system. The implementation of AMOVA in <em>poppr</em> requires two very basic components: (1) A distance matrix derived from the data and (2) a separate table used to partition the data into different stratifications.</p>
 <p>The distance matrix can be calculated using any distance as long as it is euclidean. The distance that is used in the program Arlequin is the opposite of the Kronecker Delta function that counts the number of differences summed over <span class="math inline">\(L\)</span> loci:</p>
@@ -335,8 +389,8 @@ Aeut</code></pre></div>
 ## 
 ## Population information:
 ## 
-##      3 strata - Pop_Subpop Pop Subpop
-##      2 populations defined - Athena Mt. Vernon</code></pre>
+##      3 strata - Pop_Subpop, Pop, Subpop
+##      2 populations defined - Athena, Mt. Vernon</code></pre>
 <p>We can see that this data set contains clonal data and has three stratifications where the first is really a combination of the other levels. We can take a look at the different stratifications, populations or subpopulations:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(<span class="kw">strata</span>(Aeut, ~Pop))  <span class="co"># Populations</span></code></pre></div>
 <pre><code>## 
@@ -415,9 +469,9 @@ Aeutamovacc &lt;-<span class="st"> </span><span class="kw">poppr.amova</span>(Ae
 Aeutsignif   &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeutamova, <span class="dt">nrepet =</span> <span class="dv">999</span>)
 Aeutccsignif &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeutamovacc, <span class="dt">nrepet =</span> <span class="dv">999</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Aeutsignif)</code></pre></div>
-<p><img src="AMOVA_files/figure-html/Aeut_random_plot-1.png" title="" alt="" width="700px" /></p>
+<p><img src="AMOVA_files/figure-html/Aeut_random_plot-1.png" width="700px" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Aeutsignif</code></pre></div>
-<pre><code>## class: krandtest 
+<pre><code>## class: krandtest lightkrandtest 
 ## Monte-Carlo tests
 ## Call: randtest.amova(xtest = Aeutamova, nrepet = 999)
 ## 
@@ -428,14 +482,12 @@ Aeutccsignif &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeut
 ##                         Test       Obs    Std.Obs   Alter Pvalue
 ## 1  Variations within samples  3.411277 -31.902575    less  0.001
 ## 2 Variations between samples  1.328667  20.986193 greater  0.001
-## 3     Variations between Pop 11.063446   9.120263 greater  0.001
-## 
-## other elements: adj.method call</code></pre>
+## 3     Variations between Pop 11.063446   9.120263 greater  0.001</code></pre>
 <p>From this output, you can see three histograms representing the distribution of the randomized strata. The black line represents the observed data. You can see a table of observed results in the output showing that there is significant population structure considering all levels of the population strata. Of course, this could be due to the presence of clones, so let’s visualize the results from the clone corrected data set below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Aeutccsignif)</code></pre></div>
-<p><img src="AMOVA_files/figure-html/Aeut_clonecorrect_random_plot-1.png" title="" alt="" width="700px" /></p>
+<p><img src="AMOVA_files/figure-html/Aeut_clonecorrect_random_plot-1.png" width="700px" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Aeutccsignif</code></pre></div>
-<pre><code>## class: krandtest 
+<pre><code>## class: krandtest lightkrandtest 
 ## Monte-Carlo tests
 ## Call: randtest.amova(xtest = Aeutamovacc, nrepet = 999)
 ## 
@@ -446,9 +498,7 @@ Aeutccsignif &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeut
 ##                         Test        Obs    Std.Obs   Alter Pvalue
 ## 1  Variations within samples  4.2285550 -22.250873    less  0.001
 ## 2 Variations between samples  0.9520545   9.821081 greater  0.001
-## 3     Variations between Pop 10.4131525   9.983940 greater  0.001
-## 
-## other elements: adj.method call</code></pre>
+## 3     Variations between Pop 10.4131525   9.983940 greater  0.001</code></pre>
 <p>The above graphs show significant population differentiation at all levels given that the observed <span class="math inline">\(\phi\)</span> does not fall within the distribution expected from the permutation. Compare the results of our AMOVA analysis to those published in <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>. They should be identical.</p>
 </div>
 <div id="randomized-population-structure" class="section level2">
@@ -501,7 +551,7 @@ Aeut.new.amova</code></pre></div>
 ## Phi-Pop-total      0.015440091</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Aeut.new.amova.test    &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeut.new.amova, <span class="dt">nrepet =</span> <span class="dv">999</span>)
 Aeut.new.amova.test</code></pre></div>
-<pre><code>## class: krandtest 
+<pre><code>## class: krandtest lightkrandtest 
 ## Monte-Carlo tests
 ## Call: randtest.amova(xtest = Aeut.new.amova, nrepet = 999)
 ## 
@@ -512,11 +562,9 @@ Aeut.new.amova.test</code></pre></div>
 ##                         Test        Obs    Std.Obs   Alter Pvalue
 ## 1  Variations within samples 10.3056481  0.3775001    less  0.605
 ## 2 Variations between samples -0.1733264 -0.7375843 greater  0.746
-## 3     Variations between Pop  0.1588974  1.2656780 greater  0.123
-## 
-## other elements: adj.method call</code></pre>
+## 3     Variations between Pop  0.1588974  1.2656780 greater  0.123</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Aeut.new.amova.test)</code></pre></div>
-<p><img src="AMOVA_files/figure-html/randomized_strata_plot-1.png" title="" alt="" width="700px" /></p>
+<p><img src="AMOVA_files/figure-html/randomized_strata_plot-1.png" width="700px" /></p>
 <p>We see that there now is no significant population structure.</p>
 </div>
 <div id="conclusions" class="section level2">
@@ -537,10 +585,6 @@ Aeut.new.amova.test</code></pre></div>
 </div>
 </div>
 
-<!-- </div>
-</div>
-</div>
- -->
 
 
 
@@ -549,8 +593,11 @@ Aeut.new.amova.test</code></pre></div>
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 
@@ -561,7 +608,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

@@ -4,18 +4,19 @@
   library("knitr")
   cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
   bib <- read.bibtex("bibtexlib.bib")
-  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, 
+  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE,
                  fig.width = 10, fig.height = 6, cache = TRUE)
   if (html) opts_chunk$set(out.width = "700px", dpi = 300)
-  # use this to set knitr options: 
+  # use this to set knitr options:
   # http://yihui.name/knitr/options #chunk_options
 ```
 
 ---
-title: '7: Genotypic richness, diversity, and evenness'
+title: 'Genotypic richness, diversity, and evenness'
+subtitle: '*SE Everhart, ZN Kamvar, and NJ Gr&uuml;nwald*'
 ---
 
-In Chapter 4, we introduced basic summary statistics that can be calculated using *poppr*.  For this chapter, we want to specifically focus on how to evaluate genotypic richness, diversity, and evenness in your data.  In this example, we'll examine the monpop microsatellite data for 13 loci of 694 individuals of the haploid fungal pathogen *Monilinia fructicola* that infects peach flowers and fruits in commercial orchards. 
+In the previous chapter, we introduced basic summary statistics that can be calculated using *poppr*.  For this chapter, we want to specifically focus on how to evaluate genotypic richness, diversity, and evenness in your data.  In this example, we'll examine the monpop microsatellite data for 13 loci of 694 individuals of the haploid fungal pathogen *Monilinia fructicola* that infects peach flowers and fruits in commercial orchards.
 
 For this example, we can explore the hypothesis that the population that infects flowers and yields blighted blossoms (BB) is from a more genetically diverse pool (being a product of overwintering, sexual recombinants), than the population that infects and causes fruit rots (FR), which is likely a product of asexual production from existing infections in the orchard. As such, we can ask the following questions:
 
@@ -85,7 +86,7 @@ lambda <- monpop_diversity$lambda # Simpson's index
 (N/(N - 1)) * lambda              # Corrected Simpson's index
 ```
 
-Now we can see that, even after correction, Simpson's index is still higher for BB. 
+Now we can see that, even after correction, Simpson's index is still higher for BB.
 
 > You try it! Can you calculate the clonal fraction for each population (1 - (MLG/N))?
 

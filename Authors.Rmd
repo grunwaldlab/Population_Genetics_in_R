@@ -36,13 +36,14 @@ and the Center for Genome Research and Biocomputing at Oregon State University.
 He received his PhD from UC Davis and conducted postdoctoral research at Cornell
 University. His research focuses on understanding the evolutionary patterns and
 processes of emerging pathogens using population genetic and evolutionary
-approaches.
+approaches and development of computational tools for characterizing pathogens and communities. Members of his group have developed several widely used R packages including: [*poppr*](http://github.com/grunwaldlab/poppr), [*vcfr*](https://github.com/grunwaldlab/vcfR), and [*metacoder*](https://github.com/grunwaldlab/metacoder). 
+<p>
 <p>
 <a href="http://grunwaldlab.cgrb.oregonstate.edu/">Gr&uuml;nwald lab</a> | 
+<a href="https://github.com/grunwaldlab">Github</a> | 
 <a href="https://scholar.google.com/citations?user=t55Dt5sAAAAJ&hl=en">Google scholar</a> | 
 <a href="http://www.researcherid.com/rid/K-6041-2013">ResearcherID</a> | 
 <a href="http://orcid.org/0000-0003-1656-7602">Orcid</a> | 
-<a href="https://www.researchgate.net/profile/Niklaus_Grunwald/?ev=hdr_xprf">ResearchGate</a> | 
 <a href="https://twitter.com/PhytophthoraLab" class="twitter-follow-button" data-show-count="false">
 Follow &#64;PhytophthoraLab
 </a> 
@@ -63,16 +64,9 @@ ZHIAN'S PROFILE
 </div>
 <div class="col-md-6">
 <small>
-**Zhian N. Kamvar** is a graduate student in the Department of Botany and Pant
-Pathology at Oregon State University. His research is focused on genome
-sequencing and population genomics of the nursery pathogens *Phytophthora
-syringae* and *P. ramorum*. He is the lead developer of the [*poppr* R
-package](http://github.com/grunwaldlab/poppr) and a contributor to other packages such as the
-[*adegenet* R package](http://github.com/thibautjombart/adegenet) and the 
-[*mmod* R package](http://github.com/dwinter/mmod). Zhian is also
-co-host of the award-winning radio program [Inspiration](http://blogs.oregonstate.edu/inspiration)
-[Dissemination](http://poweredbyorange.com/2013/12/17/science-through-a-microphone/).
-<p>
+**Zhian N. Kamvar** is a postdoctroal researcher in the Plant Pathology Department at the University of Nebraska-Lincoln. He is the lead developer of the [*poppr*](http://github.com/grunwaldlab/poppr) R package and a contributor to other packages such as [*adegenet*](http://github.com/thibautjombart/adegenet) and [*mmod*](http://github.com/dwinter/mmod).
+<p><p>
+
 <a href="https://scholar.google.com/citations?user=UPGtLSkAAAAJ&hl=en">Google scholar</a> | 
 <a href="https://www.researchgate.net/profile/Zhian_Kamvar">ResearchGate</a> | 
 <a href="http://orcid.org/0000-0003-1458-7108">Orcid</a> | 
@@ -103,6 +97,8 @@ developed the micrsoatellite markers and data used in the
 [`monpop`](Data_sets.html#microsatellite-haploid-clonal-monpop) data set and
 currently works with genomes, GBS data, and SSR data for *Phytophthora ramorum*.
 <p>
+<p>
+
 <a href="http://everhart.unl.edu/">Everhart lab</a> | 
 <a href="https://twitter.com/SydneyEverhart" class="twitter-follow-button" data-show-count="false">
 Follow &#64;SydneyEverhart
@@ -111,4 +107,67 @@ Follow &#64;SydneyEverhart
 </small>
 </div>
 </div>
+
+
+<!-- 
+BRIAN'S PROFILE
+ -->
+ 
+<div class="row">
+<div class="col-md-2">
+<div class="imgAbt">
+<img style="margin-bottom:25px;width=220px;height=220px" src="images/BJK.jpg"  />
 </div>
+</div>
+<div class="col-md-6">
+<small>
+**Brian J. Knaus** is an postdoctoral researcher with the USDA Agricultural Research Service.
+He is the lead developer of the [*vcfr*](https://github.com/grunwaldlab/vcfR) package.
+Brian's current research uses genomics approaches to survey the plant pathogens *Phytophthora infestans* (late blight of potato and tomato), *Podosphaera macularis* (powdery mildew of hop), and *Pseudoperonospora humuli* (downey mildew of hop) for population structure and to identify genomic features associated with phenotypes responsible for mating type determination and fungicide resistance.
+<p>
+<p>
+<a href="http://brianknaus.com/research/">Brian's webpage</a>
+<a href="https://twitter.com/knaus_brian" class="twitter-follow-button" data-show-count="false"> |
+Follow &#64;Brian J. Kanus |
+<a href="http://orcid.org/0000-0003-1665-4343">Orcid</a> |
+<a href="https://scholar.google.com/citations?user=19wcuSwAAAAJ&hl=en">Google scholar</a>
+</a>
+</p>
+
+
+</small>
+</div>
+</div>
+
+<!-- 
+JAVIER'S PROFILE
+ -->
+
+<div class="row">
+<div class="col-md-2">
+<div class="imgAbt">
+<img style="margin-bottom:25px;width=220px;height=220px" src="images/JFT.jpg"  />
+</div>
+</div>
+<div class="col-md-6">
+<small>
+**Javier F. Tabima** is a graduate student in the Department of Botany and Plant
+Pathology at Oregon State University. His main research interests are to study the molecular processes of host speciation using genomics. His dissertation is based in contructing a bridge between evolutionary biology and plant pathology. Javier has contributed to the [*poppr*](http://github.com/grunwaldlab/poppr) R package, and has created a set of packages for computational plant pathology such as [Microbe-ID](https://github.com/grunwaldlab/Microbe-ID) and other tools in the current process of development.
+<p>
+<p>
+
+<a href="http://people.oregonstate.edu/~tabimaj/">Javier's webpage</a>|
+<a href="https://scholar.google.com/citations?user=t1P5G4QAAAAJ&hl=en">Google scholar</a> | 
+<a href="https://www.researchgate.net/profile/Javier_Tabima">ResearchGate</a> | 
+<a href="http://orcid.org/0000-0002-3603-2691">Orcid</a> | 
+<a href="https://twitter.com/tabima" class="twitter-follow-button" data-show-count="false">
+	Follow &#64;Tabima
+</a> |
+</p>
+
+</small>
+</div>
+</div>
+
+</div>
+

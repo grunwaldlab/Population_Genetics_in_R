@@ -3,12 +3,13 @@
   library("knitr")
   cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
   bib <- read.bibtex("bibtexlib.bib")
-  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, cache = TRUE) 
-  # use this to set knitr options: 
-  # http://yihui.name/knitr/options #chunk_options 
+  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, cache = TRUE)
+  # use this to set knitr options:
+  # http://yihui.name/knitr/options #chunk_options
 ```
 ---
-title: "2: Getting ready to use R"
+title: "Getting ready to use R"
+subtitle: "*NJ Gr&uuml;nwald, ZN Kamvar and SE Everhart*"
 ---
 
 R provides a unique environment for performing population genetic analyses. You
@@ -153,10 +154,10 @@ Below, are two examples of how code can be improved with *magrittr*. [More
 details about magrittr can be found in this
 link.](http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)
 
-#### Consider a fake Example: 
-Adapted from 
-[Hadley Wickham](https://twitter.com/_inundata/status/557980236130689024). 
-Based on the children's song, 
+#### Consider a fake Example:
+Adapted from
+[Hadley Wickham](https://twitter.com/_inundata/status/557980236130689024).
+Based on the children's song,
 [Little bunny foo foo](http://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo).
 
 ```{r, eval = FALSE}
@@ -174,7 +175,7 @@ foo_foo %>%
 
 #### Now for a real Example:
 
-We will use the *Phytophthora infestans* microsatellite data from North and South America 
+We will use the *Phytophthora infestans* microsatellite data from North and South America
 `r citep(bib['goss2014irish'])`. Let's calculate allelic diversity per population
 after clone-correction. This information can be found in our chapters on
 [Population strata and clone correction](Population_Strata.html) and
@@ -187,7 +188,7 @@ data(Pinf)
 
 # Compare the traditional R script
 
-allelic_diversity <- lapply(seppop(clonecorrect(Pinf, strata = ~Continent/Country)), 
+allelic_diversity <- lapply(seppop(clonecorrect(Pinf, strata = ~Continent/Country)),
                             FUN = locus_table, info = FALSE)
 
 # versus the magrittr piping:
@@ -214,7 +215,7 @@ the user a brief overview of:
  - the purpose of a function,
  - the parameters it takes,
  - the output it yields,
- - and some examples demonstrating its usage. 
+ - and some examples demonstrating its usage.
 
 To see all of the help topics in a package, you can simply type:
 
