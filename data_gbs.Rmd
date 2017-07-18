@@ -1,0 +1,12 @@
+
+
+
+
+
+We will use a data set of 94 samples of the red raspberry pathogen *Phytophthora rubi* `r citep(bib[c("Tabima:InPrep")])`. 
+This pathogen is diploid and a fungal like Oomycete.
+Populations were obtained by sampling individual pathogen strains from roots of infected red raspberry in the states of California (CA), Oregon (OR), and Washington (WA). 
+A total of 94 samples of *P. rubi* were sequenced using the Illumina HiSeq 3000 technology with 150 bp paired end reads and a target insert size of 500 bp.
+Currently, there is little information about the population structure of *P. rubi* in the western USA. 
+We are interested in studying the population structure of *P. rubi* populations in the western US.
+The VCF data for this population can be downloaded from: [prubi_gbs.VCF.gz](prubi_gbs.VCF.gz).

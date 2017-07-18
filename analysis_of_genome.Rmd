@@ -1,0 +1,102 @@
+---
+title: "Analysis of genome data"
+subtitle: '*BJ Knaus, JF Tabima, and NJ Gr&uuml;nwald*'
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+bibliography: bibtexlib.bib
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.align = "center")
+library("knitcitations")
+library("knitr")
+cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
+bib <- read.bibtex("bibtexlib.bib")
+```
+
+
+## Introduction
+
+
+Analysis of genome data for populations can be seen as similar to the analyses of other marker systems discussed in previous chapters of this book, except that genome data analyses include larger quantities of data.
+For example, VCF data (discussed in '[reading VCF data](reading_vcf.html)') can be read into R using *vcfR* [@knaus2017vcfr] to create a *vcfR* object.
+This object can be converted into a genlight object [@jombart2008adegenet] and then a snpclone object [@kamvar2014poppr, @kamvar2015novel] if deemed necessary.
+Analysis on these objects has been covered in previous sections.
+Genome scale data provides additional analytical options as well.
+For example, when assumptions about the neutrality of the majority of the genome are appropriate, this can be used as a null hypothesis and used to help identify markers that differentiate from this assumption.
+Here we'll provide examples of how genomic data may be analyzed.
+
+
+```{r child = 'data_genome.Rmd'}
+```
+
+
+## Opening and examining the dataset
+
+
+We'll read our VCF data into R using the function `read.vcfR()`.
+This is data from the pinfsc50 data set that we filtered for quality in the section [reading VCF data](reading_vcf.html).
+Once the file is read in we can validate its contents using the `show` method which is implemented by executing the object's name at the prompt.
+
+
+```{r, results='hide'}
+library('vcfR')
+vcf <- read.vcfR("pinfsc50_filtered.vcf.gz")
+```
+
+
+```{r}
+vcf
+```
+
+
+The `show` method reports that we have `r ncol(vcf@gt) - 1` samples and `r format(nrow(vcf@fix), big.mark = ",")` variants.
+If this matches our expectation then we can proceed.
+
+
+## Converting VCF data to a genlight object
+
+
+```{r child = 'vcf2genlight.Rmd'}
+```
+
+
+```{r child = 'genlight_dist.Rmd'}
+```
+
+
+```{r child = 'msn_genlight.Rmd', eval=F}
+```
+
+```{r child = 'tree_genlight.Rmd', eval=F}
+```
+
+```{r child = 'amova_analysis.Rmd', eval=F}
+```
+
+
+```{r child = 'genome_dapc.Rmd', eval=F}
+```
+
+
+
+## chromR objects
+
+### Using chromR to locate unusual features in a genome
+
+
+```{r child = 'chromR.Rmd'}
+```
+
+
+## Genetic differentiation
+
+```{r child = 'genetic_differentiation.Rmd'}
+```
+
+
+# References

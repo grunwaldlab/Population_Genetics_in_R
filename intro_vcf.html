@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Population genomics based on high throughut sequencing (HTS)</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-52691601-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<!---
+
+<style type="text/css">
+
+/* padding for bootstrap navbar */
+body {
+  padding-top: 50px;
+  padding-bottom: 40px;
+  padding-right: 50px;
+  padding-left: -50px;
+}
+@media (max-width: 979px) {
+  body {
+    padding-top: 0;
+  }
+}
+
+ offset scroll position for anchor links (for fixed navbar)  
+@media (min-width: 980px) {
+  .section h2 {
+    padding-top: 52px;
+    margin-top: -52px;
+  }
+  .section h3 {
+    padding-top: 52px;
+    margin-top: -52px;
+  }
+}
+
+
+/* don't use link color in navbar */
+.dropdown-menu>li>a {
+  color: black;
+}
+
+</style>
+-->
+
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 50px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h2 {
+  padding-top: 55px;
+  margin-top: -55px;
+}
+.section h3 {
+  padding-top: 55px;
+  margin-top: -55px;
+}
+/* don't use link color in navbar */
+.dropdown-menu>li>a {
+  color: black;
+}
+/* some padding for disqus */
+#disqus_thread {
+  margin-top: 45px;
+}
+</style>
+
+<link rel="stylesheet" href="libs/font-awesome-4.1.0/css/font-awesome.min.css"/>
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+
+.section h2 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h3 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h4 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h5 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h6 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Population genetics and genomics in R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="TOC.html">Table of contents</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part I
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="Getting_ready_to_use_R.html">Getting ready to use R</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part II
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Data_Preparation.html">Data preparation</a>
+    </li>
+    <li>
+      <a href="First_Steps.html">First steps</a>
+    </li>
+    <li>
+      <a href="Population_Strata.html">Population strata and clone correction</a>
+    </li>
+    <li>
+      <a href="Locus_Stats.html">Locus-based statistics and missing data</a>
+    </li>
+    <li>
+      <a href="Genotypic_EvenRichDiv.html">Genotypic evenness, richness, and diversity</a>
+    </li>
+    <li>
+      <a href="Linkage_disequilibrium.html">Linkage disequilibrium</a>
+    </li>
+    <li>
+      <a href="Pop_Structure.html">Population structure</a>
+    </li>
+    <li>
+      <a href="Minimum_Spanning_Networks.html">Minimum Spanning Networks</a>
+    </li>
+    <li>
+      <a href="AMOVA.html">AMOVA</a>
+    </li>
+    <li>
+      <a href="DAPC.html">Discriminant analysis of principal components (DAPC)</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part III
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro_vcf.html">Population genomics and HTS</a>
+    </li>
+    <li>
+      <a href="reading_vcf.html">Reading VCF data</a>
+    </li>
+    <li>
+      <a href="qc.html">Quality control</a>
+    </li>
+    <li>
+      <a href="analysis_of_genome.html">Analysis of genomic data</a>
+    </li>
+    <li>
+      <a href="gbs_analysis.html">Analysis of GBS data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Workshop
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="workshop.html">Workshop</a>
+    </li>
+    <li>
+      <a href="intro_vcf.html">Introduction</a>
+    </li>
+    <li>
+      <a href="reading_vcf.html">VCF data</a>
+    </li>
+    <li>
+      <a href="gbs_analysis.html">Analysis of GBS data</a>
+    </li>
+    <li>
+      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    About
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Authors.html">Authors</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Appendices
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro_to_R.html">Introduction to R</a>
+    </li>
+    <li>
+      <a href="Data_sets.html">Data sets</a>
+    </li>
+    <li>
+      <a href="funpendix.html">Function glossary</a>
+    </li>
+    <li>
+      <a href="https://github.com/grunwaldlab/Population_Genetics_in_R/">Source Code</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!-- HOME -->
+      <a class="navbar-brand" href="index.html"><b>Population Genetics in R</b></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <!-- Table of contents -->
+        <li class="dropdown">
+          <!---<a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>-->
+          <a href="chapters" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Chapters <span class="caret"></span></a>
+            <ol class="dropdown-menu">
+               <li><a href="Preface.html">i. Preface</a></li>
+               <li><a href="Introduction.html">1. Introduction</a></li>
+               <li><a href="Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
+               <li><a href="Data_Preparation.html">3. Data preparation</a></li>
+               <li><a href="First_Steps.html">4. First steps</a></li>
+               <li><a href="Population_Strata.html">5. Population strata and clone correction</a></li>
+               <li><a href="Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
+               <li><a href="Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
+               <li><a href="Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
+               <li><a href="Pop_Structure.html">9. Population structure</a></li>
+               <li><a href="Minimum_Spanning_Networks.html">10. Minimum Spanning Networks</a></li>
+               <li><a href="AMOVA.html">11. AMOVA</a></li>
+               <li><a href="DAPC.html">12. Discriminant analysis of principal components (DAPC)</a></li>
+            </ol>
+        </li>
+        <!-- Appendices dropdown -->
+        <li class="dropdown">
+          <!---<a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>-->
+          <a href="appendices" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Appendices <span class="caret"></span></a>
+          <ul class = "dropdown-menu", role = "menu">
+            <li><a href="Data_sets.html">A1. Data sets</a></li>
+            <li><a href="funpendix.html">A2. Function glossary</a></li>
+            <li><a href="Intro_to_R.html">A3. Introduction to R</a></li>
+          </ul>
+        </li>
+        <!-- Author button -->
+        <li class="dropdown">
+        	<a href="about" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">About<span class="caret"></span></a>
+          <ul class = "dropdown-menu", role = "menu">
+        	<li><a href="Authors.html">Authors</a></li>
+        	<li>
+        		<a href="https://github.com/grunwaldlab/Population_Genetics_in_R", target = "blank">
+		    	Source code
+		    	</a>
+		    </li>
+		   </ul>
+        </li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+<!-- 
+
+old rmarkdown version: 
+
+devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa21442203f52face83")
+
+
+ -->
+<!-- <div class="container">
+<div class="row">
+<div class="span10 offset1"> -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Population genomics based on high throughut sequencing (HTS)</h1>
+<h3 class="subtitle"><em><em>NJ Grünwald, BJ Knaus, and JF Tabima</em></em></h3>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#novel-tools-in-r-for-population-genomic-analyses">Novel tools in R for population genomic analyses</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<p>We now live in the fast growing era of high throughput sequencing (HTS) that is revolutionizing our ability to understand genetic variation <span class="citation">(Luikart et al., 2003; Grünwald, McDonald &amp; Milgroom, 2016)</span>. Two factors are contributing to a need for new methods of analyzing data: 1. the data is now often in a genome-wide context where location within a genome is part of the analysis and 2. the number of variants are large.</p>
+<div id="novel-tools-in-r-for-population-genomic-analyses" class="section level1">
+<h1>Novel tools in R for population genomic analyses</h1>
+<p>The R computing language has become a great tool for analyzing population genomic data. A recent special issue in <a href="http://onlinelibrary.wiley.com/doi/10.1111/men.2017.17.issue-1/issuetoc">Molecular Ecology Resources</a> provides a nice overview of the arsenal of tools available in R <span class="citation">(Paradis et al., 2017)</span>. New tools have become available in R for analyzing HTS data including <em>adegenet</em> <span class="citation">(Jombart, 2008)</span>, <em>ape</em> <span class="citation">(Paradis, Claude &amp; Strimmer, 2004)</span>, <em>vcfR</em> <span class="citation">(Knaus &amp; Grünwald, 2017)</span>, and <em>poppr</em> <span class="citation">(Kamvar, Tabima &amp; Grünwald, 2014; Kamvar, Brooks &amp; Grünwald, 2015)</span> among others. Section III of this primer is geared towards analyzing whole genome or reduced representation genomic data for populations using the variant call format (VCF). The next three chapters will focus on introducing the VCF file format, reading SNP data into R from high throughput sequencing projects, performing quality control, and conducting selected analyses using population genomic data.</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-grunwald2016population">
+<p>Grünwald NJ., McDonald BA., Milgroom MG. 2016. Population genomics of fungal and oomycete pathogens. <em>Annual Review of Phytopathology</em> 54:323–346. Available at: <a href="http://arjournals.annualreviews.org/doi/full/10.1146/annurev-phyto-080614-115913" class="uri">http://arjournals.annualreviews.org/doi/full/10.1146/annurev-phyto-080614-115913</a></p>
+</div>
+<div id="ref-jombart2008adegenet">
+<p>Jombart T. 2008. <span class="math inline">\(adegenet\)</span>: A R package for the multivariate analysis of genetic markers. <em>Bioinformatics</em> 24:1403–1405. Available at: <a href="https://doi.org/10.1093/bioinformatics/btn129" class="uri">https://doi.org/10.1093/bioinformatics/btn129</a></p>
+</div>
+<div id="ref-kamvar2015novel">
+<p>Kamvar ZN., Brooks JC., Grünwald NJ. 2015. Novel R tools for analysis of genome-wide population genetic data with emphasis on clonality. <em>Name: Frontiers in Genetics</em> 6:208. Available at: <a href="http://dx.doi.org/10.3389/fgene.2015.00208" class="uri">http://dx.doi.org/10.3389/fgene.2015.00208</a></p>
+</div>
+<div id="ref-kamvar2014poppr">
+<p>Kamvar ZN., Tabima JF., Grünwald NJ. 2014. <span class="math inline">\(Poppr\)</span>: An R package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281" class="uri">http://dx.doi.org/10.7717/peerj.281</a></p>
+</div>
+<div id="ref-knaus2017vcfr">
+<p>Knaus BJ., Grünwald NJ. 2017. <span class="math inline">\({V}cfr\)</span>: A package to manipulate and visualize variant call format data in R. <em>Molecular Ecology Resources</em> 17:44–53. Available at: <a href="http://dx.doi.org/10.1111/1755-0998.12549" class="uri">http://dx.doi.org/10.1111/1755-0998.12549</a></p>
+</div>
+<div id="ref-luikart2003power">
+<p>Luikart G., England PR., Tallmon D., Jordan S., Taberlet P. 2003. The power and promise of population genomics: From genotyping to genome typing. <em>Nature reviews genetics</em> 4:981–994. Available at: <a href="http://www.nature.com/nrg/journal/v4/n12/full/nrg1226.html" class="uri">http://www.nature.com/nrg/journal/v4/n12/full/nrg1226.html</a></p>
+</div>
+<div id="ref-paradis2017towards">
+<p>Paradis E., Gosselin T., Grünwald NJ., Jombart T., Manel S., Lapp H. 2017. Towards an integrated ecosystem of r packages for the analysis of population genetic data. <em>Molecular Ecology Resources</em> 17:1–4. Available at: <a href="http://dx.doi.org/10.1111/1755-0998.12636" class="uri">http://dx.doi.org/10.1111/1755-0998.12636</a></p>
+</div>
+<div id="ref-paradis2004ape">
+<p>Paradis E., Claude J., Strimmer K. 2004. APE: Analyses of phylogenetics and evolution in r language. <em>Bioinformatics</em> 20:289–290. Available at: <a href="https://doi.org/10.1093/bioinformatics/btg412" class="uri">https://doi.org/10.1093/bioinformatics/btg412</a></p>
+</div>
+</div>
+</div>
+
+<!-- </div>
+</div>
+</div>
+ -->
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

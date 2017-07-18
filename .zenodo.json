@@ -1,0 +1,34 @@
+{
+    "description": "<p>This is the first release of the population genetics in R website.</p>", 
+    "license": "other-open", 
+    "title": "Population Genetics In R", 
+    "upload_type": "lessons", 
+    "communities": [
+        {
+            "identifier": "zenodo"
+        }
+    ], 
+    "publication_date": "2016-10-13", 
+    "creators": [
+        {
+            "affiliation": "Horticultural Crops Research Lab, USDA ARS", 
+            "name": "Niklaus Grunwald"
+        },
+        {
+            "affiliation": "Oregon State University", 
+            "name": "Zhian N. Kamvar"
+        },
+        {
+            "affiliation": "University of Nebraska, Lincoln", 
+            "name": "Sydney E. Everhart"
+        }
+    ], 
+    "access_right": "open", 
+    "related_identifiers": [
+        {
+            "scheme": "url", 
+            "identifier": "https://github.com/grunwaldlab/Population_Genetics_in_R/tree/v1.0.0", 
+            "relation": "isSupplementTo"
+        }
+    ]
+}

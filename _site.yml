@@ -1,0 +1,85 @@
+name: "Population genomics"
+output_dir: .
+navbar:
+  title: "Population genetics and genomics in R"
+  left:
+    - text: "Table of contents"
+      href: "TOC.html"
+    - text: "Part I"
+      menu:
+        - text: "Introduction"
+          href: "Introduction.html"
+        - text: "Getting ready to use R"
+          href: "Getting_ready_to_use_R.html"
+    - text: "Part II"
+      menu:
+        - text: "Data preparation"
+          href: "Data_Preparation.html"
+        - text: "First steps"
+          href: "First_Steps.html"
+        - text: "Population strata and clone correction"
+          href: "Population_Strata.html"
+        - text: "Locus-based statistics and missing data"
+          href: "Locus_Stats.html"
+        - text: "Genotypic evenness, richness, and diversity"
+          href: "Genotypic_EvenRichDiv.html"
+        - text: "Linkage disequilibrium"
+          href: "Linkage_disequilibrium.html"
+        - text: "Population structure"
+          href: "Pop_Structure.html"
+        - text: "Minimum Spanning Networks"
+          href: "Minimum_Spanning_Networks.html"
+        - text: "AMOVA"
+          href: "AMOVA.html"
+        - text: "Discriminant analysis of principal components (DAPC)"
+          href: "DAPC.html"
+    - text: "Part III"
+      menu:
+        - text: "Population genomics and HTS"
+          href: "intro_vcf.html"
+        - text: "Reading VCF data"
+          href: "reading_vcf.html"
+        - text: "Quality control"
+          href: "qc.html"
+        - text: "Analysis of genomic data"
+          href: "analysis_of_genome.html"
+        - text: "Analysis of GBS data"
+          href: "gbs_analysis.html"
+    - text: "Workshop"
+      menu:
+        - text: "Workshop"
+          href: "workshop.html"
+        - text: "Introduction"
+          href: "intro_vcf.html"
+        - text: "VCF data"
+          href: "reading_vcf.html"
+        - text: "Analysis of GBS data"
+          href: "gbs_analysis.html"
+        - text: "Analysis of genome data"
+          href: "analysis_of_genome.html"
+    - text: "About"
+      menu:
+        - text: "Authors"
+          href: "Authors.html"
+    - text: "Appendices"
+      menu:
+        - text: "Introduction to R"
+          href: "intro_to_R.html"
+        - text: "Data sets"
+          href: "Data_sets.html"
+        - text: "Function glossary"
+          href: "funpendix.html"
+        - text: "Source Code"
+          href: https://github.com/grunwaldlab/Population_Genetics_in_R/
+output:
+  html_document:
+    theme: sandstone
+    highlight: tango
+    include:
+      before_body: 
+      after_body: 
+    css: styles.css      
+    pandoc_args: [
+    "--biblio", "bibtexlib.bib",
+    "--csl", "styles/peerj-mod.csl"
+    ]

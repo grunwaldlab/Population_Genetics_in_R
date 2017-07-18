@@ -4,15 +4,17 @@
   library("knitr")
   cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
   bib <- read.bibtex("bibtexlib.bib")
-  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, 
+  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE,
                  fig.width = 10, fig.height = 6, cache = TRUE)
   if (html) opts_chunk$set(out.width = "700px", dpi = 300)
-  # use this to set knitr options: 
+  # use this to set knitr options:
   # http://yihui.name/knitr/options #chunk_options
 ```
 ---
-title: "11: AMOVA"
+title: "AMOVA"
+subtitle: "*ZN Kamvar, SE Everhart and NJ Gr&uuml;nwald*"
 ---
+
 
 In this chapter, we will utilize AMOVA to analyze our populations. AMOVA stands
 for **A**nalysis of **MO**lecular **VA**riance and is a method to detect
@@ -34,7 +36,7 @@ Data set
 ----
 
 To calculate AMOVA in *poppr*, one simply needs to supply a data set with
-stratifications. We will use the *Aphanomyces euteiches* data set from 
+stratifications. We will use the *Aphanomyces euteiches* data set from
 `r citep(bib["grunwald2006hierarchical"])`.
 
 ```{r}
@@ -45,7 +47,7 @@ Aeut <- as.genclone(Aeut)
 Aeut
 ```
 We can see that this data set contains clonal data and has three stratifications where the first is really a combination of the other levels. We can take a look
-at the different stratifications, populations or subpopulations: 
+at the different stratifications, populations or subpopulations:
 
 ```{r}
 table(strata(Aeut, ~Pop))  # Populations
@@ -53,7 +55,7 @@ table(strata(Aeut, ~Pop/Subpop, combine = FALSE))  # Subpopulations
 ```
 
 
-In this example, we have a data set of 187 individuals sampled from two fields located in Athena or Mt. Vernon over 8 or 10 different soil samples within each field. We want to see if most of the variance is observed at the sample, field, or regional level. 
+In this example, we have a data set of 187 individuals sampled from two fields located in Athena or Mt. Vernon over 8 or 10 different soil samples within each field. We want to see if most of the variance is observed at the sample, field, or regional level.
 
 Analysis
 ----
@@ -73,7 +75,7 @@ Aeutamova <- poppr.amova(Aeut, ~Pop/Subpop, quiet = TRUE)
 Aeutamovacc <- poppr.amova(Aeut, ~Pop/Subpop, clonecorrect = TRUE, quiet = TRUE)
 ```
 
-We'll look at the AMOVA results for both analyses. 
+We'll look at the AMOVA results for both analyses.
 
 ```{r}
 Aeutamova
@@ -81,17 +83,17 @@ Aeutamovacc
 ```
 
 The first thing to look at are the `$results` element. The degrees of freedom
-(the `Df` column) should match what we expect from our (not clone-corrected) data. The number in the `Total` row should equal 186 or $N - 1$, where values are calculated from pooled data. Note that here, "samples" actually refers to 
-subpopulations since we cannot asses within-sample variance of dominant data. 
+(the `Df` column) should match what we expect from our (not clone-corrected) data. The number in the `Total` row should equal 186 or $N - 1$, where values are calculated from pooled data. Note that here, "samples" actually refers to
+subpopulations since we cannot asses within-sample variance of dominant data.
 
 The `$componentsofcovariance` table shows how much
-variance is detected at each stratification. We expect variations within samples to 
+variance is detected at each stratification. We expect variations within samples to
 give the greatest amount of variation for populations that are not significantly
 differentiated. `Sigma` represents the variance, $\sigma$, for each hierarchical
-level and to the right is the percent of the total. 
+level and to the right is the percent of the total.
 
 Finally, `$statphi` provides the $\phi$ population differentiation statistics. These are used to test hypotheses about population differentiation. We would expect a higher $\phi$
-statistic to represent a higher amount of differentiation. 
+statistic to represent a higher amount of differentiation.
 
 Note, if you want to make a table of any of these components, you can isolate them by using the `$` operator and then export it to a table with `write.table`. Here's an example with the components of covariance:
 
@@ -115,7 +117,7 @@ plot(Aeutsignif)
 Aeutsignif
 ```
 From this output, you can see three histograms representing the distribution of
-the randomized strata. The black line represents the observed data. You can 
+the randomized strata. The black line represents the observed data. You can
 see a table of observed results in the output showing that there is significant
 population structure considering all levels of the population strata. Of
 course, this could be due to the presence of clones, so let's visualize the
@@ -126,7 +128,7 @@ plot(Aeutccsignif)
 Aeutccsignif
 ```
 
-The above graphs show significant population differentiation at all levels given that the observed $\phi$ does not fall within the distribution expected from the permutation. Compare the results of our AMOVA analysis to those published in `r citep(bib["grunwald2006hierarchical"])`. They should be identical. 
+The above graphs show significant population differentiation at all levels given that the observed $\phi$ does not fall within the distribution expected from the permutation. Compare the results of our AMOVA analysis to those published in `r citep(bib["grunwald2006hierarchical"])`. They should be identical.
 
 Randomized population structure
 ----

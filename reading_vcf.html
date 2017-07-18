@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Reading VCF data</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-52691601-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<!---
+
+<style type="text/css">
+
+/* padding for bootstrap navbar */
+body {
+  padding-top: 50px;
+  padding-bottom: 40px;
+  padding-right: 50px;
+  padding-left: -50px;
+}
+@media (max-width: 979px) {
+  body {
+    padding-top: 0;
+  }
+}
+
+ offset scroll position for anchor links (for fixed navbar)  
+@media (min-width: 980px) {
+  .section h2 {
+    padding-top: 52px;
+    margin-top: -52px;
+  }
+  .section h3 {
+    padding-top: 52px;
+    margin-top: -52px;
+  }
+}
+
+
+/* don't use link color in navbar */
+.dropdown-menu>li>a {
+  color: black;
+}
+
+</style>
+-->
+
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 50px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h2 {
+  padding-top: 55px;
+  margin-top: -55px;
+}
+.section h3 {
+  padding-top: 55px;
+  margin-top: -55px;
+}
+/* don't use link color in navbar */
+.dropdown-menu>li>a {
+  color: black;
+}
+/* some padding for disqus */
+#disqus_thread {
+  margin-top: 45px;
+}
+</style>
+
+<link rel="stylesheet" href="libs/font-awesome-4.1.0/css/font-awesome.min.css"/>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+
+.section h2 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h3 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h4 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h5 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h6 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Population genetics and genomics in R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="TOC.html">Table of contents</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part I
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="Getting_ready_to_use_R.html">Getting ready to use R</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part II
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Data_Preparation.html">Data preparation</a>
+    </li>
+    <li>
+      <a href="First_Steps.html">First steps</a>
+    </li>
+    <li>
+      <a href="Population_Strata.html">Population strata and clone correction</a>
+    </li>
+    <li>
+      <a href="Locus_Stats.html">Locus-based statistics and missing data</a>
+    </li>
+    <li>
+      <a href="Genotypic_EvenRichDiv.html">Genotypic evenness, richness, and diversity</a>
+    </li>
+    <li>
+      <a href="Linkage_disequilibrium.html">Linkage disequilibrium</a>
+    </li>
+    <li>
+      <a href="Pop_Structure.html">Population structure</a>
+    </li>
+    <li>
+      <a href="Minimum_Spanning_Networks.html">Minimum Spanning Networks</a>
+    </li>
+    <li>
+      <a href="AMOVA.html">AMOVA</a>
+    </li>
+    <li>
+      <a href="DAPC.html">Discriminant analysis of principal components (DAPC)</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part III
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro_vcf.html">Population genomics and HTS</a>
+    </li>
+    <li>
+      <a href="reading_vcf.html">Reading VCF data</a>
+    </li>
+    <li>
+      <a href="qc.html">Quality control</a>
+    </li>
+    <li>
+      <a href="analysis_of_genome.html">Analysis of genomic data</a>
+    </li>
+    <li>
+      <a href="gbs_analysis.html">Analysis of GBS data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Workshop
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="workshop.html">Workshop</a>
+    </li>
+    <li>
+      <a href="intro_vcf.html">Introduction</a>
+    </li>
+    <li>
+      <a href="reading_vcf.html">VCF data</a>
+    </li>
+    <li>
+      <a href="gbs_analysis.html">Analysis of GBS data</a>
+    </li>
+    <li>
+      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    About
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Authors.html">Authors</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Appendices
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro_to_R.html">Introduction to R</a>
+    </li>
+    <li>
+      <a href="Data_sets.html">Data sets</a>
+    </li>
+    <li>
+      <a href="funpendix.html">Function glossary</a>
+    </li>
+    <li>
+      <a href="https://github.com/grunwaldlab/Population_Genetics_in_R/">Source Code</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!-- HOME -->
+      <a class="navbar-brand" href="index.html"><b>Population Genetics in R</b></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <!-- Table of contents -->
+        <li class="dropdown">
+          <!---<a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>-->
+          <a href="chapters" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Chapters <span class="caret"></span></a>
+            <ol class="dropdown-menu">
+               <li><a href="Preface.html">i. Preface</a></li>
+               <li><a href="Introduction.html">1. Introduction</a></li>
+               <li><a href="Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
+               <li><a href="Data_Preparation.html">3. Data preparation</a></li>
+               <li><a href="First_Steps.html">4. First steps</a></li>
+               <li><a href="Population_Strata.html">5. Population strata and clone correction</a></li>
+               <li><a href="Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
+               <li><a href="Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
+               <li><a href="Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
+               <li><a href="Pop_Structure.html">9. Population structure</a></li>
+               <li><a href="Minimum_Spanning_Networks.html">10. Minimum Spanning Networks</a></li>
+               <li><a href="AMOVA.html">11. AMOVA</a></li>
+               <li><a href="DAPC.html">12. Discriminant analysis of principal components (DAPC)</a></li>
+            </ol>
+        </li>
+        <!-- Appendices dropdown -->
+        <li class="dropdown">
+          <!---<a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>-->
+          <a href="appendices" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Appendices <span class="caret"></span></a>
+          <ul class = "dropdown-menu", role = "menu">
+            <li><a href="Data_sets.html">A1. Data sets</a></li>
+            <li><a href="funpendix.html">A2. Function glossary</a></li>
+            <li><a href="Intro_to_R.html">A3. Introduction to R</a></li>
+          </ul>
+        </li>
+        <!-- Author button -->
+        <li class="dropdown">
+        	<a href="about" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">About<span class="caret"></span></a>
+          <ul class = "dropdown-menu", role = "menu">
+        	<li><a href="Authors.html">Authors</a></li>
+        	<li>
+        		<a href="https://github.com/grunwaldlab/Population_Genetics_in_R", target = "blank">
+		    	Source code
+		    	</a>
+		    </li>
+		   </ul>
+        </li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+<!-- 
+
+old rmarkdown version: 
+
+devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa21442203f52face83")
+
+
+ -->
+<!-- <div class="container">
+<div class="row">
+<div class="span10 offset1"> -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Reading VCF data</h1>
+<h3 class="subtitle"><em><em>BJ Knaus, JF Tabima and NJ Grünwald</em></em></h3>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#vcf-file-structure">VCF file structure</a></li>
+<li><a href="#the-meta-region">The meta region</a></li>
+<li><a href="#the-fix-region">The fix region</a></li>
+<li><a href="#the-gt-region">The gt region</a></li>
+<li><a href="#vcfr">vcfR</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<p>Genetic variation data is typically stored in <a href="http://samtools.github.io/hts-specs/" title="VCF format at hts-specs">variant call format (VCF)</a> files <span class="citation">(Danecek et al., 2011)</span>. This format is the preferred file format obtained from genome sequencing or high throughput genotyping. One advantage of using VCF files is that only variants (e.g., SNPs, indels, etc.) are reported which economizes files size relative to a format that may included invariant sites. Variant callers typically attempt to aggressively call variants with the perspective that a downstream quality control step will remove low quality variants. Note that VCF files come in different flavors and that each variant caller may report a slightly different information. A first step in working with this data is to understand their <a href="http://vcftools.sourceforge.net/VCF-poster.pdf">contents</a>.</p>
+<div id="vcf-file-structure" class="section level2">
+<h2>VCF file structure</h2>
+<p>A VCF file can be thought of as having three sections: a <strong>vcf header</strong>, a <strong>fix region</strong> and a <strong>gt region</strong>. The VCF meta region is located at the top of the file and contains meta-data describing the body of the file. Each VCF meta line begins with a ‘##’. The information in the meta region defines the abbreviations used elsewhere in the file. It may also document software used to create the file as well as parameters used by this software. Below the metadata region, the data are tabular. The first eight columns of this table contain information about each variant. This data may be common over all variants, such as its chromosomal position, or a summary over all samples, such as quality metrics. These data are fixed, or the same, over all samples. The fix region is required in a VCF file, subsequent columns are optional but are common in our experience. Beginning at column ten is a column for every sample. The values in these columns are information for each sample and each variant. The organization of each cell containing a genotype and associated information is specified in column nine, the FORMAT column. The location of these three regions within a file can be represented by this cartoon:</p>
+<div class="figure" style="text-align: center">
+<img src="reading_vcf_files/figure-html/unnamed-chunk-1-1.png" alt="Cartoon representation of VCF file organization" width="384" />
+<p class="caption">
+Cartoon representation of VCF file organization
+</p>
+</div>
+<p>The VCF file specification is flexible. This means that there are slots for certain types of data, but any particular software which creates a VCF file does not necessarily use them all. Similarly, authors have the opportunity to include new forms of data, forms which may not have been foreseen by the authors of the VCF specification. The result is that all VCF files do not contain the same information.</p>
+<p>For this example, we will use example data provided with the R package <em>vcfR</em> <span class="citation">(Knaus &amp; Grünwald, 2017)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vcfR)
+<span class="kw">data</span>(vcfR_example)
+vcf</code></pre></div>
+<pre><code>## ***** Object of Class vcfR *****
+## 18 samples
+## 1 CHROMs
+## 2,533 variants
+## Object size: 2.9 Mb
+## 8.497 percent missing data
+## *****        *****         *****</code></pre>
+<p>The function <code>library()</code> loads libraries, in this case the package <em>vcfR</em>. The function <code>data()</code> loads datasets that were included with R and its packages. Our usage of <code>data()</code> loads the objects ‘gff’, ‘dna’ and ‘vcf’ from the ‘vcfR_example’ dataset. Here we’re only interested in the object ‘vcf’ which contains example VCF data. When we call the object name with no function it invokes the ‘show’ method which prints some summary information to the console.</p>
+</div>
+<div id="the-meta-region" class="section level2">
+<h2>The meta region</h2>
+<p>The meta region contains information about the file, its creation, as well as information to interpret abbreviations used elsewhere in the file. Each line of the meta region begins with a double pound sign (‘##’). The example which comes with <em>vcfR</em> is shown below. (Only the first seven lines are shown for brevity.)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">strwrap</span>(vcf@meta[<span class="dv">1</span>:<span class="dv">7</span>])</code></pre></div>
+<pre><code>##  [1] &quot;##fileformat=VCFv4.1&quot;                                              
+##  [2] &quot;##source=\&quot;GATK haplotype Caller, phased with beagle4\&quot;&quot;           
+##  [3] &quot;##FILTER=&lt;ID=LowQual,Description=\&quot;Low quality\&quot;&gt;&quot;                 
+##  [4] &quot;##FORMAT=&lt;ID=AD,Number=.,Type=Integer,Description=\&quot;Allelic depths&quot;
+##  [5] &quot;for the ref and alt alleles in the order listed\&quot;&gt;&quot;                
+##  [6] &quot;##FORMAT=&lt;ID=DP,Number=1,Type=Integer,Description=\&quot;Approximate&quot;   
+##  [7] &quot;read depth (reads with MQ=255 or with bad mates are filtered)\&quot;&gt;&quot;  
+##  [8] &quot;##FORMAT=&lt;ID=GQ,Number=1,Type=Integer,Description=\&quot;Genotype&quot;      
+##  [9] &quot;Quality\&quot;&gt;&quot;                                                        
+## [10] &quot;##FORMAT=&lt;ID=GT,Number=1,Type=String,Description=\&quot;Genotype\&quot;&gt;&quot;</code></pre>
+<p>The first line contains the version of the VCF format used in the file. This line is required. The second line specifies the software which created the VCF file. This is not required, so not all VCF files include it. When they do, the file becomes self documenting. Note that the alignment software is not included here because it was used upstream of the VCF file’s creation (aligners typically create *.SAM or *.BAM format files). Because the file can only include information about the software that created it, the entire pipeline does not get documented. Some VCF files may contain a line for every chromosome (or supercontig or contig depending on your genome), so they may become rather long. Here, the remaining lines contain INFO and FORMAT specifications which define abbreviations used in the fix and gt portions of the file.</p>
+<p>The meta region may include long lines that may not be easy to view. In <em>vcfR</em> we’ve created a function to help press this data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">queryMETA</span>(vcf)</code></pre></div>
+<pre><code>##  [1] &quot;FILTER=ID=LowQual&quot;                   
+##  [2] &quot;FORMAT=ID=AD&quot;                        
+##  [3] &quot;FORMAT=ID=DP&quot;                        
+##  [4] &quot;FORMAT=ID=GQ&quot;                        
+##  [5] &quot;FORMAT=ID=GT&quot;                        
+##  [6] &quot;FORMAT=ID=PL&quot;                        
+##  [7] &quot;GATKCommandLine=ID=HaplotypeCaller&quot;  
+##  [8] &quot;INFO=ID=AC&quot;                          
+##  [9] &quot;INFO=ID=AF&quot;                          
+## [10] &quot;INFO=ID=AN&quot;                          
+## [11] &quot;INFO=ID=BaseQRankSum&quot;                
+## [12] &quot;INFO=ID=ClippingRankSum&quot;             
+## [13] &quot;INFO=ID=DP&quot;                          
+## [14] &quot;INFO=ID=DS&quot;                          
+## [15] &quot;INFO=ID=FS&quot;                          
+## [16] &quot;INFO=ID=HaplotypeScore&quot;              
+## [17] &quot;INFO=ID=InbreedingCoeff&quot;             
+## [18] &quot;INFO=ID=MLEAC&quot;                       
+## [19] &quot;INFO=ID=MLEAF&quot;                       
+## [20] &quot;INFO=ID=MQ&quot;                          
+## [21] &quot;INFO=ID=MQ0&quot;                         
+## [22] &quot;INFO=ID=MQRankSum&quot;                   
+## [23] &quot;INFO=ID=QD&quot;                          
+## [24] &quot;INFO=ID=ReadPosRankSum&quot;              
+## [25] &quot;INFO=ID=SOR&quot;                         
+## [26] &quot;1 contig=&lt;IDs omitted from queryMETA&quot;</code></pre>
+<p>When the function <code>queryMETA()</code> is called with only a <em>vcfR</em> object as a parameter, it attempts to summarize the meta information. Not all of the information is returned. For example, ‘contig’ elements are not returned. This is an attempt to summarize information that may be most useful for comprehension of the file’s contents.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">queryMETA</span>(vcf, <span class="dt">element =</span> <span class="st">&#39;DP&#39;</span>)</code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;FORMAT=ID=DP&quot;                                                                         
+## [2] &quot;Number=1&quot;                                                                             
+## [3] &quot;Type=Integer&quot;                                                                         
+## [4] &quot;Description=Approximate read depth (reads with MQ=255 or with bad mates are filtered)&quot;
+## 
+## [[2]]
+## [1] &quot;INFO=ID=DP&quot;                                                           
+## [2] &quot;Number=1&quot;                                                             
+## [3] &quot;Type=Integer&quot;                                                         
+## [4] &quot;Description=Approximate read depth; some reads may have been filtered&quot;</code></pre>
+<p>When an element parameter is included, only the information about that element is returned. In this example the element ‘DP’ is returned. We see that this acronym is defined as both a ‘FORMAT’ and ‘INFO’ acronym. We can narrow down our query by including more information in the element parameter.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">queryMETA</span>(vcf, <span class="dt">element =</span> <span class="st">&#39;FORMAT=&lt;ID=DP&#39;</span>)</code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;FORMAT=ID=DP&quot;                                                                         
+## [2] &quot;Number=1&quot;                                                                             
+## [3] &quot;Type=Integer&quot;                                                                         
+## [4] &quot;Description=Approximate read depth (reads with MQ=255 or with bad mates are filtered)&quot;</code></pre>
+<p>Here we’ve isolated the definition of ‘DP’ as a ‘FORMAT’ element. Note that the function <code>queryMETA()</code> includes the parameter <code>nice</code> which by default is TRUE and attempts to present the data in a nicely formatted manner. However, our query is performed on the actual information in the ‘meta’ region. It is therefore sometimes appropriate to set <code>nice = FALSE</code> so that we can see the raw data. In the above example the angled bracket (‘&lt;’) is omitted from the <code>nice = TRUE</code> representation but is essential to distinguishing the ‘FORMAT’ element from the ‘INFO’ element.</p>
+</div>
+<div id="the-fix-region" class="section level2">
+<h2>The fix region</h2>
+<p>The fix region contains information for each variant which is sometimes summarized over all samples. The first eight columns of the fixed region are titled CHROM, POS, ID, REF, ALT, QUAL, FILTER and INFO. This is per variant information which is ‘fixed’, or the same, over all samples. The first two columns indicate the location of the variant by chromosome and position within that chromosome. Here, the ID field has not been used, so it consists of missing data (NA). The REF and ALT columns indicate the reference and alternate allelic states for a diploid sample. When multiple alternate allelic states are present they are delimited with commas. The QUAL column attempts to summarize the quality of each variant over all samples. The FILTER field is not used here but could contain information on whether a variant has passed some form of quality assessment.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">getFIX</span>(vcf))</code></pre></div>
+<pre><code>##      CHROM              POS   ID REF ALT QUAL     FILTER
+## [1,] &quot;Supercontig_1.50&quot; &quot;2&quot;   NA &quot;T&quot; &quot;A&quot; &quot;44.44&quot;  NA    
+## [2,] &quot;Supercontig_1.50&quot; &quot;246&quot; NA &quot;C&quot; &quot;G&quot; &quot;144.21&quot; NA    
+## [3,] &quot;Supercontig_1.50&quot; &quot;549&quot; NA &quot;A&quot; &quot;C&quot; &quot;68.49&quot;  NA    
+## [4,] &quot;Supercontig_1.50&quot; &quot;668&quot; NA &quot;G&quot; &quot;C&quot; &quot;108.07&quot; NA    
+## [5,] &quot;Supercontig_1.50&quot; &quot;765&quot; NA &quot;A&quot; &quot;C&quot; &quot;92.78&quot;  NA    
+## [6,] &quot;Supercontig_1.50&quot; &quot;780&quot; NA &quot;G&quot; &quot;T&quot; &quot;58.38&quot;  NA</code></pre>
+<p>The eigth column, titled INFO, is a semicolon delimited list of information. It can be rather long and cumbersome. The function <code>getFIX()</code> will suppress this column by default. Each abbreviation in the INFO column should be defined in the meta section. We can validate this by querying the meta portion, as we did in the ‘meta’ section above.</p>
+</div>
+<div id="the-gt-region" class="section level2">
+<h2>The gt region</h2>
+<p>The gt (genotype) region contains information about each variant for each sample. The values for each variant and each sample are colon delimited. Multiple types of data for each genotype may be stored in this manner. The format of the data is specified by the FORMAT column (column nine). Here we see that we have information for GT, AD, DP, GQ and PL. The definition of these acronyms can be referenced by querying the the meta region, as demonstrated previously. Every variant does not necessarily have the same information (e.g., SNPs and indels may be handled differently), so the rows are best treated independently. Different variant callers may include different information in this region.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf@gt[<span class="dv">1</span>:<span class="dv">6</span>, <span class="dv">1</span>:<span class="dv">4</span>]</code></pre></div>
+<pre><code>##      FORMAT           BL2009P4_us23              
+## [1,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:62,0:62:99:0,190,2835&quot;
+## [2,] &quot;GT:AD:DP:GQ:PL&quot; &quot;1|0:5,5:10:99:111,0,114&quot;  
+## [3,] &quot;GT:AD:DP:GQ:PL&quot; NA                         
+## [4,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:1,0:1:3:0,3,44&quot;       
+## [5,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:2,0:2:6:0,6,49&quot;       
+## [6,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:2,0:2:6:0,6,49&quot;       
+##      DDR7602                   IN2009T1_us22              
+## [1,] &quot;0|0:12,0:12:39:0,39,585&quot; &quot;0|0:37,0:37:99:0,114,1709&quot;
+## [2,] NA                        &quot;0|1:2,1:3:16:16,0,48&quot;     
+## [3,] NA                        &quot;0|0:2,0:2:6:0,6,51&quot;       
+## [4,] NA                        &quot;1|1:0,1:1:3:25,3,0&quot;       
+## [5,] &quot;0|0:1,0:1:3:0,3,34&quot;      &quot;0|0:1,0:1:3:0,3,31&quot;       
+## [6,] &quot;0|0:1,0:1:3:0,3,34&quot;      &quot;0|0:3,0:3:9:0,9,85&quot;</code></pre>
+</div>
+<div id="vcfr" class="section level2">
+<h2>vcfR</h2>
+<p>Using the R package <em>vcfR</em>, we can read VCF format files into memory using the function <code>read.vcfR()</code>. Once in memory we can use the <code>head()</code> method to summarize the information in the three VCF regions.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf &lt;-<span class="st"> </span><span class="kw">read.vcfR</span>(<span class="st">&quot;pinfsc50_filtered.vcf.gz&quot;</span>)</code></pre></div>
+<pre><code>## File attributes:
+##   meta lines: 29
+##   header line: 30
+##   variant count: 2190
+##   column count: 27
+## 
+Meta line 29 read in.
+## All meta lines processed.
+## In function read_body_gz.
+##   stats(0): 29
+##   stats(1): 30
+##   stats(2): 2190
+##   stats(3): 27
+## Initializing gt matrix.
+##   nrows: 2190
+##   cols.size(): 27
+## gt matrix initialized.
+## Character matrix gt created.
+##   Character matrix gt rows: 2190
+##   Character matrix gt cols: 27
+##   skip: 0
+##   nrows: 2190
+##   row_num: 0
+## 
+## 
+Processed variant 1000
+Processed variant 2000
+Processed variant: 2190
+## All variants processed</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(vcf)</code></pre></div>
+<pre><code>## [1] &quot;***** Object of class &#39;vcfR&#39; *****&quot;
+## [1] &quot;***** Meta section *****&quot;
+## [1] &quot;##fileformat=VCFv4.1&quot;
+## [1] &quot;##source=\&quot;GATK haplotype Caller, phased with beagle4\&quot;&quot;
+## [1] &quot;##FILTER=&lt;ID=LowQual,Description=\&quot;Low quality\&quot;&gt;&quot;
+## [1] &quot;##FORMAT=&lt;ID=AD,Number=.,Type=Integer,Description=\&quot;Allelic depths fo [Truncated]&quot;
+## [1] &quot;##FORMAT=&lt;ID=DP,Number=1,Type=Integer,Description=\&quot;Approximate read  [Truncated]&quot;
+## [1] &quot;##FORMAT=&lt;ID=GQ,Number=1,Type=Integer,Description=\&quot;Genotype Quality\&quot;&gt;&quot;
+## [1] &quot;First 6 rows.&quot;
+## [1] 
+## [1] &quot;***** Fixed section *****&quot;
+##      CHROM              POS     ID REF ALT       QUAL      FILTER
+## [1,] &quot;Supercontig_1.50&quot; &quot;80058&quot; NA &quot;T&quot; &quot;G,TACTG&quot; &quot;3480.23&quot; NA    
+## [2,] &quot;Supercontig_1.50&quot; &quot;80063&quot; NA &quot;C&quot; &quot;T&quot;       &quot;3016.89&quot; NA    
+## [3,] &quot;Supercontig_1.50&quot; &quot;80067&quot; NA &quot;A&quot; &quot;C&quot;       &quot;3555.08&quot; NA    
+## [4,] &quot;Supercontig_1.50&quot; &quot;80073&quot; NA &quot;C&quot; &quot;A&quot;       &quot;104.72&quot;  NA    
+## [5,] &quot;Supercontig_1.50&quot; &quot;80074&quot; NA &quot;A&quot; &quot;G&quot;       &quot;2877.74&quot; NA    
+## [6,] &quot;Supercontig_1.50&quot; &quot;80089&quot; NA &quot;A&quot; &quot;ACG&quot;     &quot;2250.92&quot; NA    
+## [1] 
+## [1] &quot;***** Genotype section *****&quot;
+##      FORMAT           BL2009P4_us23                             
+## [1,] &quot;GT:AD:DP:GQ:PL&quot; &quot;1|0:25,3,0:28:45:45,0,1120,129,1134,1300&quot;
+## [2,] &quot;GT:AD:DP:GQ:PL&quot; &quot;1|0:29,3:32:30:30,0,1335&quot;                
+## [3,] &quot;GT:AD:DP:GQ:PL&quot; &quot;1|0:31,3:34:27:27,0,1372&quot;                
+## [4,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:30,0:30:99:0,102,1530&quot;               
+## [5,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:30,0:30:93:0,93,1395&quot;                
+## [6,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:33,0:33:99:0,99,1485&quot;                
+##      DDR7602                                  
+## [1,] &quot;1|0:19,7,0:26:99:237,0,777,300,804,1181&quot;
+## [2,] &quot;1|0:20,7:27:99:234,0,819&quot;               
+## [3,] &quot;1|0:19,6:25:99:189,0,864&quot;               
+## [4,] &quot;0|0:26,0:26:87:0,87,1305&quot;               
+## [5,] &quot;1|0:21,4:25:99:147,0,867&quot;               
+## [6,] &quot;1|0:20,2:22:18:18,0,918&quot;                
+##      IN2009T1_us22                              
+## [1,] &quot;0|1:29,6,0:35:99:162,0,1229,252,1252,1512&quot;
+## [2,] &quot;0|1:27,7:34:99:204,0,1232&quot;                
+## [3,] &quot;0|1:27,6:33:99:210,0,1155&quot;                
+## [4,] &quot;0|0:33,0:33:99:0,99,1485&quot;                 
+## [5,] &quot;0|1:27,6:33:99:171,0,1116&quot;                
+## [6,] &quot;0|1:27,7:34:99:213,0,1113&quot;                
+##      LBUS5                                    
+## [1,] &quot;0|1:19,7,0:26:99:237,0,777,300,804,1181&quot;
+## [2,] &quot;0|1:20,7:27:99:234,0,819&quot;               
+## [3,] &quot;0|1:19,6:25:99:189,0,864&quot;               
+## [4,] &quot;0|0:26,0:26:87:0,87,1305&quot;               
+## [5,] &quot;0|1:21,4:25:99:147,0,867&quot;               
+## [6,] &quot;0|1:20,2:22:18:18,0,918&quot;                
+##      NL07434                                     
+## [1,] &quot;0|1:45,19,0:64:99:643,0,1782,793,1866,2825&quot;
+## [2,] &quot;0|1:42,18:60:99:655,0,1748&quot;                
+## [3,] &quot;0|1:41,16:57:99:584,0,1737&quot;                
+## [4,] &quot;0|0:56,0:56:99:0,172,2565&quot;                 
+## [5,] &quot;0|1:39,16:55:99:629,0,1709&quot;                
+## [6,] &quot;0|1:34,12:46:99:393,0,1518&quot;                
+## [1] &quot;First 6 columns only.&quot;
+## [1] 
+## [1] &quot;Unique GT formats:&quot;
+## [1] &quot;GT:AD:DP:GQ:PL&quot;
+## [1]</code></pre>
+<p>After we have made any manipulations of the file we can save it as a VCF file with the function <code>write.vcf()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.vcf</span>(vcf, <span class="st">&quot;myVCFdata_filtered.vcf.gz&quot;</span>)</code></pre></div>
+<p><code>write.vcf()</code>will write a file to your active directory. We now have a summary of our VCF file which we can use to help understand what forms of information are contained within it. This information can be further explored with plotting functions and used to filter the VCF file for high quality variants as we will see in the next section.</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-danecek2011variant">
+<p>Danecek P., Auton A., Abecasis G., Albers CA., Banks E., DePristo MA., Handsaker RE., Lunter G., Marth GT., Sherry ST. et al. 2011. The variant call format and VCFtools. <em>Bioinformatics</em> 27:2156–2158. Available at: <a href="https://doi.org/10.1093/bioinformatics/btr330" class="uri">https://doi.org/10.1093/bioinformatics/btr330</a></p>
+</div>
+<div id="ref-knaus2017vcfr">
+<p>Knaus BJ., Grünwald NJ. 2017. <span class="math inline">\({V}cfr\)</span>: A package to manipulate and visualize variant call format data in R. <em>Molecular Ecology Resources</em> 17:44–53. Available at: <a href="http://dx.doi.org/10.1111/1755-0998.12549" class="uri">http://dx.doi.org/10.1111/1755-0998.12549</a></p>
+</div>
+</div>
+</div>
+
+<!-- </div>
+</div>
+</div>
+ -->
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

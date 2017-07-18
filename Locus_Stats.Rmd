@@ -4,14 +4,15 @@
   library("knitr")
   cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
   bib <- read.bibtex("bibtexlib.bib")
-  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE, 
+  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE,
                  fig.width = 10, fig.height = 6, cache = TRUE)
   if (html) opts_chunk$set(out.width = "700px", dpi = 300)
-  # use this to set knitr options: 
+  # use this to set knitr options:
   # http://yihui.name/knitr/options #chunk_options
 ```
 ---
-title: "6: Locus stats, heterozygosity, HWE"
+title: "Locus stats, heterozygosity, HWE"
+subtitle: "*ZN Kamvar, SE Everhart, and NJ Gr&uuml;nwald*"
 ---
 
 A rigorous population genetic analysis looks closely at the data to assess
@@ -21,7 +22,7 @@ statistics that analyze populations across loci, it is important to analyze each
 locus independently to make sure that one locus is not introducing bias or
 spurious errors into the analysis.
 
-> **Note:** Many of these statistics are specific to co-dominant data. 
+> **Note:** Many of these statistics are specific to co-dominant data.
 
 Locus summary statistics
 -----
@@ -68,11 +69,11 @@ locus_table(Pinf, pop = "South America")
 Phylogenetically uninformative loci
 -----
 
-We can see that the South American populations is fixed for one allele, thus 
+We can see that the South American populations is fixed for one allele, thus
 it would not be a bad idea to remove that locus from downstream analyses. We can
 do this using the function `informloci`. This will remove loci that contain less
-than a given percentage of divergent individuals (the default is $2/N$, where 
-$N$ equals the number of individuals in the data set). 
+than a given percentage of divergent individuals (the default is $2/N$, where
+$N$ equals the number of individuals in the data set).
 
 ```{r, informloci, message = TRUE}
 nLoc(Pinf)  # Let's look at our data set, note how many loci we have.
@@ -80,7 +81,7 @@ iPinf <- informloci(Pinf)
 nLoc(iPinf) # Note that we have 1 less locus
 ```
 
-So, how does this affect multi-locus based statistics? We can see immediately 
+So, how does this affect multi-locus based statistics? We can see immediately
 that it didn't affect the number of multilocus genotypes, let's take a look at
 the index of association:
 
@@ -127,8 +128,8 @@ percent missing to be removed. The default is `0.05` (5%).
 nancycats %>% missingno("loci") %>% info_table(plot = TRUE, scale = FALSE)
 ```
 
-> **Advanced Users:** when `scale = TRUE`, the color scale will be set so that 
-the warmest color corresponds to the highest value. 
+> **Advanced Users:** when `scale = TRUE`, the color scale will be set so that
+the warmest color corresponds to the highest value.
 
 We only removed two loci. If we wanted to make sure we removed everything, we
 could set `cutoff = 0`.
@@ -149,8 +150,8 @@ data relative to the number of loci. Let's remove all individuals with 2 missing
 loci:
 
 ```{r, fig.height=6, fig.width = 10, fig.cap = "Plot of missing data"}
-miss <- nancycats %>% 
-  missingno("geno", cutoff = 2/nLoc(nancycats)) %>% 
+miss <- nancycats %>%
+  missingno("geno", cutoff = 2/nLoc(nancycats)) %>%
   info_table(plot = TRUE)
 ```
 
@@ -170,7 +171,7 @@ at the first locus. Here is the un-replaced data for reference:
 
 ```{r}
 nan1 <- popsub(nancycats, 1, drop = TRUE) # Dropping alleles not in that population.
-tab(nan1[loc = "L1"])
+tab(nan1[loc = "fca8"])
 ```
 
 ```{r, message = TRUE}
@@ -181,7 +182,11 @@ tab(popsub(nanzero, 1, drop = TRUE)[loc = "fca8"])
 The `NA`s have been replaced with zeroes. Now let's look at what happens when we
 replace with `"mean"`.
 
-```{r, message = TRUE}
+> Note: We get a warning with this command that says `@tab does not contain integers`. 
+> This is because the `genind` object should only contain counts of alleles, but 
+> replacing missing data with the mean will give decimal numbers (aka numeric).
+
+```{r, message = TRUE, warning = TRUE}
 nanmean <- missingno(nancycats, "mean")
 tab(popsub(nanmean, 1, drop = TRUE)[loc = "fca8"])
 ```
@@ -190,7 +195,7 @@ Notice that there are a lot more alleles than there were originally. This is
 because the procedure is performed over the entire data set, not by population.
 Let's look at what happens if we perform the same routine on the subset data.
 
-```{r, message = TRUE}
+```{r, message = TRUE, warning = TRUE}
 nan1 <- nancycats %>% popsub(1, drop = TRUE) %>% missingno("mean")
 tab(nan1[loc = "fca8"])
 ```
@@ -202,7 +207,7 @@ Hardy-Weinberg equilibrium
 
 Next, let's determine if our  populations are in Hardy-Weinberg equilibrium. We
 will again use the nancycats data to test for HWE using the function `hw.test()`
-from the *pegas* package. This will compute the $\chi^2$ statistic over the 
+from the *pegas* package. This will compute the $\chi^2$ statistic over the
 entire data set and compute two P-values, one analytical and one derived from
 permutations:
 

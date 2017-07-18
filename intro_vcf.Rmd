@@ -1,0 +1,29 @@
+---
+title: "Population genomics based on high throughut sequencing (HTS)"
+subtitle: "*NJ Gr&uuml;nwald, BJ Knaus, and JF Tabima*"
+---
+
+
+```{r setup, include=FALSE}
+library("knitcitations")
+knitcitations::cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
+bib <- knitcitations::read.bibtex("bibtexlib.bib")
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE)
+#knitr::opts_chunk$set(cache = TRUE)
+```
+
+We now live in the fast growing era of high throughput sequencing (HTS) that is revolutionizing our ability to understand genetic variation `r citep(bib[c("grunwald2016population", "luikart2003power")])`. 
+Two factors are contributing to a need for new methods of analyzing data: 1. the data is now often in a genome-wide context where location within a genome is part of the analysis and 2. the number of variants are large. 
+
+# Novel tools in R for population genomic analyses
+
+The R computing language has become a great tool for analyzing population genomic data.
+A recent special issue in [Molecular Ecology Resources](http://onlinelibrary.wiley.com/doi/10.1111/men.2017.17.issue-1/issuetoc) provides a nice overview of the arsenal of tools available in R `r citep(bib["paradis2017towards"])`. 
+New tools have become available in R for analyzing HTS data including *adegenet* `r citep(bib[c("jombart2008adegenet")])`, *ape* `r citep(bib[c("paradis2004ape")])`, *vcfR* `r citep(bib["knaus2017vcfr"])`, and *poppr* `r citep(bib[c("kamvar2014poppr", "kamvar2015novel")])` among others.
+Section III of this primer is geared towards analyzing whole genome or reduced representation genomic data for populations using the variant call format (VCF).
+The next three chapters will focus on introducing the VCF file format, reading SNP data into R from high throughput sequencing projects, performing quality control, and conducting selected analyses using population genomic data.
+
+# References
+
+

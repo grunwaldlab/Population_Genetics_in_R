@@ -1,0 +1,16 @@
+---
+bibliography: bibtexlib.bib
+---
+
+
+For genomics examples we'll use the pinfsc50 dataset.
+The [pinfsc50](https://CRAN.R-project.org/package=pinfsc50) dataset is from a number of published *P. infestans* genomics projects where the data has been subset here to supercontig_1.50.
+This dataset is available as a stand alone R package [@knaus2017vcfr].
+By subsetting the data to one supercontig it creates a dataset of a size that can be conveniently used for examples.
+This dataset illustrates some important strengths and weaknesses of these studies.
+A strength is the amount of data we have for each individual.
+Among the weaknesses are that the samples are 'opportunistic' in that we have no control over the design of the experiment.
+Also, because of the large investment in data per sample, there is a relatively small number of samples.
+
+
+

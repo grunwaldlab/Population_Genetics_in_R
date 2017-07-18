@@ -1,15 +1,13 @@
----
-output: pdf_document
----
 ```{r,message=FALSE,echo=FALSE}
   library("knitcitations")
   bib <- read.bibtex("bibtexlib.bib")
   library("knitr")
   cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
-  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE) 
+  opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE)
 ```
 ---
-title: "1: Introduction"
+title: "Introduction"
+subtitle: "*NJ Gr&uuml;nwald, ZN Kamvar and SE Everhart*"
 ---
 
 This primer provides a concise introduction to conducting applied analyses of
@@ -86,7 +84,7 @@ of an allele is calculated as the number of allele copies observed in a
 population divided by the total number of individuals, times the ploidy ($N$ in
 haploids or $2N$ in diploids) in the population. For diploids we would observe
 frequency $f_{A}$ and $f_{a}$ for alleles $A$ and $a$, respectively:
- 
+
 $f_{A} = \frac{N_{A}}{2N}$ and $f_{a} = \frac{N_{a}}{2N}$
 
 where $N_{A}$ are the numbers of allele $A$ segregating in the population
@@ -148,7 +146,7 @@ clonally or follow a mixed reproductive system, including various degrees of
 clonality and sexuality `r citep(bib[c("halkett2005tackling")])`. Traditional
 population genetic theory does not apply and these populations violate basic
 assumptions in the corresponding analyses. Thus, a different set of tools are
-required for analyses of clonal populations `r citep(bib[c("anderson1995clonality", 
+required for analyses of clonal populations `r citep(bib[c("anderson1995clonality",
 "balloux2003population", "de2006molecular",
 "grunwald2011evolution", "halkett2005tackling", "milgroom1996recombination")])`.
 Typically these focus on metrics that are model free and do not assume random
@@ -158,7 +156,7 @@ as cluster analysis based on genetic distance. Additional useful measures
 include indices of linkage disequiblibrium among markers that are used to infer
 if populations are reproducing sexually or clonally. We will explore these
 analyses bit by bit throughout this primer. The *poppr* R package was
-specifically developed to facilitate analyses of clonal populations 
+specifically developed to facilitate analyses of clonal populations
 `r citep(bib[c("kamvar2014poppr", "kamvar2015novel")])`.
 
 Marker systems, ploidy and other kinds of data
@@ -173,7 +171,7 @@ dominant (SSR, SNPs, allozymes) `r citep(bib[c("grunwald2003")])`. A locus can
 have two alleles (0/1 for AFLP; C/T for SNPs) or many alleles per locus
 (A/B/C...N for SSRs or allozymes). In each case the data has to be coded and
 analyzed differently. Mutation rates can also differ for different markers
-systems (SSR >> mitochondrial SNPs > nuclear SNPs) 
+systems (SSR >> mitochondrial SNPs > nuclear SNPs)
 `r citep(bib[c("grunwald2011evolution")])`. All these aspects of a particular data
 set need to be considered in the data analyses.
 
@@ -181,7 +179,7 @@ Applications of population genetic analyses
 ----
 
 Population genetic analyses are tremendously valuable for answering questions
-ranging from applied to basic evolutionary questions `r citep(bib[c("grunwald2011evolution")])`. 
+ranging from applied to basic evolutionary questions `r citep(bib[c("grunwald2011evolution")])`.
 For example, a typical concern when
 finding a new, invasive organism is whether it is introduced to the area or
 emerged from a resident population. Other questions of interest might include:
@@ -191,7 +189,7 @@ emerged from a resident population. Other questions of interest might include:
  - Has the population gone through a genetic bottleneck?
  - Are populations structured by region, geography, micro-environment?
  - What are source and sink populations and what are the rates of migration?
- 
+
 This primer will provide some of the basic tools needed to answer many of these
 questions for populations that are clonal or partially clonal. Note, however,
 that more powerful, complementary coalescent methods will not be covered here.

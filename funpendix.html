@@ -4,21 +4,22 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
 
 
 
-<title>A2: Function Glossary</title>
+<title>Function Glossary</title>
 
-<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -127,6 +128,7 @@ h6 {
 }
 </style>
 
+<link rel="stylesheet" href="styles.css" type="text/css" />
 
 </head>
 
@@ -155,11 +157,62 @@ button.code-folding-btn:focus {
 </style>
 
 
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+
+.section h2 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h3 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h4 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h5 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h6 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
 
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -172,6 +225,164 @@ $(document).ready(function () {
 
 
 
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Population genetics and genomics in R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="TOC.html">Table of contents</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part I
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="Getting_ready_to_use_R.html">Getting ready to use R</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part II
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Data_Preparation.html">Data preparation</a>
+    </li>
+    <li>
+      <a href="First_Steps.html">First steps</a>
+    </li>
+    <li>
+      <a href="Population_Strata.html">Population strata and clone correction</a>
+    </li>
+    <li>
+      <a href="Locus_Stats.html">Locus-based statistics and missing data</a>
+    </li>
+    <li>
+      <a href="Genotypic_EvenRichDiv.html">Genotypic evenness, richness, and diversity</a>
+    </li>
+    <li>
+      <a href="Linkage_disequilibrium.html">Linkage disequilibrium</a>
+    </li>
+    <li>
+      <a href="Pop_Structure.html">Population structure</a>
+    </li>
+    <li>
+      <a href="Minimum_Spanning_Networks.html">Minimum Spanning Networks</a>
+    </li>
+    <li>
+      <a href="AMOVA.html">AMOVA</a>
+    </li>
+    <li>
+      <a href="DAPC.html">Discriminant analysis of principal components (DAPC)</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part III
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro_vcf.html">Population genomics and HTS</a>
+    </li>
+    <li>
+      <a href="reading_vcf.html">Reading VCF data</a>
+    </li>
+    <li>
+      <a href="qc.html">Quality control</a>
+    </li>
+    <li>
+      <a href="analysis_of_genome.html">Analysis of genomic data</a>
+    </li>
+    <li>
+      <a href="gbs_analysis.html">Analysis of GBS data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Workshop
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="workshop.html">Workshop</a>
+    </li>
+    <li>
+      <a href="intro_vcf.html">Introduction</a>
+    </li>
+    <li>
+      <a href="reading_vcf.html">VCF data</a>
+    </li>
+    <li>
+      <a href="gbs_analysis.html">Analysis of GBS data</a>
+    </li>
+    <li>
+      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    About
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Authors.html">Authors</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Appendices
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro_to_R.html">Introduction to R</a>
+    </li>
+    <li>
+      <a href="Data_sets.html">Data sets</a>
+    </li>
+    <li>
+      <a href="funpendix.html">Function glossary</a>
+    </li>
+    <li>
+      <a href="https://github.com/grunwaldlab/Population_Genetics_in_R/">Source Code</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -248,18 +459,27 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 
 
 
-<h1 class="title toc-ignore">A2: Function Glossary</h1>
+<h1 class="title toc-ignore">Function Glossary</h1>
 
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#part-i">Part I:</a></li>
+<li><a href="#part-ii">Part II:</a></li>
+<li><a href="#part-iii">Part III</a></li>
+</ul>
+</div>
 
 <p>Below are functions that were utilized in the making of this primer with links to their respective packages. Note that this list was automatically generated and might be missing some functions.</p>
+<div id="part-i" class="section level2">
+<h2>Part I:</h2>
 <div id="introduction" class="section level3">
-<h3><a href="Introduction.html">1: Introduction</a></h3>
+<h3><a href="Introduction.html">Introduction</a></h3>
 <p>No functions used in this chapter.</p>
 </div>
 <div id="getting-ready-to-use-r" class="section level3">
-<h3><a href="Getting_ready_to_use_R.html">2: Getting ready to use R</a></h3>
+<h3><a href="Getting_ready_to_use_R.html">Getting ready to use R</a></h3>
 <table>
 <thead>
 <tr class="header">
@@ -283,8 +503,11 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </tbody>
 </table>
 </div>
+</div>
+<div id="part-ii" class="section level2">
+<h2>Part II:</h2>
 <div id="data-preparation" class="section level3">
-<h3><a href="Data_Preparation.html">3: Data Preparation</a></h3>
+<h3><a href="Data_Preparation.html">Data Preparation</a></h3>
 <table>
 <thead>
 <tr class="header">
@@ -305,7 +528,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </table>
 </div>
 <div id="first-analysis" class="section level3">
-<h3><a href="First_Steps.html">4: First Analysis</a></h3>
+<h3><a href="First_Steps.html">First Analysis</a></h3>
 <table>
 <thead>
 <tr class="header">
@@ -342,7 +565,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </table>
 </div>
 <div id="populations-strata-subsetting-and-clone-correction" class="section level3">
-<h3><a href="Population_Strata.html">5: Populations strata: subsetting and clone correction</a></h3>
+<h3><a href="Population_Strata.html">Populations strata: subsetting and clone correction</a></h3>
 <table>
 <thead>
 <tr class="header">
@@ -387,7 +610,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </table>
 </div>
 <div id="locus-stats-heterozygosity-hwe" class="section level3">
-<h3><a href="Locus_Stats.html">6: Locus stats, heterozygosity, HWE</a></h3>
+<h3><a href="Locus_Stats.html">Locus stats, heterozygosity, HWE</a></h3>
 <table>
 <thead>
 <tr class="header">
@@ -440,7 +663,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </table>
 </div>
 <div id="genotypic-richness-diversity-and-evenness" class="section level3">
-<h3><a href="Genotypic_EvenRichDiv.html">7: Genotypic richness, diversity, and evenness</a></h3>
+<h3><a href="Genotypic_EvenRichDiv.html">Genotypic richness, diversity, and evenness</a></h3>
 <table>
 <thead>
 <tr class="header">
@@ -473,7 +696,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </table>
 </div>
 <div id="linkage-disequilibrium" class="section level3">
-<h3><a href="Linkage_disequilibrium.html">8: Linkage disequilibrium</a></h3>
+<h3><a href="Linkage_disequilibrium.html">Linkage disequilibrium</a></h3>
 <table>
 <thead>
 <tr class="header">
@@ -502,7 +725,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </table>
 </div>
 <div id="population-structure-g_st-genetic-distance-and-clustering" class="section level3">
-<h3><a href="Pop_Structure.html">9: Population structure: <span class="math inline">\(G_{ST}\)</span>, genetic distance, and clustering</a></h3>
+<h3><a href="Pop_Structure.html">Population structure: <span class="math inline">\(G_{ST}\)</span>, genetic distance, and clustering</a></h3>
 <table>
 <thead>
 <tr class="header">
@@ -587,7 +810,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </table>
 </div>
 <div id="minimum-spanning-networks" class="section level3">
-<h3><a href="Minimum_Spanning_Networks.html">10: Minimum Spanning Networks</a></h3>
+<h3><a href="Minimum_Spanning_Networks.html">Minimum Spanning Networks</a></h3>
 <table>
 <thead>
 <tr class="header">
@@ -640,7 +863,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </table>
 </div>
 <div id="amova" class="section level3">
-<h3><a href="AMOVA.html">11: AMOVA</a></h3>
+<h3><a href="AMOVA.html">AMOVA</a></h3>
 <table>
 <thead>
 <tr class="header">
@@ -673,7 +896,7 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </table>
 </div>
 <div id="discriminant-analysis-of-principal-components-dapc" class="section level3">
-<h3><a href="DAPC.html">12: Discriminant analysis of principal components (DAPC)</a></h3>
+<h3><a href="DAPC.html">Discriminant analysis of principal components (DAPC)</a></h3>
 <table>
 <thead>
 <tr class="header">
@@ -717,6 +940,26 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 </tbody>
 </table>
 </div>
+</div>
+<div id="part-iii" class="section level2">
+<h2>Part III</h2>
+<div id="population-genomics-and-hts" class="section level3">
+<h3><a href="intro_vcf.html">Population genomics and HTS</a></h3>
+<p>No functions used in this chapter.</p>
+</div>
+<div id="reading-vcf-data" class="section level3">
+<h3><a href="reading_vcf.html">Reading VCF data</a></h3>
+</div>
+<div id="quality-control" class="section level3">
+<h3><a href="qc.html">Quality control</a></h3>
+</div>
+<div id="analysis-of-genomic-data" class="section level3">
+<h3><a href="analysis_of_genome.html">Analysis of genomic data</a></h3>
+</div>
+<div id="analysis-of-gbs-data" class="section level3">
+<h3><a href="gbs_analysis.html">Analysis of GBS data</a></h3>
+</div>
+</div>
 
 <!-- </div>
 </div>
@@ -730,8 +973,11 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 
@@ -742,7 +988,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

@@ -1,0 +1,96 @@
+---
+title: "Censoring data"
+---
+
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.align = 'center')
+knitr::opts_chunk$set(fig.width = 12)
+```
+
+
+```{r, results='hide', echo = FALSE}
+suppressPackageStartupMessages( library(vcfR) )
+data(vcfR_example)
+dp <- extract.gt(vcf, element = "DP", as.numeric=TRUE)
+```
+
+
+From the section where we created depth plots we see that there is a considerable amount of variation in depth within each sample.
+For example, if we sequenced a genome at 10X coverage we would expect most of our variants to be sequenced at this depth.
+Instead we see a range of values both exceptionally high and low.
+Variants sequenced at low coverage may only observe one of two alleles in a diploid.
+Because of this, we may want to omit variants of low coverage.
+Variants sequenced at high coverage may be from repetitive regions that were assembled in our reference as a single region.
+This means that different alleles may be from different copied (loci), so we may want to omit these.
+Here we'll censor the variants that we do not feel are of 'typical' coverage.
+When we censor variants we'll score them as missing (NA).
+By censoring instead of removing we preserve the geometry of the matrix.
+This helps facilitate multiple manipulations of the matrix if desired.
+Let's begin by reminding us how abundant NAs are in our dataset.
+
+
+```{r}
+vcf
+```
+
+
+A number of methods can be used to create intervals that you may consider acceptable.
+The use of quantiles may be considered desirable because they are non-parametric.
+We can fit different intervals to different samples using the function `apply()`.
+
+
+```{r}
+quants <- apply(dp, MARGIN=2, quantile, probs=c(0.1, 0.8), na.rm=TRUE)
+quants[,1:6]
+```
+
+
+We can create a second matrix of depths where we subtract the lower threshold of each sample from its depth using the function `sweep()`.
+Now all depths in the matrix that are below zero are below our threshold.
+We can use this information to set these cell to NA in the original matrix.
+We can similarly subtract the upper threshold from our samples to create a second matrix.
+Now everything above zero is above our threshold and can be set to NA.
+
+
+```{r}
+dp2 <- sweep(dp, MARGIN=2, FUN = "-", quants[1,])
+dp[dp2 < 0] <- NA
+
+dp2 <- sweep(dp, MARGIN=2, FUN = "-", quants[2,])
+dp[dp2 > 0] <- NA
+
+dp[dp < 4] <- NA
+```
+
+
+Now that we know which cells we want to censor as NA we can use this information to update the vcfR object.
+Don't forget that the first column of the gt matrix is the 'FORMAT' column.
+We can omit this from our selection by using -1.
+
+
+```{r}
+vcf@gt[,-1][ is.na(dp) == TRUE ] <- NA
+```
+
+
+Now we can use the `show` method to see how this action has affected missingness in our vcfR object.
+
+
+```{r}
+vcf
+```
+
+
+We've used depth information to censor variants that we feel are of unusual sequence depth.
+We've also used this information to update our vcfR object so that our data can remain in a constant format.
+This has resulted in a vcfR object with a greater degree of missing data.
+However, if our choice of which variants to censor has been good then then the remaining variants may be of a higher quality then the entire set we started with.
+We'll deal with mitigating missing data in another section.
+A similar approach can be used if there are parameters other than depth that a researcher would like to filter on.
+We now have a vcfR object that has variants that we feel are of higher quality than our original file.
+
+
+
+
