@@ -70,7 +70,7 @@ navbar:
         - text: "Function glossary"
           href: "funpendix.html"
         - text: "Source Code"
-          href: https://github.com/grunwaldlab/sandbox1/
+          href: https://github.com/grunwaldlab/Population_Genetics_in_R/
 output:
   html_document:
     theme: sandstone
