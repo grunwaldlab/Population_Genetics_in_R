@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/20031384.svg)](https://zenodo.org/badge/latestdoi/20031384)
 
-*Niklaus J. Gr&uuml;nwald, Zhian N. Kamvar, and Sydney E. Everhart*
+*Niklaus J. Gr&uuml;nwald, Zhian N. Kamvar, Sydney E. Everhart, Brian J. Knaus, and Javier F. Tabima*
 
 Welcome! This primer provides a concise introduction to conducting applied
 analyses of population genetic data in R, with a special emphasis on non-model
