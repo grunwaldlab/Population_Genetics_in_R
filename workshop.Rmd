@@ -25,8 +25,9 @@ While this section may be used as an entry point, learning about genomic analyse
 ## Before you arrive please make sure you install the following required materials
  
 
-1. __Install R__    
+1. __Install R__ 
 Instructions on how to install R can be found at the [R homepage](https://www.r-project.org/).
+Please make sure you have the most current version of R (3.4.1, [Single candle](http://i.onionstatic.com/avclub/5807/95/animated/original.gif)).
 2. __Install RStudio__    
 Instructions on how to install the RStudio integrated development environment (IDE) can be found at the [RStudio download site](https://www.rstudio.com/products/rstudio/download/).
 Choose the 'RStudio Desktop Open Source License' (free) version.
