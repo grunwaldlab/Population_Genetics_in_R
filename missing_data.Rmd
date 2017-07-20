@@ -76,6 +76,7 @@ sum(as.numeric(c(FALSE, TRUE)))
 Now that we've reminded ourselves of how to count missing values we can apply this knowledge to query one of our samples.
 We'll extract a matrix of variant depths (DP) from the VCF data.
 We can remind ourselves of what DP is in this VCF data by using the `queryMETA()` function.
+(Recall that we have already read in our VCF data to create a vcfR object in the section 'Reading VCF data'.)
 
 
 ```{r}

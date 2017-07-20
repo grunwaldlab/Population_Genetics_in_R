@@ -390,7 +390,7 @@ $(document).ready(function () {
 <pre><code>## [1] 0 1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">as.numeric</span>(<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>)))</code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<p>Now that we’ve reminded ourselves of how to count missing values we can apply this knowledge to query one of our samples. We’ll extract a matrix of variant depths (DP) from the VCF data. We can remind ourselves of what DP is in this VCF data by using the <code>queryMETA()</code> function.</p>
+<p>Now that we’ve reminded ourselves of how to count missing values we can apply this knowledge to query one of our samples. We’ll extract a matrix of variant depths (DP) from the VCF data. We can remind ourselves of what DP is in this VCF data by using the <code>queryMETA()</code> function. (Recall that we have already read in our VCF data to create a vcfR object in the section ‘Reading VCF data’.)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">queryMETA</span>(vcf, <span class="st">&quot;DP&quot;</span>)</code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;FORMAT=ID=DP&quot;                                                                         
