@@ -124,3 +124,8 @@ plot_poppr_msn(partial_clone, myMsn, palette = brewer.pal(n=4, name = "Set1"))
 1. Analysis of [Genome](analysis_of_genome.html) data
 
 
+***
+
+## How'd we do?
+
+After you've completed the workshop, please fill out [this quick survey](https://docs.google.com/forms/d/1Buc6fsnRxEtk0QhMxH_b3yPFhP3du83zb-4m7Hd9Xtc/edit) to provide us with feedback. Thank you!
