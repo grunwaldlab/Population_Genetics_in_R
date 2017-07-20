@@ -14,7 +14,6 @@ knitr::opts_chunk$set(fig.width = 12)
 suppressPackageStartupMessages( library(vcfR) )
 #vcf <- read.vcfR('TASSEL_GBS0077.vcf.gz')
 data('vcfR_example')
-dp <- extract.gt(vcf, element = "DP", as.numeric=TRUE)
 ```
 
 
@@ -69,7 +68,27 @@ If we remind ourselves that TRUEs and FALSEs are numerically encoded as 1 and 0 
 
 
 ```{r}
-as.numeric(TRUE) # What are you trying to say with this code snippet? Its confusing.
+as.numeric(c(FALSE, TRUE))
+sum(as.numeric(c(FALSE, TRUE)))
+```
+
+
+Now that we've reminded ourselves of how to count missing values we can apply this knowledge to query one of our samples.
+We'll extract a matrix of variant depths (DP) from the VCF data.
+We can remind ourselves of what DP is in this VCF data by using the `queryMETA()` function.
+
+
+```{r}
+queryMETA(vcf, "DP")
+```
+
+
+Here we'll want the first definition (FORMAT=ID=DP).
+Now we can extract a matrix of depths and query the first sample for missingness.
+
+
+```{r}
+dp <- extract.gt(vcf, element = "DP", as.numeric=TRUE)
 sum(is.na(dp[,1]))
 ```
 

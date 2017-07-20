@@ -362,7 +362,7 @@ $(document).ready(function () {
 
 <div id="quality-control-of-data" class="section level2">
 <h2>Quality control of data</h2>
-<p>All data sets are not perfect. A critical step in and research project is to ensure the quality of the data and to develop mitigatation strategies to handle low quality data. A favorite statistics text poses teh question ‘garbage in, roses out?’ <span class="citation">(Tabachnick, Fidell &amp; Osterlind, 2001)</span>. While we all know the answer to this question, when we are presented with a data and are anxious to see what answers our analyses may present us with, its frequently easy to forget to ask this critical question. Many of the existing variant callers state that they aggressively call variants with the hope that these variants are filtered for quality. In this section we discuss methods to characterize quality issues and propose methods to mandle these issues.</p>
+<p>All data sets are not perfect. A critical step in and research project is to ensure the quality of the data and to develop mitigatation strategies to handle low quality data. A favorite statistics text poses the question ‘garbage in, roses out?’ <span class="citation">(Tabachnick, Fidell &amp; Osterlind, 2001)</span>. While we all know the answer to this question, when we are presented with a data and are anxious to see what answers our analyses may present us with, its frequently easy to forget to ask this critical question. Many of the existing variant callers state that they aggressively call variants with the hope that these variants are filtered for quality. In this section we discuss methods to characterize quality issues and propose methods to handle these issues.</p>
 </div>
 <div id="missing-data" class="section level2">
 <h2>Missing data</h2>
@@ -386,9 +386,26 @@ $(document).ready(function () {
 <div id="quantifying-missingness-one-sample" class="section level2">
 <h2>Quantifying missingness, one sample</h2>
 <p>To quantify missingness for a single sample we can use the function <code>is.na()</code>. This function uses a vector as an argument and returns a logical vector (TRUE and FALSE) indicating which values are NA. If we remind ourselves that TRUEs and FALSEs are numerically encoded as 1 and 0 it reminds us we can take a sum of this logical vector to determine the degree of missingness.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.numeric</span>(<span class="ot">TRUE</span>) <span class="co"># What are you trying to say with this code snippet? Its confusing.</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.numeric</span>(<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>))</code></pre></div>
+<pre><code>## [1] 0 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">as.numeric</span>(<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>)))</code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">is.na</span>(dp[,<span class="dv">1</span>]))</code></pre></div>
+<p>Now that we’ve reminded ourselves of how to count missing values we can apply this knowledge to query one of our samples. We’ll extract a matrix of variant depths (DP) from the VCF data. We can remind ourselves of what DP is in this VCF data by using the <code>queryMETA()</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">queryMETA</span>(vcf, <span class="st">&quot;DP&quot;</span>)</code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;FORMAT=ID=DP&quot;                                                                         
+## [2] &quot;Number=1&quot;                                                                             
+## [3] &quot;Type=Integer&quot;                                                                         
+## [4] &quot;Description=Approximate read depth (reads with MQ=255 or with bad mates are filtered)&quot;
+## 
+## [[2]]
+## [1] &quot;INFO=ID=DP&quot;                                                           
+## [2] &quot;Number=1&quot;                                                             
+## [3] &quot;Type=Integer&quot;                                                         
+## [4] &quot;Description=Approximate read depth; some reads may have been filtered&quot;</code></pre>
+<p>Here we’ll want the first definition (FORMAT=ID=DP). Now we can extract a matrix of depths and query the first sample for missingness.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)
+<span class="kw">sum</span>(<span class="kw">is.na</span>(dp[,<span class="dv">1</span>]))</code></pre></div>
 <pre><code>## [1] 41</code></pre>
 <p>This reports the number of missing variants in the first sample. We could similarly count the number of missing samples from a variant by accessing a row instead of a column. We could also convert this to a percentage by using <code>length()</code> to determine the total number of values in either the column or row and use this as a denominator.</p>
 </div>
@@ -404,7 +421,7 @@ myMiss &lt;-<span class="st"> </span>myMiss/<span class="kw">nrow</span>(vcf)
 <span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">12</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>))
 <span class="kw">barplot</span>(myMiss, <span class="dt">las =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="dv">1</span>:<span class="dv">12</span>)
 <span class="kw">title</span>(<span class="dt">ylab =</span> <span class="st">&quot;Missingness (%)&quot;</span>)</code></pre></div>
-<p><img src="qc_files/figure-html/unnamed-chunk-9-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p><img src="qc_files/figure-html/unnamed-chunk-11-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>))</code></pre></div>
 <p>This allows us to visualize the degree of missingness on a per sample basis. We see that the sample P7272 has a particularly high amount of missing genotypes. This is because this sample is a different species than the reference it was mapped to. One decision could be to omit this sample. However, if the goal is to make comparisons among these species we may instead search for variants that are present in both taxa.</p>
 <p>We can do something similar to query the variants (rows) for missingness. However, when we have a large number of variants we wouldn’t want to visualize this with a barchart. It would require a barchart with 60 thousand bars. Instead of using a barchart we’ll use a histogram.</p>
@@ -412,7 +429,7 @@ myMiss &lt;-<span class="st"> </span>myMiss/<span class="kw">nrow</span>(vcf)
 myMiss &lt;-<span class="st"> </span>myMiss/<span class="kw">ncol</span>(vcf@gt[,-<span class="dv">1</span>])
 
 <span class="kw">hist</span>(myMiss, <span class="dt">col =</span> <span class="st">&quot;#8DD3C7&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;Missingness (%)&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;&quot;</span>)</code></pre></div>
-<p><img src="qc_files/figure-html/unnamed-chunk-10-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="qc_files/figure-html/unnamed-chunk-12-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>We’ve now seen how we can create summaries of our data matrix over both rows and columns. Once we have this knowledge in hand we may develop a plan for managing this data.</p>
 </div>
 <div id="sequence-depth" class="section level2">
@@ -437,7 +454,7 @@ dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span c
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">12</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>))
 <span class="kw">boxplot</span>(dp, <span class="dt">col=</span><span class="dv">2</span>:<span class="dv">8</span>, <span class="dt">las=</span><span class="dv">3</span>)
 <span class="kw">title</span>(<span class="dt">ylab =</span> <span class="st">&quot;Depth (DP)&quot;</span>)</code></pre></div>
-<p><img src="qc_files/figure-html/unnamed-chunk-14-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p><img src="qc_files/figure-html/unnamed-chunk-16-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>))</code></pre></div>
 <p>We’ve generated a box and whisker plot for each sample where 50% of the data is contained within each colored box and outliers are presented as circles. One issue with this plot is that all of the data seem squished at the bottom of the plot. A log transformation could help this plot. Remember that log of zero is undefined, so if you persue a log transformation you may need to handle these cases.</p>
 </div>
@@ -486,7 +503,7 @@ for(i in <span class="dv">1</span>:myRows){
 }</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot the plot.</span>
 <span class="kw">plot_grid</span>(<span class="dt">plotlist =</span> myPlots, <span class="dt">nrow =</span> myRows)</code></pre></div>
-<p><img src="qc_files/figure-html/unnamed-chunk-16-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p><img src="qc_files/figure-html/unnamed-chunk-18-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>We can see that the log transformation stretches out the smaller values and compresses the larger values. This allows us to focus on where our data has the greatest density. Things to look for in these plots are whether all samples are equally represented, whether there are a few samples of low quality that may need to be omitted from downstream analyses, or if therre are a small number of jackpot samples that received all the reads at the expense of the other samples. Here the samples appear to be fairly eqaully represented.</p>
 </div>
 <div id="censoring-data" class="section level2">
@@ -562,7 +579,7 @@ vcf@gt[,-<span class="dv">1</span>][ <span class="kw">is.na</span>(dp) ==<span c
 ## *****        *****         *****</code></pre>
 <p>We see that this censoring has increased the degree of missingness in our matrix to 27.7 percent. Ideally we should visualize the results of this action. For brevity, we will not here. But you can return to the section on depth and reuse the code presented there to visualize how this change has affected the distribution of the data. One way to visualize these data is to use a heatmap.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heatmap.bp</span>(dp[<span class="dv">1</span>:<span class="dv">1000</span>,], <span class="dt">rlabels =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p><img src="qc_files/figure-html/unnamed-chunk-29-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p><img src="qc_files/figure-html/unnamed-chunk-31-1.png" width="1152" style="display: block; margin: auto;" /></p>
 </div>
 <div id="omitting-samples" class="section level2">
 <h2>Omitting samples</h2>
@@ -570,7 +587,7 @@ vcf@gt[,-<span class="dv">1</span>][ <span class="kw">is.na</span>(dp) ==<span c
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, function(x){ <span class="kw">sum</span>( <span class="kw">is.na</span>(x) ) } )
 myMiss &lt;-<span class="st"> </span>myMiss /<span class="st"> </span><span class="kw">nrow</span>(dp)
 <span class="kw">barplot</span>(myMiss, <span class="dt">las =</span> <span class="dv">3</span>)</code></pre></div>
-<p><img src="qc_files/figure-html/unnamed-chunk-30-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p><img src="qc_files/figure-html/unnamed-chunk-32-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf@gt &lt;-<span class="st"> </span>vcf@gt[, <span class="kw">c</span>(<span class="ot">TRUE</span>, myMiss &lt;<span class="st"> </span><span class="fl">0.6</span>)]
 vcf</code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
@@ -582,7 +599,7 @@ vcf</code></pre></div>
 ## *****        *****         *****</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)
 <span class="kw">heatmap.bp</span>(dp[<span class="dv">1</span>:<span class="dv">1000</span>,], <span class="dt">rlabels =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p><img src="qc_files/figure-html/unnamed-chunk-31-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p><img src="qc_files/figure-html/unnamed-chunk-33-1.png" width="1152" style="display: block; margin: auto;" /></p>
 </div>
 <div id="omitting-variants" class="section level2">
 <h2>Omitting variants</h2>
@@ -601,7 +618,7 @@ vcf</code></pre></div>
 ## *****        *****         *****</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)
 <span class="kw">heatmap.bp</span>(dp, <span class="dt">rlabels =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p><img src="qc_files/figure-html/unnamed-chunk-33-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p><img src="qc_files/figure-html/unnamed-chunk-35-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>When we are happy with our changes we can save our production data using the function <code>write.vcf</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.vcf</span>(vcf, <span class="dt">file =</span> <span class="st">&quot;pinfsc50_filtered.vcf.gz&quot;</span>)
 <span class="co">#write.vcf(vcf, &quot;pinfsc50_qc.vcf.gz&quot;)</span></code></pre></div>

@@ -19,10 +19,10 @@ library("knitcitations")
 
 All data sets are not perfect.
 A critical step in and research project is to ensure the quality of the data and to develop mitigatation strategies to handle low quality data.
-A favorite statistics text poses teh question 'garbage in, roses out?' `r citep(bib[c("tabachnick2001using")])`.
+A favorite statistics text poses the question 'garbage in, roses out?' `r citep(bib[c("tabachnick2001using")])`.
 While we all know the answer to this question, when we are presented with a data and are anxious to see what answers our analyses may present us with, its frequently easy to forget to ask this critical question.
 Many of the existing variant callers state that they aggressively call variants with the hope that these variants are filtered for quality.
-In this section we discuss methods to characterize quality issues and propose methods to mandle these issues.
+In this section we discuss methods to characterize quality issues and propose methods to handle these issues.
 
 
 ## Missing data
