@@ -4,14 +4,7 @@
 
 *Niklaus J. Gr&uuml;nwald, Zhian N. Kamvar, Sydney E. Everhart, Brian J. Knaus, and Javier F. Tabima*
 
-Welcome! This primer provides a concise introduction to conducting applied
-analyses of population genetic data in R, with a special emphasis on non-model
-populations including clonal or partially clonal organisms. It provides a
-valuable resource for tackling the nitty-gritty analysis of populations that do
-not necessarily conform to textbook genetics and might or might not be in Hardy-
-Weinberg equilibrium and panmixia. While this primer does not require extensive
-knowledge of programming in R, the user is expected to install R and all
-packages required for this primer.
+Welcome! This primer provides a concise introduction to conducting applied analyses of population genetic data in R, with a special emphasis on non-model populations including clonal or partially clonal organisms. It provides a valuable resource for tackling the nitty-gritty analysis of populations that do not necessarily conform to textbook genetics and might or might not be in Hardy-Weinberg equilibrium. While this primer does not require extensive knowledge of programming in R, the user is expected to install R and all packages required for this primer.
 
 We recently revised the primer substantially to include population genomic data, that is VCF data resulting from high-throughput sequencing of populations of either whole or reduced representation genomes.
 
