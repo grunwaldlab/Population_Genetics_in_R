@@ -2,16 +2,11 @@
 
 [![DOI](https://zenodo.org/badge/20031384.svg)](https://zenodo.org/badge/latestdoi/20031384)
 
-*Niklaus J. Gr&uuml;nwald, Zhian N. Kamvar, and Sydney E. Everhart*
+*Niklaus J. Gr&uuml;nwald, Zhian N. Kamvar, Sydney E. Everhart, Brian J. Knaus, and Javier F. Tabima*
 
-Welcome! This primer provides a concise introduction to conducting applied
-analyses of population genetic data in R, with a special emphasis on non-model
-populations including clonal or partially clonal organisms. It provides a
-valuable resource for tackling the nitty-gritty analysis of populations that do
-not necessarily conform to textbook genetics and might or might not be in Hardy-
-Weinberg equilibrium and panmixia. While this primer does not require extensive
-knowledge of programming in R, the user is expected to install R and all
-packages required for this primer.
+Welcome! This primer provides a concise introduction to conducting applied analyses of population genetic data in R, with a special emphasis on non-model populations including clonal or partially clonal organisms. It provides a valuable resource for tackling the nitty-gritty analysis of populations that do not necessarily conform to textbook genetics and might or might not be in Hardy-Weinberg equilibrium. While this primer does not require extensive knowledge of programming in R, the user is expected to install R and all packages required for this primer.
+
+We recently revised the primer substantially to include population genomic data, that is VCF data resulting from high-throughput sequencing of populations of either whole or reduced representation genomes.
 
 Please note that this primer is still being written and will be changing as we
 continue writing it. Please provide us feedback on any errors you might find or
@@ -20,7 +15,7 @@ suggestions for improvement. The primer is currently published
 
 
 
-&copy; 2015, Corvallis, Oregon, USA
+&copy; 2017, Corvallis, Oregon, USA
 
 >*I was really impressed with what you've accomplished with [poppr], it is very thoughtful and addressed a number of things I never considered but which many pop gen folks that I know deal with all the time and complain about.  I think it is going to be very well received by the community.* 
 
