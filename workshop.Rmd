@@ -60,9 +60,9 @@ install.packages(c("adegenet", "ape", "cowplot", "devtools", "dplyr", "ggplot2",
 When you click on the below links our GitHub site should open in your web browser.
 Click on the `Download` button and save each file to your local `APS_Workshop/` folder.
 
-- [Phytophthora rubi](https://github.com/grunwaldlab/sandbox1/blob/master/prubi_gbs.vcf.gz) GBS data
+- [Phytophthora rubi](https://github.com/grunwaldlab/Population_Genetics_in_R/blob/master/prubi_gbs.vcf.gz) GBS data
 - [Phytophthora rubi](https://files.osf.io/v1/resources/ytd6k/providers/osfstorage/593b001e594d90024142fb20?direct=true&action=download) population information data
-- [Phytophthora infestans](https://github.com/grunwaldlab/sandbox1/blob/master/pinfsc50_filtered.vcf.gz) Supercontig_1.50 genomic data    
+- [Phytophthora infestans](https://github.com/grunwaldlab/Population_Genetics_in_R/blob/master/pinfsc50_filtered.vcf.gz) Supercontig_1.50 genomic data    
 
 
 5. __Test that your system is ready:__    
@@ -82,7 +82,7 @@ if(require(devtools)){
 
 This should output some tests to the console.
 It should also generate a report file called `apstest.txt`.
-The report file should look exactly like [this file](https://github.com/grunwaldlab/sandbox1/blob/master/apstest.txt).
+The report file should look exactly like [this file](https://github.com/grunwaldlab/Population_Genetics_in_R/blob/master/apstest.txt).
 If your results are different, and you don't understand why, send us an email with the report as an attachment.
 
 

@@ -30,6 +30,6 @@ title: Table of contents
 - **Appendices**
     - [Data sets](Data_sets.html)
     - [Function glossary](funpendix.html)
-    - [Source code for this primer](https://github.com/grunwaldlab/sandbox1/)
+    - [Source code for this primer](https://github.com/grunwaldlab/Population_Genetics_in_R/)
     - [Introduction to R](intro_to_R.html)
 

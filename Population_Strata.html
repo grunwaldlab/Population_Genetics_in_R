@@ -15,88 +15,11 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-52691601-2', 'auto');
-  ga('send', 'pageview');
-
-</script>
-
-<!---
-
-<style type="text/css">
-
-/* padding for bootstrap navbar */
-body {
-  padding-top: 50px;
-  padding-bottom: 40px;
-  padding-right: 50px;
-  padding-left: -50px;
-}
-@media (max-width: 979px) {
-  body {
-    padding-top: 0;
-  }
-}
-
- offset scroll position for anchor links (for fixed navbar)  
-@media (min-width: 980px) {
-  .section h2 {
-    padding-top: 52px;
-    margin-top: -52px;
-  }
-  .section h3 {
-    padding-top: 52px;
-    margin-top: -52px;
-  }
-}
-
-
-/* don't use link color in navbar */
-.dropdown-menu>li>a {
-  color: black;
-}
-
-</style>
--->
-
-
-
-<style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 50px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h2 {
-  padding-top: 55px;
-  margin-top: -55px;
-}
-.section h3 {
-  padding-top: 55px;
-  margin-top: -55px;
-}
-/* don't use link color in navbar */
-.dropdown-menu>li>a {
-  color: black;
-}
-/* some padding for disqus */
-#disqus_thread {
-  margin-top: 45px;
-}
-</style>
-
-<link rel="stylesheet" href="libs/font-awesome-4.1.0/css/font-awesome.min.css"/>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -203,34 +126,34 @@ button.code-folding-btn:focus {
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 66px;
+  padding-top: 61px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 71px;
-  margin-top: -71px;
+  padding-top: 66px;
+  margin-top: -66px;
 }
 
 .section h2 {
-  padding-top: 71px;
-  margin-top: -71px;
+  padding-top: 66px;
+  margin-top: -66px;
 }
 .section h3 {
-  padding-top: 71px;
-  margin-top: -71px;
+  padding-top: 66px;
+  margin-top: -66px;
 }
 .section h4 {
-  padding-top: 71px;
-  margin-top: -71px;
+  padding-top: 66px;
+  margin-top: -66px;
 }
 .section h5 {
-  padding-top: 71px;
-  margin-top: -71px;
+  padding-top: 66px;
+  margin-top: -66px;
 }
 .section h6 {
-  padding-top: 71px;
-  margin-top: -71px;
+  padding-top: 66px;
+  margin-top: -66px;
 }
 </style>
 
@@ -427,77 +350,6 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <!-- HOME -->
-      <a class="navbar-brand" href="index.html"><b>Population Genetics in R</b></a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <!-- Table of contents -->
-        <li class="dropdown">
-          <!---<a href="chapters" class="dropdown-toggle" data-toggle="dropdown">Chapters<b class="caret"></b></a>-->
-          <a href="chapters" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Chapters <span class="caret"></span></a>
-            <ol class="dropdown-menu">
-               <li><a href="Preface.html">i. Preface</a></li>
-               <li><a href="Introduction.html">1. Introduction</a></li>
-               <li><a href="Getting_ready_to_use_R.html">2. Getting ready to use R</a></li>
-               <li><a href="Data_Preparation.html">3. Data preparation</a></li>
-               <li><a href="First_Steps.html">4. First steps</a></li>
-               <li><a href="Population_Strata.html">5. Population strata and clone correction</a></li>
-               <li><a href="Locus_Stats.html">6. Locus-based statistics and missing data</a></li>
-               <li><a href="Genotypic_EvenRichDiv.html">7. Genotypic evenness, richness, and diversity</a></li>
-               <li><a href="Linkage_disequilibrium.html">8. Linkage disequilibrium</a></li>
-               <li><a href="Pop_Structure.html">9. Population structure</a></li>
-               <li><a href="Minimum_Spanning_Networks.html">10. Minimum Spanning Networks</a></li>
-               <li><a href="AMOVA.html">11. AMOVA</a></li>
-               <li><a href="DAPC.html">12. Discriminant analysis of principal components (DAPC)</a></li>
-            </ol>
-        </li>
-        <!-- Appendices dropdown -->
-        <li class="dropdown">
-          <!---<a href="appendices" class="dropdown-toggle" data-toggle="dropdown">Appendices<b class="caret"></b></a>-->
-          <a href="appendices" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Appendices <span class="caret"></span></a>
-          <ul class = "dropdown-menu", role = "menu">
-            <li><a href="Data_sets.html">A1. Data sets</a></li>
-            <li><a href="funpendix.html">A2. Function glossary</a></li>
-            <li><a href="Intro_to_R.html">A3. Introduction to R</a></li>
-          </ul>
-        </li>
-        <!-- Author button -->
-        <li class="dropdown">
-        	<a href="about" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">About<span class="caret"></span></a>
-          <ul class = "dropdown-menu", role = "menu">
-        	<li><a href="Authors.html">Authors</a></li>
-        	<li>
-        		<a href="https://github.com/grunwaldlab/Population_Genetics_in_R", target = "blank">
-		    	Source code
-		    	</a>
-		    </li>
-		   </ul>
-        </li>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div><!--/.container -->
-</div><!--/.navbar -->
-<!-- 
-
-old rmarkdown version: 
-
-devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa21442203f52face83")
-
-
- -->
-<!-- <div class="container">
-<div class="row">
-<div class="span10 offset1"> -->
-
 <div class="fluid-row" id="header">
 
 
@@ -507,17 +359,6 @@ devtools::install_github("rstudio/rmarkdown", ref = "b96214b9ac86b437067a0aa2144
 
 </div>
 
-<div id="TOC">
-<ul>
-<li><a href="#data-used-in-this-example">Data used in this example</a></li>
-<li><a href="#working-with-stratified-data">Working with stratified data</a></li>
-<li><a href="#importing-data-labeled-according-to-a-stratum">Importing data labeled according to a stratum</a></li>
-<li><a href="#assigning-stratifications">Assigning stratifications</a></li>
-<li><a href="#clone-correction">Clone correction</a></li>
-<li><a href="#conclusions">Conclusions</a></li>
-<li><a href="#references">References</a></li>
-</ul>
-</div>
 
 <p>Populations are best sampled hierarchically on a range of scales from subpopulations (e.g. fields, valleys, ranges) to regions (e.g. valleys, states, countries or continents) or across time (years or decades). This approach is useful because population structure and evolutionary processes may not be discernible <em>a priori</em>. Most of the times we do not know if population are differentiated spatially or temporally. Thus, a combination of targeted local sampling with sampling over larger spatial or temporal scales is necessary to detect population structure over different scales, without using intense sampling throughout the entire range.</p>
 <p>The methods implemented in <em>poppr</em> allow specification of which strata you want to analyze. This is a rapid way of working with subsets of your data without having to perform any data manipulation or changing the input file. In this tutorial, we will show you how to define the hierarchical structure of your data and how to specify specific levels that you might want to analyze.</p>
@@ -552,9 +393,9 @@ monpop</code></pre></div>
 ## 
 ## Population information:
 ## 
-##      1 stratification - Pop
-##     12 populations defined - 7_09_BB 26_09_BB 26_09_FR ... 45_10_FR 
-## 26_11_BB 26_11_FR</code></pre>
+##      1 stratum - Pop
+##     12 populations defined - 
+## 7_09_BB, 26_09_BB, 26_09_FR, ..., 45_10_FR, 26_11_BB, 26_11_FR</code></pre>
 <p><strong>Genotype information</strong> shows us that the data contains 264 multilocus genotypes among 694 haploid individuals with 13 loci. <strong>Population information</strong> has two items, the stratifications and the populations defined. You can think of stratifications as the index names for each of the hierarchical levels within your data (so for our data it should be Tree, Year, and Symptom). By default, however, no stratifications are defined and so this is “Pop”, which is the entire dataset of 694 individuals. Because we labeled each sample according to stratification, populations defined shows us our data has 12 groups defined: 7_09_BB, 26_09_BB, 26_09_FR, 7_09_FR, 26_10_BB, 45_10_BB, 79_10_BB, 79_10_FR, 26_10_FR, 45_10_FR, 26_11_BB, and 26_11_FR.</p>
 </div>
 <div id="assigning-stratifications" class="section level2">
@@ -573,9 +414,9 @@ monpop</code></pre></div>
 ## 
 ## Population information:
 ## 
-##      3 strata - Tree Year Symptom
-##     12 populations defined - 7_09_BB 26_09_BB 26_09_FR ... 45_10_FR 
-## 26_11_BB 26_11_FR</code></pre>
+##      3 strata - Tree, Year, Symptom
+##     12 populations defined - 
+## 7_09_BB, 26_09_BB, 26_09_FR, ..., 45_10_FR, 26_11_BB, 26_11_FR</code></pre>
 <blockquote>
 <p>The <code>splitStrata</code> command only needs to be run once: right after you import your data.</p>
 </blockquote>
@@ -664,8 +505,8 @@ monpop</code></pre></div>
 ## 
 ## Population information:
 ## 
-##      3 strata - Tree Year Symptom
-##      6 populations defined - 7_9 26_9 26_10 45_10 79_10 26_11</code></pre>
+##      3 strata - Tree, Year, Symptom
+##      6 populations defined - 7_9, 26_9, 26_10, 45_10, 79_10, 26_11</code></pre>
 <p>To analyze the data according to Symptom:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setPop</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Symptom
 monpop</code></pre></div>
@@ -680,8 +521,8 @@ monpop</code></pre></div>
 ## 
 ## Population information:
 ## 
-##      3 strata - Tree Year Symptom
-##      2 populations defined - BB FR</code></pre>
+##      3 strata - Tree, Year, Symptom
+##      2 populations defined - BB, FR</code></pre>
 <p>Order of the levels that you define is important, so if we wanted to define the symptoms according to tree, we would use the following:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setPop</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Symptom/Tree
 monpop</code></pre></div>
@@ -696,8 +537,8 @@ monpop</code></pre></div>
 ## 
 ## Population information:
 ## 
-##      3 strata - Tree Year Symptom
-##      8 populations defined - BB_7 BB_26 FR_26 ... BB_79 FR_79 FR_45</code></pre>
+##      3 strata - Tree, Year, Symptom
+##      8 populations defined - BB_7, BB_26, FR_26, ..., BB_79, FR_79, FR_45</code></pre>
 <p>Now that we have laid out the basics of manipulating data by strata, we will now apply strata for clone correction.</p>
 </div>
 <div id="clone-correction" class="section level2">
@@ -720,8 +561,8 @@ mcc_TY</code></pre></div>
 ## 
 ## Population information:
 ## 
-##      3 strata - Tree Year Symptom
-##      6 populations defined - 7_9 26_9 26_10 45_10 79_10 26_11</code></pre>
+##      3 strata - Tree, Year, Symptom
+##      6 populations defined - 7_9, 26_9, 26_10, 45_10, 79_10, 26_11</code></pre>
 <p>Notice that the number of samples reduced from 694 to 278, but is still more than the number of MLGs. This indicates that there are duplicated genotypes that cross trees and years, but that’s okay because of our definition of a clone-corrected data set as having one representative genotype <em>per population</em>. Before we continue, we should set the original data to the same strata:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setPop</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree/Year</code></pre></div>
 <p>Now we can compare the diversity of alleles at each locus using Simpson’s index (<span class="math inline">\(1-D\)</span>) as implemented in the function <code>locus_table</code> (Detailed in our <a href="Locus_Stats.html">chapter on locus based statistics</a>). We will do this in three steps:</p>
@@ -756,7 +597,7 @@ mp -<span class="st"> </span>cc</code></pre></div>
 <span class="co"># labeled as &quot;1-D&quot;.</span>
 <span class="kw">barplot</span>(locus_diff[, <span class="st">&quot;1-D&quot;</span>], <span class="dt">ylab =</span> <span class="st">&quot;Change in Simpson&#39;s Index&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;Locus&quot;</span>,
         <span class="dt">main =</span> <span class="st">&quot;Comparison of clone-corrected vs. uncorrected data&quot;</span>)</code></pre></div>
-<p><img src="Population_Strata_files/figure-html/simpdivplot-1.png" title="" alt="" width="960" /></p>
+<p><img src="Population_Strata_files/figure-html/simpdivplot-1.png" width="672" /></p>
 <p>We can see quite a difference in some loci after clone correcting based on tree in the overall data set showing that, while some loci show a decrease, many loci show an increase in allelic diversity after clone-correction.</p>
 <div id="advanced-r-writing-your-own-functions-for-analysis-by-stratum" class="section level3">
 <h3>Advanced R: writing your own functions for analysis by stratum</h3>
@@ -822,7 +663,7 @@ rmean &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="dv
 for (i in <span class="kw">popNames</span>(monpop)){
   <span class="kw">plot_simp_diff</span>(i, mcc_TY, monpop)
 }</code></pre></div>
-<p><img src="Population_Strata_files/figure-html/unnamed-chunk-13-1.png" title="" alt="" width="960" /></p>
+<p><img src="Population_Strata_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)) <span class="co"># Next we reset the graphics to have one row and one column</span></code></pre></div>
 <p>These barplots show the difference in Simpson’s index of original minus clone corrected data for each population per locus. We can see that allelic diversity generally is lower in the total data set (containing some repeated MLGs) relative to clone corrected data.</p>
 </div>
@@ -854,10 +695,6 @@ for (i in <span class="kw">popNames</span>(monpop)){
 </div>
 </div>
 
-<!-- </div>
-</div>
-</div>
- -->
 
 
 
