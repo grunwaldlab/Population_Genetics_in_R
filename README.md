@@ -13,6 +13,8 @@ Weinberg equilibrium and panmixia. While this primer does not require extensive
 knowledge of programming in R, the user is expected to install R and all
 packages required for this primer.
 
+We recently revised the primer substantially to include population genomic data, that is VCF data resulting from high-throughput sequencing of populations of either whole or reduced representation genomes.
+
 Please note that this primer is still being written and will be changing as we
 continue writing it. Please provide us feedback on any errors you might find or
 suggestions for improvement. The primer is currently published
@@ -20,7 +22,7 @@ suggestions for improvement. The primer is currently published
 
 
 
-&copy; 2015, Corvallis, Oregon, USA
+&copy; 2017, Corvallis, Oregon, USA
 
 >*I was really impressed with what you've accomplished with [poppr], it is very thoughtful and addressed a number of things I never considered but which many pop gen folks that I know deal with all the time and complain about.  I think it is going to be very well received by the community.* 
 
