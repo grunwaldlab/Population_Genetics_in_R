@@ -458,7 +458,7 @@ length(rubi.variant.subset)
 head(rubi.variant.subset, n=2)
 
 # Creating the GenLight object
-rubi.gl.subset <- lapply(rubi.variant.subset, function (x) vcfR2genlight(x))
+rubi.gl.subset <- lapply(rubi.variant.subset, function (x) suppressWarnings(vcfR2genlight(x)))
 for (i in 1:length(rubi.gl.subset)){
   ploidy(rubi.gl.subset[[i]]) <- 2
 }
