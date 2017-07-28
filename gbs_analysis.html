@@ -653,7 +653,7 @@ for (i in <span class="dv">1</span>:<span class="dv">50</span>){
 ## 4.505 percent missing data
 ## *****        *****         *****</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Creating the GenLight object</span>
-rubi.gl.subset &lt;-<span class="st"> </span><span class="kw">lapply</span>(rubi.variant.subset, function (x) <span class="kw">vcfR2genlight</span>(x))
+rubi.gl.subset &lt;-<span class="st"> </span><span class="kw">lapply</span>(rubi.variant.subset, function (x) <span class="kw">suppressWarnings</span>(<span class="kw">vcfR2genlight</span>(x)))
 for (i in <span class="dv">1</span>:<span class="kw">length</span>(rubi.gl.subset)){
   <span class="kw">ploidy</span>(rubi.gl.subset[[i]]) &lt;-<span class="st"> </span><span class="dv">2</span>
 }
