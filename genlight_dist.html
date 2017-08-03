@@ -371,6 +371,9 @@ $(document).ready(function () {
 <p>There are also functions to create distance matrices from genlight objects that exist in other packages. The function <code>bitwise.dist()</code> in the package <em>poppr</em> is an example. We can find documentation for this function with <code>?poppr::bitwise.dist</code>. Again, you need to know where to look for this information or you may not find it. We can use this function as follows.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x.dist &lt;-<span class="st"> </span>poppr::<span class="kw">bitwise.dist</span>(x)</code></pre></div>
 <p>Note, that the variable x has not yet been specified. Lastly, because you can use <code>as.matrix()</code> on your genlight object, and most distance algorithms can use this matrix as input, you can use this as an intermediate step to create a matrix from your genlight object and pass it to your distance algorithm of choice. Options include <em>ade4</em>, <code>vegdist()</code> in <em>vegan</em>, or <code>daisy()</code> in <em>cluster.</em> Note that it is up to you to determine which distance metric is best for your particular analysis. A number of options therefore exist for creating distance matrices from genlight objects.</p>
+<div id="refs" class="references">
+
+</div>
 </div>
 
 

@@ -403,6 +403,9 @@ gt[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">6</span>
 <p>Our population designation consists of a vector, that is the same length as the number of samples we have, where each element indicates which population each sample belongs to. By using the <code>as.factor()</code> function we transform the “vector” into a “factor”. A factor understands that all of the elements that are named “us” or “eu” are all part of the same group. This is why when we ask for the <code>popNames</code> we get a vector where each population is represented only once.</p>
 <p>Yet another difference among VCF data and genlight objects is the concept of ploidy. In VCF data each variant is treated independently. This means that in theory VCF data may contain data that is of mixed ploidy. In a genlight object different samples may be of different ploidy levels, but within each sample all of its loci must be of the same ploidy level. Here we’ll set the ploidy of all the samples in the genlight object to the same ploidy.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ploidy</span>(x) &lt;-<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<div id="refs" class="references">
+
+</div>
 
 
 
