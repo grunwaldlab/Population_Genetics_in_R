@@ -20,6 +20,15 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-66092547-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-66092547-1');
+</script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -433,9 +442,6 @@ for(i in <span class="dv">1</span>:myRows){
 <span class="kw">plot_grid</span>(<span class="dt">plotlist =</span> myPlots, <span class="dt">nrow =</span> myRows)</code></pre></div>
 <p><img src="depth_plot_files/figure-html/unnamed-chunk-6-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>We can see that the log transformation stretches out the smaller values and compresses the larger values. This allows us to focus on where our data has the greatest density. Things to look for in these plots are whether all samples are equally represented, whether there are a few samples of low quality that may need to be omitted from downstream analyses, or if therre are a small number of jackpot samples that received all the reads at the expense of the other samples. Here the samples appear to be fairly eqaully represented.</p>
-<div id="refs" class="references">
-
-</div>
 </div>
 
 

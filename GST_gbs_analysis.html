@@ -21,6 +21,15 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-66092547-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-66092547-1');
+</script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -367,7 +376,8 @@ $(document).ready(function () {
 <span class="kw">library</span>(ape)
 <span class="kw">library</span>(RColorBrewer)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rubi.VCF &lt;-<span class="st"> </span><span class="kw">read.vcfR</span>(<span class="st">&quot;prubi_gbs.vcf.gz&quot;</span>)</code></pre></div>
-<pre><code>## File attributes:
+<pre><code>## Scanning file to determine attributes.
+## File attributes:
 ##   meta lines: 9460
 ##   header line: 9461
 ##   variant count: 615
@@ -384,14 +394,6 @@ Meta line 8000 read in.
 Meta line 9000 read in.
 Meta line 9460 read in.
 ## All meta lines processed.
-## In function read_body_gz.
-##   stats(0): 9460
-##   stats(1): 9461
-##   stats(2): 615
-##   stats(3): 103
-## Initializing gt matrix.
-##   nrows: 615
-##   cols.size(): 103
 ## gt matrix initialized.
 ## Character matrix gt created.
 ##   Character matrix gt rows: 615
@@ -399,7 +401,6 @@ Meta line 9460 read in.
 ##   skip: 0
 ##   nrows: 615
 ##   row_num: 0
-## 
 ## 
 Processed variant: 615
 ## All variants processed</code></pre>

@@ -20,6 +20,15 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-66092547-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-66092547-1');
+</script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -379,9 +388,6 @@ x.msn &lt;-<span class="st"> </span><span class="kw">poppr.msn</span>(x, x.dist,
 <span class="kw">plot_poppr_msn</span>(x, x.msn2, <span class="dt">palette =</span> <span class="kw">brewer.pal</span>(<span class="dt">n =</span> <span class="kw">nPop</span>(x), <span class="dt">name =</span> <span class="st">&quot;Dark2&quot;</span>))</code></pre></div>
 <p><img src="msn_genlight_files/figure-html/unnamed-chunk-5-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>This example demonstrates no reticulation. This is because there are no groups of genotypes that are of equal distance to one another. As your dataset grows in samples this may become a more relevant feature.</p>
-<div id="refs" class="references">
-
-</div>
 
 
 
