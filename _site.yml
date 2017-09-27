@@ -75,7 +75,8 @@ output:
   html_document:
     theme: sandstone
     highlight: tango
-    include:
+    includes:
+      in_header: googlecode.html
       before_body: 
       after_body: 
     css: styles.css      
