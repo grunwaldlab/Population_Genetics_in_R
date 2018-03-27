@@ -373,7 +373,7 @@ $(document).ready(function () {
 <span class="kw">library</span>(pinfsc50)
 <span class="co">#data(vcfR_example)</span>
 vcf &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;pinf_sc50.vcf.gz&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;pinfsc50&quot;</span>)
-vcf &lt;-<span class="st"> </span>vcfR::<span class="kw">read.vcfR</span>(vcf)
+vcf &lt;-<span class="st"> </span>vcfR<span class="op">::</span><span class="kw">read.vcfR</span>(vcf)
 dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf</code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
@@ -386,11 +386,11 @@ dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span c
 <p>Because part of this exercise involves setting cells in our data matrix as NA we should begin by reminding ourselves of how abundant they are. By using the show method we see that we have 7.93 percent missing data. We can now use what we learned previously to set variants that are outside our per sample inclusion threshold as NA.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">quants &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN=</span><span class="dv">2</span>, quantile, <span class="dt">probs=</span><span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>), <span class="dt">na.rm=</span><span class="ot">TRUE</span>)
 dp2 &lt;-<span class="st"> </span><span class="kw">sweep</span>(dp, <span class="dt">MARGIN=</span><span class="dv">2</span>, <span class="dt">FUN =</span> <span class="st">&quot;-&quot;</span>, quants[<span class="dv">1</span>,])
-dp[dp2 &lt;<span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
+dp[dp2 <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
 dp2 &lt;-<span class="st"> </span><span class="kw">sweep</span>(dp, <span class="dt">MARGIN=</span><span class="dv">2</span>, <span class="dt">FUN =</span> <span class="st">&quot;-&quot;</span>, quants[<span class="dv">2</span>,])
-dp[dp2 &gt;<span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
-dp[dp &lt;<span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
-vcf@gt[,-<span class="dv">1</span>][ <span class="kw">is.na</span>(dp) ==<span class="st"> </span><span class="ot">TRUE</span> ] &lt;-<span class="st"> </span><span class="ot">NA</span></code></pre></div>
+dp[dp2 <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
+dp[dp <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
+vcf<span class="op">@</span>gt[,<span class="op">-</span><span class="dv">1</span>][ <span class="kw">is.na</span>(dp) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span> ] &lt;-<span class="st"> </span><span class="ot">NA</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf</code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
 ## 18 samples
@@ -400,16 +400,16 @@ vcf@gt[,-<span class="dv">1</span>][ <span class="kw">is.na</span>(dp) ==<span c
 ## 27.7 percent missing data
 ## *****        *****         *****</code></pre>
 <p>We see that this censoring has increased the degree of missingness in our matrix to 27.7 percent. Ideally we should visualize the results of this action. For brevity, we will not here. But you can return to the section on depth and reuse the code presented there to visualize how this change has affected the distribution of the data. One way to visualize these data is to use a heatmap.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heatmap.bp</span>(dp[<span class="dv">1</span>:<span class="dv">1000</span>,], <span class="dt">rlabels =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heatmap.bp</span>(dp[<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>,], <span class="dt">rlabels =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p><img src="omitting_data_files/figure-html/unnamed-chunk-6-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <div id="omitting-samples" class="section level2">
 <h2>Omitting samples</h2>
 <p>We can see that some samples have a high degree of missingness. By omitting these samples we may reduce the overall missingness in the data set. We accomplish this by using the function <code>is.na()</code> in conjunction with <code>apply()</code> to determine each samples degree of missingness and use this information to omit samples below a threshold. We can then visualize this change with another heatmap.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, function(x){ <span class="kw">sum</span>( <span class="kw">is.na</span>(x) ) } )
-myMiss &lt;-<span class="st"> </span>myMiss /<span class="st"> </span><span class="kw">nrow</span>(dp)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="cf">function</span>(x){ <span class="kw">sum</span>( <span class="kw">is.na</span>(x) ) } )
+myMiss &lt;-<span class="st"> </span>myMiss <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(dp)
 <span class="kw">barplot</span>(myMiss, <span class="dt">las =</span> <span class="dv">3</span>)</code></pre></div>
 <p><img src="omitting_data_files/figure-html/unnamed-chunk-7-1.png" width="1152" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf@gt &lt;-<span class="st"> </span>vcf@gt[, <span class="kw">c</span>(<span class="ot">TRUE</span>, myMiss &lt;<span class="st"> </span><span class="fl">0.6</span>)]
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf<span class="op">@</span>gt &lt;-<span class="st"> </span>vcf<span class="op">@</span>gt[, <span class="kw">c</span>(<span class="ot">TRUE</span>, myMiss <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.6</span>)]
 vcf</code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
 ## 18 samples
@@ -419,16 +419,16 @@ vcf</code></pre></div>
 ## 27.7 percent missing data
 ## *****        *****         *****</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)
-<span class="kw">heatmap.bp</span>(dp[<span class="dv">1</span>:<span class="dv">1000</span>,], <span class="dt">rlabels =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<span class="kw">heatmap.bp</span>(dp[<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>,], <span class="dt">rlabels =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p><img src="omitting_data_files/figure-html/unnamed-chunk-8-1.png" width="1152" style="display: block; margin: auto;" /></p>
 </div>
 <div id="omitting-variants" class="section level2">
 <h2>Omitting variants</h2>
 <p>Previously we have seen how to quantify and visualize missingness for variants in our dataset. We can use this information to omit variants that have a high degree of missingness similar to how we treated the samples.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">1</span>, function(x){ <span class="kw">sum</span>( <span class="kw">is.na</span>(x) ) } )
-myMiss &lt;-<span class="st"> </span>myMiss /<span class="st"> </span><span class="kw">ncol</span>(dp)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">1</span>, <span class="cf">function</span>(x){ <span class="kw">sum</span>( <span class="kw">is.na</span>(x) ) } )
+myMiss &lt;-<span class="st"> </span>myMiss <span class="op">/</span><span class="st"> </span><span class="kw">ncol</span>(dp)
 <span class="co">#vcf &lt;- vcf[myMiss &lt; 0.2, ]</span>
-vcf &lt;-<span class="st"> </span>vcf[myMiss &lt;<span class="st"> </span><span class="fl">0.05</span>, ]
+vcf &lt;-<span class="st"> </span>vcf[myMiss <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>, ]
 vcf</code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
 ## 18 samples

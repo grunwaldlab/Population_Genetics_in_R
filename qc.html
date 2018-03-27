@@ -389,7 +389,7 @@ $(document).ready(function () {
 ## 8.497 percent missing data
 ## *****        *****         *****</code></pre>
 <p>The show method for an object typically reports a summary of what is contained in the object. Here we see the number of samples and variants in our data. We also see a report of what the percentage of missing data is in our object. In the context of vcfR this is the proportion of variants scored as NA. Note that if a variant includes some data associated with a missing genotype it will not be recognized as missing. For example, a missing genotype could be associated with a depth information as follows.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">GT:DP ./.:<span class="dv">1</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">GT<span class="op">:</span>DP .<span class="op">/</span>.<span class="op">:</span><span class="dv">1</span></code></pre></div>
 <p>Because this variant does include some data it will not be recognized as missing until the genotypes are extracted and queried for missingness. This means that the degree of missingness reported by the <code>show</code> method may be an under representation. It does provide an easily accessed first perspective on the proportion of missing data. To determine the cause of this missing data (e.g., are there particular samples or variants of poor quality) we will look further.</p>
 </div>
 <div id="quantifying-missingness-one-sample" class="section level2">
@@ -421,21 +421,21 @@ $(document).ready(function () {
 <div id="quantifying-missingness-all-samples" class="section level2">
 <h2>Quantifying missingness, all samples</h2>
 <p>This is illustrative of what we can accomplish for a single sample or variant. We typically have many samples an tens of thousand (or more) variants. We can extend the functionality of the above example to many columns or rows by using the <code>apply()</code> function. See the section on <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/apply.html">apply</a> if you are unfamiliar with this function. Because we will be summarizing many samples we will use a barplot to visualize the results as opposed to trying to scrutinize the numerical information.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, function(x){ <span class="kw">sum</span>(<span class="kw">is.na</span>(x)) })
-myMiss &lt;-<span class="st"> </span>myMiss/<span class="kw">nrow</span>(vcf)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="cf">function</span>(x){ <span class="kw">sum</span>(<span class="kw">is.na</span>(x)) })
+myMiss &lt;-<span class="st"> </span>myMiss<span class="op">/</span><span class="kw">nrow</span>(vcf)
 
 <span class="kw">library</span>(RColorBrewer)
 <span class="kw">palette</span>(<span class="kw">brewer.pal</span>(<span class="dt">n=</span><span class="dv">12</span>, <span class="dt">name =</span> <span class="st">&#39;Set3&#39;</span>))
 
 <span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">12</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>))
-<span class="kw">barplot</span>(myMiss, <span class="dt">las =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="dv">1</span>:<span class="dv">12</span>)
+<span class="kw">barplot</span>(myMiss, <span class="dt">las =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">12</span>)
 <span class="kw">title</span>(<span class="dt">ylab =</span> <span class="st">&quot;Missingness (%)&quot;</span>)</code></pre></div>
 <p><img src="qc_files/figure-html/unnamed-chunk-11-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>))</code></pre></div>
 <p>This allows us to visualize the degree of missingness on a per sample basis. We see that the sample P7272 has a particularly high amount of missing genotypes. This is because this sample is a different species than the reference it was mapped to. One decision could be to omit this sample. However, if the goal is to make comparisons among these species we may instead search for variants that are present in both taxa.</p>
 <p>We can do something similar to query the variants (rows) for missingness. However, when we have a large number of variants we wouldn’t want to visualize this with a barchart. It would require a barchart with 60 thousand bars. Instead of using a barchart we’ll use a histogram.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">1</span>, function(x){ <span class="kw">sum</span>(<span class="kw">is.na</span>(x)) })
-myMiss &lt;-<span class="st"> </span>myMiss/<span class="kw">ncol</span>(vcf@gt[,-<span class="dv">1</span>])
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">1</span>, <span class="cf">function</span>(x){ <span class="kw">sum</span>(<span class="kw">is.na</span>(x)) })
+myMiss &lt;-<span class="st"> </span>myMiss<span class="op">/</span><span class="kw">ncol</span>(vcf<span class="op">@</span>gt[,<span class="op">-</span><span class="dv">1</span>])
 
 <span class="kw">hist</span>(myMiss, <span class="dt">col =</span> <span class="st">&quot;#8DD3C7&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;Missingness (%)&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;&quot;</span>)</code></pre></div>
 <p><img src="qc_files/figure-html/unnamed-chunk-12-1.png" width="480" style="display: block; margin: auto;" /></p>
@@ -449,7 +449,7 @@ myMiss &lt;-<span class="st"> </span>myMiss/<span class="kw">ncol</span>(vcf@gt[
 <span class="co">#vcf &lt;- read.vcfR(&#39;TASSEL_GBS0077.vcf.gz&#39;)</span>
 <span class="kw">data</span>(vcfR_example)
 dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp[<span class="dv">1</span>:<span class="dv">4</span>,<span class="dv">1</span>:<span class="dv">5</span>]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
 <pre><code>##                      BL2009P4_us23 DDR7602 IN2009T1_us22 LBUS5 NL07434
 ## Supercontig_1.50_2              62      12            37    12      NA
 ## Supercontig_1.50_246            10      NA             3    NA      NA
@@ -461,7 +461,7 @@ dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span c
 <h2>Base barplot</h2>
 <p>Base R includes a great selection of graphical tools. One is <code>barplot()</code>. A few things nice about this function is that it is designed to work on matrices, such as the one we have, and that it is quick to execute.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">12</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>))
-<span class="kw">boxplot</span>(dp, <span class="dt">col=</span><span class="dv">2</span>:<span class="dv">8</span>, <span class="dt">las=</span><span class="dv">3</span>)
+<span class="kw">boxplot</span>(dp, <span class="dt">col=</span><span class="dv">2</span><span class="op">:</span><span class="dv">8</span>, <span class="dt">las=</span><span class="dv">3</span>)
 <span class="kw">title</span>(<span class="dt">ylab =</span> <span class="st">&quot;Depth (DP)&quot;</span>)</code></pre></div>
 <p><img src="qc_files/figure-html/unnamed-chunk-16-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>))</code></pre></div>
@@ -476,39 +476,39 @@ dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span c
 
 <span class="co"># Melt our matrix into a long form data.frame.</span>
 dpf &lt;-<span class="st"> </span><span class="kw">melt</span>(dp, <span class="dt">varnames=</span><span class="kw">c</span>(<span class="st">&#39;Index&#39;</span>, <span class="st">&#39;Sample&#39;</span>), <span class="dt">value.name =</span> <span class="st">&#39;Depth&#39;</span>, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)
-dpf &lt;-<span class="st"> </span>dpf[ dpf$Depth &gt;<span class="st"> </span><span class="dv">0</span>,]
+dpf &lt;-<span class="st"> </span>dpf[ dpf<span class="op">$</span>Depth <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>,]
 
 <span class="co"># Create a row designator.</span>
 <span class="co"># You may want to adjust this</span>
 <span class="co">#samps_per_row &lt;- 20</span>
 samps_per_row &lt;-<span class="st"> </span><span class="dv">18</span>
-myRows &lt;-<span class="st"> </span><span class="kw">ceiling</span>(<span class="kw">length</span>(<span class="kw">levels</span>(dpf$Sample))/samps_per_row)
+myRows &lt;-<span class="st"> </span><span class="kw">ceiling</span>(<span class="kw">length</span>(<span class="kw">levels</span>(dpf<span class="op">$</span>Sample))<span class="op">/</span>samps_per_row)
 myList &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="dt">length =</span> myRows)
 
-for(i in <span class="dv">1</span>:myRows){
-  myIndex &lt;-<span class="st"> </span><span class="kw">c</span>(i*samps_per_row -<span class="st"> </span>samps_per_row +<span class="st"> </span><span class="dv">1</span>):<span class="kw">c</span>(i*samps_per_row)
-  myIndex &lt;-<span class="st"> </span>myIndex[myIndex &lt;=<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(dpf$Sample))]
-  myLevels &lt;-<span class="st"> </span><span class="kw">levels</span>(dpf$Sample)[myIndex]
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>myRows){
+  myIndex &lt;-<span class="st"> </span><span class="kw">c</span>(i<span class="op">*</span>samps_per_row <span class="op">-</span><span class="st"> </span>samps_per_row <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span><span class="kw">c</span>(i<span class="op">*</span>samps_per_row)
+  myIndex &lt;-<span class="st"> </span>myIndex[myIndex <span class="op">&lt;=</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(dpf<span class="op">$</span>Sample))]
+  myLevels &lt;-<span class="st"> </span><span class="kw">levels</span>(dpf<span class="op">$</span>Sample)[myIndex]
   myRegex &lt;-<span class="st"> </span><span class="kw">paste</span>(myLevels, <span class="dt">collapse =</span> <span class="st">&quot;$|^&quot;</span>)
   myRegex &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;^&quot;</span>, myRegex, <span class="st">&quot;$&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)
-  myList[[i]] &lt;-<span class="st"> </span>dpf[<span class="kw">grep</span>(myRegex, dpf$Sample),]
-  myList[[i]]$Sample &lt;-<span class="st"> </span><span class="kw">factor</span>(myList[[i]]$Sample)
+  myList[[i]] &lt;-<span class="st"> </span>dpf[<span class="kw">grep</span>(myRegex, dpf<span class="op">$</span>Sample),]
+  myList[[i]]<span class="op">$</span>Sample &lt;-<span class="st"> </span><span class="kw">factor</span>(myList[[i]]<span class="op">$</span>Sample)
 }
 
 <span class="co"># Create the plot.</span>
 myPlots &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="dt">length =</span> myRows)
-for(i in <span class="dv">1</span>:myRows){
-  myPlots[[i]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(myList[[i]], <span class="kw">aes</span>(<span class="dt">x=</span>Sample, <span class="dt">y=</span>Depth)) +<span class="st"> </span>
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>myRows){
+  myPlots[[i]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(myList[[i]], <span class="kw">aes</span>(<span class="dt">x=</span>Sample, <span class="dt">y=</span>Depth)) <span class="op">+</span><span class="st"> </span>
 <span class="st">                  </span><span class="kw">geom_violin</span>(<span class="dt">fill=</span><span class="st">&quot;#8dd3c7&quot;</span>, <span class="dt">adjust=</span><span class="fl">1.0</span>, <span class="dt">scale =</span> <span class="st">&quot;count&quot;</span>, <span class="dt">trim=</span><span class="ot">TRUE</span>)
 
-  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] +<span class="st"> </span><span class="kw">theme_bw</span>()
-  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] +<span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_blank</span>(), 
+  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()
+  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_blank</span>(), 
                   <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">60</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))
-  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] +<span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">trans=</span>scales::<span class="kw">log2_trans</span>(), 
+  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">trans=</span>scales<span class="op">::</span><span class="kw">log2_trans</span>(), 
                   <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">800</span>),
-                  <span class="dt">minor_breaks=</span><span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="dv">2</span>:<span class="dv">10</span>*<span class="dv">10</span>, <span class="dv">2</span>:<span class="dv">8</span>*<span class="dv">100</span>))
-  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] +<span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.major.y=</span><span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#A9A9A9&quot;</span>, <span class="dt">size=</span><span class="fl">0.6</span>) )
-  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] +<span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.minor.y=</span><span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#C0C0C0&quot;</span>, <span class="dt">size=</span><span class="fl">0.2</span>) )
+                  <span class="dt">minor_breaks=</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">10</span><span class="op">*</span><span class="dv">10</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">8</span><span class="op">*</span><span class="dv">100</span>))
+  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.major.y=</span><span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#A9A9A9&quot;</span>, <span class="dt">size=</span><span class="fl">0.6</span>) )
+  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.minor.y=</span><span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#C0C0C0&quot;</span>, <span class="dt">size=</span><span class="fl">0.2</span>) )
 }</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot the plot.</span>
 <span class="kw">plot_grid</span>(<span class="dt">plotlist =</span> myPlots, <span class="dt">nrow =</span> myRows)</code></pre></div>
@@ -528,20 +528,20 @@ for(i in <span class="dv">1</span>:myRows){
 ## *****        *****         *****</code></pre>
 <p>A number of methods can be used to create intervals that you may consider acceptable. The use of quantiles may be considered desirable because they are non-parametric. We can fit different intervals to different samples using the function <code>apply()</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">quants &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN=</span><span class="dv">2</span>, quantile, <span class="dt">probs=</span><span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.8</span>), <span class="dt">na.rm=</span><span class="ot">TRUE</span>)
-quants[,<span class="dv">1</span>:<span class="dv">6</span>]</code></pre></div>
+quants[,<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]</code></pre></div>
 <pre><code>##     BL2009P4_us23 DDR7602 IN2009T1_us22 LBUS5 NL07434 P10127
 ## 10%            15       6            13     6      12      7
 ## 80%            35      40            32    40      51     24</code></pre>
 <p>We can create a second matrix of depths where we subtract the lower threshold of each sample from its depth using the function <code>sweep()</code>. Now all depths in the matrix that are below zero are below our threshold. We can use this information to set these cell to NA in the original matrix. We can similarly subtract the upper threshold from our samples to create a second matrix. Now everything above zero is above our threshold and can be set to NA.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp2 &lt;-<span class="st"> </span><span class="kw">sweep</span>(dp, <span class="dt">MARGIN=</span><span class="dv">2</span>, <span class="dt">FUN =</span> <span class="st">&quot;-&quot;</span>, quants[<span class="dv">1</span>,])
-dp[dp2 &lt;<span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
+dp[dp2 <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
 
 dp2 &lt;-<span class="st"> </span><span class="kw">sweep</span>(dp, <span class="dt">MARGIN=</span><span class="dv">2</span>, <span class="dt">FUN =</span> <span class="st">&quot;-&quot;</span>, quants[<span class="dv">2</span>,])
-dp[dp2 &gt;<span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
+dp[dp2 <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
 
-dp[dp &lt;<span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></code></pre></div>
+dp[dp <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></code></pre></div>
 <p>Now that we know which cells we want to censor as NA we can use this information to update the vcfR object. Don’t forget that the first column of the gt matrix is the ‘FORMAT’ column. We can omit this from our selection by using -1.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf@gt[,-<span class="dv">1</span>][ <span class="kw">is.na</span>(dp) ==<span class="st"> </span><span class="ot">TRUE</span> ] &lt;-<span class="st"> </span><span class="ot">NA</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf<span class="op">@</span>gt[,<span class="op">-</span><span class="dv">1</span>][ <span class="kw">is.na</span>(dp) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span> ] &lt;-<span class="st"> </span><span class="ot">NA</span></code></pre></div>
 <p>Now we can use the <code>show</code> method to see how this action has affected missingness in our vcfR object.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf</code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
@@ -560,7 +560,7 @@ dp[dp &lt;<span class="st"> </span><span class="dv">4</span>] &lt;-<span class="
 <span class="kw">library</span>(pinfsc50)
 <span class="co">#data(vcfR_example)</span>
 vcf &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;pinf_sc50.vcf.gz&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;pinfsc50&quot;</span>)
-vcf &lt;-<span class="st"> </span>vcfR::<span class="kw">read.vcfR</span>(vcf)
+vcf &lt;-<span class="st"> </span>vcfR<span class="op">::</span><span class="kw">read.vcfR</span>(vcf)
 dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf</code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
@@ -573,11 +573,11 @@ dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span c
 <p>Because part of this exercise involves setting cells in our data matrix as NA we should begin by reminding ourselves of how abundant they are. By using the show method we see that we have 7.93 percent missing data. We can now use what we learned previously to set variants that are outside our per sample inclusion threshold as NA.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">quants &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN=</span><span class="dv">2</span>, quantile, <span class="dt">probs=</span><span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>), <span class="dt">na.rm=</span><span class="ot">TRUE</span>)
 dp2 &lt;-<span class="st"> </span><span class="kw">sweep</span>(dp, <span class="dt">MARGIN=</span><span class="dv">2</span>, <span class="dt">FUN =</span> <span class="st">&quot;-&quot;</span>, quants[<span class="dv">1</span>,])
-dp[dp2 &lt;<span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
+dp[dp2 <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
 dp2 &lt;-<span class="st"> </span><span class="kw">sweep</span>(dp, <span class="dt">MARGIN=</span><span class="dv">2</span>, <span class="dt">FUN =</span> <span class="st">&quot;-&quot;</span>, quants[<span class="dv">2</span>,])
-dp[dp2 &gt;<span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
-dp[dp &lt;<span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
-vcf@gt[,-<span class="dv">1</span>][ <span class="kw">is.na</span>(dp) ==<span class="st"> </span><span class="ot">TRUE</span> ] &lt;-<span class="st"> </span><span class="ot">NA</span></code></pre></div>
+dp[dp2 <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
+dp[dp <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
+vcf<span class="op">@</span>gt[,<span class="op">-</span><span class="dv">1</span>][ <span class="kw">is.na</span>(dp) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span> ] &lt;-<span class="st"> </span><span class="ot">NA</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf</code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
 ## 18 samples
@@ -587,17 +587,17 @@ vcf@gt[,-<span class="dv">1</span>][ <span class="kw">is.na</span>(dp) ==<span c
 ## 27.7 percent missing data
 ## *****        *****         *****</code></pre>
 <p>We see that this censoring has increased the degree of missingness in our matrix to 27.7 percent. Ideally we should visualize the results of this action. For brevity, we will not here. But you can return to the section on depth and reuse the code presented there to visualize how this change has affected the distribution of the data. One way to visualize these data is to use a heatmap.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heatmap.bp</span>(dp[<span class="dv">1</span>:<span class="dv">1000</span>,], <span class="dt">rlabels =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heatmap.bp</span>(dp[<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>,], <span class="dt">rlabels =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p><img src="qc_files/figure-html/unnamed-chunk-31-1.png" width="1152" style="display: block; margin: auto;" /></p>
 </div>
 <div id="omitting-samples" class="section level2">
 <h2>Omitting samples</h2>
 <p>We can see that some samples have a high degree of missingness. By omitting these samples we may reduce the overall missingness in the data set. We accomplish this by using the function <code>is.na()</code> in conjunction with <code>apply()</code> to determine each samples degree of missingness and use this information to omit samples below a threshold. We can then visualize this change with another heatmap.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, function(x){ <span class="kw">sum</span>( <span class="kw">is.na</span>(x) ) } )
-myMiss &lt;-<span class="st"> </span>myMiss /<span class="st"> </span><span class="kw">nrow</span>(dp)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="cf">function</span>(x){ <span class="kw">sum</span>( <span class="kw">is.na</span>(x) ) } )
+myMiss &lt;-<span class="st"> </span>myMiss <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(dp)
 <span class="kw">barplot</span>(myMiss, <span class="dt">las =</span> <span class="dv">3</span>)</code></pre></div>
 <p><img src="qc_files/figure-html/unnamed-chunk-32-1.png" width="1152" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf@gt &lt;-<span class="st"> </span>vcf@gt[, <span class="kw">c</span>(<span class="ot">TRUE</span>, myMiss &lt;<span class="st"> </span><span class="fl">0.6</span>)]
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf<span class="op">@</span>gt &lt;-<span class="st"> </span>vcf<span class="op">@</span>gt[, <span class="kw">c</span>(<span class="ot">TRUE</span>, myMiss <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.6</span>)]
 vcf</code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
 ## 18 samples
@@ -607,16 +607,16 @@ vcf</code></pre></div>
 ## 27.7 percent missing data
 ## *****        *****         *****</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)
-<span class="kw">heatmap.bp</span>(dp[<span class="dv">1</span>:<span class="dv">1000</span>,], <span class="dt">rlabels =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<span class="kw">heatmap.bp</span>(dp[<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>,], <span class="dt">rlabels =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p><img src="qc_files/figure-html/unnamed-chunk-33-1.png" width="1152" style="display: block; margin: auto;" /></p>
 </div>
 <div id="omitting-variants" class="section level2">
 <h2>Omitting variants</h2>
 <p>Previously we have seen how to quantify and visualize missingness for variants in our dataset. We can use this information to omit variants that have a high degree of missingness similar to how we treated the samples.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">1</span>, function(x){ <span class="kw">sum</span>( <span class="kw">is.na</span>(x) ) } )
-myMiss &lt;-<span class="st"> </span>myMiss /<span class="st"> </span><span class="kw">ncol</span>(dp)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">1</span>, <span class="cf">function</span>(x){ <span class="kw">sum</span>( <span class="kw">is.na</span>(x) ) } )
+myMiss &lt;-<span class="st"> </span>myMiss <span class="op">/</span><span class="st"> </span><span class="kw">ncol</span>(dp)
 <span class="co">#vcf &lt;- vcf[myMiss &lt; 0.2, ]</span>
-vcf &lt;-<span class="st"> </span>vcf[myMiss &lt;<span class="st"> </span><span class="fl">0.05</span>, ]
+vcf &lt;-<span class="st"> </span>vcf[myMiss <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>, ]
 vcf</code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
 ## 18 samples

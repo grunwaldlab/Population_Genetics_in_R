@@ -381,7 +381,7 @@ $(document).ready(function () {
 ## 8.497 percent missing data
 ## *****        *****         *****</code></pre>
 <p>The show method for an object typically reports a summary of what is contained in the object. Here we see the number of samples and variants in our data. We also see a report of what the percentage of missing data is in our object. In the context of vcfR this is the proportion of variants scored as NA. Note that if a variant includes some data associated with a missing genotype it will not be recognized as missing. For example, a missing genotype could be associated with a depth information as follows.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">GT:DP ./.:<span class="dv">1</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">GT<span class="op">:</span>DP .<span class="op">/</span>.<span class="op">:</span><span class="dv">1</span></code></pre></div>
 <p>Because this variant does include some data it will not be recognized as missing until the genotypes are extracted and queried for missingness. This means that the degree of missingness reported by the <code>show</code> method may be an under representation. It does provide an easily accessed first perspective on the proportion of missing data. To determine the cause of this missing data (e.g., are there particular samples or variants of poor quality) we will look further.</p>
 </div>
 <div id="quantifying-missingness-one-sample" class="section level2">
@@ -413,21 +413,21 @@ $(document).ready(function () {
 <div id="quantifying-missingness-all-samples" class="section level2">
 <h2>Quantifying missingness, all samples</h2>
 <p>This is illustrative of what we can accomplish for a single sample or variant. We typically have many samples an tens of thousand (or more) variants. We can extend the functionality of the above example to many columns or rows by using the <code>apply()</code> function. See the section on <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/apply.html">apply</a> if you are unfamiliar with this function. Because we will be summarizing many samples we will use a barplot to visualize the results as opposed to trying to scrutinize the numerical information.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, function(x){ <span class="kw">sum</span>(<span class="kw">is.na</span>(x)) })
-myMiss &lt;-<span class="st"> </span>myMiss/<span class="kw">nrow</span>(vcf)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="cf">function</span>(x){ <span class="kw">sum</span>(<span class="kw">is.na</span>(x)) })
+myMiss &lt;-<span class="st"> </span>myMiss<span class="op">/</span><span class="kw">nrow</span>(vcf)
 
 <span class="kw">library</span>(RColorBrewer)
 <span class="kw">palette</span>(<span class="kw">brewer.pal</span>(<span class="dt">n=</span><span class="dv">12</span>, <span class="dt">name =</span> <span class="st">&#39;Set3&#39;</span>))
 
 <span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">12</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>))
-<span class="kw">barplot</span>(myMiss, <span class="dt">las =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="dv">1</span>:<span class="dv">12</span>)
+<span class="kw">barplot</span>(myMiss, <span class="dt">las =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">12</span>)
 <span class="kw">title</span>(<span class="dt">ylab =</span> <span class="st">&quot;Missingness (%)&quot;</span>)</code></pre></div>
 <p><img src="missing_data_files/figure-html/unnamed-chunk-7-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>))</code></pre></div>
 <p>This allows us to visualize the degree of missingness on a per sample basis. We see that the sample P7272 has a particularly high amount of missing genotypes. This is because this sample is a different species than the reference it was mapped to. One decision could be to omit this sample. However, if the goal is to make comparisons among these species we may instead search for variants that are present in both taxa.</p>
 <p>We can do something similar to query the variants (rows) for missingness. However, when we have a large number of variants we wouldn’t want to visualize this with a barchart. It would require a barchart with 60 thousand bars. Instead of using a barchart we’ll use a histogram.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">1</span>, function(x){ <span class="kw">sum</span>(<span class="kw">is.na</span>(x)) })
-myMiss &lt;-<span class="st"> </span>myMiss/<span class="kw">ncol</span>(vcf@gt[,-<span class="dv">1</span>])
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">1</span>, <span class="cf">function</span>(x){ <span class="kw">sum</span>(<span class="kw">is.na</span>(x)) })
+myMiss &lt;-<span class="st"> </span>myMiss<span class="op">/</span><span class="kw">ncol</span>(vcf<span class="op">@</span>gt[,<span class="op">-</span><span class="dv">1</span>])
 
 <span class="kw">hist</span>(myMiss, <span class="dt">col =</span> <span class="st">&quot;#8DD3C7&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;Missingness (%)&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;&quot;</span>)</code></pre></div>
 <p><img src="missing_data_files/figure-html/unnamed-chunk-8-1.png" width="480" style="display: block; margin: auto;" /></p>

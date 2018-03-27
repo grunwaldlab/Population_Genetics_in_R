@@ -379,15 +379,17 @@ $(document).ready(function () {
 
 <div id="population-genomics-workshop" class="section level2">
 <h2>Population genomics workshop</h2>
-<div id="aps-san-antonio-texas-2017" class="section level3">
-<h3>APS, San Antonio, Texas, 2017</h3>
+<div id="icpp-boston-massachusetts-2018" class="section level3">
+<h3>ICPP, Boston, Massachusetts, 2018</h3>
+<p>Previous versions of this material were also presented at:<br />
+* APS, San Antonio, Texas, 2017</p>
 <p>For workshops, we subset the information available elsewhere in this book to the pages in this section specifically for the workshop. This provides a convenient way to reduce the contents of a book to the essential portions we feel can be reasonably covered in a several hour long workshop. However, the cost of brevity is a lack of detail. While this section may be used as an entry point, learning about genomic analyses in R, details may be found elsewhere in the book.</p>
 </div>
 </div>
 <div id="before-you-arrive-please-make-sure-you-install-the-following-required-materials" class="section level2">
 <h2>Before you arrive please make sure you install the following required materials</h2>
 <ol style="list-style-type: decimal">
-<li><strong>Install R</strong> Instructions on how to install R can be found at the <a href="https://www.r-project.org/">R homepage</a>. Please make sure you have the most current version of R (3.4.1, <a href="http://i.onionstatic.com/avclub/5807/95/animated/original.gif">Single candle</a>).</li>
+<li><strong>Install R</strong> Instructions on how to install R can be found at the <a href="https://www.r-project.org/">R homepage</a>. Please make sure you have the most current version of R (3.4.4, Someone to lean on).</li>
 <li><strong>Install RStudio</strong><br />
 Instructions on how to install the RStudio integrated development environment (IDE) can be found at the <a href="https://www.rstudio.com/products/rstudio/download/">RStudio download site</a>. Choose the ‘RStudio Desktop Open Source License’ (free) version.</li>
 <li><strong>Install R packages</strong><br />
@@ -407,9 +409,9 @@ When you click on the below links our GitHub site should open in your web browse
 <li><strong>Test that your system is ready:</strong><br />
 You should now be able to validate that the resources you need are ready. Change directory to <code>APS_Workshop</code> and copy and paste the below command into the R console.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if(<span class="kw">require</span>(devtools)){
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>(<span class="kw">require</span>(devtools)){
   <span class="kw">source_gist</span>(<span class="st">&quot;01a3d8efb21e0a4dbac0735270d147af&quot;</span>, <span class="dt">filename=</span><span class="st">&quot;apstest.R&quot;</span>)       
-} else {
+} <span class="cf">else</span> {
   <span class="kw">print</span>(<span class="st">&quot;Please install the package devtools.&quot;</span>)
   <span class="kw">print</span>(<span class="st">&quot;Use: install.packages(&#39;devtools&#39;)&quot;</span>)
 }</code></pre></div>

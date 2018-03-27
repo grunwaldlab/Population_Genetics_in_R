@@ -405,7 +405,7 @@ $(document).ready(function () {
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
 <span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)
 <span class="kw">data</span>(monpop)
-<span class="kw">splitStrata</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree/Year/Symptom
+<span class="kw">splitStrata</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree<span class="op">/</span>Year<span class="op">/</span>Symptom
 <span class="kw">summary</span>(monpop)</code></pre></div>
 <pre><code>## 
 ## // Number of individuals: 694
@@ -415,7 +415,7 @@ $(document).ready(function () {
 ## // Percentage of missing data: 0.51 %
 ## // Observed heterozygosity: 0</code></pre>
 <p>We notice that tree number 26 is the only one to have been sampled for all three years. Let’s use it as an example.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t26 &lt;-<span class="st"> </span>monpop %&gt;%<span class="st"> </span><span class="kw">setPop</span>(~Tree) %&gt;%<span class="st"> </span><span class="kw">popsub</span>(<span class="st">&quot;26&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">setPop</span>(~Year/Symptom)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t26 &lt;-<span class="st"> </span>monpop <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">setPop</span>(<span class="op">~</span>Tree) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">popsub</span>(<span class="st">&quot;26&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">setPop</span>(<span class="op">~</span>Year<span class="op">/</span>Symptom)
 t26</code></pre></div>
 <pre><code>## 
 ## This is a genclone object
@@ -663,10 +663,10 @@ Pram</code></pre></div>
 ##      9 populations defined - 
 ## Nursery_CA, Nursery_OR, JHallCr_OR, ..., Winchuck_OR, ChetcoMain_OR, PistolRSF_OR</code></pre>
 <p>This data has a few things in the “other” slot that we need. First is the repeat lengths called “REPLEN” and the other is a vector of hexadecimal colors for each population called “comparePal”.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">other</span>(Pram)$REPLEN</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">other</span>(Pram)<span class="op">$</span>REPLEN</code></pre></div>
 <pre><code>##  PrMS6A1  Pr9C3A1 PrMS39A1 PrMS45A1 PrMS43A1 
 ##  3.00000  2.00000  4.00001  4.00000  4.00000</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">other</span>(Pram)$comparePal</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">other</span>(Pram)<span class="op">$</span>comparePal</code></pre></div>
 <pre><code>##    Nursery_CA    Nursery_OR    JHallCr_OR NFChetHigh_OR      Coast_OR 
 ##     &quot;#000000&quot;     &quot;#808080&quot;     &quot;#A6CEE3&quot;     &quot;#99CD91&quot;     &quot;#B89B74&quot; 
 ##   HunterCr_OR   Winchuck_OR ChetcoMain_OR  PistolRSF_OR 

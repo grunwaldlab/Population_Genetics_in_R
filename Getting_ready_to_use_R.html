@@ -451,7 +451,7 @@ in several ways:
 <p>Take your data <strong>and then</strong> do step one, <strong>and then</strong> do step two, <strong>and then</strong> do step three.</p>
 </blockquote>
 <p>In R code with <em>magrittr</em>, assuming that each step is a function, it might be written as:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">result &lt;-<span class="st"> </span>data %&gt;%<span class="st"> </span><span class="kw">step_one</span>() %&gt;%<span class="st"> </span><span class="kw">step_two</span>() %&gt;%<span class="st"> </span><span class="kw">step_three</span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">result &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">step_one</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">step_two</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">step_three</span>()</code></pre></div>
 <p>Below, are two examples of how code can be improved with <em>magrittr</em>. <a href="http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html">More details about magrittr can be found in this link.</a></p>
 <div id="consider-a-fake-example" class="section level4">
 <h4>Consider a fake Example:</h4>
@@ -462,9 +462,9 @@ in several ways:
 
 <span class="co"># VS</span>
 
-foo_foo %&gt;%
-<span class="st">  </span><span class="kw">hop_through</span>(forest) %&gt;%
-<span class="st">  </span><span class="kw">scoop_up</span>(field_mouse) %&gt;%
+foo_foo <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">hop_through</span>(forest) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">scoop_up</span>(field_mouse) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">bop_on</span>(head)</code></pre></div>
 </div>
 <div id="now-for-a-real-example" class="section level4">
@@ -476,14 +476,14 @@ foo_foo %&gt;%
 
 <span class="co"># Compare the traditional R script</span>
 
-allelic_diversity &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">seppop</span>(<span class="kw">clonecorrect</span>(Pinf, <span class="dt">strata =</span> ~Continent/Country)),
+allelic_diversity &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">seppop</span>(<span class="kw">clonecorrect</span>(Pinf, <span class="dt">strata =</span> <span class="op">~</span>Continent<span class="op">/</span>Country)),
                             <span class="dt">FUN =</span> locus_table, <span class="dt">info =</span> <span class="ot">FALSE</span>)
 
 <span class="co"># versus the magrittr piping:</span>
 
-allelic_diversity &lt;-<span class="st"> </span>Pinf %&gt;%
-<span class="st">  </span><span class="kw">clonecorrect</span>(<span class="dt">strata=</span> ~Continent/Country) %&gt;%<span class="st"> </span><span class="co"># clone censor by continent and country.</span>
-<span class="st">  </span><span class="kw">seppop</span>() %&gt;%<span class="st">                                </span><span class="co"># Separate populations (by continent)</span>
+allelic_diversity &lt;-<span class="st"> </span>Pinf <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">clonecorrect</span>(<span class="dt">strata=</span> <span class="op">~</span>Continent<span class="op">/</span>Country) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># clone censor by continent and country.</span>
+<span class="st">  </span><span class="kw">seppop</span>() <span class="op">%&gt;%</span><span class="st">                                </span><span class="co"># Separate populations (by continent)</span>
 <span class="st">  </span><span class="kw">lapply</span>(<span class="dt">FUN =</span> locus_table, <span class="dt">info =</span> <span class="ot">FALSE</span>)     <span class="co"># Apply the function locus_table to both populations</span></code></pre></div>
 <blockquote>
 <p>To observe the results type <code>allelic_diversity</code> into the console after each statement.</p>

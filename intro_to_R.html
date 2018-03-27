@@ -379,36 +379,36 @@ $(document).ready(function () {
 <blockquote>
 <p>Note: the “&gt;” symbol is R’s prompt for you to type something in the console.</p>
 </blockquote>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">1</span>
-&gt;<span class="st"> </span>x</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">1</span>
+<span class="op">&gt;</span><span class="st"> </span>x</code></pre></div>
 <pre><code>[1] 1</code></pre>
 <p>You just assigned the value 1 to the variable <code>x</code> with the assignment operator <code>&lt;-</code>. The second command asks R to show the value assigned to R. Finally, the top right panel shows variables loaded into the environment and the bottom right panel is useful for loading files, plotting graphs, installing packages and getting help. Feel free to explore all the various tabs or elements of each panel.</p>
 <div id="assignment-data-types-and-operations" class="section level2">
 <h2>Assignment, data types and operations</h2>
 <p>Let’s learn a few simple facts about R:</p>
 <p>R uses # to add comments to code:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="co"># Add 1 + 1 and write to console</span>
-<span class="er">&gt;</span><span class="st"> </span><span class="dv">1</span> +<span class="st"> </span><span class="dv">1</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="co"># Add 1 + 1 and write to console</span>
+<span class="er">&gt;</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span></code></pre></div>
 <pre><code>[1] 2</code></pre>
 <p>This is very useful when developing reusable code or when you want to remember a few months later what you actually did.</p>
 <p>R is case sensitive so that <code>x &lt;- 5</code> is not the same as <code>X &lt;- x + 1</code>. Try typing this into your console and look at <code>x</code> and <code>X</code>, respectively:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">5</span>
-&gt;<span class="st"> </span>X &lt;-<span class="st"> </span>x +<span class="st"> </span><span class="dv">1</span>
-&gt;<span class="st"> </span>x</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">5</span>
+<span class="op">&gt;</span><span class="st"> </span>X &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+<span class="op">&gt;</span><span class="st"> </span>x</code></pre></div>
 <pre><code>[1] 5</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>X</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>X</code></pre></div>
 <pre><code>[1] 6</code></pre>
 <p>Next, let’s assign numbers to a vector:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)
-&gt;<span class="st"> </span>x</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)
+<span class="op">&gt;</span><span class="st"> </span>x</code></pre></div>
 <pre><code>[1] 1 2 3 4 5</code></pre>
 <p>You can see several important traits of R. The <code>c()</code> command (which stands for combine) can be used to make a list (e.g., a vector) of data. We can overwrite the variable <code>x</code> with new content and we can assign another data type (e.g., a single number becomes a vector). To compound things further you can even change the data type to strings overwriting the previous content:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Paris&quot;</span>, <span class="st">&quot;Tokyo&quot;</span>, <span class="st">&quot;Seattle&quot;</span>)
-&gt;<span class="st"> </span>a</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Paris&quot;</span>, <span class="st">&quot;Tokyo&quot;</span>, <span class="st">&quot;Seattle&quot;</span>)
+<span class="op">&gt;</span><span class="st"> </span>a</code></pre></div>
 <pre><code>[1] &quot;Paris&quot;   &quot;Tokyo&quot;   &quot;Seattle&quot;</code></pre>
 <p>Note that we use quotes to denote the string data type containing text.</p>
 <p>To access individual elements of a vector, in this case the second element, we execute:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span>a[<span class="dv">2</span>]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>a[<span class="dv">2</span>]</code></pre></div>
 <pre><code>[1] &quot;Tokyo&quot;</code></pre>
 </div>
 <div id="creating-rstudio-projects" class="section level2">

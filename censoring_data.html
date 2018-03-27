@@ -379,20 +379,20 @@ $(document).ready(function () {
 ## *****        *****         *****</code></pre>
 <p>A number of methods can be used to create intervals that you may consider acceptable. The use of quantiles may be considered desirable because they are non-parametric. We can fit different intervals to different samples using the function <code>apply()</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">quants &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN=</span><span class="dv">2</span>, quantile, <span class="dt">probs=</span><span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.8</span>), <span class="dt">na.rm=</span><span class="ot">TRUE</span>)
-quants[,<span class="dv">1</span>:<span class="dv">6</span>]</code></pre></div>
+quants[,<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]</code></pre></div>
 <pre><code>##     BL2009P4_us23 DDR7602 IN2009T1_us22 LBUS5 NL07434 P10127
 ## 10%            15       6            13     6      12      7
 ## 80%            35      40            32    40      51     24</code></pre>
 <p>We can create a second matrix of depths where we subtract the lower threshold of each sample from its depth using the function <code>sweep()</code>. Now all depths in the matrix that are below zero are below our threshold. We can use this information to set these cell to NA in the original matrix. We can similarly subtract the upper threshold from our samples to create a second matrix. Now everything above zero is above our threshold and can be set to NA.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp2 &lt;-<span class="st"> </span><span class="kw">sweep</span>(dp, <span class="dt">MARGIN=</span><span class="dv">2</span>, <span class="dt">FUN =</span> <span class="st">&quot;-&quot;</span>, quants[<span class="dv">1</span>,])
-dp[dp2 &lt;<span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
+dp[dp2 <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
 
 dp2 &lt;-<span class="st"> </span><span class="kw">sweep</span>(dp, <span class="dt">MARGIN=</span><span class="dv">2</span>, <span class="dt">FUN =</span> <span class="st">&quot;-&quot;</span>, quants[<span class="dv">2</span>,])
-dp[dp2 &gt;<span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
+dp[dp2 <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
 
-dp[dp &lt;<span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></code></pre></div>
+dp[dp <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></code></pre></div>
 <p>Now that we know which cells we want to censor as NA we can use this information to update the vcfR object. Don’t forget that the first column of the gt matrix is the ‘FORMAT’ column. We can omit this from our selection by using -1.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf@gt[,-<span class="dv">1</span>][ <span class="kw">is.na</span>(dp) ==<span class="st"> </span><span class="ot">TRUE</span> ] &lt;-<span class="st"> </span><span class="ot">NA</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf<span class="op">@</span>gt[,<span class="op">-</span><span class="dv">1</span>][ <span class="kw">is.na</span>(dp) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span> ] &lt;-<span class="st"> </span><span class="ot">NA</span></code></pre></div>
 <p>Now we can use the <code>show</code> method to see how this action has affected missingness in our vcfR object.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf</code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****

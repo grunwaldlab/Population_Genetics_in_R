@@ -379,7 +379,7 @@ $(document).ready(function () {
 <p>For the analysis, we need to read in the data, specify the stratifications in the data, and then set the stratification to symptom so that we can calculate genotypic richness, diversity, and evenness for BB as compared to FR for the entire data set:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
 <span class="kw">data</span>(monpop)
-<span class="kw">splitStrata</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree/Year/Symptom
+<span class="kw">splitStrata</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree<span class="op">/</span>Year<span class="op">/</span>Symptom
 <span class="kw">setPop</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Symptom
 monpop</code></pre></div>
 <pre><code>## 
@@ -478,9 +478,9 @@ min_sample &lt;-<span class="st"> </span><span class="kw">min</span>(<span class
 <h2>Genotypic diversity</h2>
 <p>Diversity measures incorporate both genotypic richness and abundance. There are three measures of genotypic diversity employed by <em>poppr</em>, the Shannon-Wiener index (H), Stoddart and Taylor’s index (G), and Simpson’s index (lambda). In our example, comparing the diversity of BB to FR shows that H is greater for FR (4.58 vs. 4.4), but G is lower (53.4 vs. 61.7). Thus, our expectation that diversity is lower for FR than BB is rejected in the case of H, which is likely due to the sensitivity of the Shannon-Wiener index to genotypic richness in the uneven sample sizes, and accepted in the case of G. To be fair, the sample size used to calculate these diversity measures is different and is therefore not an appropriate comparison.</p>
 <p>For an easier statistic to grasp, we have included the Simpson index, which is simply one minus the sum of squared genotype frequencies. This measure provides an estimation of the probability that two randomly selected genotypes are different and scales from 0 (no genotypes are different) to 1 (all genotypes are different). In the data above, we can see that lambda is just barely higher in BB than FR (0.984 vs. 0.981). Since this might be an artifact of sample size, we can explore a correction of Simpson’s index for sample size by multiplying lambda by <span class="math inline">\(N/(N - 1)\)</span>. Since R is vectorized, we can do this for all of our populations at once:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">N      &lt;-<span class="st"> </span>monpop_diversity$N      <span class="co"># number of samples</span>
-lambda &lt;-<span class="st"> </span>monpop_diversity$lambda <span class="co"># Simpson&#39;s index</span>
-(N/(N -<span class="st"> </span><span class="dv">1</span>)) *<span class="st"> </span>lambda              <span class="co"># Corrected Simpson&#39;s index</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">N      &lt;-<span class="st"> </span>monpop_diversity<span class="op">$</span>N      <span class="co"># number of samples</span>
+lambda &lt;-<span class="st"> </span>monpop_diversity<span class="op">$</span>lambda <span class="co"># Simpson&#39;s index</span>
+(N<span class="op">/</span>(N <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)) <span class="op">*</span><span class="st"> </span>lambda              <span class="co"># Corrected Simpson&#39;s index</span></code></pre></div>
 <pre><code>## [1] 0.9925727 0.9829604 0.9860399</code></pre>
 <p>Now we can see that, even after correction, Simpson’s index is still higher for BB.</p>
 <blockquote>

@@ -520,7 +520,7 @@ Plot of missing data
 <div id="removing-loci-and-genotypes" class="section level2">
 <h2>Removing loci and genotypes</h2>
 <p>When removing loci or genotypes, you can specify a cutoff representing the percent missing to be removed. The default is <code>0.05</code> (5%).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nancycats %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;loci&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nancycats <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;loci&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## 
 ## Found 617 missing values.
 ## 
@@ -557,7 +557,7 @@ Plot of missing data
 <p><strong>Advanced Users:</strong> when <code>scale = TRUE</code>, the color scale will be set so that the warmest color corresponds to the highest value.</p>
 </blockquote>
 <p>We only removed two loci. If we wanted to make sure we removed everything, we could set <code>cutoff = 0</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;loci&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">0</span>) %&gt;%<span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;loci&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## 
 ## Found 617 missing values.
 ## 
@@ -566,7 +566,7 @@ Plot of missing data
 ## Removing 3 loci: fca8, fca45, fca96</code></pre>
 <pre><code>## No Missing Data Found!</code></pre>
 <p>Again, removing individuals is also relatively easy:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>) %&gt;%<span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## 
 ## Found 617 missing values.
 ## 
@@ -577,7 +577,7 @@ Plot of missing data
 ## N199, N200, N201, N206, N182, N184, N186, N282, N283, N288, N291,
 ## N292, N293, N294, N295, N296, N297, N281, N289, N290</code></pre>
 <pre><code>## No Missing Data Found!</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats %&gt;%<span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">0</span>) %&gt;%<span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## 
 ## Found 617 missing values.
 ## 
@@ -589,8 +589,8 @@ Plot of missing data
 ## N292, N293, N294, N295, N296, N297, N281, N289, N290
 ## No Missing Data Found!</code></pre>
 <p>The function <code>missingno</code> removes individuals based on the percent of missing data relative to the number of loci. Let’s remove all individuals with 2 missing loci:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats %&gt;%
-<span class="st">  </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">2</span>/<span class="kw">nLoc</span>(nancycats)) %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">miss &lt;-<span class="st"> </span>nancycats <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">2</span><span class="op">/</span><span class="kw">nLoc</span>(nancycats)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <div class="figure">
 <img src="Locus_Stats_files/figure-html/unnamed-chunk-5-1.png" alt="Plot of missing data" width="700px" />
@@ -774,7 +774,7 @@ tab(nan1[loc = "fca8"])
 ## fca96 193.36764  66 1.965095e-14        0
 ## fca37 291.00731 153 1.209777e-10        0</code></pre>
 <p>We can see here that both the analytical p-value and permuted p-value show that we have confidence that all loci are not under the null expectation of HWE. This makes sense given that these data represent 17 populations of cats. If we wanted to check what the HWE statistic for each population is, we should first separate the populations with the function <code>seppop()</code>. For this exercise, we will only focus on the analytical p-value by setting <code>B = 0</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(nanhwe.pop &lt;-<span class="st"> </span><span class="kw">seppop</span>(nancycats) %&gt;%<span class="st"> </span><span class="kw">lapply</span>(hw.test, <span class="dt">B =</span> <span class="dv">0</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(nanhwe.pop &lt;-<span class="st"> </span><span class="kw">seppop</span>(nancycats) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lapply</span>(hw.test, <span class="dt">B =</span> <span class="dv">0</span>))</code></pre></div>
 <pre><code>## $P01
 ##           chi^2 df Pr(chi^2 &gt;)
 ## fca8   5.135802  6 0.526517306
@@ -1028,7 +1028,7 @@ tab(nan1[loc = "fca8"])
 <p>This output is still hard to sift through. An easy way to analyze this is by visualizing this as a heatmap. Since we only care whether or not a given locus is in or out of HWE, we will thus define an <span class="math inline">\(\alpha\)</span> value and set everything above that value to 1 so that we can visually detect candidate loci where we might reject the <span class="math inline">\(H_o\)</span> of HWE.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">alpha  &lt;-<span class="st"> </span><span class="fl">0.05</span>
 newmat &lt;-<span class="st"> </span>nanhwe.mat
-newmat[newmat &gt;<span class="st"> </span>alpha] &lt;-<span class="st"> </span><span class="dv">1</span></code></pre></div>
+newmat[newmat <span class="op">&gt;</span><span class="st"> </span>alpha] &lt;-<span class="st"> </span><span class="dv">1</span></code></pre></div>
 <p>Now we can create a simple heatmap with <code>levelplot</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;lattice&quot;</span>)
 <span class="kw">levelplot</span>(<span class="kw">t</span>(newmat))</code></pre></div>

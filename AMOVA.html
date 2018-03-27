@@ -384,7 +384,7 @@ d_{i,j} = \sum_{L = 1}^L 1 - \delta_{i,j}
 <p>To calculate AMOVA in <em>poppr</em>, one simply needs to supply a data set with stratifications. We will use the <em>Aphanomyces euteiches</em> data set from <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
 <span class="kw">data</span>(<span class="st">&quot;Aeut&quot;</span>)
-<span class="kw">strata</span>(Aeut) &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">other</span>(Aeut)$population_hierarchy)
+<span class="kw">strata</span>(Aeut) &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">other</span>(Aeut)<span class="op">$</span>population_hierarchy)
 Aeut &lt;-<span class="st"> </span><span class="kw">as.genclone</span>(Aeut)
 Aeut</code></pre></div>
 <pre><code>## 
@@ -401,11 +401,11 @@ Aeut</code></pre></div>
 ##      3 strata - Pop_Subpop, Pop, Subpop
 ##      2 populations defined - Athena, Mt. Vernon</code></pre>
 <p>We can see that this data set contains clonal data and has three stratifications where the first is really a combination of the other levels. We can take a look at the different stratifications, populations or subpopulations:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(<span class="kw">strata</span>(Aeut, ~Pop))  <span class="co"># Populations</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(<span class="kw">strata</span>(Aeut, <span class="op">~</span>Pop))  <span class="co"># Populations</span></code></pre></div>
 <pre><code>## 
 ##     Athena Mt. Vernon 
 ##         97         90</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(<span class="kw">strata</span>(Aeut, ~Pop/Subpop, <span class="dt">combine =</span> <span class="ot">FALSE</span>))  <span class="co"># Subpopulations</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(<span class="kw">strata</span>(Aeut, <span class="op">~</span>Pop<span class="op">/</span>Subpop, <span class="dt">combine =</span> <span class="ot">FALSE</span>))  <span class="co"># Subpopulations</span></code></pre></div>
 <pre><code>##             Subpop
 ## Pop           1  2  3  4  5  6  7  8  9 10
 ##   Athena      9 12 10 13 10  5 11  8 10  9
@@ -416,8 +416,8 @@ Aeut</code></pre></div>
 <h2>Analysis</h2>
 <p>In panmictic populations, we would expect to see most of the variance arise from within samples. If we see that the most of the variance occurs among samples within populations or among populations, then there is evidence that we have some sort of population structure. In the case of clonal organisms, this would help support a hypothesis of clonal reproduction. Since <em>Aphanomyces eutieches</em> is known to be clonal, we would not expect most of the variance to come from within samples.</p>
 <p>Let’s invoke the AMOVA functions with and without clone correction:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Aeutamova &lt;-<span class="st"> </span><span class="kw">poppr.amova</span>(Aeut, ~Pop/Subpop)
-Aeutamovacc &lt;-<span class="st"> </span><span class="kw">poppr.amova</span>(Aeut, ~Pop/Subpop, <span class="dt">clonecorrect =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Aeutamova &lt;-<span class="st"> </span><span class="kw">poppr.amova</span>(Aeut, <span class="op">~</span>Pop<span class="op">/</span>Subpop)
+Aeutamovacc &lt;-<span class="st"> </span><span class="kw">poppr.amova</span>(Aeut, <span class="op">~</span>Pop<span class="op">/</span>Subpop, <span class="dt">clonecorrect =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p>We’ll look at the AMOVA results for both analyses.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Aeutamova</code></pre></div>
 <pre><code>## $call
@@ -469,7 +469,7 @@ Aeutamovacc &lt;-<span class="st"> </span><span class="kw">poppr.amova</span>(Ae
 <p>The <code>$componentsofcovariance</code> table shows how much variance is detected at each stratification. We expect variations within samples to give the greatest amount of variation for populations that are not significantly differentiated. <code>Sigma</code> represents the variance, <span class="math inline">\(\sigma\)</span>, for each hierarchical level and to the right is the percent of the total.</p>
 <p>Finally, <code>$statphi</code> provides the <span class="math inline">\(\phi\)</span> population differentiation statistics. These are used to test hypotheses about population differentiation. We would expect a higher <span class="math inline">\(\phi\)</span> statistic to represent a higher amount of differentiation.</p>
 <p>Note, if you want to make a table of any of these components, you can isolate them by using the <code>$</code> operator and then export it to a table with <code>write.table</code>. Here’s an example with the components of covariance:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.table</span>(Aeutamova$componentsofcovariance, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">file =</span> <span class="st">&quot;~/Documents/AeutiechesAMOVA.csv&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.table</span>(Aeutamova<span class="op">$</span>componentsofcovariance, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">file =</span> <span class="st">&quot;~/Documents/AeutiechesAMOVA.csv&quot;</span>)</code></pre></div>
 </div>
 <div id="significance-testing" class="section level2">
 <h2>Significance testing</h2>
@@ -514,7 +514,7 @@ Aeutccsignif &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeut
 <h2>Randomized population structure</h2>
 <p>Since AMOVA is used to detect whether or not there is significant population structure, we can see what happens when we randomly shuffle the population assignments in our data. Here we will show what the populations look like before and after shuffling:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Aeut.new &lt;-<span class="st"> </span>Aeut
-<span class="kw">head</span>(<span class="kw">strata</span>(Aeut)[, -<span class="dv">1</span>])</code></pre></div>
+<span class="kw">head</span>(<span class="kw">strata</span>(Aeut)[, <span class="op">-</span><span class="dv">1</span>])</code></pre></div>
 <pre><code>##        Pop Subpop
 ## 001 Athena      1
 ## 002 Athena      1
@@ -523,7 +523,7 @@ Aeutccsignif &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeut
 ## 005 Athena      1
 ## 006 Athena      1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">9001</span>)
-<span class="kw">head</span>(<span class="kw">strata</span>(Aeut)[<span class="kw">sample</span>(<span class="kw">nInd</span>(Aeut)), -<span class="dv">1</span>])</code></pre></div>
+<span class="kw">head</span>(<span class="kw">strata</span>(Aeut)[<span class="kw">sample</span>(<span class="kw">nInd</span>(Aeut)), <span class="op">-</span><span class="dv">1</span>])</code></pre></div>
 <pre><code>##            Pop Subpop
 ## 044     Athena      4
 ## 177 Mt. Vernon      8
@@ -533,8 +533,8 @@ Aeutccsignif &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeut
 ## 039     Athena      4</code></pre>
 <p>Here we see that the populations are completely shuffled, so in the next step, we will reassign the strata with these newly shuffled populations and rerun the AMOVA analysis.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">9001</span>)
-<span class="kw">strata</span>(Aeut.new) &lt;-<span class="st"> </span><span class="kw">strata</span>(Aeut)[<span class="kw">sample</span>(<span class="kw">nInd</span>(Aeut)), -<span class="dv">1</span>]
-Aeut.new.amova         &lt;-<span class="st"> </span><span class="kw">poppr.amova</span>(Aeut.new, ~Pop/Subpop)
+<span class="kw">strata</span>(Aeut.new) &lt;-<span class="st"> </span><span class="kw">strata</span>(Aeut)[<span class="kw">sample</span>(<span class="kw">nInd</span>(Aeut)), <span class="op">-</span><span class="dv">1</span>]
+Aeut.new.amova         &lt;-<span class="st"> </span><span class="kw">poppr.amova</span>(Aeut.new, <span class="op">~</span>Pop<span class="op">/</span>Subpop)
 Aeut.new.amova</code></pre></div>
 <pre><code>## $call
 ## ade4::amova(samples = xtab, distances = xdist, structures = xstruct)

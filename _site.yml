@@ -1,5 +1,5 @@
 name: "Population genomics"
-output_dir: .
+output_dir: "."
 navbar:
   title: "Population genetics and genomics in R"
   left:

@@ -410,7 +410,7 @@ monpop</code></pre></div>
 <div id="assigning-stratifications" class="section level2">
 <h2>Assigning stratifications</h2>
 <p>We imported the data that has three stratifications “Tree_Year_Symptom”. In order to analyze our data according to any combination of those three stratifications, we need to tell <em>poppr</em> that the 12 groups should be split by tree, year, and/or symptom. Thus, the first step is to split our data according to strata so that we can access each of the three hierarchical levels in the data. The <code>splitStrata</code> command is used to index the three stratifications:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">splitStrata</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree/Year/Symptom
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">splitStrata</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree<span class="op">/</span>Year<span class="op">/</span>Symptom
 monpop</code></pre></div>
 <pre><code>## 
 ## This is a genclone object
@@ -437,8 +437,8 @@ monpop</code></pre></div>
 <li>Summarize the data by counting how many times we see each specific combination</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;dplyr&quot;</span>)
-monstrata &lt;-<span class="st"> </span><span class="kw">strata</span>(monpop) %&gt;%<span class="st">     </span>
-<span class="st">  </span><span class="kw">group_by</span>(Tree, Year, Symptom) %&gt;%
+monstrata &lt;-<span class="st"> </span><span class="kw">strata</span>(monpop) <span class="op">%&gt;%</span><span class="st">     </span>
+<span class="st">  </span><span class="kw">group_by</span>(Tree, Year, Symptom) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Count =</span> <span class="kw">n</span>())
 
 monstrata</code></pre></div>
@@ -486,7 +486,7 @@ monstrata          <span class="co"># Our data frame</span></code></pre></div>
 ## 12     79     10      FR    64</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nameStrata</span>(monpop) <span class="co"># The order of our variables</span></code></pre></div>
 <pre><code>## [1] &quot;Tree&quot;    &quot;Year&quot;    &quot;Symptom&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">monstrata$Count    <span class="co"># The variable used for the block size</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">monstrata<span class="op">$</span>Count    <span class="co"># The variable used for the block size</span></code></pre></div>
 <pre><code>##  [1]  23  73  41 132   5  85  30  97  13 130   1  64</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Adjusting the aesthetics for the labels</span>
 label_position &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;top&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;center&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;bottom&quot;</span>))
@@ -501,7 +501,7 @@ label_size     &lt;-<span class="st"> </span><span class="kw">c</span>(<span cla
 <p>You can also use the <code>itreemap()</code> function for an interactive exploration.</p>
 </blockquote>
 <p>Next, we analyze the data according to Tree and Year:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setPop</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree/Year
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setPop</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree<span class="op">/</span>Year
 monpop</code></pre></div>
 <pre><code>## 
 ## This is a genclone object
@@ -533,7 +533,7 @@ monpop</code></pre></div>
 ##      3 strata - Tree, Year, Symptom
 ##      2 populations defined - BB, FR</code></pre>
 <p>Order of the levels that you define is important, so if we wanted to define the symptoms according to tree, we would use the following:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setPop</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Symptom/Tree
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setPop</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Symptom<span class="op">/</span>Tree
 monpop</code></pre></div>
 <pre><code>## 
 ## This is a genclone object
@@ -557,7 +557,7 @@ monpop</code></pre></div>
 <p>Question: Will allelic diversity increase or decrease with clone-censored data?</p>
 </blockquote>
 <p>Using <code>monpop</code> as an example, if we wanted to know the diversity of alleles within each tree per year, how should we go about correcting for the clones? We use the function <code>clonecorrect</code> specifying the “Tree/Year” strata:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mcc_TY &lt;-<span class="st"> </span><span class="kw">clonecorrect</span>(monpop, <span class="dt">strata =</span> ~Tree/Year, <span class="dt">keep =</span> <span class="dv">1</span>:<span class="dv">2</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mcc_TY &lt;-<span class="st"> </span><span class="kw">clonecorrect</span>(monpop, <span class="dt">strata =</span> <span class="op">~</span>Tree<span class="op">/</span>Year, <span class="dt">keep =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)
 mcc_TY</code></pre></div>
 <pre><code>## 
 ## This is a genclone object
@@ -573,7 +573,7 @@ mcc_TY</code></pre></div>
 ##      3 strata - Tree, Year, Symptom
 ##      6 populations defined - 7_9, 26_9, 26_10, 45_10, 79_10, 26_11</code></pre>
 <p>Notice that the number of samples reduced from 694 to 278, but is still more than the number of MLGs. This indicates that there are duplicated genotypes that cross trees and years, but that’s okay because of our definition of a clone-corrected data set as having one representative genotype <em>per population</em>. Before we continue, we should set the original data to the same strata:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setPop</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree/Year</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setPop</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree<span class="op">/</span>Year</code></pre></div>
 <p>Now we can compare the diversity of alleles at each locus using Simpson’s index (<span class="math inline">\(1-D\)</span>) as implemented in the function <code>locus_table</code> (Detailed in our <a href="Locus_Stats.html">chapter on locus based statistics</a>). We will do this in three steps:</p>
 <ol style="list-style-type: decimal">
 <li>Calculate diversity of the clone corrected data</li>
@@ -582,7 +582,7 @@ mcc_TY</code></pre></div>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cc &lt;-<span class="st"> </span><span class="kw">locus_table</span>(mcc_TY, <span class="dt">info =</span> <span class="ot">FALSE</span>)
 mp &lt;-<span class="st"> </span><span class="kw">locus_table</span>(monpop, <span class="dt">info =</span> <span class="ot">FALSE</span>)
-mp -<span class="st"> </span>cc</code></pre></div>
+mp <span class="op">-</span><span class="st"> </span>cc</code></pre></div>
 <pre><code>##          summary
 ## locus     allele      1-D     Hexp Evenness
 ##   CHMFc4       .  0.00158  0.00031  0.00160
@@ -600,7 +600,7 @@ mp -<span class="st"> </span>cc</code></pre></div>
 ##   SER          . -0.04207 -0.04374 -0.02363
 ##   mean         . -0.02235 -0.02372 -0.01085</code></pre>
 <p>Let’s plot <span class="math inline">\(1-D\)</span> so that we can see it better:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">locus_diff &lt;-<span class="st"> </span>mp -<span class="st"> </span>cc
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">locus_diff &lt;-<span class="st"> </span>mp <span class="op">-</span><span class="st"> </span>cc
 
 <span class="co"># Note that I need to select the column containing Simpson&#39;s Index. That&#39;s</span>
 <span class="co"># labeled as &quot;1-D&quot;.</span>
@@ -612,7 +612,7 @@ mp -<span class="st"> </span>cc</code></pre></div>
 <h3>Advanced R: writing your own functions for analysis by stratum</h3>
 <p>Of course, we still want to analyze each tree/year combination separately. Instead of typing those commands above for each combination, we can write a function to do it for us.</p>
 <p>A function can be thought of as a set of instructions that tells the computer what to do. You have been using functions before such as <code>poppr()</code>. A function is written like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fun_name &lt;-<span class="st"> </span>function(arguments){
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fun_name &lt;-<span class="st"> </span><span class="cf">function</span>(arguments){
   <span class="co"># instructions</span>
 }</code></pre></div>
 <p><code>fun_name</code> is the name of the function, the R command <code>function</code> tells R that you are about to write a function. Arguments are variables that you will pass to the function and the curly braces (<code>{</code> and <code>}</code>) provide the area where you write all the steps of the function. Next, we will go through an example of writing a function.</p>
@@ -627,16 +627,16 @@ mp -<span class="st"> </span>cc</code></pre></div>
 <span class="kw">mean</span>(psize)</code></pre></div>
 <pre><code>## [1] 126.6667</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Harmonic mean</span>
-rmean &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="dv">1</span>/psize)
-<span class="dv">1</span>/rmean</code></pre></div>
+rmean &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="dv">1</span><span class="op">/</span>psize)
+<span class="dv">1</span><span class="op">/</span>rmean</code></pre></div>
 <pre><code>## [1] 30.84833</code></pre>
 <p>Notice that there are two steps to calculating the harmonic mean. If we wanted to calculate the harmonic mean of a lot of different vectors, this would get really repetitive. A function is a way of encapsulating a lot of instructions to reduce the number of steps (and potential errors) you would need to take in your analysis. Below, we will write a function to calculate the harmonic mean using the steps above.</p>
 <blockquote>
 <p>Note here that the <em>argument</em> is <strong>x</strong> and it is a placeholder for any value you put into the function.</p>
 </blockquote>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hmean &lt;-<span class="st"> </span>function(x){
-  rmean &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="dv">1</span>/x)
-  <span class="dv">1</span>/rmean
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hmean &lt;-<span class="st"> </span><span class="cf">function</span>(x){
+  rmean &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="dv">1</span><span class="op">/</span>x)
+  <span class="dv">1</span><span class="op">/</span>rmean
 }
 <span class="kw">mean</span>(psize)</code></pre></div>
 <pre><code>## [1] 126.6667</code></pre>
@@ -652,7 +652,7 @@ rmean &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="dv
 <li>the uncorrected data set</li>
 </ol>
 <p>From there, we can construct the function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot_simp_diff &lt;-<span class="st"> </span>function(pop_name, clone_corrected, un_corrected){
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot_simp_diff &lt;-<span class="st"> </span><span class="cf">function</span>(pop_name, clone_corrected, un_corrected){
 
   <span class="co"># Step 1: calculate diversity for clone-corrected data</span>
   cc &lt;-<span class="st"> </span><span class="kw">locus_table</span>(clone_corrected, <span class="dt">pop =</span> pop_name, <span class="dt">info =</span> <span class="ot">FALSE</span>)
@@ -661,7 +661,7 @@ rmean &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="dv
   uc &lt;-<span class="st"> </span><span class="kw">locus_table</span>(un_corrected, <span class="dt">pop =</span> pop_name, <span class="dt">info =</span> <span class="ot">FALSE</span>)
 
   <span class="co"># Step 3: Take the difference</span>
-  res &lt;-<span class="st"> </span>uc -<span class="st"> </span>cc
+  res &lt;-<span class="st"> </span>uc <span class="op">-</span><span class="st"> </span>cc
 
   <span class="co"># Step 4: Plot Simpson&#39;s index.</span>
   <span class="kw">barplot</span>(res[, <span class="st">&quot;1-D&quot;</span>], <span class="dt">main =</span> pop_name, <span class="dt">ylab =</span> <span class="st">&quot;Change in Simpson&#39;s Index&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;Locus&quot;</span>)
@@ -669,7 +669,7 @@ rmean &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="dv
 <p>Now that we have our function written, let’s gather the population names and construct a <em>for loop</em> that will analyze each one.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)) <span class="co"># Set up the graphics to have two rows and three columns</span>
 
-for (i in <span class="kw">popNames</span>(monpop)){
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">popNames</span>(monpop)){
   <span class="kw">plot_simp_diff</span>(i, mcc_TY, monpop)
 }</code></pre></div>
 <p><img src="Population_Strata_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>

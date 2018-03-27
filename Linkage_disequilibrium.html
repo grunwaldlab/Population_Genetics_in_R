@@ -405,7 +405,7 @@ $(document).ready(function () {
 <div id="clone-correction" class="section level2">
 <h2>Clone correction</h2>
 <p>Indeed we observe 43 multilocus genotypes out of 48 samples. We are looking at partial clonality and thus need to use clone-corrected (also called clone- censored) data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MX %&gt;%<span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">strata=</span> ~Continent/Country) %&gt;%<span class="st"> </span><span class="kw">ia</span>(<span class="dt">sample =</span> <span class="dv">999</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MX <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">strata=</span> <span class="op">~</span>Continent<span class="op">/</span>Country) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ia</span>(<span class="dt">sample =</span> <span class="dv">999</span>)</code></pre></div>
 <pre><code>## |================================================================| 100%</code></pre>
 <p><img src="Linkage_disequilibrium_files/figure-html/MXiacc-1.png" width="700px" /></p>
 <pre><code>##          Ia        p.Ia       rbarD        p.rD 
@@ -419,7 +419,7 @@ $(document).ready(function () {
 <pre><code>##        Ia      p.Ia     rbarD      p.rD 
 ## 2.8733344 0.0010000 0.3446431 0.0010000</code></pre>
 <p>Here we find significant support for the hypothesis that alleles are linked across loci with <span class="math inline">\(P &lt; 0.001\)</span>. The observed <span class="math inline">\(\bar{r}_d = 0.345\)</span> and falls outside of the distribution expected under no linkage. Let’s look at the clone-corrected data and make sure this is not an artifact of clonality:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">SA %&gt;%<span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">strata=</span> ~Continent/Country) %&gt;%<span class="st"> </span><span class="kw">ia</span>(<span class="dt">sample=</span><span class="dv">999</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">SA <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">strata=</span> <span class="op">~</span>Continent<span class="op">/</span>Country) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ia</span>(<span class="dt">sample=</span><span class="dv">999</span>)</code></pre></div>
 <pre><code>## |================================================================| 100%</code></pre>
 <p><img src="Linkage_disequilibrium_files/figure-html/SAiacc-1.png" width="700px" /></p>
 <pre><code>##        Ia      p.Ia     rbarD      p.rD 
@@ -431,11 +431,11 @@ $(document).ready(function () {
 <h2>Pairwise <span class="math inline">\(\bar{r}_d\)</span> over all loci</h2>
 <p>To ensure that the pattern of linkage disequilibrium seen is not due to a single pair of loci, you can calculate <span class="math inline">\(I_A\)</span> and <span class="math inline">\(\bar{r}_d\)</span> over all pairs of loci. We’ll perform this on the clone-corrected samples as above.</p>
 <p>Pairwise for the Mexican population:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mxpair &lt;-<span class="st"> </span>MX %&gt;%<span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">strata =</span> ~Continent/Country) %&gt;%<span class="st"> </span>pair.ia</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mxpair &lt;-<span class="st"> </span>MX <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">strata =</span> <span class="op">~</span>Continent<span class="op">/</span>Country) <span class="op">%&gt;%</span><span class="st"> </span>pair.ia</code></pre></div>
 <pre><code>## |================================================================| 100%</code></pre>
 <p><img src="Linkage_disequilibrium_files/figure-html/unnamed-chunk-9-1.png" width="700px" /></p>
 <p>Pairwise for the South American population:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sapair &lt;-<span class="st"> </span>SA %&gt;%<span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">strata =</span> ~Continent/Country) %&gt;%<span class="st"> </span>pair.ia</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sapair &lt;-<span class="st"> </span>SA <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">strata =</span> <span class="op">~</span>Continent<span class="op">/</span>Country) <span class="op">%&gt;%</span><span class="st"> </span>pair.ia</code></pre></div>
 <pre><code>## |================================================================| 100%</code></pre>
 <p><img src="Linkage_disequilibrium_files/figure-html/unnamed-chunk-11-1.png" width="700px" /></p>
 <p>The heatmaps produced make it look like there is more linkage in the Mexican population! But this is where looks can be deceiving. The color palettes are scaled to the data. We can confirm it by looking at the values:</p>

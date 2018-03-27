@@ -396,7 +396,7 @@ vcf</code></pre></div>
 <div id="the-meta-region" class="section level2">
 <h2>The meta region</h2>
 <p>The meta region contains information about the file, its creation, as well as information to interpret abbreviations used elsewhere in the file. Each line of the meta region begins with a double pound sign (‘##’). The example which comes with <em>vcfR</em> is shown below. (Only the first seven lines are shown for brevity.)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">strwrap</span>(vcf@meta[<span class="dv">1</span>:<span class="dv">7</span>])</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">strwrap</span>(vcf<span class="op">@</span>meta[<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>])</code></pre></div>
 <pre><code>##  [1] &quot;##fileformat=VCFv4.1&quot;                                              
 ##  [2] &quot;##source=\&quot;GATK haplotype Caller, phased with beagle4\&quot;&quot;           
 ##  [3] &quot;##FILTER=&lt;ID=LowQual,Description=\&quot;Low quality\&quot;&gt;&quot;                 
@@ -474,7 +474,7 @@ vcf</code></pre></div>
 <div id="the-gt-region" class="section level2">
 <h2>The gt region</h2>
 <p>The gt (genotype) region contains information about each variant for each sample. The values for each variant and each sample are colon delimited. Multiple types of data for each genotype may be stored in this manner. The format of the data is specified by the FORMAT column (column nine). Here we see that we have information for GT, AD, DP, GQ and PL. The definition of these acronyms can be referenced by querying the the meta region, as demonstrated previously. Every variant does not necessarily have the same information (e.g., SNPs and indels may be handled differently), so the rows are best treated independently. Different variant callers may include different information in this region.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf@gt[<span class="dv">1</span>:<span class="dv">6</span>, <span class="dv">1</span>:<span class="dv">4</span>]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf<span class="op">@</span>gt[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</code></pre></div>
 <pre><code>##      FORMAT           BL2009P4_us23              
 ## [1,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:62,0:62:99:0,190,2835&quot;
 ## [2,] &quot;GT:AD:DP:GQ:PL&quot; &quot;1|0:5,5:10:99:111,0,114&quot;  
@@ -497,7 +497,7 @@ vcf</code></pre></div>
 <pre><code>## Scanning file to determine attributes.
 ## File attributes:
 ##   meta lines: 29
-##   header line: 30
+##   header_line: 30
 ##   variant count: 2190
 ##   column count: 27
 ## 

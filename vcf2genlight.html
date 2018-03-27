@@ -392,13 +392,13 @@ $(document).ready(function () {
 <p>Another important difference among VCF and genlight data is how the genotypes are stored. In VCF data the alleles are delimited by either a pipe or a forward slash (‘|’, ‘/’ respectively). Because genlight objects only use biallelic loci the genotypes can be recoded as 0, 1 and 2. These correspond to homozygous for the reference or zero allele, heterozygote or homozygous for the first alternate allele. We can validate this by checking a few select genotypes from both the vcfR object and the genlight object.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># vcfR</span>
 gt &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;GT&quot;</span>)
-gt[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">18</span>), <span class="dv">1</span>:<span class="dv">3</span>]</code></pre></div>
+gt[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">18</span>), <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</code></pre></div>
 <pre><code>##                        BL2009P4_us23 DDR7602 IN2009T1_us22
 ## Supercontig_1.50_80063 &quot;1|0&quot;         &quot;1|0&quot;   &quot;0|1&quot;        
 ## Supercontig_1.50_80089 &quot;0|0&quot;         &quot;1|0&quot;   &quot;0|1&quot;        
 ## Supercontig_1.50_94108 &quot;0|1&quot;         &quot;0|1&quot;   &quot;1|1&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># genlight</span>
-<span class="kw">t</span>(<span class="kw">as.matrix</span>(x))[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">17</span>), <span class="dv">1</span>:<span class="dv">3</span>]</code></pre></div>
+<span class="kw">t</span>(<span class="kw">as.matrix</span>(x))[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">17</span>), <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</code></pre></div>
 <pre><code>##                        BL2009P4_us23 DDR7602 IN2009T1_us22
 ## Supercontig_1.50_80063             1       1             1
 ## Supercontig_1.50_80089             0       1             1

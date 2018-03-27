@@ -415,7 +415,7 @@ $(document).ready(function () {
 <p>VCF data does not typically include any sort of population information. We have to load this data separately from the text-delimited file we downloaded above that includes the ID of samples and the state where the samples were obtained from. Let’s load the <code>population_data.gbs.txt</code> file into memory by using the <code>read.table()</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop.data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;population_data.gbs.txt&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p>We can now check that all the samples in the VCF and the population data frame are included:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(rubi.VCF@gt)[-<span class="dv">1</span>] ==<span class="st"> </span>pop.data$AccessID</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(rubi.VCF<span class="op">@</span>gt)[<span class="op">-</span><span class="dv">1</span>] <span class="op">==</span><span class="st"> </span>pop.data<span class="op">$</span>AccessID</code></pre></div>
 <pre><code>##  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 ## [15] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 ## [29] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
@@ -436,7 +436,7 @@ $(document).ready(function () {
 <p>Additionally, we are required to specify the ploidy of the organism in order to calculate some population genetic metrics. <em>P. rubi</em> is a diploid organism, so we will specify a ploidy of two. All <code>genlight</code> objects have ploidy slots, in which the user can specify the ploidy of each individual sample, or once for the entire population. We can assume that every sample of <em>P. rubi</em> is diploid and we will specify a ploidy of 2 for the entire population. Note that while a <code>genlight</code> object can support individuals of different ploidy, within each individual all loci must be of the same ploidy.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ploidy</span>(gl.rubi) &lt;-<span class="st"> </span><span class="dv">2</span></code></pre></div>
 <p>Our biological question requires predetermined populations. We can add them to the genlight object as part of the <code>pop</code> (population) slot. In order to specify the population, we added the <code>State</code> column from our <code>pop.data</code> data frame to the <code>pop</code> slot of our <code>genlight</code> object:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pop</span>(gl.rubi) &lt;-<span class="st"> </span>pop.data$State</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pop</span>(gl.rubi) &lt;-<span class="st"> </span>pop.data<span class="op">$</span>State</code></pre></div>
 <p>We now end up with a <code>genlight</code> object of filtered VCF data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gl.rubi</code></pre></div>
 <pre><code>##  /// GENLIGHT OBJECT /////////
@@ -469,7 +469,7 @@ $(document).ready(function () {
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x.dist &lt;-<span class="st"> </span><span class="kw">dist</span>(x)</code></pre></div>
 <p>Note, that we have not specified what the variable x is. We can find documentation for this function with <code>?dist</code>.</p>
 <p>There are also functions to create distance matrices from genlight objects that exist in other packages. The function <code>bitwise.dist()</code> in the package <em>poppr</em> is an example. We can find documentation for this function with <code>?poppr::bitwise.dist</code>. Again, you need to know where to look for this information or you may not find it. We can use this function as follows.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x.dist &lt;-<span class="st"> </span>poppr::<span class="kw">bitwise.dist</span>(x)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x.dist &lt;-<span class="st"> </span>poppr<span class="op">::</span><span class="kw">bitwise.dist</span>(x)</code></pre></div>
 <p>Note, that the variable x has not yet been specified. Lastly, because you can use <code>as.matrix()</code> on your genlight object, and most distance algorithms can use this matrix as input, you can use this as an intermediate step to create a matrix from your genlight object and pass it to your distance algorithm of choice. Options include <em>ade4</em>, <code>vegdist()</code> in <em>vegan</em>, or <code>daisy()</code> in <em>cluster.</em> Note that it is up to you to determine which distance metric is best for your particular analysis. A number of options therefore exist for creating distance matrices from genlight objects.</p>
 </div>
 <div id="distance-tree" class="section level3">
@@ -480,7 +480,7 @@ $(document).ready(function () {
 <p>Next, we will color the tips of the tree based on the population of origin of the samples, and draw conclusions from what we observe in the tree:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cols &lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(<span class="dt">n =</span> <span class="kw">nPop</span>(gl.rubi), <span class="dt">name =</span> <span class="st">&quot;Dark2&quot;</span>)
 <span class="kw">plot.phylo</span>(tree, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">font =</span> <span class="dv">2</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">tip.color =</span>  cols[<span class="kw">pop</span>(gl.rubi)])
-<span class="kw">nodelabels</span>(tree$node.label, <span class="dt">adj =</span> <span class="kw">c</span>(<span class="fl">1.3</span>, -<span class="fl">0.5</span>), <span class="dt">frame =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>,<span class="dt">font =</span> <span class="dv">3</span>, <span class="dt">xpd =</span> <span class="ot">TRUE</span>)
+<span class="kw">nodelabels</span>(tree<span class="op">$</span>node.label, <span class="dt">adj =</span> <span class="kw">c</span>(<span class="fl">1.3</span>, <span class="op">-</span><span class="fl">0.5</span>), <span class="dt">frame =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>,<span class="dt">font =</span> <span class="dv">3</span>, <span class="dt">xpd =</span> <span class="ot">TRUE</span>)
 <span class="co">#legend(35,10,c(&quot;CA&quot;,&quot;OR&quot;,&quot;WA&quot;),cols, border = FALSE, bty = &quot;n&quot;)</span>
 <span class="kw">legend</span>(<span class="st">&#39;topleft&#39;</span>, <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;CA&quot;</span>,<span class="st">&quot;OR&quot;</span>,<span class="st">&quot;WA&quot;</span>), <span class="dt">fill =</span> cols, <span class="dt">border =</span> <span class="ot">FALSE</span>, <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="dv">2</span>)
 <span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>)
@@ -503,7 +503,7 @@ rubi.msn &lt;-<span class="st"> </span><span class="kw">poppr.msn</span>(gl.rubi
 
 node.size &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">2</span>, <span class="dt">times =</span> <span class="kw">nInd</span>(gl.rubi))
 <span class="kw">names</span>(node.size) &lt;-<span class="st"> </span><span class="kw">indNames</span>(gl.rubi)
-<span class="kw">vertex.attributes</span>(rubi.msn$graph)$size &lt;-<span class="st"> </span>node.size
+<span class="kw">vertex.attributes</span>(rubi.msn<span class="op">$</span>graph)<span class="op">$</span>size &lt;-<span class="st"> </span>node.size
 
 <span class="kw">set.seed</span>(<span class="dv">9</span>)
 <span class="kw">plot_poppr_msn</span>(gl.rubi, rubi.msn , <span class="dt">palette =</span> <span class="kw">brewer.pal</span>(<span class="dt">n =</span> <span class="kw">nPop</span>(gl.rubi), <span class="dt">name =</span> <span class="st">&quot;Dark2&quot;</span>), <span class="dt">gadj =</span> <span class="dv">70</span>)</code></pre></div>
@@ -515,25 +515,25 @@ node.size &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class=
 <h3>Principal components analysis</h3>
 <p>A principal components analysis (PCA) converts the observed SNP data into a set of values of linearly uncorrelated variables called <code>principal components</code> that summarize the variation between samples. We can perform a PCA on our genlight object by using the <code>glPCA</code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rubi.pca &lt;-<span class="st"> </span><span class="kw">glPca</span>(gl.rubi, <span class="dt">nf =</span> <span class="dv">3</span>)
-<span class="kw">barplot</span>(rubi.pca$eig, <span class="dt">col =</span> <span class="kw">heat.colors</span>(<span class="dv">50</span>), <span class="dt">main=</span><span class="st">&quot;PCA Eigenvalues&quot;</span>)
+<span class="kw">barplot</span>(rubi.pca<span class="op">$</span>eig, <span class="dt">col =</span> <span class="kw">heat.colors</span>(<span class="dv">50</span>), <span class="dt">main=</span><span class="st">&quot;PCA Eigenvalues&quot;</span>)
 <span class="kw">title</span>(<span class="dt">ylab=</span><span class="st">&quot;Proportion of variance explained&quot;</span>)
 <span class="kw">title</span>(<span class="dt">xlab=</span><span class="st">&quot;Eigenvalue&quot;</span>)</code></pre></div>
 <p><img src="gbs_analysis_files/figure-html/unnamed-chunk-16-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>The barplot indicates that we will need to only retain the first 3 PCAs, which cumulatively explain explain <code>63.183</code> percent of the variance of the data.</p>
 <p>To view the results of the PCA we can use the package <code>ggplot2</code>. We need to convert the data frame that contains the principal components (<code>rubi.pca$scores</code>) into the new object <code>rubi.pca.scores</code>. In addition, we will add the population values as a new column in our <code>rubi.pca.scores</code> object, in order to be able to color samples by population.</p>
 <p><code>ggplot2</code> will plot the PCA, color the samples by population, and create ellipses that include 95% of the data for each the population:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rubi.pca.scores &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(rubi.pca$scores)
-rubi.pca.scores$pop &lt;-<span class="st"> </span><span class="kw">pop</span>(gl.rubi)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rubi.pca.scores &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(rubi.pca<span class="op">$</span>scores)
+rubi.pca.scores<span class="op">$</span>pop &lt;-<span class="st"> </span><span class="kw">pop</span>(gl.rubi)
 
 <span class="kw">library</span>(ggplot2)
 <span class="kw">set.seed</span>(<span class="dv">9</span>)
 p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(rubi.pca.scores, <span class="kw">aes</span>(<span class="dt">x=</span>PC1, <span class="dt">y=</span>PC2, <span class="dt">colour=</span>pop)) 
-p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">2</span>)
-p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">stat_ellipse</span>(<span class="dt">level =</span> <span class="fl">0.95</span>, <span class="dt">size =</span> <span class="dv">1</span>)
-p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> cols) 
-p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) 
-p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>) 
-p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">theme_bw</span>()
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">2</span>)
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">stat_ellipse</span>(<span class="dt">level =</span> <span class="fl">0.95</span>, <span class="dt">size =</span> <span class="dv">1</span>)
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> cols) 
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) 
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>) 
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()
 
 p</code></pre></div>
 <p><img src="gbs_analysis_files/figure-html/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" /></p>
@@ -555,9 +555,9 @@ p</code></pre></div>
 <p><img src="gbs_analysis_files/figure-html/unnamed-chunk-20-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>These plots are hard to interpret and we will thus separate the samples by population.<br />
 <code>ggplot2</code> can be used to reconstruct these plots, but we need to convert the data into a <code>ggplot2</code> friendly object. We will extract the DAPC calculated population membership assignments (<code>pnw.dapc$posterior</code>) into a new data frame (<code>dapc.results</code>), include the original population assignment as a new column in the data frame (<code>dapc.results$pop</code>), and add a column that includes the sample names (<code>dapc.results$indNames</code>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dapc.results &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(pnw.dapc$posterior)
-dapc.results$pop &lt;-<span class="st"> </span><span class="kw">pop</span>(gl.rubi)
-dapc.results$indNames &lt;-<span class="st"> </span><span class="kw">rownames</span>(dapc.results)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dapc.results &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(pnw.dapc<span class="op">$</span>posterior)
+dapc.results<span class="op">$</span>pop &lt;-<span class="st"> </span><span class="kw">pop</span>(gl.rubi)
+dapc.results<span class="op">$</span>indNames &lt;-<span class="st"> </span><span class="kw">rownames</span>(dapc.results)</code></pre></div>
 <p><code>ggplot2</code> has specific requirements for the structure of the data frame format, as it requires each observation in rows, and all different values of these observations in columns (i.e., a long format data frame). To transform the data frame we use the function <code>melt</code> from the package <code>reshape2</code>. <code>melt</code> reorganizes the data frame into the required data frame format, where each membership probability observation for a given population is a row with the sample name, original population, and assigned population as columns.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(reshape2)
 dapc.results &lt;-<span class="st"> </span><span class="kw">melt</span>(dapc.results)</code></pre></div>
@@ -565,10 +565,10 @@ dapc.results &lt;-<span class="st"> </span><span class="kw">melt</span>(dapc.res
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(dapc.results) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Original_Pop&quot;</span>,<span class="st">&quot;Sample&quot;</span>,<span class="st">&quot;Assigned_Pop&quot;</span>,<span class="st">&quot;Posterior_membership_probability&quot;</span>)</code></pre></div>
 <p><code>ggplot2</code> will plot the <code>dapc.results</code> data frame we reorganized using <code>melt</code>, using the samples on the X-axis and membership probabilities on the Y-axis. The fill color will indicate the original population assignments. Each facet represents the original population assignment for each sample:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dapc.results, <span class="kw">aes</span>(<span class="dt">x=</span>Sample, <span class="dt">y=</span>Posterior_membership_probability, <span class="dt">fill=</span>Assigned_Pop))
-p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&#39;identity&#39;</span>) 
-p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> cols) 
-p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">facet_grid</span>(~Original_Pop, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)
-p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">8</span>))
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&#39;identity&#39;</span>) 
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> cols) 
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">facet_grid</span>(<span class="op">~</span>Original_Pop, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">8</span>))
 p</code></pre></div>
 <p><img src="gbs_analysis_files/figure-html/unnamed-chunk-25-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>This bar plot shows us a more organized perspective of our data set by contrasting the population membership probability assignments against their original populations.</p>
@@ -594,7 +594,7 @@ alphabet[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2<
 ## Object size: 2.9 Mb
 ## 4.589 percent missing data
 ## *****        *****         *****</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rubi.VCF[<span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">10</span>),]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rubi.VCF[<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>),]</code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
 ## 94 samples
 ## 4 CHROMs
@@ -604,15 +604,15 @@ alphabet[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2<
 ## *****        *****         *****</code></pre>
 <p>We can see that the second object only has 10 variants. If we look at the summary in detail, we observe that the original sample has 312 chromosomes/scaffolds, 615 variants and a size of 2.9 Mb. The subset object, on the other hand, only has 4 chromosomes/scaffolds, 10 variants and a size of 0.9 Mb. Both objects have the same number of samples. This is a good example of how to subset a <code>vcfR</code> object. However, we want to obtain a subset of 200 <strong>random</strong> variants. If we do <code>rubi.VCF[c(1:200)]</code> we will only obtain the first 200 variants. These 200 variants will always be the same, and we will have no real replication to determine the strength of our approach.</p>
 <p>One way to solve this problem is to generate a random string of 200 numbers that range from 1 to the total number of variants of the object. The R statistical environment has the function <code>sample()</code>. The function <code>sample()</code> generates a random vector of elements (i.e. numbers or elements from a vector). We can use <code>sample()</code> to generate the random vector of 200 numbers that range from 1 to the total number of variants of the object. The total number of variants in a <code>vcfR</code> object is equivalent to the number of rows in the vcfR object. We will use the <code>nrow()</code> method for our <code>vcfR</code> object to obtain the maximum range of values to subset our data set:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">subset<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dt">size =</span> <span class="dv">200</span>, <span class="dt">x=</span> <span class="kw">c</span>(<span class="dv">1</span>:<span class="kw">nrow</span>(rubi.VCF)))
-subset<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dt">size =</span> <span class="dv">200</span>, <span class="dt">x=</span> <span class="kw">c</span>(<span class="dv">1</span>:<span class="kw">nrow</span>(rubi.VCF)))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">subset.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dt">size =</span> <span class="dv">200</span>, <span class="dt">x=</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(rubi.VCF)))
+subset.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dt">size =</span> <span class="dv">200</span>, <span class="dt">x=</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(rubi.VCF)))</code></pre></div>
 <p>We have to check that the subsets are not identical. We can confirm this by using the function <code>identical()</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">identical</span>(subset<span class="fl">.1</span>, subset<span class="fl">.2</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">identical</span>(subset.<span class="dv">1</span>, subset.<span class="dv">2</span>)</code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>We can see that the vectors have different numbers. The results from <code>identical()</code> do not mean that every number in the vector is different. It just means that some of the values in the vectors are different, but each vector can also share some numbers with the other vector.</p>
 <p>Now we know how to generate a vector of 200 random numbers from 1 to the length of the <code>vcfR</code> object. We will use these vectors to subset the <code>rubi.VCF</code> object. To subset the <code>vcfR</code> object we execute code very similar to the one shown in the subset example. The main difference is that now we can use the <code>subset.1</code> and <code>subset.2</code> objects as the subset indices:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rubi.VCF.sub1 &lt;-<span class="st"> </span>rubi.VCF[subset<span class="fl">.1</span>,]
-rubi.VCF.sub2 &lt;-<span class="st"> </span>rubi.VCF[subset<span class="fl">.2</span>,]
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rubi.VCF.sub1 &lt;-<span class="st"> </span>rubi.VCF[subset.<span class="dv">1</span>,]
+rubi.VCF.sub2 &lt;-<span class="st"> </span>rubi.VCF[subset.<span class="dv">2</span>,]
 
 rubi.VCF.sub1</code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
@@ -636,8 +636,8 @@ rubi.VCF.sub1</code></pre></div>
 rubi.variant.subset &lt;-<span class="st"> </span><span class="kw">list</span>()
 
 <span class="co"># Using a for loop to generate 50 subsets of 200 random variants from the rubi.VCF vcfR object.</span>
-for (i in <span class="dv">1</span>:<span class="dv">50</span>){
-  rubi.variant.subset[[i]] &lt;-<span class="st"> </span>rubi.VCF[<span class="kw">sample</span>(<span class="dt">size =</span> <span class="dv">200</span>, <span class="dt">x=</span> <span class="kw">c</span>(<span class="dv">1</span>:<span class="kw">nrow</span>(rubi.VCF)))]
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">50</span>){
+  rubi.variant.subset[[i]] &lt;-<span class="st"> </span>rubi.VCF[<span class="kw">sample</span>(<span class="dt">size =</span> <span class="dv">200</span>, <span class="dt">x=</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(rubi.VCF)))]
 }
 
 <span class="co"># Checking we have 50 vcfR objects:</span>
@@ -662,14 +662,14 @@ for (i in <span class="dv">1</span>:<span class="dv">50</span>){
 ## 4.505 percent missing data
 ## *****        *****         *****</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Creating the GenLight object</span>
-rubi.gl.subset &lt;-<span class="st"> </span><span class="kw">lapply</span>(rubi.variant.subset, function (x) <span class="kw">suppressWarnings</span>(<span class="kw">vcfR2genlight</span>(x)))
-for (i in <span class="dv">1</span>:<span class="kw">length</span>(rubi.gl.subset)){
+rubi.gl.subset &lt;-<span class="st"> </span><span class="kw">lapply</span>(rubi.variant.subset, <span class="cf">function</span> (x) <span class="kw">suppressWarnings</span>(<span class="kw">vcfR2genlight</span>(x)))
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(rubi.gl.subset)){
   <span class="kw">ploidy</span>(rubi.gl.subset[[i]]) &lt;-<span class="st"> </span><span class="dv">2</span>
 }
 
 <span class="co"># Creating a simple UPGMA tree per object</span>
 <span class="kw">library</span>(phangorn)
-rubi.trees &lt;-<span class="st"> </span><span class="kw">lapply</span>(rubi.gl.subset, function (x) <span class="kw">upgma</span>(<span class="kw">bitwise.dist</span>(x)))
+rubi.trees &lt;-<span class="st"> </span><span class="kw">lapply</span>(rubi.gl.subset, <span class="cf">function</span> (x) <span class="kw">upgma</span>(<span class="kw">bitwise.dist</span>(x)))
 <span class="kw">class</span>(rubi.trees) &lt;-<span class="st"> &quot;multiPhylo&quot;</span>
 
 <span class="co"># Overlapping the trees</span>

@@ -380,9 +380,9 @@ $(document).ready(function () {
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># DAPC requires the adegenet package. Let&#39;s load this package:</span>
 <span class="kw">library</span>(<span class="st">&quot;adegenet&quot;</span>)
 <span class="kw">data</span>(H3N2) <span class="co"># load the H3N2 influenza data. Type ?H3N2 for more info.</span>
-<span class="kw">pop</span>(H3N2) &lt;-<span class="st"> </span>H3N2$other$epid
-dapc.H3N2 &lt;-<span class="st"> </span><span class="kw">dapc</span>(H3N2, <span class="dt">var.contrib =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="ot">FALSE</span>, <span class="dt">n.pca =</span> <span class="dv">30</span>, <span class="dt">n.da =</span> <span class="kw">nPop</span>(H3N2) -<span class="st"> </span><span class="dv">1</span>)
-<span class="kw">scatter</span>(dapc.H3N2, <span class="dt">cell =</span> <span class="dv">0</span>, <span class="dt">pch =</span> <span class="dv">18</span>:<span class="dv">23</span>, <span class="dt">cstar =</span> <span class="dv">0</span>, <span class="dt">mstree =</span> <span class="ot">TRUE</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</code></pre></div>
+<span class="kw">pop</span>(H3N2) &lt;-<span class="st"> </span>H3N2<span class="op">$</span>other<span class="op">$</span>epid
+dapc.H3N2 &lt;-<span class="st"> </span><span class="kw">dapc</span>(H3N2, <span class="dt">var.contrib =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="ot">FALSE</span>, <span class="dt">n.pca =</span> <span class="dv">30</span>, <span class="dt">n.da =</span> <span class="kw">nPop</span>(H3N2) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)
+<span class="kw">scatter</span>(dapc.H3N2, <span class="dt">cell =</span> <span class="dv">0</span>, <span class="dt">pch =</span> <span class="dv">18</span><span class="op">:</span><span class="dv">23</span>, <span class="dt">cstar =</span> <span class="dv">0</span>, <span class="dt">mstree =</span> <span class="ot">TRUE</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</code></pre></div>
 <p><img src="DAPC_files/figure-html/unnamed-chunk-2-1.png" width="960" /></p>
 <p>The <code>dapc()</code> arguments we used refer to:</p>
 <ul>
@@ -399,7 +399,7 @@ dapc.H3N2 &lt;-<span class="st"> </span><span class="kw">dapc</span>(H3N2, <span
 <p>As you can see, each year between 2001 to 2005 is a cluster of H3N2 strains separated by axis 1. In contrast, axis 2 separates the strains observed in the 2006 cluster from the clusters observed during 2001-5, indicating that the strains observed in 2006 are genetically distinct.</p>
 <p>Next, let’s assess if there are alleles that most differentiate the 2006 cluster from those in other years.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">4</span>)
-contrib &lt;-<span class="st"> </span><span class="kw">loadingplot</span>(dapc.H3N2$var.contr, <span class="dt">axis =</span> <span class="dv">2</span>, <span class="dt">thres =</span> <span class="fl">0.07</span>, <span class="dt">lab.jitter =</span> <span class="dv">1</span>)</code></pre></div>
+contrib &lt;-<span class="st"> </span><span class="kw">loadingplot</span>(dapc.H3N2<span class="op">$</span>var.contr, <span class="dt">axis =</span> <span class="dv">2</span>, <span class="dt">thres =</span> <span class="fl">0.07</span>, <span class="dt">lab.jitter =</span> <span class="dv">1</span>)</code></pre></div>
 <p><img src="DAPC_files/figure-html/unnamed-chunk-3-1.png" width="960" /></p>
 <p>It looks like SNPs at position 384 and 906 are involved. Let’s check this further by looking at allele frequencies by year:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">temp    &lt;-<span class="st"> </span><span class="kw">seploc</span>(H3N2)       <span class="co"># seploc {adegenet} creates a list of individual loci.</span>
@@ -407,7 +407,7 @@ snp906  &lt;-<span class="st"> </span><span class="kw">tab</span>(temp[[<span cl
 snp399  &lt;-<span class="st"> </span><span class="kw">tab</span>(temp[[<span class="st">&quot;399&quot;</span>]])
 
 <span class="co"># The following two commands find the average allele frequencies per population</span>
-(freq906 &lt;-<span class="st"> </span><span class="kw">apply</span>(snp906, <span class="dv">2</span>, function(e) <span class="kw">tapply</span>(e, <span class="kw">pop</span>(H3N2), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))</code></pre></div>
+(freq906 &lt;-<span class="st"> </span><span class="kw">apply</span>(snp906, <span class="dv">2</span>, <span class="cf">function</span>(e) <span class="kw">tapply</span>(e, <span class="kw">pop</span>(H3N2), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))</code></pre></div>
 <pre><code>##            906.c     906.t
 ## 2001 0.000000000 1.0000000
 ## 2002 0.000000000 1.0000000
@@ -415,7 +415,7 @@ snp399  &lt;-<span class="st"> </span><span class="kw">tab</span>(temp[[<span cl
 ## 2004 0.000000000 1.0000000
 ## 2005 0.002155172 0.9978448
 ## 2006 0.616071429 0.3839286</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(freq399 &lt;-<span class="st"> </span><span class="kw">apply</span>(snp399, <span class="dv">2</span>, function(e) <span class="kw">tapply</span>(e, <span class="kw">pop</span>(H3N2), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(freq399 &lt;-<span class="st"> </span><span class="kw">apply</span>(snp399, <span class="dv">2</span>, <span class="cf">function</span>(e) <span class="kw">tapply</span>(e, <span class="kw">pop</span>(H3N2), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))</code></pre></div>
 <pre><code>##            399.c     399.t
 ## 2001 0.000000000 1.0000000
 ## 2002 0.000000000 1.0000000
@@ -428,20 +428,20 @@ snp399  &lt;-<span class="st"> </span><span class="kw">tab</span>(temp[[<span cl
 <span class="co"># mfrow = number of columns, rows</span>
 <span class="co"># mar   = plot margin size</span>
 <span class="co"># las   = axis label style (3: always vertical)</span>
-<span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">0</span>) +<span class="st"> </span><span class="fl">0.1</span>, <span class="dt">las =</span> <span class="dv">3</span>)
+<span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">0</span>) <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>, <span class="dt">las =</span> <span class="dv">3</span>)
 
 <span class="kw">matplot</span>(freq906,  <span class="dt">pch =</span> <span class="kw">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;t&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>,
         <span class="dt">xlab =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;allele frequency&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;SNP # 906&quot;</span>,
         <span class="dt">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)
-<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>, <span class="dt">at =</span> <span class="dv">1</span>:<span class="dv">6</span>, <span class="dt">lab =</span> <span class="dv">2001</span>:<span class="dv">2006</span>)
+<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>, <span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">lab =</span> <span class="dv">2001</span><span class="op">:</span><span class="dv">2006</span>)
 
 <span class="kw">matplot</span>(freq399, <span class="dt">pch =</span> <span class="kw">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;t&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>,
         <span class="dt">xlab =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;allele frequency&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;SNP #399&quot;</span>,
         <span class="dt">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)
-<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>, <span class="dt">at =</span> <span class="dv">1</span>:<span class="dv">6</span>, <span class="dt">lab =</span> <span class="dv">2001</span>:<span class="dv">2006</span>)</code></pre></div>
+<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>, <span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">lab =</span> <span class="dv">2001</span><span class="op">:</span><span class="dv">2006</span>)</code></pre></div>
 <p><img src="DAPC_files/figure-html/unnamed-chunk-5-1.png" width="960" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Now we reset the plotting parameters to default</span>
-<span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>) +<span class="st"> </span><span class="fl">0.1</span>, <span class="dt">las =</span> <span class="dv">0</span>)</code></pre></div>
+<span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>, <span class="dt">las =</span> <span class="dv">0</span>)</code></pre></div>
 <p>This plot nicely illustrates the effect of mutation, followed by selection or drift in the seasonal H3N2 influenza virus.</p>
 </div>
 <div id="cross-validation-dapc-analysis-of-phytophthora-ramorum-from-forests-and-nurseries" class="section level1">
@@ -478,7 +478,7 @@ pramx &lt;-<span class="st"> </span><span class="kw">xvalDapc</span>(<span class
 </blockquote>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">999</span>)
 <span class="kw">system.time</span>(pramx &lt;-<span class="st"> </span><span class="kw">xvalDapc</span>(<span class="kw">tab</span>(Pram, <span class="dt">NA.method =</span> <span class="st">&quot;mean&quot;</span>), <span class="kw">pop</span>(Pram),
-                             <span class="dt">n.pca =</span> <span class="dv">10</span>:<span class="dv">20</span>, <span class="dt">n.rep =</span> <span class="dv">1000</span>,
+                             <span class="dt">n.pca =</span> <span class="dv">10</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">n.rep =</span> <span class="dv">1000</span>,
                              <span class="dt">parallel =</span> <span class="st">&quot;multicore&quot;</span>, <span class="dt">ncpus =</span> 4L))</code></pre></div>
 <p><img src="DAPC_files/figure-html/Pramhide-1.png" width="960" /></p>
 <pre><code>##    user  system elapsed 
@@ -492,7 +492,7 @@ pramx &lt;-<span class="st"> </span><span class="kw">xvalDapc</span>(<span class
 ## [5] &quot;Root Mean Squared Error by Number of PCs of PCA&quot;   
 ## [6] &quot;Number of PCs Achieving Lowest MSE&quot;                
 ## [7] &quot;DAPC&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pramx[-<span class="dv">1</span>]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pramx[<span class="op">-</span><span class="dv">1</span>]</code></pre></div>
 <pre><code>## $`Median and Confidence Interval for Random Chance`
 ##       2.5%        50%      97.5% 
 ## 0.08877822 0.11112549 0.13205190 
@@ -557,7 +557,7 @@ pramx &lt;-<span class="st"> </span><span class="kw">xvalDapc</span>(<span class
 ## 7 PCA loadings of original variables               
 ## 8 contribution of original variables</code></pre>
 <p>We also have a DAPC object that we can plot comparable to figure 4 in <span class="citation">Kamvar et al. (2015)</span>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">scatter</span>(pramx$DAPC, <span class="dt">col =</span> <span class="kw">other</span>(Pram)$comparePal, <span class="dt">cex =</span> <span class="dv">2</span>, <span class="dt">legend =</span> <span class="ot">TRUE</span>,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">scatter</span>(pramx<span class="op">$</span>DAPC, <span class="dt">col =</span> <span class="kw">other</span>(Pram)<span class="op">$</span>comparePal, <span class="dt">cex =</span> <span class="dv">2</span>, <span class="dt">legend =</span> <span class="ot">TRUE</span>,
         <span class="dt">clabel =</span> <span class="ot">FALSE</span>, <span class="dt">posi.leg =</span> <span class="st">&quot;bottomleft&quot;</span>, <span class="dt">scree.pca =</span> <span class="ot">TRUE</span>,
         <span class="dt">posi.pca =</span> <span class="st">&quot;topleft&quot;</span>, <span class="dt">cleg =</span> <span class="fl">0.75</span>, <span class="dt">xax =</span> <span class="dv">1</span>, <span class="dt">yax =</span> <span class="dv">2</span>, <span class="dt">inset.solid =</span> <span class="dv">1</span>)</code></pre></div>
 <p><img src="DAPC_files/figure-html/unnamed-chunk-8-1.png" width="960" /></p>

@@ -374,7 +374,7 @@ $(document).ready(function () {
 <span class="kw">data</span>(vcfR_example)
 pop &lt;-<span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">c</span>(<span class="st">&quot;us&quot;</span>, <span class="st">&quot;eu&quot;</span>, <span class="st">&quot;us&quot;</span>, <span class="st">&quot;af&quot;</span>, <span class="st">&quot;eu&quot;</span>, <span class="st">&quot;us&quot;</span>, <span class="st">&quot;mx&quot;</span>, <span class="st">&quot;eu&quot;</span>, <span class="st">&quot;eu&quot;</span>, <span class="st">&quot;sa&quot;</span>, <span class="st">&quot;mx&quot;</span>, <span class="st">&quot;sa&quot;</span>, <span class="st">&quot;us&quot;</span>, <span class="st">&quot;sa&quot;</span>, <span class="st">&quot;Pmir&quot;</span>, <span class="st">&quot;us&quot;</span>, <span class="st">&quot;eu&quot;</span>, <span class="st">&quot;eu&quot;</span>))
 myDiff &lt;-<span class="st"> </span><span class="kw">genetic_diff</span>(vcf, <span class="dt">pops =</span> pop, <span class="dt">method =</span> <span class="st">&#39;nei&#39;</span>)
-knitr::<span class="kw">kable</span>(<span class="kw">head</span>(myDiff[,<span class="dv">1</span>:<span class="dv">15</span>]))</code></pre></div>
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(myDiff[,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>]))</code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -501,7 +501,7 @@ knitr::<span class="kw">kable</span>(<span class="kw">head</span>(myDiff[,<span 
 </tbody>
 </table>
 <p>The function returns the chromosome and position of each variant as provided in the VCF data. This should allow you to align its output with the VCF data. The heterozygosities for each population are reported as well as the total heterozygosity, followed by the number of alleles observed in each population. Note that in some populations zero alleles were observed. Populations with zero alleles reported heterozygosities of ‘NaN’ because of this absence of data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr::<span class="kw">kable</span>(<span class="kw">head</span>(myDiff[,<span class="dv">16</span>:<span class="dv">19</span>]))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(myDiff[,<span class="dv">16</span><span class="op">:</span><span class="dv">19</span>]))</code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -552,43 +552,49 @@ knitr::<span class="kw">kable</span>(<span class="kw">head</span>(myDiff[,<span 
 </table>
 <p>The remaining columns contain <span class="math inline">\(G_{ST}\)</span>, the maximum heterozygosity, the maximum <span class="math inline">\(G_{ST}\)</span> and finally <span class="math inline">\(G&#39;_{ST}\)</span>. The maximum heterozygosity and the maximum <span class="math inline">\(G_{ST}\)</span> are intermediary values used to calculate <span class="math inline">\(G&#39;_{ST}\)</span>. They are typically not reported but provide values to help validate that <span class="math inline">\(G&#39;_{ST}\)</span> was calculated correctly. Note that the populations that had zero alleles, and therefore a heterozygosity of ‘NaN’, contributed to <span class="math inline">\(G_{ST}\)</span>s that were also ‘NaN’. To avoid this you may want to consider omitting populations with a small sample size or that contain a large amount of missing data.</p>
 <p>We now have information for each variant in the VCF data. Because this is typically a large quantity of information, we’ll want to summarize it. One way is to take averages of the data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr::<span class="kw">kable</span>(<span class="kw">round</span>(<span class="kw">colMeans</span>(myDiff[,<span class="kw">c</span>(<span class="dv">3</span>:<span class="dv">9</span>,<span class="dv">16</span>,<span class="dv">19</span>)], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">digits =</span> <span class="dv">3</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">round</span>(<span class="kw">colMeans</span>(myDiff[,<span class="kw">c</span>(<span class="dv">3</span><span class="op">:</span><span class="dv">9</span>,<span class="dv">16</span>,<span class="dv">19</span>)], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">digits =</span> <span class="dv">3</span>))</code></pre></div>
 <table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">x</th>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
-<td align="left">Hs_af</td>
+<td>Hs_af</td>
 <td align="right">0.176</td>
 </tr>
 <tr class="even">
-<td align="left">Hs_eu</td>
+<td>Hs_eu</td>
 <td align="right">0.188</td>
 </tr>
 <tr class="odd">
-<td align="left">Hs_mx</td>
+<td>Hs_mx</td>
 <td align="right">0.168</td>
 </tr>
 <tr class="even">
-<td align="left">Hs_Pmir</td>
+<td>Hs_Pmir</td>
 <td align="right">0.052</td>
 </tr>
 <tr class="odd">
-<td align="left">Hs_sa</td>
+<td>Hs_sa</td>
 <td align="right">0.198</td>
 </tr>
 <tr class="even">
-<td align="left">Hs_us</td>
+<td>Hs_us</td>
 <td align="right">0.155</td>
 </tr>
 <tr class="odd">
-<td align="left">Ht</td>
+<td>Ht</td>
 <td align="right">0.247</td>
 </tr>
 <tr class="even">
-<td align="left">Gst</td>
+<td>Gst</td>
 <td align="right">0.595</td>
 </tr>
 <tr class="odd">
-<td align="left">Gprimest</td>
+<td>Gprimest</td>
 <td align="right">0.632</td>
 </tr>
 </tbody>
@@ -597,12 +603,12 @@ knitr::<span class="kw">kable</span>(<span class="kw">head</span>(myDiff[,<span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(reshape2)
 <span class="kw">library</span>(ggplot2)
 
-dpf &lt;-<span class="st"> </span><span class="kw">melt</span>(myDiff[,<span class="kw">c</span>(<span class="dv">3</span>:<span class="dv">8</span>,<span class="dv">19</span>)], <span class="dt">varnames=</span><span class="kw">c</span>(<span class="st">&#39;Index&#39;</span>, <span class="st">&#39;Sample&#39;</span>), <span class="dt">value.name =</span> <span class="st">&#39;Depth&#39;</span>, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
+dpf &lt;-<span class="st"> </span><span class="kw">melt</span>(myDiff[,<span class="kw">c</span>(<span class="dv">3</span><span class="op">:</span><span class="dv">8</span>,<span class="dv">19</span>)], <span class="dt">varnames=</span><span class="kw">c</span>(<span class="st">&#39;Index&#39;</span>, <span class="st">&#39;Sample&#39;</span>), <span class="dt">value.name =</span> <span class="st">&#39;Depth&#39;</span>, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## No id variables; using all as measure variables</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dpf, <span class="kw">aes</span>(<span class="dt">x=</span>variable, <span class="dt">y=</span>Depth)) +<span class="st"> </span><span class="kw">geom_violin</span>(<span class="dt">fill=</span><span class="st">&quot;#2ca25f&quot;</span>, <span class="dt">adjust =</span> <span class="fl">1.2</span>)
-p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)
-p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>)
-p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">theme_bw</span>()
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dpf, <span class="kw">aes</span>(<span class="dt">x=</span>variable, <span class="dt">y=</span>Depth)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_violin</span>(<span class="dt">fill=</span><span class="st">&quot;#2ca25f&quot;</span>, <span class="dt">adjust =</span> <span class="fl">1.2</span>)
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>)
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()
 p</code></pre></div>
 <p><img src="genetic_differentiation_files/figure-html/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;" /></p>
 <div id="refs" class="references">

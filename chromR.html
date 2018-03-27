@@ -381,7 +381,7 @@ gff_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span
 
 <span class="co"># Input the files.</span>
 vcf &lt;-<span class="st"> </span><span class="kw">read.vcfR</span>(vcf_file, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)
-dna &lt;-<span class="st"> </span>ape::<span class="kw">read.dna</span>(dna_file, <span class="dt">format =</span> <span class="st">&quot;fasta&quot;</span>)
+dna &lt;-<span class="st"> </span>ape<span class="op">::</span><span class="kw">read.dna</span>(dna_file, <span class="dt">format =</span> <span class="st">&quot;fasta&quot;</span>)
 gff &lt;-<span class="st"> </span><span class="kw">read.table</span>(gff_file, <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">quote=</span><span class="st">&quot;&quot;</span>)
 
 <span class="co"># Create a chromR object.</span>
@@ -425,17 +425,17 @@ chrom &lt;-<span class="st"> </span><span class="kw">create.chromR</span>(<span 
 <p>Creation and processing of a chromR object has been divided into separate tasks. Creation loads the data into the chromR object and should typically only be required once. Processing the chromR object generates summaries of the data. Some of these summaries will need to be updated as the chromR object is updated. For example, if the size of the sliding window used to summarize variant density and GC content is changed the chromR object will need to be processed to update this information.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">chrom &lt;-<span class="st"> </span><span class="kw">proc.chromR</span>(chrom, <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## Nucleotide regions complete.</code></pre>
-<pre><code>##   elapsed time:  0.456</code></pre>
+<pre><code>##   elapsed time:  0.443</code></pre>
 <pre><code>## N regions complete.</code></pre>
-<pre><code>##   elapsed time:  0.265</code></pre>
+<pre><code>##   elapsed time:  0.259</code></pre>
 <pre><code>## Population summary complete.</code></pre>
-<pre><code>##   elapsed time:  0.207</code></pre>
+<pre><code>##   elapsed time:  0.205</code></pre>
 <pre><code>## window_init complete.</code></pre>
 <pre><code>##   elapsed time:  0</code></pre>
 <pre><code>## windowize_fasta complete.</code></pre>
-<pre><code>##   elapsed time:  0.167</code></pre>
+<pre><code>##   elapsed time:  0.161</code></pre>
 <pre><code>## windowize_annotations complete.</code></pre>
-<pre><code>##   elapsed time:  0.013</code></pre>
+<pre><code>##   elapsed time:  0.012</code></pre>
 <pre><code>## windowize_variants complete.</code></pre>
 <pre><code>##   elapsed time:  0.001</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(chrom)</code></pre></div>
@@ -455,7 +455,7 @@ chrom &lt;-<span class="st"> </span><span class="kw">proc.chromR</span>(chrom, <
 <div id="tabular-summaries" class="section level3">
 <h3>Tabular summaries</h3>
 <p>When we process a chromR object, two forms of tabular data are created. First, summaries are made on a per variant basis. This includes sample size (minus missing data), allele counts, heterozygosity and effective size. Second, summaries are made on a per window basis. Window size can be changed with the <code>win.size</code> parameter of the function <code>proc.chromR()</code>. Window based summaries include nucleotide content per window (including missing data so you can adjust window size for analyses if necessary), the number of genic sites per window (when annotation information was provided) and the number of variants per window.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(chrom@var.info)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(chrom<span class="op">@</span>var.info)</code></pre></div>
 <pre><code>##              CHROM   POS    MQ  DP mask  n Allele_counts         He
 ## 1 Supercontig_1.50 80058 58.96 508 TRUE 18       25,10,1 0.64364712
 ## 2 Supercontig_1.50 80063 58.95 514 TRUE 18         25,11 0.42438272
@@ -470,7 +470,7 @@ chrom &lt;-<span class="st"> </span><span class="kw">proc.chromR</span>(chrom, <
 ## 4 1.057096
 ## 5 1.670103
 ## 6 1.737265</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(chrom@win.info)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(chrom<span class="op">@</span>win.info)</code></pre></div>
 <pre><code>##              CHROM window start  end length   A   C   G   T    N other
 ## 1 Supercontig_1.50      1     1 1000   1000 267 213 293 227    0     0
 ## 2 Supercontig_1.50      2  1001 2000   1000 283 206 309 202    0     0

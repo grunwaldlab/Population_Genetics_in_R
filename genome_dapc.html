@@ -379,10 +379,8 @@ $(document).ready(function () {
 <p>First, we will remove the <em>P. mirabilis</em> sample to allow us to focus on how the <em>P. infestans</em> samples group.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1234</span>)
 x &lt;-<span class="st"> </span><span class="kw">popsub</span>(x, <span class="dt">blacklist =</span> <span class="st">&quot;Pmir&quot;</span>)
-dapc.x &lt;-<span class="st"> </span><span class="kw">dapc</span>(x, <span class="dt">pop =</span> <span class="kw">pop</span>(x), <span class="dt">n.pca=</span><span class="dv">10</span>, <span class="dt">n.da =</span> <span class="dv">2</span>)</code></pre></div>
-<pre><code>## Warning in dapc.genlight(x, pop = pop(x), n.pca = 10, n.da = 2): number of retained PCs of PCA may be too large (&gt; N /3)
-##  results may be unstable</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">scatter</span>(dapc.x, <span class="dt">scree.da=</span><span class="ot">FALSE</span>,  <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>, <span class="dt">pch=</span><span class="dv">17</span>:<span class="dv">22</span>, <span class="dt">cstar=</span><span class="dv">0</span>, <span class="dt">col=</span>cols)</code></pre></div>
+dapc.x &lt;-<span class="st"> </span><span class="kw">dapc</span>(x, <span class="dt">pop =</span> <span class="kw">pop</span>(x), <span class="dt">n.pca=</span><span class="dv">10</span>, <span class="dt">n.da =</span> <span class="dv">2</span>)
+<span class="kw">scatter</span>(dapc.x, <span class="dt">scree.da=</span><span class="ot">FALSE</span>,  <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>, <span class="dt">pch=</span><span class="dv">17</span><span class="op">:</span><span class="dv">22</span>, <span class="dt">cstar=</span><span class="dv">0</span>, <span class="dt">col=</span>cols)</code></pre></div>
 <p><img src="genome_dapc_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">scatter</span>(dapc.x, <span class="dt">col =</span> cols, <span class="dt">cex =</span> <span class="dv">2</span>, <span class="dt">legend =</span> <span class="ot">TRUE</span>, <span class="dt">clabel =</span> F, <span class="dt">posi.leg =</span> <span class="st">&quot;bottomleft&quot;</span>, <span class="dt">scree.pca =</span> <span class="ot">TRUE</span>,
         <span class="dt">posi.pca =</span> <span class="st">&quot;topleft&quot;</span>, <span class="dt">cleg =</span> <span class="fl">0.75</span>)</code></pre></div>
@@ -391,14 +389,14 @@ dapc.x &lt;-<span class="st"> </span><span class="kw">dapc</span>(x, <span class
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mat &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(x)
 grp &lt;-<span class="st"> </span><span class="kw">pop</span>(x)
 
-xval &lt;-<span class="st"> </span><span class="kw">xvalDapc</span>(mat, grp, <span class="dt">n.rep =</span> <span class="dv">30</span>, <span class="dt">n.pca =</span> <span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">10</span>))</code></pre></div>
-<pre><code>## Warning in xvalDapc(mat, grp, n.rep = 30, n.pca = c(1:10)): 1 group has
-## only 1 member so it cannot be represented in both training and validation
-## sets.</code></pre>
+xval &lt;-<span class="st"> </span><span class="kw">xvalDapc</span>(mat, grp, <span class="dt">n.rep =</span> <span class="dv">30</span>, <span class="dt">n.pca =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>))</code></pre></div>
+<pre><code>## Warning in xvalDapc.matrix(mat, grp, n.rep = 30, n.pca = c(1:10)): 1
+## group has only 1 member so it cannot be represented in both training and
+## validation sets.</code></pre>
 <p><img src="genome_dapc_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>The cross-validation shows that 5 PC is the ideal point of correctly predicted subsamples with the lowest error. we can plot the cross-validation DAPC results:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">12345</span>)
-<span class="kw">scatter</span>(xval$DAPC, <span class="dt">col =</span> cols, <span class="dt">cex =</span> <span class="dv">2</span>, <span class="dt">legend =</span> <span class="ot">TRUE</span>, <span class="dt">clabel =</span> <span class="ot">TRUE</span>, <span class="dt">posi.leg =</span> <span class="st">&quot;bottomleft&quot;</span>, <span class="dt">scree.pca =</span> <span class="ot">TRUE</span>,
+<span class="kw">scatter</span>(xval<span class="op">$</span>DAPC, <span class="dt">col =</span> cols, <span class="dt">cex =</span> <span class="dv">2</span>, <span class="dt">legend =</span> <span class="ot">TRUE</span>, <span class="dt">clabel =</span> <span class="ot">TRUE</span>, <span class="dt">posi.leg =</span> <span class="st">&quot;bottomleft&quot;</span>, <span class="dt">scree.pca =</span> <span class="ot">TRUE</span>,
         <span class="dt">posi.pca =</span> <span class="st">&quot;topleft&quot;</span>, <span class="dt">cleg =</span> <span class="fl">0.75</span>)</code></pre></div>
 <p><img src="genome_dapc_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>The DAPC plot shows what we’ve found using all the other methods until now: There is no population aggrupation between the geographic locations of samples of <em>P. infestans</em></p>
