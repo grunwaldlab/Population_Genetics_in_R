@@ -93,7 +93,7 @@ pop.data <- read.table("population_data.gbs.txt", sep = "\t", header = TRUE)
 We can now check that all the samples in the VCF and the population data frame are included: 
 
 ```{r}
-colnames(rubi.VCF@gt)[-1] == pop.data$AccessID
+all(colnames(rubi.VCF@gt)[-1] == pop.data$AccessID)
 ```
 
 Remember, the first column for the *vcfR* object's GT slot is a `FORMAT` column, hence we removed it from the name comparison step (i.e., by removing the first element in the column names vector, the `FORMAT` column name).
@@ -226,9 +226,9 @@ We can perform a PCA on our genlight object by using the `glPCA` function.
 
 ```{r, fig.width = 5,fig.height = 5}
 rubi.pca <- glPca(gl.rubi, nf = 3)
-barplot(rubi.pca$eig, col = heat.colors(50), main="PCA Eigenvalues")
-title(ylab="Proportion of variance explained")
-title(xlab="Eigenvalue")
+barplot(100*rubi.pca$eig/sum(rubi.pca$eig), col = heat.colors(50), main="PCA Eigenvalues")
+title(ylab="Proportion of variance\nexplained", line = 2)
+title(xlab="Eigenvalues", line = 1)
 
 ```
 
