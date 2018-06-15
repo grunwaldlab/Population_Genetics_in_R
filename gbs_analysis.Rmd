@@ -39,7 +39,7 @@ For more information on these techniques we recommend reading @Baird:2008cq, @RO
 ```{r child = 'data_gbs.Rmd'}
 ```
 
-To obtain variant calls in form of VCF data, the FASTQ reads from HTS were mapped to the reference genome of *P. rubi* (Tabima et al., in prep) using `bowtie2` [@langmead2012fast]. 
+To obtain variant calls in form of VCF data, the FASTQ reads from HTS were mapped to the reference genome of *P. rubi* [@tabima2018populations] using `bowtie2` [@langmead2012fast]. 
 Variants were called using the `GATK HaplotypeCaller` [@mckenna2010genome]. 
 This data was further filtered in *vcfR* using read depths (DP) and mapping qualities (MQ). 
 Data was filtered as follows:
