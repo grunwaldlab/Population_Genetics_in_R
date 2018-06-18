@@ -1,0 +1,217 @@
+---
+title: "Quality control"
+author: "BJ Knaus and NJ Grünwald"
+output: html_document
+---
+
+```{css, echo=FALSE}
+pre code, pre, code {
+  white-space: pre !important;
+  overflow-x: scroll !important;
+  word-break: keep-all !important;
+  word-wrap: initial !important;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.align = "center")
+```
+
+
+An important issue to consider once you have your file of genotypes is that not all samples and variants are of the same quality.
+Some samples may not have been sequenced at a high coverage and may need to be considered failed samples or samples that require additional sequencing.
+Some variants may not have been sequenced at a sufficient depth and may need to be considered low quality.
+Some variants may be located in repetetive elements and result in unusually high coverage and may include more than two alleles (when working with a diploid organism).
+Most variant callers claim to 'aggressively' call variants with the intention that they will see a quality control step.
+In this section we explore our data and develop strategies for quality control.
+
+
+## Data input
+
+
+One nice feature of CRAN and R is that it allows use to include data as packages.
+However, because it is part of a package it needs to be in a child directory of the package.
+Here we'll use `system.file()` to help us find the file and then read it in.
+In your workflows you'll typically know where your file is so you can simply use the file name.
+
+
+```{r cars}
+library(vcfR)
+library(pinfsc50)
+myVcf <- system.file("extdata", "pinf_sc50.vcf.gz", package = "pinfsc50")
+vcf <- vcfR::read.vcfR(myVcf, verbose = FALSE)
+```
+
+If you set `verbose` to `TRUE` you will receive information on progress.
+
+
+## Show method
+
+The first step of examining the data should include verifying that you successfully read it in.
+We can use the `show` method to get a summary of the data.
+
+```{r}
+show(vcf)
+```
+
+
+You should know the number of samples in your project and this should match the number reported by `show`.
+It is usually good to try to validate the number of variants read in matches the number in your file.
+We can accomplish this with the function `count.fields()`.
+
+```{r}
+length(count.fields(myVcf))
+```
+
+This number should match the number reported by `show()`.
+If they do match, and the number of samples is correct, then we have validated that we have the correct number of rows and columns and can proceed.
+
+> Bonus question: why does this only count variants and not meta lines?
+
+
+## The meta section
+
+Different VCF files created by different variant callers, or the same variant caller parameterized differently, may produce VCF files with different information in them.
+To get a first peak at what data we have we can use the `queryMETA()` function.
+
+
+```{r}
+queryMETA(vcf)
+```
+
+
+The `meta` section is a place where acronyms are defined that are used elsewhere in the file.
+If we tell the function what element to choose we get more information.
+
+
+```{r}
+queryMETA(vcf, element = 'DP')
+```
+
+
+The `DP` acronym occurs in the `INFO` column (column eight) as well as in the `FORMAT` column (column nine) so it is defined twice.
+
+
+## Extracting data from the gt section
+
+
+The genotypes are in a tabular format.
+The genotypes are typically accompanied with colon delimited data.
+Note that according to the [VCF specification](http://samtools.github.io/hts-specs/) each row can have a different format, so each row needs to be processed separately.
+
+
+```{r}
+options(width=200)
+vcf@gt[1:4, 1:6]
+```
+
+
+```{r}
+dp <- extract.gt(vcf,  element = 'DP', as.numeric = TRUE)
+class(dp)
+dim(dp)
+```
+
+
+We have now taken our VCF data, a format that most R functions can not work with, and converted part of it into a matrix, a common data structure that many R functions can work with.
+One way to visualize this data is with violin plots.
+Here we'll use `ggplot2` to create violin plots of depth.
+
+
+```{r}
+library(ggplot2)
+library(reshape2)
+
+dpf <- melt(dp, varnames=c('Index', 'Sample'), value.name = 'Depth', na.rm=TRUE)
+dpf <- dpf[ dpf$Depth > 0,]
+p <- ggplot(dpf, aes(x=Sample, y=Depth)) + geom_violin(fill="#C0C0C0", adjust=1.0,
+                                                       scale = "count", trim=TRUE)
+p <- p + theme_bw()
+p <- p + theme(axis.title.x = element_blank(), 
+               axis.text.x = element_text(angle = 60, hjust = 1))
+p <- p + scale_y_continuous(trans=scales::log2_trans(), 
+                            breaks=c(1, 10, 100, 800),
+                            minor_breaks=c(1:10, 2:10*10, 2:8*100))
+p <- p + theme( panel.grid.major.y=element_line(color = "#A9A9A9", size=0.6) )
+p <- p + theme( panel.grid.minor.y=element_line(color = "#C0C0C0", size=0.2) )
+p <- p + ylab("Depth (DP)")
+p
+```
+
+
+We see that the data are generally unimodal which is what we would expect from genomic data.
+The bulging at the bottom of the plot is because we have integer data (i.e., we have information for 1 and 2 but no fractional values in between).
+At least one sample, P1362, looks questionable in quality.
+While most samples were sequenced at around 20X, all samples also include long tails well into the hundres of times sequenced.
+You might consider this undesireable.
+You may also consider low coverage variants questionable as well
+We can manage this by omitting tham.
+Here we'll the 10th and 90th percentile to identify variants of unusual depth.
+First we'll omit them by marking them as missing dataa (`NA`).
+Then we'll omit samples and variants with an unusually high amount of missing data.
+
+
+```{r}
+quants <- apply(dp, MARGIN=2, quantile, probs=c(0.1, 0.9), na.rm=TRUE)
+dp2 <- sweep(dp, MARGIN=2, FUN = "-", quants[1,])
+dp[dp2 < 0] <- NA
+dp2 <- sweep(dp, MARGIN=2, FUN = "-", quants[2,])
+dp[dp2 > 0] <- NA
+dp[dp < 4] <- NA
+# Update the vccfR object with our changes.
+vcf@gt[,-1][ is.na(dp) == TRUE ] <- NA
+vcf
+```
+
+
+Now we'll omit samples that are over 50% missing data.
+
+
+```{r}
+dp <- extract.gt(vcf,  element = 'DP', as.numeric = TRUE)
+myMiss <- apply(dp, MARGIN = 2, function(x){ sum( is.na(x) ) } )
+myMiss <- myMiss / nrow(dp)
+vcf@gt <- vcf@gt[, c(TRUE, myMiss < 0.55)]
+vcf
+```
+
+
+Now we'll omit variants that are more than 20% missing data.
+
+
+```{r}
+myMiss <- apply(dp, MARGIN = 1, function(x){ sum( is.na(x) ) } )
+myMiss <- myMiss / ncol(dp)
+vcf <- vcf[myMiss < 0.2, ]
+vcf
+```
+
+
+Once we've processed the data its good to visualize how those decisions have afffected the data.
+We'll make another set of violin plots and compare them to the ones we made previously.
+
+
+```{r}
+dp <- extract.gt(vcf,  element = 'DP', as.numeric = TRUE)
+dpf <- melt(dp, varnames=c('Index', 'Sample'), value.name = 'Depth', na.rm=TRUE)
+dpf <- dpf[ dpf$Depth > 0,]
+p <- ggplot(dpf, aes(x=Sample, y=Depth)) + geom_violin(fill="#C0C0C0", adjust=1.0,
+                                                       scale = "count", trim=TRUE)
+p <- p + theme_bw()
+p <- p + theme(axis.title.x = element_blank(), 
+               axis.text.x = element_text(angle = 60, hjust = 1))
+p <- p + scale_y_continuous(trans=scales::log2_trans(), 
+                            breaks=c(1, 10, 100, 800),
+                            minor_breaks=c(1:10, 2:10*10, 2:8*100))
+p <- p + theme( panel.grid.major.y=element_line(color = "#A9A9A9", size=0.6) )
+p <- p + theme( panel.grid.minor.y=element_line(color = "#C0C0C0", size=0.2) )
+p <- p + ylab("Depth (DP)")
+p
+```
+
+
+We see that the sample P1362 has been removed from the data set, no variants over 100X occur and a minimum coverage of 4X has been used to define reasonable coverage.
+An important point to make here is that we're not advocating for anyone to use the same thresholds that we've used here.
+Instead, our goal is to provide you with tools so that you can make the changes you think are appropriate and so that you can visualize the effects of those changes.
+
