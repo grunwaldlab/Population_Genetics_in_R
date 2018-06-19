@@ -382,8 +382,14 @@ pre code, pre, code {
 <div id="data-input" class="section level2">
 <h2>Data input</h2>
 <p>One nice feature of CRAN and R is that it allows use to include data as packages. However, because it is part of a package it needs to be in a child directory of the package. Here we’ll use <code>system.file()</code> to help us find the file and then read it in. In your workflows you’ll typically know where your file is so you can simply use the file name.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vcfR)
-<span class="kw">library</span>(pinfsc50)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vcfR)</code></pre></div>
+<pre><code>## 
+##    *****       ***   vcfR   ***       *****
+##    This is vcfR 1.8.0.9000 
+##      browseVignettes(&#39;vcfR&#39;) # Documentation
+##      citation(&#39;vcfR&#39;) # Citation
+##    *****       *****      *****       *****</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(pinfsc50)
 myVcf &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;pinf_sc50.vcf.gz&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;pinfsc50&quot;</span>)
 vcf &lt;-<span class="st"> </span>vcfR<span class="op">::</span><span class="kw">read.vcfR</span>(myVcf, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p>If you set <code>verbose</code> to <code>TRUE</code> you will receive information on progress.</p>
@@ -411,52 +417,27 @@ vcf &lt;-<span class="st"> </span>vcfR<span class="op">::</span><span class="kw"
 <h2>The meta section</h2>
 <p>Different VCF files created by different variant callers, or the same variant caller parameterized differently, may produce VCF files with different information in them. To get a first peak at what data we have we can use the <code>queryMETA()</code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">queryMETA</span>(vcf)</code></pre></div>
-<pre><code>##  [1] &quot;FILTER=ID=LowQual&quot;                   
-##  [2] &quot;FORMAT=ID=AD&quot;                        
-##  [3] &quot;FORMAT=ID=DP&quot;                        
-##  [4] &quot;FORMAT=ID=GQ&quot;                        
-##  [5] &quot;FORMAT=ID=GT&quot;                        
-##  [6] &quot;FORMAT=ID=PL&quot;                        
-##  [7] &quot;GATKCommandLine=ID=HaplotypeCaller&quot;  
-##  [8] &quot;INFO=ID=AC&quot;                          
-##  [9] &quot;INFO=ID=AF&quot;                          
-## [10] &quot;INFO=ID=AN&quot;                          
-## [11] &quot;INFO=ID=BaseQRankSum&quot;                
-## [12] &quot;INFO=ID=ClippingRankSum&quot;             
-## [13] &quot;INFO=ID=DP&quot;                          
-## [14] &quot;INFO=ID=DS&quot;                          
-## [15] &quot;INFO=ID=FS&quot;                          
-## [16] &quot;INFO=ID=HaplotypeScore&quot;              
-## [17] &quot;INFO=ID=InbreedingCoeff&quot;             
-## [18] &quot;INFO=ID=MLEAC&quot;                       
-## [19] &quot;INFO=ID=MLEAF&quot;                       
-## [20] &quot;INFO=ID=MQ&quot;                          
-## [21] &quot;INFO=ID=MQ0&quot;                         
-## [22] &quot;INFO=ID=MQRankSum&quot;                   
-## [23] &quot;INFO=ID=QD&quot;                          
-## [24] &quot;INFO=ID=ReadPosRankSum&quot;              
-## [25] &quot;INFO=ID=SOR&quot;                         
+<pre><code>##  [1] &quot;FILTER=ID=LowQual&quot;                    &quot;FORMAT=ID=AD&quot;                         &quot;FORMAT=ID=DP&quot;                         &quot;FORMAT=ID=GQ&quot;                         &quot;FORMAT=ID=GT&quot;                        
+##  [6] &quot;FORMAT=ID=PL&quot;                         &quot;GATKCommandLine=ID=HaplotypeCaller&quot;   &quot;INFO=ID=AC&quot;                           &quot;INFO=ID=AF&quot;                           &quot;INFO=ID=AN&quot;                          
+## [11] &quot;INFO=ID=BaseQRankSum&quot;                 &quot;INFO=ID=ClippingRankSum&quot;              &quot;INFO=ID=DP&quot;                           &quot;INFO=ID=DS&quot;                           &quot;INFO=ID=FS&quot;                          
+## [16] &quot;INFO=ID=HaplotypeScore&quot;               &quot;INFO=ID=InbreedingCoeff&quot;              &quot;INFO=ID=MLEAC&quot;                        &quot;INFO=ID=MLEAF&quot;                        &quot;INFO=ID=MQ&quot;                          
+## [21] &quot;INFO=ID=MQ0&quot;                          &quot;INFO=ID=MQRankSum&quot;                    &quot;INFO=ID=QD&quot;                           &quot;INFO=ID=ReadPosRankSum&quot;               &quot;INFO=ID=SOR&quot;                         
 ## [26] &quot;1 contig=&lt;IDs omitted from queryMETA&quot;</code></pre>
 <p>The <code>meta</code> section is a place where acronyms are defined that are used elsewhere in the file. If we tell the function what element to choose we get more information.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">queryMETA</span>(vcf, <span class="dt">element =</span> <span class="st">&#39;DP&#39;</span>)</code></pre></div>
 <pre><code>## [[1]]
-## [1] &quot;FORMAT=ID=DP&quot;                                                                         
-## [2] &quot;Number=1&quot;                                                                             
-## [3] &quot;Type=Integer&quot;                                                                         
-## [4] &quot;Description=Approximate read depth (reads with MQ=255 or with bad mates are filtered)&quot;
+## [1] &quot;FORMAT=ID=DP&quot;                                                                          &quot;Number=1&quot;                                                                             
+## [3] &quot;Type=Integer&quot;                                                                          &quot;Description=Approximate read depth (reads with MQ=255 or with bad mates are filtered)&quot;
 ## 
 ## [[2]]
-## [1] &quot;INFO=ID=DP&quot;                                                           
-## [2] &quot;Number=1&quot;                                                             
-## [3] &quot;Type=Integer&quot;                                                         
-## [4] &quot;Description=Approximate read depth; some reads may have been filtered&quot;</code></pre>
+## [1] &quot;INFO=ID=DP&quot;                                                            &quot;Number=1&quot;                                                             
+## [3] &quot;Type=Integer&quot;                                                          &quot;Description=Approximate read depth; some reads may have been filtered&quot;</code></pre>
 <p>The <code>DP</code> acronym occurs in the <code>INFO</code> column (column eight) as well as in the <code>FORMAT</code> column (column nine) so it is defined twice.</p>
 </div>
 <div id="extracting-data-from-the-gt-section" class="section level2">
 <h2>Extracting data from the gt section</h2>
 <p>The genotypes are in a tabular format. The genotypes are typically accompanied with colon delimited data. Note that according to the <a href="http://samtools.github.io/hts-specs/">VCF specification</a> each row can have a different format, so each row needs to be processed separately.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">width=</span><span class="dv">200</span>)
-vcf<span class="op">@</span>gt[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf<span class="op">@</span>gt[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]</code></pre></div>
 <pre><code>##      FORMAT           BL2009P4_us23              DDR7602                    IN2009T1_us22              LBUS5                      NL07434                    
 ## [1,] &quot;GT:AD:DP:GQ:PL&quot; &quot;1|1:0,7:7:21:283,21,0&quot;    &quot;1|1:0,6:6:18:243,18,0&quot;    &quot;1|1:0,8:8:24:324,24,0&quot;    &quot;1|1:0,6:6:18:243,18,0&quot;    &quot;1|1:0,12:12:36:486,36,0&quot;  
 ## [2,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:12,0:12:36:0,36,427&quot;  &quot;0|0:20,0:20:60:0,60,819&quot;  &quot;0|0:16,0:16:48:0,48,650&quot;  &quot;0|0:20,0:20:60:0,60,819&quot;  &quot;0|0:28,0:28:84:0,84,948&quot;  
@@ -471,26 +452,26 @@ vcf<span class="op">@</span>gt[<span class="dv">1</span><span class="op">:</span
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 <span class="kw">library</span>(reshape2)
 
-dpf &lt;-<span class="st"> </span><span class="kw">melt</span>(dp, <span class="dt">varnames=</span><span class="kw">c</span>(<span class="st">&#39;Index&#39;</span>, <span class="st">&#39;Sample&#39;</span>), <span class="dt">value.name =</span> <span class="st">&#39;Depth&#39;</span>, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)
+dpf &lt;-<span class="st"> </span><span class="kw">melt</span>(dp, <span class="dt">varnames =</span> <span class="kw">c</span>(<span class="st">&#39;Index&#39;</span>, <span class="st">&#39;Sample&#39;</span>), <span class="dt">value.name =</span> <span class="st">&#39;Depth&#39;</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
 dpf &lt;-<span class="st"> </span>dpf[ dpf<span class="op">$</span>Depth <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>,]
-p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dpf, <span class="kw">aes</span>(<span class="dt">x=</span>Sample, <span class="dt">y=</span>Depth)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_violin</span>(<span class="dt">fill=</span><span class="st">&quot;#C0C0C0&quot;</span>, <span class="dt">adjust=</span><span class="fl">1.0</span>,
-                                                       <span class="dt">scale =</span> <span class="st">&quot;count&quot;</span>, <span class="dt">trim=</span><span class="ot">TRUE</span>)
+p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dpf, <span class="kw">aes</span>(<span class="dt">x =</span> Sample, <span class="dt">y =</span> Depth)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_violin</span>(<span class="dt">fill =</span> <span class="st">&quot;#C0C0C0&quot;</span>, <span class="dt">adjust =</span> <span class="fl">1.0</span>,
+                                                           <span class="dt">scale =</span> <span class="st">&quot;count&quot;</span>, <span class="dt">trim =</span> <span class="ot">TRUE</span>)
 p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()
 p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_blank</span>(), 
                <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">60</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))
-p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">trans=</span>scales<span class="op">::</span><span class="kw">log2_trans</span>(), 
-                            <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">800</span>),
-                            <span class="dt">minor_breaks=</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">10</span><span class="op">*</span><span class="dv">10</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">8</span><span class="op">*</span><span class="dv">100</span>))
-p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.major.y=</span><span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#A9A9A9&quot;</span>, <span class="dt">size=</span><span class="fl">0.6</span>) )
-p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.minor.y=</span><span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#C0C0C0&quot;</span>, <span class="dt">size=</span><span class="fl">0.2</span>) )
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">trans =</span> scales<span class="op">::</span><span class="kw">log2_trans</span>(), 
+                            <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">800</span>),
+                            <span class="dt">minor_breaks =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">10</span><span class="op">*</span><span class="dv">10</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">8</span><span class="op">*</span><span class="dv">100</span>))
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.major.y =</span> <span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#A9A9A9&quot;</span>, <span class="dt">size =</span> <span class="fl">0.6</span>) )
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.minor.y =</span> <span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#C0C0C0&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>) )
 p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Depth (DP)&quot;</span>)
 p</code></pre></div>
 <p><img src="quality_control_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>We see that the data are generally unimodal which is what we would expect from genomic data. The bulging at the bottom of the plot is because we have integer data (i.e., we have information for 1 and 2 but no fractional values in between). At least one sample, P1362, looks questionable in quality. While most samples were sequenced at around 20X, all samples also include long tails well into the hundres of times sequenced. You might consider this undesireable. You may also consider low coverage variants questionable as well We can manage this by omitting tham. Here we’ll the 10th and 90th percentile to identify variants of unusual depth. First we’ll omit them by marking them as missing dataa (<code>NA</code>). Then we’ll omit samples and variants with an unusually high amount of missing data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">quants &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN=</span><span class="dv">2</span>, quantile, <span class="dt">probs=</span><span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>), <span class="dt">na.rm=</span><span class="ot">TRUE</span>)
-dp2 &lt;-<span class="st"> </span><span class="kw">sweep</span>(dp, <span class="dt">MARGIN=</span><span class="dv">2</span>, <span class="dt">FUN =</span> <span class="st">&quot;-&quot;</span>, quants[<span class="dv">1</span>,])
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">quants &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, quantile, <span class="dt">probs =</span> <span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+dp2 &lt;-<span class="st"> </span><span class="kw">sweep</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> <span class="st">&quot;-&quot;</span>, quants[<span class="dv">1</span>,])
 dp[dp2 <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
-dp2 &lt;-<span class="st"> </span><span class="kw">sweep</span>(dp, <span class="dt">MARGIN=</span><span class="dv">2</span>, <span class="dt">FUN =</span> <span class="st">&quot;-&quot;</span>, quants[<span class="dv">2</span>,])
+dp2 &lt;-<span class="st"> </span><span class="kw">sweep</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> <span class="st">&quot;-&quot;</span>, quants[<span class="dv">2</span>,])
 dp[dp2 <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
 dp[dp <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
 <span class="co"># Update the vccfR object with our changes.</span>
@@ -517,7 +498,7 @@ vcf</code></pre></div>
 ## 26.1 percent missing data
 ## *****        *****         *****</code></pre>
 <p>Now we’ll omit variants that are more than 20% missing data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">1</span>, <span class="cf">function</span>(x){ <span class="kw">sum</span>( <span class="kw">is.na</span>(x) ) } )
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">1</span>, <span class="cf">function</span>(x){<span class="kw">sum</span>( <span class="kw">is.na</span>(x) ) })
 myMiss &lt;-<span class="st"> </span>myMiss <span class="op">/</span><span class="st"> </span><span class="kw">ncol</span>(dp)
 vcf &lt;-<span class="st"> </span>vcf[myMiss <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.2</span>, ]
 vcf</code></pre></div>
@@ -530,18 +511,18 @@ vcf</code></pre></div>
 ## *****        *****         *****</code></pre>
 <p>Once we’ve processed the data its good to visualize how those decisions have afffected the data. We’ll make another set of violin plots and compare them to the ones we made previously.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf,  <span class="dt">element =</span> <span class="st">&#39;DP&#39;</span>, <span class="dt">as.numeric =</span> <span class="ot">TRUE</span>)
-dpf &lt;-<span class="st"> </span><span class="kw">melt</span>(dp, <span class="dt">varnames=</span><span class="kw">c</span>(<span class="st">&#39;Index&#39;</span>, <span class="st">&#39;Sample&#39;</span>), <span class="dt">value.name =</span> <span class="st">&#39;Depth&#39;</span>, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)
+dpf &lt;-<span class="st"> </span><span class="kw">melt</span>(dp, <span class="dt">varnames =</span> <span class="kw">c</span>(<span class="st">&#39;Index&#39;</span>, <span class="st">&#39;Sample&#39;</span>), <span class="dt">value.name =</span> <span class="st">&#39;Depth&#39;</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
 dpf &lt;-<span class="st"> </span>dpf[ dpf<span class="op">$</span>Depth <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>,]
-p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dpf, <span class="kw">aes</span>(<span class="dt">x=</span>Sample, <span class="dt">y=</span>Depth)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_violin</span>(<span class="dt">fill=</span><span class="st">&quot;#C0C0C0&quot;</span>, <span class="dt">adjust=</span><span class="fl">1.0</span>,
-                                                       <span class="dt">scale =</span> <span class="st">&quot;count&quot;</span>, <span class="dt">trim=</span><span class="ot">TRUE</span>)
+p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dpf, <span class="kw">aes</span>(<span class="dt">x =</span> Sample, <span class="dt">y =</span> Depth)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_violin</span>(<span class="dt">fill =</span> <span class="st">&quot;#C0C0C0&quot;</span>, <span class="dt">adjust =</span> <span class="fl">1.0</span>,
+                                                           <span class="dt">scale =</span> <span class="st">&quot;count&quot;</span>, <span class="dt">trim =</span> <span class="ot">TRUE</span>)
 p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()
 p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_blank</span>(), 
                <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">60</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))
-p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">trans=</span>scales<span class="op">::</span><span class="kw">log2_trans</span>(), 
-                            <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">800</span>),
-                            <span class="dt">minor_breaks=</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">10</span><span class="op">*</span><span class="dv">10</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">8</span><span class="op">*</span><span class="dv">100</span>))
-p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.major.y=</span><span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#A9A9A9&quot;</span>, <span class="dt">size=</span><span class="fl">0.6</span>) )
-p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.minor.y=</span><span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#C0C0C0&quot;</span>, <span class="dt">size=</span><span class="fl">0.2</span>) )
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">trans =</span> scales<span class="op">::</span><span class="kw">log2_trans</span>(), 
+                            <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">800</span>),
+                            <span class="dt">minor_breaks =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">10</span><span class="op">*</span><span class="dv">10</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">8</span><span class="op">*</span><span class="dv">100</span>))
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.major.y =</span> <span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#A9A9A9&quot;</span>, <span class="dt">size =</span> <span class="fl">0.6</span>) )
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.minor.y =</span> <span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#C0C0C0&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>) )
 p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Depth (DP)&quot;</span>)
 p</code></pre></div>
 <p><img src="quality_control_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
