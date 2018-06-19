@@ -4,7 +4,7 @@ author: "BJ Knaus and NJ Grünwald"
 output: html_document
 ---
 
-```{css, echo=FALSE}
+```{css}
 pre code, pre, code {
   white-space: pre !important;
   overflow-x: scroll !important;
@@ -124,18 +124,20 @@ Here we'll use `ggplot2` to create violin plots of depth.
 library(ggplot2)
 library(reshape2)
 
-dpf <- melt(dp, varnames = c('Index', 'Sample'), value.name = 'Depth', na.rm = TRUE)
-dpf <- dpf[ dpf$Depth > 0,]
-p <- ggplot(dpf, aes(x = Sample, y = Depth)) + geom_violin(fill = "#C0C0C0", adjust = 1.0,
-                                                           scale = "count", trim = TRUE)
+dpf <- melt(dp, varnames = c('Index', 'Sample'),
+            value.name = 'Depth', na.rm = TRUE)
+dpf <- dpf[ dpf$Depth > 0, ]
+p <- ggplot(dpf, aes(x = Sample, y = Depth))
+p <- p + geom_violin(fill = "#C0C0C0", adjust = 1.0,
+                     scale = "count", trim = TRUE)
 p <- p + theme_bw()
-p <- p + theme(axis.title.x = element_blank(), 
+p <- p + theme(axis.title.x = element_blank(),
                axis.text.x = element_text(angle = 60, hjust = 1))
-p <- p + scale_y_continuous(trans = scales::log2_trans(), 
+p <- p + scale_y_continuous(trans = scales::log2_trans(),
                             breaks = c(1, 10, 100, 800),
-                            minor_breaks = c(1:10, 2:10*10, 2:8*100))
-p <- p + theme( panel.grid.major.y = element_line(color = "#A9A9A9", size = 0.6) )
-p <- p + theme( panel.grid.minor.y = element_line(color = "#C0C0C0", size = 0.2) )
+                            minor_breaks = c(1:10, 2:10 * 10, 2:8 * 100))
+p <- p + theme(panel.grid.major.y = element_line(color = "#A9A9A9", size = 0.6))
+p <- p + theme(panel.grid.minor.y = element_line(color = "#C0C0C0", size = 0.2))
 p <- p + ylab("Depth (DP)")
 p
 ```
@@ -155,13 +157,13 @@ Then we'll omit samples and variants with an unusually high amount of missing da
 
 ```{r}
 quants <- apply(dp, MARGIN = 2, quantile, probs = c(0.1, 0.9), na.rm = TRUE)
-dp2 <- sweep(dp, MARGIN = 2, FUN = "-", quants[1,])
+dp2 <- sweep(dp, MARGIN = 2, FUN = "-", quants[1, ])
 dp[dp2 < 0] <- NA
-dp2 <- sweep(dp, MARGIN = 2, FUN = "-", quants[2,])
+dp2 <- sweep(dp, MARGIN = 2, FUN = "-", quants[2, ])
 dp[dp2 > 0] <- NA
 dp[dp < 4] <- NA
 # Update the vccfR object with our changes.
-vcf@gt[,-1][ is.na(dp) == TRUE ] <- NA
+vcf@gt[, -1][ is.na(dp) == TRUE ] <- NA
 vcf
 ```
 
@@ -171,7 +173,7 @@ Now we'll omit samples that are over 50% missing data.
 
 ```{r}
 dp <- extract.gt(vcf,  element = 'DP', as.numeric = TRUE)
-myMiss <- apply(dp, MARGIN = 2, function(x){ sum( is.na(x) ) } )
+myMiss <- apply(dp, MARGIN = 2, function(x){sum( is.na(x))})
 myMiss <- myMiss / nrow(dp)
 vcf@gt <- vcf@gt[, c(TRUE, myMiss < 0.55)]
 vcf
@@ -182,7 +184,7 @@ Now we'll omit variants that are more than 20% missing data.
 
 
 ```{r}
-myMiss <- apply(dp, MARGIN = 1, function(x){sum( is.na(x) ) })
+myMiss <- apply(dp, MARGIN = 1, function(x){sum(is.na(x))})
 myMiss <- myMiss / ncol(dp)
 vcf <- vcf[myMiss < 0.2, ]
 vcf
@@ -195,18 +197,22 @@ We'll make another set of violin plots and compare them to the ones we made prev
 
 ```{r}
 dp <- extract.gt(vcf,  element = 'DP', as.numeric = TRUE)
-dpf <- melt(dp, varnames = c('Index', 'Sample'), value.name = 'Depth', na.rm = TRUE)
-dpf <- dpf[ dpf$Depth > 0,]
-p <- ggplot(dpf, aes(x = Sample, y = Depth)) + geom_violin(fill = "#C0C0C0", adjust = 1.0,
-                                                           scale = "count", trim = TRUE)
+dpf <- melt(dp, varnames = c('Index', 'Sample'),
+            value.name = 'Depth', na.rm = TRUE)
+dpf <- dpf[ dpf$Depth > 0, ]
+p <- ggplot(dpf, aes(x = Sample, y = Depth))
+p <- p + geom_violin(fill = "#C0C0C0", adjust = 1.0,
+                     scale = "count", trim = TRUE)
 p <- p + theme_bw()
-p <- p + theme(axis.title.x = element_blank(), 
+p <- p + theme(axis.title.x = element_blank(),
                axis.text.x = element_text(angle = 60, hjust = 1))
-p <- p + scale_y_continuous(trans = scales::log2_trans(), 
+p <- p + scale_y_continuous(trans = scales::log2_trans(),
                             breaks = c(1, 10, 100, 800),
-                            minor_breaks = c(1:10, 2:10*10, 2:8*100))
-p <- p + theme( panel.grid.major.y = element_line(color = "#A9A9A9", size = 0.6) )
-p <- p + theme( panel.grid.minor.y = element_line(color = "#C0C0C0", size = 0.2) )
+                            minor_breaks = c(1:10, 2:10 * 10, 2:8 * 100))
+p <- p + theme( panel.grid.major.y = element_line(color = "#A9A9A9",
+                                                  size = 0.6) )
+p <- p + theme( panel.grid.minor.y = element_line(color = "#C0C0C0",
+                                                  size = 0.2) )
 p <- p + ylab("Depth (DP)")
 p
 ```
