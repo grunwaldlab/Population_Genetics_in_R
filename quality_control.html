@@ -384,7 +384,7 @@ pre code, pre, code {
   word-wrap: initial !important;
 }
 </style>
-<p>An important issue to consider once you have your file of genotypes is that not all samples and variants are of the same quality. Some samples may not have been sequenced at a high coverage and may need to be considered failed samples or samples that require additional sequencing. Some variants may not have been sequenced at a sufficient depth and may need to be considered low quality. Some variants may be located in repetetive elements and result in unusually high coverage and may include more than two alleles (when working with a diploid organism). Most variant callers claim to ‘aggressively’ call variants with the intention that they will see a quality control step. In this section we explore our data and develop strategies for quality control.</p>
+<p>An important issue to consider once you have your file of genotypes is that not all samples and variants are of the same quality. Some samples may not have been sequenced at a high coverage and may need to be considered failed samples or samples that require additional sequencing. Some variants may not have been sequenced at a sufficient depth and may need to be considered low quality. Some variants may be located in repetetive elements and result in unusually high coverage and may include more than two alleles (when working with a diploid organism). Most variant callers claim to “aggressively” call variants with the intention that they will see a quality control step. In this section we explore our data and develop strategies for quality control.</p>
 <div id="data-input" class="section level2">
 <h2>Data input</h2>
 <p>One nice feature of CRAN and R is that it allows use to include data as packages. However, because it is part of a package it needs to be in a child directory of the package. Here we’ll use <code>system.file()</code> to help us find the file and then read it in. In your workflows you’ll typically know where your file is so you can simply use the file name.</p>
@@ -430,7 +430,7 @@ vcf &lt;-<span class="st"> </span>vcfR<span class="op">::</span><span class="kw"
 ## [21] &quot;INFO=ID=MQ0&quot;                          &quot;INFO=ID=MQRankSum&quot;                    &quot;INFO=ID=QD&quot;                           &quot;INFO=ID=ReadPosRankSum&quot;               &quot;INFO=ID=SOR&quot;                         
 ## [26] &quot;1 contig=&lt;IDs omitted from queryMETA&quot;</code></pre>
 <p>The <code>meta</code> section is a place where acronyms are defined that are used elsewhere in the file. If we tell the function what element to choose we get more information.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">queryMETA</span>(vcf, <span class="dt">element =</span> <span class="st">&#39;DP&#39;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">queryMETA</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>)</code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;FORMAT=ID=DP&quot;                                                                          &quot;Number=1&quot;                                                                             
 ## [3] &quot;Type=Integer&quot;                                                                          &quot;Description=Approximate read depth (reads with MQ=255 or with bad mates are filtered)&quot;
@@ -449,7 +449,7 @@ vcf &lt;-<span class="st"> </span>vcfR<span class="op">::</span><span class="kw"
 ## [2,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:12,0:12:36:0,36,427&quot;  &quot;0|0:20,0:20:60:0,60,819&quot;  &quot;0|0:16,0:16:48:0,48,650&quot;  &quot;0|0:20,0:20:60:0,60,819&quot;  &quot;0|0:28,0:28:84:0,84,948&quot;  
 ## [3,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:27,0:27:81:0,81,1117&quot; &quot;0|0:26,0:26:78:0,78,1077&quot; &quot;0|0:23,0:23:69:0,69,946&quot;  &quot;0|0:26,0:26:78:0,78,1077&quot; &quot;0|1:19,20:39:99:565,0,559&quot;
 ## [4,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:29,0:29:87:0,87,1243&quot; &quot;0|0:27,0:27:81:0,81,1158&quot; &quot;0|0:32,0:32:96:0,96,1299&quot; &quot;0|0:27,0:27:81:0,81,1158&quot; &quot;0|1:19,19:38:99:523,0,535&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf,  <span class="dt">element =</span> <span class="st">&#39;DP&#39;</span>, <span class="dt">as.numeric =</span> <span class="ot">TRUE</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf,  <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric =</span> <span class="ot">TRUE</span>)
 <span class="kw">class</span>(dp)</code></pre></div>
 <pre><code>## [1] &quot;matrix&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(dp)</code></pre></div>
@@ -458,8 +458,8 @@ vcf &lt;-<span class="st"> </span>vcfR<span class="op">::</span><span class="kw"
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 <span class="kw">library</span>(reshape2)
 
-dpf &lt;-<span class="st"> </span><span class="kw">melt</span>(dp, <span class="dt">varnames =</span> <span class="kw">c</span>(<span class="st">&#39;Index&#39;</span>, <span class="st">&#39;Sample&#39;</span>),
-            <span class="dt">value.name =</span> <span class="st">&#39;Depth&#39;</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+dpf &lt;-<span class="st"> </span><span class="kw">melt</span>(dp, <span class="dt">varnames =</span> <span class="kw">c</span>(<span class="st">&quot;Index&quot;</span>, <span class="st">&quot;Sample&quot;</span>),
+            <span class="dt">value.name =</span> <span class="st">&quot;Depth&quot;</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
 dpf &lt;-<span class="st"> </span>dpf[ dpf<span class="op">$</span>Depth <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, ]
 p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dpf, <span class="kw">aes</span>(<span class="dt">x =</span> Sample, <span class="dt">y =</span> Depth))
 p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_violin</span>(<span class="dt">fill =</span> <span class="st">&quot;#C0C0C0&quot;</span>, <span class="dt">adjust =</span> <span class="fl">1.0</span>,
@@ -493,7 +493,7 @@ vcf</code></pre></div>
 ## 27.7 percent missing data
 ## *****        *****         *****</code></pre>
 <p>Now we’ll omit samples that are over 50% missing data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf,  <span class="dt">element =</span> <span class="st">&#39;DP&#39;</span>, <span class="dt">as.numeric =</span> <span class="ot">TRUE</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf,  <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric =</span> <span class="ot">TRUE</span>)
 myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="cf">function</span>(x){<span class="kw">sum</span>( <span class="kw">is.na</span>(x))})
 myMiss &lt;-<span class="st"> </span>myMiss <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(dp)
 vcf<span class="op">@</span>gt &lt;-<span class="st"> </span>vcf<span class="op">@</span>gt[, <span class="kw">c</span>(<span class="ot">TRUE</span>, myMiss <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.55</span>)]
@@ -518,9 +518,9 @@ vcf</code></pre></div>
 ## 6.714 percent missing data
 ## *****        *****         *****</code></pre>
 <p>Once we’ve processed the data its good to visualize how those decisions have afffected the data. We’ll make another set of violin plots and compare them to the ones we made previously.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf,  <span class="dt">element =</span> <span class="st">&#39;DP&#39;</span>, <span class="dt">as.numeric =</span> <span class="ot">TRUE</span>)
-dpf &lt;-<span class="st"> </span><span class="kw">melt</span>(dp, <span class="dt">varnames =</span> <span class="kw">c</span>(<span class="st">&#39;Index&#39;</span>, <span class="st">&#39;Sample&#39;</span>),
-            <span class="dt">value.name =</span> <span class="st">&#39;Depth&#39;</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf,  <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric =</span> <span class="ot">TRUE</span>)
+dpf &lt;-<span class="st"> </span><span class="kw">melt</span>(dp, <span class="dt">varnames =</span> <span class="kw">c</span>(<span class="st">&quot;Index&quot;</span>, <span class="st">&quot;Sample&quot;</span>),
+            <span class="dt">value.name =</span> <span class="st">&quot;Depth&quot;</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
 dpf &lt;-<span class="st"> </span>dpf[ dpf<span class="op">$</span>Depth <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, ]
 p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dpf, <span class="kw">aes</span>(<span class="dt">x =</span> Sample, <span class="dt">y =</span> Depth))
 p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_violin</span>(<span class="dt">fill =</span> <span class="st">&quot;#C0C0C0&quot;</span>, <span class="dt">adjust =</span> <span class="fl">1.0</span>,

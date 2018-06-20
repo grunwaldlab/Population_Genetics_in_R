@@ -24,7 +24,7 @@ An important issue to consider once you have your file of genotypes is that not 
 Some samples may not have been sequenced at a high coverage and may need to be considered failed samples or samples that require additional sequencing.
 Some variants may not have been sequenced at a sufficient depth and may need to be considered low quality.
 Some variants may be located in repetetive elements and result in unusually high coverage and may include more than two alleles (when working with a diploid organism).
-Most variant callers claim to 'aggressively' call variants with the intention that they will see a quality control step.
+Most variant callers claim to "aggressively" call variants with the intention that they will see a quality control step.
 In this section we explore our data and develop strategies for quality control.
 
 
@@ -87,7 +87,7 @@ If we tell the function what element to choose we get more information.
 
 
 ```{r}
-queryMETA(vcf, element = 'DP')
+queryMETA(vcf, element = "DP")
 ```
 
 
@@ -109,7 +109,7 @@ vcf@gt[1:4, 1:6]
 
 
 ```{r}
-dp <- extract.gt(vcf,  element = 'DP', as.numeric = TRUE)
+dp <- extract.gt(vcf,  element = "DP", as.numeric = TRUE)
 class(dp)
 dim(dp)
 ```
@@ -124,8 +124,8 @@ Here we'll use `ggplot2` to create violin plots of depth.
 library(ggplot2)
 library(reshape2)
 
-dpf <- melt(dp, varnames = c('Index', 'Sample'),
-            value.name = 'Depth', na.rm = TRUE)
+dpf <- melt(dp, varnames = c("Index", "Sample"),
+            value.name = "Depth", na.rm = TRUE)
 dpf <- dpf[ dpf$Depth > 0, ]
 p <- ggplot(dpf, aes(x = Sample, y = Depth))
 p <- p + geom_violin(fill = "#C0C0C0", adjust = 1.0,
@@ -172,7 +172,7 @@ Now we'll omit samples that are over 50% missing data.
 
 
 ```{r}
-dp <- extract.gt(vcf,  element = 'DP', as.numeric = TRUE)
+dp <- extract.gt(vcf,  element = "DP", as.numeric = TRUE)
 myMiss <- apply(dp, MARGIN = 2, function(x){sum( is.na(x))})
 myMiss <- myMiss / nrow(dp)
 vcf@gt <- vcf@gt[, c(TRUE, myMiss < 0.55)]
@@ -196,9 +196,9 @@ We'll make another set of violin plots and compare them to the ones we made prev
 
 
 ```{r}
-dp <- extract.gt(vcf,  element = 'DP', as.numeric = TRUE)
-dpf <- melt(dp, varnames = c('Index', 'Sample'),
-            value.name = 'Depth', na.rm = TRUE)
+dp <- extract.gt(vcf,  element = "DP", as.numeric = TRUE)
+dpf <- melt(dp, varnames = c("Index", "Sample"),
+            value.name = "Depth", na.rm = TRUE)
 dpf <- dpf[ dpf$Depth > 0, ]
 p <- ggplot(dpf, aes(x = Sample, y = Depth))
 p <- p + geom_violin(fill = "#C0C0C0", adjust = 1.0,
