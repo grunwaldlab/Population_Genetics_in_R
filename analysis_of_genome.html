@@ -536,15 +536,15 @@ chrom &lt;-<span class="st"> </span><span class="kw">create.chromR</span>(<span 
 <p>Creation and processing of a chromR object has been divided into separate tasks. Creation loads the data into the chromR object and should typically only be required once. Processing the chromR object generates summaries of the data. Some of these summaries will need to be updated as the chromR object is updated. For example, if the size of the sliding window used to summarize variant density and GC content is changed the chromR object will need to be processed to update this information.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">chrom &lt;-<span class="st"> </span><span class="kw">proc.chromR</span>(chrom, <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## Nucleotide regions complete.</code></pre>
-<pre><code>##   elapsed time:  0.506</code></pre>
+<pre><code>##   elapsed time:  0.472</code></pre>
 <pre><code>## N regions complete.</code></pre>
-<pre><code>##   elapsed time:  0.45</code></pre>
+<pre><code>##   elapsed time:  0.574</code></pre>
 <pre><code>## Population summary complete.</code></pre>
-<pre><code>##   elapsed time:  0.218</code></pre>
+<pre><code>##   elapsed time:  0.233</code></pre>
 <pre><code>## window_init complete.</code></pre>
 <pre><code>##   elapsed time:  0.001</code></pre>
 <pre><code>## windowize_fasta complete.</code></pre>
-<pre><code>##   elapsed time:  0.165</code></pre>
+<pre><code>##   elapsed time:  0.162</code></pre>
 <pre><code>## windowize_annotations complete.</code></pre>
 <pre><code>##   elapsed time:  0.012</code></pre>
 <pre><code>## windowize_variants complete.</code></pre>

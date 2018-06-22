@@ -370,12 +370,6 @@ $(document).ready(function () {
 </div>
 
 
-<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">pre code, pre, code <span class="kw">{</span>
-  <span class="kw">white-space:</span> <span class="dt">pre</span> <span class="kw">!important;</span>
-  <span class="kw">overflow-x:</span> <span class="dt">scroll</span> <span class="kw">!important;</span>
-  <span class="kw">word-break:</span> keep-all <span class="kw">!important;</span>
-  <span class="kw">word-wrap:</span> initial <span class="kw">!important;</span>
-<span class="kw">}</span></code></pre></div>
 <style type="text/css">
 pre code, pre, code {
   white-space: pre !important;
@@ -388,14 +382,8 @@ pre code, pre, code {
 <div id="data-input" class="section level2">
 <h2>Data input</h2>
 <p>One nice feature of CRAN and R is that it allows use to include data as packages. However, because it is part of a package it needs to be in a child directory of the package. Here we’ll use <code>system.file()</code> to help us find the file and then read it in. In your workflows you’ll typically know where your file is so you can simply use the file name.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vcfR)</code></pre></div>
-<pre><code>## 
-##    *****       ***   vcfR   ***       *****
-##    This is vcfR 1.8.0.9000 
-##      browseVignettes(&#39;vcfR&#39;) # Documentation
-##      citation(&#39;vcfR&#39;) # Citation
-##    *****       *****      *****       *****</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(pinfsc50)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vcfR)
+<span class="kw">library</span>(pinfsc50)
 myVcf &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;pinf_sc50.vcf.gz&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;pinfsc50&quot;</span>)
 vcf &lt;-<span class="st"> </span>vcfR<span class="op">::</span><span class="kw">read.vcfR</span>(myVcf, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p>If you set <code>verbose</code> to <code>TRUE</code> you will receive information on progress.</p>
