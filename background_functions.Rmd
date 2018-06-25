@@ -1,0 +1,79 @@
+---
+title: "Background functions"
+author: "Brian J. Knaus"
+date: "June 25, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Background functions
+
+
+Some R functions may be used frequently throughout analyses yet to new users some of them may appear non-intuitive.
+Here we attempt to identify some of these functions and illustrate their use.
+
+
+## apply()
+
+
+One of R's shortcomings is that `for()` loops are relatvely slow.
+Historically this was a greater problem and recent versions of R have improved the performance of these loops.
+Because of this it is generally recommended to avoid `for()` loops in your R code, particularly when performance is an issue.
+If you have a task that requires iteration and you want performance that is greater than a `for()` loop will provide, you should consider `apply()`.
+We'll create a matrix to illustrate its use.
+
+
+```{r}
+tmp <- matrix(rep(1:3, times = 3), ncol = 3)
+tmp
+```
+
+
+The function `apply()` will 'apply' a function over the rows or columns of a matrix.
+Here we'll use the function `sum()` to illustrate this.
+
+
+```{r}
+apply(tmp, MARGIN = 1, sum)
+apply(tmp, MARGIN = 2, sum)
+```
+
+
+The `MARGIN` parameter specifies whether to operate on rows or columns.
+I remember how 1 and 2 behave by remembering that when we specify the rows of a matrix with the square brackets (`[]`) we use the first position before the comma.
+To specify the columns we use the second position or after the comma.
+
+
+More information on `apply()` can be found by consulting it's manual page.
+
+```{r}
+?apply
+```
+
+## sweep()
+
+
+The function `sweep()` is similar to `apply()` in that it iterates over teh rows or columns of a matrix.
+However, it takes the additional parameters `STATS` and `FUN`.
+The parameter `FUN` is a function to be used.
+This may be an R function or a custom function you've created.
+The parameter `STATS` is a vector of data to be used by the function.
+Here we use `apply()` to create a mean for each column and then use `sweep()` to divide the values in the matrix by their column mean.
+
+
+```{r}
+my_means <- apply(tmp, MARGIN = 2, sum) / nrow(tmp)
+sweep(tmp, MARGIN = 2, STATS = my_means, FUN = "/")
+```
+
+More information on `sweep()` can be found by consulting it's manual page.
+
+```{r}
+?sweep
+```
+
+
