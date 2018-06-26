@@ -22,7 +22,7 @@ Here we attempt to identify some of these functions and illustrate their use.
 
 One of R's shortcomings is that `for()` loops are relatvely slow.
 Historically this was a greater problem and recent versions of R have improved the performance of these loops.
-Because of this it is generally recommended to avoid `for()` loops in your R code, particularly when performance is an issue.
+Because of the performance cost associated with `for` loops it is generally recommended to avoid them in your R code, particularly when performance is an issue.
 If you have a task that requires iteration and you want performance that is greater than a `for()` loop will provide, you should consider `apply()`.
 We'll create a matrix to illustrate its use.
 
@@ -57,7 +57,7 @@ More information on `apply()` can be found by consulting it's manual page.
 ## sweep()
 
 
-The function `sweep()` is similar to `apply()` in that it iterates over teh rows or columns of a matrix.
+The function `sweep()` is similar to `apply()` in that it iterates over the rows or columns of a matrix.
 However, it takes the additional parameters `STATS` and `FUN`.
 The parameter `FUN` is a function to be used.
 This may be an R function or a custom function you've created.
