@@ -382,8 +382,14 @@ pre code, pre, code {
 <div id="data-input" class="section level2">
 <h2>Data input</h2>
 <p>One nice feature of CRAN and R is that it allows use to include data as packages. However, because it is part of a package it needs to be in a child directory of the package. Here we’ll use <code>system.file()</code> to help us find the file and then read it in. In your workflows you’ll typically know where your file is so you can simply use the file name.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vcfR)
-<span class="kw">library</span>(pinfsc50)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vcfR)</code></pre></div>
+<pre><code>## 
+##    *****       ***   vcfR   ***       *****
+##    This is vcfR 1.7.0 
+##      browseVignettes(&#39;vcfR&#39;) # Documentation
+##      citation(&#39;vcfR&#39;) # Citation
+##    *****       *****      *****       *****</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(pinfsc50)
 myVcf &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;pinf_sc50.vcf.gz&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;pinfsc50&quot;</span>)
 vcf &lt;-<span class="st"> </span>vcfR<span class="op">::</span><span class="kw">read.vcfR</span>(myVcf, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p>If you set <code>verbose</code> to <code>TRUE</code> you will receive information on progress.</p>
@@ -470,7 +476,7 @@ dp[dp2 <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</
 dp2 &lt;-<span class="st"> </span><span class="kw">sweep</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> <span class="st">&quot;-&quot;</span>, quants[<span class="dv">2</span>, ])
 dp[dp2 <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
 dp[dp <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
-<span class="co"># Update the vccfR object with our changes.</span>
+<span class="co"># Update the vcfR object with our changes.</span>
 vcf<span class="op">@</span>gt[, <span class="op">-</span><span class="dv">1</span>][ <span class="kw">is.na</span>(dp) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span> ] &lt;-<span class="st"> </span><span class="ot">NA</span>
 vcf</code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
@@ -480,7 +486,7 @@ vcf</code></pre></div>
 ## Object size: 19.2 Mb
 ## 27.7 percent missing data
 ## *****        *****         *****</code></pre>
-<p>Now we’ll omit samples that are over 50% missing data.</p>
+<p>Now we’ll omit samples that are over 55% missing data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf,  <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric =</span> <span class="ot">TRUE</span>)
 myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="cf">function</span>(x){<span class="kw">sum</span>( <span class="kw">is.na</span>(x))})
 myMiss &lt;-<span class="st"> </span>myMiss <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(dp)

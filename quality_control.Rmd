@@ -162,13 +162,13 @@ dp[dp2 < 0] <- NA
 dp2 <- sweep(dp, MARGIN = 2, FUN = "-", quants[2, ])
 dp[dp2 > 0] <- NA
 dp[dp < 4] <- NA
-# Update the vccfR object with our changes.
+# Update the vcfR object with our changes.
 vcf@gt[, -1][ is.na(dp) == TRUE ] <- NA
 vcf
 ```
 
 
-Now we'll omit samples that are over 50% missing data.
+Now we'll omit samples that are over 55% missing data.
 
 
 ```{r}
