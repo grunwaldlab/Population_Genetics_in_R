@@ -13,6 +13,7 @@ pre code, pre, code {
 }
 ```
 
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(fig.align = "center")
@@ -103,7 +104,6 @@ Note that according to the [VCF specification](http://samtools.github.io/hts-spe
 
 
 ```{r}
-
 vcf@gt[1:4, 1:6]
 ```
 
