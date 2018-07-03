@@ -50,7 +50,7 @@ To specify the columns we use the second position or after the comma.
 
 More information on `apply()` can be found by consulting it's manual page.
 
-```{r}
+```{r, eval=FALSE}
 ?apply
 ```
 
@@ -72,7 +72,7 @@ sweep(tmp, MARGIN = 2, STATS = my_means, FUN = "/")
 
 More information on `sweep()` can be found by consulting it's manual page.
 
-```{r}
+```{r, eval=FALSE}
 ?sweep
 ```
 

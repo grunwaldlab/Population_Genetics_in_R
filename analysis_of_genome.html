@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Analysis of genome data</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-107144798-3');
+</script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 61px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+
+.section h2 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h3 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h4 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h5 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h6 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Population genetics and genomics in R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="TOC.html">Table of contents</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part I
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="Getting_ready_to_use_R.html">Getting ready to use R</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part II
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Data_Preparation.html">Data preparation</a>
+    </li>
+    <li>
+      <a href="First_Steps.html">First steps</a>
+    </li>
+    <li>
+      <a href="Population_Strata.html">Population strata and clone correction</a>
+    </li>
+    <li>
+      <a href="Locus_Stats.html">Locus-based statistics and missing data</a>
+    </li>
+    <li>
+      <a href="Genotypic_EvenRichDiv.html">Genotypic evenness, richness, and diversity</a>
+    </li>
+    <li>
+      <a href="Linkage_disequilibrium.html">Linkage disequilibrium</a>
+    </li>
+    <li>
+      <a href="Pop_Structure.html">Population structure</a>
+    </li>
+    <li>
+      <a href="Minimum_Spanning_Networks.html">Minimum Spanning Networks</a>
+    </li>
+    <li>
+      <a href="AMOVA.html">AMOVA</a>
+    </li>
+    <li>
+      <a href="DAPC.html">Discriminant analysis of principal components (DAPC)</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part III
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro_vcf.html">Population genomics and HTS</a>
+    </li>
+    <li>
+      <a href="reading_vcf.html">Reading VCF data</a>
+    </li>
+    <li>
+      <a href="analysis_of_genome.html">Analysis of genomic data</a>
+    </li>
+    <li>
+      <a href="gbs_analysis.html">Analysis of GBS data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Workshop
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="workshop.html">Workshop</a>
+    </li>
+    <li>
+      <a href="intro_vcf.html">Introduction</a>
+    </li>
+    <li>
+      <a href="reading_vcf.html">VCF data</a>
+    </li>
+    <li>
+      <a href="quality_control.html">Quality control</a>
+    </li>
+    <li>
+      <a href="gbs_analysis.html">Analysis of GBS data</a>
+    </li>
+    <li>
+      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    About
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Authors.html">Authors</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Appendices
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro_to_R.html">Introduction to R</a>
+    </li>
+    <li>
+      <a href="Data_sets.html">Data sets</a>
+    </li>
+    <li>
+      <a href="funpendix.html">Function glossary</a>
+    </li>
+    <li>
+      <a href="https://github.com/grunwaldlab/Population_Genetics_in_R/">Source Code</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Analysis of genome data</h1>
+<h3 class="subtitle"><em><em>BJ Knaus, JF Tabima, and NJ Grünwald</em></em></h3>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#opening-and-examining-the-dataset">Opening and examining the dataset</a></li>
+<li><a href="#converting-vcf-data-to-a-genlight-object">Converting VCF data to a genlight object</a></li>
+<li><a href="#chromr-objects">chromR objects</a></li>
+<li><a href="#genetic-differentiation">Genetic differentiation</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>Analysis of genome data for populations can be seen as similar to the analyses of other marker systems discussed in previous chapters of this book, except that genome data analyses include larger quantities of data. For example, VCF data (discussed in ‘<a href="reading_vcf.html">reading VCF data</a>’) can be read into R using <em>vcfR</em> <span class="citation">(Knaus &amp; Grünwald, 2017)</span> to create a <em>vcfR</em> object. This object can be converted into a genlight object <span class="citation">(Jombart, 2008)</span> and then a snpclone object <span class="citation">(Kamvar, Tabima &amp; Grünwald, 2014, <span class="citation">@kamvar2015novel</span>)</span> if deemed necessary. Analysis on these objects has been covered in previous sections. Genome scale data provides additional analytical options as well. For example, when assumptions about the neutrality of the majority of the genome are appropriate, this can be used as a null hypothesis and used to help identify markers that differentiate from this assumption. Here we’ll provide examples of how genomic data may be analyzed.</p>
+<p>For genomics examples we’ll use the pinfsc50 dataset. The <a href="https://CRAN.R-project.org/package=pinfsc50">pinfsc50</a> dataset is from a number of published <em>P. infestans</em> genomics projects where the data has been subset here to supercontig_1.50. This dataset is available as a stand alone R package <span class="citation">(Knaus &amp; Grünwald, 2017)</span>. By subsetting the data to one supercontig it creates a dataset of a size that can be conveniently used for examples. This dataset illustrates some important strengths and weaknesses of these studies. A strength is the amount of data we have for each individual. Among the weaknesses are that the samples are ‘opportunistic’ in that we have no control over the design of the experiment. Also, because of the large investment in data per sample, there is a relatively small number of samples.</p>
+</div>
+<div id="opening-and-examining-the-dataset" class="section level2">
+<h2>Opening and examining the dataset</h2>
+<p>We’ll read our VCF data into R using the function <code>read.vcfR()</code>. This is data from the pinfsc50 data set that we filtered for quality in the section <a href="reading_vcf.html">reading VCF data</a>. Once the file is read in we can validate its contents using the <code>show</code> method which is implemented by executing the object’s name at the prompt.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&#39;vcfR&#39;</span>)</a></code></pre></div>
+<pre><code>## 
+##    *****       ***   vcfR   ***       *****
+##    This is vcfR 1.8.0 
+##      browseVignettes(&#39;vcfR&#39;) # Documentation
+##      citation(&#39;vcfR&#39;) # Citation
+##    *****       *****      *****       *****</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">vcf &lt;-<span class="st"> </span><span class="kw">read.vcfR</span>(<span class="st">&quot;pinfsc50_filtered.vcf.gz&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">vcf</a></code></pre></div>
+<pre><code>## ***** Object of Class vcfR *****
+## 18 samples
+## 1 CHROMs
+## 2,190 variants
+## Object size: 2.9 Mb
+## 0 percent missing data
+## *****        *****         *****</code></pre>
+<p>The <code>show</code> method reports that we have 18 samples and 2,190 variants. If this matches our expectation then we can proceed.</p>
+</div>
+<div id="converting-vcf-data-to-a-genlight-object" class="section level2">
+<h2>Converting VCF data to a genlight object</h2>
+<p>Different R packages have created different data structures to hold your data when it is imported into R. This is analagous to the different file formats you may have used to analyze your data in software outside of R. We’ve tried to engineer a suite of functions to convert data structures among the various R packages we typically use. The R package adegenet is a popular R package used for population genetic analysis and it works on data structures called ‘genlight’ objects. Here we use the function <code>vcfR2genlight()</code> to convert our vcfR object to a genlight object. This makes our VCF data available to the analyses in adegenet.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">vcfR2genlight</span>(vcf)</a></code></pre></div>
+<pre><code>## Warning in vcfR2genlight(vcf): Found 44 loci with more than two alleles.
+## Objects of class genlight only support loci with two alleles.
+## 44 loci will be omitted from the genlight object.</code></pre>
+<pre><code>## Loading required namespace: adegenet</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">x</a></code></pre></div>
+<pre><code>##  /// GENLIGHT OBJECT /////////
+## 
+##  // 18 genotypes,  2,146 binary SNPs, size: 240.4 Kb
+##  0 (0 %) missing data
+## 
+##  // Basic content
+##    @gen: list of 18 SNPbin
+## 
+##  // Optional content
+##    @ind.names:  18 individual labels
+##    @loc.names:  2146 locus labels
+##    @chromosome: factor storing chromosomes of the SNPs
+##    @position: integer storing positions of the SNPs
+##    @other: a list containing: elements without names</code></pre>
+<p>A genlight object only supports biallelic, or binary, variants. That is, variants with no more than two alleles. However, variant call format data can include multiple alleles. When we created our genlight object we recieved a warning message indicating that our vcfR object had variants with more than two alleles and that it was being subset to only biallelic variants. This is one of several important differences in how data is handled in VCF data versus genlight objects.</p>
+<p>Another important difference among VCF and genlight data is how the genotypes are stored. In VCF data the alleles are delimited by either a pipe or a forward slash (‘|’, ‘/’ respectively). Because genlight objects only use biallelic loci the genotypes can be recoded as 0, 1 and 2. These correspond to homozygous for the reference or zero allele, heterozygote or homozygous for the first alternate allele. We can validate this by checking a few select genotypes from both the vcfR object and the genlight object.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># vcfR</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">gt &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;GT&quot;</span>)</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">gt[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">18</span>), <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</a></code></pre></div>
+<pre><code>##                        BL2009P4_us23 DDR7602 IN2009T1_us22
+## Supercontig_1.50_80063 &quot;1|0&quot;         &quot;1|0&quot;   &quot;0|1&quot;        
+## Supercontig_1.50_80089 &quot;0|0&quot;         &quot;1|0&quot;   &quot;0|1&quot;        
+## Supercontig_1.50_94108 &quot;0|1&quot;         &quot;0|1&quot;   &quot;1|1&quot;</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co"># genlight</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw">t</span>(<span class="kw">as.matrix</span>(x))[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">17</span>), <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</a></code></pre></div>
+<pre><code>##                        BL2009P4_us23 DDR7602 IN2009T1_us22
+## Supercontig_1.50_80063             1       1             1
+## Supercontig_1.50_80089             0       1             1
+## Supercontig_1.50_94108             1       1             2</code></pre>
+<p>Note that in VCF data the samples are in columns and the variants are in rows. In genlight objects, and many other R objects, the samples are in rows while the variants are in columns. We can use the transpose function (<code>t()</code>) to convert between these two states.</p>
+<p>Yet another difference among VCF data and genlight objects is that in VCF data there is no concept of ‘population.’ The package adegenet was designed specifically for the analysis of population data, so its genlight object has a place (a ‘slot’) to hold this information. Because there is no population data in VCF data, if we want population data we’ll have to set it ourselves.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">library</span>(adegenet)</a></code></pre></div>
+<pre><code>## Loading required package: ade4</code></pre>
+<pre><code>## 
+##    /// adegenet 2.1.1 is loaded ////////////
+## 
+##    &gt; overview: &#39;?adegenet&#39;
+##    &gt; tutorials/doc/questions: &#39;adegenetWeb()&#39; 
+##    &gt; bug reports/feature requests: adegenetIssues()</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">pop</span>(x) &lt;-<span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">c</span>(<span class="st">&quot;us&quot;</span>, <span class="st">&quot;eu&quot;</span>, <span class="st">&quot;us&quot;</span>, <span class="st">&quot;af&quot;</span>, <span class="st">&quot;eu&quot;</span>, <span class="st">&quot;us&quot;</span>, <span class="st">&quot;mx&quot;</span>, <span class="st">&quot;eu&quot;</span>, <span class="st">&quot;eu&quot;</span>, <span class="st">&quot;sa&quot;</span>, <span class="st">&quot;mx&quot;</span>, <span class="st">&quot;sa&quot;</span>, <span class="st">&quot;us&quot;</span>, <span class="st">&quot;sa&quot;</span>, <span class="st">&quot;Pmir&quot;</span>, <span class="st">&quot;us&quot;</span>, <span class="st">&quot;eu&quot;</span>, <span class="st">&quot;eu&quot;</span>))</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="kw">popNames</span>(x)</a></code></pre></div>
+<pre><code>## [1] &quot;af&quot;   &quot;eu&quot;   &quot;mx&quot;   &quot;Pmir&quot; &quot;sa&quot;   &quot;us&quot;</code></pre>
+<p>Our population designation consists of a vector, that is the same length as the number of samples we have, where each element indicates which population each sample belongs to. By using the <code>as.factor()</code> function we transform the “vector” into a “factor”. A factor understands that all of the elements that are named “us” or “eu” are all part of the same group. This is why when we ask for the <code>popNames</code> we get a vector where each population is represented only once.</p>
+<p>Yet another difference among VCF data and genlight objects is the concept of ploidy. In VCF data each variant is treated independently. This means that in theory VCF data may contain data that is of mixed ploidy. In a genlight object different samples may be of different ploidy levels, but within each sample all of its loci must be of the same ploidy level. Here we’ll set the ploidy of all the samples in the genlight object to the same ploidy.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">ploidy</span>(x) &lt;-<span class="st"> </span><span class="dv">2</span></a></code></pre></div>
+<div id="distance-matrices" class="section level3">
+<h3>Distance matrices</h3>
+<p>Let’s create a pairwise genetic distance matrix for individuals or populations (i.e., groups of individuals).</p>
+<blockquote>
+<p><strong>Note</strong>: There isn’t actually a function that creates distance matrices from genlight objects in adegenet. Instead, the authors of adegenet created an <code>as.matrix()</code> function that converts a genlight object to a matrix. This is clever because the function <code>dist()</code> in the package <code>stats</code> tries to convert whatever object it is given into a matrix. The result is that when you call <code>dist()</code> on a genlight object it uses the <code>dist()</code> function to create a distance matrix. The reason this is clever is because it uses pre-existing code. The downside is that because there is no function to specifically create distance matrices from genlight objects in adegenet, there is no documentation in genlight for how this is done. And because the author of <code>dist()</code> never anticipated it could be used on genlight objects, there is no documentation for it there either.</p>
+</blockquote>
+<p>To summarize, we can create a distance matrix from a genlight object using <code>dist()</code>:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">x.dist &lt;-<span class="st"> </span><span class="kw">dist</span>(x)</a></code></pre></div>
+<p>Note, that we have not specified what the variable x is. We can find documentation for this function with <code>?dist</code>.</p>
+<p>There are also functions to create distance matrices from genlight objects that exist in other packages. The function <code>bitwise.dist()</code> in the package <em>poppr</em> is an example. We can find documentation for this function with <code>?poppr::bitwise.dist</code>. Again, you need to know where to look for this information or you may not find it. We can use this function as follows.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">x.dist &lt;-<span class="st"> </span>poppr<span class="op">::</span><span class="kw">bitwise.dist</span>(x)</a></code></pre></div>
+<p>Note, that the variable x has not yet been specified. Lastly, because you can use <code>as.matrix()</code> on your genlight object, and most distance algorithms can use this matrix as input, you can use this as an intermediate step to create a matrix from your genlight object and pass it to your distance algorithm of choice. Options include <em>ade4</em>, <code>vegdist()</code> in <em>vegan</em>, or <code>daisy()</code> in <em>cluster.</em> Note that it is up to you to determine which distance metric is best for your particular analysis. A number of options therefore exist for creating distance matrices from genlight objects.</p>
+</div>
+</div>
+<div id="chromr-objects" class="section level2">
+<h2>chromR objects</h2>
+<div id="using-chromr-to-locate-unusual-features-in-a-genome" class="section level3">
+<h3>Using chromR to locate unusual features in a genome</h3>
+<p>Genomic projects frequently incorporate several types of data. For example, the reference sequence may be stored as a FASTA format file, variants (SNPs, indels, etc.) may be stored in a variant call format (VCF) file while annotations may be stored as a GFF or BED format (tablular data). Genome browsers can be used to integrate these different data types. However, genome browsers typically lack a manipulation environment, they simply display existing files. The R environment includes a tremendous amount of statistical support that is both specific to genetics and genomics as well as more general tools (e.g., the linear model and its extensions). The R package vcfR provides a link between VCF data and the R environment and it includes a simple genome browser to help visualize the effect of manipulations. Here we explore how we can use vcfR to survey genomic data for interesting features.</p>
+</div>
+<div id="creating-chromr-objects" class="section level3">
+<h3>Creating chromR objects</h3>
+<p>In this example we will begin by locating the example data from the pinfsc50 package. This is a separate package from vcfR that you will need to install. If you haven’t installed it already, you can install it with <code>install.packages('pinfsc50')</code>. For data from your own research activities you may wany to omit the <code>system.file()</code> steps and directly use your filenames in the input steps.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">library</span>(vcfR)</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb23-3" data-line-number="3"><span class="co"># Find the files.</span></a>
+<a class="sourceLine" id="cb23-4" data-line-number="4">vcf_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;pinf_sc50.vcf.gz&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;pinfsc50&quot;</span>)</a>
+<a class="sourceLine" id="cb23-5" data-line-number="5">dna_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;pinf_sc50.fasta&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;pinfsc50&quot;</span>)</a>
+<a class="sourceLine" id="cb23-6" data-line-number="6">gff_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;pinf_sc50.gff&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;pinfsc50&quot;</span>)</a>
+<a class="sourceLine" id="cb23-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb23-8" data-line-number="8"><span class="co"># Input the files.</span></a>
+<a class="sourceLine" id="cb23-9" data-line-number="9">vcf &lt;-<span class="st"> </span><span class="kw">read.vcfR</span>(vcf_file, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb23-10" data-line-number="10">dna &lt;-<span class="st"> </span>ape<span class="op">::</span><span class="kw">read.dna</span>(dna_file, <span class="dt">format =</span> <span class="st">&quot;fasta&quot;</span>)</a>
+<a class="sourceLine" id="cb23-11" data-line-number="11">gff &lt;-<span class="st"> </span><span class="kw">read.table</span>(gff_file, <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">quote=</span><span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb23-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb23-13" data-line-number="13"><span class="co"># Create a chromR object.</span></a>
+<a class="sourceLine" id="cb23-14" data-line-number="14">chrom &lt;-<span class="st"> </span><span class="kw">create.chromR</span>(<span class="dt">name=</span><span class="st">&quot;Supercontig&quot;</span>, <span class="dt">vcf=</span>vcf, <span class="dt">seq=</span>dna, <span class="dt">ann=</span>gff, <span class="dt">verbose=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## Names in vcf:</code></pre>
+<pre><code>##   Supercontig_1.50</code></pre>
+<pre><code>## Names of sequences:</code></pre>
+<pre><code>##   Supercontig_1.50 of Phytophthora infestans T30-4</code></pre>
+<pre><code>## Warning in create.chromR(name = &quot;Supercontig&quot;, vcf = vcf, seq = dna, ann = gff, : 
+##         Names in variant data and sequence data do not match perfectly.
+##         If you choose to proceed, we&#39;ll do our best to match the data.
+##         But prepare yourself for unexpected results.</code></pre>
+<pre><code>## Names in annotation:</code></pre>
+<pre><code>##   Supercontig_1.50</code></pre>
+<pre><code>## Initializing var.info slot.</code></pre>
+<pre><code>## var.info slot initialized.</code></pre>
+<p>Note that a warning message indicates that the names in all of the data sources do not match pefectly. It has been my experience that this is a frequent occurrence in genome projects. Instead of asking the user to create duplicate files that have the same data but standardized names, vcfR allows the user to exercise some judgement. If you see this message and feel the names are correct you can ignore this and proceed. In this case we see that a chromosome is named ‘Supercontig_1.50’ in the VCF data but named ‘Supercontig_1.50 of Phytophthora infestans T30-4’ in the FASTA (sequence) file. Because we know that for this specific project these are synonyms we can safely ignore the warning and proceed.</p>
+<p>Once we have created our chromR object we can verify that its contents are what we expect. By executing the object’s name at the console, with no other arguments, we invoke the object’s ‘show’ method. The show method for chromR objects presents a summary of the object’s contents.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">chrom</a></code></pre></div>
+<pre><code>## *****   Class chromR, method Show   *****
+## Name: Supercontig 
+## Chromosome length: 1,042,442 bp
+##   Chromosome labels: Supercontig_1.50 of Phytophthora infestans T30-4
+## Annotation (@ann) count: 223 
+##   Annotation chromosome names: Supercontig_1.50
+## Variant (@vcf) count: 22,031 
+##   Variant (@vcf) chromosome names: Supercontig_1.50
+## Object size: 24 Mb
+## Use head(object) for more details.
+## *****      End Show (chromR)        *****</code></pre>
+<p>There at least two ways to graphically view the chromR object. The first is plot() which plots histograms of some of data summaries.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">plot</span>(chrom)</a></code></pre></div>
+<p><img src="analysis_of_genome_files/figure-html/plot_chrom-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>The read depth here is a sum over all samples. We see a peak that represents the depth where most of our genomes were sequenced at. Low regions of sequence depth may indicate variants where we may be concerned that there may not be enough information to call a genotype. Variants of high coverage may represent repetetive regions of genomes where the reference may not contain all the copies so the reads pile up on the fraction of repeats that were successfully assembled. These regions may violate the ploidy assumptions made by variant callers and therefore may be considered a target for quality filtering. Mapping quality is very peaked at 60 but also contains variants that deviate from this common value. Quality (QUAL) is less easily interpreted. It appears that most of our variants are of a low quality with very few of them being of high quality. It is important to remember that while everyone would like high quality, quality is frequently difficult to measure. The simplest interpretation here is that QUAL may not be a good parameter to use to judge your variants. The last panel for SNP densities is empty because this data is created during the processing of chromR objects, which we will discuss below.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">chromoqc</span>(chrom, <span class="dt">dp.alpha =</span> <span class="dv">66</span>)</a></code></pre></div>
+<p><img src="analysis_of_genome_files/figure-html/chromoqc-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>Our second plot, called chromo plot, displays the same information as the plot method only it distributes the data along its chomosomal coordinates. It also includes a representation of the annotation data. The contents of this plot are somewhat flexible in that it depends on what data is present in the chromR object.</p>
+</div>
+<div id="processing-chromr-objects" class="section level3">
+<h3>Processing chromR objects</h3>
+<p>Creation and processing of a chromR object has been divided into separate tasks. Creation loads the data into the chromR object and should typically only be required once. Processing the chromR object generates summaries of the data. Some of these summaries will need to be updated as the chromR object is updated. For example, if the size of the sliding window used to summarize variant density and GC content is changed the chromR object will need to be processed to update this information.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">chrom &lt;-<span class="st"> </span><span class="kw">proc.chromR</span>(chrom, <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## Nucleotide regions complete.</code></pre>
+<pre><code>##   elapsed time:  0.282</code></pre>
+<pre><code>## N regions complete.</code></pre>
+<pre><code>##   elapsed time:  0.258</code></pre>
+<pre><code>## Population summary complete.</code></pre>
+<pre><code>##   elapsed time:  0.365</code></pre>
+<pre><code>## window_init complete.</code></pre>
+<pre><code>##   elapsed time:  0.001</code></pre>
+<pre><code>## windowize_fasta complete.</code></pre>
+<pre><code>##   elapsed time:  0.128</code></pre>
+<pre><code>## windowize_annotations complete.</code></pre>
+<pre><code>##   elapsed time:  0.017</code></pre>
+<pre><code>## windowize_variants complete.</code></pre>
+<pre><code>##   elapsed time:  0.001</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw">plot</span>(chrom)</a></code></pre></div>
+<p><img src="analysis_of_genome_files/figure-html/unnamed-chunk-19-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>Subsequent to processing, our plot function is identical to its previous presentation except that we now have variant densities. When we observe the chromoqc plot we see that we now have variant densities, nucleotide content as well as a representation of where in our reference we have nucleotides (A, C, G or T) or where we have ambiguous nucleotides.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">chromoqc</span>(chrom, <span class="dt">dp.alpha =</span> <span class="dv">66</span>)</a></code></pre></div>
+<p><img src="analysis_of_genome_files/figure-html/unnamed-chunk-20-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>The above data is an example of visualizing raw data that has come from a variant caller and other automated sources. In our section on quality control we presented methods on how to filter variants on various parameters as an attempt to omit low quality variants. We can use this data to create a chromR object and compare it to the above data.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="co">#vcf &lt;- read.vcfR(&quot;pinfsc50_qc.vcf.gz&quot;, verbose = FALSE)</span></a>
+<a class="sourceLine" id="cb54-2" data-line-number="2">vcf &lt;-<span class="st"> </span><span class="kw">read.vcfR</span>(<span class="st">&quot;pinfsc50_filtered.vcf.gz&quot;</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb54-3" data-line-number="3">chrom &lt;-<span class="st"> </span><span class="kw">create.chromR</span>(<span class="dt">name=</span><span class="st">&quot;Supercontig&quot;</span>, <span class="dt">vcf=</span>vcf, <span class="dt">seq=</span>dna, <span class="dt">ann=</span>gff, <span class="dt">verbose=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb54-4" data-line-number="4">chrom &lt;-<span class="st"> </span><span class="kw">proc.chromR</span>(chrom, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb54-5" data-line-number="5"><span class="kw">chromoqc</span>(chrom, <span class="dt">dp.alpha =</span> <span class="dv">66</span>)</a></code></pre></div>
+<p><img src="analysis_of_genome_files/figure-html/unnamed-chunk-21-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>We have a smaller quantity of data after our quality control steps. However, there do appear to be a few improvements. First, the read depth is now fairly uniform and lacks the large variation in depth we saw in the raw data. In genomics projects our naive assumption is that we would sequence all regions of the genome at the same depth. So this change in the data allows it to approach our expectation. Second, the mapping quality appear relatively constant and the variants with low mapping quality have been omitted. If we feel that ‘mapping quality’ is a reasonable assessment of quality, we may interpret this as an improvement. These are methods we feel improve the quality of our datasets prior to analysis.</p>
+</div>
+<div id="tabular-summaries" class="section level3">
+<h3>Tabular summaries</h3>
+<p>When we process a chromR object, two forms of tabular data are created. First, summaries are made on a per variant basis. This includes sample size (minus missing data), allele counts, heterozygosity and effective size. Second, summaries are made on a per window basis. Window size can be changed with the <code>win.size</code> parameter of the function <code>proc.chromR()</code>. Window based summaries include nucleotide content per window (including missing data so you can adjust window size for analyses if necessary), the number of genic sites per window (when annotation information was provided) and the number of variants per window.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">head</span>(chrom<span class="op">@</span>var.info)</a></code></pre></div>
+<pre><code>##              CHROM   POS    MQ  DP mask  n Allele_counts         He
+## 1 Supercontig_1.50 80058 58.96 508 TRUE 18       25,10,1 0.64364712
+## 2 Supercontig_1.50 80063 58.95 514 TRUE 18         25,11 0.42438272
+## 3 Supercontig_1.50 80067 58.88 499 TRUE 18         23,13 0.46141975
+## 4 Supercontig_1.50 80073 58.77 490 TRUE 18          35,1 0.05401235
+## 5 Supercontig_1.50 80074 58.75 482 TRUE 18         26,10 0.40123457
+## 6 Supercontig_1.50 80089 58.80 481 TRUE 18         25,11 0.42438272
+##         Ne
+## 1 2.806207
+## 2 1.737265
+## 3 1.856734
+## 4 1.057096
+## 5 1.670103
+## 6 1.737265</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">head</span>(chrom<span class="op">@</span>win.info)</a></code></pre></div>
+<pre><code>##              CHROM window start  end length   A   C   G   T    N other
+## 1 Supercontig_1.50      1     1 1000   1000 267 213 293 227    0     0
+## 2 Supercontig_1.50      2  1001 2000   1000 283 206 309 202    0     0
+## 3 Supercontig_1.50      3  2001 3000   1000 229 213 235 177  146     0
+## 4 Supercontig_1.50      4  3001 4000   1000   0   0   0   0 1000     0
+## 5 Supercontig_1.50      5  4001 5000   1000   0   0   0   0 1000     0
+## 6 Supercontig_1.50      6  5001 6000   1000   0   0   0   0 1000     0
+##   genic variants
+## 1     0        0
+## 2     0        0
+## 3     0        0
+## 4     0        0
+## 5     0        0
+## 6     0        0</code></pre>
+<p>While loading entire genomes into memory may not be practical due to resource limitations, it is frequently practical to break a genome up into fractions that can be processed given the resources available on any system. By processing a genome by chromosomes, or some other fraction, and saving this tabular data to file you can perform genome scans in an attempt to identify interesting features.</p>
+</div>
+</div>
+<div id="genetic-differentiation" class="section level2">
+<h2>Genetic differentiation</h2>
+<p>A fundamental question to most population studies is whether populations are diverse and whether this diversity is shared among the populations? To address the question of within population diversity geneticists typically report heterozygosity. This is the probability that two alleles randomly chosen from a population will be different <span class="citation">(Nei, 1973)</span>. Ecologists may know this as Simpson’s Index <span class="citation">(Simpson, 1949)</span>. To address differentiation population geneticists typically utilize <span class="math inline">\(F_{ST}\)</span> or one of its analogues. Population differentiation measured by <span class="math inline">\(F_{ST}\)</span> was originally proposed by Sewall Wright <span class="citation">(Wright, 1949)</span>. This was later extended to a method based on diversity by Masatoshi Nei <span class="citation">(Nei, 1973)</span>. As researchers applied these metrics to microsatellites, genetic markers with a large number of alleles, it became clear that Nei’s measure would not correctly range from zero to one, so Philip Hedrick proposed a correction <span class="citation">(Hedrick, 2005)</span>. More recently, Lou Jost proposed another alternative <span class="citation">(Jost, 2008)</span>. You can tell a topic is popular when so many variants of it are generated. And there are more variants than mentioned here. A nice discussion as to which measure may be appropriate for your data was posteed to teh Molecular Ecologist blog titled <a href="http://www.molecularecologist.com/2011/03/should-i-use-fst-gst-or-d-2/">should I use <span class="math inline">\(F_{ST}\)</span>, <span class="math inline">\(G_{ST}\)</span> or <span class="math inline">\(D\)</span>?</a>.</p>
+<p>In <code>vcfR</code>, the function <code>genetic_diff()</code> was implemented to measure population diversity and differentiation. Because VCF data typically do not include population information we’ll have to supply it as a factor. The method ‘nei’ employed here is based on the methods reported by Hedrick <span class="citation">(Hedrick, 2005)</span>. The exception is that the heterozygosities are weighted by the number of alleles observed in each population. This was inspired by <code>hierfstat::pairwise.fst()</code> which uses the number of individuals observed in each population to weight the heterozygosities. By using the number of alleles observed instead of the number of individuals we remove an assumption about how many alleles each individual may contribute. That is, we should be able to accomodate samples of mixed ploidy.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="kw">library</span>(vcfR)</a>
+<a class="sourceLine" id="cb59-2" data-line-number="2"><span class="kw">data</span>(vcfR_example)</a>
+<a class="sourceLine" id="cb59-3" data-line-number="3">pop &lt;-<span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">c</span>(<span class="st">&quot;us&quot;</span>, <span class="st">&quot;eu&quot;</span>, <span class="st">&quot;us&quot;</span>, <span class="st">&quot;af&quot;</span>, <span class="st">&quot;eu&quot;</span>, <span class="st">&quot;us&quot;</span>, <span class="st">&quot;mx&quot;</span>, <span class="st">&quot;eu&quot;</span>, <span class="st">&quot;eu&quot;</span>, <span class="st">&quot;sa&quot;</span>, <span class="st">&quot;mx&quot;</span>, <span class="st">&quot;sa&quot;</span>, <span class="st">&quot;us&quot;</span>, <span class="st">&quot;sa&quot;</span>, <span class="st">&quot;Pmir&quot;</span>, <span class="st">&quot;us&quot;</span>, <span class="st">&quot;eu&quot;</span>, <span class="st">&quot;eu&quot;</span>))</a>
+<a class="sourceLine" id="cb59-4" data-line-number="4">myDiff &lt;-<span class="st"> </span><span class="kw">genetic_diff</span>(vcf, <span class="dt">pops =</span> pop, <span class="dt">method =</span> <span class="st">&#39;nei&#39;</span>)</a>
+<a class="sourceLine" id="cb59-5" data-line-number="5">knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(myDiff[,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>]))</a></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">CHROM</th>
+<th align="left">POS</th>
+<th align="right">Hs_af</th>
+<th align="right">Hs_eu</th>
+<th align="right">Hs_mx</th>
+<th align="right">Hs_Pmir</th>
+<th align="right">Hs_sa</th>
+<th align="right">Hs_us</th>
+<th align="right">Ht</th>
+<th align="right">n_af</th>
+<th align="right">n_eu</th>
+<th align="right">n_mx</th>
+<th align="right">n_Pmir</th>
+<th align="right">n_sa</th>
+<th align="right">n_us</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Supercontig_1.50</td>
+<td align="left">2</td>
+<td align="right">0</td>
+<td align="right">0.0</td>
+<td align="right">0.000</td>
+<td align="right">0.5</td>
+<td align="right">0.000</td>
+<td align="right">0.00</td>
+<td align="right">0.0798611</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">8</td>
+</tr>
+<tr class="even">
+<td align="left">Supercontig_1.50</td>
+<td align="left">246</td>
+<td align="right">NaN</td>
+<td align="right">0.0</td>
+<td align="right">0.375</td>
+<td align="right">NaN</td>
+<td align="right">0.000</td>
+<td align="right">0.50</td>
+<td align="right">0.3512397</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">8</td>
+</tr>
+<tr class="odd">
+<td align="left">Supercontig_1.50</td>
+<td align="left">549</td>
+<td align="right">NaN</td>
+<td align="right">0.0</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="right">0.50</td>
+<td align="right">0.4444444</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Supercontig_1.50</td>
+<td align="left">668</td>
+<td align="right">NaN</td>
+<td align="right">0.5</td>
+<td align="right">0.000</td>
+<td align="right">NaN</td>
+<td align="right">0.000</td>
+<td align="right">0.50</td>
+<td align="right">0.5000000</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">8</td>
+</tr>
+<tr class="odd">
+<td align="left">Supercontig_1.50</td>
+<td align="left">765</td>
+<td align="right">0</td>
+<td align="right">0.0</td>
+<td align="right">0.000</td>
+<td align="right">0.0</td>
+<td align="right">0.000</td>
+<td align="right">0.00</td>
+<td align="right">0.1107266</td>
+<td align="right">2</td>
+<td align="right">12</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="left">Supercontig_1.50</td>
+<td align="left">780</td>
+<td align="right">0</td>
+<td align="right">0.0</td>
+<td align="right">0.000</td>
+<td align="right">0.0</td>
+<td align="right">0.375</td>
+<td align="right">0.18</td>
+<td align="right">0.1244444</td>
+<td align="right">2</td>
+<td align="right">8</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">10</td>
+</tr>
+</tbody>
+</table>
+<p>The function returns the chromosome and position of each variant as provided in the VCF data. This should allow you to align its output with the VCF data. The heterozygosities for each population are reported as well as the total heterozygosity, followed by the number of alleles observed in each population. Note that in some populations zero alleles were observed. Populations with zero alleles reported heterozygosities of ‘NaN’ because of this absence of data.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1">knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(myDiff[,<span class="dv">16</span><span class="op">:</span><span class="dv">19</span>]))</a></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Gst</th>
+<th align="right">Htmax</th>
+<th align="right">Gstmax</th>
+<th align="right">Gprimest</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.4782609</td>
+<td align="right">0.7951389</td>
+<td align="right">0.9475983</td>
+<td align="right">0.5047085</td>
+</tr>
+<tr class="even">
+<td align="right">NaN</td>
+<td align="right">0.8057851</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+</tr>
+<tr class="odd">
+<td align="right">NaN</td>
+<td align="right">0.6666667</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+</tr>
+<tr class="even">
+<td align="right">NaN</td>
+<td align="right">0.8125000</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0000000</td>
+<td align="right">0.7543253</td>
+<td align="right">1.0000000</td>
+<td align="right">1.0000000</td>
+</tr>
+<tr class="even">
+<td align="right">0.1160714</td>
+<td align="right">0.8000000</td>
+<td align="right">0.8625000</td>
+<td align="right">0.1345756</td>
+</tr>
+</tbody>
+</table>
+<p>The remaining columns contain <span class="math inline">\(G_{ST}\)</span>, the maximum heterozygosity, the maximum <span class="math inline">\(G_{ST}\)</span> and finally <span class="math inline">\(G&#39;_{ST}\)</span>. The maximum heterozygosity and the maximum <span class="math inline">\(G_{ST}\)</span> are intermediary values used to calculate <span class="math inline">\(G&#39;_{ST}\)</span>. They are typically not reported but provide values to help validate that <span class="math inline">\(G&#39;_{ST}\)</span> was calculated correctly. Note that the populations that had zero alleles, and therefore a heterozygosity of ‘NaN’, contributed to <span class="math inline">\(G_{ST}\)</span>s that were also ‘NaN’. To avoid this you may want to consider omitting populations with a small sample size or that contain a large amount of missing data.</p>
+<p>We now have information for each variant in the VCF data. Because this is typically a large quantity of information, we’ll want to summarize it. One way is to take averages of the data.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">round</span>(<span class="kw">colMeans</span>(myDiff[,<span class="kw">c</span>(<span class="dv">3</span><span class="op">:</span><span class="dv">9</span>,<span class="dv">16</span>,<span class="dv">19</span>)], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">digits =</span> <span class="dv">3</span>))</a></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Hs_af</td>
+<td align="right">0.176</td>
+</tr>
+<tr class="even">
+<td>Hs_eu</td>
+<td align="right">0.188</td>
+</tr>
+<tr class="odd">
+<td>Hs_mx</td>
+<td align="right">0.168</td>
+</tr>
+<tr class="even">
+<td>Hs_Pmir</td>
+<td align="right">0.052</td>
+</tr>
+<tr class="odd">
+<td>Hs_sa</td>
+<td align="right">0.198</td>
+</tr>
+<tr class="even">
+<td>Hs_us</td>
+<td align="right">0.155</td>
+</tr>
+<tr class="odd">
+<td>Ht</td>
+<td align="right">0.247</td>
+</tr>
+<tr class="even">
+<td>Gst</td>
+<td align="right">0.595</td>
+</tr>
+<tr class="odd">
+<td>Gprimest</td>
+<td align="right">0.632</td>
+</tr>
+</tbody>
+</table>
+<p>Another way to summarize data is to use violin plots.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="kw">library</span>(reshape2)</a>
+<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb62-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb62-4" data-line-number="4">dpf &lt;-<span class="st"> </span><span class="kw">melt</span>(myDiff[,<span class="kw">c</span>(<span class="dv">3</span><span class="op">:</span><span class="dv">8</span>,<span class="dv">19</span>)], <span class="dt">varnames=</span><span class="kw">c</span>(<span class="st">&#39;Index&#39;</span>, <span class="st">&#39;Sample&#39;</span>), <span class="dt">value.name =</span> <span class="st">&#39;Depth&#39;</span>, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## No id variables; using all as measure variables</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dpf, <span class="kw">aes</span>(<span class="dt">x=</span>variable, <span class="dt">y=</span>Depth)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_violin</span>(<span class="dt">fill=</span><span class="st">&quot;#2ca25f&quot;</span>, <span class="dt">adjust =</span> <span class="fl">1.2</span>)</a>
+<a class="sourceLine" id="cb64-2" data-line-number="2">p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb64-3" data-line-number="3">p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb64-4" data-line-number="4">p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</a>
+<a class="sourceLine" id="cb64-5" data-line-number="5">p</a></code></pre></div>
+<p><img src="analysis_of_genome_files/figure-html/unnamed-chunk-26-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-hedrick2005standardized">
+<p>Hedrick PW. 2005. A standardized genetic differentiation measure. <em>Evolution</em> 59:1633–1638. Available at: <a href="http://dx.doi.org/10.1111/j.0014-3820.2005.tb01814.x" class="uri">http://dx.doi.org/10.1111/j.0014-3820.2005.tb01814.x</a></p>
+</div>
+<div id="ref-jombart2008adegenet">
+<p>Jombart T. 2008. <span class="math inline">\(adegenet\)</span>: A R package for the multivariate analysis of genetic markers. <em>Bioinformatics</em> 24:1403–1405. Available at: <a href="https://doi.org/10.1093/bioinformatics/btn129" class="uri">https://doi.org/10.1093/bioinformatics/btn129</a></p>
+</div>
+<div id="ref-jost2008gst">
+<p>Jost L. 2008. <span class="math inline">\(G_{ST}\)</span> And its relatives do not measure differentiation. <em>Molecular Ecology</em> 17:4015–4026. Available at: <a href="http://dx.doi.org/10.1111/j.1365-294X.2008.03887.x" class="uri">http://dx.doi.org/10.1111/j.1365-294X.2008.03887.x</a></p>
+</div>
+<div id="ref-kamvar2015novel">
+<p>Kamvar ZN., Brooks JC., Grünwald NJ. 2015. Novel R tools for analysis of genome-wide population genetic data with emphasis on clonality. <em>Name: Frontiers in Genetics</em> 6:208. Available at: <a href="http://dx.doi.org/10.3389/fgene.2015.00208" class="uri">http://dx.doi.org/10.3389/fgene.2015.00208</a></p>
+</div>
+<div id="ref-kamvar2014poppr">
+<p>Kamvar ZN., Tabima JF., Grünwald NJ. 2014. <span class="math inline">\(Poppr\)</span>: An R package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281" class="uri">http://dx.doi.org/10.7717/peerj.281</a></p>
+</div>
+<div id="ref-knaus2017vcfr">
+<p>Knaus BJ., Grünwald NJ. 2017. <span class="math inline">\({V}cfr\)</span>: A package to manipulate and visualize variant call format data in R. <em>Molecular Ecology Resources</em> 17:44–53. Available at: <a href="http://dx.doi.org/10.1111/1755-0998.12549" class="uri">http://dx.doi.org/10.1111/1755-0998.12549</a></p>
+</div>
+<div id="ref-nei1973analysis">
+<p>Nei M. 1973. Analysis of gene diversity in subdivided populations. <em>Proceedings of the National Academy of Sciences</em> 70:3321–3323. Available at: <a href="http://www.pnas.org/content/70/12/3321.abstract" class="uri">http://www.pnas.org/content/70/12/3321.abstract</a></p>
+</div>
+<div id="ref-simpson1949measurement">
+<p>Simpson EH. 1949. Measurement of diversity. <em>Nature</em> 163:688. Available at: <a href="http://dx.doi.org/10.1038/163688a0" class="uri">http://dx.doi.org/10.1038/163688a0</a></p>
+</div>
+<div id="ref-wright1949genetical">
+<p>Wright S. 1949. The genetical structure of populations. <em>Annals of Eugenics</em> 15:323–354. Available at: <a href="http://dx.doi.org/10.1111/j.1469-1809.1949.tb02451.x" class="uri">http://dx.doi.org/10.1111/j.1469-1809.1949.tb02451.x</a></p>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
