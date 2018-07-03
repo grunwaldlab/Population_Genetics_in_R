@@ -33,68 +33,41 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  { background-color: #f8f8f8; }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ef2929; } /* Alert */
-code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #c4a000; } /* Attribute */
-code span.bn { color: #0000cf; } /* BaseN */
-code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #000000; } /* Constant */
-code span.co { color: #8f5902; font-style: italic; } /* Comment */
-code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code span.dt { color: #204a87; } /* DataType */
-code span.dv { color: #0000cf; } /* DecVal */
-code span.er { color: #a40000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #000000; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code span.ot { color: #8f5902; } /* Other */
-code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #000000; } /* SpecialChar */
-code span.ss { color: #4e9a06; } /* SpecialString */
-code span.st { color: #4e9a06; } /* String */
-code span.va { color: #000000; } /* Variable */
-code span.vs { color: #4e9a06; } /* VerbatimString */
-code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
 </style>
 <style type="text/css">
   pre:not([class]) {
@@ -152,9 +125,6 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -377,6 +347,9 @@ $(document).ready(function () {
       <a href="funpendix.html">Function glossary</a>
     </li>
     <li>
+      <a href="background_functions.html">Background_functions</a>
+    </li>
+    <li>
       <a href="https://github.com/grunwaldlab/Population_Genetics_in_R/">Source Code</a>
     </li>
   </ul>
@@ -399,9 +372,9 @@ $(document).ready(function () {
 
 
 <p>The results show that there is a small but notable set of variants evolving independently across the western states in USA, but we cannot determine if the differentiation ocurrs between OR and WA, OR and CA, or CA and WA. The <code>pairwise_genetic_diff()</code> function allows us to calculate the indices of population differentiation between populations in a pairwise manner. To do this we need to create a factor to indicate population membership for each individual. We already have this information from the <code>pop.data</code> object we created at the beggining of this tutorial.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">myPops &lt;-<span class="st"> </span><span class="kw">as.factor</span>(pop.data<span class="op">$</span>State)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">myDiff &lt;-<span class="st"> </span><span class="kw">pairwise_genetic_diff</span>(rubi.VCF, myPops, <span class="dt">method =</span> <span class="st">&quot;nei&quot;</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">colMeans</span>(myDiff[,<span class="kw">c</span>(<span class="dv">4</span><span class="op">:</span><span class="kw">ncol</span>(myDiff))], <span class="dt">na.rm =</span> T)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myPops &lt;-<span class="st"> </span><span class="kw">as.factor</span>(pop.data<span class="op">$</span>State)
+myDiff &lt;-<span class="st"> </span><span class="kw">pairwise_genetic_diff</span>(rubi.VCF, myPops, <span class="dt">method =</span> <span class="st">&quot;nei&quot;</span>)
+<span class="kw">colMeans</span>(myDiff[,<span class="kw">c</span>(<span class="dv">4</span><span class="op">:</span><span class="kw">ncol</span>(myDiff))], <span class="dt">na.rm =</span> T)</code></pre></div>
 <p>The results from the <code>pairwise_genetic_diff</code> indicate that the highest population differentiation ocurrs between CA and OR, while CA-WA and OR-WA have considerably lower values of <span class="math inline">\(G_{ST}\)</span> and <span class="math inline">\(G&#39;_{ST}\)</span>. These results support the previous findings, where CA and OR have a higher degree of genetic diversity between states, and WA seems to be very similar to both OR and CA, indicating the presence of gene flow across these states.</p>
 <p>In conclusion, we can say that the pairwise <span class="math inline">\(G_{ST}\)</span> analyses gives support to the conclusions we drew previously: There is low population structure between geographic locations across populations of <em>P. rubi</em> in the western USA. Nonetheless, we were able to determine great genetic differentiation between CA and OR. These results indicate that there is more limited gene flow between these two geographic locations than from CA towards Wa and from OR towards WA.</p>
 

@@ -11,7 +11,7 @@
 
 
 
-<title>Linkage_disequilibrium.utf8.md</title>
+<title>Linkage disequilibrium</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,68 +33,41 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  { background-color: #f8f8f8; }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ef2929; } /* Alert */
-code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #c4a000; } /* Attribute */
-code span.bn { color: #0000cf; } /* BaseN */
-code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #000000; } /* Constant */
-code span.co { color: #8f5902; font-style: italic; } /* Comment */
-code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code span.dt { color: #204a87; } /* DataType */
-code span.dv { color: #0000cf; } /* DecVal */
-code span.er { color: #a40000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #000000; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code span.ot { color: #8f5902; } /* Other */
-code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #000000; } /* SpecialChar */
-code span.ss { color: #4e9a06; } /* SpecialString */
-code span.st { color: #4e9a06; } /* String */
-code span.va { color: #000000; } /* Variable */
-code span.vs { color: #4e9a06; } /* VerbatimString */
-code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
 </style>
 <style type="text/css">
   pre:not([class]) {
@@ -152,9 +125,6 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -377,6 +347,9 @@ $(document).ready(function () {
       <a href="funpendix.html">Function glossary</a>
     </li>
     <li>
+      <a href="background_functions.html">Background_functions</a>
+    </li>
+    <li>
       <a href="https://github.com/grunwaldlab/Population_Genetics_in_R/">Source Code</a>
     </li>
   </ul>
@@ -404,12 +377,12 @@ $(document).ready(function () {
 <h1>The index of association</h1>
 <p>The index of association (<span class="math inline">\(I_A\)</span>) was originally proposed by Brown et al. <span class="citation">(Brown, Feldman &amp; Nevo, 1980)</span> and implemented in the <em>poppr</em> R package <span class="citation">(Kamvar, Tabima &amp; Grünwald, 2014)</span> using a permutation approach to assess if loci are linked as described previously by Agapow and Burt [@]. Agapow and Burt also described the index <span class="math inline">\(\bar{r}_d\)</span> that accounts for the number of loci sampled that is less biased and will be used here. The data we will use in this chapter are populations of <em>Phytophthora infestans</em> from North and South America <span class="citation">(Goss et al., 2014)</span>. We will use the index of association to test the hypothesis that Mexico is the putative origin of <em>P. infestans</em> where populations are expected to be sexual while populations in South America are expected to be clonal.</p>
 <p>First, we need to load the packages needed for this analysis.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">data</span>(Pinf)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)
+<span class="kw">data</span>(Pinf)</code></pre></div>
 <p>Next, we will analyze the North American population with the index of association and use 999 permutations of the data in order to give us a p-value. Note that the p-value is calculated with the original observation included.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">MX &lt;-<span class="st"> </span><span class="kw">popsub</span>(Pinf, <span class="st">&quot;North America&quot;</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">ia</span>(MX, <span class="dt">sample =</span> <span class="dv">999</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MX &lt;-<span class="st"> </span><span class="kw">popsub</span>(Pinf, <span class="st">&quot;North America&quot;</span>)
+<span class="kw">ia</span>(MX, <span class="dt">sample =</span> <span class="dv">999</span>)</code></pre></div>
 <pre><code>## |================================================================| 100%</code></pre>
 <p><img src="Linkage_disequilibrium_files/figure-html/MXia-1.png" width="700px" /></p>
 <pre><code>##         Ia       p.Ia      rbarD       p.rD 
@@ -418,7 +391,7 @@ $(document).ready(function () {
 <p><strong>For advanced users:</strong> For reproducibility, use <code>set.seed()</code> before invoking <code>ia()</code>.</p>
 </blockquote>
 <p>We observe 48 individuals and see that <span class="math inline">\(P = 0.015\)</span> for <span class="math inline">\(\bar{r}_d = 0.024\)</span>. We thus reject the null hypothesis of no linkage among markers. Notice, however, that the observed <span class="math inline">\(\bar{r}_d\)</span> falls on the right tail of the re-sampled distribution and the P value is close to <span class="math inline">\(P = 0.01\)</span>. Could this population have clones? We can find out by displaying the data.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">MX</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MX</code></pre></div>
 <pre><code>## 
 ## This is a genclone object
 ## -------------------------
@@ -435,21 +408,21 @@ $(document).ready(function () {
 <div id="clone-correction" class="section level2">
 <h2>Clone correction</h2>
 <p>Indeed we observe 43 multilocus genotypes out of 48 samples. We are looking at partial clonality and thus need to use clone-corrected (also called clone- censored) data:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">MX <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">strata=</span> <span class="op">~</span>Continent<span class="op">/</span>Country) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ia</span>(<span class="dt">sample =</span> <span class="dv">999</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MX <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">strata=</span> <span class="op">~</span>Continent<span class="op">/</span>Country) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ia</span>(<span class="dt">sample =</span> <span class="dv">999</span>)</code></pre></div>
 <pre><code>## |================================================================| 100%</code></pre>
 <p><img src="Linkage_disequilibrium_files/figure-html/MXiacc-1.png" width="700px" /></p>
 <pre><code>##          Ia        p.Ia       rbarD        p.rD 
 ## 0.079811141 0.225000000 0.008568857 0.213000000</code></pre>
 <p>Now <span class="math inline">\(\bar{r}_d\)</span> is located more centrally in the distribution expected from unlinked loci. Note that <span class="math inline">\(P\)</span> has improved and we fail to reject the null hypothesis of no linkage among markers. Thus it appears that populations in Mexico are sexual.</p>
 <p>Next let’s use the same process to evaluate the South American population:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">SA &lt;-<span class="st"> </span><span class="kw">popsub</span>(Pinf, <span class="st">&quot;South America&quot;</span>)</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">ia</span>(SA, <span class="dt">sample =</span> <span class="dv">999</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">SA &lt;-<span class="st"> </span><span class="kw">popsub</span>(Pinf, <span class="st">&quot;South America&quot;</span>)
+<span class="kw">ia</span>(SA, <span class="dt">sample =</span> <span class="dv">999</span>)</code></pre></div>
 <pre><code>## |================================================================| 100%</code></pre>
 <p><img src="Linkage_disequilibrium_files/figure-html/SAia-1.png" width="700px" /></p>
 <pre><code>##        Ia      p.Ia     rbarD      p.rD 
 ## 2.8733344 0.0010000 0.3446431 0.0010000</code></pre>
 <p>Here we find significant support for the hypothesis that alleles are linked across loci with <span class="math inline">\(P &lt; 0.001\)</span>. The observed <span class="math inline">\(\bar{r}_d = 0.345\)</span> and falls outside of the distribution expected under no linkage. Let’s look at the clone-corrected data and make sure this is not an artifact of clonality:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">SA <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">strata=</span> <span class="op">~</span>Continent<span class="op">/</span>Country) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ia</span>(<span class="dt">sample=</span><span class="dv">999</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">SA <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">strata=</span> <span class="op">~</span>Continent<span class="op">/</span>Country) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ia</span>(<span class="dt">sample=</span><span class="dv">999</span>)</code></pre></div>
 <pre><code>## |================================================================| 100%</code></pre>
 <p><img src="Linkage_disequilibrium_files/figure-html/SAiacc-1.png" width="700px" /></p>
 <pre><code>##        Ia      p.Ia     rbarD      p.rD 
@@ -461,15 +434,15 @@ $(document).ready(function () {
 <h2>Pairwise <span class="math inline">\(\bar{r}_d\)</span> over all loci</h2>
 <p>To ensure that the pattern of linkage disequilibrium seen is not due to a single pair of loci, you can calculate <span class="math inline">\(I_A\)</span> and <span class="math inline">\(\bar{r}_d\)</span> over all pairs of loci. We’ll perform this on the clone-corrected samples as above.</p>
 <p>Pairwise for the Mexican population:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">mxpair &lt;-<span class="st"> </span>MX <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">strata =</span> <span class="op">~</span>Continent<span class="op">/</span>Country) <span class="op">%&gt;%</span><span class="st"> </span>pair.ia</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mxpair &lt;-<span class="st"> </span>MX <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">strata =</span> <span class="op">~</span>Continent<span class="op">/</span>Country) <span class="op">%&gt;%</span><span class="st"> </span>pair.ia</code></pre></div>
 <pre><code>## |================================================================| 100%</code></pre>
 <p><img src="Linkage_disequilibrium_files/figure-html/unnamed-chunk-9-1.png" width="700px" /></p>
 <p>Pairwise for the South American population:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">sapair &lt;-<span class="st"> </span>SA <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">strata =</span> <span class="op">~</span>Continent<span class="op">/</span>Country) <span class="op">%&gt;%</span><span class="st"> </span>pair.ia</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sapair &lt;-<span class="st"> </span>SA <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">clonecorrect</span>(<span class="dt">strata =</span> <span class="op">~</span>Continent<span class="op">/</span>Country) <span class="op">%&gt;%</span><span class="st"> </span>pair.ia</code></pre></div>
 <pre><code>## |================================================================| 100%</code></pre>
 <p><img src="Linkage_disequilibrium_files/figure-html/unnamed-chunk-11-1.png" width="700px" /></p>
 <p>The heatmaps produced make it look like there is more linkage in the Mexican population! But this is where looks can be deceiving. The color palettes are scaled to the data. We can confirm it by looking at the values:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">head</span>(mxpair, <span class="dv">10</span>) <span class="co"># Mexico</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(mxpair, <span class="dv">10</span>) <span class="co"># Mexico</span></code></pre></div>
 <pre><code>##                    Ia       rbarD
 ## Pi02:D13   0.03952145  0.04195430
 ## Pi02:Pi33  0.05386977  0.09014200
@@ -481,7 +454,7 @@ $(document).ready(function () {
 ## Pi02:Pi63 -0.06903465 -0.06918173
 ## Pi02:Pi70  0.05049544  0.05049764
 ## Pi02:Pi89  0.03529987  0.03621175</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">head</span>(sapair, <span class="dv">10</span>) <span class="co"># South America</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(sapair, <span class="dv">10</span>) <span class="co"># South America</span></code></pre></div>
 <pre><code>##                     Ia        rbarD
 ## Pi02:D13   0.006586122  0.006730583
 ## Pi02:Pi33  0.000000000          NaN
@@ -497,10 +470,10 @@ $(document).ready(function () {
 <div id="plotting-the-output-of-pair.ia" class="section level3">
 <h3>Plotting the output of pair.ia</h3>
 <p>The output of pair.ia is a matrix that also has a class of “pairia”. It has a specific plot method that we can use to plot the output again and set a standard limit to the plot by specifying a range.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">plotrange &lt;-<span class="st"> </span><span class="kw">range</span>(<span class="kw">c</span>(mxpair, sapair), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">plot</span>(mxpair, <span class="dt">limits =</span> plotrange)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plotrange &lt;-<span class="st"> </span><span class="kw">range</span>(<span class="kw">c</span>(mxpair, sapair), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+<span class="kw">plot</span>(mxpair, <span class="dt">limits =</span> plotrange)</code></pre></div>
 <p><img src="Linkage_disequilibrium_files/figure-html/unnamed-chunk-13-1.png" width="700px" /></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">plot</span>(sapair, <span class="dt">limits =</span> plotrange)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(sapair, <span class="dt">limits =</span> plotrange)</code></pre></div>
 <p><img src="Linkage_disequilibrium_files/figure-html/unnamed-chunk-13-2.png" width="700px" /></p>
 </div>
 </div>
@@ -508,10 +481,10 @@ $(document).ready(function () {
 <h2>References</h2>
 <div id="refs" class="references">
 <div id="ref-brown1980multilocus">
-<p>Brown AHD., Feldman MW., Nevo E. 1980. Multilocus structure of natural populations of <em>hordeum spontaneum</em>. <em>Genetics</em> 96:523–536. Available at: <a href="http://www.genetics.org/content/96/2/523" class="uri">http://www.genetics.org/content/96/2/523</a></p>
+<p>Brown AHD., Feldman MW., Nevo E. 1980. Multilocus structure of natural populations of <em>Hordeum spontaneum</em>. <em>Genetics</em> 96:523–536. Available at: <a href="http://www.genetics.org/content/96/2/523" class="uri">http://www.genetics.org/content/96/2/523</a></p>
 </div>
 <div id="ref-goss2014irish">
-<p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The Irish potato famine pathogen <em>phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
+<p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The Irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
 </div>
 <div id="ref-kamvar2014poppr">
 <p>Kamvar ZN., Tabima JF., Grünwald NJ. 2014. <span class="math inline">\(Poppr\)</span>: An R package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281" class="uri">http://dx.doi.org/10.7717/peerj.281</a></p>
