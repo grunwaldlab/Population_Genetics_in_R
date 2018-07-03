@@ -9,9 +9,11 @@
 <meta name="generator" content="pandoc" />
 
 
+<meta name="author" content="Brian J. Knaus" />
 
+<meta name="date" content="2018-06-25" />
 
-<title>Population genomics based on high throughut sequencing (HTS)</title>
+<title>Background functions</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -31,6 +33,49 @@
 </script>
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 
 
 <style type="text/css">
@@ -82,9 +127,6 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -323,45 +365,46 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Population genomics based on high throughut sequencing (HTS)</h1>
-<h3 class="subtitle"><em><em>NJ Grünwald, BJ Knaus, and JF Tabima</em></em></h3>
+<h1 class="title toc-ignore">Background functions</h1>
+<h4 class="author"><em>Brian J. Knaus</em></h4>
+<h4 class="date"><em>June 25, 2018</em></h4>
 
 </div>
 
 
-<p>We now live in the fast growing era of high throughput sequencing (HTS) that is revolutionizing our ability to understand genetic variation <span class="citation">(Luikart et al., 2003; Grünwald, McDonald &amp; Milgroom, 2016)</span>. Two factors are contributing to a need for new methods of analyzing data: 1. the data is now often in a genome-wide context where location within a genome is part of the analysis and 2. the number of variants are large.</p>
-<div id="novel-tools-in-r-for-population-genomic-analyses" class="section level1">
-<h1>Novel tools in R for population genomic analyses</h1>
-<p>The R computing language has become a great tool for analyzing population genomic data. A recent special issue in <a href="http://onlinelibrary.wiley.com/doi/10.1111/men.2017.17.issue-1/issuetoc">Molecular Ecology Resources</a> provides a nice overview of the arsenal of tools available in R <span class="citation">(Paradis et al., 2017)</span>. New tools have become available in R for analyzing HTS data including <em>adegenet</em> <span class="citation">(Jombart, 2008)</span>, <em>ape</em> <span class="citation">(Paradis, Claude &amp; Strimmer, 2004)</span>, <em>vcfR</em> <span class="citation">(Knaus &amp; Grünwald, 2017)</span>, and <em>poppr</em> <span class="citation">(Kamvar, Tabima &amp; Grünwald, 2014; Kamvar, Brooks &amp; Grünwald, 2015)</span> among others. Section III of this primer is geared towards analyzing whole genome or reduced representation genomic data for populations using the variant call format (VCF). The next three chapters will focus on introducing the VCF file format, reading SNP data into R from high throughput sequencing projects, performing quality control, and conducting selected analyses using population genomic data.</p>
+<div id="background-functions" class="section level2">
+<h2>Background functions</h2>
+<p>Some R functions may be used frequently throughout analyses yet to new users some of them may appear non-intuitive. Here we attempt to identify some of these functions and illustrate their use.</p>
 </div>
-<div id="references" class="section level1 unnumbered">
-<h1>References</h1>
-<div id="refs" class="references">
-<div id="ref-grunwald2016population">
-<p>Grünwald NJ., McDonald BA., Milgroom MG. 2016. Population genomics of fungal and oomycete pathogens. <em>Annual Review of Phytopathology</em> 54:323–346. Available at: <a href="http://arjournals.annualreviews.org/doi/full/10.1146/annurev-phyto-080614-115913" class="uri">http://arjournals.annualreviews.org/doi/full/10.1146/annurev-phyto-080614-115913</a></p>
+<div id="apply" class="section level2">
+<h2>apply()</h2>
+<p>One of R’s shortcomings is that <code>for()</code> loops are relatvely slow. Historically this was a greater problem and recent versions of R have improved the performance of these loops. Because of the performance cost associated with <code>for</code> loops it is generally recommended to avoid them in your R code, particularly when performance is an issue. If you have a task that requires iteration and you want performance that is greater than a <code>for()</code> loop will provide, you should consider <code>apply()</code>. We’ll create a matrix to illustrate its use.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tmp &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">times =</span> <span class="dv">3</span>), <span class="dt">ncol =</span> <span class="dv">3</span>)
+tmp</code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    1    1
+## [2,]    2    2    2
+## [3,]    3    3    3</code></pre>
+<p>The function <code>apply()</code> will ‘apply’ a function over the rows or columns of a matrix. Here we’ll use the function <code>sum()</code> to illustrate this.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(tmp, <span class="dt">MARGIN =</span> <span class="dv">1</span>, sum)</code></pre></div>
+<pre><code>## [1] 3 6 9</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(tmp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, sum)</code></pre></div>
+<pre><code>## [1] 6 6 6</code></pre>
+<p>The <code>MARGIN</code> parameter specifies whether to operate on rows or columns. I remember how 1 and 2 behave by remembering that when we specify the rows of a matrix with the square brackets (<code>[]</code>) we use the first position before the comma. To specify the columns we use the second position or after the comma.</p>
+<p>More information on <code>apply()</code> can be found by consulting it’s manual page.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?apply</code></pre></div>
 </div>
-<div id="ref-jombart2008adegenet">
-<p>Jombart T. 2008. <span class="math inline">\(adegenet\)</span>: A R package for the multivariate analysis of genetic markers. <em>Bioinformatics</em> 24:1403–1405. Available at: <a href="https://doi.org/10.1093/bioinformatics/btn129" class="uri">https://doi.org/10.1093/bioinformatics/btn129</a></p>
-</div>
-<div id="ref-kamvar2015novel">
-<p>Kamvar ZN., Brooks JC., Grünwald NJ. 2015. Novel R tools for analysis of genome-wide population genetic data with emphasis on clonality. <em>Name: Frontiers in Genetics</em> 6:208. Available at: <a href="http://dx.doi.org/10.3389/fgene.2015.00208" class="uri">http://dx.doi.org/10.3389/fgene.2015.00208</a></p>
-</div>
-<div id="ref-kamvar2014poppr">
-<p>Kamvar ZN., Tabima JF., Grünwald NJ. 2014. <span class="math inline">\(Poppr\)</span>: An R package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281" class="uri">http://dx.doi.org/10.7717/peerj.281</a></p>
-</div>
-<div id="ref-knaus2017vcfr">
-<p>Knaus BJ., Grünwald NJ. 2017. <span class="math inline">\({V}cfr\)</span>: A package to manipulate and visualize variant call format data in R. <em>Molecular Ecology Resources</em> 17:44–53. Available at: <a href="http://dx.doi.org/10.1111/1755-0998.12549" class="uri">http://dx.doi.org/10.1111/1755-0998.12549</a></p>
-</div>
-<div id="ref-luikart2003power">
-<p>Luikart G., England PR., Tallmon D., Jordan S., Taberlet P. 2003. The power and promise of population genomics: From genotyping to genome typing. <em>Nature reviews genetics</em> 4:981–994. Available at: <a href="http://www.nature.com/nrg/journal/v4/n12/full/nrg1226.html" class="uri">http://www.nature.com/nrg/journal/v4/n12/full/nrg1226.html</a></p>
-</div>
-<div id="ref-paradis2017towards">
-<p>Paradis E., Gosselin T., Grünwald NJ., Jombart T., Manel S., Lapp H. 2017. Towards an integrated ecosystem of r packages for the analysis of population genetic data. <em>Molecular Ecology Resources</em> 17:1–4. Available at: <a href="http://dx.doi.org/10.1111/1755-0998.12636" class="uri">http://dx.doi.org/10.1111/1755-0998.12636</a></p>
-</div>
-<div id="ref-paradis2004ape">
-<p>Paradis E., Claude J., Strimmer K. 2004. APE: Analyses of phylogenetics and evolution in r language. <em>Bioinformatics</em> 20:289–290. Available at: <a href="https://doi.org/10.1093/bioinformatics/btg412" class="uri">https://doi.org/10.1093/bioinformatics/btg412</a></p>
-</div>
-</div>
+<div id="sweep" class="section level2">
+<h2>sweep()</h2>
+<p>The function <code>sweep()</code> is similar to <code>apply()</code> in that it iterates over the rows or columns of a matrix. However, it takes the additional parameters <code>STATS</code> and <code>FUN</code>. The parameter <code>FUN</code> is a function to be used. This may be an R function or a custom function you’ve created. The parameter <code>STATS</code> is a vector of data to be used by the function. Here we use <code>apply()</code> to create a mean for each column and then use <code>sweep()</code> to divide the values in the matrix by their column mean.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_means &lt;-<span class="st"> </span><span class="kw">apply</span>(tmp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, sum) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(tmp)
+<span class="kw">sweep</span>(tmp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">STATS =</span> my_means, <span class="dt">FUN =</span> <span class="st">&quot;/&quot;</span>)</code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]  0.5  0.5  0.5
+## [2,]  1.0  1.0  1.0
+## [3,]  1.5  1.5  1.5</code></pre>
+<p>More information on <code>sweep()</code> can be found by consulting it’s manual page.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?sweep</code></pre></div>
 </div>
 
 
