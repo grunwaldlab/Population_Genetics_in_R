@@ -11,6 +11,7 @@ bib <- knitcitations::read.bibtex("bibtexlib.bib")
 knitr::opts_chunk$set(tidy = FALSE, message = FALSE, warning = FALSE)
 #knitr::opts_chunk$set(cache = TRUE)
 library("knitcitations")
+source("style.R")
 ```
 
 
