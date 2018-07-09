@@ -18,6 +18,7 @@ pre code, pre, code {
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(fig.align = "center")
 options(width = 200)
+source("style.R")
 ```
 
 
@@ -222,3 +223,63 @@ We see that the sample P1362 has been removed from the data set, no variants ove
 An important point to make here is that we're not advocating for anyone to use the same thresholds that we've used here.
 Instead, our goal is to provide you with tools so that you can make the changes you think are appropriate and so that you can visualize the effects of those changes.
 
+
+## Exercises
+
+**1)** The [VCF specification](http://samtools.github.io/hts-specs/) allows the `FORMAT` for each variant to be different.
+How can we learn how many different `FORMAT`s are in our data?
+
+
+```{r hide_button = TRUE}
+unique(vcf@gt[,1])
+```
+
+
+**2)** Our data includes `GQ`.
+How can we find out what this means?
+
+
+```{r hide_button = TRUE}
+queryMETA(vcf, element = "=GQ")
+```
+
+
+**3)** How can we extract the `GQ` information.
+
+
+```{r hide_button = TRUE}
+gq <- extract.gt(vcf, element = "GQ", as.numeric = TRUE)
+```
+
+
+**4)** How can we visualize the `GQ` data?
+
+
+```{r hide_button = TRUE}
+dpf <- melt(gq, varnames = c("Index", "Sample"),
+            value.name = "GQ", na.rm = TRUE)
+p <- ggplot(dpf, aes(x = Sample, y = GQ))
+p <- p + geom_violin(fill = "#B22222", adjust = 1.0,
+                     scale = "count", trim = TRUE)
+p <- p + theme_bw()
+p <- p + theme(axis.title.x = element_blank(),
+               axis.text.x = element_text(angle = 60,
+                                          hjust = 1, size = 12))
+p <- p + theme( panel.grid.major.y = element_line(color = "#A9A9A9",
+                                                  size = 0.6) )
+p <- p + theme( panel.grid.minor.y = element_line(color = "#C0C0C0",
+                                                  size = 0.2) )
+p <- p + ylab("Genotype quality (GQ)")
+p
+```
+
+
+**5)** For the sequence depth data we omitted values that were equal to zero but we have not here.
+Why was this step necessary for the depth data but not the genotype quality?
+
+
+```{r hide_button = TRUE}
+# We log trqansformed the depth data.
+# The log of zero is infinite.
+log(0)
+```
