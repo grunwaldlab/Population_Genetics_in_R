@@ -213,7 +213,7 @@ write.vcf(vcf, "myVCFdata_filtered.vcf.gz")
 ```
 
 
-`write.vcf()`will write a file to your active directory. 
+`write.vcf()`will write a file to your active directory.
 We now have a summary of our VCF file which we can use to help understand what forms of information are contained within it.
 This information can be further explored with plotting functions and used to filter the VCF file for high quality variants as we will see in the next section.
 
@@ -223,7 +223,7 @@ This information can be further explored with plotting functions and used to fil
 
 **1)** How would we find more information about `read.vcfR()`?
 
-```{r hide_button = TRUE}
+```{r hide_button = TRUE, eval = FALSE}
 ?read.vcfR
 ```
 
