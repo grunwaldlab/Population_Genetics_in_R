@@ -25,6 +25,7 @@ knitr::opts_chunk$set(fig.align = 'center')
 knitr::opts_chunk$set(fig.width = 12)
 knitr::opts_chunk$set(fig.height = 10)
 library("knitcitations")
+source("style.R")
 ```
 
 
@@ -227,9 +228,8 @@ We can perform a PCA on our genlight object by using the `glPCA` function.
 ```{r, fig.width = 5,fig.height = 5}
 rubi.pca <- glPca(gl.rubi, nf = 3)
 barplot(100*rubi.pca$eig/sum(rubi.pca$eig), col = heat.colors(50), main="PCA Eigenvalues")
-title(ylab="Proportion of variance\nexplained", line = 2)
+title(ylab="Percent of variance\nexplained", line = 2)
 title(xlab="Eigenvalues", line = 1)
-
 ```
 
 The barplot indicates that we will need to only retain the first 3 PCAs, which cumulatively explain   explain ```r 100 * round(sum(rubi.pca$eig[1:3]/sum(rubi.pca$eig)), digits = 5)``` percent of the variance of the data.
@@ -491,5 +491,59 @@ Subsetting large genomic variants is an easy, time-efficient and computationally
 We were able to determine that the western states of *P. rubi* do not have population structure based on geographical locations.
 The results showed that the CA population was less diverse and had a lower degree of admixture than either the WA or OR populations. 
 We can conclude that the geographical locations do not reflect the population structure of samples of *P. rubi* in the western USA, where the results suggested that different states shared genotypes across the entire geographic gradient resulting in one, panmictic and admixed population of *P. rubi*.
+
+
+## Exercises
+
+**1)** We frequently subset our data for various reasons.
+How could we go about subsetting our `vcfR` object to the isolates from California and Oregon.
+
+
+```{r hide_button = TRUE}
+# Validate the order
+all(colnames(rubi.VCF@gt)[-1] == pop.data$AccessID)
+rubi.VCF <- rubi.VCF[,c(TRUE, pop.data$State != "WA")]
+rubi.VCF
+```
+
+**2)** Can you also subset the genind object?
+
+```{r hide_button = TRUE}
+ca_or_gl <- gl.rubi[pop(gl.rubi) != "WA",]
+ca_or_gl
+```
+
+
+**3)** Can you perform PCA on these two populations?
+
+
+```{r hide_button = TRUE}
+my_pca <- glPca(ca_or_gl, nf = 4)
+```
+
+
+**4)** Can you plot the PCA?
+
+
+```{r hide_button = TRUE, fig.width=6, fig.height=5}
+my_scores <- as.data.frame(my_pca$scores)
+my_scores$pop <- pop(ca_or_gl)
+
+library(ggplot2)
+set.seed(9)
+p <- ggplot(my_scores, aes(x=PC1, y=PC2, colour=pop)) 
+p <- p + geom_point(size=2)
+p <- p + stat_ellipse(level = 0.95, size = 1)
+p <- p + scale_color_manual(values = cols) 
+p <- p + geom_hline(yintercept = 0) 
+p <- p + geom_vline(xintercept = 0) 
+p <- p + theme_bw()
+
+p
+```
+
+
+How important is the Washington isolates in our understanding of West coast *Phytophthora rubi* populations?
+
 
 ## References

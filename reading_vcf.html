@@ -33,68 +33,41 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  { background-color: #f8f8f8; }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ef2929; } /* Alert */
-code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #c4a000; } /* Attribute */
-code span.bn { color: #0000cf; } /* BaseN */
-code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #000000; } /* Constant */
-code span.co { color: #8f5902; font-style: italic; } /* Comment */
-code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code span.dt { color: #204a87; } /* DataType */
-code span.dv { color: #0000cf; } /* DecVal */
-code span.er { color: #a40000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #000000; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code span.ot { color: #8f5902; } /* Other */
-code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #000000; } /* SpecialChar */
-code span.ss { color: #4e9a06; } /* SpecialString */
-code span.st { color: #4e9a06; } /* String */
-code span.va { color: #000000; } /* Variable */
-code span.vs { color: #4e9a06; } /* VerbatimString */
-code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
 </style>
 <style type="text/css">
   pre:not([class]) {
@@ -152,9 +125,6 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -377,6 +347,9 @@ $(document).ready(function () {
       <a href="funpendix.html">Function glossary</a>
     </li>
     <li>
+      <a href="background_functions.html">Background_functions</a>
+    </li>
+    <li>
       <a href="https://github.com/grunwaldlab/Population_Genetics_in_R/">Source Code</a>
     </li>
   </ul>
@@ -411,120 +384,127 @@ Cartoon representation of VCF file organization
 </div>
 <p>The VCF file specification is flexible. This means that there are slots for certain types of data, but any particular software which creates a VCF file does not necessarily use them all. Similarly, authors have the opportunity to include new forms of data, forms which may not have been foreseen by the authors of the VCF specification. The result is that all VCF files do not contain the same information.</p>
 <p>For this example, we will use example data provided with the R package <em>vcfR</em> <span class="citation">(Knaus &amp; Grünwald, 2017)</span>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(vcfR)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">data</span>(vcfR_example)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">vcf</a></code></pre></div>
-<pre><code>## ***** Object of Class vcfR *****
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vcfR)
+<span class="kw">data</span>(vcfR_example)
+vcf</code></pre></div>
+<pre class="r-output"><code>## ***** Object of Class vcfR *****
 ## 18 samples
 ## 1 CHROMs
 ## 2,533 variants
-## Object size: 3.2 Mb
+## Object size: 2.9 Mb
 ## 8.497 percent missing data
-## *****        *****         *****</code></pre>
+## *****        *****         *****
+</code></pre>
 <p>The function <code>library()</code> loads libraries, in this case the package <em>vcfR</em>. The function <code>data()</code> loads datasets that were included with R and its packages. Our usage of <code>data()</code> loads the objects ‘gff’, ‘dna’ and ‘vcf’ from the ‘vcfR_example’ dataset. Here we’re only interested in the object ‘vcf’ which contains example VCF data. When we call the object name with no function it invokes the ‘show’ method which prints some summary information to the console.</p>
 </div>
 <div id="the-meta-region" class="section level2">
 <h2>The meta region</h2>
 <p>The meta region contains information about the file, its creation, as well as information to interpret abbreviations used elsewhere in the file. Each line of the meta region begins with a double pound sign (‘##’). The example which comes with <em>vcfR</em> is shown below. (Only the first seven lines are shown for brevity.)</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">strwrap</span>(vcf<span class="op">@</span>meta[<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>])</a></code></pre></div>
-<pre><code>##  [1] &quot;##fileformat=VCFv4.1&quot;                                              
-##  [2] &quot;##source=\&quot;GATK haplotype Caller, phased with beagle4\&quot;&quot;           
-##  [3] &quot;##FILTER=&lt;ID=LowQual,Description=\&quot;Low quality\&quot;&gt;&quot;                 
-##  [4] &quot;##FORMAT=&lt;ID=AD,Number=.,Type=Integer,Description=\&quot;Allelic depths&quot;
-##  [5] &quot;for the ref and alt alleles in the order listed\&quot;&gt;&quot;                
-##  [6] &quot;##FORMAT=&lt;ID=DP,Number=1,Type=Integer,Description=\&quot;Approximate&quot;   
-##  [7] &quot;read depth (reads with MQ=255 or with bad mates are filtered)\&quot;&gt;&quot;  
-##  [8] &quot;##FORMAT=&lt;ID=GQ,Number=1,Type=Integer,Description=\&quot;Genotype&quot;      
-##  [9] &quot;Quality\&quot;&gt;&quot;                                                        
-## [10] &quot;##FORMAT=&lt;ID=GT,Number=1,Type=String,Description=\&quot;Genotype\&quot;&gt;&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">strwrap</span>(vcf<span class="op">@</span>meta[<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>])</code></pre></div>
+<pre class="r-output"><code>##  [1] "##fileformat=VCFv4.1"                                              
+##  [2] "##source=\"GATK haplotype Caller, phased with beagle4\""           
+##  [3] "##FILTER=&lt;ID=LowQual,Description=\"Low quality\"&gt;"                 
+##  [4] "##FORMAT=&lt;ID=AD,Number=.,Type=Integer,Description=\"Allelic depths"
+##  [5] "for the ref and alt alleles in the order listed\"&gt;"                
+##  [6] "##FORMAT=&lt;ID=DP,Number=1,Type=Integer,Description=\"Approximate"   
+##  [7] "read depth (reads with MQ=255 or with bad mates are filtered)\"&gt;"  
+##  [8] "##FORMAT=&lt;ID=GQ,Number=1,Type=Integer,Description=\"Genotype"      
+##  [9] "Quality\"&gt;"                                                        
+## [10] "##FORMAT=&lt;ID=GT,Number=1,Type=String,Description=\"Genotype\"&gt;"
+</code></pre>
 <p>The first line contains the version of the VCF format used in the file. This line is required. The second line specifies the software which created the VCF file. This is not required, so not all VCF files include it. When they do, the file becomes self documenting. Note that the alignment software is not included here because it was used upstream of the VCF file’s creation (aligners typically create *.SAM or *.BAM format files). Because the file can only include information about the software that created it, the entire pipeline does not get documented. Some VCF files may contain a line for every chromosome (or supercontig or contig depending on your genome), so they may become rather long. Here, the remaining lines contain INFO and FORMAT specifications which define abbreviations used in the fix and gt portions of the file.</p>
 <p>The meta region may include long lines that may not be easy to view. In <em>vcfR</em> we’ve created a function to help press this data.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">queryMETA</span>(vcf)</a></code></pre></div>
-<pre><code>##  [1] &quot;FILTER=ID=LowQual&quot;                   
-##  [2] &quot;FORMAT=ID=AD&quot;                        
-##  [3] &quot;FORMAT=ID=DP&quot;                        
-##  [4] &quot;FORMAT=ID=GQ&quot;                        
-##  [5] &quot;FORMAT=ID=GT&quot;                        
-##  [6] &quot;FORMAT=ID=PL&quot;                        
-##  [7] &quot;GATKCommandLine=ID=HaplotypeCaller&quot;  
-##  [8] &quot;INFO=ID=AC&quot;                          
-##  [9] &quot;INFO=ID=AF&quot;                          
-## [10] &quot;INFO=ID=AN&quot;                          
-## [11] &quot;INFO=ID=BaseQRankSum&quot;                
-## [12] &quot;INFO=ID=ClippingRankSum&quot;             
-## [13] &quot;INFO=ID=DP&quot;                          
-## [14] &quot;INFO=ID=DS&quot;                          
-## [15] &quot;INFO=ID=FS&quot;                          
-## [16] &quot;INFO=ID=HaplotypeScore&quot;              
-## [17] &quot;INFO=ID=InbreedingCoeff&quot;             
-## [18] &quot;INFO=ID=MLEAC&quot;                       
-## [19] &quot;INFO=ID=MLEAF&quot;                       
-## [20] &quot;INFO=ID=MQ&quot;                          
-## [21] &quot;INFO=ID=MQ0&quot;                         
-## [22] &quot;INFO=ID=MQRankSum&quot;                   
-## [23] &quot;INFO=ID=QD&quot;                          
-## [24] &quot;INFO=ID=ReadPosRankSum&quot;              
-## [25] &quot;INFO=ID=SOR&quot;                         
-## [26] &quot;1 contig=&lt;IDs omitted from queryMETA&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">queryMETA</span>(vcf)</code></pre></div>
+<pre class="r-output"><code>##  [1] "FILTER=ID=LowQual"                   
+##  [2] "FORMAT=ID=AD"                        
+##  [3] "FORMAT=ID=DP"                        
+##  [4] "FORMAT=ID=GQ"                        
+##  [5] "FORMAT=ID=GT"                        
+##  [6] "FORMAT=ID=PL"                        
+##  [7] "GATKCommandLine=ID=HaplotypeCaller"  
+##  [8] "INFO=ID=AC"                          
+##  [9] "INFO=ID=AF"                          
+## [10] "INFO=ID=AN"                          
+## [11] "INFO=ID=BaseQRankSum"                
+## [12] "INFO=ID=ClippingRankSum"             
+## [13] "INFO=ID=DP"                          
+## [14] "INFO=ID=DS"                          
+## [15] "INFO=ID=FS"                          
+## [16] "INFO=ID=HaplotypeScore"              
+## [17] "INFO=ID=InbreedingCoeff"             
+## [18] "INFO=ID=MLEAC"                       
+## [19] "INFO=ID=MLEAF"                       
+## [20] "INFO=ID=MQ"                          
+## [21] "INFO=ID=MQ0"                         
+## [22] "INFO=ID=MQRankSum"                   
+## [23] "INFO=ID=QD"                          
+## [24] "INFO=ID=ReadPosRankSum"              
+## [25] "INFO=ID=SOR"                         
+## [26] "1 contig=&lt;IDs omitted from queryMETA"
+</code></pre>
 <p>When the function <code>queryMETA()</code> is called with only a <em>vcfR</em> object as a parameter, it attempts to summarize the meta information. Not all of the information is returned. For example, ‘contig’ elements are not returned. This is an attempt to summarize information that may be most useful for comprehension of the file’s contents.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">queryMETA</span>(vcf, <span class="dt">element =</span> <span class="st">&#39;DP&#39;</span>)</a></code></pre></div>
-<pre><code>## [[1]]
-## [1] &quot;FORMAT=ID=DP&quot;                                                                         
-## [2] &quot;Number=1&quot;                                                                             
-## [3] &quot;Type=Integer&quot;                                                                         
-## [4] &quot;Description=Approximate read depth (reads with MQ=255 or with bad mates are filtered)&quot;
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">queryMETA</span>(vcf, <span class="dt">element =</span> <span class="st">&#39;DP&#39;</span>)</code></pre></div>
+<pre class="r-output"><code>## [[1]]
+## [1] "FORMAT=ID=DP"                                                                         
+## [2] "Number=1"                                                                             
+## [3] "Type=Integer"                                                                         
+## [4] "Description=Approximate read depth (reads with MQ=255 or with bad mates are filtered)"
 ## 
 ## [[2]]
-## [1] &quot;INFO=ID=DP&quot;                                                           
-## [2] &quot;Number=1&quot;                                                             
-## [3] &quot;Type=Integer&quot;                                                         
-## [4] &quot;Description=Approximate read depth; some reads may have been filtered&quot;</code></pre>
+## [1] "INFO=ID=DP"                                                           
+## [2] "Number=1"                                                             
+## [3] "Type=Integer"                                                         
+## [4] "Description=Approximate read depth; some reads may have been filtered"
+</code></pre>
 <p>When an element parameter is included, only the information about that element is returned. In this example the element ‘DP’ is returned. We see that this acronym is defined as both a ‘FORMAT’ and ‘INFO’ acronym. We can narrow down our query by including more information in the element parameter.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">queryMETA</span>(vcf, <span class="dt">element =</span> <span class="st">&#39;FORMAT=&lt;ID=DP&#39;</span>)</a></code></pre></div>
-<pre><code>## [[1]]
-## [1] &quot;FORMAT=ID=DP&quot;                                                                         
-## [2] &quot;Number=1&quot;                                                                             
-## [3] &quot;Type=Integer&quot;                                                                         
-## [4] &quot;Description=Approximate read depth (reads with MQ=255 or with bad mates are filtered)&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">queryMETA</span>(vcf, <span class="dt">element =</span> <span class="st">&#39;FORMAT=&lt;ID=DP&#39;</span>)</code></pre></div>
+<pre class="r-output"><code>## [[1]]
+## [1] "FORMAT=ID=DP"                                                                         
+## [2] "Number=1"                                                                             
+## [3] "Type=Integer"                                                                         
+## [4] "Description=Approximate read depth (reads with MQ=255 or with bad mates are filtered)"
+</code></pre>
 <p>Here we’ve isolated the definition of ‘DP’ as a ‘FORMAT’ element. Note that the function <code>queryMETA()</code> includes the parameter <code>nice</code> which by default is TRUE and attempts to present the data in a nicely formatted manner. However, our query is performed on the actual information in the ‘meta’ region. It is therefore sometimes appropriate to set <code>nice = FALSE</code> so that we can see the raw data. In the above example the angled bracket (‘&lt;’) is omitted from the <code>nice = TRUE</code> representation but is essential to distinguishing the ‘FORMAT’ element from the ‘INFO’ element.</p>
 </div>
 <div id="the-fix-region" class="section level2">
 <h2>The fix region</h2>
 <p>The fix region contains information for each variant which is sometimes summarized over all samples. The first eight columns of the fixed region are titled CHROM, POS, ID, REF, ALT, QUAL, FILTER and INFO. This is per variant information which is ‘fixed’, or the same, over all samples. The first two columns indicate the location of the variant by chromosome and position within that chromosome. Here, the ID field has not been used, so it consists of missing data (NA). The REF and ALT columns indicate the reference and alternate allelic states for a diploid sample. When multiple alternate allelic states are present they are delimited with commas. The QUAL column attempts to summarize the quality of each variant over all samples. The FILTER field is not used here but could contain information on whether a variant has passed some form of quality assessment.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">getFIX</span>(vcf))</a></code></pre></div>
-<pre><code>##      CHROM              POS   ID REF ALT QUAL     FILTER
-## [1,] &quot;Supercontig_1.50&quot; &quot;2&quot;   NA &quot;T&quot; &quot;A&quot; &quot;44.44&quot;  NA    
-## [2,] &quot;Supercontig_1.50&quot; &quot;246&quot; NA &quot;C&quot; &quot;G&quot; &quot;144.21&quot; NA    
-## [3,] &quot;Supercontig_1.50&quot; &quot;549&quot; NA &quot;A&quot; &quot;C&quot; &quot;68.49&quot;  NA    
-## [4,] &quot;Supercontig_1.50&quot; &quot;668&quot; NA &quot;G&quot; &quot;C&quot; &quot;108.07&quot; NA    
-## [5,] &quot;Supercontig_1.50&quot; &quot;765&quot; NA &quot;A&quot; &quot;C&quot; &quot;92.78&quot;  NA    
-## [6,] &quot;Supercontig_1.50&quot; &quot;780&quot; NA &quot;G&quot; &quot;T&quot; &quot;58.38&quot;  NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">getFIX</span>(vcf))</code></pre></div>
+<pre class="r-output"><code>##      CHROM              POS   ID REF ALT QUAL     FILTER
+## [1,] "Supercontig_1.50" "2"   NA "T" "A" "44.44"  NA    
+## [2,] "Supercontig_1.50" "246" NA "C" "G" "144.21" NA    
+## [3,] "Supercontig_1.50" "549" NA "A" "C" "68.49"  NA    
+## [4,] "Supercontig_1.50" "668" NA "G" "C" "108.07" NA    
+## [5,] "Supercontig_1.50" "765" NA "A" "C" "92.78"  NA    
+## [6,] "Supercontig_1.50" "780" NA "G" "T" "58.38"  NA
+</code></pre>
 <p>The eigth column, titled INFO, is a semicolon delimited list of information. It can be rather long and cumbersome. The function <code>getFIX()</code> will suppress this column by default. Each abbreviation in the INFO column should be defined in the meta section. We can validate this by querying the meta portion, as we did in the ‘meta’ section above.</p>
 </div>
 <div id="the-gt-region" class="section level2">
 <h2>The gt region</h2>
 <p>The gt (genotype) region contains information about each variant for each sample. The values for each variant and each sample are colon delimited. Multiple types of data for each genotype may be stored in this manner. The format of the data is specified by the FORMAT column (column nine). Here we see that we have information for GT, AD, DP, GQ and PL. The definition of these acronyms can be referenced by querying the the meta region, as demonstrated previously. Every variant does not necessarily have the same information (e.g., SNPs and indels may be handled differently), so the rows are best treated independently. Different variant callers may include different information in this region.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">vcf<span class="op">@</span>gt[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</a></code></pre></div>
-<pre><code>##      FORMAT           BL2009P4_us23              
-## [1,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:62,0:62:99:0,190,2835&quot;
-## [2,] &quot;GT:AD:DP:GQ:PL&quot; &quot;1|0:5,5:10:99:111,0,114&quot;  
-## [3,] &quot;GT:AD:DP:GQ:PL&quot; NA                         
-## [4,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:1,0:1:3:0,3,44&quot;       
-## [5,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:2,0:2:6:0,6,49&quot;       
-## [6,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:2,0:2:6:0,6,49&quot;       
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf<span class="op">@</span>gt[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</code></pre></div>
+<pre class="r-output"><code>##      FORMAT           BL2009P4_us23              
+## [1,] "GT:AD:DP:GQ:PL" "0|0:62,0:62:99:0,190,2835"
+## [2,] "GT:AD:DP:GQ:PL" "1|0:5,5:10:99:111,0,114"  
+## [3,] "GT:AD:DP:GQ:PL" NA                         
+## [4,] "GT:AD:DP:GQ:PL" "0|0:1,0:1:3:0,3,44"       
+## [5,] "GT:AD:DP:GQ:PL" "0|0:2,0:2:6:0,6,49"       
+## [6,] "GT:AD:DP:GQ:PL" "0|0:2,0:2:6:0,6,49"       
 ##      DDR7602                   IN2009T1_us22              
-## [1,] &quot;0|0:12,0:12:39:0,39,585&quot; &quot;0|0:37,0:37:99:0,114,1709&quot;
-## [2,] NA                        &quot;0|1:2,1:3:16:16,0,48&quot;     
-## [3,] NA                        &quot;0|0:2,0:2:6:0,6,51&quot;       
-## [4,] NA                        &quot;1|1:0,1:1:3:25,3,0&quot;       
-## [5,] &quot;0|0:1,0:1:3:0,3,34&quot;      &quot;0|0:1,0:1:3:0,3,31&quot;       
-## [6,] &quot;0|0:1,0:1:3:0,3,34&quot;      &quot;0|0:3,0:3:9:0,9,85&quot;</code></pre>
+## [1,] "0|0:12,0:12:39:0,39,585" "0|0:37,0:37:99:0,114,1709"
+## [2,] NA                        "0|1:2,1:3:16:16,0,48"     
+## [3,] NA                        "0|0:2,0:2:6:0,6,51"       
+## [4,] NA                        "1|1:0,1:1:3:25,3,0"       
+## [5,] "0|0:1,0:1:3:0,3,34"      "0|0:1,0:1:3:0,3,31"       
+## [6,] "0|0:1,0:1:3:0,3,34"      "0|0:3,0:3:9:0,9,85"
+</code></pre>
 </div>
 <div id="vcfr" class="section level2">
 <h2>vcfR</h2>
 <p>Using the R package <em>vcfR</em>, we can read VCF format files into memory using the function <code>read.vcfR()</code>. Once in memory we can use the <code>head()</code> method to summarize the information in the three VCF regions.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">vcf &lt;-<span class="st"> </span><span class="kw">read.vcfR</span>(<span class="st">&quot;pinfsc50_filtered.vcf.gz&quot;</span>)</a></code></pre></div>
-<pre><code>## Scanning file to determine attributes.
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf &lt;-<span class="st"> </span><span class="kw">read.vcfR</span>(<span class="st">&quot;pinfsc50_filtered.vcf.gz&quot;</span>)</code></pre></div>
+<pre class="r-output"><code>## Scanning file to determine attributes.
 ## File attributes:
 ##   meta lines: 29
 ##   header_line: 30
@@ -544,71 +524,150 @@ Meta line 29 read in.
 Processed variant 1000
 Processed variant 2000
 Processed variant: 2190
-## All variants processed</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">head</span>(vcf)</a></code></pre></div>
-<pre><code>## [1] &quot;***** Object of class &#39;vcfR&#39; *****&quot;
-## [1] &quot;***** Meta section *****&quot;
-## [1] &quot;##fileformat=VCFv4.1&quot;
-## [1] &quot;##source=\&quot;GATK haplotype Caller, phased with beagle4\&quot;&quot;
-## [1] &quot;##FILTER=&lt;ID=LowQual,Description=\&quot;Low quality\&quot;&gt;&quot;
-## [1] &quot;##FORMAT=&lt;ID=AD,Number=.,Type=Integer,Description=\&quot;Allelic depths fo [Truncated]&quot;
-## [1] &quot;##FORMAT=&lt;ID=DP,Number=1,Type=Integer,Description=\&quot;Approximate read  [Truncated]&quot;
-## [1] &quot;##FORMAT=&lt;ID=GQ,Number=1,Type=Integer,Description=\&quot;Genotype Quality\&quot;&gt;&quot;
-## [1] &quot;First 6 rows.&quot;
+## All variants processed
+</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(vcf)</code></pre></div>
+<pre class="r-output"><code>## [1] "***** Object of class 'vcfR' *****"
+## [1] "***** Meta section *****"
+## [1] "##fileformat=VCFv4.1"
+## [1] "##source=\"GATK haplotype Caller, phased with beagle4\""
+## [1] "##FILTER=&lt;ID=LowQual,Description=\"Low quality\"&gt;"
+## [1] "##FORMAT=&lt;ID=AD,Number=.,Type=Integer,Description=\"Allelic depths fo [Truncated]"
+## [1] "##FORMAT=&lt;ID=DP,Number=1,Type=Integer,Description=\"Approximate read  [Truncated]"
+## [1] "##FORMAT=&lt;ID=GQ,Number=1,Type=Integer,Description=\"Genotype Quality\"&gt;"
+## [1] "First 6 rows."
 ## [1] 
-## [1] &quot;***** Fixed section *****&quot;
+## [1] "***** Fixed section *****"
 ##      CHROM              POS     ID REF ALT       QUAL      FILTER
-## [1,] &quot;Supercontig_1.50&quot; &quot;80058&quot; NA &quot;T&quot; &quot;G,TACTG&quot; &quot;3480.23&quot; NA    
-## [2,] &quot;Supercontig_1.50&quot; &quot;80063&quot; NA &quot;C&quot; &quot;T&quot;       &quot;3016.89&quot; NA    
-## [3,] &quot;Supercontig_1.50&quot; &quot;80067&quot; NA &quot;A&quot; &quot;C&quot;       &quot;3555.08&quot; NA    
-## [4,] &quot;Supercontig_1.50&quot; &quot;80073&quot; NA &quot;C&quot; &quot;A&quot;       &quot;104.72&quot;  NA    
-## [5,] &quot;Supercontig_1.50&quot; &quot;80074&quot; NA &quot;A&quot; &quot;G&quot;       &quot;2877.74&quot; NA    
-## [6,] &quot;Supercontig_1.50&quot; &quot;80089&quot; NA &quot;A&quot; &quot;ACG&quot;     &quot;2250.92&quot; NA    
+## [1,] "Supercontig_1.50" "80058" NA "T" "G,TACTG" "3480.23" NA    
+## [2,] "Supercontig_1.50" "80063" NA "C" "T"       "3016.89" NA    
+## [3,] "Supercontig_1.50" "80067" NA "A" "C"       "3555.08" NA    
+## [4,] "Supercontig_1.50" "80073" NA "C" "A"       "104.72"  NA    
+## [5,] "Supercontig_1.50" "80074" NA "A" "G"       "2877.74" NA    
+## [6,] "Supercontig_1.50" "80089" NA "A" "ACG"     "2250.92" NA    
 ## [1] 
-## [1] &quot;***** Genotype section *****&quot;
+## [1] "***** Genotype section *****"
 ##      FORMAT           BL2009P4_us23                             
-## [1,] &quot;GT:AD:DP:GQ:PL&quot; &quot;1|0:25,3,0:28:45:45,0,1120,129,1134,1300&quot;
-## [2,] &quot;GT:AD:DP:GQ:PL&quot; &quot;1|0:29,3:32:30:30,0,1335&quot;                
-## [3,] &quot;GT:AD:DP:GQ:PL&quot; &quot;1|0:31,3:34:27:27,0,1372&quot;                
-## [4,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:30,0:30:99:0,102,1530&quot;               
-## [5,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:30,0:30:93:0,93,1395&quot;                
-## [6,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:33,0:33:99:0,99,1485&quot;                
+## [1,] "GT:AD:DP:GQ:PL" "1|0:25,3,0:28:45:45,0,1120,129,1134,1300"
+## [2,] "GT:AD:DP:GQ:PL" "1|0:29,3:32:30:30,0,1335"                
+## [3,] "GT:AD:DP:GQ:PL" "1|0:31,3:34:27:27,0,1372"                
+## [4,] "GT:AD:DP:GQ:PL" "0|0:30,0:30:99:0,102,1530"               
+## [5,] "GT:AD:DP:GQ:PL" "0|0:30,0:30:93:0,93,1395"                
+## [6,] "GT:AD:DP:GQ:PL" "0|0:33,0:33:99:0,99,1485"                
 ##      DDR7602                                  
-## [1,] &quot;1|0:19,7,0:26:99:237,0,777,300,804,1181&quot;
-## [2,] &quot;1|0:20,7:27:99:234,0,819&quot;               
-## [3,] &quot;1|0:19,6:25:99:189,0,864&quot;               
-## [4,] &quot;0|0:26,0:26:87:0,87,1305&quot;               
-## [5,] &quot;1|0:21,4:25:99:147,0,867&quot;               
-## [6,] &quot;1|0:20,2:22:18:18,0,918&quot;                
+## [1,] "1|0:19,7,0:26:99:237,0,777,300,804,1181"
+## [2,] "1|0:20,7:27:99:234,0,819"               
+## [3,] "1|0:19,6:25:99:189,0,864"               
+## [4,] "0|0:26,0:26:87:0,87,1305"               
+## [5,] "1|0:21,4:25:99:147,0,867"               
+## [6,] "1|0:20,2:22:18:18,0,918"                
 ##      IN2009T1_us22                              
-## [1,] &quot;0|1:29,6,0:35:99:162,0,1229,252,1252,1512&quot;
-## [2,] &quot;0|1:27,7:34:99:204,0,1232&quot;                
-## [3,] &quot;0|1:27,6:33:99:210,0,1155&quot;                
-## [4,] &quot;0|0:33,0:33:99:0,99,1485&quot;                 
-## [5,] &quot;0|1:27,6:33:99:171,0,1116&quot;                
-## [6,] &quot;0|1:27,7:34:99:213,0,1113&quot;                
+## [1,] "0|1:29,6,0:35:99:162,0,1229,252,1252,1512"
+## [2,] "0|1:27,7:34:99:204,0,1232"                
+## [3,] "0|1:27,6:33:99:210,0,1155"                
+## [4,] "0|0:33,0:33:99:0,99,1485"                 
+## [5,] "0|1:27,6:33:99:171,0,1116"                
+## [6,] "0|1:27,7:34:99:213,0,1113"                
 ##      LBUS5                                    
-## [1,] &quot;0|1:19,7,0:26:99:237,0,777,300,804,1181&quot;
-## [2,] &quot;0|1:20,7:27:99:234,0,819&quot;               
-## [3,] &quot;0|1:19,6:25:99:189,0,864&quot;               
-## [4,] &quot;0|0:26,0:26:87:0,87,1305&quot;               
-## [5,] &quot;0|1:21,4:25:99:147,0,867&quot;               
-## [6,] &quot;0|1:20,2:22:18:18,0,918&quot;                
+## [1,] "0|1:19,7,0:26:99:237,0,777,300,804,1181"
+## [2,] "0|1:20,7:27:99:234,0,819"               
+## [3,] "0|1:19,6:25:99:189,0,864"               
+## [4,] "0|0:26,0:26:87:0,87,1305"               
+## [5,] "0|1:21,4:25:99:147,0,867"               
+## [6,] "0|1:20,2:22:18:18,0,918"                
 ##      NL07434                                     
-## [1,] &quot;0|1:45,19,0:64:99:643,0,1782,793,1866,2825&quot;
-## [2,] &quot;0|1:42,18:60:99:655,0,1748&quot;                
-## [3,] &quot;0|1:41,16:57:99:584,0,1737&quot;                
-## [4,] &quot;0|0:56,0:56:99:0,172,2565&quot;                 
-## [5,] &quot;0|1:39,16:55:99:629,0,1709&quot;                
-## [6,] &quot;0|1:34,12:46:99:393,0,1518&quot;                
-## [1] &quot;First 6 columns only.&quot;
+## [1,] "0|1:45,19,0:64:99:643,0,1782,793,1866,2825"
+## [2,] "0|1:42,18:60:99:655,0,1748"                
+## [3,] "0|1:41,16:57:99:584,0,1737"                
+## [4,] "0|0:56,0:56:99:0,172,2565"                 
+## [5,] "0|1:39,16:55:99:629,0,1709"                
+## [6,] "0|1:34,12:46:99:393,0,1518"                
+## [1] "First 6 columns only."
 ## [1] 
-## [1] &quot;Unique GT formats:&quot;
-## [1] &quot;GT:AD:DP:GQ:PL&quot;
-## [1]</code></pre>
+## [1] "Unique GT formats:"
+## [1] "GT:AD:DP:GQ:PL"
+## [1]
+</code></pre>
 <p>After we have made any manipulations of the file we can save it as a VCF file with the function <code>write.vcf()</code>.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">write.vcf</span>(vcf, <span class="st">&quot;myVCFdata_filtered.vcf.gz&quot;</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.vcf</span>(vcf, <span class="st">&quot;myVCFdata_filtered.vcf.gz&quot;</span>)</code></pre></div>
 <p><code>write.vcf()</code>will write a file to your active directory. We now have a summary of our VCF file which we can use to help understand what forms of information are contained within it. This information can be further explored with plotting functions and used to filter the VCF file for high quality variants as we will see in the next section.</p>
+</div>
+<div id="exercises" class="section level2">
+<h2>Exercises</h2>
+<p><strong>1)</strong> How would we find more information about <code>read.vcfR()</code>?</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-12">
+Show solution
+</button>
+<div id="hide_buttonunnamed-chunk-12" class="collapse">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?read.vcfR</code></pre></div>
+</div>
+<p><br /></p>
+<p><strong>2)</strong> How would we learn what the acronym “AD” stands for?</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-13">
+Show solution
+</button>
+<div id="hide_buttonunnamed-chunk-13" class="collapse">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">queryMETA</span>(vcf, <span class="dt">element =</span> <span class="st">&#39;AD&#39;</span>)</code></pre></div>
+<pre class="r-output"><code>## [[1]]
+## [1] "FORMAT=ID=AD"                                                              
+## [2] "Number=."                                                                  
+## [3] "Type=Integer"                                                              
+## [4] "Description=Allelic depths for the ref and alt alleles in the order listed"
+</code></pre>
+</div>
+<p><br /></p>
+<p><strong>3)</strong> We used the <code>head()</code> function to view the first few lines of <code>fix</code> data. How would we view the last few lines of <code>fix</code> data?</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-14">
+Show solution
+</button>
+<div id="hide_buttonunnamed-chunk-14" class="collapse">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(vcf<span class="op">@</span>fix)</code></pre></div>
+<pre class="r-output"><code>##         CHROM              POS       ID REF  ALT QUAL     FILTER
+## [2185,] "Supercontig_1.50" "1041878" NA "T"  "C" "219.68" NA    
+## [2186,] "Supercontig_1.50" "1041989" NA "G"  "A" "803.29" NA    
+## [2187,] "Supercontig_1.50" "1041997" NA "GA" "G" "472.52" NA    
+## [2188,] "Supercontig_1.50" "1042000" NA "A"  "T" "481.57" NA    
+## [2189,] "Supercontig_1.50" "1042001" NA "T"  "C" "93.70"  NA    
+## [2190,] "Supercontig_1.50" "1042002" NA "C"  "T" "487.57" NA    
+##         INFO                                                                                                                                                                                                
+## [2185,] "AC=1;AF=0.028;AN=36;BaseQRankSum=-0.961;ClippingRankSum=-0.868;DP=502;FS=0.000;InbreedingCoeff=-0.0289;MLEAC=1;MLEAF=0.028;MQ=59.12;MQ0=0;MQRankSum=-3.092;QD=11.56;ReadPosRankSum=0.765;SOR=0.665"
+## [2186,] "AC=2;AF=0.056;AN=36;BaseQRankSum=-4.021;ClippingRankSum=-1.419;DP=482;FS=0.000;InbreedingCoeff=0.9586;MLEAC=2;MLEAF=0.056;MQ=54.82;MQ0=0;MQRankSum=-0.944;QD=27.70;ReadPosRankSum=-2.468;SOR=0.823"
+## [2187,] "AC=5;AF=0.139;AN=36;BaseQRankSum=1.722;ClippingRankSum=1.829;DP=490;FS=5.543;InbreedingCoeff=-0.1625;MLEAC=5;MLEAF=0.139;MQ=54.37;MQ0=0;MQRankSum=0.295;QD=6.14;ReadPosRankSum=-0.116;SOR=1.724"   
+## [2188,] "AC=5;AF=0.139;AN=36;BaseQRankSum=1.506;ClippingRankSum=-0.134;DP=475;FS=5.618;InbreedingCoeff=-0.1625;MLEAC=5;MLEAF=0.139;MQ=54.23;MQ0=0;MQRankSum=-0.193;QD=6.78;ReadPosRankSum=0.529;SOR=1.719"  
+## [2189,] "AC=1;AF=0.028;AN=36;BaseQRankSum=-1.590;ClippingRankSum=-0.469;DP=477;FS=3.099;InbreedingCoeff=-0.0304;MLEAC=1;MLEAF=0.028;MQ=54.21;MQ0=0;MQRankSum=1.586;QD=4.46;ReadPosRankSum=-3.047;SOR=1.591" 
+## [2190,] "AC=5;AF=0.139;AN=36;BaseQRankSum=1.731;ClippingRankSum=-0.674;DP=477;FS=5.655;InbreedingCoeff=-0.1625;MLEAC=5;MLEAF=0.139;MQ=54.21;MQ0=0;MQRankSum=0.245;QD=6.87;ReadPosRankSum=0.985;SOR=1.716"
+</code></pre>
+</div>
+<p><br /></p>
+<p><strong>4)</strong> There is a column in the <code>fix</code> portion of the data called <code>QUAL</code>. It is not defined in the <code>meta</code> portion of the data because it is defined in the <a href="http://samtools.github.io/hts-specs/">VCF specification</a>. It stands for ‘quality’.</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-15">
+Show solution
+</button>
+<div id="hide_buttonunnamed-chunk-15" class="collapse">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(vcf)</code></pre></div>
+<p><img src="reading_vcf_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Alternate ggplot2 answer.</span>
+<span class="kw">library</span>(ggplot2)
+<span class="kw">qplot</span>(<span class="kw">getQUAL</span>(vcf), <span class="dt">geom =</span> <span class="st">&quot;histogram&quot;</span>)</code></pre></div>
+<img src="reading_vcf_files/figure-html/unnamed-chunk-15-2.png" width="672" />
+</div>
+<p><br /></p>
+<p>Does <code>QUAL</code> appear useful to us? Why or why not?</p>
+<p><strong>5)</strong> How would we query the sample names?</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-16">
+Show solution
+</button>
+<div id="hide_buttonunnamed-chunk-16" class="collapse">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(vcf<span class="op">@</span>gt)</code></pre></div>
+<pre class="r-output"><code>##  [1] "FORMAT"        "BL2009P4_us23" "DDR7602"       "IN2009T1_us22"
+##  [5] "LBUS5"         "NL07434"       "P10127"        "P10650"       
+##  [9] "P11633"        "P12204"        "P13527"        "P1362"        
+## [13] "P13626"        "P17777us22"    "P6096"         "P7722"        
+## [17] "RS2009P1_us8"  "blue13"        "t30-4"
+</code></pre>
+</div>
+<p><br /></p>
+<p>Note that the first column is <code>FORMAT</code>. This tells us the format for data for each variant. According to the VCF specification this can be different for each variant.</p>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>

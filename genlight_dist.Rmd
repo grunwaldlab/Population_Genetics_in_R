@@ -12,13 +12,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Let's create a pairwise genetic distance matrix for individuals or populations (i.e., groups of individuals).
 
-> **Note**: There isn't actually a function that creates distance matrices from genlight objects in adegenet.
-Instead, the authors of adegenet created an `as.matrix()` function that converts a genlight object to a matrix. This is clever because the function `dist()` in the package `stats` tries to convert whatever object it is given into a matrix.
-The result is that when you call `dist()` on a genlight object it uses the `dist()` function to create a distance matrix.
-The reason this is clever is because it uses pre-existing code.
-The downside is that because there is no function to specifically create distance matrices from genlight objects in adegenet, there is no documentation in genlight for how this is done.
-And because the author of `dist()` never anticipated it could be used on genlight objects, there is no documentation for it there either.
-
 To summarize, we can create a distance matrix from a genlight object using `dist()`:
 
 ```{r dist, eval=FALSE}

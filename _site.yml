@@ -69,6 +69,8 @@ navbar:
           href: "Data_sets.html"
         - text: "Function glossary"
           href: "funpendix.html"
+        - text: "Background_functions"
+          href: "background_functions.html"
         - text: "Source Code"
           href: https://github.com/grunwaldlab/Population_Genetics_in_R/
 output:
