@@ -379,6 +379,7 @@ $(document).ready(function () {
 <li><a href="#population-genetic-analyses-for-gbs-data">Population genetic analyses for GBS data</a></li>
 <li><a href="#subsetting-a-vcfr-object-to-200-random-variants">Subsetting a vcfR object to 200 random variants</a></li>
 <li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#exercises">Exercises</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </div>
@@ -408,18 +409,20 @@ $(document).ready(function () {
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rubi.VCF &lt;-<span class="st"> </span><span class="kw">read.vcfR</span>(<span class="st">&quot;prubi_gbs.vcf.gz&quot;</span>)</code></pre></div>
 <p>Once we’ve loaded the data into R, we can validate it by entering our object’s name in the console:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rubi.VCF</code></pre></div>
-<pre><code>## ***** Object of Class vcfR *****
+<pre class="r-output"><code>## ***** Object of Class vcfR *****
 ## 94 samples
 ## 321 CHROMs
 ## 615 variants
 ## Object size: 2.9 Mb
 ## 4.589 percent missing data
-## *****        *****         *****</code></pre>
+## *****        *****         *****
+</code></pre>
 <p>VCF data does not typically include any sort of population information. We have to load this data separately from the text-delimited file we downloaded above that includes the ID of samples and the state where the samples were obtained from. Let’s load the <code>population_data.gbs.txt</code> file into memory by using the <code>read.table()</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop.data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;population_data.gbs.txt&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p>We can now check that all the samples in the VCF and the population data frame are included:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all</span>(<span class="kw">colnames</span>(rubi.VCF<span class="op">@</span>gt)[<span class="op">-</span><span class="dv">1</span>] <span class="op">==</span><span class="st"> </span>pop.data<span class="op">$</span>AccessID)</code></pre></div>
-<pre><code>## [1] TRUE</code></pre>
+<pre class="r-output"><code>## [1] TRUE
+</code></pre>
 <p>Remember, the first column for the <em>vcfR</em> object’s GT slot is a <code>FORMAT</code> column, hence we removed it from the name comparison step (i.e., by removing the first element in the column names vector, the <code>FORMAT</code> column name). If we keep the <code>FORMAT</code> column name we will not be able to compare between the names of the samples in the <em>vcfR</em> object. All of the 94 samples in the population data frame loaded in the <em>vcfR</em> object are in the same order.</p>
 </div>
 <div id="converting-the-dataset-to-a-genlight-object" class="section level2">
@@ -436,7 +439,7 @@ $(document).ready(function () {
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pop</span>(gl.rubi) &lt;-<span class="st"> </span>pop.data<span class="op">$</span>State</code></pre></div>
 <p>We now end up with a <code>genlight</code> object of filtered VCF data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gl.rubi</code></pre></div>
-<pre><code>##  /// GENLIGHT OBJECT /////////
+<pre class="r-output"><code>##  /// GENLIGHT OBJECT /////////
 ## 
 ##  // 94 genotypes,  608 binary SNPs, size: 241.9 Kb
 ##  2607 (4.56 %) missing data
@@ -451,7 +454,8 @@ $(document).ready(function () {
 ##    @chromosome: factor storing chromosomes of the SNPs
 ##    @position: integer storing positions of the SNPs
 ##    @pop: population of each individual (group size range: 23-39)
-##    @other: a list containing: elements without names</code></pre>
+##    @other: a list containing: elements without names
+</code></pre>
 <p>Next, let’s get started with our first analyses.</p>
 </div>
 <div id="population-genetic-analyses-for-gbs-data" class="section level2">
@@ -459,9 +463,6 @@ $(document).ready(function () {
 <div id="distance-matrices" class="section level3">
 <h3>Distance matrices</h3>
 <p>Let’s create a pairwise genetic distance matrix for individuals or populations (i.e., groups of individuals).</p>
-<blockquote>
-<p><strong>Note</strong>: There isn’t actually a function that creates distance matrices from genlight objects in adegenet. Instead, the authors of adegenet created an <code>as.matrix()</code> function that converts a genlight object to a matrix. This is clever because the function <code>dist()</code> in the package <code>stats</code> tries to convert whatever object it is given into a matrix. The result is that when you call <code>dist()</code> on a genlight object it uses the <code>dist()</code> function to create a distance matrix. The reason this is clever is because it uses pre-existing code. The downside is that because there is no function to specifically create distance matrices from genlight objects in adegenet, there is no documentation in genlight for how this is done. And because the author of <code>dist()</code> never anticipated it could be used on genlight objects, there is no documentation for it there either.</p>
-</blockquote>
 <p>To summarize, we can create a distance matrix from a genlight object using <code>dist()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x.dist &lt;-<span class="st"> </span><span class="kw">dist</span>(x)</code></pre></div>
 <p>Note, that we have not specified what the variable x is. We can find documentation for this function with <code>?dist</code>.</p>
@@ -513,7 +514,7 @@ node.size &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class=
 <p>A principal components analysis (PCA) converts the observed SNP data into a set of values of linearly uncorrelated variables called <code>principal components</code> that summarize the variation between samples. We can perform a PCA on our genlight object by using the <code>glPCA</code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rubi.pca &lt;-<span class="st"> </span><span class="kw">glPca</span>(gl.rubi, <span class="dt">nf =</span> <span class="dv">3</span>)
 <span class="kw">barplot</span>(<span class="dv">100</span><span class="op">*</span>rubi.pca<span class="op">$</span>eig<span class="op">/</span><span class="kw">sum</span>(rubi.pca<span class="op">$</span>eig), <span class="dt">col =</span> <span class="kw">heat.colors</span>(<span class="dv">50</span>), <span class="dt">main=</span><span class="st">&quot;PCA Eigenvalues&quot;</span>)
-<span class="kw">title</span>(<span class="dt">ylab=</span><span class="st">&quot;Proportion of variance</span><span class="ch">\n</span><span class="st">explained&quot;</span>, <span class="dt">line =</span> <span class="dv">2</span>)
+<span class="kw">title</span>(<span class="dt">ylab=</span><span class="st">&quot;Percent of variance</span><span class="ch">\n</span><span class="st">explained&quot;</span>, <span class="dt">line =</span> <span class="dv">2</span>)
 <span class="kw">title</span>(<span class="dt">xlab=</span><span class="st">&quot;Eigenvalues&quot;</span>, <span class="dt">line =</span> <span class="dv">1</span>)</code></pre></div>
 <p><img src="gbs_analysis_files/figure-html/unnamed-chunk-16-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>The barplot indicates that we will need to only retain the first 3 PCAs, which cumulatively explain explain <code>63.183</code> percent of the variance of the data.</p>
@@ -581,52 +582,58 @@ p</code></pre></div>
 <p>In this example we will show how to subset the data to 200 random variants across the genome. We will use the <code>rubi.VCF</code> object we created at the beginning of this tutorial. To subset, we use square brackets to select portions of an object we would like to retain. The square brackets represent the values to be subset from the original data set, for example: if we have a vector with the four first letters of the alphabet (“A”,“B”,“C”,“D”), and we want to subset only the first two occurrences we can do this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">alphabet &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>,<span class="st">&quot;D&quot;</span>)
 alphabet[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)]</code></pre></div>
-<pre><code>## [1] &quot;A&quot; &quot;B&quot;</code></pre>
+<pre class="r-output"><code>## [1] "A" "B"
+</code></pre>
 <p>We see that when we use the <code>alphabet[c(1,2)]</code> we are calling the first two occurrences of the vector of interest. We can do something very similar with the <code>vcfR</code> objects from the <code>vcfR</code> package. Lets say we are interested only in the first 10 variants of our <code>rubi.VCF</code>, we can do something similar:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rubi.VCF</code></pre></div>
-<pre><code>## ***** Object of Class vcfR *****
+<pre class="r-output"><code>## ***** Object of Class vcfR *****
 ## 94 samples
 ## 321 CHROMs
 ## 615 variants
 ## Object size: 2.9 Mb
 ## 4.589 percent missing data
-## *****        *****         *****</code></pre>
+## *****        *****         *****
+</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rubi.VCF[<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>),]</code></pre></div>
-<pre><code>## ***** Object of Class vcfR *****
+<pre class="r-output"><code>## ***** Object of Class vcfR *****
 ## 94 samples
 ## 4 CHROMs
 ## 10 variants
 ## Object size: 0.9 Mb
 ## 3.83 percent missing data
-## *****        *****         *****</code></pre>
+## *****        *****         *****
+</code></pre>
 <p>We can see that the second object only has 10 variants. If we look at the summary in detail, we observe that the original sample has 312 chromosomes/scaffolds, 615 variants and a size of 2.9 Mb. The subset object, on the other hand, only has 4 chromosomes/scaffolds, 10 variants and a size of 0.9 Mb. Both objects have the same number of samples. This is a good example of how to subset a <code>vcfR</code> object. However, we want to obtain a subset of 200 <strong>random</strong> variants. If we do <code>rubi.VCF[c(1:200)]</code> we will only obtain the first 200 variants. These 200 variants will always be the same, and we will have no real replication to determine the strength of our approach.</p>
 <p>One way to solve this problem is to generate a random string of 200 numbers that range from 1 to the total number of variants of the object. The R statistical environment has the function <code>sample()</code>. The function <code>sample()</code> generates a random vector of elements (i.e. numbers or elements from a vector). We can use <code>sample()</code> to generate the random vector of 200 numbers that range from 1 to the total number of variants of the object. The total number of variants in a <code>vcfR</code> object is equivalent to the number of rows in the vcfR object. We will use the <code>nrow()</code> method for our <code>vcfR</code> object to obtain the maximum range of values to subset our data set:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">subset.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dt">size =</span> <span class="dv">200</span>, <span class="dt">x=</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(rubi.VCF)))
 subset.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dt">size =</span> <span class="dv">200</span>, <span class="dt">x=</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(rubi.VCF)))</code></pre></div>
 <p>We have to check that the subsets are not identical. We can confirm this by using the function <code>identical()</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">identical</span>(subset.<span class="dv">1</span>, subset.<span class="dv">2</span>)</code></pre></div>
-<pre><code>## [1] FALSE</code></pre>
+<pre class="r-output"><code>## [1] FALSE
+</code></pre>
 <p>We can see that the vectors have different numbers. The results from <code>identical()</code> do not mean that every number in the vector is different. It just means that some of the values in the vectors are different, but each vector can also share some numbers with the other vector.</p>
 <p>Now we know how to generate a vector of 200 random numbers from 1 to the length of the <code>vcfR</code> object. We will use these vectors to subset the <code>rubi.VCF</code> object. To subset the <code>vcfR</code> object we execute code very similar to the one shown in the subset example. The main difference is that now we can use the <code>subset.1</code> and <code>subset.2</code> objects as the subset indices:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rubi.VCF.sub1 &lt;-<span class="st"> </span>rubi.VCF[subset.<span class="dv">1</span>,]
 rubi.VCF.sub2 &lt;-<span class="st"> </span>rubi.VCF[subset.<span class="dv">2</span>,]
 
 rubi.VCF.sub1</code></pre></div>
-<pre><code>## ***** Object of Class vcfR *****
+<pre class="r-output"><code>## ***** Object of Class vcfR *****
 ## 94 samples
 ## 146 CHROMs
 ## 200 variants
 ## Object size: 1.7 Mb
 ## 4.463 percent missing data
-## *****        *****         *****</code></pre>
+## *****        *****         *****
+</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rubi.VCF.sub2</code></pre></div>
-<pre><code>## ***** Object of Class vcfR *****
+<pre class="r-output"><code>## ***** Object of Class vcfR *****
 ## 94 samples
 ## 150 CHROMs
 ## 200 variants
 ## Object size: 1.7 Mb
 ## 4.473 percent missing data
-## *****        *****         *****</code></pre>
+## *****        *****         *****
+</code></pre>
 <p>When the two <code>rubi.VCF.sub</code> objects are compared we can see that the number of variants (200) and the number of samples (94) are identical. This indicates that the subset was performed correctly. Observe that the chromosome number and percentage of missing data are different. These different numbers show that each subset has selected different variants.</p>
 <p>Now we can generate subsets of random variants. We will extend the subset example by creating 50 subsets of 200 variants each, then we will then reconstruct a UPGMA distance tree per subset and overlay all of the reconstructed trees. This tree overlay will allow us to determine if the subsets support our hypothesis of low population differentiation, or if we have unique tree clusters for different subsets. You, the user, don’t have to execute this example, as it is for illustrative purposes only.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Creating a list object to save our subsets in.</span>
@@ -639,9 +646,10 @@ rubi.variant.subset &lt;-<span class="st"> </span><span class="kw">list</span>()
 
 <span class="co"># Checking we have 50 vcfR objects:</span>
 <span class="kw">length</span>(rubi.variant.subset)</code></pre></div>
-<pre><code>## [1] 50</code></pre>
+<pre class="r-output"><code>## [1] 50
+</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(rubi.variant.subset, <span class="dt">n=</span><span class="dv">2</span>)</code></pre></div>
-<pre><code>## [[1]]
+<pre class="r-output"><code>## [[1]]
 ## ***** Object of Class vcfR *****
 ## 94 samples
 ## 143 CHROMs
@@ -657,7 +665,8 @@ rubi.variant.subset &lt;-<span class="st"> </span><span class="kw">list</span>()
 ## 200 variants
 ## Object size: 1.7 Mb
 ## 4.505 percent missing data
-## *****        *****         *****</code></pre>
+## *****        *****         *****
+</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Creating the GenLight object</span>
 rubi.gl.subset &lt;-<span class="st"> </span><span class="kw">lapply</span>(rubi.variant.subset, <span class="cf">function</span> (x) <span class="kw">suppressWarnings</span>(<span class="kw">vcfR2genlight</span>(x)))
 <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(rubi.gl.subset)){
@@ -684,6 +693,88 @@ rubi.trees &lt;-<span class="st"> </span><span class="kw">lapply</span>(rubi.gl.
 <div id="conclusion" class="section level2">
 <h2>Conclusion</h2>
 <p>We were able to determine that the western states of <em>P. rubi</em> do not have population structure based on geographical locations. The results showed that the CA population was less diverse and had a lower degree of admixture than either the WA or OR populations. We can conclude that the geographical locations do not reflect the population structure of samples of <em>P. rubi</em> in the western USA, where the results suggested that different states shared genotypes across the entire geographic gradient resulting in one, panmictic and admixed population of <em>P. rubi</em>.</p>
+</div>
+<div id="exercises" class="section level2">
+<h2>Exercises</h2>
+<p><strong>1)</strong> We frequently subset our data for various reasons. How could we go about subsetting our <code>vcfR</code> object to the isolates from California and Oregon.</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-32">
+Show solution
+</button>
+<div id="hide_buttonunnamed-chunk-32" class="collapse">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Validate the order</span>
+<span class="kw">all</span>(<span class="kw">colnames</span>(rubi.VCF<span class="op">@</span>gt)[<span class="op">-</span><span class="dv">1</span>] <span class="op">==</span><span class="st"> </span>pop.data<span class="op">$</span>AccessID)</code></pre></div>
+<pre class="r-output"><code>## [1] TRUE
+</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rubi.VCF &lt;-<span class="st"> </span>rubi.VCF[,<span class="kw">c</span>(<span class="ot">TRUE</span>, pop.data<span class="op">$</span>State <span class="op">!=</span><span class="st"> &quot;WA&quot;</span>)]
+rubi.VCF</code></pre></div>
+<pre class="r-output"><code>## ***** Object of Class vcfR *****
+## 55 samples
+## 321 CHROMs
+## 615 variants
+## Object size: 2.3 Mb
+## 3.246 percent missing data
+## *****        *****         *****
+</code></pre>
+</div>
+<p><br /></p>
+<p><strong>2)</strong> Can you also subset the genind object?</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-33">
+Show solution
+</button>
+<div id="hide_buttonunnamed-chunk-33" class="collapse">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ca_or_gl &lt;-<span class="st"> </span>gl.rubi[<span class="kw">pop</span>(gl.rubi) <span class="op">!=</span><span class="st"> &quot;WA&quot;</span>,]
+ca_or_gl</code></pre></div>
+<pre class="r-output"><code>##  /// GENLIGHT OBJECT /////////
+## 
+##  // 55 genotypes,  608 binary SNPs, size: 171.1 Kb
+##  1081 (3.23 %) missing data
+## 
+##  // Basic content
+##    @gen: list of 55 SNPbin
+##    @ploidy: ploidy of each individual  (range: 2-2)
+## 
+##  // Optional content
+##    @ind.names:  55 individual labels
+##    @loc.names:  608 locus labels
+##    @chromosome: factor storing chromosomes of the SNPs
+##    @position: integer storing positions of the SNPs
+##    @pop: population of each individual (group size range: 23-32)
+##    @other: a list containing: elements without names
+</code></pre>
+</div>
+<p><br /></p>
+<p><strong>3)</strong> Can you perform PCA on these two populations?</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-34">
+Show solution
+</button>
+<div id="hide_buttonunnamed-chunk-34" class="collapse">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pca &lt;-<span class="st"> </span><span class="kw">glPca</span>(ca_or_gl, <span class="dt">nf =</span> <span class="dv">4</span>)</code></pre></div>
+</div>
+<p><br /></p>
+<p><strong>4)</strong> Can you plot the PCA?</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-35">
+Show solution
+</button>
+<div id="hide_buttonunnamed-chunk-35" class="collapse">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_scores &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(my_pca<span class="op">$</span>scores)
+my_scores<span class="op">$</span>pop &lt;-<span class="st"> </span><span class="kw">pop</span>(ca_or_gl)
+
+<span class="kw">library</span>(ggplot2)
+<span class="kw">set.seed</span>(<span class="dv">9</span>)
+p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(my_scores, <span class="kw">aes</span>(<span class="dt">x=</span>PC1, <span class="dt">y=</span>PC2, <span class="dt">colour=</span>pop)) 
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">2</span>)
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">stat_ellipse</span>(<span class="dt">level =</span> <span class="fl">0.95</span>, <span class="dt">size =</span> <span class="dv">1</span>)
+<span class="co">#</span>
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> cols) 
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) 
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>) 
+p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()
+
+p</code></pre></div>
+<img src="gbs_analysis_files/figure-html/unnamed-chunk-35-1.png" width="576" style="display: block; margin: auto;" />
+</div>
+<p><br /></p>
+<p>How important is the Washington isolates in our understanding of West coast <em>Phytophthora rubi</em> populations?</p>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2>References</h2>

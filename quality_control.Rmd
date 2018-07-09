@@ -265,10 +265,10 @@ p <- p + theme_bw()
 p <- p + theme(axis.title.x = element_blank(),
                axis.text.x = element_text(angle = 60,
                                           hjust = 1, size = 12))
-p <- p + theme( panel.grid.major.y = element_line(color = "#A9A9A9",
-                                                  size = 0.6) )
-p <- p + theme( panel.grid.minor.y = element_line(color = "#C0C0C0",
-                                                  size = 0.2) )
+p <- p + theme(panel.grid.major.y = element_line(color = "#A9A9A9",
+                                                 size = 0.6))
+p <- p + theme(panel.grid.minor.y = element_line(color = "#C0C0C0",
+                                                 size = 0.2))
 p <- p + ylab("Genotype quality (GQ)")
 p
 ```
