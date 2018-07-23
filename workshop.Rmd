@@ -75,7 +75,7 @@ Change directory to `APS_Workshop` and copy and paste the below command into the
 
 ```{r, eval=FALSE}
 if(require(devtools)){
-  source_gist("01a3d8efb21e0a4dbac0735270d147af", filename="apstest.R")       
+  devtools::source_gist("01a3d8efb21e0a4dbac0735270d147af", filename="apstest.R")       
 } else {
   print("Please install the package devtools.")
   print("Use: install.packages('devtools')")

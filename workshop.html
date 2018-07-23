@@ -416,7 +416,7 @@ When you click on the below links our GitHub site should open in your web browse
 You should now be able to validate that the resources you need are ready. Change directory to <code>APS_Workshop</code> and copy and paste the below command into the R console.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>(<span class="kw">require</span>(devtools)){
-  <span class="kw">source_gist</span>(<span class="st">&quot;01a3d8efb21e0a4dbac0735270d147af&quot;</span>, <span class="dt">filename=</span><span class="st">&quot;apstest.R&quot;</span>)       
+  devtools<span class="op">::</span><span class="kw">source_gist</span>(<span class="st">&quot;01a3d8efb21e0a4dbac0735270d147af&quot;</span>, <span class="dt">filename=</span><span class="st">&quot;apstest.R&quot;</span>)       
 } <span class="cf">else</span> {
   <span class="kw">print</span>(<span class="st">&quot;Please install the package devtools.&quot;</span>)
   <span class="kw">print</span>(<span class="st">&quot;Use: install.packages(&#39;devtools&#39;)&quot;</span>)

@@ -386,7 +386,7 @@ dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span c
 ## 18 samples
 ## 1 CHROMs
 ## 22,031 variants
-## Object size: 20.9 Mb
+## Object size: 22.4 Mb
 ## 7.929 percent missing data
 ## *****        *****         *****</code></pre>
 <p>Because part of this exercise involves setting cells in our data matrix as NA we should begin by reminding ourselves of how abundant they are. By using the show method we see that we have 7.93 percent missing data. We can now use what we learned previously to set variants that are outside our per sample inclusion threshold as NA.</p>
@@ -402,7 +402,7 @@ vcf<span class="op">@</span>gt[,<span class="op">-</span><span class="dv">1</spa
 ## 18 samples
 ## 1 CHROMs
 ## 22,031 variants
-## Object size: 19.2 Mb
+## Object size: 20.5 Mb
 ## 27.7 percent missing data
 ## *****        *****         *****</code></pre>
 <p>We see that this censoring has increased the degree of missingness in our matrix to 27.7 percent. Ideally we should visualize the results of this action. For brevity, we will not here. But you can return to the section on depth and reuse the code presented there to visualize how this change has affected the distribution of the data. One way to visualize these data is to use a heatmap.</p>
@@ -421,7 +421,7 @@ vcf</code></pre></div>
 ## 18 samples
 ## 1 CHROMs
 ## 22,031 variants
-## Object size: 19.2 Mb
+## Object size: 20.5 Mb
 ## 27.7 percent missing data
 ## *****        *****         *****</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)
@@ -440,7 +440,7 @@ vcf</code></pre></div>
 ## 18 samples
 ## 1 CHROMs
 ## 2,190 variants
-## Object size: 2.7 Mb
+## Object size: 2.9 Mb
 ## 0 percent missing data
 ## *****        *****         *****</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)

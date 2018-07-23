@@ -391,7 +391,7 @@ $(document).ready(function () {
 ## 18 samples
 ## 1 CHROMs
 ## 2,533 variants
-## Object size: 2.9 Mb
+## Object size: 3.2 Mb
 ## 8.497 percent missing data
 ## *****        *****         *****</code></pre>
 <p>The show method for an object typically reports a summary of what is contained in the object. Here we see the number of samples and variants in our data. We also see a report of what the percentage of missing data is in our object. In the context of vcfR this is the proportion of variants scored as NA. Note that if a variant includes some data associated with a missing genotype it will not be recognized as missing. For example, a missing genotype could be associated with a depth information as follows.</p>
@@ -529,7 +529,7 @@ myPlots &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class
 ## 18 samples
 ## 1 CHROMs
 ## 2,533 variants
-## Object size: 2.9 Mb
+## Object size: 3.2 Mb
 ## 8.497 percent missing data
 ## *****        *****         *****</code></pre>
 <p>A number of methods can be used to create intervals that you may consider acceptable. The use of quantiles may be considered desirable because they are non-parametric. We can fit different intervals to different samples using the function <code>apply()</code>.</p>
@@ -554,7 +554,7 @@ dp[dp <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</s
 ## 18 samples
 ## 1 CHROMs
 ## 2,533 variants
-## Object size: 2.5 Mb
+## Object size: 2.7 Mb
 ## 35.83 percent missing data
 ## *****        *****         *****</code></pre>
 <p>We’ve used depth information to censor variants that we feel are of unusual sequence depth. We’ve also used this information to update our vcfR object so that our data can remain in a constant format. This has resulted in a vcfR object with a greater degree of missing data. However, if our choice of which variants to censor has been good then then the remaining variants may be of a higher quality then the entire set we started with. We’ll deal with mitigating missing data in another section. A similar approach can be used if there are parameters other than depth that a researcher would like to filter on. We now have a vcfR object that has variants that we feel are of higher quality than our original file.</p>
@@ -573,7 +573,7 @@ dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span c
 ## 18 samples
 ## 1 CHROMs
 ## 22,031 variants
-## Object size: 20.9 Mb
+## Object size: 22.4 Mb
 ## 7.929 percent missing data
 ## *****        *****         *****</code></pre>
 <p>Because part of this exercise involves setting cells in our data matrix as NA we should begin by reminding ourselves of how abundant they are. By using the show method we see that we have 7.93 percent missing data. We can now use what we learned previously to set variants that are outside our per sample inclusion threshold as NA.</p>
@@ -589,7 +589,7 @@ vcf<span class="op">@</span>gt[,<span class="op">-</span><span class="dv">1</spa
 ## 18 samples
 ## 1 CHROMs
 ## 22,031 variants
-## Object size: 19.2 Mb
+## Object size: 20.5 Mb
 ## 27.7 percent missing data
 ## *****        *****         *****</code></pre>
 <p>We see that this censoring has increased the degree of missingness in our matrix to 27.7 percent. Ideally we should visualize the results of this action. For brevity, we will not here. But you can return to the section on depth and reuse the code presented there to visualize how this change has affected the distribution of the data. One way to visualize these data is to use a heatmap.</p>
@@ -609,7 +609,7 @@ vcf</code></pre></div>
 ## 18 samples
 ## 1 CHROMs
 ## 22,031 variants
-## Object size: 19.2 Mb
+## Object size: 20.5 Mb
 ## 27.7 percent missing data
 ## *****        *****         *****</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)
@@ -628,7 +628,7 @@ vcf</code></pre></div>
 ## 18 samples
 ## 1 CHROMs
 ## 2,190 variants
-## Object size: 2.7 Mb
+## Object size: 2.9 Mb
 ## 0 percent missing data
 ## *****        *****         *****</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)

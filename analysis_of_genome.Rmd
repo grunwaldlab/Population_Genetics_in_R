@@ -16,6 +16,7 @@ library("knitcitations")
 library("knitr")
 cite_options(citation_format = "pandoc", max.names = 3, style = "html", hyperlink = "to.doc")
 bib <- read.bibtex("bibtexlib.bib")
+source("style.R")
 ```
 
 
@@ -96,6 +97,44 @@ If this matches our expectation then we can proceed.
 ## Genetic differentiation
 
 ```{r child = 'genetic_differentiation.Rmd'}
+```
+
+
+## Exercises
+
+
+**1)** You actually have everything you need to make a Manhattan plot.
+Can you figure out how to plot $G'_{ST}$ (y-axis) by genomic position (POS)?
+
+```{r hide_button = TRUE, fig.height=4}
+plot(getPOS(vcf), myDiff$Gprimest,  pch = 20, col = "#1E90FF44", xlab = "", ylab = "", ylim = c(0, 1), xaxt = "n")
+axis(side = 1, at = seq(0, 1e5, by = 1e4), labels = seq(0, 100, by = 10))
+title(xlab='Genomic position (Kbp)')
+title(ylab = expression(italic("G'"["ST"])))
+```
+
+
+**2)** This Manhatttan plot shouldlook a bit unusual.
+Can you think of anything that may be wrong with this analysis?
+
+
+```{r hide_button = TRUE}
+table(pop)
+# Very small sample size!
+```
+
+**3)** Can you figure out how to zoom in on a particular region of a chromosome in `chromoqc()`?
+
+
+```{r hide_button = TRUE}
+chromoqc(chrom, dp.alpha = 66, xlim = c(2e05, 4e05))
+```
+
+
+**4)** Can you use the function `queryMETA()` to look for other data in your file that may be of interest?
+
+```{r hide_button = TRUE}
+queryMETA(vcf)
 ```
 
 

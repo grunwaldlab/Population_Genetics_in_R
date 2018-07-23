@@ -380,7 +380,7 @@ $(document).ready(function () {
 ## 18 samples
 ## 1 CHROMs
 ## 2,533 variants
-## Object size: 2.9 Mb
+## Object size: 3.2 Mb
 ## 8.497 percent missing data
 ## *****        *****         *****</code></pre>
 <p>A number of methods can be used to create intervals that you may consider acceptable. The use of quantiles may be considered desirable because they are non-parametric. We can fit different intervals to different samples using the function <code>apply()</code>.</p>
@@ -405,7 +405,7 @@ dp[dp <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</s
 ## 18 samples
 ## 1 CHROMs
 ## 2,533 variants
-## Object size: 2.5 Mb
+## Object size: 2.7 Mb
 ## 35.83 percent missing data
 ## *****        *****         *****</code></pre>
 <p>We’ve used depth information to censor variants that we feel are of unusual sequence depth. We’ve also used this information to update our vcfR object so that our data can remain in a constant format. This has resulted in a vcfR object with a greater degree of missing data. However, if our choice of which variants to censor has been good then then the remaining variants may be of a higher quality then the entire set we started with. We’ll deal with mitigating missing data in another section. A similar approach can be used if there are parameters other than depth that a researcher would like to filter on. We now have a vcfR object that has variants that we feel are of higher quality than our original file.</p>
