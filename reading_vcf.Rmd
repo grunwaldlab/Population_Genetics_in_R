@@ -236,8 +236,8 @@ queryMETA(vcf, element = 'AD')
 ```
 
 
-**3)** We used the `head()` function to view the first few lines of `fix` data.
-How would we view the last few lines of `fix` data?
+**3)** We used the `head()` function to view the **first** few lines of `fix` data.
+How would we view the **last** few lines of `fix` data?
 
 
 ```{r hide_button = TRUE}
@@ -247,7 +247,7 @@ tail(vcf@fix)
 **4)** There is a column in the `fix` portion of the data called `QUAL`.
 It is not defined in the `meta` portion of the data because it is defined in the [VCF specification](http://samtools.github.io/hts-specs/).
 It stands for 'quality'.
-
+Does `QUAL` appear useful to us? Why or why not?
 
 ```{r hide_button = TRUE}
 plot(vcf)
@@ -255,8 +255,6 @@ plot(vcf)
 library(ggplot2)
 qplot(getQUAL(vcf), geom = "histogram")
 ```
-
-Does `QUAL` appear useful to us? Why or why not?
 
 
 **5)** How would we query the sample names?

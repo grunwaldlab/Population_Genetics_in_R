@@ -1,5 +1,5 @@
 ---
-title: "Population genomics based on high throughut sequencing (HTS)"
+title: "Population genomics based on high throughput sequencing (HTS)"
 subtitle: "*NJ Gr&uuml;nwald, BJ Knaus, and JF Tabima*"
 ---
 

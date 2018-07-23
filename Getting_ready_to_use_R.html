@@ -11,7 +11,7 @@
 
 
 
-<title>Getting_ready_to_use_R.utf8.md</title>
+<title>Getting ready to use R</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,68 +33,41 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  { background-color: #f8f8f8; }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ef2929; } /* Alert */
-code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #c4a000; } /* Attribute */
-code span.bn { color: #0000cf; } /* BaseN */
-code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #000000; } /* Constant */
-code span.co { color: #8f5902; font-style: italic; } /* Comment */
-code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code span.dt { color: #204a87; } /* DataType */
-code span.dv { color: #0000cf; } /* DecVal */
-code span.er { color: #a40000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #000000; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code span.ot { color: #8f5902; } /* Other */
-code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #000000; } /* SpecialChar */
-code span.ss { color: #4e9a06; } /* SpecialString */
-code span.st { color: #4e9a06; } /* String */
-code span.va { color: #000000; } /* Variable */
-code span.vs { color: #4e9a06; } /* VerbatimString */
-code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
 </style>
 <style type="text/css">
   pre:not([class]) {
@@ -455,10 +428,10 @@ in several ways:
 <li><a href="http://cran.r-project.org/web/packages/treemap/index.html">treemap</a></li>
 </ol>
 <p>Use the following script to install these packages:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;poppr&quot;</span>, <span class="st">&quot;mmod&quot;</span>, <span class="st">&quot;magrittr&quot;</span>, <span class="st">&quot;treemap&quot;</span>), <span class="dt">repos =</span> <span class="st">&quot;http://cran.rstudio.com&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;poppr&quot;</span>, <span class="st">&quot;mmod&quot;</span>, <span class="st">&quot;magrittr&quot;</span>, <span class="st">&quot;treemap&quot;</span>), <span class="dt">repos =</span> <span class="st">&quot;http://cran.rstudio.com&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p>We wrote and actively maintain <em>poppr</em> <span class="citation">(Kamvar, Tabima &amp; Grünwald, 2014; Kamvar, Brooks &amp; Grünwald, 2015)</span> and it is heavily relied upon in this primer. <em>Poppr</em> is an R package. You can think of a package as a library of functions written and curated by someone in the R user community, which you can be loaded into R for use.</p>
 <p>Once you’ve installed <em>poppr</em>, you can invoke (i.e., load) it by typing or cutting and pasting:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</code></pre></div>
 <p>This will load <em>poppr</em> and all dependent packages, such as <em>adegenet</em> and <em>ade4</em>. You will recognize loading by the prompts written to your screen.</p>
 <p>Congratulations. You should now be all set for using R. Loading data and conducting your first analysis will be the topic of the next chapter. But before we go there lets provide a few useful resources.</p>
 </div>
@@ -469,12 +442,12 @@ in several ways:
 <p>Note that R is a case sensitive language!</p>
 </blockquote>
 <p>Let’s get comfortable with R by submitting the following command on the command line (where R prompts you with a <code>&gt;</code> in the lower left RStudio window pane) that will retrieve the current working directory on your machine:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">getwd</span>() <span class="co"># this command will print the current working directory</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>() <span class="co"># this command will print the current working directory</span></code></pre></div>
 <blockquote>
 <p>Note that the symbol ‘#’ is used to add comments to your code and you just type <code>getwd()</code> after the “&gt;”.</p>
 </blockquote>
 <p>Our primer is heavily based on the <em>poppr</em> and <em>adegenet</em> packages. To get help on any of their functions type a question mark before the empty function call as in:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">?mlg <span class="co"># open the R documentation of the function mlg()</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?mlg <span class="co"># open the R documentation of the function mlg()</span></code></pre></div>
 <p>To quit R you can either use the <kbd>RStudio &gt; Quit</kbd> pull-down menu command or execute <kbd>⌘ + Q</kbd> (OS X) or <kbd>ctrl + Q</kbd> (PC).</p>
 </div>
 <div id="using-magrittr" class="section level2">
@@ -484,40 +457,40 @@ in several ways:
 <p>Take your data <strong>and then</strong> do step one, <strong>and then</strong> do step two, <strong>and then</strong> do step three.</p>
 </blockquote>
 <p>In R code with <em>magrittr</em>, assuming that each step is a function, it might be written as:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">result &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">step_one</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">step_two</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">step_three</span>()</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">result &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">step_one</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">step_two</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">step_three</span>()</code></pre></div>
 <p>Below, are two examples of how code can be improved with <em>magrittr</em>. <a href="http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html">More details about magrittr can be found in this link.</a></p>
 <div id="consider-a-fake-example" class="section level4">
 <h4>Consider a fake Example:</h4>
 <p>Adapted from <a href="https://twitter.com/_inundata/status/557980236130689024">Hadley Wickham</a>. Based on the children’s song, <a href="http://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo">Little bunny foo foo</a>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">foo_foo &lt;-<span class="st"> </span><span class="kw">little_bunny</span>()</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw">bop_on</span>(<span class="kw">scoop_up</span>(<span class="kw">hop_through</span>(foo_foo, forest), field_mouse), head)</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co"># VS</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">foo_foo <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="st">  </span><span class="kw">hop_through</span>(forest) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="st">  </span><span class="kw">scoop_up</span>(field_mouse) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="st">  </span><span class="kw">bop_on</span>(head)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">foo_foo &lt;-<span class="st"> </span><span class="kw">little_bunny</span>()
+
+<span class="kw">bop_on</span>(<span class="kw">scoop_up</span>(<span class="kw">hop_through</span>(foo_foo, forest), field_mouse), head)
+
+<span class="co"># VS</span>
+
+foo_foo <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">hop_through</span>(forest) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">scoop_up</span>(field_mouse) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bop_on</span>(head)</code></pre></div>
 </div>
 <div id="now-for-a-real-example" class="section level4">
 <h4>Now for a real Example:</h4>
 <p>We will use the <em>Phytophthora infestans</em> microsatellite data from North and South America <span class="citation">(Goss et al., 2014)</span>. Let’s calculate allelic diversity per population after clone-correction. This information can be found in our chapters on <a href="Population_Strata.html">Population strata and clone correction</a> and <a href="Locus_Stats.html">Locus based statistics</a>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw">data</span>(Pinf)</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co"># Compare the traditional R script</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7">allelic_diversity &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">seppop</span>(<span class="kw">clonecorrect</span>(Pinf, <span class="dt">strata =</span> <span class="op">~</span>Continent<span class="op">/</span>Country)),</a>
-<a class="sourceLine" id="cb7-8" data-line-number="8">                            <span class="dt">FUN =</span> locus_table, <span class="dt">info =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co"># versus the magrittr piping:</span></a>
-<a class="sourceLine" id="cb7-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12">allelic_diversity &lt;-<span class="st"> </span>Pinf <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="st">  </span><span class="kw">clonecorrect</span>(<span class="dt">strata=</span> <span class="op">~</span>Continent<span class="op">/</span>Country) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># clone censor by continent and country.</span></a>
-<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="st">  </span><span class="kw">seppop</span>() <span class="op">%&gt;%</span><span class="st">                                </span><span class="co"># Separate populations (by continent)</span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="st">  </span><span class="kw">lapply</span>(<span class="dt">FUN =</span> locus_table, <span class="dt">info =</span> <span class="ot">FALSE</span>)     <span class="co"># Apply the function locus_table to both populations</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)
+<span class="kw">data</span>(Pinf)
+
+<span class="co"># Compare the traditional R script</span>
+
+allelic_diversity &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">seppop</span>(<span class="kw">clonecorrect</span>(Pinf, <span class="dt">strata =</span> <span class="op">~</span>Continent<span class="op">/</span>Country)),
+                            <span class="dt">FUN =</span> locus_table, <span class="dt">info =</span> <span class="ot">FALSE</span>)
+
+<span class="co"># versus the magrittr piping:</span>
+
+allelic_diversity &lt;-<span class="st"> </span>Pinf <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">clonecorrect</span>(<span class="dt">strata=</span> <span class="op">~</span>Continent<span class="op">/</span>Country) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># clone censor by continent and country.</span>
+<span class="st">  </span><span class="kw">seppop</span>() <span class="op">%&gt;%</span><span class="st">                                </span><span class="co"># Separate populations (by continent)</span>
+<span class="st">  </span><span class="kw">lapply</span>(<span class="dt">FUN =</span> locus_table, <span class="dt">info =</span> <span class="ot">FALSE</span>)     <span class="co"># Apply the function locus_table to both populations</span></code></pre></div>
 <blockquote>
 <p>To observe the results type <code>allelic_diversity</code> into the console after each statement.</p>
 </blockquote>
@@ -534,23 +507,23 @@ in several ways:
 <li>and some examples demonstrating its usage.</li>
 </ul>
 <p>To see all of the help topics in a package, you can simply type:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">help</span>(<span class="dt">package =</span> <span class="st">&quot;poppr&quot;</span>) <span class="co"># Get help for a package.</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">help</span>(amova)             <span class="co"># Get help for the amova function.</span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">?amova                  <span class="co"># same as above.</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">??multilocus            <span class="co"># Search for functions that have the keyword multilocus.</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(<span class="dt">package =</span> <span class="st">&quot;poppr&quot;</span>) <span class="co"># Get help for a package.</span>
+<span class="kw">help</span>(amova)             <span class="co"># Get help for the amova function.</span>
+?amova                  <span class="co"># same as above.</span>
+??multilocus            <span class="co"># Search for functions that have the keyword multilocus.</span></code></pre></div>
 <p>Some packages include vignettes that can have different formats such as being introductions, tutorials, or reference cards in PDF format. You can look at a list of vignettes in all packages by typing:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">browseVignettes</span>()                     <span class="co"># see vignettes from all packages</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">browseVignettes</span>(<span class="dt">package =</span> <span class="st">&#39;poppr&#39;</span>)    <span class="co"># see vignettes from a specific package.</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">browseVignettes</span>()                     <span class="co"># see vignettes from all packages</span>
+<span class="kw">browseVignettes</span>(<span class="dt">package =</span> <span class="st">&#39;poppr&#39;</span>)    <span class="co"># see vignettes from a specific package.</span></code></pre></div>
 <p>and to look at a specific vignette you can type:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">vignette</span>(<span class="st">&#39;poppr_manual&#39;</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="st">&#39;poppr_manual&#39;</span>)</code></pre></div>
 <p>Next, consider browsing Appendix 3 on “Introduction to R” if you are not yet familiar with R and RStudio. Otherwise, you are now ready to think about formatting and loading population genetic data into R.</p>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>
-<p>&lt;!—&gt;</p>
+<!---->
 <div id="refs" class="references">
 <div id="ref-goss2014irish">
-<p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The Irish potato famine pathogen <em>phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
+<p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The Irish potato famine pathogen <em>Phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
 </div>
 <div id="ref-kamvar2015novel">
 <p>Kamvar ZN., Brooks JC., Grünwald NJ. 2015. Novel R tools for analysis of genome-wide population genetic data with emphasis on clonality. <em>Name: Frontiers in Genetics</em> 6:208. Available at: <a href="http://dx.doi.org/10.3389/fgene.2015.00208" class="uri">http://dx.doi.org/10.3389/fgene.2015.00208</a></p>

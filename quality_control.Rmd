@@ -279,7 +279,7 @@ Why was this step necessary for the depth data but not the genotype quality?
 
 
 ```{r hide_button = TRUE}
-# We log trqansformed the depth data.
+# We log transformed the depth data.
 # The log of zero is infinite.
 log(0)
 ```
