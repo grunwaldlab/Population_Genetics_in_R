@@ -446,7 +446,7 @@ You, the user, don't have to execute this example, as it is for illustrative pur
 
 ```{r}
 # Creating a list object to save our subsets in.
-rubi.variant.subset <- list()
+rubi.variant.subset <- vector(mode = "list", length = 50)
 
 # Using a for loop to generate 50 subsets of 200 random variants from the rubi.VCF vcfR object.
 for (i in 1:50){
