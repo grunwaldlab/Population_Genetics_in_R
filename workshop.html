@@ -403,7 +403,8 @@ You can install the R packages we will be using during the workshop by starting 
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;adegenet&quot;</span>, <span class="st">&quot;ape&quot;</span>, <span class="st">&quot;cowplot&quot;</span>, <span class="st">&quot;devtools&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;hierfstat&quot;</span>, <span class="st">&quot;igraph&quot;</span>, <span class="st">&quot;knitr&quot;</span>, <span class="st">&quot;lattice&quot;</span>, <span class="st">&quot;magrittr&quot;</span>, <span class="st">&quot;mmod&quot;</span>, <span class="st">&quot;pegas&quot;</span>, <span class="st">&quot;pinfsc50&quot;</span>, <span class="st">&quot;poppr&quot;</span>, <span class="st">&quot;RColorBrewer&quot;</span>, <span class="st">&quot;reshape2&quot;</span>, <span class="st">&quot;treemap&quot;</span>, <span class="st">&quot;vcfR&quot;</span>, <span class="st">&quot;vegan&quot;</span>, <span class="st">&quot;viridisLite&quot;</span>))</code></pre></div>
 <ol start="4" style="list-style-type: decimal">
-<li><p><strong>Create an RStudio “Project”</strong> Open RStudio. Under the “File” dropdown menu select “New Project…”. A “New Project” window should pop up where you should select the option to create you project in a “New Directory”. Select the “New Project” option. You will be asked where on your filesystem you’d like your project and what to name your project. We’ll name our project “APS_Workshop”. This should create a directory for your project that will contain a file named “APS_Workshop.Rproj”. When you double click this file it should spawn a new session of RStudio and will use that directory as your <a href="https://en.wikipedia.org/wiki/Working_directory">current working directory</a>.</p></li>
+<li><p><strong>Create an RStudio “Project”</strong><br />
+Open RStudio and under the “File” dropdown menu select “New Project…”. A “New Project” window should pop up where you should select the option to create your project in a “New Directory”. Select the “New Project” option. You will be asked where on your filesystem you’d like your project and what to name your project. We’ll name our project “APS_Workshop”. This should create a directory for your project that will contain a file named “APS_Workshop.Rproj”. When you double click this file it should spawn a new session of RStudio and will use that directory as your <a href="https://en.wikipedia.org/wiki/Working_directory">working directory</a>.</p></li>
 <li><p><strong>Download the example datasets </strong><br />
 We have placed example data files at the OSF site for <a href="https://osf.io/ytd6k/">Population genomics in R workshop</a>. You can download them by copying and pasting the below code into your R console.</p></li>
 </ol>
@@ -411,52 +412,9 @@ We have placed example data files at the OSF site for <a href="https://osf.io/yt
 <span class="kw">download.file</span>(<span class="st">&quot;https://osf.io/kaq5p/download&quot;</span>, <span class="dt">destfile =</span> <span class="st">&quot;population_data.gbs.txt&quot;</span>)
 <span class="kw">download.file</span>(<span class="st">&quot;https://osf.io/c6h4t/download&quot;</span>, <span class="dt">destfile =</span> <span class="st">&quot;prubi_gbs.vcf.gz&quot;</span>)</code></pre></div>
 <p>You should be able to validate that the files have been downloaded with the below code.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">list.files</span>(<span class="dt">pattern =</span> <span class="st">&quot;[.vcf.gz|gbs.txt]$&quot;</span>)</code></pre></div>
-<pre><code>##  [1] &quot;AMOVA_files&quot;                         
-##  [2] &quot;analysis_of_genome_files&quot;            
-##  [3] &quot;apstest.txt&quot;                         
-##  [4] &quot;bibtexlib.bib&quot;                       
-##  [5] &quot;bibtexlib_old1.bib&quot;                  
-##  [6] &quot;chromR_files&quot;                        
-##  [7] &quot;DAPC_files&quot;                          
-##  [8] &quot;depth_plot_files&quot;                    
-##  [9] &quot;find_conflicts&quot;                      
-## [10] &quot;First_Steps_files&quot;                   
-## [11] &quot;gbs_analysisB_files&quot;                 
-## [12] &quot;gbs_analysis_files&quot;                  
-## [13] &quot;genetic_differentiation_files&quot;       
-## [14] &quot;genome_dapc_files&quot;                   
-## [15] &quot;Genotypic_EvenRichDiv_files&quot;         
-## [16] &quot;Goss2009.csv&quot;                        
-## [17] &quot;GST_gbs_analysis_files&quot;              
-## [18] &quot;images&quot;                              
-## [19] &quot;libs&quot;                                
-## [20] &quot;License.txt&quot;                         
-## [21] &quot;Linkage_disequilibrium_files&quot;        
-## [22] &quot;Locus_Stats_files&quot;                   
-## [23] &quot;Minimum_Spanning_Networks_files&quot;     
-## [24] &quot;misc&quot;                                
-## [25] &quot;missing_data_files&quot;                  
-## [26] &quot;monpop.csv&quot;                          
-## [27] &quot;msn_genlight_files&quot;                  
-## [28] &quot;omitting_data_files&quot;                 
-## [29] &quot;pinfsc50_filtered.vcf.gz&quot;            
-## [30] &quot;Pop_Structure_files&quot;                 
-## [31] &quot;population_data.gbs.txt&quot;             
-## [32] &quot;Population_Strata_files&quot;             
-## [33] &quot;prubi_gbs.vcf.gz&quot;                    
-## [34] &quot;qc_files&quot;                            
-## [35] &quot;quality_control_files&quot;               
-## [36] &quot;reading_vcf_files&quot;                   
-## [37] &quot;SampledOrchard_1-21-2014-cropped.pdf&quot;
-## [38] &quot;SampledTree_1-21-2014-cropped.pdf&quot;   
-## [39] &quot;scenarios.txt&quot;                       
-## [40] &quot;screenshots&quot;                         
-## [41] &quot;site_libs&quot;                           
-## [42] &quot;styles&quot;                              
-## [43] &quot;styles.css&quot;                          
-## [44] &quot;toc.txt&quot;                             
-## [45] &quot;tree_genlight_files&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">list.files</span>(<span class="dt">pattern =</span> <span class="st">&quot;.vcf.gz$|.gbs.txt&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;pinfsc50_filtered.vcf.gz&quot; &quot;population_data.gbs.txt&quot; 
+## [3] &quot;prubi_gbs.vcf.gz&quot;</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li><strong>Test that your system is ready:</strong><br />
 You should now be able to validate that the resources you need are ready. Change directory to <code>APS_Workshop</code> and copy and paste the below command into the R console.</li>
@@ -468,7 +426,7 @@ You should now be able to validate that the resources you need are ready. Change
   <span class="kw">print</span>(<span class="st">&quot;Use: install.packages(&#39;devtools&#39;)&quot;</span>)
 }</code></pre></div>
 <p>This should output some tests to the console. It should also generate a report file called <code>apstest.txt</code>. The report file should look exactly like <a href="https://github.com/grunwaldlab/Population_Genetics_in_R/blob/master/apstest.txt">this file</a>. If your results are different, and you don’t understand why, send us an email with the report as an attachment.</p>
-<ol start="6" style="list-style-type: decimal">
+<ol start="7" style="list-style-type: decimal">
 <li><strong>If you have never worked with R, please review the <a href="intro_to_R.html">Introduction to R</a> page</strong></li>
 </ol>
 </div>

@@ -59,15 +59,14 @@ install.packages(c("adegenet", "ape", "cowplot", "devtools", "dplyr", "ggplot2",
 ```
 
 
-4. __Create an RStudio "Project"__
-Open RStudio.
-Under the "File" dropdown menu select "New Project...".
-A "New Project" window should pop up where you should select the option to create you project in a "New Directory".
+4. __Create an RStudio "Project"__    
+Open RStudio and under the "File" dropdown menu select "New Project...".
+A "New Project" window should pop up where you should select the option to create your project in a "New Directory".
 Select the "New Project" option.
 You will be asked where on your filesystem you'd like your project and what to name your project.
 We'll name our project "APS_Workshop".
 This should create a directory for your project that will contain a file named "APS_Workshop.Rproj".
-When you double click this file it should spawn a new session of RStudio and will use that directory as your [current working directory](https://en.wikipedia.org/wiki/Working_directory).
+When you double click this file it should spawn a new session of RStudio and will use that directory as your [working directory](https://en.wikipedia.org/wiki/Working_directory).
 
 
 5. __Download the example datasets __  
@@ -86,8 +85,7 @@ You should be able to validate that the files have been downloaded with the belo
 
 
 ```{r}
-list.files(pattern = ".vcf.gz$")
-list.files(pattern = ".gbs.txt$")
+list.files(pattern = ".vcf.gz$|.gbs.txt")
 ```
 
 
@@ -112,7 +110,7 @@ The report file should look exactly like [this file](https://github.com/grunwald
 If your results are different, and you don't understand why, send us an email with the report as an attachment.
 
 
-6. **If you have never worked with R, please review the [Introduction to R](intro_to_R.html) page**
+7. **If you have never worked with R, please review the [Introduction to R](intro_to_R.html) page**
 
 
 ## Your first homework
