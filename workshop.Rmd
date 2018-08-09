@@ -59,16 +59,37 @@ install.packages(c("adegenet", "ape", "cowplot", "devtools", "dplyr", "ggplot2",
 ```
 
 
-4. **Download the following datasets into a new folder called `APS_Workshop/`: **  
-When you click on the below links our GitHub site should open in your web browser.
-Click on the `Download` button and save each file to your local `APS_Workshop/` folder.
+4. __Create an RStudio "Project"__    
+Open RStudio and under the "File" dropdown menu select "New Project...".
+A "New Project" window should pop up where you should select the option to create your project in a "New Directory".
+Select the "New Project" option.
+You will be asked where on your filesystem you'd like your project and what to name your project.
+We'll name our project "APS_Workshop".
+This should create a directory for your project that will contain a file named "APS_Workshop.Rproj".
+When you double click this file it should spawn a new session of RStudio and will use that directory as your [working directory](https://en.wikipedia.org/wiki/Working_directory).
 
-- [Phytophthora rubi](https://github.com/grunwaldlab/Population_Genetics_in_R/blob/master/prubi_gbs.vcf.gz) GBS data
-- [Phytophthora rubi](https://files.osf.io/v1/resources/ytd6k/providers/osfstorage/593b001e594d90024142fb20?direct=true&action=download) population information data
-- [Phytophthora infestans](https://github.com/grunwaldlab/Population_Genetics_in_R/blob/master/pinfsc50_filtered.vcf.gz) Supercontig_1.50 genomic data    
+
+5. __Download the example datasets __  
+We have placed example data files at the OSF site for [Population genomics in R workshop](https://osf.io/ytd6k/).
+You can download them by copying and pasting the below code into your R console.
 
 
-5. __Test that your system is ready:__    
+```{r,eval = FALSE}
+download.file("https://osf.io/td5sx/download", destfile = "pinfsc50_filtered.vcf.gz")
+download.file("https://osf.io/kaq5p/download", destfile = "population_data.gbs.txt")
+download.file("https://osf.io/c6h4t/download", destfile = "prubi_gbs.vcf.gz")
+```
+
+
+You should be able to validate that the files have been downloaded with the below code.
+
+
+```{r}
+list.files(pattern = ".vcf.gz$|.gbs.txt")
+```
+
+
+6. __Test that your system is ready:__    
 You should now be able to validate that the resources you need are ready.
 Change directory to `APS_Workshop` and copy and paste the below command into the R console.
 
@@ -89,7 +110,7 @@ The report file should look exactly like [this file](https://github.com/grunwald
 If your results are different, and you don't understand why, send us an email with the report as an attachment.
 
 
-6. **If you have never worked with R, please review the [Introduction to R](intro_to_R.html) page**
+7. **If you have never worked with R, please review the [Introduction to R](intro_to_R.html) page**
 
 
 ## Your first homework
