@@ -384,12 +384,18 @@ pre code, pre, code {
   word-wrap: initial !important;
 }
 </style>
-<p>An important issue to consider once you have your file of genotypes is that not all samples and variants are of the same quality. Some samples may not have been sequenced at a high coverage and may need to be considered failed samples or samples that require additional sequencing. Some variants may not have been sequenced at a sufficient depth and may need to be considered low quality. Some variants may be located in repetetive elements and result in unusually high coverage and may include more than two alleles (when working with a diploid organism). Most variant callers claim to “aggressively” call variants with the intention that they will see a quality control step. In this section we explore our data and develop strategies for quality control.</p>
+<p>An important issue to consider once you have your file of genotypes is that not all samples and variants are of the same quality. Some samples may not have been sequenced at a high coverage and may need to be considered failed samples or samples that require additional sequencing. Some variants may not have been sequenced at a sufficient depth and may need to be considered low quality. Some variants may be located in repetitive elements and result in unusually high coverage and may include more than two alleles (when working with a diploid organism). Most variant callers claim to “aggressively” call variants with the intention that they will see a quality control step. In this section we explore our data and develop strategies for quality control.</p>
 <div id="data-input" class="section level2">
 <h2>Data input</h2>
 <p>One nice feature of CRAN and R is that it allows use to include data as packages. However, because it is part of a package it needs to be in a child directory of the package. Here we’ll use <code>system.file()</code> to help us find the file and then read it in. In your workflows you’ll typically know where your file is so you can simply use the file name.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vcfR)
-<span class="kw">library</span>(pinfsc50)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vcfR)</code></pre></div>
+<pre><code>## 
+##    *****       ***   vcfR   ***       *****
+##    This is vcfR 1.8.0 
+##      browseVignettes(&#39;vcfR&#39;) # Documentation
+##      citation(&#39;vcfR&#39;) # Citation
+##    *****       *****      *****       *****</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(pinfsc50)
 myVcf &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;pinf_sc50.vcf.gz&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;pinfsc50&quot;</span>)
 vcf &lt;-<span class="st"> </span>vcfR<span class="op">::</span><span class="kw">read.vcfR</span>(myVcf, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p>If you set <code>verbose</code> to <code>TRUE</code> you will receive information on progress.</p>
@@ -476,7 +482,7 @@ p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </s
 p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Depth (DP)&quot;</span>)
 p</code></pre></div>
 <p><img src="quality_control_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>We see that the data are generally unimodal which is what we would expect from genomic data. The bulging at the bottom of the plot is because we have integer data (i.e., we have information for 1 and 2 but no fractional values in between). At least one sample, P1362, looks questionable in quality. While most samples were sequenced at around 20X, all samples also include long tails well into the hundres of times sequenced. You might consider this undesireable. You may also consider low coverage variants questionable as well We can manage this by omitting tham. Here we’ll the 10th and 90th percentile to identify variants of unusual depth. First we’ll omit them by marking them as missing dataa (<code>NA</code>). Then we’ll omit samples and variants with an unusually high amount of missing data.</p>
+<p>We see that the data are generally unimodal which is what we would expect from genomic data. The bulging at the bottom of the plot is because we have integer data (i.e., we have information for 1 and 2 but no fractional values in between). At least one sample, P1362, looks questionable in quality. While most samples were sequenced at around 20X, all samples also include long tails well into the hundreds of times sequenced. You might consider this undesirable. You may also consider low coverage variants questionable as well We can manage this by omitting them. Here we’ll the 10th and 90th percentile to identify variants of unusual depth. First we’ll omit them by marking them as missing data (<code>NA</code>). Then we’ll omit samples and variants with an unusually high amount of missing data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">quants &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, quantile, <span class="dt">probs =</span> <span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
 dp2 &lt;-<span class="st"> </span><span class="kw">sweep</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> <span class="st">&quot;-&quot;</span>, quants[<span class="dv">1</span>, ])
 dp[dp2 <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
@@ -521,7 +527,7 @@ vcf</code></pre></div>
 ## 6.714 percent missing data
 ## *****        *****         *****
 </code></pre>
-<p>Once we’ve processed the data its good to visualize how those decisions have afffected the data. We’ll make another set of violin plots and compare them to the ones we made previously.</p>
+<p>Once we’ve processed the data its good to visualize how those decisions have affected the data. We’ll make another set of violin plots and compare them to the ones we made previously.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf,  <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric =</span> <span class="ot">TRUE</span>)
 dpf &lt;-<span class="st"> </span><span class="kw">melt</span>(dp, <span class="dt">varnames =</span> <span class="kw">c</span>(<span class="st">&quot;Index&quot;</span>, <span class="st">&quot;Sample&quot;</span>),
             <span class="dt">value.name =</span> <span class="st">&quot;Depth&quot;</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
