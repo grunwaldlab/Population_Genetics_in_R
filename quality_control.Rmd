@@ -25,7 +25,7 @@ source("style.R")
 An important issue to consider once you have your file of genotypes is that not all samples and variants are of the same quality.
 Some samples may not have been sequenced at a high coverage and may need to be considered failed samples or samples that require additional sequencing.
 Some variants may not have been sequenced at a sufficient depth and may need to be considered low quality.
-Some variants may be located in repetetive elements and result in unusually high coverage and may include more than two alleles (when working with a diploid organism).
+Some variants may be located in repetitive elements and result in unusually high coverage and may include more than two alleles (when working with a diploid organism).
 Most variant callers claim to "aggressively" call variants with the intention that they will see a quality control step.
 In this section we explore our data and develop strategies for quality control.
 
@@ -147,12 +147,12 @@ p
 We see that the data are generally unimodal which is what we would expect from genomic data.
 The bulging at the bottom of the plot is because we have integer data (i.e., we have information for 1 and 2 but no fractional values in between).
 At least one sample, P1362, looks questionable in quality.
-While most samples were sequenced at around 20X, all samples also include long tails well into the hundres of times sequenced.
-You might consider this undesireable.
+While most samples were sequenced at around 20X, all samples also include long tails well into the hundreds of times sequenced.
+You might consider this undesirable.
 You may also consider low coverage variants questionable as well
-We can manage this by omitting tham.
+We can manage this by omitting them.
 Here we'll the 10th and 90th percentile to identify variants of unusual depth.
-First we'll omit them by marking them as missing dataa (`NA`).
+First we'll omit them by marking them as missing data (`NA`).
 Then we'll omit samples and variants with an unusually high amount of missing data.
 
 
@@ -192,7 +192,7 @@ vcf
 ```
 
 
-Once we've processed the data its good to visualize how those decisions have afffected the data.
+Once we've processed the data its good to visualize how those decisions have affected the data.
 We'll make another set of violin plots and compare them to the ones we made previously.
 
 
