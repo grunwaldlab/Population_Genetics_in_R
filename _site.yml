@@ -43,6 +43,8 @@ navbar:
           href: "analysis_of_genome.html"
         - text: "Analysis of GBS data"
           href: "gbs_analysis.html"
+        - text: "Clustering plot"
+          href: "clustering_plot.html"
     - text: "Workshop"
       menu:
         - text: "Workshop"
