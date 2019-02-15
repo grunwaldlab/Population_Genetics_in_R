@@ -79,7 +79,7 @@ for(i in 1:nrow(myMat)){
 
 If you peak at the bottom of this document you'll see that our goal is a
 multi-panel ggplot.
-Each panel will be a different gglot object, so we'll have to give them unique 
+Each panel will be a different ggplot object, so we'll have to give them unique 
 names as we make them.
 
 
@@ -110,7 +110,7 @@ The `find.clusters()` function includes some stochasticity.
 When we're at the figure creation step we'll need consistency, so we'll set 
 a seed.
 If you're at an earlier stage in your analysis you should comment the
-`set.seed()` call out to explore how sensitivee your results are to the seed.
+`set.seed()` call out to explore how sensitive your results are to the seed.
 
 
 ```{r}
@@ -151,7 +151,7 @@ p2
 
 Another popular perspective is to look at barplots of the posterior 
 probabilities of group assignment for each sample.
-Here we'll use "facets" to seprate the different values of *K*.
+Here we'll use "facets" to separate the different values of *K*.
 First we'll need to combine our data into a single long form data.frame.
 We'll also add our geographic information for additional faceting.
 
@@ -197,10 +197,13 @@ p3 <- p3 + theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 8))
 p3
 ```
 
-The group names in teh assignment test are arbitrary.
+The group names in the assignment test are arbitrary.
 This means that what is group 1 in the K = 2 facet may be very similar to group
 4 in the K = 3 facet.
-At the present I handle this with a manual step.
+For example, group 2 at *K* = 4 appears to be group 5 at *K* = 5.
+At the present I handle this with a manual step, which I've omitted here.
+If your goal is a "publication quality" graphic, you should invest some time in
+standardizing the group names.
 This is also why I added the seed above.
 
 
@@ -231,4 +234,12 @@ Note that I've commented out two lines.
 These can be uncommented to create a publication quality graphic.
 But if I did that while building the website my graphic would be sent to the file instead of appearing in this website.
 So I've commented it out so its there when I need it.
+
+We now have our justification for choosing any *K* value (A. *K*-means
+clustering), the relashionships among the groups at the highest *K* value we've
+explored (B. scatter plot of discriminant functions) and the probability of each
+individual being assigned to each group.
+Note that the data comes from clonal plant pathogens.
+Your data may look very different.
+
 

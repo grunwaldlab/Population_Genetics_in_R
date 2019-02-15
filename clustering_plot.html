@@ -412,6 +412,9 @@ $(document).ready(function () {
     <li>
       <a href="gbs_analysis.html">Analysis of GBS data</a>
     </li>
+    <li>
+      <a href="clustering_plot.html">Clustering plot</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -528,7 +531,7 @@ myMat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="
 }</code></pre></div>
 <div id="visualizing-k--means-clustering" class="section level3">
 <h3>Visualizing <em>K</em>- means clustering</h3>
-<p>If you peak at the bottom of this document you’ll see that our goal is a multi-panel ggplot. Each panel will be a different gglot object, so we’ll have to give them unique names as we make them.</p>
+<p>If you peak at the bottom of this document you’ll see that our goal is a multi-panel ggplot. Each panel will be a different ggplot object, so we’ll have to give them unique names as we make them.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 <span class="kw">library</span>(reshape2)
 my_df &lt;-<span class="st"> </span><span class="kw">melt</span>(myMat)
@@ -554,7 +557,7 @@ p1</code></pre></div>
 </div>
 <div id="dapc" class="section level2">
 <h2>DAPC</h2>
-<p>In general, it is recommended to explore several values of <em>K</em>. The <code>find.clusters()</code> function includes some stochasticity. When we’re at the figure creation step we’ll need consistency, so we’ll set a seed. If you’re at an earlier stage in your analysis you should comment the <code>set.seed()</code> call out to explore how sensitivee your results are to the seed.</p>
+<p>In general, it is recommended to explore several values of <em>K</em>. The <code>find.clusters()</code> function includes some stochasticity. When we’re at the figure creation step we’ll need consistency, so we’ll set a seed. If you’re at an earlier stage in your analysis you should comment the <code>set.seed()</code> call out to explore how sensitive your results are to the seed.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_k &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">:</span><span class="dv">5</span>
 
 grp_l &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="dt">length =</span> <span class="kw">length</span>(my_k))
@@ -587,7 +590,7 @@ p2 &lt;-<span class="st"> </span>p2 <span class="op">+</span><span class="st"> <
 p2 &lt;-<span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="kw">paste</span>(my_pal, <span class="st">&quot;66&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)))
 p2</code></pre></div>
 <p><img src="clustering_plot_files/figure-html/unnamed-chunk-6-1.png" width="384" style="display: block; margin: auto;" /></p>
-<p>Another popular perspective is to look at barplots of the posterior probabilities of group assignment for each sample. Here we’ll use “facets” to seprate the different values of <em>K</em>. First we’ll need to combine our data into a single long form data.frame. We’ll also add our geographic information for additional faceting.</p>
+<p>Another popular perspective is to look at barplots of the posterior probabilities of group assignment for each sample. Here we’ll use “facets” to separate the different values of <em>K</em>. First we’ll need to combine our data into a single long form data.frame. We’ll also add our geographic information for additional faceting.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tmp &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(dapc_l[[<span class="dv">1</span>]]<span class="op">$</span>posterior)
 tmp<span class="op">$</span>K &lt;-<span class="st"> </span>my_k[<span class="dv">1</span>]
 tmp<span class="op">$</span>Isolate &lt;-<span class="st"> </span><span class="kw">rownames</span>(tmp)
@@ -622,7 +625,7 @@ p3 &lt;-<span class="st"> </span>p3 <span class="op">+</span><span class="st"> <
 p3 &lt;-<span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">8</span>))
 p3</code></pre></div>
 <p><img src="clustering_plot_files/figure-html/unnamed-chunk-8-1.png" width="1152" style="display: block; margin: auto;" /></p>
-<p>The group names in teh assignment test are arbitrary. This means that what is group 1 in the K = 2 facet may be very similar to group 4 in the K = 3 facet. At the present I handle this with a manual step. This is also why I added the seed above.</p>
+<p>The group names in the assignment test are arbitrary. This means that what is group 1 in the K = 2 facet may be very similar to group 4 in the K = 3 facet. For example, group 2 at <em>K</em> = 4 appears to be group 5 at <em>K</em> = 5. At the present I handle this with a manual step, which I’ve omitted here. If your goal is a “publication quality” graphic, you should invest some time in standardizing the group names. This is also why I added the seed above.</p>
 </div>
 <div id="multi-panel-plot" class="section level2">
 <h2>Multi-panel plot</h2>
@@ -641,6 +644,7 @@ p3</code></pre></div>
 <p><img src="clustering_plot_files/figure-html/unnamed-chunk-9-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#dev.off()</span></code></pre></div>
 <p>Note that I’ve commented out two lines. These can be uncommented to create a publication quality graphic. But if I did that while building the website my graphic would be sent to the file instead of appearing in this website. So I’ve commented it out so its there when I need it.</p>
+<p>We now have our justification for choosing any <em>K</em> value (A. <em>K</em>-means clustering), the relashionships among the groups at the highest <em>K</em> value we’ve explored (B. scatter plot of discriminant functions) and the probability of each individual being assigned to each group. Note that the data comes from clonal plant pathogens. Your data may look very different.</p>
 </div>
 
 
