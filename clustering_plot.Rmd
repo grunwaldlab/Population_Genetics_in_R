@@ -189,7 +189,7 @@ p3 <- p3 + geom_bar(stat = "identity")
 p3 <- p3 + facet_grid(K ~ Region, scales = "free_x", space = "free", 
                       labeller = labeller(K = grp.labs))
 p3 <- p3 + theme_bw()
-p3 <- p3 + ylab("Posterior probability of group membership")
+p3 <- p3 + ylab("Posterior membership probability")
 p3 <- p3 + theme(legend.position='none')
 #p3 <- p3 + scale_color_brewer(palette="Dark2")
 p3 <- p3 + scale_fill_manual(values=c(my_pal))
