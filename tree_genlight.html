@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -33,41 +33,66 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-pre, code { background-color: #f8f8f8; }
-code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code > span.dt { color: #204a87; } /* DataType */
-code > span.dv { color: #0000cf; } /* DecVal */
-code > span.bn { color: #0000cf; } /* BaseN */
-code > span.fl { color: #0000cf; } /* Float */
-code > span.ch { color: #4e9a06; } /* Char */
-code > span.st { color: #4e9a06; } /* String */
-code > span.co { color: #8f5902; font-style: italic; } /* Comment */
-code > span.ot { color: #8f5902; } /* Other */
-code > span.al { color: #ef2929; } /* Alert */
-code > span.fu { color: #000000; } /* Function */
-code > span.er { color: #a40000; font-weight: bold; } /* Error */
-code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #000000; } /* Constant */
-code > span.sc { color: #000000; } /* SpecialChar */
-code > span.vs { color: #4e9a06; } /* VerbatimString */
-code > span.ss { color: #4e9a06; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #000000; } /* Variable */
-code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code > span.ex { } /* Extension */
-code > span.at { color: #c4a000; } /* Attribute */
-code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 
 </style>
 <script>
@@ -83,7 +108,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
       if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -127,9 +152,7 @@ h6 {
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -143,7 +166,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -248,8 +270,6 @@ $(document).ready(function () {
 });
 </script>
 
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
 
 <style type="text/css">
@@ -294,6 +314,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -306,20 +327,17 @@ $(document).ready(function () {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -503,26 +521,26 @@ $(document).ready(function () {
 <p>A basic distance tree can be reconstructed using two main algorithms: UPGMA (Unweighted Pair Group Method with Arithmetic Mean) and Neighbor-joining (for more info in these distance methods go to this <a href="https://en.wikipedia.org/wiki/Distance_matrices_in_phylogeny">wiki page</a>). These methods will use the distance matrix to determine the similarities between samples and reconstruct a tree.</p>
 <p>After the tree is recosntructed and the relationships between samples have been defined, there are mechanisms to determine if these relationships are well supported by the dataset. This is called the <a href="http://gogarten.uconn.edu/mcb221_2006/class30.html">bootstap support</a>. In a glimpse, bootstrap support is a non-parametric resampling of the traits used to contruct the tree, in order to determine the conficence values of a branch. When bootstrap support is near 100% it means that that node is present regardless of how the genetic variants are subset, giving us confidence in the presence of that node. A bootstrap support decreases it means that a node is sensitive to how the variants are subset, or that some of the variants support the node and others refute it. This gives us less confidence in the presence of a node because it’s presence is sensitive to which variants we use in the analysis.</p>
 <p>We will reconstruct an distance tree based in <strong>UPGMA</strong>, by using the distance we calculated in the previous steps. In addition, we will calculate the confidence of our relationships using 1000 bootstrap replicates for support:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;ape&quot;</span>)
-x.tree &lt;-<span class="st"> </span><span class="kw">aboot</span>(x, <span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>, <span class="dt">sample =</span> <span class="dv">100</span>, <span class="dt">distance =</span> dist, <span class="dt">showtree =</span> F)
-cols &lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(<span class="dt">n =</span> <span class="kw">nPop</span>(x), <span class="dt">name =</span> <span class="st">&quot;Dark2&quot;</span>)
-<span class="kw">plot.phylo</span>(x.tree, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">font =</span> <span class="dv">2</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">tip.color =</span>  cols[<span class="kw">pop</span>(x)],<span class="dt">label.offset =</span> <span class="fl">0.0125</span>)
-<span class="kw">nodelabels</span>(x.tree<span class="op">$</span>node.label, <span class="dt">adj =</span> <span class="kw">c</span>(<span class="fl">1.3</span>, <span class="op">-</span><span class="fl">0.5</span>), <span class="dt">frame =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>,<span class="dt">font =</span> <span class="dv">3</span>, <span class="dt">xpd =</span> <span class="ot">TRUE</span>)
-<span class="co">#axisPhylo(3)</span>
-<span class="kw">legend</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">18</span>,<span class="kw">c</span>(<span class="st">&quot;Africa&quot;</span>,<span class="st">&quot;Europe&quot;</span>,<span class="st">&quot;Mexico&quot;</span>,<span class="st">&quot;P. miriabilis&quot;</span>,<span class="st">&quot;South America&quot;</span>,<span class="st">&quot;USA&quot;</span>),cols, <span class="dt">border =</span> <span class="ot">FALSE</span>, <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(<span class="st">&quot;ape&quot;</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">x.tree &lt;-<span class="st"> </span><span class="kw">aboot</span>(x, <span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>, <span class="dt">sample =</span> <span class="dv">100</span>, <span class="dt">distance =</span> dist, <span class="dt">showtree =</span> F)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">cols &lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(<span class="dt">n =</span> <span class="kw">nPop</span>(x), <span class="dt">name =</span> <span class="st">&quot;Dark2&quot;</span>)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">plot.phylo</span>(x.tree, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">font =</span> <span class="dv">2</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">tip.color =</span>  cols[<span class="kw">pop</span>(x)],<span class="dt">label.offset =</span> <span class="fl">0.0125</span>)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">nodelabels</span>(x.tree<span class="op">$</span>node.label, <span class="dt">adj =</span> <span class="kw">c</span>(<span class="fl">1.3</span>, <span class="fl">-0.5</span>), <span class="dt">frame =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>,<span class="dt">font =</span> <span class="dv">3</span>, <span class="dt">xpd =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#axisPhylo(3)</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">legend</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">18</span>,<span class="kw">c</span>(<span class="st">&quot;Africa&quot;</span>,<span class="st">&quot;Europe&quot;</span>,<span class="st">&quot;Mexico&quot;</span>,<span class="st">&quot;P. miriabilis&quot;</span>,<span class="st">&quot;South America&quot;</span>,<span class="st">&quot;USA&quot;</span>),cols, <span class="dt">border =</span> <span class="ot">FALSE</span>, <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>)</a></code></pre></div>
 <p><img src="tree_genlight_files/figure-html/tree-1.png" width="576" /></p>
 <p>We can also change the algorithm to reconstruct the tree. This would be how a <strong>neighbor-joining</strong> tree will look like for the same dataset</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x.tree &lt;-<span class="st"> </span><span class="kw">aboot</span>(x, <span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>, <span class="dt">sample =</span> <span class="dv">100</span>, <span class="dt">distance =</span> dist, <span class="dt">showtree =</span> F, <span class="dt">tree =</span> <span class="st">&quot;nj&quot;</span>, <span class="dt">root =</span> T)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">x.tree &lt;-<span class="st"> </span><span class="kw">aboot</span>(x, <span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>, <span class="dt">sample =</span> <span class="dv">100</span>, <span class="dt">distance =</span> dist, <span class="dt">showtree =</span> F, <span class="dt">tree =</span> <span class="st">&quot;nj&quot;</span>, <span class="dt">root =</span> T)</a></code></pre></div>
 <pre><code>## Warning in aboot(x, cutoff = 50, quiet = TRUE, sample = 100, distance =
 ## dist, : Some branch lengths of the tree are negative. Normalizing branches
 ## according to Kuhner and Felsenstein (1994)</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x.tree &lt;-<span class="st"> </span><span class="kw">root</span>(<span class="dt">phy=</span>x.tree, <span class="dt">outgroup =</span> <span class="st">&quot;P7722&quot;</span>)
-x.tree &lt;-<span class="st"> </span><span class="kw">ladderize</span>(x.tree)
-<span class="kw">plot.phylo</span>(x.tree, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">font =</span> <span class="dv">2</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">tip.color =</span>  cols[<span class="kw">pop</span>(x)],<span class="dt">label.offset =</span> <span class="fl">0.0125</span>)
-<span class="kw">nodelabels</span>(x.tree<span class="op">$</span>node.label, <span class="dt">adj =</span> <span class="kw">c</span>(<span class="fl">1.3</span>, <span class="op">-</span><span class="fl">0.5</span>), <span class="dt">frame =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>,<span class="dt">font =</span> <span class="dv">3</span>, <span class="dt">xpd =</span> <span class="ot">TRUE</span>)
-<span class="kw">axisPhylo</span>(<span class="dv">3</span>)
-<span class="kw">legend</span>(<span class="dv">35</span>,<span class="dv">10</span>,<span class="kw">c</span>(<span class="st">&quot;Africa&quot;</span>,<span class="st">&quot;Europe&quot;</span>,<span class="st">&quot;Mexico&quot;</span>,<span class="st">&quot;P. miriabilis&quot;</span>,<span class="st">&quot;South America&quot;</span>,<span class="st">&quot;USA&quot;</span>),cols, <span class="dt">border =</span> <span class="ot">FALSE</span>, <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">x.tree &lt;-<span class="st"> </span><span class="kw">root</span>(<span class="dt">phy=</span>x.tree, <span class="dt">outgroup =</span> <span class="st">&quot;P7722&quot;</span>)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">x.tree &lt;-<span class="st"> </span><span class="kw">ladderize</span>(x.tree)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">plot.phylo</span>(x.tree, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">font =</span> <span class="dv">2</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">tip.color =</span>  cols[<span class="kw">pop</span>(x)],<span class="dt">label.offset =</span> <span class="fl">0.0125</span>)</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw">nodelabels</span>(x.tree<span class="op">$</span>node.label, <span class="dt">adj =</span> <span class="kw">c</span>(<span class="fl">1.3</span>, <span class="fl">-0.5</span>), <span class="dt">frame =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>,<span class="dt">font =</span> <span class="dv">3</span>, <span class="dt">xpd =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="kw">axisPhylo</span>(<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="kw">legend</span>(<span class="dv">35</span>,<span class="dv">10</span>,<span class="kw">c</span>(<span class="st">&quot;Africa&quot;</span>,<span class="st">&quot;Europe&quot;</span>,<span class="st">&quot;Mexico&quot;</span>,<span class="st">&quot;P. miriabilis&quot;</span>,<span class="st">&quot;South America&quot;</span>,<span class="st">&quot;USA&quot;</span>),cols, <span class="dt">border =</span> <span class="ot">FALSE</span>, <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>)</a></code></pre></div>
 <p><img src="tree_genlight_files/figure-html/unnamed-chunk-1-1.png" width="576" /></p>
 <p>The tree reconstruction show us that no populations (indicated by color) that are monophyletic. This shows that there is a lack of genetic population structure associated with geographic location. We will deal with statistical methods to determine population structure in the next section.</p>
 </div>
@@ -544,6 +562,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
