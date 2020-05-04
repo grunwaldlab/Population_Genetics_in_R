@@ -206,6 +206,10 @@ BIC stands for "Bayesian Information Criterion". The lower the BIC value, the
 better. On the x axis are the number of clusters. We see that there is a bend at
 3 clusters, indicating that the data clusters optimally into three groups.
 
+Note that the function `find.clusters()` includes the parameter `max.n.clust` which specifies the maximum number of clusters to explore.
+The default value is `round(sample_size/10)`.
+If you would like to explore a higher level of groups relative to your sample size you should consider reparameterizing this value.
+
 
 ```{r, echo = FALSE}
 MX <- popsub(Pinf, "North America")

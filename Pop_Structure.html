@@ -795,6 +795,7 @@ $(document).ready(function () {
 <pre><code>## Choose the number PCs to retain (&gt;=2:</code></pre>
 <pre><code>&gt; 3</code></pre>
 <p>BIC stands for “Bayesian Information Criterion”. The lower the BIC value, the better. On the x axis are the number of clusters. We see that there is a bend at 3 clusters, indicating that the data clusters optimally into three groups.</p>
+<p>Note that the function <code>find.clusters()</code> includes the parameter <code>max.n.clust</code> which specifies the maximum number of clusters to explore. The default value is <code>round(sample_size/10)</code>. If you would like to explore a higher level of groups relative to your sample size you should consider reparameterizing this value.</p>
 <p>And now we can see the cluster assignments:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">MXclust</a></code></pre></div>
 <pre><code>## $Kstat
