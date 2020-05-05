@@ -246,9 +246,10 @@ cat("Choose the number PCs to retain (>=2): \n")
 message("4")
 ```
 
-Notice here that there is no local minimum in the curve. This indicates that there
-[might not be enough information in the data set to properly cluster](http://lists.r-forge.r-project.org/pipermail/adegenet-forum/2011-June/000303.html).
+Notice here that there is no local minimum in the curve.
+This indicates that there [might not be enough information in the data set to properly cluster](http://lists.r-forge.r-project.org/pipermail/adegenet-forum/2011-June/000303.html), or that you might have more clusters than the default value (in which case you may wish to include n.max.clust as an argument to the find.clusters function, and specify a higher value than the default).
 We will go ahead by choosing the highest number of clusters:
+
 
 ```{r, echo = FALSE}
 SA <- popsub(Pinf, "South America")
