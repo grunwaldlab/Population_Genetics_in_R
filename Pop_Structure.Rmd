@@ -196,7 +196,7 @@ can keep as many as we want.
 ![MX_CLUSTER](Pop_Structure_files/figure-html/MXCLUST.png)
 
 ```{r, echo = FALSE}
-cat("Choose the number PCs to retain (>=2): \n")
+cat("Choose the number clusters (>=2): \n")
 ```
 ```{r, echo = FALSE, message=TRUE, comment= ">"}
 message("3")
@@ -240,7 +240,7 @@ message("30")
 ![SA_CLUSTER](Pop_Structure_files/figure-html/SACLUST.png)
 
 ```{r, echo = FALSE}
-cat("Choose the number PCs to retain (>=2): \n")
+cat("Choose the number clusters (>=2): \n")
 ```
 ```{r, echo = FALSE, message=TRUE, comment= ">"}
 message("4")
