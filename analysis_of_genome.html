@@ -538,7 +538,7 @@ $(document).ready(function () {
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&#39;vcfR&#39;</span>)</a></code></pre></div>
 <pre><code>## 
 ##    *****       ***   vcfR   ***       *****
-##    This is vcfR 1.11.0 
+##    This is vcfR 1.10.0 
 ##      browseVignettes(&#39;vcfR&#39;) # Documentation
 ##      citation(&#39;vcfR&#39;) # Citation
 ##    *****       *****      *****       *****</code></pre>
@@ -603,7 +603,7 @@ $(document).ready(function () {
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">library</span>(adegenet)</a></code></pre></div>
 <pre><code>## Loading required package: ade4</code></pre>
 <pre><code>## 
-##    /// adegenet 2.1.1 is loaded ////////////
+##    /// adegenet 2.1.3 is loaded ////////////
 ## 
 ##    &gt; overview: &#39;?adegenet&#39;
 ##    &gt; tutorials/doc/questions: &#39;adegenetWeb()&#39; 
@@ -672,7 +672,7 @@ $(document).ready(function () {
 ##   Annotation chromosome names: Supercontig_1.50
 ## Variant (@vcf) count: 22,031 
 ##   Variant (@vcf) chromosome names: Supercontig_1.50
-## Object size: 24 Mb
+## Object size: 24.1 Mb
 ## Use head(object) for more details.
 ## *****      End Show (chromR)        *****
 </code></pre>
@@ -689,17 +689,17 @@ $(document).ready(function () {
 <p>Creation and processing of a chromR object has been divided into separate tasks. Creation loads the data into the chromR object and should typically only be required once. Processing the chromR object generates summaries of the data. Some of these summaries will need to be updated as the chromR object is updated. For example, if the size of the sliding window used to summarize variant density and GC content is changed the chromR object will need to be processed to update this information.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">chrom &lt;-<span class="st"> </span><span class="kw">proc.chromR</span>(chrom, <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## Nucleotide regions complete.</code></pre>
-<pre><code>##   elapsed time:  0.307</code></pre>
+<pre><code>##   elapsed time:  0.318</code></pre>
 <pre><code>## N regions complete.</code></pre>
-<pre><code>##   elapsed time:  0.294</code></pre>
+<pre><code>##   elapsed time:  0.304</code></pre>
 <pre><code>## Population summary complete.</code></pre>
-<pre><code>##   elapsed time:  0.244</code></pre>
+<pre><code>##   elapsed time:  0.275</code></pre>
 <pre><code>## window_init complete.</code></pre>
 <pre><code>##   elapsed time:  0.001</code></pre>
 <pre><code>## windowize_fasta complete.</code></pre>
-<pre><code>##   elapsed time:  0.178</code></pre>
+<pre><code>##   elapsed time:  0.193</code></pre>
 <pre><code>## windowize_annotations complete.</code></pre>
-<pre><code>##   elapsed time:  0.016</code></pre>
+<pre><code>##   elapsed time:  0.022</code></pre>
 <pre><code>## windowize_variants complete.</code></pre>
 <pre><code>##   elapsed time:  0.001</code></pre>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">plot</span>(chrom)</a></code></pre></div>
@@ -720,36 +720,29 @@ $(document).ready(function () {
 <h3>Tabular summaries</h3>
 <p>When we process a chromR object, two forms of tabular data are created. First, summaries are made on a per variant basis. This includes sample size (minus missing data), allele counts, heterozygosity and effective size. Second, summaries are made on a per window basis. Window size can be changed with the <code>win.size</code> parameter of the function <code>proc.chromR()</code>. Window based summaries include nucleotide content per window (including missing data so you can adjust window size for analyses if necessary), the number of genic sites per window (when annotation information was provided) and the number of variants per window.</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">head</span>(chrom<span class="op">@</span>var.info)</a></code></pre></div>
-<pre class="r-output"><code>##              CHROM   POS    MQ  DP mask  n Allele_counts         He
-## 1 Supercontig_1.50 80058 58.96 508 TRUE 18       25,10,1 0.64364712
-## 2 Supercontig_1.50 80063 58.95 514 TRUE 18         25,11 0.42438272
-## 3 Supercontig_1.50 80067 58.88 499 TRUE 18         23,13 0.46141975
-## 4 Supercontig_1.50 80073 58.77 490 TRUE 18          35,1 0.05401235
-## 5 Supercontig_1.50 80074 58.75 482 TRUE 18         26,10 0.40123457
-## 6 Supercontig_1.50 80089 58.80 481 TRUE 18         25,11 0.42438272
-##         Ne
-## 1 2.806207
-## 2 1.737265
-## 3 1.856734
-## 4 1.057096
-## 5 1.670103
-## 6 1.737265
+<pre class="r-output"><code>##              CHROM   POS    MQ  DP mask  n Allele_counts         He       Ne
+## 1 Supercontig_1.50 80058 58.96 508 TRUE 18       25,10,1 0.64364712 2.806207
+## 2 Supercontig_1.50 80063 58.95 514 TRUE 18         25,11 0.42438272 1.737265
+## 3 Supercontig_1.50 80067 58.88 499 TRUE 18         23,13 0.46141975 1.856734
+## 4 Supercontig_1.50 80073 58.77 490 TRUE 18          35,1 0.05401235 1.057096
+## 5 Supercontig_1.50 80074 58.75 482 TRUE 18         26,10 0.40123457 1.670103
+## 6 Supercontig_1.50 80089 58.80 481 TRUE 18         25,11 0.42438272 1.737265
 </code></pre>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">head</span>(chrom<span class="op">@</span>win.info)</a></code></pre></div>
-<pre class="r-output"><code>##              CHROM window start  end length   A   C   G   T    N other
-## 1 Supercontig_1.50      1     1 1000   1000 267 213 293 227    0     0
-## 2 Supercontig_1.50      2  1001 2000   1000 283 206 309 202    0     0
-## 3 Supercontig_1.50      3  2001 3000   1000 229 213 235 177  146     0
-## 4 Supercontig_1.50      4  3001 4000   1000   0   0   0   0 1000     0
-## 5 Supercontig_1.50      5  4001 5000   1000   0   0   0   0 1000     0
-## 6 Supercontig_1.50      6  5001 6000   1000   0   0   0   0 1000     0
-##   genic variants
-## 1     0        0
-## 2     0        0
-## 3     0        0
-## 4     0        0
-## 5     0        0
-## 6     0        0
+<pre class="r-output"><code>##              CHROM window start  end length   A   C   G   T    N other genic
+## 1 Supercontig_1.50      1     1 1000   1000 267 213 293 227    0     0     0
+## 2 Supercontig_1.50      2  1001 2000   1000 283 206 309 202    0     0     0
+## 3 Supercontig_1.50      3  2001 3000   1000 229 213 235 177  146     0     0
+## 4 Supercontig_1.50      4  3001 4000   1000   0   0   0   0 1000     0     0
+## 5 Supercontig_1.50      5  4001 5000   1000   0   0   0   0 1000     0     0
+## 6 Supercontig_1.50      6  5001 6000   1000   0   0   0   0 1000     0     0
+##   variants
+## 1        0
+## 2        0
+## 3        0
+## 4        0
+## 5        0
+## 6        0
 </code></pre>
 <p>While loading entire genomes into memory may not be practical due to resource limitations, it is frequently practical to break a genome up into fractions that can be processed given the resources available on any system. By processing a genome by chromosomes, or some other fraction, and saving this tabular data to file you can perform genome scans in an attempt to identify interesting features.</p>
 </div>

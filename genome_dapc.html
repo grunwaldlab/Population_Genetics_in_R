@@ -537,9 +537,8 @@ $(document).ready(function () {
 <a class="sourceLine" id="cb3-2" data-line-number="2">grp &lt;-<span class="st"> </span><span class="kw">pop</span>(x)</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4">xval &lt;-<span class="st"> </span><span class="kw">xvalDapc</span>(mat, grp, <span class="dt">n.rep =</span> <span class="dv">30</span>, <span class="dt">n.pca =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>))</a></code></pre></div>
-<pre><code>## Warning in xvalDapc.matrix(mat, grp, n.rep = 30, n.pca = c(1:10)): 1
-## group has only 1 member so it cannot be represented in both training and
-## validation sets.</code></pre>
+<pre><code>## Warning in xvalDapc.matrix(mat, grp, n.rep = 30, n.pca = c(1:10)): 1 group has
+## only 1 member so it cannot be represented in both training and validation sets.</code></pre>
 <p><img src="genome_dapc_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>The cross-validation shows that 5 PC is the ideal point of correctly predicted subsamples with the lowest error. we can plot the cross-validation DAPC results:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">12345</span>)</a>

@@ -34,7 +34,7 @@ The function `genetic_diff()` includes options for Nei's $G_{ST}$ `r citep(bib[c
 
 
 ```{r}
-myDiff <- genetic_diff(rubi.VCF, pop.data$State, method = "nei")
+myDiff <- genetic_diff(rubi.VCF, as.factor(pop.data$State), method = "nei")
 knitr::kable(t(as.matrix(round(colMeans(myDiff[,c(3:10,13)], na.rm = TRUE), digits = 3))))
 ```
 
