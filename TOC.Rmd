@@ -21,7 +21,7 @@ title: Table of contents
     - [Population genomics based on high throughut sequencing (HTS)](intro_vcf.html)
     - [Reading VCF data](reading_vcf.html)
     - [Quality control](qc.html)
-    - [Analysis of genomic data](analysis_of_vcf.html)
+    - [Analysis of genomic data](analysis_of_genome.html)
     - [Analysis of GBS data](gbs_analysis.html)
     
 - **About**

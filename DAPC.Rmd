@@ -89,7 +89,7 @@ set.seed(4)
 contrib <- loadingplot(dapc.H3N2$var.contr, axis = 2, thres = 0.07, lab.jitter = 1)
 ```
 
-It looks like SNPs at position 384 and 906 are involved. Let's check this
+It looks like SNPs at position 399 and 906 are involved. Let's check this
 further by looking at allele frequencies by year:
 
 
