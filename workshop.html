@@ -33,41 +33,66 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-pre, code { background-color: #f8f8f8; }
-code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code > span.dt { color: #204a87; } /* DataType */
-code > span.dv { color: #0000cf; } /* DecVal */
-code > span.bn { color: #0000cf; } /* BaseN */
-code > span.fl { color: #0000cf; } /* Float */
-code > span.ch { color: #4e9a06; } /* Char */
-code > span.st { color: #4e9a06; } /* String */
-code > span.co { color: #8f5902; font-style: italic; } /* Comment */
-code > span.ot { color: #8f5902; } /* Other */
-code > span.al { color: #ef2929; } /* Alert */
-code > span.fu { color: #000000; } /* Function */
-code > span.er { color: #a40000; font-weight: bold; } /* Error */
-code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #000000; } /* Constant */
-code > span.sc { color: #000000; } /* SpecialChar */
-code > span.vs { color: #4e9a06; } /* VerbatimString */
-code > span.ss { color: #4e9a06; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #000000; } /* Variable */
-code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code > span.ex { } /* Extension */
-code > span.at { color: #c4a000; } /* Attribute */
-code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 
 </style>
 <script>
@@ -517,29 +542,29 @@ Instructions on how to install the RStudio integrated development environment (I
 <li><strong>Install R packages</strong><br />
 You can install the R packages we will be using during the workshop by starting R and copying and pasting the below command into the R console.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;adegenet&quot;</span>, <span class="st">&quot;ape&quot;</span>, <span class="st">&quot;cowplot&quot;</span>, <span class="st">&quot;devtools&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;hierfstat&quot;</span>, <span class="st">&quot;igraph&quot;</span>, <span class="st">&quot;knitr&quot;</span>, <span class="st">&quot;lattice&quot;</span>, <span class="st">&quot;magrittr&quot;</span>, <span class="st">&quot;mmod&quot;</span>, <span class="st">&quot;pegas&quot;</span>, <span class="st">&quot;pinfsc50&quot;</span>, <span class="st">&quot;poppr&quot;</span>, <span class="st">&quot;RColorBrewer&quot;</span>, <span class="st">&quot;reshape2&quot;</span>, <span class="st">&quot;treemap&quot;</span>, <span class="st">&quot;vcfR&quot;</span>, <span class="st">&quot;vegan&quot;</span>, <span class="st">&quot;viridisLite&quot;</span>))</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;adegenet&quot;</span>, <span class="st">&quot;ape&quot;</span>, <span class="st">&quot;cowplot&quot;</span>, <span class="st">&quot;devtools&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;hierfstat&quot;</span>, <span class="st">&quot;igraph&quot;</span>, <span class="st">&quot;knitr&quot;</span>, <span class="st">&quot;lattice&quot;</span>, <span class="st">&quot;magrittr&quot;</span>, <span class="st">&quot;mmod&quot;</span>, <span class="st">&quot;pegas&quot;</span>, <span class="st">&quot;pinfsc50&quot;</span>, <span class="st">&quot;poppr&quot;</span>, <span class="st">&quot;RColorBrewer&quot;</span>, <span class="st">&quot;reshape2&quot;</span>, <span class="st">&quot;treemap&quot;</span>, <span class="st">&quot;vcfR&quot;</span>, <span class="st">&quot;vegan&quot;</span>, <span class="st">&quot;viridisLite&quot;</span>))</a></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li><p><strong>Create an RStudio “Project”</strong><br />
 Open RStudio and under the “File” dropdown menu select “New Project…”. A “New Project” window should pop up where you should select the option to create your project in a “New Directory”. Select the “New Project” option. You will be asked where on your filesystem you’d like your project and what to name your project. We’ll name our project “APS_Workshop”. This should create a directory for your project that will contain a file named “APS_Workshop.Rproj”. When you double click this file it should spawn a new session of RStudio and will use that directory as your <a href="https://en.wikipedia.org/wiki/Working_directory">working directory</a>.</p></li>
 <li><p><strong>Download the example datasets </strong><br />
 We have placed example data files at the OSF site for <a href="https://osf.io/ytd6k/">Population genomics in R workshop</a>. You can download them by copying and pasting the below code into your R console.</p></li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">download.file</span>(<span class="st">&quot;https://osf.io/td5sx/download&quot;</span>, <span class="dt">destfile =</span> <span class="st">&quot;pinfsc50_filtered.vcf.gz&quot;</span>)
-<span class="kw">download.file</span>(<span class="st">&quot;https://osf.io/kaq5p/download&quot;</span>, <span class="dt">destfile =</span> <span class="st">&quot;population_data.gbs.txt&quot;</span>)
-<span class="kw">download.file</span>(<span class="st">&quot;https://osf.io/c6h4t/download&quot;</span>, <span class="dt">destfile =</span> <span class="st">&quot;prubi_gbs.vcf.gz&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">download.file</span>(<span class="st">&quot;https://osf.io/td5sx/download&quot;</span>, <span class="dt">destfile =</span> <span class="st">&quot;pinfsc50_filtered.vcf.gz&quot;</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">download.file</span>(<span class="st">&quot;https://osf.io/kaq5p/download&quot;</span>, <span class="dt">destfile =</span> <span class="st">&quot;population_data.gbs.txt&quot;</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">download.file</span>(<span class="st">&quot;https://osf.io/c6h4t/download&quot;</span>, <span class="dt">destfile =</span> <span class="st">&quot;prubi_gbs.vcf.gz&quot;</span>)</a></code></pre></div>
 <p>You should be able to validate that the files have been downloaded with the below code.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">list.files</span>(<span class="dt">pattern =</span> <span class="st">&quot;.vcf.gz$|.gbs.txt&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">list.files</span>(<span class="dt">pattern =</span> <span class="st">&quot;.vcf.gz$|.gbs.txt&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;pinfsc50_filtered.vcf.gz&quot; &quot;population_data.gbs.txt&quot;  &quot;prubi_gbs.vcf.gz&quot;</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li><strong>Test that your system is ready:</strong><br />
 You should now be able to validate that the resources you need are ready. Change directory to <code>APS_Workshop</code> and copy and paste the below command into the R console.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>(<span class="kw">require</span>(devtools)){
-  devtools<span class="op">::</span><span class="kw">source_gist</span>(<span class="st">&quot;01a3d8efb21e0a4dbac0735270d147af&quot;</span>, <span class="dt">filename=</span><span class="st">&quot;apstest.R&quot;</span>)       
-} <span class="cf">else</span> {
-  <span class="kw">print</span>(<span class="st">&quot;Please install the package devtools.&quot;</span>)
-  <span class="kw">print</span>(<span class="st">&quot;Use: install.packages(&#39;devtools&#39;)&quot;</span>)
-}</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="cf">if</span>(<span class="kw">require</span>(devtools)){</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">  devtools<span class="op">::</span><span class="kw">source_gist</span>(<span class="st">&quot;01a3d8efb21e0a4dbac0735270d147af&quot;</span>, <span class="dt">filename=</span><span class="st">&quot;apstest.R&quot;</span>)       </a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">} <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">  <span class="kw">print</span>(<span class="st">&quot;Please install the package devtools.&quot;</span>)</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">  <span class="kw">print</span>(<span class="st">&quot;Use: install.packages(&#39;devtools&#39;)&quot;</span>)</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">}</a></code></pre></div>
 <p>This should output some tests to the console. It should also generate a report file called <code>apstest.txt</code>. The report file should look exactly like <a href="https://github.com/grunwaldlab/Population_Genetics_in_R/blob/master/apstest.txt">this file</a>. If your results are different, and you don’t understand why, send us an email with the report as an attachment.</p>
 <ol start="7" style="list-style-type: decimal">
 <li><strong>If you have never worked with R, please review the <a href="intro_to_R.html">Introduction to R</a> page</strong></li>
@@ -548,15 +573,15 @@ You should now be able to validate that the resources you need are ready. Change
 <div id="your-first-homework" class="section level2">
 <h2>Your first homework</h2>
 <p>Some aspects of analyzing genetic data are rather technical. Others are more stylistic. An example is the presentation of the data. The presentation of data may include choices in color schemes and sometimes the perspective on the data. Below is a little example that you can copy and paste into your R console. Explore how changing the number in <code>set.seed()</code> changes the plot. Remember to execute the <code>plot_poppr_msn(partial_clone, myMsn, palette = brewer.pal(n=4, name = &quot;Set1&quot;))</code> function again. There are other examples that are commented out (i.e., the lines begin with <code>#</code> so they are not executed). Try removing the comment character (<code>#</code>) and see how the different parameters affect the plot. This example should validate that you have successfully installed <code>poppr</code> and hopefully provides a fun example that may inspire you to explore more options.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RColorBrewer)
-<span class="kw">library</span>(viridisLite)
-<span class="kw">library</span>(poppr)
-<span class="kw">data</span>(partial_clone)
-myMsn &lt;-<span class="st"> </span><span class="kw">bruvo.msn</span>(partial_clone, <span class="dt">include.ties =</span> <span class="ot">TRUE</span>, <span class="dt">showplot =</span> <span class="ot">FALSE</span>)
-<span class="kw">set.seed</span>(<span class="dv">9</span>)
-<span class="kw">plot_poppr_msn</span>(partial_clone, myMsn, <span class="dt">palette =</span> <span class="kw">brewer.pal</span>(<span class="dt">n=</span><span class="dv">4</span>, <span class="dt">name =</span> <span class="st">&quot;Set1&quot;</span>))
-<span class="co">#plot_poppr_msn(partial_clone, myMsn, palette = magma(n=4, begin = 0.2, end = 0.8))</span>
-<span class="co">#plot_poppr_msn(partial_clone, myMsn, palette = plasma(n=4))</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">library</span>(RColorBrewer)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">library</span>(viridisLite)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw">library</span>(poppr)</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="kw">data</span>(partial_clone)</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">myMsn &lt;-<span class="st"> </span><span class="kw">bruvo.msn</span>(partial_clone, <span class="dt">include.ties =</span> <span class="ot">TRUE</span>, <span class="dt">showplot =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="kw">set.seed</span>(<span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="kw">plot_poppr_msn</span>(partial_clone, myMsn, <span class="dt">palette =</span> <span class="kw">brewer.pal</span>(<span class="dt">n=</span><span class="dv">4</span>, <span class="dt">name =</span> <span class="st">&quot;Set1&quot;</span>))</a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#plot_poppr_msn(partial_clone, myMsn, palette = magma(n=4, begin = 0.2, end = 0.8))</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#plot_poppr_msn(partial_clone, myMsn, palette = plasma(n=4))</span></a></code></pre></div>
 </div>
 <div id="workshop-agenda" class="section level2">
 <h2>Workshop agenda</h2>
