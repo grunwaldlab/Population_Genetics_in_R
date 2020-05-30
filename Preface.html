@@ -180,6 +180,7 @@ $(document).ready(function () {
 });
 </script>
 
+<<<<<<< HEAD
 <!-- tabsets -->
 
 <style type="text/css">
@@ -193,6 +194,23 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
+=======
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+>>>>>>> 4f3a5052335fe08de0fbdaab35982624d11ca6da
 .tabset-dropdown > .nav-tabs > li.active:before {
   content: "";
   font-family: 'Glyphicons Halflings';
@@ -224,7 +242,10 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+<<<<<<< HEAD
   background-color: transparent;
+=======
+>>>>>>> 4f3a5052335fe08de0fbdaab35982624d11ca6da
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -236,6 +257,21 @@ $(document).ready(function () {
   display: none;
 }
 </style>
+<<<<<<< HEAD
+=======
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+>>>>>>> 4f3a5052335fe08de0fbdaab35982624d11ca6da
 
 <!-- code folding -->
 
@@ -248,7 +284,6 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
-
 
 
 
