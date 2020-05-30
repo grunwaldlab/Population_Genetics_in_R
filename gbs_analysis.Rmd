@@ -108,7 +108,7 @@ The *vcfR* package contains multiple functions to convert data into other format
 For our particular purpose we want to convert the *vcfR* object into a `genlight` object. 
 We can use the `vcfR2genlight` function for this:
 
-```{r, warning=TRUE}
+```{r, warning=FALSE}
 gl.rubi <- vcfR2genlight(rubi.VCF)
 ```
 
@@ -187,7 +187,6 @@ MSN clusters multilocus genotypes (MLG) by genetic distances between them.
 Each MLG is a node, and the genetic distance is represented by the edges.
 In high throughput sequencing studies, where marker density is high, each sample typically consists of a unique genotype.
 
-> QUESTION: Do we show a reticulated MSN? OR a MST?
 
 The nodes will be connected by the minimum distance between samples. 
 This allows for **reticulations** (e.g., a network connecting nodes with identical genetic distances; contrast this with a tree where pairwise nodes are only connected to one other node with the shortest distances, even if several nodes share the same minimum genetic distance).

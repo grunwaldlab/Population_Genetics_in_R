@@ -14,6 +14,11 @@ library(vcfR)
 library(poppr)
 library(ape)
 library(RColorBrewer)
+library(reshape2)
+library(ggplot2)
+library(knitcitations)
+bib <- read.bibtex("bibtexlib.bib")
+pop.data <- read.table("population_data.gbs.txt", sep = "\t", header = TRUE)
 ```
 
 
@@ -81,7 +86,8 @@ These variants represent sites in the genome under high differentiation.
 We can visualize these results by plotting the value of the index of interest (in this example, Hedrick´s $G'_{ST}$) against the position in the genome. These "Manhattan plots" allow visualization of differentiation along a portion of the genome:
 
 ```{r, fig.height=6}
-plot(1:nrow(myDiff), myDiff$Gprimest, xlab = "", ylab = "", xaxt = "n", pch = 21, bg = myDiff$CHROM, yaxt='n')
+plot(1:nrow(myDiff), myDiff$Gprimest, xlab = "", ylab = "", xaxt = "n", 
+     pch = 21, bg = as.factor(myDiff$CHROM), yaxt='n')
 abline(h=0)
 title(ylab = expression("G'"[ST]))
 abline(h=c(0.05, 0.15, 0.25), col = "#B22222")

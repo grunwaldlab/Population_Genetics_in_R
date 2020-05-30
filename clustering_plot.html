@@ -33,66 +33,41 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  { background-color: #f8f8f8; }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ef2929; } /* Alert */
-code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #c4a000; } /* Attribute */
-code span.bn { color: #0000cf; } /* BaseN */
-code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #000000; } /* Constant */
-code span.co { color: #8f5902; font-style: italic; } /* Comment */
-code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code span.dt { color: #204a87; } /* DataType */
-code span.dv { color: #0000cf; } /* DecVal */
-code span.er { color: #a40000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #000000; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code span.ot { color: #8f5902; } /* Other */
-code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #000000; } /* SpecialChar */
-code span.ss { color: #4e9a06; } /* SpecialString */
-code span.st { color: #4e9a06; } /* String */
-code span.va { color: #000000; } /* Variable */
-code span.vs { color: #4e9a06; } /* VerbatimString */
-code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
 
 </style>
 <script>
@@ -531,31 +506,31 @@ $(document).ready(function () {
 <div id="k-means-clustering" class="section level2">
 <h2><em>K</em>-means clustering</h2>
 <p>We’ll start by performing <em>K</em>-means clustering over a number of values of <em>K</em> and repeat 10 times fo each value so we can explore variability for these values.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(vcfR)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">vcf &lt;-<span class="st"> </span><span class="kw">read.vcfR</span>(<span class="st">&quot;prubi_gbs.vcf.gz&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">pop.data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;population_data.gbs.txt&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">all</span>(<span class="kw">colnames</span>(vcf<span class="op">@</span>gt)[<span class="op">-</span><span class="dv">1</span>] <span class="op">==</span><span class="st"> </span>pop.data<span class="op">$</span>AccessID)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vcfR)
+vcf &lt;-<span class="st"> </span><span class="kw">read.vcfR</span>(<span class="st">&quot;prubi_gbs.vcf.gz&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop.data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;population_data.gbs.txt&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>)
+<span class="kw">all</span>(<span class="kw">colnames</span>(vcf<span class="op">@</span>gt)[<span class="op">-</span><span class="dv">1</span>] <span class="op">==</span><span class="st"> </span>pop.data<span class="op">$</span>AccessID)</code></pre></div>
 <pre class="r-output"><code>## [1] TRUE
 </code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">gl_rubi &lt;-<span class="st"> </span><span class="kw">vcfR2genlight</span>(vcf)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">library</span>(adegenet)</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">maxK &lt;-<span class="st"> </span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">myMat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">nrow=</span><span class="dv">10</span>, <span class="dt">ncol=</span>maxK)</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw">colnames</span>(myMat) &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(myMat)</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(myMat)){</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">  grp &lt;-<span class="st"> </span><span class="kw">find.clusters</span>(gl_rubi, <span class="dt">n.pca =</span> <span class="dv">40</span>, <span class="dt">choose.n.clust =</span> <span class="ot">FALSE</span>,  <span class="dt">max.n.clust =</span> maxK)</a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">  myMat[i,] &lt;-<span class="st"> </span>grp<span class="op">$</span>Kstat</a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">}</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gl_rubi &lt;-<span class="st"> </span><span class="kw">vcfR2genlight</span>(vcf)
+
+<span class="kw">library</span>(adegenet)
+maxK &lt;-<span class="st"> </span><span class="dv">10</span>
+myMat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">nrow=</span><span class="dv">10</span>, <span class="dt">ncol=</span>maxK)
+<span class="kw">colnames</span>(myMat) &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(myMat)
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(myMat)){
+  grp &lt;-<span class="st"> </span><span class="kw">find.clusters</span>(gl_rubi, <span class="dt">n.pca =</span> <span class="dv">40</span>, <span class="dt">choose.n.clust =</span> <span class="ot">FALSE</span>,  <span class="dt">max.n.clust =</span> maxK)
+  myMat[i,] &lt;-<span class="st"> </span>grp<span class="op">$</span>Kstat
+}</code></pre></div>
 <div id="visualizing-k--means-clustering" class="section level3">
 <h3>Visualizing <em>K</em>- means clustering</h3>
 <p>If you peak at the bottom of this document you’ll see that our goal is a multi-panel ggplot. Each panel will be a different ggplot object, so we’ll have to give them unique names as we make them.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">library</span>(reshape2)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">my_df &lt;-<span class="st"> </span><span class="kw">melt</span>(myMat)</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw">colnames</span>(my_df)[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Group&quot;</span>, <span class="st">&quot;K&quot;</span>, <span class="st">&quot;BIC&quot;</span>)</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">my_df<span class="op">$</span>K &lt;-<span class="st"> </span><span class="kw">as.factor</span>(my_df<span class="op">$</span>K)</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="kw">head</span>(my_df)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(reshape2)
+my_df &lt;-<span class="st"> </span><span class="kw">melt</span>(myMat)
+<span class="kw">colnames</span>(my_df)[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Group&quot;</span>, <span class="st">&quot;K&quot;</span>, <span class="st">&quot;BIC&quot;</span>)
+my_df<span class="op">$</span>K &lt;-<span class="st"> </span><span class="kw">as.factor</span>(my_df<span class="op">$</span>K)
+<span class="kw">head</span>(my_df)</code></pre></div>
 <pre class="r-output"><code>##   Group K      BIC
 ## 1     1 1 205.8632
 ## 2     2 1 205.8632
@@ -564,11 +539,11 @@ $(document).ready(function () {
 ## 5     5 1 205.8632
 ## 6     6 1 205.8632
 </code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(my_df, <span class="kw">aes</span>(<span class="dt">x =</span> K, <span class="dt">y =</span> BIC))</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">p1 &lt;-<span class="st"> </span>p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>()</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">p1 &lt;-<span class="st"> </span>p1 <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">p1 &lt;-<span class="st"> </span>p1 <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Number of groups (K)&quot;</span>)</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">p1</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(my_df, <span class="kw">aes</span>(<span class="dt">x =</span> K, <span class="dt">y =</span> BIC))
+p1 &lt;-<span class="st"> </span>p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>()
+p1 &lt;-<span class="st"> </span>p1 <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()
+p1 &lt;-<span class="st"> </span>p1 <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Number of groups (K)&quot;</span>)
+p1</code></pre></div>
 <p><img src="clustering_plot_files/figure-html/unnamed-chunk-4-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>If everything looks okay, we can proceed to the DAPC.</p>
 </div>
@@ -576,21 +551,21 @@ $(document).ready(function () {
 <div id="dapc" class="section level2">
 <h2>DAPC</h2>
 <p>In general, it is recommended to explore several values of <em>K</em>. The <code>find.clusters()</code> function includes some stochasticity. When we’re at the figure creation step we’ll need consistency, so we’ll set a seed. If you’re at an earlier stage in your analysis you should comment the <code>set.seed()</code> call out to explore how sensitive your results are to the seed.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">my_k &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">:</span><span class="dv">5</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">grp_l &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="dt">length =</span> <span class="kw">length</span>(my_k))</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">dapc_l &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="dt">length =</span> <span class="kw">length</span>(my_k))</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(dapc_l)){</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">  <span class="kw">set.seed</span>(<span class="dv">9</span>)</a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">  grp_l[[i]] &lt;-<span class="st"> </span><span class="kw">find.clusters</span>(gl_rubi, <span class="dt">n.pca =</span> <span class="dv">40</span>, <span class="dt">n.clust =</span> my_k[i])</a>
-<a class="sourceLine" id="cb6-9" data-line-number="9">  dapc_l[[i]] &lt;-<span class="st"> </span><span class="kw">dapc</span>(gl_rubi, <span class="dt">pop =</span> grp_l[[i]]<span class="op">$</span>grp, <span class="dt">n.pca =</span> <span class="dv">40</span>, <span class="dt">n.da =</span> my_k[i])</a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#  dapc_l[[i]] &lt;- dapc(gl_rubi, pop = grp_l[[i]]$grp, n.pca = 3, n.da = 2)</span></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11">}</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_k &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">:</span><span class="dv">5</span>
+
+grp_l &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="dt">length =</span> <span class="kw">length</span>(my_k))
+dapc_l &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="dt">length =</span> <span class="kw">length</span>(my_k))
+
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(dapc_l)){
+  <span class="kw">set.seed</span>(<span class="dv">9</span>)
+  grp_l[[i]] &lt;-<span class="st"> </span><span class="kw">find.clusters</span>(gl_rubi, <span class="dt">n.pca =</span> <span class="dv">40</span>, <span class="dt">n.clust =</span> my_k[i])
+  dapc_l[[i]] &lt;-<span class="st"> </span><span class="kw">dapc</span>(gl_rubi, <span class="dt">pop =</span> grp_l[[i]]<span class="op">$</span>grp, <span class="dt">n.pca =</span> <span class="dv">40</span>, <span class="dt">n.da =</span> my_k[i])
+<span class="co">#  dapc_l[[i]] &lt;- dapc(gl_rubi, pop = grp_l[[i]]$grp, n.pca = 3, n.da = 2)</span>
+}</code></pre></div>
 <p>A nice perspective is to create a scatterplot based on the discriminant functions. This helps us see how diffferent the resulting clusters are and if we may have chosen too high of a value for <em>K</em>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">my_df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(dapc_l[[ <span class="kw">length</span>(dapc_l) ]]<span class="op">$</span>ind.coord)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">my_df<span class="op">$</span>Group &lt;-<span class="st"> </span>dapc_l[[ <span class="kw">length</span>(dapc_l) ]]<span class="op">$</span>grp</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw">head</span>(my_df)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(dapc_l[[ <span class="kw">length</span>(dapc_l) ]]<span class="op">$</span>ind.coord)
+my_df<span class="op">$</span>Group &lt;-<span class="st"> </span>dapc_l[[ <span class="kw">length</span>(dapc_l) ]]<span class="op">$</span>grp
+<span class="kw">head</span>(my_df)</code></pre></div>
 <pre class="r-output"><code>##             LD1       LD2        LD3        LD4 Group
 ## 4291   4.574427  1.780521  3.3024701 -5.2173933     2
 ## 4798  16.425573 -3.741697  0.3999325  2.0302884     5
@@ -599,68 +574,68 @@ $(document).ready(function () {
 ## 4805  16.824606 -1.899893 -1.2876082  2.2705894     5
 ## 4807  17.872223 -1.326320 -0.2807727  2.8392795     5
 </code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">my_pal &lt;-<span class="st"> </span>RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dt">n=</span><span class="dv">8</span>, <span class="dt">name =</span> <span class="st">&quot;Dark2&quot;</span>)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(my_df, <span class="kw">aes</span>(<span class="dt">x =</span> LD1, <span class="dt">y =</span> LD2, <span class="dt">color =</span> Group, <span class="dt">fill =</span> Group))</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">p2 &lt;-<span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">4</span>, <span class="dt">shape =</span> <span class="dv">21</span>)</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">p2 &lt;-<span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</a>
-<a class="sourceLine" id="cb8-6" data-line-number="6">p2 &lt;-<span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(my_pal))</a>
-<a class="sourceLine" id="cb8-7" data-line-number="7">p2 &lt;-<span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="kw">paste</span>(my_pal, <span class="st">&quot;66&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)))</a>
-<a class="sourceLine" id="cb8-8" data-line-number="8">p2</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pal &lt;-<span class="st"> </span>RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dt">n=</span><span class="dv">8</span>, <span class="dt">name =</span> <span class="st">&quot;Dark2&quot;</span>)
+
+p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(my_df, <span class="kw">aes</span>(<span class="dt">x =</span> LD1, <span class="dt">y =</span> LD2, <span class="dt">color =</span> Group, <span class="dt">fill =</span> Group))
+p2 &lt;-<span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">4</span>, <span class="dt">shape =</span> <span class="dv">21</span>)
+p2 &lt;-<span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()
+p2 &lt;-<span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(my_pal))
+p2 &lt;-<span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="kw">paste</span>(my_pal, <span class="st">&quot;66&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)))
+p2</code></pre></div>
 <p><img src="clustering_plot_files/figure-html/unnamed-chunk-6-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>Another popular perspective is to look at barplots of the posterior probabilities of group assignment for each sample. Here we’ll use “facets” to separate the different values of <em>K</em>. First we’ll need to combine our data into a single long form data.frame. We’ll also add our geographic information for additional faceting.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">tmp &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(dapc_l[[<span class="dv">1</span>]]<span class="op">$</span>posterior)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">tmp<span class="op">$</span>K &lt;-<span class="st"> </span>my_k[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3">tmp<span class="op">$</span>Isolate &lt;-<span class="st"> </span><span class="kw">rownames</span>(tmp)</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4">tmp &lt;-<span class="st"> </span><span class="kw">melt</span>(tmp, <span class="dt">id =</span> <span class="kw">c</span>(<span class="st">&quot;Isolate&quot;</span>, <span class="st">&quot;K&quot;</span>))</a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="kw">names</span>(tmp)[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Group&quot;</span>, <span class="st">&quot;Posterior&quot;</span>)</a>
-<a class="sourceLine" id="cb9-6" data-line-number="6">tmp<span class="op">$</span>Region &lt;-<span class="st"> </span>pop.data<span class="op">$</span>State</a>
-<a class="sourceLine" id="cb9-7" data-line-number="7">my_df &lt;-<span class="st"> </span>tmp</a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="kw">length</span>(dapc_l)){</a>
-<a class="sourceLine" id="cb9-10" data-line-number="10">  tmp &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(dapc_l[[i]]<span class="op">$</span>posterior)</a>
-<a class="sourceLine" id="cb9-11" data-line-number="11">  tmp<span class="op">$</span>K &lt;-<span class="st"> </span>my_k[i]</a>
-<a class="sourceLine" id="cb9-12" data-line-number="12">  tmp<span class="op">$</span>Isolate &lt;-<span class="st"> </span><span class="kw">rownames</span>(tmp)</a>
-<a class="sourceLine" id="cb9-13" data-line-number="13">  tmp &lt;-<span class="st"> </span><span class="kw">melt</span>(tmp, <span class="dt">id =</span> <span class="kw">c</span>(<span class="st">&quot;Isolate&quot;</span>, <span class="st">&quot;K&quot;</span>))</a>
-<a class="sourceLine" id="cb9-14" data-line-number="14">  <span class="kw">names</span>(tmp)[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Group&quot;</span>, <span class="st">&quot;Posterior&quot;</span>)</a>
-<a class="sourceLine" id="cb9-15" data-line-number="15">  tmp<span class="op">$</span>Region &lt;-<span class="st"> </span>pop.data<span class="op">$</span>State</a>
-<a class="sourceLine" id="cb9-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb9-17" data-line-number="17">  my_df &lt;-<span class="st"> </span><span class="kw">rbind</span>(my_df, tmp)</a>
-<a class="sourceLine" id="cb9-18" data-line-number="18">}</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tmp &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(dapc_l[[<span class="dv">1</span>]]<span class="op">$</span>posterior)
+tmp<span class="op">$</span>K &lt;-<span class="st"> </span>my_k[<span class="dv">1</span>]
+tmp<span class="op">$</span>Isolate &lt;-<span class="st"> </span><span class="kw">rownames</span>(tmp)
+tmp &lt;-<span class="st"> </span><span class="kw">melt</span>(tmp, <span class="dt">id =</span> <span class="kw">c</span>(<span class="st">&quot;Isolate&quot;</span>, <span class="st">&quot;K&quot;</span>))
+<span class="kw">names</span>(tmp)[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Group&quot;</span>, <span class="st">&quot;Posterior&quot;</span>)
+tmp<span class="op">$</span>Region &lt;-<span class="st"> </span>pop.data<span class="op">$</span>State
+my_df &lt;-<span class="st"> </span>tmp
+
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="kw">length</span>(dapc_l)){
+  tmp &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(dapc_l[[i]]<span class="op">$</span>posterior)
+  tmp<span class="op">$</span>K &lt;-<span class="st"> </span>my_k[i]
+  tmp<span class="op">$</span>Isolate &lt;-<span class="st"> </span><span class="kw">rownames</span>(tmp)
+  tmp &lt;-<span class="st"> </span><span class="kw">melt</span>(tmp, <span class="dt">id =</span> <span class="kw">c</span>(<span class="st">&quot;Isolate&quot;</span>, <span class="st">&quot;K&quot;</span>))
+  <span class="kw">names</span>(tmp)[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Group&quot;</span>, <span class="st">&quot;Posterior&quot;</span>)
+  tmp<span class="op">$</span>Region &lt;-<span class="st"> </span>pop.data<span class="op">$</span>State
+
+  my_df &lt;-<span class="st"> </span><span class="kw">rbind</span>(my_df, tmp)
+}</code></pre></div>
 <p>And now build the ggplot.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">grp.labs &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;K =&quot;</span>, my_k)</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">names</span>(grp.labs) &lt;-<span class="st"> </span>my_k</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">p3 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(my_df, <span class="kw">aes</span>(<span class="dt">x =</span> Isolate, <span class="dt">y =</span> Posterior, <span class="dt">fill =</span> Group))</a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">p3 &lt;-<span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>)</a>
-<a class="sourceLine" id="cb10-6" data-line-number="6">p3 &lt;-<span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">facet_grid</span>(K <span class="op">~</span><span class="st"> </span>Region, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>, <span class="dt">space =</span> <span class="st">&quot;free&quot;</span>, </a>
-<a class="sourceLine" id="cb10-7" data-line-number="7">                      <span class="dt">labeller =</span> <span class="kw">labeller</span>(<span class="dt">K =</span> grp.labs))</a>
-<a class="sourceLine" id="cb10-8" data-line-number="8">p3 &lt;-<span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</a>
-<a class="sourceLine" id="cb10-9" data-line-number="9">p3 &lt;-<span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Posterior membership probability&quot;</span>)</a>
-<a class="sourceLine" id="cb10-10" data-line-number="10">p3 &lt;-<span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&#39;none&#39;</span>)</a>
-<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#p3 &lt;- p3 + scale_color_brewer(palette=&quot;Dark2&quot;)</span></a>
-<a class="sourceLine" id="cb10-12" data-line-number="12">p3 &lt;-<span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(my_pal))</a>
-<a class="sourceLine" id="cb10-13" data-line-number="13">p3 &lt;-<span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">8</span>))</a>
-<a class="sourceLine" id="cb10-14" data-line-number="14">p3</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">grp.labs &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;K =&quot;</span>, my_k)
+<span class="kw">names</span>(grp.labs) &lt;-<span class="st"> </span>my_k
+
+p3 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(my_df, <span class="kw">aes</span>(<span class="dt">x =</span> Isolate, <span class="dt">y =</span> Posterior, <span class="dt">fill =</span> Group))
+p3 &lt;-<span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>)
+p3 &lt;-<span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">facet_grid</span>(K <span class="op">~</span><span class="st"> </span>Region, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>, <span class="dt">space =</span> <span class="st">&quot;free&quot;</span>, 
+                      <span class="dt">labeller =</span> <span class="kw">labeller</span>(<span class="dt">K =</span> grp.labs))
+p3 &lt;-<span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()
+p3 &lt;-<span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Posterior membership probability&quot;</span>)
+p3 &lt;-<span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&#39;none&#39;</span>)
+<span class="co">#p3 &lt;- p3 + scale_color_brewer(palette=&quot;Dark2&quot;)</span>
+p3 &lt;-<span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(my_pal))
+p3 &lt;-<span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">8</span>))
+p3</code></pre></div>
 <p><img src="clustering_plot_files/figure-html/unnamed-chunk-8-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>The group names in the assignment test are arbitrary. This means that what is group 1 in the K = 2 facet may be very similar to group 4 in the K = 3 facet. For example, group 2 at <em>K</em> = 4 appears to be group 5 at <em>K</em> = 5. At the present I handle this with a manual step, which I’ve omitted here. If your goal is a “publication quality” graphic, you should invest some time in standardizing the group names. This is also why I added the seed above.</p>
 </div>
 <div id="multi-panel-plot" class="section level2">
 <h2>Multi-panel plot</h2>
 <p>We can now put all of this together into one plot. We’ll use the package <code>ggpubr</code> which I learned to use at this <a href="http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/81-ggplot2-easy-way-to-mix-multiple-graphs-on-the-same-page/">STHDA blog</a>.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/81-ggplot2-easy-way-to-mix-multiple-graphs-on-the-same-page/</span></a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw">library</span>(<span class="st">&quot;ggpubr&quot;</span>)</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#tiff(&#39;dapc__k3_5_dapc.tiff&#39;, width=6.5, height=6.5, units=&#39;in&#39;, compression=&#39;lzw&#39;, res=300)</span></a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="kw">ggarrange</span>(<span class="kw">ggarrange</span>(p1,</a>
-<a class="sourceLine" id="cb11-5" data-line-number="5">                    p2,</a>
-<a class="sourceLine" id="cb11-6" data-line-number="6">                    <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>)),</a>
-<a class="sourceLine" id="cb11-7" data-line-number="7">          p3,</a>
-<a class="sourceLine" id="cb11-8" data-line-number="8">          <span class="dt">nrow =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb11-9" data-line-number="9">          <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;C&quot;</span>),</a>
-<a class="sourceLine" id="cb11-10" data-line-number="10">          <span class="dt">heights =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb11-11" data-line-number="11">          )</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/81-ggplot2-easy-way-to-mix-multiple-graphs-on-the-same-page/</span>
+<span class="kw">library</span>(<span class="st">&quot;ggpubr&quot;</span>)
+<span class="co">#tiff(&#39;dapc__k3_5_dapc.tiff&#39;, width=6.5, height=6.5, units=&#39;in&#39;, compression=&#39;lzw&#39;, res=300)</span>
+<span class="kw">ggarrange</span>(<span class="kw">ggarrange</span>(p1,
+                    p2,
+                    <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>)),
+          p3,
+          <span class="dt">nrow =</span> <span class="dv">2</span>,
+          <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;C&quot;</span>),
+          <span class="dt">heights =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)
+          )</code></pre></div>
 <p><img src="clustering_plot_files/figure-html/unnamed-chunk-9-1.png" width="1152" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co">#dev.off()</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#dev.off()</span></code></pre></div>
 <p>Note that I’ve commented out two lines. These can be uncommented to create a publication quality graphic. But if I did that while building the website my graphic would be sent to the file instead of appearing in this website. So I’ve commented it out so its there when I need it.</p>
 <p>We now have our justification for choosing any <em>K</em> value (A. <em>K</em>-means clustering), the relashionships among the groups at the highest <em>K</em> value we’ve explored (B. scatter plot of discriminant functions) and the probability of each individual being assigned to each group. Note that the data comes from clonal plant pathogens. Your data may look very different.</p>
 </div>
