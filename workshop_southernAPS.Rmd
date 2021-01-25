@@ -31,12 +31,12 @@ While this section may be used as an entry point, learning about genomic analyse
 
 1. __Install R__ 
 Instructions on how to install R can be found at the [R homepage](https://www.r-project.org/).
-Please make sure you have the most current version of R (at least 3.4.4, Someone to lean on).
+Please make sure you have the most current version of R (at least R 4.0.0, "Arbor Day").
 2. __Install RStudio__    
 Instructions on how to install the RStudio integrated development environment (IDE) can be found at the [RStudio download site](https://www.rstudio.com/products/rstudio/download/).
-Choose the 'RStudio Desktop Open Source License' (free) version.
+Choose the free version, 'RStudio Desktop, Open Source License'.
 3. __Install R packages__    
-You can install the R packages we will be using during the workshop by starting R and copying and pasting the below command into the R console.
+You can install the R packages we will be using during the workshop by starting R, copying the command below, and pasting it into the R console.
 
 
 ```{r, echo = FALSE, eval = FALSE}
@@ -109,6 +109,7 @@ This should output some tests to the console.
 It should also generate a report file called `apstest.txt`.
 The report file should look exactly like [this file](https://github.com/grunwaldlab/Population_Genetics_in_R/blob/master/apstest.txt).
 If your results are different, and you don't understand why, send us an email with the report as an attachment.
+Any concerning differences would be below the line, "Testing to see if you are ready..."
 
 
 7. **If you have never worked with R, please review the [Introduction to R](intro_to_R.html) page**
@@ -120,7 +121,7 @@ If your results are different, and you don't understand why, send us an email wi
 Some aspects of analyzing genetic data are rather technical.
 Others are more stylistic.
 An example is the presentation of the data.
-The presentation of data may include choices in color schemes and sometimes the perspective on the data.
+The presentation of data may include choices in color schemes and sometimes your perspective on the data.
 Below is a little example that you can copy and paste into your R console.
 Explore how changing the number in `set.seed()` changes the plot.
 Remember to execute the `plot_poppr_msn(partial_clone, myMsn, palette = brewer.pal(n=4, name = "Set1"))` function again.
@@ -137,15 +138,16 @@ data(partial_clone)
 myMsn <- bruvo.msn(partial_clone, include.ties = TRUE, showplot = FALSE)
 set.seed(9)
 plot_poppr_msn(partial_clone, myMsn, palette = brewer.pal(n=4, name = "Set1"))
-#plot_poppr_msn(partial_clone, myMsn, palette = magma(n=4, begin = 0.2, end = 0.8))
-#plot_poppr_msn(partial_clone, myMsn, palette = plasma(n=4))
+# plot_poppr_msn(partial_clone, myMsn, palette = magma(n=4, begin = 0.2, end = 0.8))
+# plot_poppr_msn(partial_clone, myMsn, palette = plasma(n=4))
 ```
 
 
 ## Workshop agenda
 
-1. Introduction    
-2. Introduction to [VCF data](reading_vcf.html)    
+1. Introduction to [the toolset](http://grunwaldlab.github.io/Population_Genetics_in_R/intro_vcf.html)
+2. Introduction to [VCF data](reading_vcf.html)
+3. VCF [quality control](http://grunwaldlab.github.io/Population_Genetics_in_R/quality_control.html)
 3. Analysis of [Genotyping by sequencing](gbs_analysis.html) data
 
 
