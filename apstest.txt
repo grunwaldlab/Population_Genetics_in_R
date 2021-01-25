@@ -1,0 +1,87 @@
+R version 4.0.3 (2020-10-10)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Ubuntu 20.04 LTS
+
+Matrix products: default
+BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0
+LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C               LC_TIME=en_US.UTF-8       
+ [4] LC_COLLATE=en_US.UTF-8     LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                  LC_ADDRESS=C              
+[10] LC_TELEPHONE=C             LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] treemap_2.4-2      mmod_1.3.3         hierfstat_0.5-7    remotes_2.2.0      viridisLite_0.3.0 
+ [6] vegan_2.5-7        permute_0.9-5      vcfR_1.12.0        reshape2_1.4.4     RColorBrewer_1.1-2
+[11] poppr_2.8.7        pinfsc50_1.2.0     pegas_0.14         magrittr_2.0.1     lattice_0.20-41   
+[16] knitr_1.30         igraph_1.2.6       ggplot2_3.3.3      dplyr_1.0.3        cowplot_1.1.1     
+[21] ape_5.4-1          adegenet_2.1.3     ade4_1.7-16        devtools_2.3.2     usethis_2.0.0     
+[26] bookdown_0.21     
+
+loaded via a namespace (and not attached):
+ [1] colorspace_2.0-0   seqinr_4.2-5       deldir_0.2-9       ellipsis_0.3.1     class_7.3-17      
+ [6] rprojroot_2.0.2    fs_1.5.0           rstudioapi_0.13    fansi_0.4.2        codetools_0.2-18  
+[11] splines_4.0.3      memuse_4.1-0       pkgload_1.1.0      jsonlite_1.7.2     gridBase_0.4-7    
+[16] cluster_2.1.0      shiny_1.5.0        compiler_4.0.3     httr_1.4.2         assertthat_0.2.1  
+[21] Matrix_1.3-2       fastmap_1.0.1      cli_2.2.0          later_1.1.0.1      htmltools_0.5.1.1 
+[26] prettyunits_1.1.1  tools_4.0.3        coda_0.19-4        gtable_0.3.0       glue_1.4.2        
+[31] gmodels_2.18.1     fastmatch_1.1-0    tinytex_0.29       Rcpp_1.0.6         raster_3.4-5      
+[36] vctrs_0.3.6        spdep_1.1-5        gdata_2.18.0       nlme_3.1-151       xfun_0.20         
+[41] stringr_1.4.0      ps_1.5.0           testthat_3.0.1     mime_0.9           lifecycle_0.2.0   
+[46] phangorn_2.5.5     gtools_3.8.2       LearnBayes_2.15.1  MASS_7.3-53        scales_1.1.1      
+[51] hms_1.0.0          promises_1.1.1     parallel_4.0.3     expm_0.999-6       yaml_2.2.1        
+[56] curl_4.3           memoise_1.1.0      stringi_1.5.3      desc_1.2.0         e1071_1.7-4       
+[61] boot_1.3-25        pkgbuild_1.2.0     spData_0.3.8       rlang_0.4.10       pkgconfig_2.0.3   
+[66] polysat_1.7-4      evaluate_0.14      purrr_0.3.4        sf_0.9-7           processx_3.4.5    
+[71] tidyselect_1.1.0   plyr_1.8.6         R6_2.5.0           generics_0.1.0     DBI_1.1.1         
+[76] pillar_1.4.7       withr_2.4.0        mgcv_1.8-33        units_0.6-7        sp_1.4-5          
+[81] tibble_3.0.5       crayon_1.3.4       KernSmooth_2.23-18 rmarkdown_2.6      progress_1.2.2    
+[86] grid_4.0.3         data.table_1.13.6  callr_3.5.1        digest_0.6.27      classInt_0.4-3    
+[91] xtable_1.8-4       httpuv_1.5.5       munsell_0.5.0      quadprog_1.5-8     sessioninfo_1.1.1 
+
+
+Testing to see if you are ready for the Population Genomics in R Workshop!
+
+adegenet is installed.
+ape is installed.
+cowplot is installed.
+dplyr is installed.
+ggplot2 is installed.
+hierfstat is installed.
+igraph is installed.
+knitr is installed.
+lattice is installed.
+magrittr is installed.
+mmod is installed.
+pegas is installed.
+pinfsc50 is installed.
+poppr is installed.
+RColorBrewer is installed.
+reshape2 is installed.
+treemap is installed.
+vcfR is installed.
+vegan is installed.
+viridisLite is installed.
+
+Testing to see if you can load your data.
+
+***** Object of Class vcfR *****
+18 samples
+1 CHROMs
+2,190 variants
+Object size: 2.9 Mb
+0 percent missing data
+*****        *****         *****
+
+***** Object of Class vcfR *****
+94 samples
+321 CHROMs
+615 variants
+Object size: 3.1 Mb
+4.589 percent missing data
+*****        *****         *****
