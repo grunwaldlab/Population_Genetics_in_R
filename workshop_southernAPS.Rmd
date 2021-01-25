@@ -145,9 +145,8 @@ plot_poppr_msn(partial_clone, myMsn, palette = brewer.pal(n=4, name = "Set1"))
 ## Workshop agenda
 
 1. Introduction    
-1. Introduction to [VCF data](reading_vcf.html)    
-1. Analysis of [Genotyping by sequencing](gbs_analysis.html) data
-1. Analysis of [Genome](analysis_of_genome.html) data
+2. Introduction to [VCF data](reading_vcf.html)    
+3. Analysis of [Genotyping by sequencing](gbs_analysis.html) data
 
 
 ***
