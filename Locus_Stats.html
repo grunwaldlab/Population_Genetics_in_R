@@ -20,6 +20,7 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -30,12 +31,21 @@
   gtag('config', 'UA-107144798-3');
 </script>
 
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -45,14 +55,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -61,9 +73,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { background-color: #f8f8f8; }
+  {  background-color: #f8f8f8; }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -149,6 +161,7 @@ h6 {
   text-align: left;
 }
 </style>
+
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -437,28 +450,53 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Workshop
+    Workshops
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="workshop.html">Workshop</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">ICPP</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_icpp.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+        <li>
+          <a href="analysis_of_genome.html">Analysis of genome data</a>
+        </li>
+      </ul>
     </li>
-    <li>
-      <a href="intro_vcf.html">Introduction</a>
-    </li>
-    <li>
-      <a href="reading_vcf.html">VCF data</a>
-    </li>
-    <li>
-      <a href="quality_control.html">Quality control</a>
-    </li>
-    <li>
-      <a href="gbs_analysis.html">Analysis of GBS data</a>
-    </li>
-    <li>
-      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">APS Southern Division</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_southernAPS.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </li>
@@ -522,18 +560,16 @@ $(document).ready(function () {
 </blockquote>
 <div id="locus-summary-statistics" class="section level2">
 <h2>Locus summary statistics</h2>
-<p>A quick way to assess quality of the data is to determine the number, diversity, expected heterozygosity, and evenness of the alleles at each locus. As an example, we will use data for the fungal-like protist <em>Phytophthora infestans</em> from <span class="citation">(Goss et al., 2014)</span>. First, we’ll use the function <code>locus_table</code> to get all of the statistics mentioned above. For documentation on this function type <code>?locus_table</code>. Here is a first look at each locus:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)     <span class="co"># Make sure poppr is loaded if you haven&#39;t done so already.</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)  <span class="co"># We will also use magrittr for part of this chapter</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">data</span>(<span class="st">&quot;Pinf&quot;</span>)         <span class="co"># P. infestans data set from Mexico and South America</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">locus_table</span>(Pinf)</a></code></pre></div>
+<p>A quick way to assess quality of the data is to determine the number, diversity, expected heterozygosity, and evenness of the alleles at each locus. As an example, we will use data for the fungal-like protist <em>Phytophthora infestans</em> from [@]. First, we’ll use the function <code>locus_table</code> to get all of the statistics mentioned above. For documentation on this function type <code>?locus_table</code>. Here is a first look at each locus:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)     <span class="co"># Make sure poppr is loaded if you haven&#39;t done so already.</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)  <span class="co"># We will also use magrittr for part of this chapter</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">data</span>(<span class="st">&quot;Pinf&quot;</span>)         <span class="co"># P. infestans data set from Mexico and South America</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">locus_table</span>(Pinf)</span></code></pre></div>
 <pre><code>## 
-## allele = Number of observed alleles</code></pre>
-<pre><code>## 
-## 1-D = Simpson index</code></pre>
-<pre><code>## 
-## Hexp = Nei&#39;s 1978 gene diversity</code></pre>
-<pre><code>## ------------------------------------------</code></pre>
+## allele = Number of observed alleles
+## 1-D = Simpson index
+## Hexp = Nei&#39;s 1978 gene diversity
+## ------------------------------------------</code></pre>
 <pre><code>##       summary
 ## locus  allele    1-D   Hexp Evenness
 ##   Pi02 10.000  0.633  0.637    0.663
@@ -549,14 +585,12 @@ $(document).ready(function () {
 ##   Pi89 11.000  0.615  0.619    0.578
 ##   mean  8.636  0.517  0.520    0.602</code></pre>
 <p>We can see here that we have a widely variable number of alleles per locus and that we actually have a single locus that only has two alleles, Pi33. This locus also has low diversity, low expected heterozygosity and is very uneven in allele distribution. This is a sign that this might be a phylogenetically uninformative locus, where we have two alleles and one is occurring at a minor frequency. We will explore analysis with and without this locus. Let’s first see if both of these alleles exist in both populations of this data set.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">locus_table</span>(Pinf, <span class="dt">pop =</span> <span class="st">&quot;North America&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">locus_table</span>(Pinf, <span class="dt">pop =</span> <span class="st">&quot;North America&quot;</span>)</span></code></pre></div>
 <pre><code>## 
-## allele = Number of observed alleles</code></pre>
-<pre><code>## 
-## 1-D = Simpson index</code></pre>
-<pre><code>## 
-## Hexp = Nei&#39;s 1978 gene diversity</code></pre>
-<pre><code>## ------------------------------------------</code></pre>
+## allele = Number of observed alleles
+## 1-D = Simpson index
+## Hexp = Nei&#39;s 1978 gene diversity
+## ------------------------------------------</code></pre>
 <pre><code>##       summary
 ## locus  allele    1-D   Hexp Evenness
 ##   Pi02  9.000  0.690  0.697    0.653
@@ -571,14 +605,12 @@ $(document).ready(function () {
 ##   Pi70  2.000  0.203  0.205    0.595
 ##   Pi89 11.000  0.627  0.634    0.549
 ##   mean  7.364  0.497  0.503    0.607</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">locus_table</span>(Pinf, <span class="dt">pop =</span> <span class="st">&quot;South America&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">locus_table</span>(Pinf, <span class="dt">pop =</span> <span class="st">&quot;South America&quot;</span>)</span></code></pre></div>
 <pre><code>## 
-## allele = Number of observed alleles</code></pre>
-<pre><code>## 
-## 1-D = Simpson index</code></pre>
-<pre><code>## 
-## Hexp = Nei&#39;s 1978 gene diversity</code></pre>
-<pre><code>## ------------------------------------------</code></pre>
+## allele = Number of observed alleles
+## 1-D = Simpson index
+## Hexp = Nei&#39;s 1978 gene diversity
+## ------------------------------------------</code></pre>
 <pre><code>##       summary
 ## locus  allele   1-D  Hexp Evenness
 ##   Pi02   5.00  0.54  0.54     0.83
@@ -597,9 +629,9 @@ $(document).ready(function () {
 <div id="phylogenetically-uninformative-loci" class="section level2">
 <h2>Phylogenetically uninformative loci</h2>
 <p>We can see that the South American populations is fixed for one allele, thus it would not be a bad idea to remove that locus from downstream analyses. We can do this using the function <code>informloci</code>. This will remove loci that contain less than a given percentage of divergent individuals (the default is <span class="math inline">\(2/N\)</span>, where <span class="math inline">\(N\)</span> equals the number of individuals in the data set).</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">nLoc</span>(Pinf)  <span class="co"># Let&#39;s look at our data set, note how many loci we have.</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">nLoc</span>(Pinf)  <span class="co"># Let&#39;s look at our data set, note how many loci we have.</span></span></code></pre></div>
 <pre><code>## [1] 11</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">iPinf &lt;-<span class="st"> </span><span class="kw">informloci</span>(Pinf)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>iPinf &lt;-<span class="st"> </span><span class="kw">informloci</span>(Pinf)</span></code></pre></div>
 <pre><code>## cutoff value: 2.32558139534884 % ( 2 samples ).</code></pre>
 <pre><code>## MAF         : 0.01</code></pre>
 <pre><code>## 
@@ -608,34 +640,26 @@ $(document).ready(function () {
 ##  1 locus found with a cutoff of 2 samples :
 ##  Pi33 
 ##  0 loci found with MAF &lt; 0.01</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">nLoc</span>(iPinf) <span class="co"># Note that we have 1 less locus</span></a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">nLoc</span>(iPinf) <span class="co"># Note that we have 1 less locus</span></span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
 <p>So, how does this affect multi-locus based statistics? We can see immediately that it didn’t affect the number of multilocus genotypes, let’s take a look at the index of association:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">poppr</span>(Pinf)</a></code></pre></div>
-<pre><code>##             Pop  N MLG eMLG    SE    H    G lambda   E.5  Hexp    Ia
-## 1 South America 38  29 29.0 0.000 3.27 23.3  0.957 0.883 0.513 2.873
-## 2 North America 48  43 34.5 0.989 3.69 34.9  0.971 0.871 0.503 0.223
-## 3         Total 86  72 34.6 1.529 4.19 57.8  0.983 0.875 0.520 0.652
-##    rbarD File
-## 1 0.3446 Pinf
-## 2 0.0240 Pinf
-## 3 0.0717 Pinf</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">poppr</span>(iPinf)</a></code></pre></div>
-<pre><code>##             Pop  N MLG eMLG    SE    H    G lambda   E.5  Hexp    Ia
-## 1 South America 38  29 29.0 0.000 3.27 23.3  0.957 0.883 0.565 2.873
-## 2 North America 48  43 34.5 0.989 3.69 34.9  0.971 0.871 0.551 0.225
-## 3         Total 86  72 34.6 1.529 4.19 57.8  0.983 0.875 0.571 0.655
-##    rbarD  File
-## 1 0.3446 iPinf
-## 2 0.0255 iPinf
-## 3 0.0750 iPinf</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">poppr</span>(Pinf)</span></code></pre></div>
+<pre><code>##             Pop  N MLG eMLG    SE    H    G lambda   E.5  Hexp    Ia  rbarD File
+## 1 South America 38  29 29.0 0.000 3.27 23.3  0.957 0.883 0.513 2.873 0.3446 Pinf
+## 2 North America 48  43 34.5 0.989 3.69 34.9  0.971 0.871 0.503 0.223 0.0240 Pinf
+## 3         Total 86  72 34.6 1.529 4.19 57.8  0.983 0.875 0.520 0.652 0.0717 Pinf</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">poppr</span>(iPinf)</span></code></pre></div>
+<pre><code>##             Pop  N MLG eMLG    SE    H    G lambda   E.5  Hexp    Ia  rbarD  File
+## 1 South America 38  29 29.0 0.000 3.27 23.3  0.957 0.883 0.565 2.873 0.3446 iPinf
+## 2 North America 48  43 34.5 0.989 3.69 34.9  0.971 0.871 0.551 0.225 0.0255 iPinf
+## 3         Total 86  72 34.6 1.529 4.19 57.8  0.983 0.875 0.571 0.655 0.0750 iPinf</code></pre>
 <p>We can see that it increased ever so slightly for the “North America” and “Total” populations, but not the “South America” population as expected given the fixed alleles at locus P33.</p>
 </div>
 <div id="missing-data" class="section level2">
 <h2>Missing data</h2>
 <p>It is often important to asses the percentage of missing data. The <em>poppr</em> function <code>info_table</code> will help you visualize missing data so that you can assess how to treat these further using the function <code>missingno</code>. For this example, we will use the nancycats data set as it contains a wide variety of possibilities for missing data:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">data</span>(nancycats)</a>
-<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="kw">info_table</span>(nancycats, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">data</span>(nancycats)</span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="kw">info_table</span>(nancycats, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <div class="figure">
 <img src="Locus_Stats_files/figure-html/missing_table-1.png" alt="Plot of missing data" width="700px" />
 <p class="caption">
@@ -667,7 +691,7 @@ Plot of missing data
 <div id="removing-loci-and-genotypes" class="section level2">
 <h2>Removing loci and genotypes</h2>
 <p>When removing loci or genotypes, you can specify a cutoff representing the percent missing to be removed. The default is <code>0.05</code> (5%).</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">nancycats <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;loci&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>nancycats <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;loci&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <pre><code>## 
 ## Found 617 missing values.
 ## 
@@ -704,7 +728,7 @@ Plot of missing data
 <p><strong>Advanced Users:</strong> when <code>scale = TRUE</code>, the color scale will be set so that the warmest color corresponds to the highest value.</p>
 </blockquote>
 <p>We only removed two loci. If we wanted to make sure we removed everything, we could set <code>cutoff = 0</code>.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">miss &lt;-<span class="st"> </span>nancycats <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;loci&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>miss &lt;-<span class="st"> </span>nancycats <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;loci&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
 ## Found 617 missing values.
 ## 
@@ -713,32 +737,28 @@ Plot of missing data
 ## Removing 3 loci: fca8, fca45, fca96</code></pre>
 <pre><code>## No Missing Data Found!</code></pre>
 <p>Again, removing individuals is also relatively easy:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">miss &lt;-<span class="st"> </span>nancycats <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>miss &lt;-<span class="st"> </span>nancycats <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
 ## Found 617 missing values.
 ## 
 ## 38 genotypes contained missing values greater than 5%
 ## 
-## Removing 38 genotypes: N215, N216, N188, N189, N190, N191, N192,
-## N298, N299, N300, N301, N302, N303, N304, N310, N195, N197, N198,
-## N199, N200, N201, N206, N182, N184, N186, N282, N283, N288, N291,
-## N292, N293, N294, N295, N296, N297, N281, N289, N290</code></pre>
+## Removing 38 genotypes: N215, N216, N188, N189, N190, N191, N192, N298, N299, N300, N301, N302, N303, N304, N310, N195, N197, N198, N199, N200, N201, N206, N182, N184, N186, N282,
+## N283, N288, N291, N292, N293, N294, N295, N296, N297, N281, N289, N290</code></pre>
 <pre><code>## No Missing Data Found!</code></pre>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">miss &lt;-<span class="st"> </span>nancycats <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>miss &lt;-<span class="st"> </span>nancycats <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
 ## Found 617 missing values.
 ## 
 ## 38 genotypes contained missing values greater than 0%
 ## 
-## Removing 38 genotypes: N215, N216, N188, N189, N190, N191, N192,
-## N298, N299, N300, N301, N302, N303, N304, N310, N195, N197, N198,
-## N199, N200, N201, N206, N182, N184, N186, N282, N283, N288, N291,
-## N292, N293, N294, N295, N296, N297, N281, N289, N290
+## Removing 38 genotypes: N215, N216, N188, N189, N190, N191, N192, N298, N299, N300, N301, N302, N303, N304, N310, N195, N197, N198, N199, N200, N201, N206, N182, N184, N186, N282,
+## N283, N288, N291, N292, N293, N294, N295, N296, N297, N281, N289, N290
 ## No Missing Data Found!</code></pre>
 <p>The function <code>missingno</code> removes individuals based on the percent of missing data relative to the number of loci. Let’s remove all individuals with 2 missing loci:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">miss &lt;-<span class="st"> </span>nancycats <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="st">  </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">2</span><span class="op">/</span><span class="kw">nLoc</span>(nancycats)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb44-3" data-line-number="3"><span class="st">  </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>miss &lt;-<span class="st"> </span>nancycats <span class="op">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a><span class="st">  </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">2</span><span class="op">/</span><span class="kw">nLoc</span>(nancycats)) <span class="op">%&gt;%</span></span>
+<span id="cb35-3"><a href="#cb35-3"></a><span class="st">  </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <div class="figure">
 <img src="Locus_Stats_files/figure-html/unnamed-chunk-5-1.png" alt="Plot of missing data" width="700px" />
 <p class="caption">
@@ -828,47 +848,23 @@ tab(popsub(nanmean, 1, drop = TRUE)[loc = "fca8"])
 ```
 
 ```
-## Warning in validityMethod(object): @tab does not contain integers; as of
-## adegenet_2.0-0, numeric values are no longer used
+## Warning in validityMethod(object): @tab does not contain integers; as of adegenet_2.0-0, numeric values are no longer used
 
-## Warning in validityMethod(object): @tab does not contain integers; as of
-## adegenet_2.0-0, numeric values are no longer used
+## Warning in validityMethod(object): @tab does not contain integers; as of adegenet_2.0-0, numeric values are no longer used
 ```
 
 ```
-##         fca8.117    fca8.119   fca8.121  fca8.123    fca8.127  fca8.129
-## N215 0.004608295 0.004608295 0.02764977 0.1336406 0.004608295 0.0921659
-## N216 0.004608295 0.004608295 0.02764977 0.1336406 0.004608295 0.0921659
-## N217 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
-## N218 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
-## N219 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
-## N220 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
-## N221 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
-## N222 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
-## N223 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
-## N224 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
-##       fca8.131  fca8.133 fca8.135  fca8.137 fca8.139  fca8.141 fca8.143
-## N215 0.1013825 0.1520737 0.483871 0.3824885 0.124424 0.1889401 0.202765
-## N216 0.1013825 0.1520737 0.483871 0.3824885 0.124424 0.1889401 0.202765
-## N217 0.0000000 0.0000000 1.000000 0.0000000 0.000000 0.0000000 1.000000
-## N218 0.0000000 1.0000000 1.000000 0.0000000 0.000000 0.0000000 0.000000
-## N219 0.0000000 1.0000000 1.000000 0.0000000 0.000000 0.0000000 0.000000
-## N220 0.0000000 0.0000000 1.000000 0.0000000 0.000000 0.0000000 1.000000
-## N221 0.0000000 0.0000000 2.000000 0.0000000 0.000000 0.0000000 0.000000
-## N222 0.0000000 0.0000000 1.000000 0.0000000 0.000000 0.0000000 1.000000
-## N223 0.0000000 0.0000000 0.000000 1.0000000 0.000000 0.0000000 1.000000
-## N224 0.0000000 0.0000000 2.000000 0.0000000 0.000000 0.0000000 0.000000
-##        fca8.145   fca8.147   fca8.149
-## N215 0.05069124 0.01382488 0.03225806
-## N216 0.05069124 0.01382488 0.03225806
-## N217 0.00000000 0.00000000 0.00000000
-## N218 0.00000000 0.00000000 0.00000000
-## N219 0.00000000 0.00000000 0.00000000
-## N220 0.00000000 0.00000000 0.00000000
-## N221 0.00000000 0.00000000 0.00000000
-## N222 0.00000000 0.00000000 0.00000000
-## N223 0.00000000 0.00000000 0.00000000
-## N224 0.00000000 0.00000000 0.00000000
+##         fca8.117    fca8.119   fca8.121  fca8.123    fca8.127  fca8.129  fca8.131  fca8.133 fca8.135  fca8.137 fca8.139  fca8.141 fca8.143   fca8.145   fca8.147   fca8.149
+## N215 0.004608295 0.004608295 0.02764977 0.1336406 0.004608295 0.0921659 0.1013825 0.1520737 0.483871 0.3824885 0.124424 0.1889401 0.202765 0.05069124 0.01382488 0.03225806
+## N216 0.004608295 0.004608295 0.02764977 0.1336406 0.004608295 0.0921659 0.1013825 0.1520737 0.483871 0.3824885 0.124424 0.1889401 0.202765 0.05069124 0.01382488 0.03225806
+## N217 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000 0.0000000 0.0000000 1.000000 0.0000000 0.000000 0.0000000 1.000000 0.00000000 0.00000000 0.00000000
+## N218 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000 0.0000000 1.0000000 1.000000 0.0000000 0.000000 0.0000000 0.000000 0.00000000 0.00000000 0.00000000
+## N219 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000 0.0000000 1.0000000 1.000000 0.0000000 0.000000 0.0000000 0.000000 0.00000000 0.00000000 0.00000000
+## N220 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000 0.0000000 0.0000000 1.000000 0.0000000 0.000000 0.0000000 1.000000 0.00000000 0.00000000 0.00000000
+## N221 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000 0.0000000 0.0000000 2.000000 0.0000000 0.000000 0.0000000 0.000000 0.00000000 0.00000000 0.00000000
+## N222 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000 0.0000000 0.0000000 1.000000 0.0000000 0.000000 0.0000000 1.000000 0.00000000 0.00000000 0.00000000
+## N223 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000 0.0000000 0.0000000 0.000000 1.0000000 0.000000 0.0000000 1.000000 0.00000000 0.00000000 0.00000000
+## N224 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000 0.0000000 0.0000000 2.000000 0.0000000 0.000000 0.0000000 0.000000 0.00000000 0.00000000 0.00000000
 ```
 
 Notice that there are a lot more alleles than there were originally. This is
@@ -908,8 +904,8 @@ tab(nan1[loc = "fca8"])
 <div id="hardy-weinberg-equilibrium" class="section level2">
 <h2>Hardy-Weinberg equilibrium</h2>
 <p>Next, let’s determine if our populations are in Hardy-Weinberg equilibrium. We will again use the nancycats data to test for HWE using the function <code>hw.test()</code> from the <em>pegas</em> package. This will compute the <span class="math inline">\(\chi^2\)</span> statistic over the entire data set and compute two P-values, one analytical and one derived from permutations:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;pegas&quot;</span>)</a>
-<a class="sourceLine" id="cb45-2" data-line-number="2">(nanhwe.full &lt;-<span class="st"> </span><span class="kw">hw.test</span>(nancycats, <span class="dt">B =</span> <span class="dv">1000</span>)) <span class="co"># performs 1000 permuatations</span></a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="kw">library</span>(<span class="st">&quot;pegas&quot;</span>)</span>
+<span id="cb36-2"><a href="#cb36-2"></a>(nanhwe.full &lt;-<span class="st"> </span><span class="kw">hw.test</span>(nancycats, <span class="dt">B =</span> <span class="dv">1000</span>)) <span class="co"># performs 1000 permuatations</span></span></code></pre></div>
 <pre><code>##           chi^2  df  Pr(chi^2 &gt;) Pr.exact
 ## fca8  395.80006 120 0.000000e+00        0
 ## fca23 239.34221  55 0.000000e+00        0
@@ -921,7 +917,7 @@ tab(nan1[loc = "fca8"])
 ## fca96 193.36764  66 1.965095e-14        0
 ## fca37 291.00731 153 1.209777e-10        0</code></pre>
 <p>We can see here that both the analytical p-value and permuted p-value show that we have confidence that all loci are not under the null expectation of HWE. This makes sense given that these data represent 17 populations of cats. If we wanted to check what the HWE statistic for each population is, we should first separate the populations with the function <code>seppop()</code>. For this exercise, we will only focus on the analytical p-value by setting <code>B = 0</code>.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">(nanhwe.pop &lt;-<span class="st"> </span><span class="kw">seppop</span>(nancycats) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lapply</span>(hw.test, <span class="dt">B =</span> <span class="dv">0</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>(nanhwe.pop &lt;-<span class="st"> </span><span class="kw">seppop</span>(nancycats) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lapply</span>(hw.test, <span class="dt">B =</span> <span class="dv">0</span>))</span></code></pre></div>
 <pre><code>## $P01
 ##           chi^2 df Pr(chi^2 &gt;)
 ## fca8   5.135802  6 0.526517306
@@ -1131,37 +1127,17 @@ tab(nan1[loc = "fca8"])
 <blockquote>
 <p><code>[</code> is used to subset data, and it’s also a function! It provides an easy way to subset a list of data.</p>
 </blockquote>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">(nanhwe.mat &lt;-<span class="st"> </span><span class="kw">sapply</span>(nanhwe.pop, <span class="st">&quot;[&quot;</span>, <span class="dt">i =</span> <span class="ot">TRUE</span>, <span class="dt">j =</span> <span class="dv">3</span>)) <span class="co"># Take the third column with all rows</span></a></code></pre></div>
-<pre><code>##               P01          P02         P03          P04          P05
-## fca8  0.526517306 1.242747e-02 0.008041715 0.0308567389 3.954989e-01
-## fca23 0.003674334 9.955382e-03 0.019163551 0.3233864330 1.850960e-01
-## fca43 0.228040169 1.328128e-04 0.509920497 0.7685881191 2.095530e-01
-## fca45 0.437506757 6.625229e-01 0.907112985 0.1851504896 6.508040e-01
-## fca77 0.020815001 2.152672e-04 0.346093040 0.0259007804 5.544311e-01
-## fca78 0.527089257 7.397613e-02 0.007422415 0.1349710053 1.086817e-03
-## fca90 0.176471694 9.039990e-07 0.488153481 0.0002424509 4.948073e-02
-## fca96 0.380796192 4.066747e-13 0.561890682 0.8593197525 4.641922e-01
-## fca37 0.017283597 5.889498e-01 0.035996207 0.5749990390 3.895597e-05
-##              P06         P07         P08        P09        P10         P11
-## fca8  0.03577342 0.001015109 0.916111766 0.31510592 0.05872852 0.155066305
-## fca23 0.03719982 0.012687711 0.396621136 0.02873635 0.87429636 0.084923238
-## fca43 0.39334274 0.959144052 0.091988007 0.64577154 0.38208910 0.171817797
-## fca45 0.02992243 0.459347253 0.318334361 0.16270652 0.25979323 0.463741139
-## fca77 0.05640543 0.448233208 0.008789371 0.73130577 0.00513784 0.053561033
-## fca78 0.16657697 0.000760033 0.032459406 0.12388882 0.15291720 0.131431929
-## fca90 0.14408091 0.255608831 0.306700905 0.01948082 0.03719982 0.006894609
-## fca96 0.31995727 0.679082361 0.661271220 0.83243842 0.89847559 0.072335908
-## fca37 0.71678027 0.194316502 0.040848059 0.70671912 0.61820263 0.074121484
-##               P12          P13          P14         P15         P16
-## fca8  0.164120103 0.2630645196 4.256183e-01 0.705556557 0.281226569
-## fca23 0.024340677 0.0007554178 1.298351e-05 0.514871229 0.047447914
-## fca43 0.001448621 0.0166924694 6.132040e-02 0.566969462 0.492388326
-## fca45 0.999937497 0.6986081422 6.356538e-01 0.789277136 0.436511213
-## fca77 0.247330251 0.0782627471 2.371323e-02 0.700692473 0.214338721
-## fca78 0.394489189 0.4631446836 2.096833e-02 0.004624641 0.002939821
-## fca90 0.144976448 0.0673059558 8.540995e-02 0.256280157 0.108786650
-## fca96 0.995282078 0.4214193724 1.128794e-02 0.032991782 0.060178994
-## fca37 0.056109916 0.1384548888 9.212362e-01 0.057190992 0.560926769
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>(nanhwe.mat &lt;-<span class="st"> </span><span class="kw">sapply</span>(nanhwe.pop, <span class="st">&quot;[&quot;</span>, <span class="dt">i =</span> <span class="ot">TRUE</span>, <span class="dt">j =</span> <span class="dv">3</span>)) <span class="co"># Take the third column with all rows</span></span></code></pre></div>
+<pre><code>##               P01          P02         P03          P04          P05        P06         P07         P08        P09        P10         P11         P12          P13          P14         P15         P16
+## fca8  0.526517306 1.242747e-02 0.008041715 0.0308567389 3.954989e-01 0.03577342 0.001015109 0.916111766 0.31510592 0.05872852 0.155066305 0.164120103 0.2630645196 4.256183e-01 0.705556557 0.281226569
+## fca23 0.003674334 9.955382e-03 0.019163551 0.3233864330 1.850960e-01 0.03719982 0.012687711 0.396621136 0.02873635 0.87429636 0.084923238 0.024340677 0.0007554178 1.298351e-05 0.514871229 0.047447914
+## fca43 0.228040169 1.328128e-04 0.509920497 0.7685881191 2.095530e-01 0.39334274 0.959144052 0.091988007 0.64577154 0.38208910 0.171817797 0.001448621 0.0166924694 6.132040e-02 0.566969462 0.492388326
+## fca45 0.437506757 6.625229e-01 0.907112985 0.1851504896 6.508040e-01 0.02992243 0.459347253 0.318334361 0.16270652 0.25979323 0.463741139 0.999937497 0.6986081422 6.356538e-01 0.789277136 0.436511213
+## fca77 0.020815001 2.152672e-04 0.346093040 0.0259007804 5.544311e-01 0.05640543 0.448233208 0.008789371 0.73130577 0.00513784 0.053561033 0.247330251 0.0782627471 2.371323e-02 0.700692473 0.214338721
+## fca78 0.527089257 7.397613e-02 0.007422415 0.1349710053 1.086817e-03 0.16657697 0.000760033 0.032459406 0.12388882 0.15291720 0.131431929 0.394489189 0.4631446836 2.096833e-02 0.004624641 0.002939821
+## fca90 0.176471694 9.039990e-07 0.488153481 0.0002424509 4.948073e-02 0.14408091 0.255608831 0.306700905 0.01948082 0.03719982 0.006894609 0.144976448 0.0673059558 8.540995e-02 0.256280157 0.108786650
+## fca96 0.380796192 4.066747e-13 0.561890682 0.8593197525 4.641922e-01 0.31995727 0.679082361 0.661271220 0.83243842 0.89847559 0.072335908 0.995282078 0.4214193724 1.128794e-02 0.032991782 0.060178994
+## fca37 0.017283597 5.889498e-01 0.035996207 0.5749990390 3.895597e-05 0.71678027 0.194316502 0.040848059 0.70671912 0.61820263 0.074121484 0.056109916 0.1384548888 9.212362e-01 0.057190992 0.560926769
 ##             P17
 ## fca8  0.1052085
 ## fca23 0.3869703
@@ -1173,12 +1149,12 @@ tab(nan1[loc = "fca8"])
 ## fca96 0.5761501
 ## fca37 0.1648068</code></pre>
 <p>This output is still hard to sift through. An easy way to analyze this is by visualizing this as a heatmap. Since we only care whether or not a given locus is in or out of HWE, we will thus define an <span class="math inline">\(\alpha\)</span> value and set everything above that value to 1 so that we can visually detect candidate loci where we might reject the <span class="math inline">\(H_o\)</span> of HWE.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">alpha  &lt;-<span class="st"> </span><span class="fl">0.05</span></a>
-<a class="sourceLine" id="cb51-2" data-line-number="2">newmat &lt;-<span class="st"> </span>nanhwe.mat</a>
-<a class="sourceLine" id="cb51-3" data-line-number="3">newmat[newmat <span class="op">&gt;</span><span class="st"> </span>alpha] &lt;-<span class="st"> </span><span class="dv">1</span></a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>alpha  &lt;-<span class="st"> </span><span class="fl">0.05</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a>newmat &lt;-<span class="st"> </span>nanhwe.mat</span>
+<span id="cb42-3"><a href="#cb42-3"></a>newmat[newmat <span class="op">&gt;</span><span class="st"> </span>alpha] &lt;-<span class="st"> </span><span class="dv">1</span></span></code></pre></div>
 <p>Now we can create a simple heatmap with <code>levelplot</code>.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;lattice&quot;</span>)</a>
-<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="kw">levelplot</span>(<span class="kw">t</span>(newmat))</a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="kw">library</span>(<span class="st">&quot;lattice&quot;</span>)</span>
+<span id="cb43-2"><a href="#cb43-2"></a><span class="kw">levelplot</span>(<span class="kw">t</span>(newmat))</span></code></pre></div>
 <div class="figure">
 <img src="Locus_Stats_files/figure-html/unnamed-chunk-11-1.png" alt="Heatmap showing significant departures from HWE" width="700px" />
 <p class="caption">
@@ -1188,13 +1164,8 @@ Heatmap showing significant departures from HWE
 <p>This simple plot shows us loci in rows and populations in columns. Note, that all loci shown in pink are loci suspected of not being in HWE with <span class="math inline">\(p \leq 0.05\)</span>.</p>
 </div>
 </div>
-<div id="references" class="section level2 unnumbered">
+<div id="references" class="section level2">
 <h2>References</h2>
-<div id="refs" class="references">
-<div id="ref-goss2014irish">
-<p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The Irish potato famine pathogen <em>phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
-</div>
-</div>
 </div>
 
 
@@ -1206,7 +1177,7 @@ Heatmap showing significant departures from HWE
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

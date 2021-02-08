@@ -20,6 +20,7 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -30,12 +31,21 @@
   gtag('config', 'UA-107144798-3');
 </script>
 
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -45,14 +55,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -61,9 +73,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { background-color: #f8f8f8; }
+  {  background-color: #f8f8f8; }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -149,6 +161,7 @@ h6 {
   text-align: left;
 }
 </style>
+
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -437,28 +450,53 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Workshop
+    Workshops
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="workshop.html">Workshop</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">ICPP</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_icpp.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+        <li>
+          <a href="analysis_of_genome.html">Analysis of genome data</a>
+        </li>
+      </ul>
     </li>
-    <li>
-      <a href="intro_vcf.html">Introduction</a>
-    </li>
-    <li>
-      <a href="reading_vcf.html">VCF data</a>
-    </li>
-    <li>
-      <a href="quality_control.html">Quality control</a>
-    </li>
-    <li>
-      <a href="gbs_analysis.html">Analysis of GBS data</a>
-    </li>
-    <li>
-      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">APS Southern Division</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_southernAPS.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </li>
@@ -524,11 +562,11 @@ $(document).ready(function () {
 <li>Is genotypic evenness higher for BB populations than for FR populations?</li>
 </ul>
 <p>For the analysis, we need to read in the data, specify the stratifications in the data, and then set the stratification to symptom so that we can calculate genotypic richness, diversity, and evenness for BB as compared to FR for the entire data set:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">data</span>(monpop)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">splitStrata</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree<span class="op">/</span>Year<span class="op">/</span>Symptom</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">setPop</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Symptom</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">monpop</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">data</span>(monpop)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">splitStrata</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree<span class="op">/</span>Year<span class="op">/</span>Symptom</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">setPop</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Symptom</span>
+<span id="cb1-5"><a href="#cb1-5"></a>monpop</span></code></pre></div>
 <pre><code>## 
 ## This is a genclone object
 ## -------------------------
@@ -543,7 +581,7 @@ $(document).ready(function () {
 ##      3 strata - Tree, Year, Symptom
 ##      2 populations defined - BB, FR</code></pre>
 <p>To calculate genotypic richness, diversity, and evenness, we can use the <code>poppr</code> function:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">(monpop_diversity &lt;-<span class="st"> </span><span class="kw">poppr</span>(monpop))</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>(monpop_diversity &lt;-<span class="st"> </span><span class="kw">poppr</span>(monpop))</span></code></pre></div>
 <pre><code>##     Pop   N MLG eMLG   SE    H    G lambda   E.5  Hexp    Ia  rbarD   File
 ## 1    BB 113  94 94.0 0.00 4.40 61.7  0.984 0.755 0.584 0.591 0.0493 monpop
 ## 2    FR 581 191 66.6 4.17 4.58 53.4  0.981 0.543 0.588 0.809 0.0679 monpop
@@ -583,27 +621,27 @@ $(document).ready(function () {
 </tr>
 <tr class="even">
 <td><code>H</code></td>
-<td>Shannon-Wiener Index of MLG diversity <span class="citation">(Shannon, 2001)</span>.</td>
+<td>Shannon-Wiener Index of MLG diversity [@].</td>
 </tr>
 <tr class="odd">
 <td><code>G</code></td>
-<td>Stoddart and Taylor’s Index of MLG diversity <span class="citation">(Stoddart &amp; Taylor, 1988)</span>.</td>
+<td>Stoddart and Taylor’s Index of MLG diversity [@].</td>
 </tr>
 <tr class="even">
 <td><code>lambda</code></td>
-<td>Simpson’s Index <span class="citation">(Simpson, 1949)</span>.</td>
+<td>Simpson’s Index [@].</td>
 </tr>
 <tr class="odd">
 <td><code>E.5</code></td>
-<td>Evenness, <span class="math inline">\(E_5\)</span> <span class="citation">(Pielou, 1975; Ludwig &amp; Reynolds, 1988; Grünwald et al., 2003)</span>.</td>
+<td>Evenness, <span class="math inline">\(E_5\)</span> [@].</td>
 </tr>
 <tr class="even">
 <td><code>Hexp</code></td>
-<td>Nei’s unbiased gene diversity <span class="citation">(Nei, 1978)</span>.</td>
+<td>Nei’s unbiased gene diversity [@].</td>
 </tr>
 <tr class="odd">
 <td><code>Ia</code></td>
-<td>The index of association, <span class="math inline">\(I_A\)</span> <span class="citation">(Brown, Feldman &amp; Nevo, 1980; Smith et al., 1993)</span>.</td>
+<td>The index of association, <span class="math inline">\(I_A\)</span> [@].</td>
 </tr>
 <tr class="even">
 <td><code>rbarD</code></td>
@@ -614,20 +652,20 @@ $(document).ready(function () {
 <div id="genotypic-richness" class="section level2">
 <h2>Genotypic richness</h2>
 <p>The number of observed <span class="math inline">\(MLGs\)</span> is equivalent to genotypic richness. We expect that the BB population would have a higher genotypic richness than the FR population. However, looking at the raw number of MLGs for each symptom type, it shows us the opposite: there are 94 MLGs for BB and 191 MLGs for FR. This discrepancy has to do with the sample size differences, namely <span class="math inline">\(N = 113\)</span> for BB and <span class="math inline">\(N = 581\)</span> for FR. A more appropriate comparison is the <span class="math inline">\(eMLG\)</span> value, which is an approximation of the number of genotypes that would be expected at the largest, shared sample size (<span class="math inline">\(N = 113\)</span>) based on rarefaction. For BB (<span class="math inline">\(N = 113\)</span>) the <span class="math inline">\(eMLG = 94\)</span> and for FR (where <span class="math inline">\(N\)</span> is set to 113) the <span class="math inline">\(eMLG\)</span> = 66.6. Thus, genotypic richness is indeed higher in the BB populations than the FR population when considering equal sample sizes.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;vegan&quot;</span>)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">mon.tab &lt;-<span class="st"> </span><span class="kw">mlg.table</span>(monpop, <span class="dt">plot =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">min_sample &lt;-<span class="st"> </span><span class="kw">min</span>(<span class="kw">rowSums</span>(mon.tab))</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw">rarecurve</span>(mon.tab, <span class="dt">sample =</span> min_sample, <span class="dt">xlab =</span> <span class="st">&quot;Sample Size&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Expected MLGs&quot;</span>)</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="kw">title</span>(<span class="st">&quot;Rarefaction of Fruit Rot and Blossom Blight&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">library</span>(<span class="st">&quot;vegan&quot;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>mon.tab &lt;-<span class="st"> </span><span class="kw">mlg.table</span>(monpop, <span class="dt">plot =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb5-3"><a href="#cb5-3"></a>min_sample &lt;-<span class="st"> </span><span class="kw">min</span>(<span class="kw">rowSums</span>(mon.tab))</span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="kw">rarecurve</span>(mon.tab, <span class="dt">sample =</span> min_sample, <span class="dt">xlab =</span> <span class="st">&quot;Sample Size&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Expected MLGs&quot;</span>)</span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="kw">title</span>(<span class="st">&quot;Rarefaction of Fruit Rot and Blossom Blight&quot;</span>)</span></code></pre></div>
 <p><img src="Genotypic_EvenRichDiv_files/figure-html/rarecurve-1.png" width="700px" /></p>
 </div>
 <div id="genotypic-diversity" class="section level2">
 <h2>Genotypic diversity</h2>
 <p>Diversity measures incorporate both genotypic richness and abundance. There are three measures of genotypic diversity employed by <em>poppr</em>, the Shannon-Wiener index (H), Stoddart and Taylor’s index (G), and Simpson’s index (lambda). In our example, comparing the diversity of BB to FR shows that H is greater for FR (4.58 vs. 4.4), but G is lower (53.4 vs. 61.7). Thus, our expectation that diversity is lower for FR than BB is rejected in the case of H, which is likely due to the sensitivity of the Shannon-Wiener index to genotypic richness in the uneven sample sizes, and accepted in the case of G. To be fair, the sample size used to calculate these diversity measures is different and is therefore not an appropriate comparison.</p>
 <p>For an easier statistic to grasp, we have included the Simpson index, which is simply one minus the sum of squared genotype frequencies. This measure provides an estimation of the probability that two randomly selected genotypes are different and scales from 0 (no genotypes are different) to 1 (all genotypes are different). In the data above, we can see that lambda is just barely higher in BB than FR (0.984 vs. 0.981). Since this might be an artifact of sample size, we can explore a correction of Simpson’s index for sample size by multiplying lambda by <span class="math inline">\(N/(N - 1)\)</span>. Since R is vectorized, we can do this for all of our populations at once:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">N      &lt;-<span class="st"> </span>monpop_diversity<span class="op">$</span>N      <span class="co"># number of samples</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">lambda &lt;-<span class="st"> </span>monpop_diversity<span class="op">$</span>lambda <span class="co"># Simpson&#39;s index</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">(N<span class="op">/</span>(N <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)) <span class="op">*</span><span class="st"> </span>lambda              <span class="co"># Corrected Simpson&#39;s index</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>N      &lt;-<span class="st"> </span>monpop_diversity<span class="op">$</span>N      <span class="co"># number of samples</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>lambda &lt;-<span class="st"> </span>monpop_diversity<span class="op">$</span>lambda <span class="co"># Simpson&#39;s index</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>(N<span class="op">/</span>(N <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)) <span class="op">*</span><span class="st"> </span>lambda              <span class="co"># Corrected Simpson&#39;s index</span></span></code></pre></div>
 <pre><code>## [1] 0.9925727 0.9829604 0.9860399</code></pre>
 <p>Now we can see that, even after correction, Simpson’s index is still higher for BB.</p>
 <blockquote>
@@ -637,7 +675,7 @@ $(document).ready(function () {
 <div id="genotypic-evenness" class="section level2">
 <h2>Genotypic evenness</h2>
 <p>Evenness is a measure of the distribution of genotype abundances, wherein a population with equally abundant genotypes yields a value equal to 1 and a population dominated by a single genotype is closer to zero. In the example above, the BB population has <span class="math inline">\(E.5 = 0.755\)</span> and the FR population has <span class="math inline">\(E.5 = 0.543\)</span> . This indicates that the MLGs observed in the BB population are closer to equal abundance than those in the FR population. Indeed, when we look at a distribution of the <span class="math inline">\(MLGs\)</span> for each symptom type it shows us there are many more unique BB symptoms as compared to the FR symptoms.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">mon.tab &lt;-<span class="st"> </span><span class="kw">mlg.table</span>(monpop)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>mon.tab &lt;-<span class="st"> </span><span class="kw">mlg.table</span>(monpop)</span></code></pre></div>
 <p><img src="Genotypic_EvenRichDiv_files/figure-html/symptom_table-1.png" width="1000px" /></p>
 </div>
 <div id="conclusions" class="section level2">
@@ -647,35 +685,6 @@ $(document).ready(function () {
 <div id="references" class="section level2">
 <h2>References</h2>
 <!--------->
-<div id="refs" class="references">
-<div id="ref-brown1980multilocus">
-<p>Brown AHD., Feldman MW., Nevo E. 1980. Multilocus structure of natural populations of <em>hordeum spontaneum</em>. <em>Genetics</em> 96:523–536. Available at: <a href="http://www.genetics.org/content/96/2/523" class="uri">http://www.genetics.org/content/96/2/523</a></p>
-</div>
-<div id="ref-grunwald2003">
-<p>Grünwald NJ., Goodwin SB., Milgroom MG., Fry WE. 2003. Analysis of genotypic diversity data for populations of microorganisms. <em>Phytopathology</em> 93:738–746. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738" class="uri">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738</a></p>
-</div>
-<div id="ref-ludwig1988statistical">
-<p>Ludwig JA., Reynolds JF. 1988. <em>Statistical ecology: A primer in methods and computing</em>. Wiley.com.</p>
-</div>
-<div id="ref-nei1978estimation">
-<p>Nei M. 1978. Estimation of average heterozygosity and genetic distance from a small number of individuals. <em>Genetics</em> 89:583–590. Available at: <a href="http://www.genetics.org/content/89/3/583.abstract" class="uri">http://www.genetics.org/content/89/3/583.abstract</a></p>
-</div>
-<div id="ref-pielou1975ecological">
-<p>Pielou EC. 1975. <em>Ecological diversity</em>. Wiley New York.</p>
-</div>
-<div id="ref-shannon2001mathematical">
-<p>Shannon CE. 2001. A mathematical theory of communication. <em>ACM SIGMOBILE Mobile Computing and Communications Review</em> 5:3–55. Available at: <a href="http://cm.bell-labs.com/cm/ms/what/shannonday/shannon1948.pdf" class="uri">http://cm.bell-labs.com/cm/ms/what/shannonday/shannon1948.pdf</a></p>
-</div>
-<div id="ref-simpson1949measurement">
-<p>Simpson EH. 1949. Measurement of diversity. <em>Nature</em> 163:688. Available at: <a href="http://dx.doi.org/10.1038/163688a0" class="uri">http://dx.doi.org/10.1038/163688a0</a></p>
-</div>
-<div id="ref-smith1993clonal">
-<p>Smith JM., Smith NH., O’Rourke M., Spratt BG. 1993. How clonal are bacteria. <em>Proceedings of the National Academy of Sciences</em> 90:4384–4388. Available at: <a href="http://www.pnas.org/content/90/10/4384" class="uri">http://www.pnas.org/content/90/10/4384</a></p>
-</div>
-<div id="ref-stoddart1988genotypic">
-<p>Stoddart JA., Taylor JF. 1988. Genotypic diversity: Estimation and prediction in samples. <em>Genetics</em> 118:705–711. Available at: <a href="http://www.genetics.org/content/118/4/705" class="uri">http://www.genetics.org/content/118/4/705</a></p>
-</div>
-</div>
 </div>
 
 
@@ -687,7 +696,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

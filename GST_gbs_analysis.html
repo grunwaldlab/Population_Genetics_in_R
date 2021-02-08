@@ -21,6 +21,7 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -31,12 +32,21 @@
   gtag('config', 'UA-107144798-3');
 </script>
 
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -46,14 +56,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -62,9 +74,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { background-color: #f8f8f8; }
+  {  background-color: #f8f8f8; }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -150,6 +162,7 @@ h6 {
   text-align: left;
 }
 </style>
+
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -438,28 +451,53 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Workshop
+    Workshops
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="workshop.html">Workshop</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">ICPP</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_icpp.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+        <li>
+          <a href="analysis_of_genome.html">Analysis of genome data</a>
+        </li>
+      </ul>
     </li>
-    <li>
-      <a href="intro_vcf.html">Introduction</a>
-    </li>
-    <li>
-      <a href="reading_vcf.html">VCF data</a>
-    </li>
-    <li>
-      <a href="quality_control.html">Quality control</a>
-    </li>
-    <li>
-      <a href="gbs_analysis.html">Analysis of GBS data</a>
-    </li>
-    <li>
-      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">APS Southern Division</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_southernAPS.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </li>
@@ -518,16 +556,16 @@ $(document).ready(function () {
 </div>
 
 
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(vcfR)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(poppr)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(ape)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(RColorBrewer)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">library</span>(reshape2)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw">library</span>(knitcitations)</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">bib &lt;-<span class="st"> </span><span class="kw">read.bibtex</span>(<span class="st">&quot;bibtexlib.bib&quot;</span>)</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">pop.data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;population_data.gbs.txt&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">rubi.VCF &lt;-<span class="st"> </span><span class="kw">read.vcfR</span>(<span class="st">&quot;prubi_gbs.vcf.gz&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(vcfR)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(poppr)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">library</span>(ape)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">library</span>(RColorBrewer)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">library</span>(reshape2)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="kw">library</span>(knitcitations)</span>
+<span id="cb1-8"><a href="#cb1-8"></a>bib &lt;-<span class="st"> </span><span class="kw">read.bibtex</span>(<span class="st">&quot;bibtexlib.bib&quot;</span>)</span>
+<span id="cb1-9"><a href="#cb1-9"></a>pop.data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;population_data.gbs.txt&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>rubi.VCF &lt;-<span class="st"> </span><span class="kw">read.vcfR</span>(<span class="st">&quot;prubi_gbs.vcf.gz&quot;</span>)</span></code></pre></div>
 <pre><code>## Scanning file to determine attributes.
 ## File attributes:
 ##   meta lines: 9460
@@ -558,11 +596,11 @@ Processed variant: 615
 ## All variants processed</code></pre>
 <div id="additional-step-2-calculating-population-structure-using-f_st" class="section level2">
 <h2>Additional step 2: Calculating population structure using <span class="math inline">\(F_{ST}\)</span></h2>
-<p>A standard way to calculate population structure in population genetics is using the fixation index (<span class="math inline">\(F_{ST}\)</span>) proposed by Sewall Wright <span class="citation">(Wright, 1949, <span class="citation">@wright1978evolution</span>)</span>.</p>
+<p>A standard way to calculate population structure in population genetics is using the fixation index (<span class="math inline">\(F_{ST}\)</span>) proposed by Sewall Wright <span class="citation">(Wright, 1949, p. @wright1978evolution)</span>.</p>
 <p>The fixation index measures population differentiation due to genetic structure, and is based on the variance of the allele frequencies between populations. <span class="math inline">\(F_{ST}\)</span> values can be calculated for any molecular marker.</p>
-<p>The R package <em>vcfR</em> includes a function to calculate differentiation measures from VCF data. The function <code>genetic_diff()</code> includes options for Nei’s <span class="math inline">\(G_{ST}\)</span> <span class="citation">(Nei, 1973)</span>, including Hedrick’s <span class="math inline">\(G&#39;_{ST}\)</span> correction for high allelism <span class="citation">(Hedrick, 2005)</span> , as well as Jost’s <span class="math inline">\(D\)</span> <span class="citation">(Jost, 2008)</span>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">myDiff &lt;-<span class="st"> </span><span class="kw">genetic_diff</span>(rubi.VCF, <span class="kw">as.factor</span>(pop.data<span class="op">$</span>State), <span class="dt">method =</span> <span class="st">&quot;nei&quot;</span>)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">t</span>(<span class="kw">as.matrix</span>(<span class="kw">round</span>(<span class="kw">colMeans</span>(myDiff[,<span class="kw">c</span>(<span class="dv">3</span><span class="op">:</span><span class="dv">10</span>,<span class="dv">13</span>)], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">digits =</span> <span class="dv">3</span>))))</a></code></pre></div>
+<p>The R package <em>vcfR</em> includes a function to calculate differentiation measures from VCF data. The function <code>genetic_diff()</code> includes options for Nei’s <span class="math inline">\(G_{ST}\)</span> [@], including Hedrick’s <span class="math inline">\(G&#39;_{ST}\)</span> correction for high allelism [@] , as well as Jost’s <span class="math inline">\(D\)</span> [@].</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>myDiff &lt;-<span class="st"> </span><span class="kw">genetic_diff</span>(rubi.VCF, <span class="kw">as.factor</span>(pop.data<span class="op">$</span>State), <span class="dt">method =</span> <span class="st">&quot;nei&quot;</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">t</span>(<span class="kw">as.matrix</span>(<span class="kw">round</span>(<span class="kw">colMeans</span>(myDiff[,<span class="kw">c</span>(<span class="dv">3</span><span class="op">:</span><span class="dv">10</span>,<span class="dv">13</span>)], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">digits =</span> <span class="dv">3</span>))))</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -602,45 +640,36 @@ Processed variant: 615
 <p>These guidelines are valid for our <span class="math inline">\(G&#39;_{ST}\)</span> values as well. For a more extensive discussion on the interpretation of <span class="math inline">\(F_{ST}\)</span> values, we recommend chapter 4 in <span class="citation">Hartl &amp; Clark (2007)</span>.</p>
 <p>Both measurements of population differentiation for <em>P. rubi</em> show a moderate degree of differentiation among populations (Hedrick´s <span class="math inline">\(G&#39;_{ST}\)</span> = 0.084).</p>
 <p>However, these results from the population differentiation calculation are obtained by estimating the mean for each of the indices in the function. Each variant has its own estimation for each index in the <code>genetic_diff</code> function. We can visualize the distribution of indices across all variant positions using a violin plot:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">dpf &lt;-<span class="st"> </span><span class="kw">melt</span>(myDiff[,<span class="kw">c</span>(<span class="dv">3</span><span class="op">:</span><span class="dv">6</span>,<span class="dv">10</span>,<span class="dv">13</span>)], <span class="dt">varnames=</span><span class="kw">c</span>(<span class="st">&#39;Index&#39;</span>, <span class="st">&#39;Sample&#39;</span>), <span class="dt">value.name =</span> <span class="st">&#39;Depth&#39;</span>, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>dpf &lt;-<span class="st"> </span><span class="kw">melt</span>(myDiff[,<span class="kw">c</span>(<span class="dv">3</span><span class="op">:</span><span class="dv">6</span>,<span class="dv">10</span>,<span class="dv">13</span>)], <span class="dt">varnames=</span><span class="kw">c</span>(<span class="st">&#39;Index&#39;</span>, <span class="st">&#39;Sample&#39;</span>), <span class="dt">value.name =</span> <span class="st">&#39;Depth&#39;</span>, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>## No id variables; using all as measure variables</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dpf, <span class="kw">aes</span>(<span class="dt">x=</span>variable, <span class="dt">y=</span>Depth)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_violin</span>(<span class="dt">fill=</span><span class="st">&quot;#8dd3c7&quot;</span>, <span class="dt">adjust =</span> <span class="fl">2.8</span>)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</a>
-<a class="sourceLine" id="cb7-5" data-line-number="5">p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks=</span><span class="kw">seq</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="dt">by=</span><span class="fl">0.1</span>))</a>
-<a class="sourceLine" id="cb7-6" data-line-number="6">p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.15</span>, <span class="fl">0.25</span>), <span class="dt">color =</span> <span class="st">&quot;#B22222&quot;</span>, <span class="dt">lwd =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8">p</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dpf, <span class="kw">aes</span>(<span class="dt">x=</span>variable, <span class="dt">y=</span>Depth)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_violin</span>(<span class="dt">fill=</span><span class="st">&quot;#8dd3c7&quot;</span>, <span class="dt">adjust =</span> <span class="fl">2.8</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)</span>
+<span id="cb7-3"><a href="#cb7-3"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>)</span>
+<span id="cb7-4"><a href="#cb7-4"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</span>
+<span id="cb7-5"><a href="#cb7-5"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks=</span><span class="kw">seq</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="dt">by=</span><span class="fl">0.1</span>))</span>
+<span id="cb7-6"><a href="#cb7-6"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.15</span>, <span class="fl">0.25</span>), <span class="dt">color =</span> <span class="st">&quot;#B22222&quot;</span>, <span class="dt">lwd =</span> <span class="dv">1</span>)</span>
+<span id="cb7-7"><a href="#cb7-7"></a></span>
+<span id="cb7-8"><a href="#cb7-8"></a>p</span></code></pre></div>
 <p><img src="GST_gbs_analysis_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>The violin plot shows a high abundance of variants with low values for each index, indicating that the low values of population differentiation are common in our analysis. Nonetheless, we see a number of outlier variants in the high ends of the distribution. These variants represent sites in the genome under high differentiation. We can visualize these results by plotting the value of the index of interest (in this example, Hedrick´s <span class="math inline">\(G&#39;_{ST}\)</span>) against the position in the genome. These “Manhattan plots” allow visualization of differentiation along a portion of the genome:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">plot</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(myDiff), myDiff<span class="op">$</span>Gprimest, <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">xaxt =</span> <span class="st">&quot;n&quot;</span>, </a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">     <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">bg =</span> <span class="kw">as.factor</span>(myDiff<span class="op">$</span>CHROM), <span class="dt">yaxt=</span><span class="st">&#39;n&#39;</span>)</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw">title</span>(<span class="dt">ylab =</span> <span class="kw">expression</span>(<span class="st">&quot;G&#39;&quot;</span>[ST]))</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.15</span>, <span class="fl">0.25</span>), <span class="dt">col =</span> <span class="st">&quot;#B22222&quot;</span>)</a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="kw">axis</span>(<span class="dt">side=</span><span class="dv">2</span>, <span class="dt">at=</span><span class="kw">seq</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="dt">by=</span><span class="fl">0.1</span>), <span class="dt">las=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="kw">title</span>(<span class="dt">xlab =</span> <span class="st">&quot;Position&quot;</span>, <span class="dt">line =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">plot</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(myDiff), myDiff<span class="op">$</span>Gprimest, <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">xaxt =</span> <span class="st">&quot;n&quot;</span>, </span>
+<span id="cb8-2"><a href="#cb8-2"></a>     <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">bg =</span> <span class="kw">as.factor</span>(myDiff<span class="op">$</span>CHROM), <span class="dt">yaxt=</span><span class="st">&#39;n&#39;</span>)</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span>)</span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="kw">title</span>(<span class="dt">ylab =</span> <span class="kw">expression</span>(<span class="st">&quot;G&#39;&quot;</span>[ST]))</span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.15</span>, <span class="fl">0.25</span>), <span class="dt">col =</span> <span class="st">&quot;#B22222&quot;</span>)</span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="kw">axis</span>(<span class="dt">side=</span><span class="dv">2</span>, <span class="dt">at=</span><span class="kw">seq</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="dt">by=</span><span class="fl">0.1</span>), <span class="dt">las=</span><span class="dv">2</span>)</span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="kw">title</span>(<span class="dt">xlab =</span> <span class="st">&quot;Position&quot;</span>, <span class="dt">line =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="GST_gbs_analysis_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>We observe that the majority of variants have very low values of Hedrick´s <span class="math inline">\(G&#39;_{ST}\)</span>, as expected from previous results. However, there are positions in the genome with high Hedrick´s <span class="math inline">\(G&#39;_{ST}\)</span> values. Note however, that GBS data is very different than whole genome sequence data, as the variants that are obtained by GBS do not represent long stretches of the genome but only fragments scattered throughout the genome. We would need variant calls for a whole genome to find regions of divergence.</p>
 <div id="refs" class="references">
 <div id="ref-hartl2007">
-<p>Hartl D., Clark A. 2007. <em>Principles of population genetics</em>. Sinauer Associates, Incorporated. Available at: <a href="http://books.google.com/books?id=SB1vQgAACAAJ" class="uri">http://books.google.com/books?id=SB1vQgAACAAJ</a></p>
-</div>
-<div id="ref-hedrick2005standardized">
-<p>Hedrick PW. 2005. A standardized genetic differentiation measure. <em>Evolution</em> 59:1633–1638. Available at: <a href="http://dx.doi.org/10.1111/j.0014-3820.2005.tb01814.x" class="uri">http://dx.doi.org/10.1111/j.0014-3820.2005.tb01814.x</a></p>
-</div>
-<div id="ref-jost2008gst">
-<p>Jost L. 2008. <span class="math inline">\(G_{ST}\)</span> And its relatives do not measure differentiation. <em>Molecular Ecology</em> 17:4015–4026. Available at: <a href="http://dx.doi.org/10.1111/j.1365-294X.2008.03887.x" class="uri">http://dx.doi.org/10.1111/j.1365-294X.2008.03887.x</a></p>
-</div>
-<div id="ref-nei1973analysis">
-<p>Nei M. 1973. Analysis of gene diversity in subdivided populations. <em>Proceedings of the National Academy of Sciences</em> 70:3321–3323. Available at: <a href="http://www.pnas.org/content/70/12/3321.abstract" class="uri">http://www.pnas.org/content/70/12/3321.abstract</a></p>
+<p>Hartl D., Clark A. 2007. <em>Principles of population genetics</em>. Sinauer Associates, Incorporated. Available at: <a href="http://books.google.com/books?id=SB1vQgAACAAJ">http://books.google.com/books?id=SB1vQgAACAAJ</a></p>
 </div>
 <div id="ref-wright1949genetical">
-<p>Wright S. 1949. The genetical structure of populations. <em>Annals of Eugenics</em> 15:323–354. Available at: <a href="http://dx.doi.org/10.1111/j.1469-1809.1949.tb02451.x" class="uri">http://dx.doi.org/10.1111/j.1469-1809.1949.tb02451.x</a></p>
+<p>Wright S. 1949. The genetical structure of populations. <em>Annals of Eugenics</em> 15:323–354. Available at: <a href="http://dx.doi.org/10.1111/j.1469-1809.1949.tb02451.x">http://dx.doi.org/10.1111/j.1469-1809.1949.tb02451.x</a></p>
 </div>
 <div id="ref-wright1978evolution">
-<p>Wright S. 1978. Evolution and the genetics of populations. Vol. 4. Variability within and among natural populations. <em>University of Chicago Press, Chicago, IL, USA</em>. Available at: <a href="http://www.press.uchicago.edu/ucp/books/book/chicago/E/bo3642015.html" class="uri">http://www.press.uchicago.edu/ucp/books/book/chicago/E/bo3642015.html</a></p>
+<p>Wright S. 1978. Evolution and the genetics of populations. Vol. 4. Variability within and among natural populations. <em>University of Chicago Press, Chicago, IL, USA</em>. Available at: <a href="http://www.press.uchicago.edu/ucp/books/book/chicago/E/bo3642015.html">http://www.press.uchicago.edu/ucp/books/book/chicago/E/bo3642015.html</a></p>
 </div>
 </div>
 </div>
@@ -654,7 +683,7 @@ Processed variant: 615
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

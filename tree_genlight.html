@@ -20,6 +20,7 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -30,12 +31,21 @@
   gtag('config', 'UA-107144798-3');
 </script>
 
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -45,14 +55,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -61,9 +73,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { background-color: #f8f8f8; }
+  {  background-color: #f8f8f8; }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -149,6 +161,7 @@ h6 {
   text-align: left;
 }
 </style>
+
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -437,28 +450,53 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Workshop
+    Workshops
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="workshop.html">Workshop</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">ICPP</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_icpp.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+        <li>
+          <a href="analysis_of_genome.html">Analysis of genome data</a>
+        </li>
+      </ul>
     </li>
-    <li>
-      <a href="intro_vcf.html">Introduction</a>
-    </li>
-    <li>
-      <a href="reading_vcf.html">VCF data</a>
-    </li>
-    <li>
-      <a href="quality_control.html">Quality control</a>
-    </li>
-    <li>
-      <a href="gbs_analysis.html">Analysis of GBS data</a>
-    </li>
-    <li>
-      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">APS Southern Division</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_southernAPS.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </li>
@@ -521,24 +559,24 @@ $(document).ready(function () {
 <p>A basic distance tree can be reconstructed using two main algorithms: UPGMA (Unweighted Pair Group Method with Arithmetic Mean) and Neighbor-joining (for more info in these distance methods go to this <a href="https://en.wikipedia.org/wiki/Distance_matrices_in_phylogeny">wiki page</a>). These methods will use the distance matrix to determine the similarities between samples and reconstruct a tree.</p>
 <p>After the tree is recosntructed and the relationships between samples have been defined, there are mechanisms to determine if these relationships are well supported by the dataset. This is called the <a href="http://gogarten.uconn.edu/mcb221_2006/class30.html">bootstap support</a>. In a glimpse, bootstrap support is a non-parametric resampling of the traits used to contruct the tree, in order to determine the conficence values of a branch. When bootstrap support is near 100% it means that that node is present regardless of how the genetic variants are subset, giving us confidence in the presence of that node. A bootstrap support decreases it means that a node is sensitive to how the variants are subset, or that some of the variants support the node and others refute it. This gives us less confidence in the presence of a node because it’s presence is sensitive to which variants we use in the analysis.</p>
 <p>We will reconstruct an distance tree based in <strong>UPGMA</strong>, by using the distance we calculated in the previous steps. In addition, we will calculate the confidence of our relationships using 1000 bootstrap replicates for support:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(<span class="st">&quot;ape&quot;</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">x.tree &lt;-<span class="st"> </span><span class="kw">aboot</span>(x, <span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>, <span class="dt">sample =</span> <span class="dv">100</span>, <span class="dt">distance =</span> dist, <span class="dt">showtree =</span> F)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">cols &lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(<span class="dt">n =</span> <span class="kw">nPop</span>(x), <span class="dt">name =</span> <span class="st">&quot;Dark2&quot;</span>)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">plot.phylo</span>(x.tree, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">font =</span> <span class="dv">2</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">tip.color =</span>  cols[<span class="kw">pop</span>(x)],<span class="dt">label.offset =</span> <span class="fl">0.0125</span>)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">nodelabels</span>(x.tree<span class="op">$</span>node.label, <span class="dt">adj =</span> <span class="kw">c</span>(<span class="fl">1.3</span>, <span class="fl">-0.5</span>), <span class="dt">frame =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>,<span class="dt">font =</span> <span class="dv">3</span>, <span class="dt">xpd =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#axisPhylo(3)</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">legend</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">18</span>,<span class="kw">c</span>(<span class="st">&quot;Africa&quot;</span>,<span class="st">&quot;Europe&quot;</span>,<span class="st">&quot;Mexico&quot;</span>,<span class="st">&quot;P. miriabilis&quot;</span>,<span class="st">&quot;South America&quot;</span>,<span class="st">&quot;USA&quot;</span>),cols, <span class="dt">border =</span> <span class="ot">FALSE</span>, <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(<span class="st">&quot;ape&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a>x.tree &lt;-<span class="st"> </span><span class="kw">aboot</span>(x, <span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>, <span class="dt">sample =</span> <span class="dv">100</span>, <span class="dt">distance =</span> dist, <span class="dt">showtree =</span> F)</span>
+<span id="cb1-4"><a href="#cb1-4"></a>cols &lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(<span class="dt">n =</span> <span class="kw">nPop</span>(x), <span class="dt">name =</span> <span class="st">&quot;Dark2&quot;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">plot.phylo</span>(x.tree, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">font =</span> <span class="dv">2</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">tip.color =</span>  cols[<span class="kw">pop</span>(x)],<span class="dt">label.offset =</span> <span class="fl">0.0125</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="kw">nodelabels</span>(x.tree<span class="op">$</span>node.label, <span class="dt">adj =</span> <span class="kw">c</span>(<span class="fl">1.3</span>, <span class="fl">-0.5</span>), <span class="dt">frame =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>,<span class="dt">font =</span> <span class="dv">3</span>, <span class="dt">xpd =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#axisPhylo(3)</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="kw">legend</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">18</span>,<span class="kw">c</span>(<span class="st">&quot;Africa&quot;</span>,<span class="st">&quot;Europe&quot;</span>,<span class="st">&quot;Mexico&quot;</span>,<span class="st">&quot;P. miriabilis&quot;</span>,<span class="st">&quot;South America&quot;</span>,<span class="st">&quot;USA&quot;</span>),cols, <span class="dt">border =</span> <span class="ot">FALSE</span>, <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
 <p><img src="tree_genlight_files/figure-html/tree-1.png" width="576" /></p>
 <p>We can also change the algorithm to reconstruct the tree. This would be how a <strong>neighbor-joining</strong> tree will look like for the same dataset</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">x.tree &lt;-<span class="st"> </span><span class="kw">aboot</span>(x, <span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>, <span class="dt">sample =</span> <span class="dv">100</span>, <span class="dt">distance =</span> dist, <span class="dt">showtree =</span> F, <span class="dt">tree =</span> <span class="st">&quot;nj&quot;</span>, <span class="dt">root =</span> T)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>x.tree &lt;-<span class="st"> </span><span class="kw">aboot</span>(x, <span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>, <span class="dt">sample =</span> <span class="dv">100</span>, <span class="dt">distance =</span> dist, <span class="dt">showtree =</span> F, <span class="dt">tree =</span> <span class="st">&quot;nj&quot;</span>, <span class="dt">root =</span> T)</span></code></pre></div>
 <pre><code>## Warning in aboot(x, cutoff = 50, quiet = TRUE, sample = 100, distance = dist, : Some branch lengths of the tree are negative. Normalizing branches according to Kuhner and Felsenstein (1994)</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">x.tree &lt;-<span class="st"> </span><span class="kw">root</span>(<span class="dt">phy=</span>x.tree, <span class="dt">outgroup =</span> <span class="st">&quot;P7722&quot;</span>)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">x.tree &lt;-<span class="st"> </span><span class="kw">ladderize</span>(x.tree)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">plot.phylo</span>(x.tree, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">font =</span> <span class="dv">2</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">tip.color =</span>  cols[<span class="kw">pop</span>(x)],<span class="dt">label.offset =</span> <span class="fl">0.0125</span>)</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw">nodelabels</span>(x.tree<span class="op">$</span>node.label, <span class="dt">adj =</span> <span class="kw">c</span>(<span class="fl">1.3</span>, <span class="fl">-0.5</span>), <span class="dt">frame =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>,<span class="dt">font =</span> <span class="dv">3</span>, <span class="dt">xpd =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="kw">axisPhylo</span>(<span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="kw">legend</span>(<span class="dv">35</span>,<span class="dv">10</span>,<span class="kw">c</span>(<span class="st">&quot;Africa&quot;</span>,<span class="st">&quot;Europe&quot;</span>,<span class="st">&quot;Mexico&quot;</span>,<span class="st">&quot;P. miriabilis&quot;</span>,<span class="st">&quot;South America&quot;</span>,<span class="st">&quot;USA&quot;</span>),cols, <span class="dt">border =</span> <span class="ot">FALSE</span>, <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>x.tree &lt;-<span class="st"> </span><span class="kw">root</span>(<span class="dt">phy=</span>x.tree, <span class="dt">outgroup =</span> <span class="st">&quot;P7722&quot;</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>x.tree &lt;-<span class="st"> </span><span class="kw">ladderize</span>(x.tree)</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="kw">plot.phylo</span>(x.tree, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">font =</span> <span class="dv">2</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">tip.color =</span>  cols[<span class="kw">pop</span>(x)],<span class="dt">label.offset =</span> <span class="fl">0.0125</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="kw">nodelabels</span>(x.tree<span class="op">$</span>node.label, <span class="dt">adj =</span> <span class="kw">c</span>(<span class="fl">1.3</span>, <span class="fl">-0.5</span>), <span class="dt">frame =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>,<span class="dt">font =</span> <span class="dv">3</span>, <span class="dt">xpd =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="kw">axisPhylo</span>(<span class="dv">3</span>)</span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="kw">legend</span>(<span class="dv">35</span>,<span class="dv">10</span>,<span class="kw">c</span>(<span class="st">&quot;Africa&quot;</span>,<span class="st">&quot;Europe&quot;</span>,<span class="st">&quot;Mexico&quot;</span>,<span class="st">&quot;P. miriabilis&quot;</span>,<span class="st">&quot;South America&quot;</span>,<span class="st">&quot;USA&quot;</span>),cols, <span class="dt">border =</span> <span class="ot">FALSE</span>, <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
 <p><img src="tree_genlight_files/figure-html/unnamed-chunk-1-1.png" width="576" /></p>
 <p>The tree reconstruction show us that no populations (indicated by color) that are monophyletic. This shows that there is a lack of genetic population structure associated with geographic location. We will deal with statistical methods to determine population structure in the next section.</p>
 </div>
@@ -552,7 +590,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

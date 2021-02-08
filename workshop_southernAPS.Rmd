@@ -16,14 +16,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Southern APS Meeting, 2021
 
-Previous versions of this material were also presented at:    
+Previous versions of this material were also presented at:  
+
 * ICPP, Boston, Massachusetts, 2018
 * APS, San Antonio, Texas, 2017
 
-For workshops, we subset the information available elsewhere in this book to the pages in this section specifically for the workshop.
-This provides a convenient way to reduce the contents of a book to the essential portions we feel can be reasonably covered in a several hour long workshop.
+For workshops, we subset the information available elsewhere in this book to the pages in this section specifically.
+This provides a convenient way to reduce the contents of a book to the essential portions we feel can be reasonably covered in an hour long workshop.
 However, the cost of brevity is a lack of detail.
-While this section may be used as an entry point, learning about genomic analyses in R, details may be found elsewhere in the book.
+While this section may be used as an entry point to learning about genomic analyses in R, details may be found elsewhere in the book.
 
 
 ## Before you log into the workshop please make sure you install the following required materials
@@ -155,4 +156,4 @@ plot_poppr_msn(partial_clone, myMsn, palette = brewer.pal(n=4, name = "Set1"))
 
 ## How'd we do?
 
-After you've completed the workshop, please fill out [this quick survey](https://docs.google.com/forms/d/1Buc6fsnRxEtk0QhMxH_b3yPFhP3du83zb-4m7Hd9Xtc/edit) to provide us with feedback. Thank you!
+After you've completed the workshop, please fill out [this quick survey](https://forms.gle/jVnufyBpkAqjn14k6) to provide us with feedback. Thank you!

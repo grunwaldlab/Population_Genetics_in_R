@@ -20,6 +20,7 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -29,6 +30,15 @@
 
   gtag('config', 'UA-107144798-3');
 </script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
 
@@ -59,6 +69,7 @@ h6 {
   text-align: left;
 }
 </style>
+
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -347,28 +358,53 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Workshop
+    Workshops
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="workshop.html">Workshop</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">ICPP</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_icpp.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+        <li>
+          <a href="analysis_of_genome.html">Analysis of genome data</a>
+        </li>
+      </ul>
     </li>
-    <li>
-      <a href="intro_vcf.html">Introduction</a>
-    </li>
-    <li>
-      <a href="reading_vcf.html">VCF data</a>
-    </li>
-    <li>
-      <a href="quality_control.html">Quality control</a>
-    </li>
-    <li>
-      <a href="gbs_analysis.html">Analysis of GBS data</a>
-    </li>
-    <li>
-      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">APS Southern Division</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_southernAPS.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </li>
@@ -426,7 +462,7 @@ $(document).ready(function () {
 </div>
 
 
-<p>This primer provides a concise introduction to conducting applied analyses of population genetic data in R, with a special emphasis on non-model populations including clonal or partially clonal organisms. It is not meant to be a textbook on population genetics. Quite to the contrary, we refer the reader to several textbooks on population genetics <span class="citation">(Templeton, 2006; Hartl &amp; Clark, 2007; Nielsen &amp; Slatkin, 2013)</span>. Likewise, this book will not replace books on theory and statistics of population genetics <span class="citation">(Weir, 1996)</span>. The reader is thus expected to have a basic understanding of population genetic theory and applications. Finally, this primer is focused on traditional population genetics based on allele frequencies, rather than more sophisticated coalescent approaches <span class="citation">(Hein, Schierup &amp; Wiuf, 2004; Wakeley, 2009; Nielsen &amp; Slatkin, 2013)</span>, although some of the material covered here will apply. In a nutshell, this primer provides a valuable resource for tackling the nitty-gritty analysis of populations that do not necessarily conform to textbook genetics and might or might not be in Hardy-Weinberg equilibrium and panmixia.</p>
+<p>This primer provides a concise introduction to conducting applied analyses of population genetic data in R, with a special emphasis on non-model populations including clonal or partially clonal organisms. It is not meant to be a textbook on population genetics. Quite to the contrary, we refer the reader to several textbooks on population genetics [@]. Likewise, this book will not replace books on theory and statistics of population genetics [@]. The reader is thus expected to have a basic understanding of population genetic theory and applications. Finally, this primer is focused on traditional population genetics based on allele frequencies, rather than more sophisticated coalescent approaches [@], although some of the material covered here will apply. In a nutshell, this primer provides a valuable resource for tackling the nitty-gritty analysis of populations that do not necessarily conform to textbook genetics and might or might not be in Hardy-Weinberg equilibrium and panmixia.</p>
 <p>This primer is geared towards biologists interested in analyzing their populations. This primer does not require extensive knowledge of programming in R, but the user is expected to install R and all packages required for this primer.</p>
 <div id="why-use-r" class="section level2">
 <h2>Why use R?</h2>
@@ -459,15 +495,15 @@ $(document).ready(function () {
 </div>
 <div id="the-special-case-of-clonal-organisms" class="section level2">
 <h2>The special case of clonal organisms</h2>
-<p>Plants and microorganisms such as fungi, oomycetes, and bacteria often reproduce clonally or follow a mixed reproductive system, including various degrees of clonality and sexuality <span class="citation">(Halkett, Simon &amp; Balloux, 2005)</span>. Traditional population genetic theory does not apply and these populations violate basic assumptions in the corresponding analyses. Thus, a different set of tools are required for analyses of clonal populations <span class="citation">(Anderson &amp; Kohn, 1995; Milgroom, 1996; Balloux, Lehmann &amp; Meeûs, 2003; Halkett et al., 2005; De Meeûs, Lehmann &amp; Balloux, 2006; Grünwald &amp; Goss, 2011)</span>. Typically these focus on metrics that are model free and do not assume random mating or random sampling of alleles. Model free metrics suitable for analyzing these populations include measures of genotypic diversity or evenness, as well as cluster analysis based on genetic distance. Additional useful measures include indices of linkage disequiblibrium among markers that are used to infer if populations are reproducing sexually or clonally. We will explore these analyses bit by bit throughout this primer. The <em>poppr</em> R package was specifically developed to facilitate analyses of clonal populations <span class="citation">(Kamvar, Tabima &amp; Grünwald, 2014; Kamvar, Brooks &amp; Grünwald, 2015)</span>.</p>
+<p>Plants and microorganisms such as fungi, oomycetes, and bacteria often reproduce clonally or follow a mixed reproductive system, including various degrees of clonality and sexuality [@]. Traditional population genetic theory does not apply and these populations violate basic assumptions in the corresponding analyses. Thus, a different set of tools are required for analyses of clonal populations [@]. Typically these focus on metrics that are model free and do not assume random mating or random sampling of alleles. Model free metrics suitable for analyzing these populations include measures of genotypic diversity or evenness, as well as cluster analysis based on genetic distance. Additional useful measures include indices of linkage disequiblibrium among markers that are used to infer if populations are reproducing sexually or clonally. We will explore these analyses bit by bit throughout this primer. The <em>poppr</em> R package was specifically developed to facilitate analyses of clonal populations [@].</p>
 </div>
 <div id="marker-systems-ploidy-and-other-kinds-of-data" class="section level2">
 <h2>Marker systems, ploidy and other kinds of data</h2>
-<p>Population genetic data come in many shapes and forms and a good analysis needs to be tailored to the marker system, ploidy used and corresponding genetic models assumed <span class="citation">(Grünwald &amp; Goss, 2011)</span>. Organisms can be haploid, diploid, with or without known phase, or polyploid. In the case of diploid species, marker systems can be dominant (AFLP, RFLP or RAPD data) or co- dominant (SSR, SNPs, allozymes) <span class="citation">(Grünwald et al., 2003)</span>. A locus can have two alleles (0/1 for AFLP; C/T for SNPs) or many alleles per locus (A/B/C…N for SSRs or allozymes). In each case the data has to be coded and analyzed differently. Mutation rates can also differ for different markers systems (SSR &gt;&gt; mitochondrial SNPs &gt; nuclear SNPs) <span class="citation">(Grünwald &amp; Goss, 2011)</span>. All these aspects of a particular data set need to be considered in the data analyses.</p>
+<p>Population genetic data come in many shapes and forms and a good analysis needs to be tailored to the marker system, ploidy used and corresponding genetic models assumed [@]. Organisms can be haploid, diploid, with or without known phase, or polyploid. In the case of diploid species, marker systems can be dominant (AFLP, RFLP or RAPD data) or co- dominant (SSR, SNPs, allozymes) [@]. A locus can have two alleles (0/1 for AFLP; C/T for SNPs) or many alleles per locus (A/B/C…N for SSRs or allozymes). In each case the data has to be coded and analyzed differently. Mutation rates can also differ for different markers systems (SSR &gt;&gt; mitochondrial SNPs &gt; nuclear SNPs) [@]. All these aspects of a particular data set need to be considered in the data analyses.</p>
 </div>
 <div id="applications-of-population-genetic-analyses" class="section level2">
 <h2>Applications of population genetic analyses</h2>
-<p>Population genetic analyses are tremendously valuable for answering questions ranging from applied to basic evolutionary questions <span class="citation">(Grünwald &amp; Goss, 2011)</span>. For example, a typical concern when finding a new, invasive organism is whether it is introduced to the area or emerged from a resident population. Other questions of interest might include:</p>
+<p>Population genetic analyses are tremendously valuable for answering questions ranging from applied to basic evolutionary questions [@]. For example, a typical concern when finding a new, invasive organism is whether it is introduced to the area or emerged from a resident population. Other questions of interest might include:</p>
 <ul>
 <li>Where is the center of origin?</li>
 <li>Does this organism reproduce sexually?</li>
@@ -480,53 +516,6 @@ $(document).ready(function () {
 <div id="references" class="section level2">
 <h2>References</h2>
 <!--- ref --->
-<div id="refs" class="references">
-<div id="ref-anderson1995clonality">
-<p>Anderson JB., Kohn LM. 1995. Clonality in soilborne, plant-pathogenic fungi. <em>Annual Review of Phytopathology</em> 33:369–391. Available at: <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev.py.33.090195.002101" class="uri">http://www.annualreviews.org/doi/abs/10.1146/annurev.py.33.090195.002101</a></p>
-</div>
-<div id="ref-balloux2003population">
-<p>Balloux F., Lehmann L., Meeûs T de. 2003. The population genetics of clonal and partially clonal diploids. <em>Genetics</em> 164:1635–1644. Available at: <a href="http://www.genetics.org/content/164/4/1635.full" class="uri">http://www.genetics.org/content/164/4/1635.full</a></p>
-</div>
-<div id="ref-de2006molecular">
-<p>De Meeûs T., Lehmann L., Balloux F. 2006. Molecular epidemiology of clonal diploids: A quick overview and a short diy (do it yourself) notice. <em>Infection, Genetics and Evolution</em> 6:163–170. Available at: <a href="http://www.ncbi.nlm.nih.gov/pubmed/16290062" class="uri">http://www.ncbi.nlm.nih.gov/pubmed/16290062</a></p>
-</div>
-<div id="ref-grunwald2003">
-<p>Grünwald NJ., Goodwin SB., Milgroom MG., Fry WE. 2003. Analysis of genotypic diversity data for populations of microorganisms. <em>Phytopathology</em> 93:738–746. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738" class="uri">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738</a></p>
-</div>
-<div id="ref-grunwald2011evolution">
-<p>Grünwald NJ., Goss EM. 2011. Evolution and population genetics of exotic and re-emerging pathogens: Novel tools and approaches. <em>Annual Review of Phytopathology</em> 49:249–267. Available at: <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-phyto-072910-095246?journalCode=phyto" class="uri">http://www.annualreviews.org/doi/abs/10.1146/annurev-phyto-072910-095246?journalCode=phyto</a></p>
-</div>
-<div id="ref-halkett2005tackling">
-<p>Halkett F., Simon J-C., Balloux F. 2005. Tackling the population genetics of clonal and partially clonal organisms. <em>Trends in Ecology &amp; Evolution</em> 20:194–201. Available at: <a href="http://www.ncbi.nlm.nih.gov/pubmed/16701368" class="uri">http://www.ncbi.nlm.nih.gov/pubmed/16701368</a></p>
-</div>
-<div id="ref-hartl2007">
-<p>Hartl D., Clark A. 2007. <em>Principles of population genetics</em>. Sinauer Associates, Incorporated. Available at: <a href="http://books.google.com/books?id=SB1vQgAACAAJ" class="uri">http://books.google.com/books?id=SB1vQgAACAAJ</a></p>
-</div>
-<div id="ref-hein2004">
-<p>Hein J., Schierup M., Wiuf C. 2004. <em>Gene genealogies, variation and evolution: A primer in coalescent theory</em>. Oxford University Press, USA. Available at: <a href="http://books.google.com/books?id=QBC\_SFOamksC" class="uri">http://books.google.com/books?id=QBC\_SFOamksC</a></p>
-</div>
-<div id="ref-kamvar2015novel">
-<p>Kamvar ZN., Brooks JC., Grünwald NJ. 2015. Novel R tools for analysis of genome-wide population genetic data with emphasis on clonality. <em>Name: Frontiers in Genetics</em> 6:208. Available at: <a href="http://dx.doi.org/10.3389/fgene.2015.00208" class="uri">http://dx.doi.org/10.3389/fgene.2015.00208</a></p>
-</div>
-<div id="ref-kamvar2014poppr">
-<p>Kamvar ZN., Tabima JF., Grünwald NJ. 2014. <span class="math inline">\(Poppr\)</span>: An R package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281" class="uri">http://dx.doi.org/10.7717/peerj.281</a></p>
-</div>
-<div id="ref-milgroom1996recombination">
-<p>Milgroom MG. 1996. Recombination and the multilocus structure of fungal populations. <em>Annual Review of Phytopathology</em> 34:457–477. Available at: <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev.phyto.34.1.457" class="uri">http://www.annualreviews.org/doi/abs/10.1146/annurev.phyto.34.1.457</a></p>
-</div>
-<div id="ref-nielsen2013">
-<p>Nielsen R., Slatkin M. 2013. <em>An introduction to population genetics: Theory and applications</em>. Sinauer Associates, Incorporated. Available at: <a href="http://books.google.com/books?id=Iy08kgEACAAJ" class="uri">http://books.google.com/books?id=Iy08kgEACAAJ</a></p>
-</div>
-<div id="ref-templeton2006">
-<p>Templeton A. 2006. <em>Population genetics and microevolutionary theory</em>. Wiley. Available at: <a href="http://books.google.com/books?id=tJVreQjInt0C" class="uri">http://books.google.com/books?id=tJVreQjInt0C</a></p>
-</div>
-<div id="ref-wakeley2009">
-<p>Wakeley J. 2009. <em>Coalescent theory: An introduction</em>. Roberts &amp; Company Publishers. Available at: <a href="http://books.google.com/books?id=x30RAgAACAAJ" class="uri">http://books.google.com/books?id=x30RAgAACAAJ</a></p>
-</div>
-<div id="ref-weir1996">
-<p>Weir B. 1996. <em>Genetic data analysis 2</em>. Sinauer Associates. Available at: <a href="http://books.google.com/books?id=e9QPAQAAMAAJ" class="uri">http://books.google.com/books?id=e9QPAQAAMAAJ</a></p>
-</div>
-</div>
 </div>
 
 
@@ -538,7 +527,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

@@ -20,6 +20,7 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -30,12 +31,21 @@
   gtag('config', 'UA-107144798-3');
 </script>
 
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -45,14 +55,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -61,9 +73,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { background-color: #f8f8f8; }
+  {  background-color: #f8f8f8; }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -149,6 +161,7 @@ h6 {
   text-align: left;
 }
 </style>
+
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -437,28 +450,53 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Workshop
+    Workshops
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="workshop.html">Workshop</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">ICPP</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_icpp.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+        <li>
+          <a href="analysis_of_genome.html">Analysis of genome data</a>
+        </li>
+      </ul>
     </li>
-    <li>
-      <a href="intro_vcf.html">Introduction</a>
-    </li>
-    <li>
-      <a href="reading_vcf.html">VCF data</a>
-    </li>
-    <li>
-      <a href="quality_control.html">Quality control</a>
-    </li>
-    <li>
-      <a href="gbs_analysis.html">Analysis of GBS data</a>
-    </li>
-    <li>
-      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">APS Southern Division</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_southernAPS.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </li>
@@ -516,13 +554,13 @@ $(document).ready(function () {
 
 
 <p>In the section on depth we learned how we can visualize variant depth, or any other numeric value provided in the gt portion of VCF data. In the section on censoring data we learned how to rescore variants that were outside our acceptance threshold as missing. And in the section on missing data we learned how to quantify and visualize missingness in our dataset. Here we put all of these skills together in order to omit samples and variants that have been set as missing (NA).</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(vcfR)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(pinfsc50)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#data(vcfR_example)</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">vcf &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;pinf_sc50.vcf.gz&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;pinfsc50&quot;</span>)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">vcf &lt;-<span class="st"> </span>vcfR<span class="op">::</span><span class="kw">read.vcfR</span>(vcf)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">vcf</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(vcfR)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(pinfsc50)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#data(vcfR_example)</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>vcf &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;pinf_sc50.vcf.gz&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;pinfsc50&quot;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a>vcf &lt;-<span class="st"> </span>vcfR<span class="op">::</span><span class="kw">read.vcfR</span>(vcf)</span>
+<span id="cb1-6"><a href="#cb1-6"></a>dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>vcf</span></code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
 ## 18 samples
 ## 1 CHROMs
@@ -531,14 +569,14 @@ $(document).ready(function () {
 ## 7.929 percent missing data
 ## *****        *****         *****</code></pre>
 <p>Because part of this exercise involves setting cells in our data matrix as NA we should begin by reminding ourselves of how abundant they are. By using the show method we see that we have 7.93 percent missing data. We can now use what we learned previously to set variants that are outside our per sample inclusion threshold as NA.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">quants &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN=</span><span class="dv">2</span>, quantile, <span class="dt">probs=</span><span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>), <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">dp2 &lt;-<span class="st"> </span><span class="kw">sweep</span>(dp, <span class="dt">MARGIN=</span><span class="dv">2</span>, <span class="dt">FUN =</span> <span class="st">&quot;-&quot;</span>, quants[<span class="dv">1</span>,])</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">dp[dp2 <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">dp2 &lt;-<span class="st"> </span><span class="kw">sweep</span>(dp, <span class="dt">MARGIN=</span><span class="dv">2</span>, <span class="dt">FUN =</span> <span class="st">&quot;-&quot;</span>, quants[<span class="dv">2</span>,])</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">dp[dp2 <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">dp[dp <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">vcf<span class="op">@</span>gt[,<span class="op">-</span><span class="dv">1</span>][ <span class="kw">is.na</span>(dp) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span> ] &lt;-<span class="st"> </span><span class="ot">NA</span></a></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">vcf</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>quants &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN=</span><span class="dv">2</span>, quantile, <span class="dt">probs=</span><span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>), <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>dp2 &lt;-<span class="st"> </span><span class="kw">sweep</span>(dp, <span class="dt">MARGIN=</span><span class="dv">2</span>, <span class="dt">FUN =</span> <span class="st">&quot;-&quot;</span>, quants[<span class="dv">1</span>,])</span>
+<span id="cb4-3"><a href="#cb4-3"></a>dp[dp2 <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>dp2 &lt;-<span class="st"> </span><span class="kw">sweep</span>(dp, <span class="dt">MARGIN=</span><span class="dv">2</span>, <span class="dt">FUN =</span> <span class="st">&quot;-&quot;</span>, quants[<span class="dv">2</span>,])</span>
+<span id="cb4-5"><a href="#cb4-5"></a>dp[dp2 <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>dp[dp <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>vcf<span class="op">@</span>gt[,<span class="op">-</span><span class="dv">1</span>][ <span class="kw">is.na</span>(dp) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span> ] &lt;-<span class="st"> </span><span class="ot">NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>vcf</span></code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
 ## 18 samples
 ## 1 CHROMs
@@ -547,17 +585,17 @@ $(document).ready(function () {
 ## 27.7 percent missing data
 ## *****        *****         *****</code></pre>
 <p>We see that this censoring has increased the degree of missingness in our matrix to 27.7 percent. Ideally we should visualize the results of this action. For brevity, we will not here. But you can return to the section on depth and reuse the code presented there to visualize how this change has affected the distribution of the data. One way to visualize these data is to use a heatmap.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">heatmap.bp</span>(dp[<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>,], <span class="dt">rlabels =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">heatmap.bp</span>(dp[<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>,], <span class="dt">rlabels =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <p><img src="omitting_data_files/figure-html/unnamed-chunk-6-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <div id="omitting-samples" class="section level2">
 <h2>Omitting samples</h2>
 <p>We can see that some samples have a high degree of missingness. By omitting these samples we may reduce the overall missingness in the data set. We accomplish this by using the function <code>is.na()</code> in conjunction with <code>apply()</code> to determine each samples degree of missingness and use this information to omit samples below a threshold. We can then visualize this change with another heatmap.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="cf">function</span>(x){ <span class="kw">sum</span>( <span class="kw">is.na</span>(x) ) } )</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">myMiss &lt;-<span class="st"> </span>myMiss <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(dp)</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw">barplot</span>(myMiss, <span class="dt">las =</span> <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="cf">function</span>(x){ <span class="kw">sum</span>( <span class="kw">is.na</span>(x) ) } )</span>
+<span id="cb8-2"><a href="#cb8-2"></a>myMiss &lt;-<span class="st"> </span>myMiss <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(dp)</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="kw">barplot</span>(myMiss, <span class="dt">las =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p><img src="omitting_data_files/figure-html/unnamed-chunk-7-1.png" width="1152" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">vcf<span class="op">@</span>gt &lt;-<span class="st"> </span>vcf<span class="op">@</span>gt[, <span class="kw">c</span>(<span class="ot">TRUE</span>, myMiss <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.6</span>)]</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">vcf</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>vcf<span class="op">@</span>gt &lt;-<span class="st"> </span>vcf<span class="op">@</span>gt[, <span class="kw">c</span>(<span class="ot">TRUE</span>, myMiss <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.6</span>)]</span>
+<span id="cb9-2"><a href="#cb9-2"></a>vcf</span></code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
 ## 18 samples
 ## 1 CHROMs
@@ -565,18 +603,18 @@ $(document).ready(function () {
 ## Object size: 20.5 Mb
 ## 27.7 percent missing data
 ## *****        *****         *****</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw">heatmap.bp</span>(dp[<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>,], <span class="dt">rlabels =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="kw">heatmap.bp</span>(dp[<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>,], <span class="dt">rlabels =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <p><img src="omitting_data_files/figure-html/unnamed-chunk-8-1.png" width="1152" style="display: block; margin: auto;" /></p>
 </div>
 <div id="omitting-variants" class="section level2">
 <h2>Omitting variants</h2>
 <p>Previously we have seen how to quantify and visualize missingness for variants in our dataset. We can use this information to omit variants that have a high degree of missingness similar to how we treated the samples.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">1</span>, <span class="cf">function</span>(x){ <span class="kw">sum</span>( <span class="kw">is.na</span>(x) ) } )</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2">myMiss &lt;-<span class="st"> </span>myMiss <span class="op">/</span><span class="st"> </span><span class="kw">ncol</span>(dp)</a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#vcf &lt;- vcf[myMiss &lt; 0.2, ]</span></a>
-<a class="sourceLine" id="cb12-4" data-line-number="4">vcf &lt;-<span class="st"> </span>vcf[myMiss <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>, ]</a>
-<a class="sourceLine" id="cb12-5" data-line-number="5">vcf</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>myMiss &lt;-<span class="st"> </span><span class="kw">apply</span>(dp, <span class="dt">MARGIN =</span> <span class="dv">1</span>, <span class="cf">function</span>(x){ <span class="kw">sum</span>( <span class="kw">is.na</span>(x) ) } )</span>
+<span id="cb12-2"><a href="#cb12-2"></a>myMiss &lt;-<span class="st"> </span>myMiss <span class="op">/</span><span class="st"> </span><span class="kw">ncol</span>(dp)</span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="co">#vcf &lt;- vcf[myMiss &lt; 0.2, ]</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a>vcf &lt;-<span class="st"> </span>vcf[myMiss <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>, ]</span>
+<span id="cb12-5"><a href="#cb12-5"></a>vcf</span></code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
 ## 18 samples
 ## 1 CHROMs
@@ -584,12 +622,12 @@ $(document).ready(function () {
 ## Object size: 2.9 Mb
 ## 0 percent missing data
 ## *****        *****         *****</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">heatmap.bp</span>(dp, <span class="dt">rlabels =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="kw">heatmap.bp</span>(dp, <span class="dt">rlabels =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <p><img src="omitting_data_files/figure-html/unnamed-chunk-10-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>When we are happy with our changes we can save our production data using the function <code>write.vcf</code>.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">write.vcf</span>(vcf, <span class="dt">file =</span> <span class="st">&quot;pinfsc50_filtered.vcf.gz&quot;</span>)</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">#write.vcf(vcf, &quot;pinfsc50_qc.vcf.gz&quot;)</span></a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">write.vcf</span>(vcf, <span class="dt">file =</span> <span class="st">&quot;pinfsc50_filtered.vcf.gz&quot;</span>)</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="co">#write.vcf(vcf, &quot;pinfsc50_qc.vcf.gz&quot;)</span></span></code></pre></div>
 </div>
 <div id="summary." class="section level2">
 <h2>Summary.</h2>
@@ -605,7 +643,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

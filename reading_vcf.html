@@ -20,6 +20,7 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -30,12 +31,21 @@
   gtag('config', 'UA-107144798-3');
 </script>
 
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -45,14 +55,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -61,9 +73,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { background-color: #f8f8f8; }
+  {  background-color: #f8f8f8; }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -149,6 +161,7 @@ h6 {
   text-align: left;
 }
 </style>
+
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -437,28 +450,53 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Workshop
+    Workshops
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="workshop.html">Workshop</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">ICPP</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_icpp.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+        <li>
+          <a href="analysis_of_genome.html">Analysis of genome data</a>
+        </li>
+      </ul>
     </li>
-    <li>
-      <a href="intro_vcf.html">Introduction</a>
-    </li>
-    <li>
-      <a href="reading_vcf.html">VCF data</a>
-    </li>
-    <li>
-      <a href="quality_control.html">Quality control</a>
-    </li>
-    <li>
-      <a href="gbs_analysis.html">Analysis of GBS data</a>
-    </li>
-    <li>
-      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">APS Southern Division</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_southernAPS.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </li>
@@ -516,7 +554,7 @@ $(document).ready(function () {
 </div>
 
 
-<p>Genetic variation data is typically stored in <a href="http://samtools.github.io/hts-specs/" title="VCF format at hts-specs">variant call format (VCF)</a> files <span class="citation">(Danecek et al., 2011)</span>. This format is the preferred file format obtained from genome sequencing or high throughput genotyping. One advantage of using VCF files is that only variants (e.g., SNPs, indels, etc.) are reported which economizes files size relative to a format that may included invariant sites. Variant callers typically attempt to aggressively call variants with the perspective that a downstream quality control step will remove low quality variants. Note that VCF files come in different flavors and that each variant caller may report a slightly different information. A first step in working with this data is to understand their <a href="http://vcftools.sourceforge.net/VCF-poster.pdf">contents</a>.</p>
+<p>Genetic variation data is typically stored in <a href="http://samtools.github.io/hts-specs/" title="VCF format at hts-specs">variant call format (VCF)</a> files [@]. This format is the preferred file format obtained from genome sequencing or high throughput genotyping. One advantage of using VCF files is that only variants (e.g., SNPs, indels, etc.) are reported which economizes files size relative to a format that may included invariant sites. Variant callers typically attempt to aggressively call variants with the perspective that a downstream quality control step will remove low quality variants. Note that VCF files come in different flavors and that each variant caller may report a slightly different information. A first step in working with this data is to understand their <a href="http://vcftools.sourceforge.net/VCF-poster.pdf">contents</a>.</p>
 <div id="vcf-file-structure" class="section level2">
 <h2>VCF file structure</h2>
 <p>A VCF file can be thought of as having three sections: a <strong>vcf header</strong>, a <strong>fix region</strong> and a <strong>gt region</strong>. The VCF meta region is located at the top of the file and contains meta-data describing the body of the file. Each VCF meta line begins with a ‘##’. The information in the meta region defines the abbreviations used elsewhere in the file. It may also document software used to create the file as well as parameters used by this software. Below the metadata region, the data are tabular. The first eight columns of this table contain information about each variant. This data may be common over all variants, such as its chromosomal position, or a summary over all samples, such as quality metrics. These data are fixed, or the same, over all samples. The fix region is required in a VCF file, subsequent columns are optional but are common in our experience. Beginning at column ten is a column for every sample. The values in these columns are information for each sample and each variant. The organization of each cell containing a genotype and associated information is specified in column nine, the FORMAT column. The location of these three regions within a file can be represented by this cartoon:</p>
@@ -527,10 +565,10 @@ Cartoon representation of VCF file organization
 </p>
 </div>
 <p>The VCF file specification is flexible. This means that there are slots for certain types of data, but any particular software which creates a VCF file does not necessarily use them all. Similarly, authors have the opportunity to include new forms of data, forms which may not have been foreseen by the authors of the VCF specification. The result is that all VCF files do not contain the same information.</p>
-<p>For this example, we will use example data provided with the R package <em>vcfR</em> <span class="citation">(Knaus &amp; Grünwald, 2017)</span>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(vcfR)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">data</span>(vcfR_example)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">vcf</a></code></pre></div>
+<p>For this example, we will use example data provided with the R package <em>vcfR</em> [@].</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(vcfR)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">data</span>(vcfR_example)</span>
+<span id="cb1-3"><a href="#cb1-3"></a>vcf</span></code></pre></div>
 <pre class="r-output"><code>## ***** Object of Class vcfR *****
 ## 18 samples
 ## 1 CHROMs
@@ -544,7 +582,7 @@ Cartoon representation of VCF file organization
 <div id="the-meta-region" class="section level2">
 <h2>The meta region</h2>
 <p>The meta region contains information about the file, its creation, as well as information to interpret abbreviations used elsewhere in the file. Each line of the meta region begins with a double pound sign (‘##’). The example which comes with <em>vcfR</em> is shown below. (Only the first seven lines are shown for brevity.)</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">strwrap</span>(vcf<span class="op">@</span>meta[<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">strwrap</span>(vcf<span class="op">@</span>meta[<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>])</span></code></pre></div>
 <pre class="r-output"><code>## [1] "##fileformat=VCFv4.1"                                                                                                            
 ## [2] "##source=\"GATK haplotype Caller, phased with beagle4\""                                                                         
 ## [3] "##FILTER=&lt;ID=LowQual,Description=\"Low quality\"&gt;"                                                                               
@@ -555,7 +593,7 @@ Cartoon representation of VCF file organization
 </code></pre>
 <p>The first line contains the version of the VCF format used in the file. This line is required. The second line specifies the software which created the VCF file. This is not required, so not all VCF files include it. When they do, the file becomes self documenting. Note that the alignment software is not included here because it was used upstream of the VCF file’s creation (aligners typically create *.SAM or *.BAM format files). Because the file can only include information about the software that created it, the entire pipeline does not get documented. Some VCF files may contain a line for every chromosome (or supercontig or contig depending on your genome), so they may become rather long. Here, the remaining lines contain INFO and FORMAT specifications which define abbreviations used in the fix and gt portions of the file.</p>
 <p>The meta region may include long lines that may not be easy to view. In <em>vcfR</em> we’ve created a function to help press this data.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">queryMETA</span>(vcf)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">queryMETA</span>(vcf)</span></code></pre></div>
 <pre class="r-output"><code>##  [1] "FILTER=ID=LowQual"                    "FORMAT=ID=AD"                         "FORMAT=ID=DP"                         "FORMAT=ID=GQ"                         "FORMAT=ID=GT"                        
 ##  [6] "FORMAT=ID=PL"                         "GATKCommandLine=ID=HaplotypeCaller"   "INFO=ID=AC"                           "INFO=ID=AF"                           "INFO=ID=AN"                          
 ## [11] "INFO=ID=BaseQRankSum"                 "INFO=ID=ClippingRankSum"              "INFO=ID=DP"                           "INFO=ID=DS"                           "INFO=ID=FS"                          
@@ -564,7 +602,7 @@ Cartoon representation of VCF file organization
 ## [26] "1 contig=&lt;IDs omitted from queryMETA"
 </code></pre>
 <p>When the function <code>queryMETA()</code> is called with only a <em>vcfR</em> object as a parameter, it attempts to summarize the meta information. Not all of the information is returned. For example, ‘contig’ elements are not returned. This is an attempt to summarize information that may be most useful for comprehension of the file’s contents.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">queryMETA</span>(vcf, <span class="dt">element =</span> <span class="st">&#39;DP&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">queryMETA</span>(vcf, <span class="dt">element =</span> <span class="st">&#39;DP&#39;</span>)</span></code></pre></div>
 <pre class="r-output"><code>## [[1]]
 ## [1] "FORMAT=ID=DP"                                                                          "Number=1"                                                                             
 ## [3] "Type=Integer"                                                                          "Description=Approximate read depth (reads with MQ=255 or with bad mates are filtered)"
@@ -574,7 +612,7 @@ Cartoon representation of VCF file organization
 ## [3] "Type=Integer"                                                          "Description=Approximate read depth; some reads may have been filtered"
 </code></pre>
 <p>When an element parameter is included, only the information about that element is returned. In this example the element ‘DP’ is returned. We see that this acronym is defined as both a ‘FORMAT’ and ‘INFO’ acronym. We can narrow down our query by including more information in the element parameter.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">queryMETA</span>(vcf, <span class="dt">element =</span> <span class="st">&#39;FORMAT=&lt;ID=DP&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">queryMETA</span>(vcf, <span class="dt">element =</span> <span class="st">&#39;FORMAT=&lt;ID=DP&#39;</span>)</span></code></pre></div>
 <pre class="r-output"><code>## [[1]]
 ## [1] "FORMAT=ID=DP"                                                                          "Number=1"                                                                             
 ## [3] "Type=Integer"                                                                          "Description=Approximate read depth (reads with MQ=255 or with bad mates are filtered)"
@@ -584,7 +622,7 @@ Cartoon representation of VCF file organization
 <div id="the-fix-region" class="section level2">
 <h2>The fix region</h2>
 <p>The fix region contains information for each variant which is sometimes summarized over all samples. The first eight columns of the fixed region are titled CHROM, POS, ID, REF, ALT, QUAL, FILTER and INFO. This is per variant information which is ‘fixed’, or the same, over all samples. The first two columns indicate the location of the variant by chromosome and position within that chromosome. Here, the ID field has not been used, so it consists of missing data (NA). The REF and ALT columns indicate the reference and alternate allelic states for a diploid sample. When multiple alternate allelic states are present they are delimited with commas. The QUAL column attempts to summarize the quality of each variant over all samples. The FILTER field is not used here but could contain information on whether a variant has passed some form of quality assessment.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">getFIX</span>(vcf))</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">head</span>(<span class="kw">getFIX</span>(vcf))</span></code></pre></div>
 <pre class="r-output"><code>##      CHROM              POS   ID REF ALT QUAL     FILTER
 ## [1,] "Supercontig_1.50" "2"   NA "T" "A" "44.44"  NA    
 ## [2,] "Supercontig_1.50" "246" NA "C" "G" "144.21" NA    
@@ -598,7 +636,7 @@ Cartoon representation of VCF file organization
 <div id="the-gt-region" class="section level2">
 <h2>The gt region</h2>
 <p>The gt (genotype) region contains information about each variant for each sample. The values for each variant and each sample are colon delimited. Multiple types of data for each genotype may be stored in this manner. The format of the data is specified by the FORMAT column (column nine). Here we see that we have information for GT, AD, DP, GQ and PL. The definition of these acronyms can be referenced by querying the the meta region, as demonstrated previously. Every variant does not necessarily have the same information (e.g., SNPs and indels may be handled differently), so the rows are best treated independently. Different variant callers may include different information in this region.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">vcf<span class="op">@</span>gt[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>vcf<span class="op">@</span>gt[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</span></code></pre></div>
 <pre class="r-output"><code>##      FORMAT           BL2009P4_us23               DDR7602                   IN2009T1_us22              
 ## [1,] "GT:AD:DP:GQ:PL" "0|0:62,0:62:99:0,190,2835" "0|0:12,0:12:39:0,39,585" "0|0:37,0:37:99:0,114,1709"
 ## [2,] "GT:AD:DP:GQ:PL" "1|0:5,5:10:99:111,0,114"   NA                        "0|1:2,1:3:16:16,0,48"     
@@ -611,7 +649,7 @@ Cartoon representation of VCF file organization
 <div id="vcfr" class="section level2">
 <h2>vcfR</h2>
 <p>Using the R package <em>vcfR</em>, we can read VCF format files into memory using the function <code>read.vcfR()</code>. Once in memory we can use the <code>head()</code> method to summarize the information in the three VCF regions.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">vcf &lt;-<span class="st"> </span><span class="kw">read.vcfR</span>(<span class="st">&quot;pinfsc50_filtered.vcf.gz&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>vcf &lt;-<span class="st"> </span><span class="kw">read.vcfR</span>(<span class="st">&quot;pinfsc50_filtered.vcf.gz&quot;</span>)</span></code></pre></div>
 <pre class="r-output"><code>## Scanning file to determine attributes.
 ## File attributes:
 ##   meta lines: 29
@@ -634,7 +672,7 @@ Processed variant 2000
 Processed variant: 2190
 ## All variants processed
 </code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">head</span>(vcf)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">head</span>(vcf)</span></code></pre></div>
 <pre class="r-output"><code>## [1] "***** Object of class 'vcfR' *****"
 ## [1] "***** Meta section *****"
 ## [1] "##fileformat=VCFv4.1"
@@ -676,7 +714,7 @@ Processed variant: 2190
 ## [1]
 </code></pre>
 <p>After we have made any manipulations of the file we can save it as a VCF file with the function <code>write.vcf()</code>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">write.vcf</span>(vcf, <span class="st">&quot;myVCFdata_filtered.vcf.gz&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">write.vcf</span>(vcf, <span class="st">&quot;myVCFdata_filtered.vcf.gz&quot;</span>)</span></code></pre></div>
 <p><code>write.vcf()</code>will write a file to your active directory. We now have a summary of our VCF file which we can use to help understand what forms of information are contained within it. This information can be further explored with plotting functions and used to filter the VCF file for high quality variants as we will see in the next section.</p>
 </div>
 <div id="exercises" class="section level2">
@@ -686,7 +724,7 @@ Processed variant: 2190
 Show solution
 </button>
 <div id="hide_buttonunnamed-chunk-12" class="collapse">
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">?read.vcfR</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>?read.vcfR</span></code></pre></div>
 </div>
 <p><br /></p>
 <p><strong>2)</strong> How would we learn what the acronym “AD” stands for?</p>
@@ -694,7 +732,7 @@ Show solution
 Show solution
 </button>
 <div id="hide_buttonunnamed-chunk-13" class="collapse">
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">queryMETA</span>(vcf, <span class="dt">element =</span> <span class="st">&#39;AD&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">queryMETA</span>(vcf, <span class="dt">element =</span> <span class="st">&#39;AD&#39;</span>)</span></code></pre></div>
 <pre class="r-output"><code>## [[1]]
 ## [1] "FORMAT=ID=AD"                                                               "Number=."                                                                  
 ## [3] "Type=Integer"                                                               "Description=Allelic depths for the ref and alt alleles in the order listed"
@@ -706,7 +744,7 @@ Show solution
 Show solution
 </button>
 <div id="hide_buttonunnamed-chunk-14" class="collapse">
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">tail</span>(vcf<span class="op">@</span>fix)</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">tail</span>(vcf<span class="op">@</span>fix)</span></code></pre></div>
 <pre class="r-output"><code>##         CHROM              POS       ID REF  ALT QUAL     FILTER
 ## [2185,] "Supercontig_1.50" "1041878" NA "T"  "C" "219.68" NA    
 ## [2186,] "Supercontig_1.50" "1041989" NA "G"  "A" "803.29" NA    
@@ -729,11 +767,11 @@ Show solution
 Show solution
 </button>
 <div id="hide_buttonunnamed-chunk-15" class="collapse">
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">plot</span>(vcf)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">plot</span>(vcf)</span></code></pre></div>
 <p><img src="reading_vcf_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co"># Alternate ggplot2 answer.</span></a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="kw">qplot</span>(<span class="kw">getQUAL</span>(vcf), <span class="dt">geom =</span> <span class="st">&quot;histogram&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># Alternate ggplot2 answer.</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="kw">qplot</span>(<span class="kw">getQUAL</span>(vcf), <span class="dt">geom =</span> <span class="st">&quot;histogram&quot;</span>)</span></code></pre></div>
 <img src="reading_vcf_files/figure-html/unnamed-chunk-15-2.png" width="672" />
 </div>
 <p><br /></p>
@@ -742,7 +780,7 @@ Show solution
 Show solution
 </button>
 <div id="hide_buttonunnamed-chunk-16" class="collapse">
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">colnames</span>(vcf<span class="op">@</span>gt)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">colnames</span>(vcf<span class="op">@</span>gt)</span></code></pre></div>
 <pre class="r-output"><code>##  [1] "FORMAT"        "BL2009P4_us23" "DDR7602"       "IN2009T1_us22" "LBUS5"         "NL07434"       "P10127"        "P10650"        "P11633"        "P12204"        "P13527"        "P1362"        
 ## [13] "P13626"        "P17777us22"    "P6096"         "P7722"         "RS2009P1_us8"  "blue13"        "t30-4"
 </code></pre>
@@ -750,16 +788,8 @@ Show solution
 <p><br /></p>
 <p>Note that the first column is <code>FORMAT</code>. This tells us the format for data for each variant. According to the VCF specification this can be different for each variant.</p>
 </div>
-<div id="references" class="section level1 unnumbered">
+<div id="references" class="section level1">
 <h1>References</h1>
-<div id="refs" class="references">
-<div id="ref-danecek2011variant">
-<p>Danecek P., Auton A., Abecasis G., Albers CA., Banks E., DePristo MA., Handsaker RE., Lunter G., Marth GT., Sherry ST. et al. 2011. The variant call format and VCFtools. <em>Bioinformatics</em> 27:2156–2158. Available at: <a href="https://doi.org/10.1093/bioinformatics/btr330" class="uri">https://doi.org/10.1093/bioinformatics/btr330</a></p>
-</div>
-<div id="ref-knaus2017vcfr">
-<p>Knaus BJ., Grünwald NJ. 2017. <span class="math inline">\({V}cfr\)</span>: A package to manipulate and visualize variant call format data in R. <em>Molecular Ecology Resources</em> 17:44–53. Available at: <a href="http://dx.doi.org/10.1111/1755-0998.12549" class="uri">http://dx.doi.org/10.1111/1755-0998.12549</a></p>
-</div>
-</div>
 </div>
 
 
@@ -771,7 +801,7 @@ Show solution
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

@@ -20,6 +20,7 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -30,12 +31,21 @@
   gtag('config', 'UA-107144798-3');
 </script>
 
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -45,14 +55,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -61,9 +73,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { background-color: #f8f8f8; }
+  {  background-color: #f8f8f8; }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -149,6 +161,7 @@ h6 {
   text-align: left;
 }
 </style>
+
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -437,28 +450,53 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Workshop
+    Workshops
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="workshop.html">Workshop</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">ICPP</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_icpp.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+        <li>
+          <a href="analysis_of_genome.html">Analysis of genome data</a>
+        </li>
+      </ul>
     </li>
-    <li>
-      <a href="intro_vcf.html">Introduction</a>
-    </li>
-    <li>
-      <a href="reading_vcf.html">VCF data</a>
-    </li>
-    <li>
-      <a href="quality_control.html">Quality control</a>
-    </li>
-    <li>
-      <a href="gbs_analysis.html">Analysis of GBS data</a>
-    </li>
-    <li>
-      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">APS Southern Division</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_southernAPS.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </li>
@@ -517,11 +555,11 @@ $(document).ready(function () {
 
 <p>Once a sequencing run is complete the data are typically mapped to a reference genome, variants are called and these variant are stored in a VCF file. At this point one of the first questions asked is how well did the sequencing go? One measure of sequencing quality is sequence depth or how many times each position was sequenced. In VCF data only information on the variable positions are reported. But this can be used as a convenient subset of an entire genome. Many variant callers report this information, but not all. Make sure to check your variant caller documentation if you do not see this information in your file, there is a chance it was an option that was not selected. Here we visualize the depth information from a VCF file to provide a perspective on sequence quality.</p>
 <p>We can extract the depth data (DP) with the function <code>extract.gt()</code>. This results in a matrix of depth data. We can take a quick peak at this to remind us what it looks like.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(vcfR)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#vcf &lt;- read.vcfR(&#39;TASSEL_GBS0077.vcf.gz&#39;)</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">data</span>(vcfR_example)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">dp[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(vcfR)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co">#vcf &lt;- read.vcfR(&#39;TASSEL_GBS0077.vcf.gz&#39;)</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">data</span>(vcfR_example)</span>
+<span id="cb1-4"><a href="#cb1-4"></a>dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>dp[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</span></code></pre></div>
 <pre><code>##                      BL2009P4_us23 DDR7602 IN2009T1_us22 LBUS5 NL07434
 ## Supercontig_1.50_2              62      12            37    12      NA
 ## Supercontig_1.50_246            10      NA             3    NA      NA
@@ -531,69 +569,58 @@ $(document).ready(function () {
 <div id="base-barplot" class="section level2">
 <h2>Base barplot</h2>
 <p>Base R includes a great selection of graphical tools. One is <code>barplot()</code>. A few things nice about this function is that it is designed to work on matrices, such as the one we have, and that it is quick to execute.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">12</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">boxplot</span>(dp, <span class="dt">col=</span><span class="dv">2</span><span class="op">:</span><span class="dv">8</span>, <span class="dt">las=</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">title</span>(<span class="dt">ylab =</span> <span class="st">&quot;Depth (DP)&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">12</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>))</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="kw">boxplot</span>(dp, <span class="dt">col=</span><span class="dv">2</span><span class="op">:</span><span class="dv">8</span>, <span class="dt">las=</span><span class="dv">3</span>)</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="kw">title</span>(<span class="dt">ylab =</span> <span class="st">&quot;Depth (DP)&quot;</span>)</span></code></pre></div>
 <p><img src="depth_plot_files/figure-html/unnamed-chunk-4-1.png" width="1152" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>))</span></code></pre></div>
 <p>We’ve generated a box and whisker plot for each sample where 50% of the data is contained within each colored box and outliers are presented as circles. One issue with this plot is that all of the data seem squished at the bottom of the plot. A log transformation could help this plot. Remember that log of zero is undefined, so if you persue a log transformation you may need to handle these cases.</p>
 </div>
 <div id="violin-plot" class="section level2">
 <h2>Violin plot</h2>
 <p>Violin plots are similar to boxplots except that they attempt to present the distribution of the data that would otherwise be represented by a box. We’ll neeed to load a few packages to add functions to help us. I think you’ll see that violin plots are a little more involved to create, and they are slower to render, but many find them to be more informative and more aesthetically pleasing.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">library</span>(reshape2)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">library</span>(ggplot2) </a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw">library</span>(cowplot)</a></code></pre></div>
-<pre><code>## 
-## ********************************************************</code></pre>
-<pre><code>## Note: As of version 1.0.0, cowplot does not change the</code></pre>
-<pre><code>##   default ggplot2 theme anymore. To recover the previous</code></pre>
-<pre><code>##   behavior, execute:
-##   theme_set(theme_cowplot())</code></pre>
-<pre><code>## ********************************************************</code></pre>
-<pre><code>## 
-## Attaching package: &#39;cowplot&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:ggpubr&#39;:
-## 
-##     get_legend</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co"># Melt our matrix into a long form data.frame.</span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">dpf &lt;-<span class="st"> </span><span class="kw">melt</span>(dp, <span class="dt">varnames=</span><span class="kw">c</span>(<span class="st">&#39;Index&#39;</span>, <span class="st">&#39;Sample&#39;</span>), <span class="dt">value.name =</span> <span class="st">&#39;Depth&#39;</span>, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb14-3" data-line-number="3">dpf &lt;-<span class="st"> </span>dpf[ dpf<span class="op">$</span>Depth <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>,]</a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co"># Create a row designator.</span></a>
-<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co"># You may want to adjust this</span></a>
-<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">#samps_per_row &lt;- 20</span></a>
-<a class="sourceLine" id="cb14-8" data-line-number="8">samps_per_row &lt;-<span class="st"> </span><span class="dv">18</span></a>
-<a class="sourceLine" id="cb14-9" data-line-number="9">myRows &lt;-<span class="st"> </span><span class="kw">ceiling</span>(<span class="kw">length</span>(<span class="kw">levels</span>(dpf<span class="op">$</span>Sample))<span class="op">/</span>samps_per_row)</a>
-<a class="sourceLine" id="cb14-10" data-line-number="10">myList &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="dt">length =</span> myRows)</a>
-<a class="sourceLine" id="cb14-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb14-12" data-line-number="12"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>myRows){</a>
-<a class="sourceLine" id="cb14-13" data-line-number="13">  myIndex &lt;-<span class="st"> </span><span class="kw">c</span>(i<span class="op">*</span>samps_per_row <span class="op">-</span><span class="st"> </span>samps_per_row <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span><span class="kw">c</span>(i<span class="op">*</span>samps_per_row)</a>
-<a class="sourceLine" id="cb14-14" data-line-number="14">  myIndex &lt;-<span class="st"> </span>myIndex[myIndex <span class="op">&lt;=</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(dpf<span class="op">$</span>Sample))]</a>
-<a class="sourceLine" id="cb14-15" data-line-number="15">  myLevels &lt;-<span class="st"> </span><span class="kw">levels</span>(dpf<span class="op">$</span>Sample)[myIndex]</a>
-<a class="sourceLine" id="cb14-16" data-line-number="16">  myRegex &lt;-<span class="st"> </span><span class="kw">paste</span>(myLevels, <span class="dt">collapse =</span> <span class="st">&quot;$|^&quot;</span>)</a>
-<a class="sourceLine" id="cb14-17" data-line-number="17">  myRegex &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;^&quot;</span>, myRegex, <span class="st">&quot;$&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb14-18" data-line-number="18">  myList[[i]] &lt;-<span class="st"> </span>dpf[<span class="kw">grep</span>(myRegex, dpf<span class="op">$</span>Sample),]</a>
-<a class="sourceLine" id="cb14-19" data-line-number="19">  myList[[i]]<span class="op">$</span>Sample &lt;-<span class="st"> </span><span class="kw">factor</span>(myList[[i]]<span class="op">$</span>Sample)</a>
-<a class="sourceLine" id="cb14-20" data-line-number="20">}</a>
-<a class="sourceLine" id="cb14-21" data-line-number="21"></a>
-<a class="sourceLine" id="cb14-22" data-line-number="22"><span class="co"># Create the plot.</span></a>
-<a class="sourceLine" id="cb14-23" data-line-number="23">myPlots &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="dt">length =</span> myRows)</a>
-<a class="sourceLine" id="cb14-24" data-line-number="24"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>myRows){</a>
-<a class="sourceLine" id="cb14-25" data-line-number="25">  myPlots[[i]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(myList[[i]], <span class="kw">aes</span>(<span class="dt">x=</span>Sample, <span class="dt">y=</span>Depth)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb14-26" data-line-number="26"><span class="st">                  </span><span class="kw">geom_violin</span>(<span class="dt">fill=</span><span class="st">&quot;#8dd3c7&quot;</span>, <span class="dt">adjust=</span><span class="fl">1.0</span>, <span class="dt">scale =</span> <span class="st">&quot;count&quot;</span>, <span class="dt">trim=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb14-27" data-line-number="27"></a>
-<a class="sourceLine" id="cb14-28" data-line-number="28">  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</a>
-<a class="sourceLine" id="cb14-29" data-line-number="29">  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_blank</span>(), </a>
-<a class="sourceLine" id="cb14-30" data-line-number="30">                  <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">60</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb14-31" data-line-number="31">  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">trans=</span>scales<span class="op">::</span><span class="kw">log2_trans</span>(), </a>
-<a class="sourceLine" id="cb14-32" data-line-number="32">                  <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">800</span>),</a>
-<a class="sourceLine" id="cb14-33" data-line-number="33">                  <span class="dt">minor_breaks=</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">10</span><span class="op">*</span><span class="dv">10</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">8</span><span class="op">*</span><span class="dv">100</span>))</a>
-<a class="sourceLine" id="cb14-34" data-line-number="34">  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.major.y=</span><span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#A9A9A9&quot;</span>, <span class="dt">size=</span><span class="fl">0.6</span>) )</a>
-<a class="sourceLine" id="cb14-35" data-line-number="35">  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.minor.y=</span><span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#C0C0C0&quot;</span>, <span class="dt">size=</span><span class="fl">0.2</span>) )</a>
-<a class="sourceLine" id="cb14-36" data-line-number="36">}</a></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co"># Plot the plot.</span></a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw">plot_grid</span>(<span class="dt">plotlist =</span> myPlots, <span class="dt">nrow =</span> myRows)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">library</span>(reshape2)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">library</span>(ggplot2) </span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">library</span>(cowplot)</span>
+<span id="cb6-4"><a href="#cb6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co"># Melt our matrix into a long form data.frame.</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>dpf &lt;-<span class="st"> </span><span class="kw">melt</span>(dp, <span class="dt">varnames=</span><span class="kw">c</span>(<span class="st">&#39;Index&#39;</span>, <span class="st">&#39;Sample&#39;</span>), <span class="dt">value.name =</span> <span class="st">&#39;Depth&#39;</span>, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</span>
+<span id="cb6-7"><a href="#cb6-7"></a>dpf &lt;-<span class="st"> </span>dpf[ dpf<span class="op">$</span>Depth <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>,]</span>
+<span id="cb6-8"><a href="#cb6-8"></a></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="co"># Create a row designator.</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co"># You may want to adjust this</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#samps_per_row &lt;- 20</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a>samps_per_row &lt;-<span class="st"> </span><span class="dv">18</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a>myRows &lt;-<span class="st"> </span><span class="kw">ceiling</span>(<span class="kw">length</span>(<span class="kw">levels</span>(dpf<span class="op">$</span>Sample))<span class="op">/</span>samps_per_row)</span>
+<span id="cb6-14"><a href="#cb6-14"></a>myList &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="dt">length =</span> myRows)</span>
+<span id="cb6-15"><a href="#cb6-15"></a></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>myRows){</span>
+<span id="cb6-17"><a href="#cb6-17"></a>  myIndex &lt;-<span class="st"> </span><span class="kw">c</span>(i<span class="op">*</span>samps_per_row <span class="op">-</span><span class="st"> </span>samps_per_row <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span><span class="kw">c</span>(i<span class="op">*</span>samps_per_row)</span>
+<span id="cb6-18"><a href="#cb6-18"></a>  myIndex &lt;-<span class="st"> </span>myIndex[myIndex <span class="op">&lt;=</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(dpf<span class="op">$</span>Sample))]</span>
+<span id="cb6-19"><a href="#cb6-19"></a>  myLevels &lt;-<span class="st"> </span><span class="kw">levels</span>(dpf<span class="op">$</span>Sample)[myIndex]</span>
+<span id="cb6-20"><a href="#cb6-20"></a>  myRegex &lt;-<span class="st"> </span><span class="kw">paste</span>(myLevels, <span class="dt">collapse =</span> <span class="st">&quot;$|^&quot;</span>)</span>
+<span id="cb6-21"><a href="#cb6-21"></a>  myRegex &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;^&quot;</span>, myRegex, <span class="st">&quot;$&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb6-22"><a href="#cb6-22"></a>  myList[[i]] &lt;-<span class="st"> </span>dpf[<span class="kw">grep</span>(myRegex, dpf<span class="op">$</span>Sample),]</span>
+<span id="cb6-23"><a href="#cb6-23"></a>  myList[[i]]<span class="op">$</span>Sample &lt;-<span class="st"> </span><span class="kw">factor</span>(myList[[i]]<span class="op">$</span>Sample)</span>
+<span id="cb6-24"><a href="#cb6-24"></a>}</span>
+<span id="cb6-25"><a href="#cb6-25"></a></span>
+<span id="cb6-26"><a href="#cb6-26"></a><span class="co"># Create the plot.</span></span>
+<span id="cb6-27"><a href="#cb6-27"></a>myPlots &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="dt">length =</span> myRows)</span>
+<span id="cb6-28"><a href="#cb6-28"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>myRows){</span>
+<span id="cb6-29"><a href="#cb6-29"></a>  myPlots[[i]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(myList[[i]], <span class="kw">aes</span>(<span class="dt">x=</span>Sample, <span class="dt">y=</span>Depth)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb6-30"><a href="#cb6-30"></a><span class="st">                  </span><span class="kw">geom_violin</span>(<span class="dt">fill=</span><span class="st">&quot;#8dd3c7&quot;</span>, <span class="dt">adjust=</span><span class="fl">1.0</span>, <span class="dt">scale =</span> <span class="st">&quot;count&quot;</span>, <span class="dt">trim=</span><span class="ot">TRUE</span>)</span>
+<span id="cb6-31"><a href="#cb6-31"></a></span>
+<span id="cb6-32"><a href="#cb6-32"></a>  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</span>
+<span id="cb6-33"><a href="#cb6-33"></a>  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_blank</span>(), </span>
+<span id="cb6-34"><a href="#cb6-34"></a>                  <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">60</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</span>
+<span id="cb6-35"><a href="#cb6-35"></a>  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">trans=</span>scales<span class="op">::</span><span class="kw">log2_trans</span>(), </span>
+<span id="cb6-36"><a href="#cb6-36"></a>                  <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">800</span>),</span>
+<span id="cb6-37"><a href="#cb6-37"></a>                  <span class="dt">minor_breaks=</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">10</span><span class="op">*</span><span class="dv">10</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">8</span><span class="op">*</span><span class="dv">100</span>))</span>
+<span id="cb6-38"><a href="#cb6-38"></a>  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.major.y=</span><span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#A9A9A9&quot;</span>, <span class="dt">size=</span><span class="fl">0.6</span>) )</span>
+<span id="cb6-39"><a href="#cb6-39"></a>  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.minor.y=</span><span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#C0C0C0&quot;</span>, <span class="dt">size=</span><span class="fl">0.2</span>) )</span>
+<span id="cb6-40"><a href="#cb6-40"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Plot the plot.</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">plot_grid</span>(<span class="dt">plotlist =</span> myPlots, <span class="dt">nrow =</span> myRows)</span></code></pre></div>
 <p><img src="depth_plot_files/figure-html/unnamed-chunk-6-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>We can see that the log transformation stretches out the smaller values and compresses the larger values. This allows us to focus on where our data has the greatest density. Things to look for in these plots are whether all samples are equally represented, whether there are a few samples of low quality that may need to be omitted from downstream analyses, or if therre are a small number of jackpot samples that received all the reads at the expense of the other samples. Here the samples appear to be fairly eqaully represented.</p>
 </div>
@@ -607,7 +634,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
