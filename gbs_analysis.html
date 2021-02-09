@@ -732,19 +732,33 @@ $(document).ready(function () {
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>dapc.results &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(pnw.dapc<span class="op">$</span>posterior)</span>
 <span id="cb20-2"><a href="#cb20-2"></a>dapc.results<span class="op">$</span>pop &lt;-<span class="st"> </span><span class="kw">pop</span>(gl.rubi)</span>
 <span id="cb20-3"><a href="#cb20-3"></a>dapc.results<span class="op">$</span>indNames &lt;-<span class="st"> </span><span class="kw">rownames</span>(dapc.results)</span></code></pre></div>
-<p><code>ggplot2</code> has specific requirements for the structure of the data frame format, as it requires each observation in rows, and all different values of these observations in columns (i.e., a long format data frame). To transform the data frame we use the function <code>melt</code> from the package <code>reshape2</code>. <code>melt</code> reorganizes the data frame into the required data frame format, where each membership probability observation for a given population is a row with the sample name, original population, and assigned population as columns.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">library</span>(reshape2)</span>
-<span id="cb21-2"><a href="#cb21-2"></a>dapc.results &lt;-<span class="st"> </span><span class="kw">melt</span>(dapc.results)</span></code></pre></div>
-<p>Ignore the prompt for now. Then, we rename the columns into more familiar terms:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">colnames</span>(dapc.results) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Original_Pop&quot;</span>,<span class="st">&quot;Sample&quot;</span>,<span class="st">&quot;Assigned_Pop&quot;</span>,<span class="st">&quot;Posterior_membership_probability&quot;</span>)</span></code></pre></div>
-<p><code>ggplot2</code> will plot the <code>dapc.results</code> data frame we reorganized using <code>melt</code>, using the samples on the X-axis and membership probabilities on the Y-axis. The fill color will indicate the original population assignments. Each facet represents the original population assignment for each sample:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dapc.results, <span class="kw">aes</span>(<span class="dt">x=</span>Sample, <span class="dt">y=</span>Posterior_membership_probability, <span class="dt">fill=</span>Assigned_Pop))</span>
-<span id="cb23-2"><a href="#cb23-2"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&#39;identity&#39;</span>) </span>
-<span id="cb23-3"><a href="#cb23-3"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> cols) </span>
-<span id="cb23-4"><a href="#cb23-4"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">facet_grid</span>(<span class="op">~</span>Original_Pop, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)</span>
-<span id="cb23-5"><a href="#cb23-5"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">8</span>))</span>
-<span id="cb23-6"><a href="#cb23-6"></a>p</span></code></pre></div>
-<p><img src="gbs_analysis_files/figure-html/unnamed-chunk-25-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p><code>ggplot2</code> has specific requirements for the structure of the data frame format, as it requires each observation in rows, and all different values of these observations in columns (i.e., a long format data frame). To transform the data frame we use <code>pivot_longer</code> from the package <code>tidyr</code>.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># library(reshape2)</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="co"># dapc.results &lt;- melt(dapc.results)</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="kw">library</span>(tidyr)</span>
+<span id="cb21-4"><a href="#cb21-4"></a>dapc.results &lt;-<span class="st"> </span><span class="kw">pivot_longer</span>(dapc.results, <span class="op">-</span><span class="kw">c</span>(pop, indNames))</span></code></pre></div>
+<p>We have now reorganized the data frame into the required format, where each membership probability observation for a given population is a row with the sample name, original population, and assigned population as columns.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">head</span>(dapc.results, <span class="dt">n =</span> <span class="dv">6</span>)</span></code></pre></div>
+<pre class="r-output"><code>## # A tibble: 6 x 4
+##   pop   indNames name     value
+##   &lt;fct&gt; &lt;chr&gt;    &lt;chr&gt;    &lt;dbl&gt;
+## 1 WA    4291     CA    0.483   
+## 2 WA    4291     OR    0.0653  
+## 3 WA    4291     WA    0.452   
+## 4 CA    4798     CA    0.967   
+## 5 CA    4798     OR    0.000938
+## 6 CA    4798     WA    0.0317
+</code></pre>
+<p>Then, we rename the columns into more familiar terms:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">colnames</span>(dapc.results) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Original_Pop&quot;</span>,<span class="st">&quot;Sample&quot;</span>,<span class="st">&quot;Assigned_Pop&quot;</span>,<span class="st">&quot;Posterior_membership_probability&quot;</span>)</span></code></pre></div>
+<p><code>ggplot2</code> will plot the <code>dapc.results</code> data frame we reorganized using <code>pivot_longer</code>, using the samples on the X-axis and membership probabilities on the Y-axis. The fill color will indicate the original population assignments. Each facet represents the original population assignment for each sample:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dapc.results, <span class="kw">aes</span>(<span class="dt">x=</span>Sample, <span class="dt">y=</span>Posterior_membership_probability, <span class="dt">fill=</span>Assigned_Pop))</span>
+<span id="cb24-2"><a href="#cb24-2"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&#39;identity&#39;</span>) </span>
+<span id="cb24-3"><a href="#cb24-3"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> cols) </span>
+<span id="cb24-4"><a href="#cb24-4"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">facet_grid</span>(<span class="op">~</span>Original_Pop, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)</span>
+<span id="cb24-5"><a href="#cb24-5"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">8</span>))</span>
+<span id="cb24-6"><a href="#cb24-6"></a>p</span></code></pre></div>
+<p><img src="gbs_analysis_files/figure-html/unnamed-chunk-26-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>This bar plot shows us a more organized perspective of our data set by contrasting the population membership probability assignments against their original populations.</p>
 <p>In general, the composite plot shows that all western states of the USA exhibit admixture with other states, with WA showing the most admixture.</p>
 </div>
@@ -756,12 +770,12 @@ $(document).ready(function () {
 <p>One way of solving the issues of dealing with large genomic data sets is to subset the data set to smaller groups of random variants across the genome. Multiple subsets of a data set can be analysed in order to determine if the different subsets reveal similar overall results. These independent analyses will provide support to the results, while reducing the effective computational time of the analysis.</p>
 <p>We will illustrate the process of subsetting datasets using the <em>P. rubi</em> GBS data. As a reminder, this dataset has 138 samples spanning 615 variants across the genome. The number of variants in this analysis does not reflect a real large data set, but we will use it as it will allow us to compare the results of the subsets against the total analysis. This comparison will demonstrate that subsets of large data sets can provide information that is similar to the total data set while reducing the computational intensity of the calculations.</p>
 <p>In this example we will show how to subset the data to 200 random variants across the genome. We will use the <code>rubi.VCF</code> object we created at the beginning of this tutorial. To subset, we use square brackets to select portions of an object we would like to retain. The square brackets represent the values to be subset from the original data set, for example: if we have a vector with the four first letters of the alphabet (“A”,“B”,“C”,“D”), and we want to subset only the first two occurrences we can do this:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>alphabet &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>,<span class="st">&quot;D&quot;</span>)</span>
-<span id="cb24-2"><a href="#cb24-2"></a>alphabet[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)]</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>alphabet &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>,<span class="st">&quot;D&quot;</span>)</span>
+<span id="cb25-2"><a href="#cb25-2"></a>alphabet[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)]</span></code></pre></div>
 <pre class="r-output"><code>## [1] "A" "B"
 </code></pre>
 <p>We see that when we use the <code>alphabet[c(1,2)]</code> we are calling the first two occurrences of the vector of interest. We can do something very similar with the <code>vcfR</code> objects from the <code>vcfR</code> package. Lets say we are interested only in the first 10 variants of our <code>rubi.VCF</code>, we can do something similar:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>rubi.VCF</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>rubi.VCF</span></code></pre></div>
 <pre class="r-output"><code>## ***** Object of Class vcfR *****
 ## 94 samples
 ## 321 CHROMs
@@ -770,7 +784,7 @@ $(document).ready(function () {
 ## 4.589 percent missing data
 ## *****        *****         *****
 </code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>rubi.VCF[<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>),]</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>rubi.VCF[<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>),]</span></code></pre></div>
 <pre class="r-output"><code>## ***** Object of Class vcfR *****
 ## 94 samples
 ## 4 CHROMs
@@ -781,18 +795,18 @@ $(document).ready(function () {
 </code></pre>
 <p>We can see that the second object only has 10 variants. If we look at the summary in detail, we observe that the original sample has 312 chromosomes/scaffolds, 615 variants and a size of 2.9 Mb. The subset object, on the other hand, only has 4 chromosomes/scaffolds, 10 variants and a size of 0.9 Mb. Both objects have the same number of samples. This is a good example of how to subset a <code>vcfR</code> object. However, we want to obtain a subset of 200 <strong>random</strong> variants. If we do <code>rubi.VCF[c(1:200)]</code> we will only obtain the first 200 variants. These 200 variants will always be the same, and we will have no real replication to determine the strength of our approach.</p>
 <p>One way to solve this problem is to generate a random string of 200 numbers that range from 1 to the total number of variants of the object. The R statistical environment has the function <code>sample()</code>. The function <code>sample()</code> generates a random vector of elements (i.e. numbers or elements from a vector). We can use <code>sample()</code> to generate the random vector of 200 numbers that range from 1 to the total number of variants of the object. The total number of variants in a <code>vcfR</code> object is equivalent to the number of rows in the vcfR object. We will use the <code>nrow()</code> method for our <code>vcfR</code> object to obtain the maximum range of values to subset our data set:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>subset<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dt">size =</span> <span class="dv">200</span>, <span class="dt">x=</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(rubi.VCF)))</span>
-<span id="cb27-2"><a href="#cb27-2"></a>subset<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dt">size =</span> <span class="dv">200</span>, <span class="dt">x=</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(rubi.VCF)))</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>subset<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dt">size =</span> <span class="dv">200</span>, <span class="dt">x=</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(rubi.VCF)))</span>
+<span id="cb28-2"><a href="#cb28-2"></a>subset<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dt">size =</span> <span class="dv">200</span>, <span class="dt">x=</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(rubi.VCF)))</span></code></pre></div>
 <p>We have to check that the subsets are not identical. We can confirm this by using the function <code>identical()</code>.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw">identical</span>(subset<span class="fl">.1</span>, subset<span class="fl">.2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="kw">identical</span>(subset<span class="fl">.1</span>, subset<span class="fl">.2</span>)</span></code></pre></div>
 <pre class="r-output"><code>## [1] FALSE
 </code></pre>
 <p>We can see that the vectors have different numbers. The results from <code>identical()</code> do not mean that every number in the vector is different. It just means that some of the values in the vectors are different, but each vector can also share some numbers with the other vector.</p>
 <p>Now we know how to generate a vector of 200 random numbers from 1 to the length of the <code>vcfR</code> object. We will use these vectors to subset the <code>rubi.VCF</code> object. To subset the <code>vcfR</code> object we execute code very similar to the one shown in the subset example. The main difference is that now we can use the <code>subset.1</code> and <code>subset.2</code> objects as the subset indices:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>rubi.VCF.sub1 &lt;-<span class="st"> </span>rubi.VCF[subset<span class="fl">.1</span>,]</span>
-<span id="cb29-2"><a href="#cb29-2"></a>rubi.VCF.sub2 &lt;-<span class="st"> </span>rubi.VCF[subset<span class="fl">.2</span>,]</span>
-<span id="cb29-3"><a href="#cb29-3"></a></span>
-<span id="cb29-4"><a href="#cb29-4"></a>rubi.VCF.sub1</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>rubi.VCF.sub1 &lt;-<span class="st"> </span>rubi.VCF[subset<span class="fl">.1</span>,]</span>
+<span id="cb30-2"><a href="#cb30-2"></a>rubi.VCF.sub2 &lt;-<span class="st"> </span>rubi.VCF[subset<span class="fl">.2</span>,]</span>
+<span id="cb30-3"><a href="#cb30-3"></a></span>
+<span id="cb30-4"><a href="#cb30-4"></a>rubi.VCF.sub1</span></code></pre></div>
 <pre class="r-output"><code>## ***** Object of Class vcfR *****
 ## 94 samples
 ## 156 CHROMs
@@ -801,7 +815,7 @@ $(document).ready(function () {
 ## 4.734 percent missing data
 ## *****        *****         *****
 </code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>rubi.VCF.sub2</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>rubi.VCF.sub2</span></code></pre></div>
 <pre class="r-output"><code>## ***** Object of Class vcfR *****
 ## 94 samples
 ## 145 CHROMs
@@ -812,19 +826,19 @@ $(document).ready(function () {
 </code></pre>
 <p>When the two <code>rubi.VCF.sub</code> objects are compared we can see that the number of variants (200) and the number of samples (94) are identical. This indicates that the subset was performed correctly. Observe that the chromosome number and percentage of missing data are different. These different numbers show that each subset has selected different variants.</p>
 <p>Now we can generate subsets of random variants. We will extend the subset example by creating 50 subsets of 200 variants each, then we will then reconstruct a UPGMA distance tree per subset and overlay all of the reconstructed trees. This tree overlay will allow us to determine if the subsets support our hypothesis of low population differentiation, or if we have unique tree clusters for different subsets. You, the user, don’t have to execute this example, as it is for illustrative purposes only.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="co"># Creating a list object to save our subsets in.</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a>rubi.variant.subset &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="dt">length =</span> <span class="dv">50</span>)</span>
-<span id="cb31-3"><a href="#cb31-3"></a></span>
-<span id="cb31-4"><a href="#cb31-4"></a><span class="co"># Using a for loop to generate 50 subsets of 200 random variants from the rubi.VCF vcfR object.</span></span>
-<span id="cb31-5"><a href="#cb31-5"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">50</span>){</span>
-<span id="cb31-6"><a href="#cb31-6"></a>  rubi.variant.subset[[i]] &lt;-<span class="st"> </span>rubi.VCF[<span class="kw">sample</span>(<span class="dt">size =</span> <span class="dv">200</span>, <span class="dt">x=</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(rubi.VCF)))]</span>
-<span id="cb31-7"><a href="#cb31-7"></a>}</span>
-<span id="cb31-8"><a href="#cb31-8"></a></span>
-<span id="cb31-9"><a href="#cb31-9"></a><span class="co"># Checking we have 50 vcfR objects:</span></span>
-<span id="cb31-10"><a href="#cb31-10"></a><span class="kw">length</span>(rubi.variant.subset)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># Creating a list object to save our subsets in.</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a>rubi.variant.subset &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="dt">length =</span> <span class="dv">50</span>)</span>
+<span id="cb32-3"><a href="#cb32-3"></a></span>
+<span id="cb32-4"><a href="#cb32-4"></a><span class="co"># Using a for loop to generate 50 subsets of 200 random variants from the rubi.VCF vcfR object.</span></span>
+<span id="cb32-5"><a href="#cb32-5"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">50</span>){</span>
+<span id="cb32-6"><a href="#cb32-6"></a>  rubi.variant.subset[[i]] &lt;-<span class="st"> </span>rubi.VCF[<span class="kw">sample</span>(<span class="dt">size =</span> <span class="dv">200</span>, <span class="dt">x=</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(rubi.VCF)))]</span>
+<span id="cb32-7"><a href="#cb32-7"></a>}</span>
+<span id="cb32-8"><a href="#cb32-8"></a></span>
+<span id="cb32-9"><a href="#cb32-9"></a><span class="co"># Checking we have 50 vcfR objects:</span></span>
+<span id="cb32-10"><a href="#cb32-10"></a><span class="kw">length</span>(rubi.variant.subset)</span></code></pre></div>
 <pre class="r-output"><code>## [1] 50
 </code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">head</span>(rubi.variant.subset, <span class="dt">n=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">head</span>(rubi.variant.subset, <span class="dt">n=</span><span class="dv">2</span>)</span></code></pre></div>
 <pre class="r-output"><code>## [[1]]
 ## ***** Object of Class vcfR *****
 ## 94 samples
@@ -843,21 +857,21 @@ $(document).ready(function () {
 ## 4.676 percent missing data
 ## *****        *****         *****
 </code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="co"># Creating the GenLight object</span></span>
-<span id="cb33-2"><a href="#cb33-2"></a>rubi.gl.subset &lt;-<span class="st"> </span><span class="kw">lapply</span>(rubi.variant.subset, <span class="cf">function</span> (x) <span class="kw">suppressWarnings</span>(<span class="kw">vcfR2genlight</span>(x)))</span>
-<span id="cb33-3"><a href="#cb33-3"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(rubi.gl.subset)){</span>
-<span id="cb33-4"><a href="#cb33-4"></a>  <span class="kw">ploidy</span>(rubi.gl.subset[[i]]) &lt;-<span class="st"> </span><span class="dv">2</span></span>
-<span id="cb33-5"><a href="#cb33-5"></a>}</span>
-<span id="cb33-6"><a href="#cb33-6"></a></span>
-<span id="cb33-7"><a href="#cb33-7"></a><span class="co"># Creating a simple UPGMA tree per object</span></span>
-<span id="cb33-8"><a href="#cb33-8"></a><span class="kw">library</span>(phangorn)</span>
-<span id="cb33-9"><a href="#cb33-9"></a>rubi.trees &lt;-<span class="st"> </span><span class="kw">lapply</span>(rubi.gl.subset, <span class="cf">function</span> (x) <span class="kw">upgma</span>(<span class="kw">bitwise.dist</span>(x)))</span>
-<span id="cb33-10"><a href="#cb33-10"></a><span class="kw">class</span>(rubi.trees) &lt;-<span class="st"> &quot;multiPhylo&quot;</span></span>
-<span id="cb33-11"><a href="#cb33-11"></a></span>
-<span id="cb33-12"><a href="#cb33-12"></a><span class="co"># Overlapping the trees</span></span>
-<span id="cb33-13"><a href="#cb33-13"></a><span class="kw">densiTree</span>(rubi.trees, <span class="dt">consensus =</span> tree, <span class="dt">scaleX =</span> T, <span class="dt">show.tip.label =</span> F, <span class="dt">alpha =</span> <span class="fl">0.1</span>)</span>
-<span id="cb33-14"><a href="#cb33-14"></a><span class="kw">title</span>(<span class="dt">xlab =</span> <span class="st">&quot;Proportion of variants different&quot;</span>)</span></code></pre></div>
-<p><img src="gbs_analysis_files/figure-html/unnamed-chunk-31-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># Creating the GenLight object</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>rubi.gl.subset &lt;-<span class="st"> </span><span class="kw">lapply</span>(rubi.variant.subset, <span class="cf">function</span> (x) <span class="kw">suppressWarnings</span>(<span class="kw">vcfR2genlight</span>(x)))</span>
+<span id="cb34-3"><a href="#cb34-3"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(rubi.gl.subset)){</span>
+<span id="cb34-4"><a href="#cb34-4"></a>  <span class="kw">ploidy</span>(rubi.gl.subset[[i]]) &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb34-5"><a href="#cb34-5"></a>}</span>
+<span id="cb34-6"><a href="#cb34-6"></a></span>
+<span id="cb34-7"><a href="#cb34-7"></a><span class="co"># Creating a simple UPGMA tree per object</span></span>
+<span id="cb34-8"><a href="#cb34-8"></a><span class="kw">library</span>(phangorn)</span>
+<span id="cb34-9"><a href="#cb34-9"></a>rubi.trees &lt;-<span class="st"> </span><span class="kw">lapply</span>(rubi.gl.subset, <span class="cf">function</span> (x) <span class="kw">upgma</span>(<span class="kw">bitwise.dist</span>(x)))</span>
+<span id="cb34-10"><a href="#cb34-10"></a><span class="kw">class</span>(rubi.trees) &lt;-<span class="st"> &quot;multiPhylo&quot;</span></span>
+<span id="cb34-11"><a href="#cb34-11"></a></span>
+<span id="cb34-12"><a href="#cb34-12"></a><span class="co"># Overlapping the trees</span></span>
+<span id="cb34-13"><a href="#cb34-13"></a><span class="kw">densiTree</span>(rubi.trees, <span class="dt">consensus =</span> tree, <span class="dt">scaleX =</span> T, <span class="dt">show.tip.label =</span> F, <span class="dt">alpha =</span> <span class="fl">0.1</span>)</span>
+<span id="cb34-14"><a href="#cb34-14"></a><span class="kw">title</span>(<span class="dt">xlab =</span> <span class="st">&quot;Proportion of variants different&quot;</span>)</span></code></pre></div>
+<p><img src="gbs_analysis_files/figure-html/unnamed-chunk-32-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>We can observe that the results between both subsets are very similar: Clustering between samples from WA and OR, clustering between some samples of CA and WA, and a small number of samples of CA and OR clustering. These results reflect similar patterns to what we have observed with the full data set, indicating that our subset strategy is a suitable approach to analyse our <em>P. rubi</em> GBS data set</p>
 <p>Since the DensiTree function does not currently allow us to color the tip labels we will have to color them by hand in a graphics software outside of R. This is the final result:</p>
 <div class="figure">
@@ -873,16 +887,16 @@ $(document).ready(function () {
 <div id="exercises" class="section level2">
 <h2>Exercises</h2>
 <p><strong>1)</strong> We frequently subset our data for various reasons. How could we go about subsetting our <code>vcfR</code> object to the isolates from California and Oregon.</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-32">
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-33">
 Show solution
 </button>
-<div id="hide_buttonunnamed-chunk-32" class="collapse">
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># Validate the order</span></span>
-<span id="cb34-2"><a href="#cb34-2"></a><span class="kw">all</span>(<span class="kw">colnames</span>(rubi.VCF<span class="op">@</span>gt)[<span class="op">-</span><span class="dv">1</span>] <span class="op">==</span><span class="st"> </span>pop.data<span class="op">$</span>AccessID)</span></code></pre></div>
+<div id="hide_buttonunnamed-chunk-33" class="collapse">
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="co"># Validate the order</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a><span class="kw">all</span>(<span class="kw">colnames</span>(rubi.VCF<span class="op">@</span>gt)[<span class="op">-</span><span class="dv">1</span>] <span class="op">==</span><span class="st"> </span>pop.data<span class="op">$</span>AccessID)</span></code></pre></div>
 <pre class="r-output"><code>## [1] TRUE
 </code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>rubi.VCF &lt;-<span class="st"> </span>rubi.VCF[,<span class="kw">c</span>(<span class="ot">TRUE</span>, pop.data<span class="op">$</span>State <span class="op">!=</span><span class="st"> &quot;WA&quot;</span>)]</span>
-<span id="cb35-2"><a href="#cb35-2"></a>rubi.VCF</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>rubi.VCF &lt;-<span class="st"> </span>rubi.VCF[,<span class="kw">c</span>(<span class="ot">TRUE</span>, pop.data<span class="op">$</span>State <span class="op">!=</span><span class="st"> &quot;WA&quot;</span>)]</span>
+<span id="cb36-2"><a href="#cb36-2"></a>rubi.VCF</span></code></pre></div>
 <pre class="r-output"><code>## ***** Object of Class vcfR *****
 ## 55 samples
 ## 321 CHROMs
@@ -894,12 +908,12 @@ Show solution
 </div>
 <p><br /></p>
 <p><strong>2)</strong> Can you also subset the genind object?</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-33">
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-34">
 Show solution
 </button>
-<div id="hide_buttonunnamed-chunk-33" class="collapse">
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>ca_or_gl &lt;-<span class="st"> </span>gl.rubi[<span class="kw">pop</span>(gl.rubi) <span class="op">!=</span><span class="st"> &quot;WA&quot;</span>,]</span>
-<span id="cb36-2"><a href="#cb36-2"></a>ca_or_gl</span></code></pre></div>
+<div id="hide_buttonunnamed-chunk-34" class="collapse">
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>ca_or_gl &lt;-<span class="st"> </span>gl.rubi[<span class="kw">pop</span>(gl.rubi) <span class="op">!=</span><span class="st"> &quot;WA&quot;</span>,]</span>
+<span id="cb37-2"><a href="#cb37-2"></a>ca_or_gl</span></code></pre></div>
 <pre class="r-output"><code>##  /// GENLIGHT OBJECT /////////
 ## 
 ##  // 55 genotypes,  608 binary SNPs, size: 183.3 Kb
@@ -920,33 +934,33 @@ Show solution
 </div>
 <p><br /></p>
 <p><strong>3)</strong> Can you perform PCA on these two populations?</p>
-<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-34">
-Show solution
-</button>
-<div id="hide_buttonunnamed-chunk-34" class="collapse">
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>my_pca &lt;-<span class="st"> </span><span class="kw">glPca</span>(ca_or_gl, <span class="dt">nf =</span> <span class="dv">4</span>)</span></code></pre></div>
-</div>
-<p><br /></p>
-<p><strong>4)</strong> Can you plot the PCA?</p>
 <button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-35">
 Show solution
 </button>
 <div id="hide_buttonunnamed-chunk-35" class="collapse">
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>my_scores &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(my_pca<span class="op">$</span>scores)</span>
-<span id="cb38-2"><a href="#cb38-2"></a>my_scores<span class="op">$</span>pop &lt;-<span class="st"> </span><span class="kw">pop</span>(ca_or_gl)</span>
-<span id="cb38-3"><a href="#cb38-3"></a></span>
-<span id="cb38-4"><a href="#cb38-4"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb38-5"><a href="#cb38-5"></a><span class="kw">set.seed</span>(<span class="dv">9</span>)</span>
-<span id="cb38-6"><a href="#cb38-6"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(my_scores, <span class="kw">aes</span>(<span class="dt">x=</span>PC1, <span class="dt">y=</span>PC2, <span class="dt">colour=</span>pop)) </span>
-<span id="cb38-7"><a href="#cb38-7"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">2</span>)</span>
-<span id="cb38-8"><a href="#cb38-8"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">stat_ellipse</span>(<span class="dt">level =</span> <span class="fl">0.95</span>, <span class="dt">size =</span> <span class="dv">1</span>)</span>
-<span id="cb38-9"><a href="#cb38-9"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> cols) </span>
-<span id="cb38-10"><a href="#cb38-10"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) </span>
-<span id="cb38-11"><a href="#cb38-11"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>) </span>
-<span id="cb38-12"><a href="#cb38-12"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</span>
-<span id="cb38-13"><a href="#cb38-13"></a></span>
-<span id="cb38-14"><a href="#cb38-14"></a>p</span></code></pre></div>
-<img src="gbs_analysis_files/figure-html/unnamed-chunk-35-1.png" width="576" style="display: block; margin: auto;" />
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>my_pca &lt;-<span class="st"> </span><span class="kw">glPca</span>(ca_or_gl, <span class="dt">nf =</span> <span class="dv">4</span>)</span></code></pre></div>
+</div>
+<p><br /></p>
+<p><strong>4)</strong> Can you plot the PCA?</p>
+<button class="btn btn-danger" data-toggle="collapse" data-target="#hide_buttonunnamed-chunk-36">
+Show solution
+</button>
+<div id="hide_buttonunnamed-chunk-36" class="collapse">
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>my_scores &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(my_pca<span class="op">$</span>scores)</span>
+<span id="cb39-2"><a href="#cb39-2"></a>my_scores<span class="op">$</span>pop &lt;-<span class="st"> </span><span class="kw">pop</span>(ca_or_gl)</span>
+<span id="cb39-3"><a href="#cb39-3"></a></span>
+<span id="cb39-4"><a href="#cb39-4"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb39-5"><a href="#cb39-5"></a><span class="kw">set.seed</span>(<span class="dv">9</span>)</span>
+<span id="cb39-6"><a href="#cb39-6"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(my_scores, <span class="kw">aes</span>(<span class="dt">x=</span>PC1, <span class="dt">y=</span>PC2, <span class="dt">colour=</span>pop)) </span>
+<span id="cb39-7"><a href="#cb39-7"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">2</span>)</span>
+<span id="cb39-8"><a href="#cb39-8"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">stat_ellipse</span>(<span class="dt">level =</span> <span class="fl">0.95</span>, <span class="dt">size =</span> <span class="dv">1</span>)</span>
+<span id="cb39-9"><a href="#cb39-9"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> cols) </span>
+<span id="cb39-10"><a href="#cb39-10"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) </span>
+<span id="cb39-11"><a href="#cb39-11"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>) </span>
+<span id="cb39-12"><a href="#cb39-12"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</span>
+<span id="cb39-13"><a href="#cb39-13"></a></span>
+<span id="cb39-14"><a href="#cb39-14"></a>p</span></code></pre></div>
+<img src="gbs_analysis_files/figure-html/unnamed-chunk-36-1.png" width="576" style="display: block; margin: auto;" />
 </div>
 <p><br /></p>
 <p>How important is the Washington isolates in our understanding of West coast <em>Phytophthora rubi</em> populations?</p>
