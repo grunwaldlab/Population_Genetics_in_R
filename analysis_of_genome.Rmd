@@ -25,7 +25,7 @@ source("style.R")
 
 Analysis of genome data for populations can be seen as similar to the analyses of other marker systems discussed in previous chapters of this book, except that genome data analyses include larger quantities of data.
 For example, VCF data (discussed in '[reading VCF data](reading_vcf.html)') can be read into R using *vcfR* [@knaus2017vcfr] to create a *vcfR* object.
-This object can be converted into a genlight object [@jombart2008adegenet] and then a snpclone object [@kamvar2014poppr, @kamvar2015novel] if deemed necessary.
+This object can be converted into a genlight object [@jombart2008adegenet] and then a snpclone object [@kamvar2014poppr; @kamvar2015novel] if deemed necessary.
 Analysis on these objects has been covered in previous sections.
 Genome scale data provides additional analytical options as well.
 For example, when assumptions about the neutrality of the majority of the genome are appropriate, this can be used as a null hypothesis and used to help identify markers that differentiate from this assumption.
@@ -114,7 +114,7 @@ title(ylab = expression(italic("G'"["ST"])))
 ```
 
 
-**2)** This Manhatttan plot shouldlook a bit unusual.
+**2)** This Manhatttan plot should look a bit unusual.
 Can you think of anything that may be wrong with this analysis?
 
 
@@ -138,4 +138,4 @@ queryMETA(vcf)
 ```
 
 
-# References
+## References
