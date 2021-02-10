@@ -22,6 +22,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -162,7 +164,6 @@ h6 {
   text-align: left;
 }
 </style>
-
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -598,7 +599,7 @@ Processed variant: 615
 <h2>Additional step 2: Calculating population structure using <span class="math inline">\(F_{ST}\)</span></h2>
 <p>A standard way to calculate population structure in population genetics is using the fixation index (<span class="math inline">\(F_{ST}\)</span>) proposed by Sewall Wright <span class="citation">(Wright, 1949, p. @wright1978evolution)</span>.</p>
 <p>The fixation index measures population differentiation due to genetic structure, and is based on the variance of the allele frequencies between populations. <span class="math inline">\(F_{ST}\)</span> values can be calculated for any molecular marker.</p>
-<p>The R package <em>vcfR</em> includes a function to calculate differentiation measures from VCF data. The function <code>genetic_diff()</code> includes options for Nei’s <span class="math inline">\(G_{ST}\)</span> [@], including Hedrick’s <span class="math inline">\(G&#39;_{ST}\)</span> correction for high allelism [@] , as well as Jost’s <span class="math inline">\(D\)</span> [@].</p>
+<p>The R package <em>vcfR</em> includes a function to calculate differentiation measures from VCF data. The function <code>genetic_diff()</code> includes options for Nei’s <span class="math inline">\(G_{ST}\)</span> <span class="citation">(Nei, 1973)</span>, including Hedrick’s <span class="math inline">\(G&#39;_{ST}\)</span> correction for high allelism <span class="citation">(Hedrick, 2005)</span> , as well as Jost’s <span class="math inline">\(D\)</span> <span class="citation">(Jost, 2008)</span>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>myDiff &lt;-<span class="st"> </span><span class="kw">genetic_diff</span>(rubi.VCF, <span class="kw">as.factor</span>(pop.data<span class="op">$</span>State), <span class="dt">method =</span> <span class="st">&quot;nei&quot;</span>)</span>
 <span id="cb4-2"><a href="#cb4-2"></a>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">t</span>(<span class="kw">as.matrix</span>(<span class="kw">round</span>(<span class="kw">colMeans</span>(myDiff[,<span class="kw">c</span>(<span class="dv">3</span><span class="op">:</span><span class="dv">10</span>,<span class="dv">13</span>)], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">digits =</span> <span class="dv">3</span>))))</span></code></pre></div>
 <table>
@@ -664,6 +665,15 @@ Processed variant: 615
 <div id="refs" class="references">
 <div id="ref-hartl2007">
 <p>Hartl D., Clark A. 2007. <em>Principles of population genetics</em>. Sinauer Associates, Incorporated. Available at: <a href="http://books.google.com/books?id=SB1vQgAACAAJ">http://books.google.com/books?id=SB1vQgAACAAJ</a></p>
+</div>
+<div id="ref-hedrick2005standardized">
+<p>Hedrick PW. 2005. A standardized genetic differentiation measure. <em>Evolution</em> 59:1633–1638. Available at: <a href="http://dx.doi.org/10.1111/j.0014-3820.2005.tb01814.x">http://dx.doi.org/10.1111/j.0014-3820.2005.tb01814.x</a></p>
+</div>
+<div id="ref-jost2008gst">
+<p>Jost L. 2008. <span class="math inline">\(G_{ST}\)</span> And its relatives do not measure differentiation. <em>Molecular Ecology</em> 17:4015–4026. Available at: <a href="http://dx.doi.org/10.1111/j.1365-294X.2008.03887.x">http://dx.doi.org/10.1111/j.1365-294X.2008.03887.x</a></p>
+</div>
+<div id="ref-nei1973analysis">
+<p>Nei M. 1973. Analysis of gene diversity in subdivided populations. <em>Proceedings of the National Academy of Sciences</em> 70:3321–3323. Available at: <a href="http://www.pnas.org/content/70/12/3321.abstract">http://www.pnas.org/content/70/12/3321.abstract</a></p>
 </div>
 <div id="ref-wright1949genetical">
 <p>Wright S. 1949. The genetical structure of populations. <em>Annals of Eugenics</em> 15:323–354. Available at: <a href="http://dx.doi.org/10.1111/j.1469-1809.1949.tb02451.x">http://dx.doi.org/10.1111/j.1469-1809.1949.tb02451.x</a></p>

@@ -21,6 +21,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -69,7 +71,6 @@ h6 {
   text-align: left;
 }
 </style>
-
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -462,13 +463,39 @@ $(document).ready(function () {
 </div>
 
 
-<p>We now live in the fast growing era of high throughput sequencing (HTS) that is revolutionizing our ability to understand genetic variation [@]. Two factors are contributing to a need for new methods of analyzing data: 1. the data is now often in a genome-wide context where location within a genome is part of the analysis and 2. the number of variants are large.</p>
+<p>We now live in the fast growing era of high throughput sequencing (HTS) that is revolutionizing our ability to understand genetic variation <span class="citation">(Luikart et al., 2003; Grünwald, McDonald &amp; Milgroom, 2016)</span>. Two factors are contributing to a need for new methods of analyzing data: 1. the data is now often in a genome-wide context where location within a genome is part of the analysis and 2. the number of variants are large.</p>
 <div id="novel-tools-in-r-for-population-genomic-analyses" class="section level1">
 <h1>Novel tools in R for population genomic analyses</h1>
-<p>The R computing language has become a great tool for analyzing population genomic data. A recent special issue in <a href="http://onlinelibrary.wiley.com/doi/10.1111/men.2017.17.issue-1/issuetoc">Molecular Ecology Resources</a> provides a nice overview of the arsenal of tools available in R [@]. New tools have become available in R for analyzing HTS data including <em>adegenet</em> [@], <em>ape</em> [@], <em>vcfR</em> [@], and <em>poppr</em> [@] among others. Section III of this primer is geared towards analyzing whole genome or reduced representation genomic data for populations using the variant call format (VCF). The next three chapters will focus on introducing the VCF file format, reading SNP data into R from high throughput sequencing projects, performing quality control, and conducting selected analyses using population genomic data.</p>
+<p>The R computing language has become a great tool for analyzing population genomic data. A recent special issue in <a href="http://onlinelibrary.wiley.com/doi/10.1111/men.2017.17.issue-1/issuetoc">Molecular Ecology Resources</a> provides a nice overview of the arsenal of tools available in R <span class="citation">(Paradis et al., 2017)</span>. New tools have become available in R for analyzing HTS data including <em>adegenet</em> <span class="citation">(Jombart, 2008)</span>, <em>ape</em> <span class="citation">(Paradis, Claude &amp; Strimmer, 2004)</span>, <em>vcfR</em> <span class="citation">(Knaus &amp; Grünwald, 2017)</span>, and <em>poppr</em> <span class="citation">(Kamvar, Tabima &amp; Grünwald, 2014; Kamvar, Brooks &amp; Grünwald, 2015)</span> among others. Section III of this primer is geared towards analyzing whole genome or reduced representation genomic data for populations using the variant call format (VCF). The next three chapters will focus on introducing the VCF file format, reading SNP data into R from high throughput sequencing projects, performing quality control, and conducting selected analyses using population genomic data.</p>
 </div>
-<div id="references" class="section level1">
+<div id="references" class="section level1 unnumbered">
 <h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-grunwald2016population">
+<p>Grünwald NJ., McDonald BA., Milgroom MG. 2016. Population genomics of fungal and oomycete pathogens. <em>Annual Review of Phytopathology</em> 54:323–346. Available at: <a href="http://arjournals.annualreviews.org/doi/full/10.1146/annurev-phyto-080614-115913">http://arjournals.annualreviews.org/doi/full/10.1146/annurev-phyto-080614-115913</a></p>
+</div>
+<div id="ref-jombart2008adegenet">
+<p>Jombart T. 2008. <span class="math inline">\(adegenet\)</span>: A R package for the multivariate analysis of genetic markers. <em>Bioinformatics</em> 24:1403–1405. Available at: <a href="https://doi.org/10.1093/bioinformatics/btn129">https://doi.org/10.1093/bioinformatics/btn129</a></p>
+</div>
+<div id="ref-kamvar2015novel">
+<p>Kamvar ZN., Brooks JC., Grünwald NJ. 2015. Novel R tools for analysis of genome-wide population genetic data with emphasis on clonality. <em>Name: Frontiers in Genetics</em> 6:208. Available at: <a href="http://dx.doi.org/10.3389/fgene.2015.00208">http://dx.doi.org/10.3389/fgene.2015.00208</a></p>
+</div>
+<div id="ref-kamvar2014poppr">
+<p>Kamvar ZN., Tabima JF., Grünwald NJ. 2014. <span class="math inline">\(Poppr\)</span>: An R package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281">http://dx.doi.org/10.7717/peerj.281</a></p>
+</div>
+<div id="ref-knaus2017vcfr">
+<p>Knaus BJ., Grünwald NJ. 2017. <span class="math inline">\({V}cfr\)</span>: A package to manipulate and visualize variant call format data in R. <em>Molecular Ecology Resources</em> 17:44–53. Available at: <a href="http://dx.doi.org/10.1111/1755-0998.12549">http://dx.doi.org/10.1111/1755-0998.12549</a></p>
+</div>
+<div id="ref-luikart2003power">
+<p>Luikart G., England PR., Tallmon D., Jordan S., Taberlet P. 2003. The power and promise of population genomics: From genotyping to genome typing. <em>Nature reviews genetics</em> 4:981–994. Available at: <a href="http://www.nature.com/nrg/journal/v4/n12/full/nrg1226.html">http://www.nature.com/nrg/journal/v4/n12/full/nrg1226.html</a></p>
+</div>
+<div id="ref-paradis2017towards">
+<p>Paradis E., Gosselin T., Grünwald NJ., Jombart T., Manel S., Lapp H. 2017. Towards an integrated ecosystem of r packages for the analysis of population genetic data. <em>Molecular Ecology Resources</em> 17:1–4. Available at: <a href="http://dx.doi.org/10.1111/1755-0998.12636">http://dx.doi.org/10.1111/1755-0998.12636</a></p>
+</div>
+<div id="ref-paradis2004ape">
+<p>Paradis E., Claude J., Strimmer K. 2004. APE: Analyses of phylogenetics and evolution in r language. <em>Bioinformatics</em> 20:289–290. Available at: <a href="https://doi.org/10.1093/bioinformatics/btg412">https://doi.org/10.1093/bioinformatics/btg412</a></p>
+</div>
+</div>
 </div>
 
 

@@ -21,6 +21,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -161,7 +163,6 @@ h6 {
   text-align: left;
 }
 </style>
-
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -560,7 +561,7 @@ $(document).ready(function () {
 </blockquote>
 <div id="locus-summary-statistics" class="section level2">
 <h2>Locus summary statistics</h2>
-<p>A quick way to assess quality of the data is to determine the number, diversity, expected heterozygosity, and evenness of the alleles at each locus. As an example, we will use data for the fungal-like protist <em>Phytophthora infestans</em> from [@]. First, we’ll use the function <code>locus_table</code> to get all of the statistics mentioned above. For documentation on this function type <code>?locus_table</code>. Here is a first look at each locus:</p>
+<p>A quick way to assess quality of the data is to determine the number, diversity, expected heterozygosity, and evenness of the alleles at each locus. As an example, we will use data for the fungal-like protist <em>Phytophthora infestans</em> from <span class="citation">(Goss et al., 2014)</span>. First, we’ll use the function <code>locus_table</code> to get all of the statistics mentioned above. For documentation on this function type <code>?locus_table</code>. Here is a first look at each locus:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)     <span class="co"># Make sure poppr is loaded if you haven&#39;t done so already.</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)  <span class="co"># We will also use magrittr for part of this chapter</span></span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="kw">data</span>(<span class="st">&quot;Pinf&quot;</span>)         <span class="co"># P. infestans data set from Mexico and South America</span></span>
@@ -644,15 +645,23 @@ $(document).ready(function () {
 <pre><code>## [1] 10</code></pre>
 <p>So, how does this affect multi-locus based statistics? We can see immediately that it didn’t affect the number of multilocus genotypes, let’s take a look at the index of association:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">poppr</span>(Pinf)</span></code></pre></div>
-<pre><code>##             Pop  N MLG eMLG    SE    H    G lambda   E.5  Hexp    Ia  rbarD File
-## 1 South America 38  29 29.0 0.000 3.27 23.3  0.957 0.883 0.513 2.873 0.3446 Pinf
-## 2 North America 48  43 34.5 0.989 3.69 34.9  0.971 0.871 0.503 0.223 0.0240 Pinf
-## 3         Total 86  72 34.6 1.529 4.19 57.8  0.983 0.875 0.520 0.652 0.0717 Pinf</code></pre>
+<pre><code>##             Pop  N MLG eMLG    SE    H    G lambda   E.5  Hexp    Ia  rbarD
+## 1 South America 38  29 29.0 0.000 3.27 23.3  0.957 0.883 0.513 2.873 0.3446
+## 2 North America 48  43 34.5 0.989 3.69 34.9  0.971 0.871 0.503 0.223 0.0240
+## 3         Total 86  72 34.6 1.529 4.19 57.8  0.983 0.875 0.520 0.652 0.0717
+##   File
+## 1 Pinf
+## 2 Pinf
+## 3 Pinf</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">poppr</span>(iPinf)</span></code></pre></div>
-<pre><code>##             Pop  N MLG eMLG    SE    H    G lambda   E.5  Hexp    Ia  rbarD  File
-## 1 South America 38  29 29.0 0.000 3.27 23.3  0.957 0.883 0.565 2.873 0.3446 iPinf
-## 2 North America 48  43 34.5 0.989 3.69 34.9  0.971 0.871 0.551 0.225 0.0255 iPinf
-## 3         Total 86  72 34.6 1.529 4.19 57.8  0.983 0.875 0.571 0.655 0.0750 iPinf</code></pre>
+<pre><code>##             Pop  N MLG eMLG    SE    H    G lambda   E.5  Hexp    Ia  rbarD
+## 1 South America 38  29 29.0 0.000 3.27 23.3  0.957 0.883 0.565 2.873 0.3446
+## 2 North America 48  43 34.5 0.989 3.69 34.9  0.971 0.871 0.551 0.225 0.0255
+## 3         Total 86  72 34.6 1.529 4.19 57.8  0.983 0.875 0.571 0.655 0.0750
+##    File
+## 1 iPinf
+## 2 iPinf
+## 3 iPinf</code></pre>
 <p>We can see that it increased ever so slightly for the “North America” and “Total” populations, but not the “South America” population as expected given the fixed alleles at locus P33.</p>
 </div>
 <div id="missing-data" class="section level2">
@@ -743,8 +752,10 @@ Plot of missing data
 ## 
 ## 38 genotypes contained missing values greater than 5%
 ## 
-## Removing 38 genotypes: N215, N216, N188, N189, N190, N191, N192, N298, N299, N300, N301, N302, N303, N304, N310, N195, N197, N198, N199, N200, N201, N206, N182, N184, N186, N282,
-## N283, N288, N291, N292, N293, N294, N295, N296, N297, N281, N289, N290</code></pre>
+## Removing 38 genotypes: N215, N216, N188, N189, N190, N191, N192, N298,
+## N299, N300, N301, N302, N303, N304, N310, N195, N197, N198, N199, N200,
+## N201, N206, N182, N184, N186, N282, N283, N288, N291, N292, N293, N294,
+## N295, N296, N297, N281, N289, N290</code></pre>
 <pre><code>## No Missing Data Found!</code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>miss &lt;-<span class="st"> </span>nancycats <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">missingno</span>(<span class="st">&quot;geno&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">info_table</span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
@@ -752,8 +763,10 @@ Plot of missing data
 ## 
 ## 38 genotypes contained missing values greater than 0%
 ## 
-## Removing 38 genotypes: N215, N216, N188, N189, N190, N191, N192, N298, N299, N300, N301, N302, N303, N304, N310, N195, N197, N198, N199, N200, N201, N206, N182, N184, N186, N282,
-## N283, N288, N291, N292, N293, N294, N295, N296, N297, N281, N289, N290
+## Removing 38 genotypes: N215, N216, N188, N189, N190, N191, N192, N298,
+## N299, N300, N301, N302, N303, N304, N310, N195, N197, N198, N199, N200,
+## N201, N206, N182, N184, N186, N282, N283, N288, N291, N292, N293, N294,
+## N295, N296, N297, N281, N289, N290
 ## No Missing Data Found!</code></pre>
 <p>The function <code>missingno</code> removes individuals based on the percent of missing data relative to the number of loci. Let’s remove all individuals with 2 missing loci:</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>miss &lt;-<span class="st"> </span>nancycats <span class="op">%&gt;%</span></span>
@@ -848,23 +861,47 @@ tab(popsub(nanmean, 1, drop = TRUE)[loc = "fca8"])
 ```
 
 ```
-## Warning in validityMethod(object): @tab does not contain integers; as of adegenet_2.0-0, numeric values are no longer used
+## Warning in validityMethod(object): @tab does not contain integers; as of
+## adegenet_2.0-0, numeric values are no longer used
 
-## Warning in validityMethod(object): @tab does not contain integers; as of adegenet_2.0-0, numeric values are no longer used
+## Warning in validityMethod(object): @tab does not contain integers; as of
+## adegenet_2.0-0, numeric values are no longer used
 ```
 
 ```
-##         fca8.117    fca8.119   fca8.121  fca8.123    fca8.127  fca8.129  fca8.131  fca8.133 fca8.135  fca8.137 fca8.139  fca8.141 fca8.143   fca8.145   fca8.147   fca8.149
-## N215 0.004608295 0.004608295 0.02764977 0.1336406 0.004608295 0.0921659 0.1013825 0.1520737 0.483871 0.3824885 0.124424 0.1889401 0.202765 0.05069124 0.01382488 0.03225806
-## N216 0.004608295 0.004608295 0.02764977 0.1336406 0.004608295 0.0921659 0.1013825 0.1520737 0.483871 0.3824885 0.124424 0.1889401 0.202765 0.05069124 0.01382488 0.03225806
-## N217 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000 0.0000000 0.0000000 1.000000 0.0000000 0.000000 0.0000000 1.000000 0.00000000 0.00000000 0.00000000
-## N218 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000 0.0000000 1.0000000 1.000000 0.0000000 0.000000 0.0000000 0.000000 0.00000000 0.00000000 0.00000000
-## N219 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000 0.0000000 1.0000000 1.000000 0.0000000 0.000000 0.0000000 0.000000 0.00000000 0.00000000 0.00000000
-## N220 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000 0.0000000 0.0000000 1.000000 0.0000000 0.000000 0.0000000 1.000000 0.00000000 0.00000000 0.00000000
-## N221 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000 0.0000000 0.0000000 2.000000 0.0000000 0.000000 0.0000000 0.000000 0.00000000 0.00000000 0.00000000
-## N222 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000 0.0000000 0.0000000 1.000000 0.0000000 0.000000 0.0000000 1.000000 0.00000000 0.00000000 0.00000000
-## N223 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000 0.0000000 0.0000000 0.000000 1.0000000 0.000000 0.0000000 1.000000 0.00000000 0.00000000 0.00000000
-## N224 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000 0.0000000 0.0000000 2.000000 0.0000000 0.000000 0.0000000 0.000000 0.00000000 0.00000000 0.00000000
+##         fca8.117    fca8.119   fca8.121  fca8.123    fca8.127  fca8.129
+## N215 0.004608295 0.004608295 0.02764977 0.1336406 0.004608295 0.0921659
+## N216 0.004608295 0.004608295 0.02764977 0.1336406 0.004608295 0.0921659
+## N217 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
+## N218 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
+## N219 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
+## N220 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
+## N221 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
+## N222 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
+## N223 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
+## N224 0.000000000 0.000000000 0.00000000 0.0000000 0.000000000 0.0000000
+##       fca8.131  fca8.133 fca8.135  fca8.137 fca8.139  fca8.141 fca8.143
+## N215 0.1013825 0.1520737 0.483871 0.3824885 0.124424 0.1889401 0.202765
+## N216 0.1013825 0.1520737 0.483871 0.3824885 0.124424 0.1889401 0.202765
+## N217 0.0000000 0.0000000 1.000000 0.0000000 0.000000 0.0000000 1.000000
+## N218 0.0000000 1.0000000 1.000000 0.0000000 0.000000 0.0000000 0.000000
+## N219 0.0000000 1.0000000 1.000000 0.0000000 0.000000 0.0000000 0.000000
+## N220 0.0000000 0.0000000 1.000000 0.0000000 0.000000 0.0000000 1.000000
+## N221 0.0000000 0.0000000 2.000000 0.0000000 0.000000 0.0000000 0.000000
+## N222 0.0000000 0.0000000 1.000000 0.0000000 0.000000 0.0000000 1.000000
+## N223 0.0000000 0.0000000 0.000000 1.0000000 0.000000 0.0000000 1.000000
+## N224 0.0000000 0.0000000 2.000000 0.0000000 0.000000 0.0000000 0.000000
+##        fca8.145   fca8.147   fca8.149
+## N215 0.05069124 0.01382488 0.03225806
+## N216 0.05069124 0.01382488 0.03225806
+## N217 0.00000000 0.00000000 0.00000000
+## N218 0.00000000 0.00000000 0.00000000
+## N219 0.00000000 0.00000000 0.00000000
+## N220 0.00000000 0.00000000 0.00000000
+## N221 0.00000000 0.00000000 0.00000000
+## N222 0.00000000 0.00000000 0.00000000
+## N223 0.00000000 0.00000000 0.00000000
+## N224 0.00000000 0.00000000 0.00000000
 ```
 
 Notice that there are a lot more alleles than there were originally. This is
@@ -1128,26 +1165,36 @@ tab(nan1[loc = "fca8"])
 <p><code>[</code> is used to subset data, and it’s also a function! It provides an easy way to subset a list of data.</p>
 </blockquote>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>(nanhwe.mat &lt;-<span class="st"> </span><span class="kw">sapply</span>(nanhwe.pop, <span class="st">&quot;[&quot;</span>, <span class="dt">i =</span> <span class="ot">TRUE</span>, <span class="dt">j =</span> <span class="dv">3</span>)) <span class="co"># Take the third column with all rows</span></span></code></pre></div>
-<pre><code>##               P01          P02         P03          P04          P05        P06         P07         P08        P09        P10         P11         P12          P13          P14         P15         P16
-## fca8  0.526517306 1.242747e-02 0.008041715 0.0308567389 3.954989e-01 0.03577342 0.001015109 0.916111766 0.31510592 0.05872852 0.155066305 0.164120103 0.2630645196 4.256183e-01 0.705556557 0.281226569
-## fca23 0.003674334 9.955382e-03 0.019163551 0.3233864330 1.850960e-01 0.03719982 0.012687711 0.396621136 0.02873635 0.87429636 0.084923238 0.024340677 0.0007554178 1.298351e-05 0.514871229 0.047447914
-## fca43 0.228040169 1.328128e-04 0.509920497 0.7685881191 2.095530e-01 0.39334274 0.959144052 0.091988007 0.64577154 0.38208910 0.171817797 0.001448621 0.0166924694 6.132040e-02 0.566969462 0.492388326
-## fca45 0.437506757 6.625229e-01 0.907112985 0.1851504896 6.508040e-01 0.02992243 0.459347253 0.318334361 0.16270652 0.25979323 0.463741139 0.999937497 0.6986081422 6.356538e-01 0.789277136 0.436511213
-## fca77 0.020815001 2.152672e-04 0.346093040 0.0259007804 5.544311e-01 0.05640543 0.448233208 0.008789371 0.73130577 0.00513784 0.053561033 0.247330251 0.0782627471 2.371323e-02 0.700692473 0.214338721
-## fca78 0.527089257 7.397613e-02 0.007422415 0.1349710053 1.086817e-03 0.16657697 0.000760033 0.032459406 0.12388882 0.15291720 0.131431929 0.394489189 0.4631446836 2.096833e-02 0.004624641 0.002939821
-## fca90 0.176471694 9.039990e-07 0.488153481 0.0002424509 4.948073e-02 0.14408091 0.255608831 0.306700905 0.01948082 0.03719982 0.006894609 0.144976448 0.0673059558 8.540995e-02 0.256280157 0.108786650
-## fca96 0.380796192 4.066747e-13 0.561890682 0.8593197525 4.641922e-01 0.31995727 0.679082361 0.661271220 0.83243842 0.89847559 0.072335908 0.995282078 0.4214193724 1.128794e-02 0.032991782 0.060178994
-## fca37 0.017283597 5.889498e-01 0.035996207 0.5749990390 3.895597e-05 0.71678027 0.194316502 0.040848059 0.70671912 0.61820263 0.074121484 0.056109916 0.1384548888 9.212362e-01 0.057190992 0.560926769
-##             P17
-## fca8  0.1052085
-## fca23 0.3869703
-## fca43 0.0147464
-## fca45        NA
-## fca77 0.2844190
-## fca78 0.6226810
-## fca90 0.3508286
-## fca96 0.5761501
-## fca37 0.1648068</code></pre>
+<pre><code>##               P01          P02         P03          P04          P05        P06
+## fca8  0.526517306 1.242747e-02 0.008041715 0.0308567389 3.954989e-01 0.03577342
+## fca23 0.003674334 9.955382e-03 0.019163551 0.3233864330 1.850960e-01 0.03719982
+## fca43 0.228040169 1.328128e-04 0.509920497 0.7685881191 2.095530e-01 0.39334274
+## fca45 0.437506757 6.625229e-01 0.907112985 0.1851504896 6.508040e-01 0.02992243
+## fca77 0.020815001 2.152672e-04 0.346093040 0.0259007804 5.544311e-01 0.05640543
+## fca78 0.527089257 7.397613e-02 0.007422415 0.1349710053 1.086817e-03 0.16657697
+## fca90 0.176471694 9.039990e-07 0.488153481 0.0002424509 4.948073e-02 0.14408091
+## fca96 0.380796192 4.066747e-13 0.561890682 0.8593197525 4.641922e-01 0.31995727
+## fca37 0.017283597 5.889498e-01 0.035996207 0.5749990390 3.895597e-05 0.71678027
+##               P07         P08        P09        P10         P11         P12
+## fca8  0.001015109 0.916111766 0.31510592 0.05872852 0.155066305 0.164120103
+## fca23 0.012687711 0.396621136 0.02873635 0.87429636 0.084923238 0.024340677
+## fca43 0.959144052 0.091988007 0.64577154 0.38208910 0.171817797 0.001448621
+## fca45 0.459347253 0.318334361 0.16270652 0.25979323 0.463741139 0.999937497
+## fca77 0.448233208 0.008789371 0.73130577 0.00513784 0.053561033 0.247330251
+## fca78 0.000760033 0.032459406 0.12388882 0.15291720 0.131431929 0.394489189
+## fca90 0.255608831 0.306700905 0.01948082 0.03719982 0.006894609 0.144976448
+## fca96 0.679082361 0.661271220 0.83243842 0.89847559 0.072335908 0.995282078
+## fca37 0.194316502 0.040848059 0.70671912 0.61820263 0.074121484 0.056109916
+##                P13          P14         P15         P16       P17
+## fca8  0.2630645196 4.256183e-01 0.705556557 0.281226569 0.1052085
+## fca23 0.0007554178 1.298351e-05 0.514871229 0.047447914 0.3869703
+## fca43 0.0166924694 6.132040e-02 0.566969462 0.492388326 0.0147464
+## fca45 0.6986081422 6.356538e-01 0.789277136 0.436511213        NA
+## fca77 0.0782627471 2.371323e-02 0.700692473 0.214338721 0.2844190
+## fca78 0.4631446836 2.096833e-02 0.004624641 0.002939821 0.6226810
+## fca90 0.0673059558 8.540995e-02 0.256280157 0.108786650 0.3508286
+## fca96 0.4214193724 1.128794e-02 0.032991782 0.060178994 0.5761501
+## fca37 0.1384548888 9.212362e-01 0.057190992 0.560926769 0.1648068</code></pre>
 <p>This output is still hard to sift through. An easy way to analyze this is by visualizing this as a heatmap. Since we only care whether or not a given locus is in or out of HWE, we will thus define an <span class="math inline">\(\alpha\)</span> value and set everything above that value to 1 so that we can visually detect candidate loci where we might reject the <span class="math inline">\(H_o\)</span> of HWE.</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>alpha  &lt;-<span class="st"> </span><span class="fl">0.05</span></span>
 <span id="cb42-2"><a href="#cb42-2"></a>newmat &lt;-<span class="st"> </span>nanhwe.mat</span>
@@ -1164,8 +1211,13 @@ Heatmap showing significant departures from HWE
 <p>This simple plot shows us loci in rows and populations in columns. Note, that all loci shown in pink are loci suspected of not being in HWE with <span class="math inline">\(p \leq 0.05\)</span>.</p>
 </div>
 </div>
-<div id="references" class="section level2">
+<div id="references" class="section level2 unnumbered">
 <h2>References</h2>
+<div id="refs" class="references">
+<div id="ref-goss2014irish">
+<p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The Irish potato famine pathogen <em>phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
+</div>
+</div>
 </div>
 
 

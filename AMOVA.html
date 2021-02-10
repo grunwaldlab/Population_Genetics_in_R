@@ -21,6 +21,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -161,7 +163,6 @@ h6 {
   text-align: left;
 }
 </style>
-
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -554,7 +555,7 @@ $(document).ready(function () {
 </div>
 
 
-<p>In this chapter, we will utilize AMOVA to analyze our populations. AMOVA stands for <strong>A</strong>nalysis of <strong>MO</strong>lecular <strong>VA</strong>riance and is a method to detect population differentiation utilizing molecular markers [@]. This procedure was initially implemented for DNA haplotypes, but applies to any marker system. The implementation of AMOVA in <em>poppr</em> requires two very basic components: (1) A distance matrix derived from the data and (2) a separate table used to partition the data into different stratifications.</p>
+<p>In this chapter, we will utilize AMOVA to analyze our populations. AMOVA stands for <strong>A</strong>nalysis of <strong>MO</strong>lecular <strong>VA</strong>riance and is a method to detect population differentiation utilizing molecular markers <span class="citation">(Excoffier, Smouse &amp; Quattro, 1992)</span>. This procedure was initially implemented for DNA haplotypes, but applies to any marker system. The implementation of AMOVA in <em>poppr</em> requires two very basic components: (1) A distance matrix derived from the data and (2) a separate table used to partition the data into different stratifications.</p>
 <p>The distance matrix can be calculated using any distance as long as it is euclidean. The distance that is used in the program Arlequin is the opposite of the Kronecker Delta function that counts the number of differences summed over <span class="math inline">\(L\)</span> loci:</p>
 <p><span class="math display">\[
 \delta_{l,m} = \begin{cases}
@@ -566,7 +567,7 @@ d_{i,j} = \sum_{L = 1}^L 1 - \delta_{i,j}
 \]</span></p>
 <div id="data-set" class="section level2">
 <h2>Data set</h2>
-<p>To calculate AMOVA in <em>poppr</em>, one simply needs to supply a data set with stratifications. We will use the <em>Aphanomyces euteiches</em> data set from [@].</p>
+<p>To calculate AMOVA in <em>poppr</em>, one simply needs to supply a data set with stratifications. We will use the <em>Aphanomyces euteiches</em> data set from <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw">data</span>(<span class="st">&quot;Aeut&quot;</span>)</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="kw">strata</span>(Aeut) &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">other</span>(Aeut)<span class="op">$</span>population_hierarchy)</span>
@@ -658,7 +659,7 @@ d_{i,j} = \sum_{L = 1}^L 1 - \delta_{i,j}
 </div>
 <div id="significance-testing" class="section level2">
 <h2>Significance testing</h2>
-<p>To test if populations are significantly different, we perform a randomization test using the function <code>randtest()</code> from the <em>ade4</em> package. This will randomly permute the sample matrices as described in [@].</p>
+<p>To test if populations are significantly different, we perform a randomization test using the function <code>randtest()</code> from the <em>ade4</em> package. This will randomly permute the sample matrices as described in <span class="citation">(Excoffier et al., 1992)</span>.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">set.seed</span>(<span class="dv">1999</span>)</span>
 <span id="cb13-2"><a href="#cb13-2"></a>Aeutsignif   &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeutamova, <span class="dt">nrepet =</span> <span class="dv">999</span>)</span>
 <span id="cb13-3"><a href="#cb13-3"></a>Aeutccsignif &lt;-<span class="st"> </span><span class="kw">randtest</span>(Aeutamovacc, <span class="dt">nrepet =</span> <span class="dv">999</span>)</span></code></pre></div>
@@ -693,7 +694,7 @@ d_{i,j} = \sum_{L = 1}^L 1 - \delta_{i,j}
 ## 1  Variations within samples  4.2285550 -22.250873    less  0.001
 ## 2 Variations between samples  0.9520545   9.821081 greater  0.001
 ## 3     Variations between Pop 10.4131525   9.983940 greater  0.001</code></pre>
-<p>The above graphs show significant population differentiation at all levels given that the observed <span class="math inline">\(\phi\)</span> does not fall within the distribution expected from the permutation. Compare the results of our AMOVA analysis to those published in [@]. They should be identical.</p>
+<p>The above graphs show significant population differentiation at all levels given that the observed <span class="math inline">\(\phi\)</span> does not fall within the distribution expected from the permutation. Compare the results of our AMOVA analysis to those published in <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>. They should be identical.</p>
 </div>
 <div id="randomized-population-structure" class="section level2">
 <h2>Randomized population structure</h2>
@@ -763,12 +764,20 @@ d_{i,j} = \sum_{L = 1}^L 1 - \delta_{i,j}
 </div>
 <div id="conclusions" class="section level2">
 <h2>Conclusions</h2>
-<p>AMOVA is a powerful tool that can help support hypotheses of population structure due to clonal reproduction or isolation without making assumptions about Hardy-Weinberg equilibrium. We have shown that we can reject the <span class="math inline">\(H_o\)</span> of random mating between the two populations and have strong evidence that these populations are significantly differentiated at all stratifications [@]. From these results, we can investigate hypotheses as to why these populations are significantly differentiated.</p>
+<p>AMOVA is a powerful tool that can help support hypotheses of population structure due to clonal reproduction or isolation without making assumptions about Hardy-Weinberg equilibrium. We have shown that we can reject the <span class="math inline">\(H_o\)</span> of random mating between the two populations and have strong evidence that these populations are significantly differentiated at all stratifications <span class="citation">(Grünwald &amp; Hoheisel, 2006)</span>. From these results, we can investigate hypotheses as to why these populations are significantly differentiated.</p>
 <p>This example was performed with a data set of dominant (AFLP) markers, but it can also be performed on codominant markers such as SNPs or SSRs. These provide more information because within sample (individual) variance is also assessed. If one wants to utilize a genetic distance that has biological relevance, a different distance matrix can be chosen. See <code>help('amova', package = 'poppr')</code> for more details.</p>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>
 <!----------->
+<div id="refs" class="references">
+<div id="ref-excoffier1992analysis">
+<p>Excoffier L., Smouse PE., Quattro JM. 1992. Analysis of molecular variance inferred from metric distances among dna haplotypes: Application to human mitochondrial dna restriction data. <em>Genetics</em> 131:479–491. Available at: <a href="http://www.genetics.org/content/131/2/479.abstract">http://www.genetics.org/content/131/2/479.abstract</a></p>
+</div>
+<div id="ref-grunwald2006hierarchical">
+<p>Grünwald NJ., Hoheisel G-A. 2006. Hierarchical analysis of diversity, selfing, and genetic differentiation in populations of the oomycete <em>aphanomyces euteiches</em>. <em>Phytopathology</em> 96:1134–1141. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134</a></p>
+</div>
+</div>
 </div>
 
 

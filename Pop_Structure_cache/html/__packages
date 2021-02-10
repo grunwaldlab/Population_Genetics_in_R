@@ -6,13 +6,15 @@ ade4
 adegenet
 poppr
 vcfR
-igraph
-RColorBrewer
-ape
 reshape2
 ggplot2
+ggpubr
 cowplot
-hierfstat
+ape
+RColorBrewer
+igraph
+tidyr
+phangorn
 permute
 lattice
 vegan
@@ -20,5 +22,3 @@ magrittr
 pegas
 pinfsc50
 mmod
-ggpubr
-phangorn

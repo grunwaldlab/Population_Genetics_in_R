@@ -21,6 +21,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -161,7 +163,6 @@ h6 {
   text-align: left;
 }
 </style>
-
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -579,12 +580,16 @@ $(document).ready(function () {
 <p>Now that we’ve reminded ourselves of how to count missing values we can apply this knowledge to query one of our samples. We’ll extract a matrix of variant depths (DP) from the VCF data. We can remind ourselves of what DP is in this VCF data by using the <code>queryMETA()</code> function. (Recall that we have already read in our VCF data to create a vcfR object in the section ‘Reading VCF data’.)</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">queryMETA</span>(vcf, <span class="st">&quot;DP&quot;</span>)</span></code></pre></div>
 <pre><code>## [[1]]
-## [1] &quot;FORMAT=ID=DP&quot;                                                                          &quot;Number=1&quot;                                                                             
-## [3] &quot;Type=Integer&quot;                                                                          &quot;Description=Approximate read depth (reads with MQ=255 or with bad mates are filtered)&quot;
+## [1] &quot;FORMAT=ID=DP&quot;                                                                         
+## [2] &quot;Number=1&quot;                                                                             
+## [3] &quot;Type=Integer&quot;                                                                         
+## [4] &quot;Description=Approximate read depth (reads with MQ=255 or with bad mates are filtered)&quot;
 ## 
 ## [[2]]
-## [1] &quot;INFO=ID=DP&quot;                                                            &quot;Number=1&quot;                                                             
-## [3] &quot;Type=Integer&quot;                                                          &quot;Description=Approximate read depth; some reads may have been filtered&quot;</code></pre>
+## [1] &quot;INFO=ID=DP&quot;                                                           
+## [2] &quot;Number=1&quot;                                                             
+## [3] &quot;Type=Integer&quot;                                                         
+## [4] &quot;Description=Approximate read depth; some reads may have been filtered&quot;</code></pre>
 <p>Here we’ll want the first definition (FORMAT=ID=DP). Now we can extract a matrix of depths and query the first sample for missingness.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>dp &lt;-<span class="st"> </span><span class="kw">extract.gt</span>(vcf, <span class="dt">element =</span> <span class="st">&quot;DP&quot;</span>, <span class="dt">as.numeric=</span><span class="ot">TRUE</span>)</span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="kw">sum</span>(<span class="kw">is.na</span>(dp[,<span class="dv">1</span>]))</span></code></pre></div>

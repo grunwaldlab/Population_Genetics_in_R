@@ -21,6 +21,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -161,7 +163,6 @@ h6 {
   text-align: left;
 }
 </style>
-
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -557,7 +558,7 @@ $(document).ready(function () {
 <p>In this chapter we will formally test if populations are in linkage disequilibrium or not. This test is useful to determine if populations are clonal (where significant disequilibrium is expected due to linkage among loci) or sexual (where linkage among loci is not expected). The null hypothesis tested is that alleles observed at different loci are not linked if populations are sexual while alleles recombine freely into new genotypes during the process of sexual reproduction. In molecular ecology we typically use the index of association or related indices to test this phenomenon.</p>
 <div id="the-index-of-association" class="section level1">
 <h1>The index of association</h1>
-<p>The index of association (<span class="math inline">\(I_A\)</span>) was originally proposed by Brown et al. [@] and implemented in the <em>poppr</em> R package [@] using a permutation approach to assess if loci are linked as described previously by Agapow and Burt [@]. Agapow and Burt also described the index <span class="math inline">\(\bar{r}_d\)</span> that accounts for the number of loci sampled that is less biased and will be used here. The data we will use in this chapter are populations of <em>Phytophthora infestans</em> from North and South America [@]. We will use the index of association to test the hypothesis that Mexico is the putative origin of <em>P. infestans</em> where populations are expected to be sexual while populations in South America are expected to be clonal.</p>
+<p>The index of association (<span class="math inline">\(I_A\)</span>) was originally proposed by Brown et al. <span class="citation">(Brown, Feldman &amp; Nevo, 1980)</span> and implemented in the <em>poppr</em> R package <span class="citation">(Kamvar, Tabima &amp; Grünwald, 2014)</span> using a permutation approach to assess if loci are linked as described previously by Agapow and Burt [@]. Agapow and Burt also described the index <span class="math inline">\(\bar{r}_d\)</span> that accounts for the number of loci sampled that is less biased and will be used here. The data we will use in this chapter are populations of <em>Phytophthora infestans</em> from North and South America <span class="citation">(Goss et al., 2014)</span>. We will use the index of association to test the hypothesis that Mexico is the putative origin of <em>P. infestans</em> where populations are expected to be sexual while populations in South America are expected to be clonal.</p>
 <p>First, we need to load the packages needed for this analysis.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)</span>
@@ -610,7 +611,7 @@ $(document).ready(function () {
 <pre><code>##        Ia      p.Ia     rbarD      p.rD 
 ## 2.6335025 0.0010000 0.3145711 0.0010000</code></pre>
 <p>Both clone-corrected (<span class="math inline">\(N = 29\)</span>) and uncorrected data (<span class="math inline">\(N = 38\)</span>) reject the hypothesis of no linkage among markers. We thus have support for populations in Mexico being sexual while those in South America are clonal.</p>
-<p>This approach has been applied to provide support for Mexico as the putative center of origin of the potato late blight pathogen <em>P. infestans</em> [@]. At the center of origin this organism is expected to reproduce sexually, while South American populations are clonal.</p>
+<p>This approach has been applied to provide support for Mexico as the putative center of origin of the potato late blight pathogen <em>P. infestans</em> <span class="citation">(Goss et al., 2014)</span>. At the center of origin this organism is expected to reproduce sexually, while South American populations are clonal.</p>
 </div>
 <div id="pairwise-barr_d-over-all-loci" class="section level2">
 <h2>Pairwise <span class="math inline">\(\bar{r}_d\)</span> over all loci</h2>
@@ -659,8 +660,19 @@ $(document).ready(function () {
 <p><img src="Linkage_disequilibrium_files/figure-html/unnamed-chunk-13-2.png" width="700px" /></p>
 </div>
 </div>
-<div id="references" class="section level2">
+<div id="references" class="section level2 unnumbered">
 <h2>References</h2>
+<div id="refs" class="references">
+<div id="ref-brown1980multilocus">
+<p>Brown AHD., Feldman MW., Nevo E. 1980. Multilocus structure of natural populations of <em>hordeum spontaneum</em>. <em>Genetics</em> 96:523–536. Available at: <a href="http://www.genetics.org/content/96/2/523">http://www.genetics.org/content/96/2/523</a></p>
+</div>
+<div id="ref-goss2014irish">
+<p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The Irish potato famine pathogen <em>phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
+</div>
+<div id="ref-kamvar2014poppr">
+<p>Kamvar ZN., Tabima JF., Grünwald NJ. 2014. <span class="math inline">\(Poppr\)</span>: An R package for genetic analysis of populations with clonal, partially clonal, and/or sexual reproduction. <em>PeerJ</em> 2:e281. Available at: <a href="http://dx.doi.org/10.7717/peerj.281">http://dx.doi.org/10.7717/peerj.281</a></p>
+</div>
+</div>
 </div>
 </div>
 

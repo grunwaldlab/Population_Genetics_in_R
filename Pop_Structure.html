@@ -21,6 +21,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -161,7 +163,6 @@ h6 {
   text-align: left;
 }
 </style>
-
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -557,7 +558,7 @@ $(document).ready(function () {
 <p>In this chapter we explore various ways of assessing if population are structured (e.g., differentiated). You can think of population structure as identifying clusters or groups of more closely related individuals resulting from reduced gene flow among these groups. Populations can be studied to determine if they are structured by using, for example, population differentiation summary statistics (e.g. <span class="math inline">\(G_{ST}\)</span>), clustering or <a href="Minimum_Spanning_Networks.html">minimum spanning networks</a>. Note, that this chapter will utilize many data sets due to the unique features offered by each. Let’s first look at an example of population differentiation based on <span class="math inline">\(G_{ST}\)</span>.</p>
 <div id="g_st-an-example-with-felis-catus-data." class="section level2">
 <h2><span class="math inline">\(G_{ST}\)</span> an example with <em>Felis catus</em> data.</h2>
-<p>Assessing genetic diversity almost always starts with an analysis of a parameter such as <span class="math inline">\(G_{ST}\)</span>. There are <a href="http://www.molecularecologist.com/2011/03/should-i-use-fst-gst-or-d-2/">lengthy debates</a> as to what measure of differentiation is better [@]. Instead of going into that lengthy debate, it would be more worthwhile to point you into the direction of a package dedicated to Modern Methods of Differentiation called <em>mmod</em>. We will use the data set <em>nancycats</em> containing 17 colonies of cats collected from Nancy, France. As cats tend to stay within small groups, we expect to see some population differentiation. In terms of these diversity measures, an index of <span class="math inline">\(G_{ST} = 0\)</span> indicates no differentiation, whereas <span class="math inline">\(G_{ST} = 1\)</span> indicates that populations are segregating for differing alleles.</p>
+<p>Assessing genetic diversity almost always starts with an analysis of a parameter such as <span class="math inline">\(G_{ST}\)</span>. There are <a href="http://www.molecularecologist.com/2011/03/should-i-use-fst-gst-or-d-2/">lengthy debates</a> as to what measure of differentiation is better <span class="citation">(Meirmans &amp; Hedrick, 2011)</span>. Instead of going into that lengthy debate, it would be more worthwhile to point you into the direction of a package dedicated to Modern Methods of Differentiation called <em>mmod</em>. We will use the data set <em>nancycats</em> containing 17 colonies of cats collected from Nancy, France. As cats tend to stay within small groups, we expect to see some population differentiation. In terms of these diversity measures, an index of <span class="math inline">\(G_{ST} = 0\)</span> indicates no differentiation, whereas <span class="math inline">\(G_{ST} = 1\)</span> indicates that populations are segregating for differing alleles.</p>
 <p>Let’s load the package and the example data set:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(<span class="st">&quot;mmod&quot;</span>)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw">data</span>(<span class="st">&quot;nancycats&quot;</span>)</span>
@@ -578,11 +579,13 @@ $(document).ready(function () {
 ##  // Optional content
 ##    @pop: population of each individual (group size range: 9-23)
 ##    @other: a list containing: xy</code></pre>
-<p>Now we will use Hendrick’s standardized <span class="math inline">\(G_{ST}\)</span> to assess population structure among these populations [@].</p>
+<p>Now we will use Hendrick’s standardized <span class="math inline">\(G_{ST}\)</span> to assess population structure among these populations <span class="citation">(Hedrick, 2005)</span>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">Gst_Hedrick</span>(nancycats)</span></code></pre></div>
 <pre><code>## $per.locus
-##      fca8     fca23     fca43     fca45     fca77     fca78     fca90     fca96     fca37 
-## 0.4750445 0.2956688 0.2675766 0.2653163 0.4855829 0.1933327 0.3807578 0.3913924 0.1609576 
+##      fca8     fca23     fca43     fca45     fca77     fca78     fca90     fca96 
+## 0.4750445 0.2956688 0.2675766 0.2653163 0.4855829 0.1933327 0.3807578 0.3913924 
+##     fca37 
+## 0.1609576 
 ## 
 ## $global
 ## [1] 0.3084895</code></pre>
@@ -654,7 +657,7 @@ $(document).ready(function () {
 </tr>
 </tbody>
 </table>
-<p>One common way to visualize a genetic distance is with a dendrogram. For this example, we will use the <em>microbov</em> data set [@]. This contains information on 704 cattle from both Africa and France over several different breeds. We can create a dendrogram over all 704 samples, but that would be difficult to visualize. For our purposes, let’s take ten random samples and calculate Provesti’s distance, which will return the fraction of the number of differences between samples:</p>
+<p>One common way to visualize a genetic distance is with a dendrogram. For this example, we will use the <em>microbov</em> data set <span class="citation">(Laloe et al., 2007)</span>. This contains information on 704 cattle from both Africa and France over several different breeds. We can create a dendrogram over all 704 samples, but that would be difficult to visualize. For our purposes, let’s take ten random samples and calculate Provesti’s distance, which will return the fraction of the number of differences between samples:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="kw">library</span>(<span class="st">&quot;ape&quot;</span>) <span class="co"># To visualize the tree using the &quot;nj&quot; function</span></span>
 <span id="cb5-3"><a href="#cb5-3"></a><span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)</span>
@@ -663,16 +666,26 @@ $(document).ready(function () {
 <span id="cb5-6"><a href="#cb5-6"></a>ten_samples &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nInd</span>(microbov), <span class="dv">10</span>)</span>
 <span id="cb5-7"><a href="#cb5-7"></a>mic10       &lt;-<span class="st"> </span>microbov[ten_samples]</span>
 <span id="cb5-8"><a href="#cb5-8"></a>(micdist    &lt;-<span class="st"> </span><span class="kw">provesti.dist</span>(mic10))</span></code></pre></div>
-<pre><code>##              FRBTGAS9057 FRBTMBE1540 FRBTBDA29852 FRBTBDA35267 FRBTCHA26798 FRBTCHA26014 FRBTMA25418 FRBTCHA26011 FRBTCHA15985
-## FRBTMBE1540    0.6000000                                                                                                      
-## FRBTBDA29852   0.6166667   0.5666667                                                                                          
-## FRBTBDA35267   0.6333333   0.5666667    0.5666667                                                                             
-## FRBTCHA26798   0.5666667   0.4000000    0.5500000    0.4666667                                                                
-## FRBTCHA26014   0.4500000   0.4333333    0.4666667    0.4666667    0.4500000                                                   
-## FRBTMA25418    0.7500000   0.7000000    0.7666667    0.6833333    0.5500000    0.5666667                                      
-## FRBTCHA26011   0.5166667   0.4666667    0.5333333    0.5333333    0.3833333    0.4166667   0.5833333                          
-## FRBTCHA15985   0.5666667   0.5666667    0.6666667    0.6166667    0.4500000    0.4333333   0.6000000    0.4166667             
-## FRBTGAS9186    0.6166667   0.5500000    0.5833333    0.5333333    0.4666667    0.4000000   0.7000000    0.5500000    0.5833333</code></pre>
+<pre><code>##              FRBTGAS9057 FRBTMBE1540 FRBTBDA29852 FRBTBDA35267 FRBTCHA26798
+## FRBTMBE1540    0.6000000                                                   
+## FRBTBDA29852   0.6166667   0.5666667                                       
+## FRBTBDA35267   0.6333333   0.5666667    0.5666667                          
+## FRBTCHA26798   0.5666667   0.4000000    0.5500000    0.4666667             
+## FRBTCHA26014   0.4500000   0.4333333    0.4666667    0.4666667    0.4500000
+## FRBTMA25418    0.7500000   0.7000000    0.7666667    0.6833333    0.5500000
+## FRBTCHA26011   0.5166667   0.4666667    0.5333333    0.5333333    0.3833333
+## FRBTCHA15985   0.5666667   0.5666667    0.6666667    0.6166667    0.4500000
+## FRBTGAS9186    0.6166667   0.5500000    0.5833333    0.5333333    0.4666667
+##              FRBTCHA26014 FRBTMA25418 FRBTCHA26011 FRBTCHA15985
+## FRBTMBE1540                                                    
+## FRBTBDA29852                                                   
+## FRBTBDA35267                                                   
+## FRBTCHA26798                                                   
+## FRBTCHA26014                                                   
+## FRBTMA25418     0.5666667                                      
+## FRBTCHA26011    0.4166667   0.5833333                          
+## FRBTCHA15985    0.4333333   0.6000000    0.4166667             
+## FRBTGAS9186     0.4000000   0.7000000    0.5500000    0.5833333</code></pre>
 <p>The above represents the pairwise distances between these 10 samples. We will use this distance matrix to create a neighbor-joining tree.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>theTree &lt;-<span class="st"> </span>micdist <span class="op">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="st">  </span><span class="kw">nj</span>() <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># calculate neighbor-joining tree</span></span>
@@ -787,7 +800,7 @@ $(document).ready(function () {
 </div>
 <div id="k-means-hierarchical-clustering" class="section level2">
 <h2>K-means hierarchical clustering</h2>
-<p>A recent study reported that the origin of the potato late blight pathogen <em>Phytophthora infestans</em> lies in Mexico as opposed to South America [@]. We saw in the previous chapter that South American populations showed signatures of clonal reproduction while Mexican populations showed no evidence rejecting the null hypothesis of random mating. In this section, we will use K-means clustering in combination with bootstrapped dendrograms to see how well this pattern holds up. Clonal populations should have short terminal branch lengths and should cluster according to those branches. Panmictic populations will show no clear pattern. Let’s look at the data:</p>
+<p>A recent study reported that the origin of the potato late blight pathogen <em>Phytophthora infestans</em> lies in Mexico as opposed to South America <span class="citation">(Goss et al., 2014)</span>. We saw in the previous chapter that South American populations showed signatures of clonal reproduction while Mexican populations showed no evidence rejecting the null hypothesis of random mating. In this section, we will use K-means clustering in combination with bootstrapped dendrograms to see how well this pattern holds up. Clonal populations should have short terminal branch lengths and should cluster according to those branches. Panmictic populations will show no clear pattern. Let’s look at the data:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</span>
 <span id="cb15-2"><a href="#cb15-2"></a><span class="kw">data</span>(<span class="st">&quot;Pinf&quot;</span>)</span>
 <span id="cb15-3"><a href="#cb15-3"></a>Pinf</span></code></pre></div>
@@ -831,10 +844,16 @@ $(document).ready(function () {
 ## NULL
 ## 
 ## $grp
-##  PiMX01  PiMX02  PiMX03  PiMX04  PiMX05  PiMX06  PiMX07  PiMX10  PiMX11  PiMX12  PiMX13  PiMX14  PiMX15  PiMX16  PiMX17  PiMX18  PiMX19  PiMX20  PiMX21  PiMX22  PiMX23  PiMX24  PiMX25  PiMX26  PiMX27 
-##       3       3       2       1       1       1       1       2       2       1       2       2       3       2       3       1       1       1       3       2       3       2       1       3       2 
-##  PiMX28  PiMX29  PiMX30  PiMX40  PiMX41  PiMX42  PiMX43  PiMX44  PiMX45  PiMX46  PiMX47  PiMX48  PiMX49  PiMX50 PiMXT01 PiMXT02 PiMXT03 PiMXT04 PiMXT05 PiMXT06 PiMXT07 PiMXt48 PiMXt68 
-##       2       1       2       2       3       3       3       3       3       3       3       2       2       2       3       3       1       1       3       1       1       1       1 
+##  PiMX01  PiMX02  PiMX03  PiMX04  PiMX05  PiMX06  PiMX07  PiMX10  PiMX11  PiMX12 
+##       3       3       2       1       1       1       1       2       2       1 
+##  PiMX13  PiMX14  PiMX15  PiMX16  PiMX17  PiMX18  PiMX19  PiMX20  PiMX21  PiMX22 
+##       2       2       3       2       3       1       1       1       3       2 
+##  PiMX23  PiMX24  PiMX25  PiMX26  PiMX27  PiMX28  PiMX29  PiMX30  PiMX40  PiMX41 
+##       3       2       1       3       2       2       1       2       2       3 
+##  PiMX42  PiMX43  PiMX44  PiMX45  PiMX46  PiMX47  PiMX48  PiMX49  PiMX50 PiMXT01 
+##       3       3       3       3       3       3       2       2       2       3 
+## PiMXT02 PiMXT03 PiMXT04 PiMXT05 PiMXT06 PiMXT07 PiMXt48 PiMXt68 
+##       3       1       1       3       1       1       1       1 
 ## Levels: 1 2 3
 ## 
 ## $size
@@ -882,8 +901,22 @@ $(document).ready(function () {
 <p>Everything clusters together nicely, further supporting a non-panmictic population.</p>
 </div>
 </div>
-<div id="references" class="section level2">
+<div id="references" class="section level2 unnumbered">
 <h2>References</h2>
+<div id="refs" class="references">
+<div id="ref-goss2014irish">
+<p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The Irish potato famine pathogen <em>phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
+</div>
+<div id="ref-hedrick2005standardized">
+<p>Hedrick PW. 2005. A standardized genetic differentiation measure. <em>Evolution</em> 59:1633–1638. Available at: <a href="http://dx.doi.org/10.1111/j.0014-3820.2005.tb01814.x">http://dx.doi.org/10.1111/j.0014-3820.2005.tb01814.x</a></p>
+</div>
+<div id="ref-laloe2007consensus">
+<p>Laloe D., Jombart T., Dufour A-B., Moazami-Goudarzi K. 2007. Consensus genetic structuring and typological value of markers using multiple co-inertia analysis. <em>Genetics Selection Evolution</em> 39:545–567. Available at: <a href="http://dx.doi.org/10.1051/gse:2007021">http://dx.doi.org/10.1051/gse:2007021</a></p>
+</div>
+<div id="ref-meirmans2011assessing">
+<p>Meirmans PG., Hedrick PW. 2011. Assessing population structure: <span class="math inline">\(F_{ST}\)</span> and related measures. <em>Molecular Ecology Resources</em> 11:5–18. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full">http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full</a></p>
+</div>
+</div>
 </div>
 
 

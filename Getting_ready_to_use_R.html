@@ -21,6 +21,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -161,7 +163,6 @@ h6 {
   text-align: left;
 }
 </style>
-
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -611,22 +612,6 @@ in several ways:
 <p>We wrote and actively maintain <em>poppr</em> <span class="citation">(Kamvar, Tabima &amp; Grünwald, 2014; Kamvar, Brooks &amp; Grünwald, 2015)</span> and it is heavily relied upon in this primer. <em>Poppr</em> is an R package. You can think of a package as a library of functions written and curated by someone in the R user community, which you can be loaded into R for use.</p>
 <p>Once you’ve installed <em>poppr</em>, you can invoke (i.e., load) it by typing or cutting and pasting:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</span></code></pre></div>
-<pre><code>## Loading required package: adegenet</code></pre>
-<pre><code>## Loading required package: ade4</code></pre>
-<pre><code>## Registered S3 method overwritten by &#39;spdep&#39;:
-##   method   from
-##   plot.mst ape</code></pre>
-<pre><code>## 
-##    /// adegenet 2.1.3 is loaded ////////////
-## 
-##    &gt; overview: &#39;?adegenet&#39;
-##    &gt; tutorials/doc/questions: &#39;adegenetWeb()&#39; 
-##    &gt; bug reports/feature requests: adegenetIssues()</code></pre>
-<pre><code>## Registered S3 method overwritten by &#39;pegas&#39;:
-##   method      from
-##   print.amova ade4</code></pre>
-<pre><code>## This is poppr version 2.8.7. To get started, type package?poppr
-## OMP parallel support: available</code></pre>
 <p>This will load <em>poppr</em> and all dependent packages, such as <em>adegenet</em> and <em>ade4</em>. You will recognize loading by the prompts written to your screen.</p>
 <p>Congratulations. You should now be all set for using R. Loading data and conducting your first analysis will be the topic of the next chapter. But before we go there lets provide a few useful resources.</p>
 </div>
@@ -637,12 +622,12 @@ in several ways:
 <p>Note that R is a case sensitive language!</p>
 </blockquote>
 <p>Let’s get comfortable with R by submitting the following command on the command line (where R prompts you with a <code>&gt;</code> in the lower left RStudio window pane) that will retrieve the current working directory on your machine:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">getwd</span>() <span class="co"># this command will print the current working directory</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">getwd</span>() <span class="co"># this command will print the current working directory</span></span></code></pre></div>
 <blockquote>
 <p>Note that the symbol ‘#’ is used to add comments to your code and you just type <code>getwd()</code> after the “&gt;”.</p>
 </blockquote>
 <p>Our primer is heavily based on the <em>poppr</em> and <em>adegenet</em> packages. To get help on any of their functions type a question mark before the empty function call as in:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>?mlg <span class="co"># open the R documentation of the function mlg()</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>?mlg <span class="co"># open the R documentation of the function mlg()</span></span></code></pre></div>
 <p>To quit R you can either use the <kbd>RStudio &gt; Quit</kbd> pull-down menu command or execute <kbd>⌘ + Q</kbd> (OS X) or <kbd>ctrl + Q</kbd> (PC).</p>
 </div>
 <div id="using-magrittr" class="section level2">
@@ -652,40 +637,40 @@ in several ways:
 <p>Take your data <strong>and then</strong> do step one, <strong>and then</strong> do step two, <strong>and then</strong> do step three.</p>
 </blockquote>
 <p>In R code with <em>magrittr</em>, assuming that each step is a function, it might be written as:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>result &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">step_one</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">step_two</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">step_three</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>result &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">step_one</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">step_two</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">step_three</span>()</span></code></pre></div>
 <p>Below, are two examples of how code can be improved with <em>magrittr</em>. <a href="http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html">More details about magrittr can be found in this link.</a></p>
 <div id="consider-a-fake-example" class="section level4">
 <h4>Consider a fake Example:</h4>
 <p>Adapted from <a href="https://twitter.com/_inundata/status/557980236130689024">Hadley Wickham</a>. Based on the children’s song, <a href="http://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo">Little bunny foo foo</a>.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>foo_foo &lt;-<span class="st"> </span><span class="kw">little_bunny</span>()</span>
-<span id="cb12-2"><a href="#cb12-2"></a></span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="kw">bop_on</span>(<span class="kw">scoop_up</span>(<span class="kw">hop_through</span>(foo_foo, forest), field_mouse), head)</span>
-<span id="cb12-4"><a href="#cb12-4"></a></span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="co"># VS</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a></span>
-<span id="cb12-7"><a href="#cb12-7"></a>foo_foo <span class="op">%&gt;%</span></span>
-<span id="cb12-8"><a href="#cb12-8"></a><span class="st">  </span><span class="kw">hop_through</span>(forest) <span class="op">%&gt;%</span></span>
-<span id="cb12-9"><a href="#cb12-9"></a><span class="st">  </span><span class="kw">scoop_up</span>(field_mouse) <span class="op">%&gt;%</span></span>
-<span id="cb12-10"><a href="#cb12-10"></a><span class="st">  </span><span class="kw">bop_on</span>(head)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>foo_foo &lt;-<span class="st"> </span><span class="kw">little_bunny</span>()</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">bop_on</span>(<span class="kw">scoop_up</span>(<span class="kw">hop_through</span>(foo_foo, forest), field_mouse), head)</span>
+<span id="cb6-4"><a href="#cb6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co"># VS</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a></span>
+<span id="cb6-7"><a href="#cb6-7"></a>foo_foo <span class="op">%&gt;%</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="st">  </span><span class="kw">hop_through</span>(forest) <span class="op">%&gt;%</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="st">  </span><span class="kw">scoop_up</span>(field_mouse) <span class="op">%&gt;%</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="st">  </span><span class="kw">bop_on</span>(head)</span></code></pre></div>
 </div>
 <div id="now-for-a-real-example" class="section level4">
 <h4>Now for a real Example:</h4>
 <p>We will use the <em>Phytophthora infestans</em> microsatellite data from North and South America <span class="citation">(Goss et al., 2014)</span>. Let’s calculate allelic diversity per population after clone-correction. This information can be found in our chapters on <a href="Population_Strata.html">Population strata and clone correction</a> and <a href="Locus_Stats.html">Locus based statistics</a>.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)</span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="kw">data</span>(Pinf)</span>
-<span id="cb13-4"><a href="#cb13-4"></a></span>
-<span id="cb13-5"><a href="#cb13-5"></a><span class="co"># Compare the traditional R script</span></span>
-<span id="cb13-6"><a href="#cb13-6"></a></span>
-<span id="cb13-7"><a href="#cb13-7"></a>allelic_diversity &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">seppop</span>(<span class="kw">clonecorrect</span>(Pinf, <span class="dt">strata =</span> <span class="op">~</span>Continent<span class="op">/</span>Country)),</span>
-<span id="cb13-8"><a href="#cb13-8"></a>                            <span class="dt">FUN =</span> locus_table, <span class="dt">info =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb13-9"><a href="#cb13-9"></a></span>
-<span id="cb13-10"><a href="#cb13-10"></a><span class="co"># versus the magrittr piping:</span></span>
-<span id="cb13-11"><a href="#cb13-11"></a></span>
-<span id="cb13-12"><a href="#cb13-12"></a>allelic_diversity &lt;-<span class="st"> </span>Pinf <span class="op">%&gt;%</span></span>
-<span id="cb13-13"><a href="#cb13-13"></a><span class="st">  </span><span class="kw">clonecorrect</span>(<span class="dt">strata=</span> <span class="op">~</span>Continent<span class="op">/</span>Country) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># clone censor by continent and country.</span></span>
-<span id="cb13-14"><a href="#cb13-14"></a><span class="st">  </span><span class="kw">seppop</span>() <span class="op">%&gt;%</span><span class="st">                                </span><span class="co"># Separate populations (by continent)</span></span>
-<span id="cb13-15"><a href="#cb13-15"></a><span class="st">  </span><span class="kw">lapply</span>(<span class="dt">FUN =</span> locus_table, <span class="dt">info =</span> <span class="ot">FALSE</span>)     <span class="co"># Apply the function locus_table to both populations</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)</span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="kw">data</span>(Pinf)</span>
+<span id="cb7-4"><a href="#cb7-4"></a></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co"># Compare the traditional R script</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a></span>
+<span id="cb7-7"><a href="#cb7-7"></a>allelic_diversity &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">seppop</span>(<span class="kw">clonecorrect</span>(Pinf, <span class="dt">strata =</span> <span class="op">~</span>Continent<span class="op">/</span>Country)),</span>
+<span id="cb7-8"><a href="#cb7-8"></a>                            <span class="dt">FUN =</span> locus_table, <span class="dt">info =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb7-9"><a href="#cb7-9"></a></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="co"># versus the magrittr piping:</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a></span>
+<span id="cb7-12"><a href="#cb7-12"></a>allelic_diversity &lt;-<span class="st"> </span>Pinf <span class="op">%&gt;%</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="st">  </span><span class="kw">clonecorrect</span>(<span class="dt">strata=</span> <span class="op">~</span>Continent<span class="op">/</span>Country) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># clone censor by continent and country.</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="st">  </span><span class="kw">seppop</span>() <span class="op">%&gt;%</span><span class="st">                                </span><span class="co"># Separate populations (by continent)</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="st">  </span><span class="kw">lapply</span>(<span class="dt">FUN =</span> locus_table, <span class="dt">info =</span> <span class="ot">FALSE</span>)     <span class="co"># Apply the function locus_table to both populations</span></span></code></pre></div>
 <blockquote>
 <p>To observe the results type <code>allelic_diversity</code> into the console after each statement.</p>
 </blockquote>
@@ -702,15 +687,15 @@ in several ways:
 <li>and some examples demonstrating its usage.</li>
 </ul>
 <p>To see all of the help topics in a package, you can simply type:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">help</span>(<span class="dt">package =</span> <span class="st">&quot;poppr&quot;</span>) <span class="co"># Get help for a package.</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="kw">help</span>(amova)             <span class="co"># Get help for the amova function.</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a>?amova                  <span class="co"># same as above.</span></span>
-<span id="cb14-4"><a href="#cb14-4"></a>??multilocus            <span class="co"># Search for functions that have the keyword multilocus.</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">help</span>(<span class="dt">package =</span> <span class="st">&quot;poppr&quot;</span>) <span class="co"># Get help for a package.</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="kw">help</span>(amova)             <span class="co"># Get help for the amova function.</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>?amova                  <span class="co"># same as above.</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>??multilocus            <span class="co"># Search for functions that have the keyword multilocus.</span></span></code></pre></div>
 <p>Some packages include vignettes that can have different formats such as being introductions, tutorials, or reference cards in PDF format. You can look at a list of vignettes in all packages by typing:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">browseVignettes</span>()                     <span class="co"># see vignettes from all packages</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="kw">browseVignettes</span>(<span class="dt">package =</span> <span class="st">&#39;poppr&#39;</span>)    <span class="co"># see vignettes from a specific package.</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">browseVignettes</span>()                     <span class="co"># see vignettes from all packages</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">browseVignettes</span>(<span class="dt">package =</span> <span class="st">&#39;poppr&#39;</span>)    <span class="co"># see vignettes from a specific package.</span></span></code></pre></div>
 <p>and to look at a specific vignette you can type:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">vignette</span>(<span class="st">&#39;poppr_manual&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">vignette</span>(<span class="st">&#39;poppr_manual&#39;</span>)</span></code></pre></div>
 <p>Next, consider browsing Appendix 3 on “Introduction to R” if you are not yet familiar with R and RStudio. Otherwise, you are now ready to think about formatting and loading population genetic data into R.</p>
 </div>
 <div id="references" class="section level2 unnumbered">

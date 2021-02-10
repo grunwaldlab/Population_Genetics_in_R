@@ -21,6 +21,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -161,7 +163,6 @@ h6 {
   text-align: left;
 }
 </style>
-
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -595,8 +596,7 @@ We have placed example data files at the OSF site for <a href="https://osf.io/yt
 <span id="cb2-3"><a href="#cb2-3"></a><span class="kw">download.file</span>(<span class="st">&quot;https://osf.io/c6h4t/download&quot;</span>, <span class="dt">destfile =</span> <span class="st">&quot;prubi_gbs.vcf.gz&quot;</span>)</span></code></pre></div>
 <p>You should be able to validate that the files have been downloaded with the below code.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">list.files</span>(<span class="dt">pattern =</span> <span class="st">&quot;.vcf.gz$|.gbs.txt&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;pinfsc50_filtered.vcf.gz&quot; &quot;population_data.gbs.txt&quot; 
-## [3] &quot;prubi_gbs.vcf.gz&quot;</code></pre>
+<pre><code>## [1] &quot;pinfsc50_filtered.vcf.gz&quot; &quot;population_data.gbs.txt&quot;  &quot;prubi_gbs.vcf.gz&quot;</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li><strong>Test that your system is ready:</strong><br />
 You should now be able to validate that the resources you need are ready. Change directory to <code>APS_Workshop</code> and copy and paste the below command into the R console.</li>

@@ -21,6 +21,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -161,7 +163,6 @@ h6 {
   text-align: left;
 }
 </style>
-
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -562,7 +563,7 @@ $(document).ready(function () {
 <h2>Importing data</h2>
 <div id="genalex-formatted-data" class="section level3">
 <h3>GenAlEx formatted data</h3>
-<p>To start simple, let’s examine the input file for the <code>monpop</code> data set containing 694 isolates of the plant pathogen <em>Monilinia fructicola</em> genotyped over 13 haploid microsatellite loci [@]. The data set is called <strong>monpop.csv</strong>.</p>
+<p>To start simple, let’s examine the input file for the <code>monpop</code> data set containing 694 isolates of the plant pathogen <em>Monilinia fructicola</em> genotyped over 13 haploid microsatellite loci <span class="citation">(Everhart &amp; Scherm, 2015)</span>. The data set is called <strong>monpop.csv</strong>.</p>
 <blockquote>
 <p><a class="btn btn-info btn-sm" target = "blank" href="https://github.com/grunwaldlab/Population_Genetics_in_R/blob/master/monpop.csv" role="button">view</a> or <a class="btn btn-primary btn-sm" target = "blank" href="http://grunwaldlab.github.io/Population_Genetics_in_R/monpop.csv" role="button"> download</a> monpop.csv</p>
 </blockquote>
@@ -585,7 +586,8 @@ $(document).ready(function () {
 ## Population information:
 ## 
 ##      1 stratum - Pop
-##     12 populations defined - 7_09_BB, 26_09_BB, 26_09_FR, ..., 45_10_FR, 26_11_BB, 26_11_FR</code></pre>
+##     12 populations defined - 
+## 7_09_BB, 26_09_BB, 26_09_FR, ..., 45_10_FR, 26_11_BB, 26_11_FR</code></pre>
 <blockquote>
 <p>There are other options for genalex formatted data, such as xy coordinates. We won’t cover the other options, but type <code>help("read.genalex")</code> in your R console for details.</p>
 </blockquote>
@@ -658,7 +660,7 @@ populations
 </div>
 <div id="polyploids" class="section level3">
 <h3>Polyploids</h3>
-<p>GenAlEx does not handle polyploids, but since poppr can do it, we have set up a scheme to allow import of polyploids via this format. The limitation is that all of your loci have to have the same observed ploidy. Below is the example of <em>Phytophthora infestans</em> in the data set <code>Pinf</code> where some genotypes had observed tetraploid loci [@].</p>
+<p>GenAlEx does not handle polyploids, but since poppr can do it, we have set up a scheme to allow import of polyploids via this format. The limitation is that all of your loci have to have the same observed ploidy. Below is the example of <em>Phytophthora infestans</em> in the data set <code>Pinf</code> where some genotypes had observed tetraploid loci <span class="citation">(Goss et al., 2014)</span>.</p>
 <div class="figure">
 <img src="images/tetraploid.png" alt="" />
 <p class="caption">tetraploid</p>
@@ -806,7 +808,8 @@ Tree_Year_Symptom
 ## Population information:
 ## 
 ##      1 stratum - Pop
-##     12 populations defined - 7_09_BB, 26_09_BB, 26_09_FR, ..., 45_10_FR, 26_11_BB, 26_11_FR</code></pre>
+##     12 populations defined - 
+## 7_09_BB, 26_09_BB, 26_09_FR, ..., 45_10_FR, 26_11_BB, 26_11_FR</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">splitStrata</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree<span class="op">/</span>Year<span class="op">/</span>Symptom</span>
 <span id="cb5-2"><a href="#cb5-2"></a>monpop <span class="co"># After (Three distinct levels)</span></span></code></pre></div>
 <pre><code>## 
@@ -821,12 +824,21 @@ Tree_Year_Symptom
 ## Population information:
 ## 
 ##      3 strata - Tree, Year, Symptom
-##     12 populations defined - 7_09_BB, 26_09_BB, 26_09_FR, ..., 45_10_FR, 26_11_BB, 26_11_FR</code></pre>
+##     12 populations defined - 
+## 7_09_BB, 26_09_BB, 26_09_FR, ..., 45_10_FR, 26_11_BB, 26_11_FR</code></pre>
 <p>This is detailed in <a href="Population_Strata.html">our chapter on population strata</a>.</p>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>
 <!------>
+<div id="refs" class="references">
+<div id="ref-everhart2014finescale">
+<p>Everhart S., Scherm H. 2015. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> 105:542–549. Available at: <a href="https://doi.org/10.1094/PHYTO-03-14-0088-R">https://doi.org/10.1094/PHYTO-03-14-0088-R</a></p>
+</div>
+<div id="ref-goss2014irish">
+<p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The Irish potato famine pathogen <em>phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
+</div>
+</div>
 </div>
 
 

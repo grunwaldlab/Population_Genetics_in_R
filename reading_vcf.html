@@ -21,6 +21,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -161,7 +163,6 @@ h6 {
   text-align: left;
 }
 </style>
-
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -554,7 +555,7 @@ $(document).ready(function () {
 </div>
 
 
-<p>Genetic variation data is typically stored in <a href="http://samtools.github.io/hts-specs/" title="VCF format at hts-specs">variant call format (VCF)</a> files [@]. This format is the preferred file format obtained from genome sequencing or high throughput genotyping. One advantage of using VCF files is that only variants (e.g., SNPs, indels, etc.) are reported which economizes files size relative to a format that may included invariant sites. Variant callers typically attempt to aggressively call variants with the perspective that a downstream quality control step will remove low quality variants. Note that VCF files come in different flavors and that each variant caller may report a slightly different information. A first step in working with this data is to understand their <a href="http://vcftools.sourceforge.net/VCF-poster.pdf">contents</a>.</p>
+<p>Genetic variation data is typically stored in <a href="http://samtools.github.io/hts-specs/" title="VCF format at hts-specs">variant call format (VCF)</a> files <span class="citation">(Danecek et al., 2011)</span>. This format is the preferred file format obtained from genome sequencing or high throughput genotyping. One advantage of using VCF files is that only variants (e.g., SNPs, indels, etc.) are reported which economizes files size relative to a format that may included invariant sites. Variant callers typically attempt to aggressively call variants with the perspective that a downstream quality control step will remove low quality variants. Note that VCF files come in different flavors and that each variant caller may report a slightly different information. A first step in working with this data is to understand their <a href="http://vcftools.sourceforge.net/VCF-poster.pdf">contents</a>.</p>
 <div id="vcf-file-structure" class="section level2">
 <h2>VCF file structure</h2>
 <p>A VCF file can be thought of as having three sections: a <strong>vcf header</strong>, a <strong>fix region</strong> and a <strong>gt region</strong>. The VCF meta region is located at the top of the file and contains meta-data describing the body of the file. Each VCF meta line begins with a ‘##’. The information in the meta region defines the abbreviations used elsewhere in the file. It may also document software used to create the file as well as parameters used by this software. Below the metadata region, the data are tabular. The first eight columns of this table contain information about each variant. This data may be common over all variants, such as its chromosomal position, or a summary over all samples, such as quality metrics. These data are fixed, or the same, over all samples. The fix region is required in a VCF file, subsequent columns are optional but are common in our experience. Beginning at column ten is a column for every sample. The values in these columns are information for each sample and each variant. The organization of each cell containing a genotype and associated information is specified in column nine, the FORMAT column. The location of these three regions within a file can be represented by this cartoon:</p>
@@ -565,7 +566,7 @@ Cartoon representation of VCF file organization
 </p>
 </div>
 <p>The VCF file specification is flexible. This means that there are slots for certain types of data, but any particular software which creates a VCF file does not necessarily use them all. Similarly, authors have the opportunity to include new forms of data, forms which may not have been foreseen by the authors of the VCF specification. The result is that all VCF files do not contain the same information.</p>
-<p>For this example, we will use example data provided with the R package <em>vcfR</em> [@].</p>
+<p>For this example, we will use example data provided with the R package <em>vcfR</em> <span class="citation">(Knaus &amp; Grünwald, 2017)</span>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(vcfR)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw">data</span>(vcfR_example)</span>
 <span id="cb1-3"><a href="#cb1-3"></a>vcf</span></code></pre></div>
@@ -788,8 +789,16 @@ Show solution
 <p><br /></p>
 <p>Note that the first column is <code>FORMAT</code>. This tells us the format for data for each variant. According to the VCF specification this can be different for each variant.</p>
 </div>
-<div id="references" class="section level1">
+<div id="references" class="section level1 unnumbered">
 <h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-danecek2011variant">
+<p>Danecek P., Auton A., Abecasis G., Albers CA., Banks E., DePristo MA., Handsaker RE., Lunter G., Marth GT., Sherry ST. et al. 2011. The variant call format and VCFtools. <em>Bioinformatics</em> 27:2156–2158. Available at: <a href="https://doi.org/10.1093/bioinformatics/btr330">https://doi.org/10.1093/bioinformatics/btr330</a></p>
+</div>
+<div id="ref-knaus2017vcfr">
+<p>Knaus BJ., Grünwald NJ. 2017. <span class="math inline">\({V}cfr\)</span>: A package to manipulate and visualize variant call format data in R. <em>Molecular Ecology Resources</em> 17:44–53. Available at: <a href="http://dx.doi.org/10.1111/1755-0998.12549">http://dx.doi.org/10.1111/1755-0998.12549</a></p>
+</div>
+</div>
 </div>
 
 

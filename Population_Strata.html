@@ -21,6 +21,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -161,7 +163,6 @@ h6 {
   text-align: left;
 }
 </style>
-
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -558,7 +559,7 @@ $(document).ready(function () {
 <p>The methods implemented in <em>poppr</em> allow specification of which strata you want to analyze. This is a rapid way of working with subsets of your data without having to perform any data manipulation or changing the input file. In this tutorial, we will show you how to define the hierarchical structure of your data and how to specify specific levels that you might want to analyze.</p>
 <div id="data-used-in-this-example" class="section level2">
 <h2>Data used in this example</h2>
-<p>For this example, we will use the <code>monpop</code> data set [@]. This microsatellite data consists of 13 loci for 694 individuals of the haploid fungal pathogen <em>Monilinia fructicola</em> that infects peach flowers and fruits in commercial orchards. The monpop population came from four trees within a single orchard (trees 26, 45, and 7). Each tree was sampled in 2009, 2010, and/or 2011. Additionally, each sample was noted as to whether it came from a blossom or a fruit. This example data set is included with the <em>poppr</em> package.</p>
+<p>For this example, we will use the <code>monpop</code> data set <span class="citation">(Everhart &amp; Scherm, 2015)</span>. This microsatellite data consists of 13 loci for 694 individuals of the haploid fungal pathogen <em>Monilinia fructicola</em> that infects peach flowers and fruits in commercial orchards. The monpop population came from four trees within a single orchard (trees 26, 45, and 7). Each tree was sampled in 2009, 2010, and/or 2011. Additionally, each sample was noted as to whether it came from a blossom or a fruit. This example data set is included with the <em>poppr</em> package.</p>
 </div>
 <div id="working-with-stratified-data" class="section level2">
 <h2>Working with stratified data</h2>
@@ -588,7 +589,8 @@ $(document).ready(function () {
 ## Population information:
 ## 
 ##      1 stratum - Pop
-##     12 populations defined - 7_09_BB, 26_09_BB, 26_09_FR, ..., 45_10_FR, 26_11_BB, 26_11_FR</code></pre>
+##     12 populations defined - 
+## 7_09_BB, 26_09_BB, 26_09_FR, ..., 45_10_FR, 26_11_BB, 26_11_FR</code></pre>
 <p><strong>Genotype information</strong> shows us that the data contains 264 multilocus genotypes among 694 haploid individuals with 13 loci. <strong>Population information</strong> has two items, the stratifications and the populations defined. You can think of stratifications as the index names for each of the hierarchical levels within your data (so for our data it should be Tree, Year, and Symptom). By default, however, no stratifications are defined and so this is “Pop”, which is the entire dataset of 694 individuals. Because we labeled each sample according to stratification, populations defined shows us our data has 12 groups defined: 7_09_BB, 26_09_BB, 26_09_FR, 7_09_FR, 26_10_BB, 45_10_BB, 79_10_BB, 79_10_FR, 26_10_FR, 45_10_FR, 26_11_BB, and 26_11_FR.</p>
 </div>
 <div id="assigning-stratifications" class="section level2">
@@ -608,7 +610,8 @@ $(document).ready(function () {
 ## Population information:
 ## 
 ##      3 strata - Tree, Year, Symptom
-##     12 populations defined - 7_09_BB, 26_09_BB, 26_09_FR, ..., 45_10_FR, 26_11_BB, 26_11_FR</code></pre>
+##     12 populations defined - 
+## 7_09_BB, 26_09_BB, 26_09_FR, ..., 45_10_FR, 26_11_BB, 26_11_FR</code></pre>
 <blockquote>
 <p>The <code>splitStrata</code> command only needs to be run once: right after you import your data.</p>
 </blockquote>
@@ -734,7 +737,7 @@ $(document).ready(function () {
 </div>
 <div id="clone-correction" class="section level2">
 <h2>Clone correction</h2>
-<p>When dealing with clonal populations, analyses are typically conducted with and without clone correction. Clone correction is a method of censoring a data set such that only one individual per MLG is represented per population [@]. This technique is commonly used with the index of association and genotypic diversity measures since clone corrected populations approximate behavior of sexual populations. Since we want to only observe unique genotypes per population, clone correction requires specification of the stratifications at which clones should be censored. This section will show how to clone correct at a specific stratification and also compare the results with uncorrected data.</p>
+<p>When dealing with clonal populations, analyses are typically conducted with and without clone correction. Clone correction is a method of censoring a data set such that only one individual per MLG is represented per population <span class="citation">(Milgroom, 1996; Grünwald et al., 2003; Grünwald &amp; Hoheisel, 2006)</span>. This technique is commonly used with the index of association and genotypic diversity measures since clone corrected populations approximate behavior of sexual populations. Since we want to only observe unique genotypes per population, clone correction requires specification of the stratifications at which clones should be censored. This section will show how to clone correct at a specific stratification and also compare the results with uncorrected data.</p>
 <blockquote>
 <p>Question: Will allelic diversity increase or decrease with clone-censored data?</p>
 </blockquote>
@@ -802,7 +805,7 @@ $(document).ready(function () {
 <h4>Example: harmonic mean</h4>
 <p>Let’s write a function that will take the harmonic mean of a vector of numbers. First, we’ll see how to do this calculation step by step before we write a function.</p>
 <blockquote>
-<p>The harmonic mean has been utilized to estimate effective population size of a population that has undergone drastic changes in population size [@].</p>
+<p>The harmonic mean has been utilized to estimate effective population size of a population that has undergone drastic changes in population size <span class="citation">(Nielsen &amp; Slatkin, 2013)</span>.</p>
 </blockquote>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>psize &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">50</span>, <span class="dv">80</span>, <span class="dv">20</span>, <span class="dv">500</span>)</span>
 <span id="cb27-2"><a href="#cb27-2"></a><span class="co"># Arithmetic mean</span></span>
@@ -867,6 +870,23 @@ $(document).ready(function () {
 <div id="references" class="section level2">
 <h2>References</h2>
 <!-------->
+<div id="refs" class="references">
+<div id="ref-everhart2014finescale">
+<p>Everhart S., Scherm H. 2015. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> 105:542–549. Available at: <a href="https://doi.org/10.1094/PHYTO-03-14-0088-R">https://doi.org/10.1094/PHYTO-03-14-0088-R</a></p>
+</div>
+<div id="ref-grunwald2003">
+<p>Grünwald NJ., Goodwin SB., Milgroom MG., Fry WE. 2003. Analysis of genotypic diversity data for populations of microorganisms. <em>Phytopathology</em> 93:738–746. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738</a></p>
+</div>
+<div id="ref-grunwald2006hierarchical">
+<p>Grünwald NJ., Hoheisel G-A. 2006. Hierarchical analysis of diversity, selfing, and genetic differentiation in populations of the oomycete <em>aphanomyces euteiches</em>. <em>Phytopathology</em> 96:1134–1141. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134</a></p>
+</div>
+<div id="ref-milgroom1996recombination">
+<p>Milgroom MG. 1996. Recombination and the multilocus structure of fungal populations. <em>Annual Review of Phytopathology</em> 34:457–477. Available at: <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev.phyto.34.1.457">http://www.annualreviews.org/doi/abs/10.1146/annurev.phyto.34.1.457</a></p>
+</div>
+<div id="ref-nielsen2013">
+<p>Nielsen R., Slatkin M. 2013. <em>An introduction to population genetics: Theory and applications</em>. Sinauer Associates, Incorporated. Available at: <a href="http://books.google.com/books?id=Iy08kgEACAAJ">http://books.google.com/books?id=Iy08kgEACAAJ</a></p>
+</div>
+</div>
 </div>
 
 

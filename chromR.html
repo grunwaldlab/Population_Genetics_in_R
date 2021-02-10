@@ -21,6 +21,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -161,7 +163,6 @@ h6 {
   text-align: left;
 }
 </style>
-
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -610,17 +611,17 @@ $(document).ready(function () {
 <p>Creation and processing of a chromR object has been divided into separate tasks. Creation loads the data into the chromR object and should typically only be required once. Processing the chromR object generates summaries of the data. Some of these summaries will need to be updated as the chromR object is updated. For example, if the size of the sliding window used to summarize variant density and GC content is changed the chromR object will need to be processed to update this information.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>chrom &lt;-<span class="st"> </span><span class="kw">proc.chromR</span>(chrom, <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>## Nucleotide regions complete.</code></pre>
-<pre><code>##   elapsed time:  0.215</code></pre>
+<pre><code>##   elapsed time:  0.25</code></pre>
 <pre><code>## N regions complete.</code></pre>
-<pre><code>##   elapsed time:  0.177</code></pre>
+<pre><code>##   elapsed time:  0.241</code></pre>
 <pre><code>## Population summary complete.</code></pre>
-<pre><code>##   elapsed time:  0.147</code></pre>
+<pre><code>##   elapsed time:  0.201</code></pre>
 <pre><code>## window_init complete.</code></pre>
 <pre><code>##   elapsed time:  0.001</code></pre>
 <pre><code>## windowize_fasta complete.</code></pre>
-<pre><code>##   elapsed time:  0.069</code></pre>
+<pre><code>##   elapsed time:  0.094</code></pre>
 <pre><code>## windowize_annotations complete.</code></pre>
-<pre><code>##   elapsed time:  0.009</code></pre>
+<pre><code>##   elapsed time:  0.016</code></pre>
 <pre><code>## windowize_variants complete.</code></pre>
 <pre><code>##   elapsed time:  0.001</code></pre>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">plot</span>(chrom)</span></code></pre></div>
@@ -649,13 +650,20 @@ $(document).ready(function () {
 ## 5 Supercontig_1.50 80074 58.75 482 TRUE 18         26,10 0.40123457 1.670103
 ## 6 Supercontig_1.50 80089 58.80 481 TRUE 18         25,11 0.42438272 1.737265</code></pre>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">head</span>(chrom<span class="op">@</span>win.info)</span></code></pre></div>
-<pre><code>##              CHROM window start  end length   A   C   G   T    N other genic variants
-## 1 Supercontig_1.50      1     1 1000   1000 267 213 293 227    0     0     0        0
-## 2 Supercontig_1.50      2  1001 2000   1000 283 206 309 202    0     0     0        0
-## 3 Supercontig_1.50      3  2001 3000   1000 229 213 235 177  146     0     0        0
-## 4 Supercontig_1.50      4  3001 4000   1000   0   0   0   0 1000     0     0        0
-## 5 Supercontig_1.50      5  4001 5000   1000   0   0   0   0 1000     0     0        0
-## 6 Supercontig_1.50      6  5001 6000   1000   0   0   0   0 1000     0     0        0</code></pre>
+<pre><code>##              CHROM window start  end length   A   C   G   T    N other genic
+## 1 Supercontig_1.50      1     1 1000   1000 267 213 293 227    0     0     0
+## 2 Supercontig_1.50      2  1001 2000   1000 283 206 309 202    0     0     0
+## 3 Supercontig_1.50      3  2001 3000   1000 229 213 235 177  146     0     0
+## 4 Supercontig_1.50      4  3001 4000   1000   0   0   0   0 1000     0     0
+## 5 Supercontig_1.50      5  4001 5000   1000   0   0   0   0 1000     0     0
+## 6 Supercontig_1.50      6  5001 6000   1000   0   0   0   0 1000     0     0
+##   variants
+## 1        0
+## 2        0
+## 3        0
+## 4        0
+## 5        0
+## 6        0</code></pre>
 <p>While loading entire genomes into memory may not be practical due to resource limitations, it is frequently practical to break a genome up into fractions that can be processed given the resources available on any system. By processing a genome by chromosomes, or some other fraction, and saving this tabular data to file you can perform genome scans in an attempt to identify interesting features.</p>
 </div>
 

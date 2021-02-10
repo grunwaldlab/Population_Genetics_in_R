@@ -21,6 +21,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -161,7 +163,6 @@ h6 {
   text-align: left;
 }
 </style>
-
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -581,46 +582,50 @@ $(document).ready(function () {
 <p>Violin plots are similar to boxplots except that they attempt to present the distribution of the data that would otherwise be represented by a box. We’ll neeed to load a few packages to add functions to help us. I think you’ll see that violin plots are a little more involved to create, and they are slower to render, but many find them to be more informative and more aesthetically pleasing.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">library</span>(reshape2)</span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="kw">library</span>(ggplot2) </span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">library</span>(cowplot)</span>
-<span id="cb6-4"><a href="#cb6-4"></a></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="co"># Melt our matrix into a long form data.frame.</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a>dpf &lt;-<span class="st"> </span><span class="kw">melt</span>(dp, <span class="dt">varnames=</span><span class="kw">c</span>(<span class="st">&#39;Index&#39;</span>, <span class="st">&#39;Sample&#39;</span>), <span class="dt">value.name =</span> <span class="st">&#39;Depth&#39;</span>, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</span>
-<span id="cb6-7"><a href="#cb6-7"></a>dpf &lt;-<span class="st"> </span>dpf[ dpf<span class="op">$</span>Depth <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>,]</span>
-<span id="cb6-8"><a href="#cb6-8"></a></span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="co"># Create a row designator.</span></span>
-<span id="cb6-10"><a href="#cb6-10"></a><span class="co"># You may want to adjust this</span></span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#samps_per_row &lt;- 20</span></span>
-<span id="cb6-12"><a href="#cb6-12"></a>samps_per_row &lt;-<span class="st"> </span><span class="dv">18</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a>myRows &lt;-<span class="st"> </span><span class="kw">ceiling</span>(<span class="kw">length</span>(<span class="kw">levels</span>(dpf<span class="op">$</span>Sample))<span class="op">/</span>samps_per_row)</span>
-<span id="cb6-14"><a href="#cb6-14"></a>myList &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="dt">length =</span> myRows)</span>
-<span id="cb6-15"><a href="#cb6-15"></a></span>
-<span id="cb6-16"><a href="#cb6-16"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>myRows){</span>
-<span id="cb6-17"><a href="#cb6-17"></a>  myIndex &lt;-<span class="st"> </span><span class="kw">c</span>(i<span class="op">*</span>samps_per_row <span class="op">-</span><span class="st"> </span>samps_per_row <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span><span class="kw">c</span>(i<span class="op">*</span>samps_per_row)</span>
-<span id="cb6-18"><a href="#cb6-18"></a>  myIndex &lt;-<span class="st"> </span>myIndex[myIndex <span class="op">&lt;=</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(dpf<span class="op">$</span>Sample))]</span>
-<span id="cb6-19"><a href="#cb6-19"></a>  myLevels &lt;-<span class="st"> </span><span class="kw">levels</span>(dpf<span class="op">$</span>Sample)[myIndex]</span>
-<span id="cb6-20"><a href="#cb6-20"></a>  myRegex &lt;-<span class="st"> </span><span class="kw">paste</span>(myLevels, <span class="dt">collapse =</span> <span class="st">&quot;$|^&quot;</span>)</span>
-<span id="cb6-21"><a href="#cb6-21"></a>  myRegex &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;^&quot;</span>, myRegex, <span class="st">&quot;$&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb6-22"><a href="#cb6-22"></a>  myList[[i]] &lt;-<span class="st"> </span>dpf[<span class="kw">grep</span>(myRegex, dpf<span class="op">$</span>Sample),]</span>
-<span id="cb6-23"><a href="#cb6-23"></a>  myList[[i]]<span class="op">$</span>Sample &lt;-<span class="st"> </span><span class="kw">factor</span>(myList[[i]]<span class="op">$</span>Sample)</span>
-<span id="cb6-24"><a href="#cb6-24"></a>}</span>
-<span id="cb6-25"><a href="#cb6-25"></a></span>
-<span id="cb6-26"><a href="#cb6-26"></a><span class="co"># Create the plot.</span></span>
-<span id="cb6-27"><a href="#cb6-27"></a>myPlots &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="dt">length =</span> myRows)</span>
-<span id="cb6-28"><a href="#cb6-28"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>myRows){</span>
-<span id="cb6-29"><a href="#cb6-29"></a>  myPlots[[i]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(myList[[i]], <span class="kw">aes</span>(<span class="dt">x=</span>Sample, <span class="dt">y=</span>Depth)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb6-30"><a href="#cb6-30"></a><span class="st">                  </span><span class="kw">geom_violin</span>(<span class="dt">fill=</span><span class="st">&quot;#8dd3c7&quot;</span>, <span class="dt">adjust=</span><span class="fl">1.0</span>, <span class="dt">scale =</span> <span class="st">&quot;count&quot;</span>, <span class="dt">trim=</span><span class="ot">TRUE</span>)</span>
-<span id="cb6-31"><a href="#cb6-31"></a></span>
-<span id="cb6-32"><a href="#cb6-32"></a>  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</span>
-<span id="cb6-33"><a href="#cb6-33"></a>  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_blank</span>(), </span>
-<span id="cb6-34"><a href="#cb6-34"></a>                  <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">60</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</span>
-<span id="cb6-35"><a href="#cb6-35"></a>  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">trans=</span>scales<span class="op">::</span><span class="kw">log2_trans</span>(), </span>
-<span id="cb6-36"><a href="#cb6-36"></a>                  <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">800</span>),</span>
-<span id="cb6-37"><a href="#cb6-37"></a>                  <span class="dt">minor_breaks=</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">10</span><span class="op">*</span><span class="dv">10</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">8</span><span class="op">*</span><span class="dv">100</span>))</span>
-<span id="cb6-38"><a href="#cb6-38"></a>  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.major.y=</span><span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#A9A9A9&quot;</span>, <span class="dt">size=</span><span class="fl">0.6</span>) )</span>
-<span id="cb6-39"><a href="#cb6-39"></a>  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.minor.y=</span><span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#C0C0C0&quot;</span>, <span class="dt">size=</span><span class="fl">0.2</span>) )</span>
-<span id="cb6-40"><a href="#cb6-40"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Plot the plot.</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">plot_grid</span>(<span class="dt">plotlist =</span> myPlots, <span class="dt">nrow =</span> myRows)</span></code></pre></div>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">library</span>(cowplot)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;cowplot&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:ggpubr&#39;:
+## 
+##     get_legend</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Melt our matrix into a long form data.frame.</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>dpf &lt;-<span class="st"> </span><span class="kw">melt</span>(dp, <span class="dt">varnames=</span><span class="kw">c</span>(<span class="st">&#39;Index&#39;</span>, <span class="st">&#39;Sample&#39;</span>), <span class="dt">value.name =</span> <span class="st">&#39;Depth&#39;</span>, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</span>
+<span id="cb9-3"><a href="#cb9-3"></a>dpf &lt;-<span class="st"> </span>dpf[ dpf<span class="op">$</span>Depth <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>,]</span>
+<span id="cb9-4"><a href="#cb9-4"></a></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="co"># Create a row designator.</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="co"># You may want to adjust this</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="co">#samps_per_row &lt;- 20</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>samps_per_row &lt;-<span class="st"> </span><span class="dv">18</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a>myRows &lt;-<span class="st"> </span><span class="kw">ceiling</span>(<span class="kw">length</span>(<span class="kw">levels</span>(dpf<span class="op">$</span>Sample))<span class="op">/</span>samps_per_row)</span>
+<span id="cb9-10"><a href="#cb9-10"></a>myList &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="dt">length =</span> myRows)</span>
+<span id="cb9-11"><a href="#cb9-11"></a></span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>myRows){</span>
+<span id="cb9-13"><a href="#cb9-13"></a>  myIndex &lt;-<span class="st"> </span><span class="kw">c</span>(i<span class="op">*</span>samps_per_row <span class="op">-</span><span class="st"> </span>samps_per_row <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span><span class="kw">c</span>(i<span class="op">*</span>samps_per_row)</span>
+<span id="cb9-14"><a href="#cb9-14"></a>  myIndex &lt;-<span class="st"> </span>myIndex[myIndex <span class="op">&lt;=</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(dpf<span class="op">$</span>Sample))]</span>
+<span id="cb9-15"><a href="#cb9-15"></a>  myLevels &lt;-<span class="st"> </span><span class="kw">levels</span>(dpf<span class="op">$</span>Sample)[myIndex]</span>
+<span id="cb9-16"><a href="#cb9-16"></a>  myRegex &lt;-<span class="st"> </span><span class="kw">paste</span>(myLevels, <span class="dt">collapse =</span> <span class="st">&quot;$|^&quot;</span>)</span>
+<span id="cb9-17"><a href="#cb9-17"></a>  myRegex &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;^&quot;</span>, myRegex, <span class="st">&quot;$&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb9-18"><a href="#cb9-18"></a>  myList[[i]] &lt;-<span class="st"> </span>dpf[<span class="kw">grep</span>(myRegex, dpf<span class="op">$</span>Sample),]</span>
+<span id="cb9-19"><a href="#cb9-19"></a>  myList[[i]]<span class="op">$</span>Sample &lt;-<span class="st"> </span><span class="kw">factor</span>(myList[[i]]<span class="op">$</span>Sample)</span>
+<span id="cb9-20"><a href="#cb9-20"></a>}</span>
+<span id="cb9-21"><a href="#cb9-21"></a></span>
+<span id="cb9-22"><a href="#cb9-22"></a><span class="co"># Create the plot.</span></span>
+<span id="cb9-23"><a href="#cb9-23"></a>myPlots &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;list&quot;</span>, <span class="dt">length =</span> myRows)</span>
+<span id="cb9-24"><a href="#cb9-24"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>myRows){</span>
+<span id="cb9-25"><a href="#cb9-25"></a>  myPlots[[i]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(myList[[i]], <span class="kw">aes</span>(<span class="dt">x=</span>Sample, <span class="dt">y=</span>Depth)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb9-26"><a href="#cb9-26"></a><span class="st">                  </span><span class="kw">geom_violin</span>(<span class="dt">fill=</span><span class="st">&quot;#8dd3c7&quot;</span>, <span class="dt">adjust=</span><span class="fl">1.0</span>, <span class="dt">scale =</span> <span class="st">&quot;count&quot;</span>, <span class="dt">trim=</span><span class="ot">TRUE</span>)</span>
+<span id="cb9-27"><a href="#cb9-27"></a></span>
+<span id="cb9-28"><a href="#cb9-28"></a>  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</span>
+<span id="cb9-29"><a href="#cb9-29"></a>  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_blank</span>(), </span>
+<span id="cb9-30"><a href="#cb9-30"></a>                  <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">60</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</span>
+<span id="cb9-31"><a href="#cb9-31"></a>  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">trans=</span>scales<span class="op">::</span><span class="kw">log2_trans</span>(), </span>
+<span id="cb9-32"><a href="#cb9-32"></a>                  <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">800</span>),</span>
+<span id="cb9-33"><a href="#cb9-33"></a>                  <span class="dt">minor_breaks=</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">10</span><span class="op">*</span><span class="dv">10</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">8</span><span class="op">*</span><span class="dv">100</span>))</span>
+<span id="cb9-34"><a href="#cb9-34"></a>  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.major.y=</span><span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#A9A9A9&quot;</span>, <span class="dt">size=</span><span class="fl">0.6</span>) )</span>
+<span id="cb9-35"><a href="#cb9-35"></a>  myPlots[[i]] &lt;-<span class="st"> </span>myPlots[[i]] <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>( <span class="dt">panel.grid.minor.y=</span><span class="kw">element_line</span>(<span class="dt">color =</span> <span class="st">&quot;#C0C0C0&quot;</span>, <span class="dt">size=</span><span class="fl">0.2</span>) )</span>
+<span id="cb9-36"><a href="#cb9-36"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Plot the plot.</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="kw">plot_grid</span>(<span class="dt">plotlist =</span> myPlots, <span class="dt">nrow =</span> myRows)</span></code></pre></div>
 <p><img src="depth_plot_files/figure-html/unnamed-chunk-6-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>We can see that the log transformation stretches out the smaller values and compresses the larger values. This allows us to focus on where our data has the greatest density. Things to look for in these plots are whether all samples are equally represented, whether there are a few samples of low quality that may need to be omitted from downstream analyses, or if therre are a small number of jackpot samples that received all the reads at the expense of the other samples. Here the samples appear to be fairly eqaully represented.</p>
 </div>

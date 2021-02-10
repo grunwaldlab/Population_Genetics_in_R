@@ -6,6 +6,6 @@ ade4
 adegenet
 poppr
 vcfR
-igraph
-RColorBrewer
-ape
+reshape2
+ggplot2
+ggpubr
