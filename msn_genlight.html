@@ -20,6 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -30,12 +33,21 @@
   gtag('config', 'UA-107144798-3');
 </script>
 
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -45,14 +57,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -61,9 +75,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { background-color: #f8f8f8; }
+  {  background-color: #f8f8f8; }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -437,28 +451,53 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Workshop
+    Workshops
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="workshop.html">Workshop</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">ICPP</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_icpp.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+        <li>
+          <a href="analysis_of_genome.html">Analysis of genome data</a>
+        </li>
+      </ul>
     </li>
-    <li>
-      <a href="intro_vcf.html">Introduction</a>
-    </li>
-    <li>
-      <a href="reading_vcf.html">VCF data</a>
-    </li>
-    <li>
-      <a href="quality_control.html">Quality control</a>
-    </li>
-    <li>
-      <a href="gbs_analysis.html">Analysis of GBS data</a>
-    </li>
-    <li>
-      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">APS Southern Division</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_southernAPS.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </li>
@@ -516,23 +555,23 @@ $(document).ready(function () {
 
 
 <p>One form of analysis performed on distance matrices of data are the construction of minimum spanning networks. A minimum spanning network based on genetic data consists of nodes that represent genotypes and edges that connect the genotypes. Each genotypic node may have its size scaled based on the abundance of the genotype. In genomics data sets each genotype is typically unique, unless some form of clone correction has been implemented, so this feature may not be as useful for genomic data as it is for other marker systems. Each genotypic node is connected to its most similar genotype in the distance matrix by an edge. The length of the edges are arbitrary. However, in this implementation, the width of each edge is proportional to its distance where heavy, or wide, edges indicate a low degree of genetic distance and light, or narrow, edges indicate a large degree of genetic distance. The R package poppr includes the functions <code>poppr.msn()</code> and <code>plot_poppr_msn()</code> to create and plot minimum spanning networks.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(poppr)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(igraph)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(RColorBrewer)</a></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># Calculate the MSN.</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">x.msn &lt;-<span class="st"> </span><span class="kw">poppr.msn</span>(x, x.dist, <span class="dt">showplot =</span> <span class="ot">FALSE</span>, <span class="dt">threshold =</span> <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co"># Set an arbitrary node size.</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">vertex.attributes</span>(x.msn<span class="op">$</span>graph)<span class="op">$</span>size &lt;-<span class="st"> </span><span class="kw">vertex.attributes</span>(x.msn<span class="op">$</span>graph)<span class="op">$</span>size <span class="op">*</span><span class="st"> </span><span class="dv">4</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co"># Plot the MSN.</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="kw">set.seed</span>(<span class="dv">9</span>)</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="kw">plot_poppr_msn</span>(x, x.msn, <span class="dt">palette =</span> <span class="kw">brewer.pal</span>(<span class="dt">n =</span> <span class="kw">nPop</span>(x), <span class="dt">name =</span> <span class="st">&quot;Dark2&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(poppr)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(igraph)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">library</span>(RColorBrewer)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Calculate the MSN.</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>x.msn &lt;-<span class="st"> </span><span class="kw">poppr.msn</span>(x, x.dist, <span class="dt">showplot =</span> <span class="ot">FALSE</span>, <span class="dt">threshold =</span> <span class="dv">0</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># Set an arbitrary node size.</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">vertex.attributes</span>(x.msn<span class="op">$</span>graph)<span class="op">$</span>size &lt;-<span class="st"> </span><span class="kw">vertex.attributes</span>(x.msn<span class="op">$</span>graph)<span class="op">$</span>size <span class="op">*</span><span class="st"> </span><span class="dv">4</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co"># Plot the MSN.</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="kw">set.seed</span>(<span class="dv">9</span>)</span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="kw">plot_poppr_msn</span>(x, x.msn, <span class="dt">palette =</span> <span class="kw">brewer.pal</span>(<span class="dt">n =</span> <span class="kw">nPop</span>(x), <span class="dt">name =</span> <span class="st">&quot;Dark2&quot;</span>))</span></code></pre></div>
 <p><img src="msn_genlight_files/figure-html/unnamed-chunk-4-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>Because there is some stochasticity in the plotting of minimum spanning networks we use the <code>set.seed()</code> function to gain consistency. For your data you should explore the use of different numbers for this seed in order to find an insightful representation of the data. In the above figure, the network does not allow ties or reticulation for when more than two samples have an identical distance among them. We can use the <code>include.ties</code> parameter to see where we have ties in the distance among samples.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">x.msn2 &lt;-<span class="st"> </span><span class="kw">poppr.msn</span>(x, x.dist, <span class="dt">showplot =</span> <span class="ot">FALSE</span>, <span class="dt">include.ties =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">vertex.attributes</span>(x.msn2<span class="op">$</span>graph)<span class="op">$</span>size &lt;-<span class="st"> </span><span class="kw">vertex.attributes</span>(x.msn2<span class="op">$</span>graph)<span class="op">$</span>size <span class="op">*</span><span class="st"> </span><span class="dv">4</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">plot_poppr_msn</span>(x, x.msn2, <span class="dt">palette =</span> <span class="kw">brewer.pal</span>(<span class="dt">n =</span> <span class="kw">nPop</span>(x), <span class="dt">name =</span> <span class="st">&quot;Dark2&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>x.msn2 &lt;-<span class="st"> </span><span class="kw">poppr.msn</span>(x, x.dist, <span class="dt">showplot =</span> <span class="ot">FALSE</span>, <span class="dt">include.ties =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">vertex.attributes</span>(x.msn2<span class="op">$</span>graph)<span class="op">$</span>size &lt;-<span class="st"> </span><span class="kw">vertex.attributes</span>(x.msn2<span class="op">$</span>graph)<span class="op">$</span>size <span class="op">*</span><span class="st"> </span><span class="dv">4</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="kw">plot_poppr_msn</span>(x, x.msn2, <span class="dt">palette =</span> <span class="kw">brewer.pal</span>(<span class="dt">n =</span> <span class="kw">nPop</span>(x), <span class="dt">name =</span> <span class="st">&quot;Dark2&quot;</span>))</span></code></pre></div>
 <p><img src="msn_genlight_files/figure-html/unnamed-chunk-5-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>This example demonstrates no reticulation. This is because there are no groups of genotypes that are of equal distance to one another. As your dataset grows in samples this may become a more relevant feature.</p>
 
@@ -545,7 +584,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

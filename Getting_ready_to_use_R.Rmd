@@ -246,5 +246,3 @@ formatting and loading population genetic data into R.
 
 References
 ----------
-
-<!--->

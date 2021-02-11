@@ -9,4 +9,4 @@ Populations were obtained by sampling individual pathogen strains from roots of 
 A total of 94 samples of *P. rubi* were sequenced using the Illumina HiSeq 3000 technology with 150 bp paired end reads and a target insert size of 500 bp.
 Currently, there is little information about the population structure of *P. rubi* in the western USA. 
 We are interested in studying the population structure of *P. rubi* populations in the western US.
-The VCF data for this population can be downloaded from: [prubi_gbs.VCF.gz](prubi_gbs.VCF.gz).
+The VCF data for this population can be downloaded from: [prubi_gbs.vcf.gz](prubi_gbs.vcf.gz).

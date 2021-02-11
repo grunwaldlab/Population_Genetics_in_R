@@ -1,0 +1,159 @@
+---
+title: "Preparation for the Workshop"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+---
+
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Population genomics workshop
+
+### Southern APS Meeting, 2021
+
+Previous versions of this material were also presented at:  
+
+* ICPP, Boston, Massachusetts, 2018
+* APS, San Antonio, Texas, 2017
+
+For workshops, we subset the information available elsewhere in this book to the pages in this section specifically.
+This provides a convenient way to reduce the contents of a book to the essential portions we feel can be reasonably covered in an hour long workshop.
+However, the cost of brevity is a lack of detail.
+While this section may be used as an entry point to learning about genomic analyses in R, details may be found elsewhere in the book.
+
+
+## Before you log into the workshop please make sure you install the following required materials
+ 
+
+1. __Install R__ 
+Instructions on how to install R can be found at the [R homepage](https://www.r-project.org/).
+Please make sure you have the most current version of R (at least R 4.0.0, "Arbor Day").
+2. __Install RStudio__    
+Instructions on how to install the RStudio integrated development environment (IDE) can be found at the [RStudio download site](https://www.rstudio.com/products/rstudio/download/).
+Choose the free version, 'RStudio Desktop, Open Source License'.
+3. __Install R packages__    
+You can install the R packages we will be using during the workshop by starting R, copying the command below, and pasting it into the R console.
+
+
+```{r, echo = FALSE, eval = FALSE}
+myPackages <- system("grep 'library(' *.Rmd", intern = TRUE)
+myPackages <- myPackages[grep("library\\(\\)", myPackages, invert = TRUE)]
+myPackages <- sub("[[:print:]]*library\\([\'\"]{0,1}", "", myPackages)
+myPackages <- sub("[\"\']","", myPackages)
+myPackages <- sub("#[[:print:]]*","", myPackages)
+myPackages <- sub("[[:space:]]+","", myPackages)
+myPackages <- sub("\\)+", "", myPackages)
+myPackages <- unique(myPackages)
+myPackages <- grep("*.Rmd, intern = TRUE", myPackages, invert = TRUE, value = TRUE)
+myPackages <- grep("knitcitations", myPackages, invert = TRUE, value = TRUE)
+myPackages <- sort(myPackages)
+dput(myPackages)
+```
+
+
+```{r, eval = FALSE}
+install.packages(c("adegenet", "ape", "cowplot", "devtools", "dplyr", "ggplot2", "hierfstat", "igraph", "knitr", "lattice", "magrittr", "mmod", "pegas", "pinfsc50", "poppr", "RColorBrewer", "reshape2", "treemap", "vcfR", "vegan", "viridisLite"))
+```
+
+
+4. __Create an RStudio "Project"__    
+Open RStudio and under the "File" dropdown menu select "New Project...".
+A "New Project" window should pop up where you should select the option to create your project in a "New Directory".
+Select the "New Project" option.
+You will be asked where on your filesystem you'd like your project and what to name your project.
+We'll name our project "APS_Workshop".
+This should create a directory for your project that will contain a file named "APS_Workshop.Rproj".
+When you double click this file it should spawn a new session of RStudio and will use that directory as your [working directory](https://en.wikipedia.org/wiki/Working_directory).
+
+
+5. __Download the example datasets __  
+We have placed example data files at the OSF site for [Population genomics in R workshop](https://osf.io/ytd6k/).
+You can download them by copying and pasting the below code into your R console.
+
+
+```{r,eval = FALSE}
+download.file("https://osf.io/td5sx/download", destfile = "pinfsc50_filtered.vcf.gz")
+download.file("https://osf.io/kaq5p/download", destfile = "population_data.gbs.txt")
+download.file("https://osf.io/c6h4t/download", destfile = "prubi_gbs.vcf.gz")
+```
+
+
+You should be able to validate that the files have been downloaded with the below code.
+
+
+```{r}
+list.files(pattern = ".vcf.gz$|.gbs.txt")
+```
+
+
+6. __Test that your system is ready:__    
+You should now be able to validate that the resources you need are ready.
+Change directory to `APS_Workshop` and copy and paste the below command into the R console.
+
+
+```{r, eval=FALSE}
+if(require(devtools)){
+  devtools::source_gist("01a3d8efb21e0a4dbac0735270d147af", filename="apstest.R")       
+} else {
+  print("Please install the package devtools.")
+  print("Use: install.packages('devtools')")
+}
+```
+
+
+This should output some tests to the console.
+It should also generate a report file called `apstest.txt`.
+The report file should look exactly like [this file](https://github.com/grunwaldlab/Population_Genetics_in_R/blob/master/apstest.txt).
+If your results are different, and you don't understand why, send us an email with the report as an attachment.
+Any concerning differences would be below the line, "Testing to see if you are ready..."
+
+
+7. **If you have never worked with R, please review the [Introduction to R](intro_to_R.html) page**
+
+
+## Your first homework
+
+
+Some aspects of analyzing genetic data are rather technical.
+Others are more stylistic.
+An example is the presentation of the data.
+The presentation of data may include choices in color schemes and sometimes your perspective on the data.
+Below is a little example that you can copy and paste into your R console.
+Explore how changing the number in `set.seed()` changes the plot.
+Remember to execute the `plot_poppr_msn(partial_clone, myMsn, palette = brewer.pal(n=4, name = "Set1"))` function again.
+There are other examples that are commented out (i.e., the lines begin with `#` so they are not executed).
+Try removing the comment character (`#`) and see how the different parameters affect the plot.
+This example should validate that you have successfully installed `poppr` and hopefully provides a fun example that may inspire you to explore more options.
+
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+library(RColorBrewer)
+library(viridisLite)
+library(poppr)
+data(partial_clone)
+myMsn <- bruvo.msn(partial_clone, include.ties = TRUE, showplot = FALSE)
+set.seed(9)
+plot_poppr_msn(partial_clone, myMsn, palette = brewer.pal(n=4, name = "Set1"))
+# plot_poppr_msn(partial_clone, myMsn, palette = magma(n=4, begin = 0.2, end = 0.8))
+# plot_poppr_msn(partial_clone, myMsn, palette = plasma(n=4))
+```
+
+
+## Workshop agenda
+
+1. Introduction to [the toolset](http://grunwaldlab.github.io/Population_Genetics_in_R/intro_vcf.html)
+2. Introduction to [VCF data](reading_vcf.html)
+3. VCF [quality control](http://grunwaldlab.github.io/Population_Genetics_in_R/quality_control.html)
+3. Analysis of [Genotyping by sequencing](gbs_analysis.html) data
+
+
+***
+
+## How'd we do?
+
+After you've completed the workshop, please fill out [this quick survey](https://forms.gle/jVnufyBpkAqjn14k6) to provide us with feedback. Thank you!

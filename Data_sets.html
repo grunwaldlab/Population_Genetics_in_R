@@ -20,6 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -29,6 +32,15 @@
 
   gtag('config', 'UA-107144798-3');
 </script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
 
@@ -347,28 +359,53 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Workshop
+    Workshops
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="workshop.html">Workshop</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">ICPP</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_icpp.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+        <li>
+          <a href="analysis_of_genome.html">Analysis of genome data</a>
+        </li>
+      </ul>
     </li>
-    <li>
-      <a href="intro_vcf.html">Introduction</a>
-    </li>
-    <li>
-      <a href="reading_vcf.html">VCF data</a>
-    </li>
-    <li>
-      <a href="quality_control.html">Quality control</a>
-    </li>
-    <li>
-      <a href="gbs_analysis.html">Analysis of GBS data</a>
-    </li>
-    <li>
-      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">APS Southern Division</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_southernAPS.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </li>
@@ -455,7 +492,7 @@ $(document).ready(function () {
 </div>
 <div id="gbs-diploid-prubi_gbs" class="section level2">
 <h2>GBS (diploid): <code>Prubi_gbs</code></h2>
-<p>We will use a data set of 94 samples of the red raspberry pathogen <em>Phytophthora rubi</em> <span class="citation">(Tabima et al., 2018)</span>. This pathogen is diploid and a fungal like Oomycete. Populations were obtained by sampling individual pathogen strains from roots of infected red raspberry in the states of California (CA), Oregon (OR), and Washington (WA). A total of 94 samples of <em>P. rubi</em> were sequenced using the Illumina HiSeq 3000 technology with 150 bp paired end reads and a target insert size of 500 bp. Currently, there is little information about the population structure of <em>P. rubi</em> in the western USA. We are interested in studying the population structure of <em>P. rubi</em> populations in the western US. The VCF data for this population can be downloaded from: <a href="prubi_gbs.VCF.gz" class="uri">prubi_gbs.VCF.gz</a>.</p>
+<p>We will use a data set of 94 samples of the red raspberry pathogen <em>Phytophthora rubi</em> <span class="citation">(Tabima et al., 2018)</span>. This pathogen is diploid and a fungal like Oomycete. Populations were obtained by sampling individual pathogen strains from roots of infected red raspberry in the states of California (CA), Oregon (OR), and Washington (WA). A total of 94 samples of <em>P. rubi</em> were sequenced using the Illumina HiSeq 3000 technology with 150 bp paired end reads and a target insert size of 500 bp. Currently, there is little information about the population structure of <em>P. rubi</em> in the western USA. We are interested in studying the population structure of <em>P. rubi</em> populations in the western US. The VCF data for this population can be downloaded from: <a href="prubi_gbs.vcf.gz">prubi_gbs.vcf.gz</a>.</p>
 </div>
 <div id="genomic-diploid-pinfsc50" class="section level2">
 <h2>Genomic (diploid): <code>pinfsc50</code></h2>
@@ -465,28 +502,28 @@ $(document).ready(function () {
 <h2>References</h2>
 <div id="refs" class="references">
 <div id="ref-everhart2014finescale">
-<p>Everhart S., Scherm H. 2015. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> 105:542–549. Available at: <a href="https://doi.org/10.1094/PHYTO-03-14-0088-R" class="uri">https://doi.org/10.1094/PHYTO-03-14-0088-R</a></p>
+<p>Everhart S., Scherm H. 2015. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> 105:542–549. Available at: <a href="https://doi.org/10.1094/PHYTO-03-14-0088-R">https://doi.org/10.1094/PHYTO-03-14-0088-R</a></p>
 </div>
 <div id="ref-goss2009population">
-<p>Goss EM., Larsen M., Chastagner GA., Givens DR., Grünwald NJ. 2009. Population genetic analysis infers migration pathways of phytophthora ramorum in us nurseries. <em>PLoS Pathog</em> 5:e1000583. Available at: <a href="http://dx.doi.org/10.1371/journal.ppat.1000583" class="uri">http://dx.doi.org/10.1371/journal.ppat.1000583</a></p>
+<p>Goss EM., Larsen M., Chastagner GA., Givens DR., Grünwald NJ. 2009. Population genetic analysis infers migration pathways of phytophthora ramorum in us nurseries. <em>PLoS Pathog</em> 5:e1000583. Available at: <a href="http://dx.doi.org/10.1371/journal.ppat.1000583">http://dx.doi.org/10.1371/journal.ppat.1000583</a></p>
 </div>
 <div id="ref-goss2014irish">
-<p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The Irish potato famine pathogen <em>phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
+<p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The Irish potato famine pathogen <em>phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
 </div>
 <div id="ref-grunwald2006hierarchical">
-<p>Grünwald NJ., Hoheisel G-A. 2006. Hierarchical analysis of diversity, selfing, and genetic differentiation in populations of the oomycete <em>aphanomyces euteiches</em>. <em>Phytopathology</em> 96:1134–1141. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134" class="uri">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134</a></p>
+<p>Grünwald NJ., Hoheisel G-A. 2006. Hierarchical analysis of diversity, selfing, and genetic differentiation in populations of the oomycete <em>aphanomyces euteiches</em>. <em>Phytopathology</em> 96:1134–1141. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134</a></p>
 </div>
 <div id="ref-kamvar2015spatial">
-<p>Kamvar Z., Larsen M., Kanaskie A., Hansen E., Grünwald N. 2015. Spatial and temporal analysis of populations of the sudden oak death pathogen in oregon forests. <em>Phytopathology</em> 105:982–989. Available at: <a href="http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI" class="uri">http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI</a></p>
+<p>Kamvar Z., Larsen M., Kanaskie A., Hansen E., Grünwald N. 2015. Spatial and temporal analysis of populations of the sudden oak death pathogen in oregon forests. <em>Phytopathology</em> 105:982–989. Available at: <a href="http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI">http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI</a></p>
 </div>
 <div id="ref-knaus2017vcfr">
-<p>Knaus BJ., Grünwald NJ. 2017. <span class="math inline">\({V}cfr\)</span>: A package to manipulate and visualize variant call format data in R. <em>Molecular Ecology Resources</em> 17:44–53. Available at: <a href="http://dx.doi.org/10.1111/1755-0998.12549" class="uri">http://dx.doi.org/10.1111/1755-0998.12549</a></p>
+<p>Knaus BJ., Grünwald NJ. 2017. <span class="math inline">\({V}cfr\)</span>: A package to manipulate and visualize variant call format data in R. <em>Molecular Ecology Resources</em> 17:44–53. Available at: <a href="http://dx.doi.org/10.1111/1755-0998.12549">http://dx.doi.org/10.1111/1755-0998.12549</a></p>
 </div>
 <div id="ref-laloe2007consensus">
-<p>Laloe D., Jombart T., Dufour A-B., Moazami-Goudarzi K. 2007. Consensus genetic structuring and typological value of markers using multiple co-inertia analysis. <em>Genetics Selection Evolution</em> 39:545–567. Available at: <a href="http://dx.doi.org/10.1051/gse:2007021" class="uri">http://dx.doi.org/10.1051/gse:2007021</a></p>
+<p>Laloe D., Jombart T., Dufour A-B., Moazami-Goudarzi K. 2007. Consensus genetic structuring and typological value of markers using multiple co-inertia analysis. <em>Genetics Selection Evolution</em> 39:545–567. Available at: <a href="http://dx.doi.org/10.1051/gse:2007021">http://dx.doi.org/10.1051/gse:2007021</a></p>
 </div>
 <div id="ref-tabima2018populations">
-<p>Tabima JF., Coffey MD., Zazada IA., Grünwald NJ. 2018. Populations of <em>Phytophthora rubi</em> show little differentiation and high rates of migration among states in the western United States. <em>Molecular Plant-Microbe Interactions</em> 31:614–622. Available at: <a href="https://doi.org/10.1094/MPMI-10-17-0258-R" class="uri">https://doi.org/10.1094/MPMI-10-17-0258-R</a></p>
+<p>Tabima JF., Coffey MD., Zazada IA., Grünwald NJ. 2018. Populations of <em>Phytophthora rubi</em> show little differentiation and high rates of migration among states in the western United States. <em>Molecular Plant-Microbe Interactions</em> 31:614–622. Available at: <a href="https://doi.org/10.1094/MPMI-10-17-0258-R">https://doi.org/10.1094/MPMI-10-17-0258-R</a></p>
 </div>
 </div>
 </div>
@@ -500,7 +537,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

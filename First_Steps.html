@@ -20,6 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -30,12 +33,21 @@
   gtag('config', 'UA-107144798-3');
 </script>
 
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -45,14 +57,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -61,9 +75,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { background-color: #f8f8f8; }
+  {  background-color: #f8f8f8; }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -437,28 +451,53 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Workshop
+    Workshops
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="workshop.html">Workshop</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">ICPP</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_icpp.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+        <li>
+          <a href="analysis_of_genome.html">Analysis of genome data</a>
+        </li>
+      </ul>
     </li>
-    <li>
-      <a href="intro_vcf.html">Introduction</a>
-    </li>
-    <li>
-      <a href="reading_vcf.html">VCF data</a>
-    </li>
-    <li>
-      <a href="quality_control.html">Quality control</a>
-    </li>
-    <li>
-      <a href="gbs_analysis.html">Analysis of GBS data</a>
-    </li>
-    <li>
-      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">APS Southern Division</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_southernAPS.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </li>
@@ -521,9 +560,9 @@ $(document).ready(function () {
 <div id="the-genotype-accumulation-curve" class="section level2">
 <h2>The genotype accumulation curve</h2>
 <p>A genotype accumulation curve is a tool that allows you to assess how much power you have to discriminate between unique individuals given a random sample of <span class="math inline">\(n\)</span> loci. This analysis is particularly important for clonal organisms to confirm that a plateau has been reached in the number of loci necessary to discriminate individuals. Below, we will analyze the <code>Pinf</code> data set.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">data</span>(<span class="st">&quot;Pinf&quot;</span>) <span class="co"># Load the data</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">Pinf         <span class="co"># We expect a maximum of 72 Multilocus Genotypes</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">data</span>(<span class="st">&quot;Pinf&quot;</span>) <span class="co"># Load the data</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>Pinf         <span class="co"># We expect a maximum of 72 Multilocus Genotypes</span></span></code></pre></div>
 <pre><code>## 
 ## This is a genclone object
 ## -------------------------
@@ -537,7 +576,7 @@ $(document).ready(function () {
 ## 
 ##     2 strata - Continent, Country
 ##     2 populations defined - South America, North America</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">gac &lt;-<span class="st"> </span><span class="kw">genotype_curve</span>(Pinf, <span class="dt">sample =</span> <span class="dv">1000</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>gac &lt;-<span class="st"> </span><span class="kw">genotype_curve</span>(Pinf, <span class="dt">sample =</span> <span class="dv">1000</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <div class="figure">
 <img src="First_Steps_files/figure-html/unnamed-chunk-2-1.png" alt="Genotype accumulation curve" width="672" />
 <p class="caption">
@@ -549,8 +588,8 @@ Genotype accumulation curve
 <div id="allele-frequencies-missing-data-and-ploidy" class="section level2">
 <h2>Allele frequencies, missing data, and ploidy</h2>
 <p>A good first step after loading data is to look for missing data, rare alleles and overall quality of your data:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&quot;Pinf&quot;</span>)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">(pinflt &lt;-<span class="st"> </span><span class="kw">locus_table</span>(Pinf))</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">data</span>(<span class="st">&quot;Pinf&quot;</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>(pinflt &lt;-<span class="st"> </span><span class="kw">locus_table</span>(Pinf))</span></code></pre></div>
 <pre><code>##       summary
 ## locus  allele    1-D   Hexp Evenness
 ##   Pi02 10.000  0.633  0.637    0.663
@@ -566,7 +605,7 @@ Genotype accumulation curve
 ##   Pi89 11.000  0.615  0.619    0.578
 ##   mean  8.636  0.517  0.520    0.602</code></pre>
 <p>We see that we have anywhere from 2 to 25 microsatellite alleles per locus. Locus D13 has the highest Simpson diversity (0.884) and Pi04 has the most evenly distirbuted alleles (0.785). We also observe between 1-10% missing data in the ‘North America’ population:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">info_table</span>(Pinf, <span class="dt">type =</span> <span class="st">&quot;missing&quot;</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">info_table</span>(Pinf, <span class="dt">type =</span> <span class="st">&quot;missing&quot;</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <div class="figure">
 <img src="First_Steps_files/figure-html/unnamed-chunk-4-1.png" alt="Missing data plot" width="1152" />
 <p class="caption">
@@ -574,17 +613,12 @@ Missing data plot
 </p>
 </div>
 <pre><code>##                Locus
-## Population      Pi02   D13 Pi33 Pi04 Pi4B  Pi16 G11 Pi56  Pi63 Pi70  Pi89
-##   South America    .     .    .    .    .     .   .    .     .    .     .
-##   North America    . 0.104    .    .    . 0.062   .    . 0.021    . 0.021
-##   Total            . 0.058    .    .    . 0.035   .    . 0.012    . 0.012
-##                Locus
-## Population       Mean
-##   South America     .
-##   North America 0.019
-##   Total         0.011</code></pre>
+## Population      Pi02   D13 Pi33 Pi04 Pi4B  Pi16 G11 Pi56  Pi63 Pi70  Pi89  Mean
+##   South America    .     .    .    .    .     .   .    .     .    .     .     .
+##   North America    . 0.104    .    .    . 0.062   .    . 0.021    . 0.021 0.019
+##   Total            . 0.058    .    .    . 0.035   .    . 0.012    . 0.012 0.011</code></pre>
 <p>If your data consists of polyploid SSR markers, you would code the unobserved alleles as ‘0’. The <code>Pinf</code> data set is a perfect example of this. It is a subset of a slightly larger tetraploid data set. In this example, each row represents an isolate and each column represents a locus:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">tail</span>(<span class="kw">genind2df</span>(Pinf, <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">tail</span>(<span class="kw">genind2df</span>(Pinf, <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>))</span></code></pre></div>
 <pre><code>##                  pop            Pi02             D13            Pi33
 ## PiPE22 South America 000/000/160/160 000/000/142/144 000/000/203/203
 ## PiPE23 South America 000/000/160/160 000/000/140/140 000/000/203/203
@@ -607,18 +641,18 @@ Missing data plot
 ## PiPE26 000/000/176/176 000/000/157/157 000/000/192/195 000/000/179/181
 ## PiPE27 000/000/176/176 000/148/151/157 000/000/189/192 000/000/179/179</code></pre>
 <p>The <code>genind2df()</code> function transforms the data from genind object into a dataframe and adds ‘/’ as separators between alleles at each locus. Note how missing allelles are coded as ‘000’.</p>
-<p>To observe the different levels of ploidy in your data, use the function <code>info_table</code> with the argument <code>type = &quot;ploidy&quot;</code>:</p>
+<p>To observe the different levels of ploidy in your data, use the function <code>info_table</code> with the argument <code>type = "ploidy"</code>:</p>
 <blockquote>
 <p>Notice you can change the colors of the plot by setting a “low” color and a “high” color.</p>
 </blockquote>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">Pinf.ploidy &lt;-<span class="st"> </span><span class="kw">info_table</span>(Pinf, <span class="dt">type =</span> <span class="st">&quot;ploidy&quot;</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>, <span class="dt">low =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;orange&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>Pinf.ploidy &lt;-<span class="st"> </span><span class="kw">info_table</span>(Pinf, <span class="dt">type =</span> <span class="st">&quot;ploidy&quot;</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>, <span class="dt">low =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;orange&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="First_Steps_files/figure-html/unnamed-chunk-6-1.png" alt="Plot of ploidy" width="480" />
 <p class="caption">
 Plot of ploidy
 </p>
 </div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">tail</span>(Pinf.ploidy)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">tail</span>(Pinf.ploidy)</span></code></pre></div>
 <pre><code>##         Loci
 ## Samples  Pi02 D13 Pi33 Pi04 Pi4B Pi16 G11 Pi56 Pi63 Pi70 Pi89
 ##   PiPE22    2   2    2    2    2    2   3    2    3    2    2
@@ -633,15 +667,15 @@ Plot of ploidy
 <div id="calculating-genotypic-diversity" class="section level2">
 <h2>Calculating genotypic diversity</h2>
 <p>Let us get a first impression of the diversity found in this data using the summary function, <code>poppr</code>:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">poppr</span>(Pinf)</a></code></pre></div>
-<pre><code>##             Pop  N MLG eMLG    SE    H    G lambda   E.5  Hexp    Ia
-## 1 South America 38  29 29.0 0.000 3.27 23.3  0.957 0.883 0.513 2.873
-## 2 North America 48  43 34.5 0.989 3.69 34.9  0.971 0.871 0.503 0.223
-## 3         Total 86  72 34.6 1.529 4.19 57.8  0.983 0.875 0.520 0.652
-##    rbarD File
-## 1 0.3446 Pinf
-## 2 0.0240 Pinf
-## 3 0.0717 Pinf</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">poppr</span>(Pinf)</span></code></pre></div>
+<pre><code>##             Pop  N MLG eMLG    SE    H    G lambda   E.5  Hexp    Ia  rbarD
+## 1 South America 38  29 29.0 0.000 3.27 23.3  0.957 0.883 0.513 2.873 0.3446
+## 2 North America 48  43 34.5 0.989 3.69 34.9  0.971 0.871 0.503 0.223 0.0240
+## 3         Total 86  72 34.6 1.529 4.19 57.8  0.983 0.875 0.520 0.652 0.0717
+##   File
+## 1 Pinf
+## 2 Pinf
+## 3 Pinf</code></pre>
 <p>We can see statistics printed for each individual and the total population. The fields you see in the output include:</p>
 <table>
 <colgroup>
@@ -706,8 +740,8 @@ Plot of ploidy
 </tbody>
 </table>
 <p>What does all this mean? Both populations have a similar number of individuals (<span class="math inline">\(N\)</span> = 38 and 48) sampled. However, one population has 29 and the other 43 <span class="math inline">\(MLG\)</span> while both populations together have combined 86 <span class="math inline">\(MLG\)</span>. Genotypic diversity (either <span class="math inline">\(H\)</span> or <span class="math inline">\(G\)</span>) is higher in population 2 than population 1, while evenness is similar. Let’s ignore <span class="math inline">\(I_A\)</span> and <span class="math inline">\(\bar{r}_d\)</span> for now, as these are measures of linkage disequilibrium that will be covered in <a href="Linkage_disequilibrium.html">Chapter 4</a>.</p>
-<p>Next, let’s calculate <span class="math inline">\(MLG\)</span> for each population, e.g. “South America” and “North America” populations:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">P.tab &lt;-<span class="st"> </span><span class="kw">mlg.table</span>(Pinf)</a></code></pre></div>
+<p>Next, let’s calculate <span class="math inline">\(MLG\)</span> for each population, e.g. “South America” and “North America” populations:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>P.tab &lt;-<span class="st"> </span><span class="kw">mlg.table</span>(Pinf)</span></code></pre></div>
 <div class="figure">
 <img src="First_Steps_files/figure-html/unnamed-chunk-8-1.png" alt="Multilocus Genotype Table" width="672" />
 <p class="caption">
@@ -725,37 +759,37 @@ Multilocus Genotype Table
 <!---- Reference list ---->
 <div id="refs" class="references">
 <div id="ref-brown1980multilocus">
-<p>Brown AHD., Feldman MW., Nevo E. 1980. Multilocus structure of natural populations of <em>hordeum spontaneum</em>. <em>Genetics</em> 96:523–536. Available at: <a href="http://www.genetics.org/content/96/2/523" class="uri">http://www.genetics.org/content/96/2/523</a></p>
+<p>Brown AHD., Feldman MW., Nevo E. 1980. Multilocus structure of natural populations of <em>hordeum spontaneum</em>. <em>Genetics</em> 96:523–536. Available at: <a href="http://www.genetics.org/content/96/2/523">http://www.genetics.org/content/96/2/523</a></p>
 </div>
 <div id="ref-goss2014irish">
-<p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The Irish potato famine pathogen <em>phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract" class="uri">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
+<p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The Irish potato famine pathogen <em>phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
 </div>
 <div id="ref-grunwald2003">
-<p>Grünwald NJ., Goodwin SB., Milgroom MG., Fry WE. 2003. Analysis of genotypic diversity data for populations of microorganisms. <em>Phytopathology</em> 93:738–746. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738" class="uri">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738</a></p>
+<p>Grünwald NJ., Goodwin SB., Milgroom MG., Fry WE. 2003. Analysis of genotypic diversity data for populations of microorganisms. <em>Phytopathology</em> 93:738–746. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO.2003.93.6.738</a></p>
 </div>
 <div id="ref-grunwald2006hierarchical">
-<p>Grünwald NJ., Hoheisel G-A. 2006. Hierarchical analysis of diversity, selfing, and genetic differentiation in populations of the oomycete <em>aphanomyces euteiches</em>. <em>Phytopathology</em> 96:1134–1141. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134" class="uri">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134</a></p>
+<p>Grünwald NJ., Hoheisel G-A. 2006. Hierarchical analysis of diversity, selfing, and genetic differentiation in populations of the oomycete <em>aphanomyces euteiches</em>. <em>Phytopathology</em> 96:1134–1141. Available at: <a href="http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134">http://apsjournals.apsnet.org/doi/abs/10.1094/PHYTO-96-1134</a></p>
 </div>
 <div id="ref-ludwig1988statistical">
 <p>Ludwig JA., Reynolds JF. 1988. <em>Statistical ecology: A primer in methods and computing</em>. Wiley.com.</p>
 </div>
 <div id="ref-nei1978estimation">
-<p>Nei M. 1978. Estimation of average heterozygosity and genetic distance from a small number of individuals. <em>Genetics</em> 89:583–590. Available at: <a href="http://www.genetics.org/content/89/3/583.abstract" class="uri">http://www.genetics.org/content/89/3/583.abstract</a></p>
+<p>Nei M. 1978. Estimation of average heterozygosity and genetic distance from a small number of individuals. <em>Genetics</em> 89:583–590. Available at: <a href="http://www.genetics.org/content/89/3/583.abstract">http://www.genetics.org/content/89/3/583.abstract</a></p>
 </div>
 <div id="ref-pielou1975ecological">
 <p>Pielou EC. 1975. <em>Ecological diversity</em>. Wiley New York.</p>
 </div>
 <div id="ref-shannon2001mathematical">
-<p>Shannon CE. 2001. A mathematical theory of communication. <em>ACM SIGMOBILE Mobile Computing and Communications Review</em> 5:3–55. Available at: <a href="http://cm.bell-labs.com/cm/ms/what/shannonday/shannon1948.pdf" class="uri">http://cm.bell-labs.com/cm/ms/what/shannonday/shannon1948.pdf</a></p>
+<p>Shannon CE. 2001. A mathematical theory of communication. <em>ACM SIGMOBILE Mobile Computing and Communications Review</em> 5:3–55. Available at: <a href="http://cm.bell-labs.com/cm/ms/what/shannonday/shannon1948.pdf">http://cm.bell-labs.com/cm/ms/what/shannonday/shannon1948.pdf</a></p>
 </div>
 <div id="ref-simpson1949measurement">
-<p>Simpson EH. 1949. Measurement of diversity. <em>Nature</em> 163:688. Available at: <a href="http://dx.doi.org/10.1038/163688a0" class="uri">http://dx.doi.org/10.1038/163688a0</a></p>
+<p>Simpson EH. 1949. Measurement of diversity. <em>Nature</em> 163:688. Available at: <a href="http://dx.doi.org/10.1038/163688a0">http://dx.doi.org/10.1038/163688a0</a></p>
 </div>
 <div id="ref-smith1993clonal">
-<p>Smith JM., Smith NH., O’Rourke M., Spratt BG. 1993. How clonal are bacteria. <em>Proceedings of the National Academy of Sciences</em> 90:4384–4388. Available at: <a href="http://www.pnas.org/content/90/10/4384" class="uri">http://www.pnas.org/content/90/10/4384</a></p>
+<p>Smith JM., Smith NH., O’Rourke M., Spratt BG. 1993. How clonal are bacteria. <em>Proceedings of the National Academy of Sciences</em> 90:4384–4388. Available at: <a href="http://www.pnas.org/content/90/10/4384">http://www.pnas.org/content/90/10/4384</a></p>
 </div>
 <div id="ref-stoddart1988genotypic">
-<p>Stoddart JA., Taylor JF. 1988. Genotypic diversity: Estimation and prediction in samples. <em>Genetics</em> 118:705–711. Available at: <a href="http://www.genetics.org/content/118/4/705" class="uri">http://www.genetics.org/content/118/4/705</a></p>
+<p>Stoddart JA., Taylor JF. 1988. Genotypic diversity: Estimation and prediction in samples. <em>Genetics</em> 118:705–711. Available at: <a href="http://www.genetics.org/content/118/4/705">http://www.genetics.org/content/118/4/705</a></p>
 </div>
 </div>
 </div>
@@ -769,7 +803,7 @@ Multilocus Genotype Table
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

@@ -20,6 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -30,12 +33,21 @@
   gtag('config', 'UA-107144798-3');
 </script>
 
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -45,14 +57,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -61,9 +75,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { background-color: #f8f8f8; }
+  {  background-color: #f8f8f8; }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -437,28 +451,53 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Workshop
+    Workshops
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="workshop.html">Workshop</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">ICPP</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_icpp.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+        <li>
+          <a href="analysis_of_genome.html">Analysis of genome data</a>
+        </li>
+      </ul>
     </li>
-    <li>
-      <a href="intro_vcf.html">Introduction</a>
-    </li>
-    <li>
-      <a href="reading_vcf.html">VCF data</a>
-    </li>
-    <li>
-      <a href="quality_control.html">Quality control</a>
-    </li>
-    <li>
-      <a href="gbs_analysis.html">Analysis of GBS data</a>
-    </li>
-    <li>
-      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">APS Southern Division</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_southernAPS.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </li>
@@ -522,14 +561,14 @@ $(document).ready(function () {
 </div>
 <div id="dapc-analysis-of-the-h3n2-influenza-strains" class="section level1">
 <h1>DAPC analysis of the H3N2 influenza strains</h1>
-<p>DAPC was pioneered by Jombart and colleagues <span class="citation">(Jombart et al., 2010)</span> and can be used to infer the number of clusters of genetically related individuals. In this multivariate statistical approach variance in the sample is partitioned into a between-group and within- group component, in an effort to maximize discrimination between groups. In DAPC, data is first transformed using a principal components analysis (PCA) and subsequently clusters are identified using discriminant analysis (DA). This tutorial is based on the <a href="http://adegenet.r-forge.r-project.org/files%20/tutorial-dapc.pdf">vignette</a> written by Thibaut Jombart. We encourage the user to explore this vignette further. The vignette can also be opened within R by executing <code>adegenetTutorial(&quot;dapc&quot;)</code>.</p>
+<p>DAPC was pioneered by Jombart and colleagues <span class="citation">(Jombart et al., 2010)</span> and can be used to infer the number of clusters of genetically related individuals. In this multivariate statistical approach variance in the sample is partitioned into a between-group and within- group component, in an effort to maximize discrimination between groups. In DAPC, data is first transformed using a principal components analysis (PCA) and subsequently clusters are identified using discriminant analysis (DA). This tutorial is based on the <a href="http://adegenet.r-forge.r-project.org/files%20/tutorial-dapc.pdf">vignette</a> written by Thibaut Jombart. We encourage the user to explore this vignette further. The vignette can also be opened within R by executing <code>adegenetTutorial("dapc")</code>.</p>
 <p>We will use the seasonal influenza dataset H3N2 data containing 1903 isolates genotyped for 125 SNPs located in the hemagglutinin segment. This dataset as well as the <code>dapc()</code> function is part of the <a href="http://adegenet.r-forge.r-project.org"><em>adegenet</em></a> package.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># DAPC requires the adegenet package. Let&#39;s load this package:</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(<span class="st">&quot;adegenet&quot;</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">data</span>(H3N2) <span class="co"># load the H3N2 influenza data. Type ?H3N2 for more info.</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">pop</span>(H3N2) &lt;-<span class="st"> </span>H3N2<span class="op">$</span>other<span class="op">$</span>epid</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">dapc.H3N2 &lt;-<span class="st"> </span><span class="kw">dapc</span>(H3N2, <span class="dt">var.contrib =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="ot">FALSE</span>, <span class="dt">n.pca =</span> <span class="dv">30</span>, <span class="dt">n.da =</span> <span class="kw">nPop</span>(H3N2) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">scatter</span>(dapc.H3N2, <span class="dt">cell =</span> <span class="dv">0</span>, <span class="dt">pch =</span> <span class="dv">18</span><span class="op">:</span><span class="dv">23</span>, <span class="dt">cstar =</span> <span class="dv">0</span>, <span class="dt">mstree =</span> <span class="ot">TRUE</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># DAPC requires the adegenet package. Let&#39;s load this package:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(<span class="st">&quot;adegenet&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">data</span>(H3N2) <span class="co"># load the H3N2 influenza data. Type ?H3N2 for more info.</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">pop</span>(H3N2) &lt;-<span class="st"> </span>H3N2<span class="op">$</span>other<span class="op">$</span>epid</span>
+<span id="cb1-5"><a href="#cb1-5"></a>dapc.H3N2 &lt;-<span class="st"> </span><span class="kw">dapc</span>(H3N2, <span class="dt">var.contrib =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="ot">FALSE</span>, <span class="dt">n.pca =</span> <span class="dv">30</span>, <span class="dt">n.da =</span> <span class="kw">nPop</span>(H3N2) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="kw">scatter</span>(dapc.H3N2, <span class="dt">cell =</span> <span class="dv">0</span>, <span class="dt">pch =</span> <span class="dv">18</span><span class="op">:</span><span class="dv">23</span>, <span class="dt">cstar =</span> <span class="dv">0</span>, <span class="dt">mstree =</span> <span class="ot">TRUE</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="DAPC_files/figure-html/unnamed-chunk-2-1.png" width="960" /></p>
 <p>The <code>dapc()</code> arguments we used refer to:</p>
 <ul>
@@ -545,16 +584,16 @@ $(document).ready(function () {
 <p>The <code>scatter()</code> function is part of the <em>ade4</em> package and plots results of a DAPC analysis.</p>
 <p>As you can see, each year between 2001 to 2005 is a cluster of H3N2 strains separated by axis 1. In contrast, axis 2 separates the strains observed in the 2006 cluster from the clusters observed during 2001-5, indicating that the strains observed in 2006 are genetically distinct.</p>
 <p>Next, let’s assess if there are alleles that most differentiate the 2006 cluster from those in other years.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">contrib &lt;-<span class="st"> </span><span class="kw">loadingplot</span>(dapc.H3N2<span class="op">$</span>var.contr, <span class="dt">axis =</span> <span class="dv">2</span>, <span class="dt">thres =</span> <span class="fl">0.07</span>, <span class="dt">lab.jitter =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">set.seed</span>(<span class="dv">4</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>contrib &lt;-<span class="st"> </span><span class="kw">loadingplot</span>(dapc.H3N2<span class="op">$</span>var.contr, <span class="dt">axis =</span> <span class="dv">2</span>, <span class="dt">thres =</span> <span class="fl">0.07</span>, <span class="dt">lab.jitter =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="DAPC_files/figure-html/unnamed-chunk-3-1.png" width="960" /></p>
 <p>It looks like SNPs at position 399 and 906 are involved. Let’s check this further by looking at allele frequencies by year:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">temp    &lt;-<span class="st"> </span><span class="kw">seploc</span>(H3N2)       <span class="co"># seploc {adegenet} creates a list of individual loci.</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">snp906  &lt;-<span class="st"> </span><span class="kw">tab</span>(temp[[<span class="st">&quot;906&quot;</span>]]) <span class="co"># tab {adegenet} returns a matrix of genotypes</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">snp399  &lt;-<span class="st"> </span><span class="kw">tab</span>(temp[[<span class="st">&quot;399&quot;</span>]])</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co"># The following two commands find the average allele frequencies per population</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">(freq906 &lt;-<span class="st"> </span><span class="kw">apply</span>(snp906, <span class="dv">2</span>, <span class="cf">function</span>(e) <span class="kw">tapply</span>(e, <span class="kw">pop</span>(H3N2), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>temp    &lt;-<span class="st"> </span><span class="kw">seploc</span>(H3N2)       <span class="co"># seploc {adegenet} creates a list of individual loci.</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>snp906  &lt;-<span class="st"> </span><span class="kw">tab</span>(temp[[<span class="st">&quot;906&quot;</span>]]) <span class="co"># tab {adegenet} returns a matrix of genotypes</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>snp399  &lt;-<span class="st"> </span><span class="kw">tab</span>(temp[[<span class="st">&quot;399&quot;</span>]])</span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co"># The following two commands find the average allele frequencies per population</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>(freq906 &lt;-<span class="st"> </span><span class="kw">apply</span>(snp906, <span class="dv">2</span>, <span class="cf">function</span>(e) <span class="kw">tapply</span>(e, <span class="kw">pop</span>(H3N2), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))</span></code></pre></div>
 <pre><code>##            906.c     906.t
 ## 2001 0.000000000 1.0000000
 ## 2002 0.000000000 1.0000000
@@ -562,7 +601,7 @@ $(document).ready(function () {
 ## 2004 0.000000000 1.0000000
 ## 2005 0.002155172 0.9978448
 ## 2006 0.616071429 0.3839286</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">(freq399 &lt;-<span class="st"> </span><span class="kw">apply</span>(snp399, <span class="dv">2</span>, <span class="cf">function</span>(e) <span class="kw">tapply</span>(e, <span class="kw">pop</span>(H3N2), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>(freq399 &lt;-<span class="st"> </span><span class="kw">apply</span>(snp399, <span class="dv">2</span>, <span class="cf">function</span>(e) <span class="kw">tapply</span>(e, <span class="kw">pop</span>(H3N2), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))</span></code></pre></div>
 <pre><code>##            399.c     399.t
 ## 2001 0.000000000 1.0000000
 ## 2002 0.000000000 1.0000000
@@ -571,24 +610,24 @@ $(document).ready(function () {
 ## 2005 0.002079002 0.9979210
 ## 2006 0.357142857 0.6428571</code></pre>
 <p>Note that a new allele appeared in 2005 for SNP locus 906 and 2004 for locus 399 separating populations along axis 2.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># First, set the plotting parameters</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co"># mfrow = number of columns, rows</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co"># mar   = plot margin size</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co"># las   = axis label style (3: always vertical)</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">0</span>) <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>, <span class="dt">las =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="kw">matplot</span>(freq906,  <span class="dt">pch =</span> <span class="kw">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;t&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>,</a>
-<a class="sourceLine" id="cb7-8" data-line-number="8">        <span class="dt">xlab =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;allele frequency&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;SNP # 906&quot;</span>,</a>
-<a class="sourceLine" id="cb7-9" data-line-number="9">        <span class="dt">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>, <span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">lab =</span> <span class="dv">2001</span><span class="op">:</span><span class="dv">2006</span>)</a>
-<a class="sourceLine" id="cb7-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="kw">matplot</span>(freq399, <span class="dt">pch =</span> <span class="kw">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;t&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>,</a>
-<a class="sourceLine" id="cb7-13" data-line-number="13">        <span class="dt">xlab =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;allele frequency&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;SNP #399&quot;</span>,</a>
-<a class="sourceLine" id="cb7-14" data-line-number="14">        <span class="dt">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>, <span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">lab =</span> <span class="dv">2001</span><span class="op">:</span><span class="dv">2006</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># First, set the plotting parameters</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="co"># mfrow = number of columns, rows</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co"># mar   = plot margin size</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co"># las   = axis label style (3: always vertical)</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">0</span>) <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>, <span class="dt">las =</span> <span class="dv">3</span>)</span>
+<span id="cb7-6"><a href="#cb7-6"></a></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="kw">matplot</span>(freq906,  <span class="dt">pch =</span> <span class="kw">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;t&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>,</span>
+<span id="cb7-8"><a href="#cb7-8"></a>        <span class="dt">xlab =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;allele frequency&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;SNP # 906&quot;</span>,</span>
+<span id="cb7-9"><a href="#cb7-9"></a>        <span class="dt">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>, <span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">lab =</span> <span class="dv">2001</span><span class="op">:</span><span class="dv">2006</span>)</span>
+<span id="cb7-11"><a href="#cb7-11"></a></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="kw">matplot</span>(freq399, <span class="dt">pch =</span> <span class="kw">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;t&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>,</span>
+<span id="cb7-13"><a href="#cb7-13"></a>        <span class="dt">xlab =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;allele frequency&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;SNP #399&quot;</span>,</span>
+<span id="cb7-14"><a href="#cb7-14"></a>        <span class="dt">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>, <span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">lab =</span> <span class="dv">2001</span><span class="op">:</span><span class="dv">2006</span>)</span></code></pre></div>
 <p><img src="DAPC_files/figure-html/unnamed-chunk-5-1.png" width="960" /></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># Now we reset the plotting parameters to default</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>, <span class="dt">las =</span> <span class="dv">0</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Now we reset the plotting parameters to default</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>, <span class="dt">las =</span> <span class="dv">0</span>)</span></code></pre></div>
 <p>This plot nicely illustrates the effect of mutation, followed by selection or drift in the seasonal H3N2 influenza virus.</p>
 </div>
 <div id="cross-validation-dapc-analysis-of-phytophthora-ramorum-from-forests-and-nurseries" class="section level1">
@@ -599,9 +638,9 @@ $(document).ready(function () {
 <blockquote>
 <p>By default <code>xvalDapc()</code> needs two parameters: 1. The genotype matrix, 2. The population factors.</p>
 </blockquote>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">data</span>(<span class="st">&quot;Pram&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;poppr&quot;</span>)</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3">Pram</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">data</span>(<span class="st">&quot;Pram&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;poppr&quot;</span>)</span>
+<span id="cb9-3"><a href="#cb9-3"></a>Pram</span></code></pre></div>
 <pre><code>## 
 ## This is a genclone object
 ## -------------------------
@@ -616,22 +655,22 @@ $(document).ready(function () {
 ##      3 strata - SOURCE, YEAR, STATE
 ##      9 populations defined - 
 ## Nursery_CA, Nursery_OR, JHallCr_OR, ..., Winchuck_OR, ChetcoMain_OR, PistolRSF_OR</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">999</span>)</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2">pramx &lt;-<span class="st"> </span><span class="kw">xvalDapc</span>(<span class="kw">tab</span>(Pram, <span class="dt">NA.method =</span> <span class="st">&quot;mean&quot;</span>), <span class="kw">pop</span>(Pram))</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">set.seed</span>(<span class="dv">999</span>)</span>
+<span id="cb11-2"><a href="#cb11-2"></a>pramx &lt;-<span class="st"> </span><span class="kw">xvalDapc</span>(<span class="kw">tab</span>(Pram, <span class="dt">NA.method =</span> <span class="st">&quot;mean&quot;</span>), <span class="kw">pop</span>(Pram))</span></code></pre></div>
 <p><img src="DAPC_files/figure-html/unnamed-chunk-6-1.png" width="960" /></p>
 <p>You can see that we have a peak around 15 PC. From here, we can narrow the search by specifying the number of PC to try with <code>n.pca</code> and centering it around 15, and doing 1000 replicates each (Note, this will take a long time).</p>
 <blockquote>
 <p>Windows users: change parallel to “snow”.</p>
 </blockquote>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">999</span>)</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw">system.time</span>(pramx &lt;-<span class="st"> </span><span class="kw">xvalDapc</span>(<span class="kw">tab</span>(Pram, <span class="dt">NA.method =</span> <span class="st">&quot;mean&quot;</span>), <span class="kw">pop</span>(Pram),</a>
-<a class="sourceLine" id="cb12-3" data-line-number="3">                             <span class="dt">n.pca =</span> <span class="dv">10</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">n.rep =</span> <span class="dv">1000</span>,</a>
-<a class="sourceLine" id="cb12-4" data-line-number="4">                             <span class="dt">parallel =</span> <span class="st">&quot;multicore&quot;</span>, <span class="dt">ncpus =</span> 4L))</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">set.seed</span>(<span class="dv">999</span>)</span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="kw">system.time</span>(pramx &lt;-<span class="st"> </span><span class="kw">xvalDapc</span>(<span class="kw">tab</span>(Pram, <span class="dt">NA.method =</span> <span class="st">&quot;mean&quot;</span>), <span class="kw">pop</span>(Pram),</span>
+<span id="cb12-3"><a href="#cb12-3"></a>                             <span class="dt">n.pca =</span> <span class="dv">10</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">n.rep =</span> <span class="dv">1000</span>,</span>
+<span id="cb12-4"><a href="#cb12-4"></a>                             <span class="dt">parallel =</span> <span class="st">&quot;multicore&quot;</span>, <span class="dt">ncpus =</span> 4L))</span></code></pre></div>
 <p><img src="DAPC_files/figure-html/Pramhide-1.png" width="960" /></p>
 <pre><code>##    user  system elapsed 
-## 109.964   4.516  33.861</code></pre>
+## 176.473   9.777  47.494</code></pre>
 <p>We can see that it’s basically a flat line all the way. If we take a look at the object, we see that 16 PCs give us the highest percent of correctly predicted subsamples with the lowest error.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">names</span>(pramx) <span class="co"># The first element are all the samples</span></a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">names</span>(pramx) <span class="co"># The first element are all the samples</span></span></code></pre></div>
 <pre><code>## [1] &quot;Cross-Validation Results&quot;                          
 ## [2] &quot;Median and Confidence Interval for Random Chance&quot;  
 ## [3] &quot;Mean Successful Assignment by Number of PCs of PCA&quot;
@@ -639,28 +678,28 @@ $(document).ready(function () {
 ## [5] &quot;Root Mean Squared Error by Number of PCs of PCA&quot;   
 ## [6] &quot;Number of PCs Achieving Lowest MSE&quot;                
 ## [7] &quot;DAPC&quot;</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">pramx[<span class="op">-</span><span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>pramx[<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## $`Median and Confidence Interval for Random Chance`
 ##       2.5%        50%      97.5% 
-## 0.08877822 0.11112549 0.13205190 
+## 0.09179837 0.11054024 0.13281445 
 ## 
 ## $`Mean Successful Assignment by Number of PCs of PCA`
-##        10        11        12        13        14        15        16 
-## 0.6476968 0.6461921 0.6444716 0.6471279 0.6575571 0.6681401 0.6721343 
-##        17        18        19        20 
-## 0.6716012 0.6713644 0.6725124 0.6674652 
+##        10        11        12        13        14        15        16        17 
+## 0.6483115 0.6484877 0.6460399 0.6459813 0.6563492 0.6673671 0.6733597 0.6704714 
+##        18        19        20 
+## 0.6703640 0.6692078 0.6670846 
 ## 
 ## $`Number of PCs Achieving Highest Mean Success`
-## [1] &quot;19&quot;
+## [1] &quot;16&quot;
 ## 
 ## $`Root Mean Squared Error by Number of PCs of PCA`
-##        10        11        12        13        14        15        16 
-## 0.3541510 0.3556648 0.3575714 0.3547137 0.3443211 0.3337825 0.3297427 
-##        17        18        19        20 
-## 0.3304602 0.3304979 0.3294658 0.3344430 
+##        10        11        12        13        14        15        16        17 
+## 0.3534834 0.3531600 0.3557343 0.3558209 0.3456140 0.3344596 0.3285616 0.3315655 
+##        18        19        20 
+## 0.3315402 0.3324705 0.3349063 
 ## 
 ## $`Number of PCs Achieving Lowest MSE`
-## [1] &quot;19&quot;
+## [1] &quot;16&quot;
 ## 
 ## $DAPC
 ##  #################################################
@@ -670,11 +709,11 @@ $(document).ready(function () {
 ## $call: dapc.data.frame(x = as.data.frame(x), grp = ..1, n.pca = ..2, 
 ##     n.da = ..3)
 ## 
-## $n.pca: 19 first PCs of PCA used
+## $n.pca: 16 first PCs of PCA used
 ## $n.da: 8 discriminant functions saved
-## $var (proportion of conserved variance): 0.989
+## $var (proportion of conserved variance): 0.984
 ## 
-## $eig (eigenvalues): 890.7 214.8 99.55 58.37 49.21 ...
+## $eig (eigenvalues): 881.9 207.4 97.39 57.36 49.03 ...
 ## 
 ##   vector    length content                   
 ## 1 $eig      8      eigenvalues               
@@ -685,28 +724,19 @@ $(document).ready(function () {
 ## 6 $pca.norm 38     scaling vector of PCA     
 ## 7 $pca.eig  33     eigenvalues of PCA        
 ## 
-##   data.frame    nrow ncol
-## 1 $tab          729  19  
-## 2 $means        9    19  
-## 3 $loadings     19   8   
-## 4 $ind.coord    729  8   
-## 5 $grp.coord    9    8   
-## 6 $posterior    729  9   
-## 7 $pca.loadings 38   19  
-## 8 $var.contr    38   8   
-##   content                                          
-## 1 retained PCs of PCA                              
-## 2 group means                                      
-## 3 loadings of variables                            
-## 4 coordinates of individuals (principal components)
-## 5 coordinates of groups                            
-## 6 posterior membership probabilities               
-## 7 PCA loadings of original variables               
-## 8 contribution of original variables</code></pre>
+##   data.frame    nrow ncol content                                          
+## 1 $tab          729  16   retained PCs of PCA                              
+## 2 $means        9    16   group means                                      
+## 3 $loadings     16   8    loadings of variables                            
+## 4 $ind.coord    729  8    coordinates of individuals (principal components)
+## 5 $grp.coord    9    8    coordinates of groups                            
+## 6 $posterior    729  9    posterior membership probabilities               
+## 7 $pca.loadings 38   16   PCA loadings of original variables               
+## 8 $var.contr    38   8    contribution of original variables</code></pre>
 <p>We also have a DAPC object that we can plot comparable to figure 4 in <span class="citation">Kamvar et al. (2015)</span>:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">scatter</span>(pramx<span class="op">$</span>DAPC, <span class="dt">col =</span> <span class="kw">other</span>(Pram)<span class="op">$</span>comparePal, <span class="dt">cex =</span> <span class="dv">2</span>, <span class="dt">legend =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb18-2" data-line-number="2">        <span class="dt">clabel =</span> <span class="ot">FALSE</span>, <span class="dt">posi.leg =</span> <span class="st">&quot;bottomleft&quot;</span>, <span class="dt">scree.pca =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb18-3" data-line-number="3">        <span class="dt">posi.pca =</span> <span class="st">&quot;topleft&quot;</span>, <span class="dt">cleg =</span> <span class="fl">0.75</span>, <span class="dt">xax =</span> <span class="dv">1</span>, <span class="dt">yax =</span> <span class="dv">2</span>, <span class="dt">inset.solid =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">scatter</span>(pramx<span class="op">$</span>DAPC, <span class="dt">col =</span> <span class="kw">other</span>(Pram)<span class="op">$</span>comparePal, <span class="dt">cex =</span> <span class="dv">2</span>, <span class="dt">legend =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb18-2"><a href="#cb18-2"></a>        <span class="dt">clabel =</span> <span class="ot">FALSE</span>, <span class="dt">posi.leg =</span> <span class="st">&quot;bottomleft&quot;</span>, <span class="dt">scree.pca =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb18-3"><a href="#cb18-3"></a>        <span class="dt">posi.pca =</span> <span class="st">&quot;topleft&quot;</span>, <span class="dt">cleg =</span> <span class="fl">0.75</span>, <span class="dt">xax =</span> <span class="dv">1</span>, <span class="dt">yax =</span> <span class="dv">2</span>, <span class="dt">inset.solid =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="DAPC_files/figure-html/unnamed-chunk-8-1.png" width="960" /></p>
 <p>We can see that this shows the clear separation of Hunter Creek from the rest of the epidemic, providing evidence that this population arose from a separate introduction.</p>
 </div>
@@ -719,19 +749,19 @@ $(document).ready(function () {
 <h1>References</h1>
 <div id="refs" class="references">
 <div id="ref-goss2009population">
-<p>Goss EM., Larsen M., Chastagner GA., Givens DR., Grünwald NJ. 2009. Population genetic analysis infers migration pathways of phytophthora ramorum in us nurseries. <em>PLoS Pathog</em> 5:e1000583. Available at: <a href="http://dx.doi.org/10.1371/journal.ppat.1000583" class="uri">http://dx.doi.org/10.1371/journal.ppat.1000583</a></p>
+<p>Goss EM., Larsen M., Chastagner GA., Givens DR., Grünwald NJ. 2009. Population genetic analysis infers migration pathways of phytophthora ramorum in us nurseries. <em>PLoS Pathog</em> 5:e1000583. Available at: <a href="http://dx.doi.org/10.1371/journal.ppat.1000583">http://dx.doi.org/10.1371/journal.ppat.1000583</a></p>
 </div>
 <div id="ref-grunwald2011evolution">
-<p>Grünwald NJ., Goss EM. 2011. Evolution and population genetics of exotic and re-emerging pathogens: Novel tools and approaches. <em>Annual Review of Phytopathology</em> 49:249–267. Available at: <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-phyto-072910-095246?journalCode=phyto" class="uri">http://www.annualreviews.org/doi/abs/10.1146/annurev-phyto-072910-095246?journalCode=phyto</a></p>
+<p>Grünwald NJ., Goss EM. 2011. Evolution and population genetics of exotic and re-emerging pathogens: Novel tools and approaches. <em>Annual Review of Phytopathology</em> 49:249–267. Available at: <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-phyto-072910-095246?journalCode=phyto">http://www.annualreviews.org/doi/abs/10.1146/annurev-phyto-072910-095246?journalCode=phyto</a></p>
 </div>
 <div id="ref-jombart2010discriminant">
-<p>Jombart T., Devillard S., Balloux F. 2010. Discriminant analysis of principal components: A new method for the analysis of genetically structured populations. <em>BMC genetics</em> 11:94. Available at: <a href="http://www.biomedcentral.com/1471-2156/11/94" class="uri">http://www.biomedcentral.com/1471-2156/11/94</a></p>
+<p>Jombart T., Devillard S., Balloux F. 2010. Discriminant analysis of principal components: A new method for the analysis of genetically structured populations. <em>BMC genetics</em> 11:94. Available at: <a href="http://www.biomedcentral.com/1471-2156/11/94">http://www.biomedcentral.com/1471-2156/11/94</a></p>
 </div>
 <div id="ref-kamvar2015spatial">
-<p>Kamvar Z., Larsen M., Kanaskie A., Hansen E., Grünwald N. 2015. Spatial and temporal analysis of populations of the sudden oak death pathogen in oregon forests. <em>Phytopathology</em> 105:982–989. Available at: <a href="http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI" class="uri">http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI</a></p>
+<p>Kamvar Z., Larsen M., Kanaskie A., Hansen E., Grünwald N. 2015. Spatial and temporal analysis of populations of the sudden oak death pathogen in oregon forests. <em>Phytopathology</em> 105:982–989. Available at: <a href="http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI">http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI</a></p>
 </div>
 <div id="ref-pritchard2000inference">
-<p>Pritchard JK., Stephens M., Donnelly P. 2000. Inference of population structure using multilocus genotype data. <em>Genetics</em> 155:945–959. Available at: <a href="http://www.genetics.org/content/155/2/945.abstract" class="uri">http://www.genetics.org/content/155/2/945.abstract</a></p>
+<p>Pritchard JK., Stephens M., Donnelly P. 2000. Inference of population structure using multilocus genotype data. <em>Genetics</em> 155:945–959. Available at: <a href="http://www.genetics.org/content/155/2/945.abstract">http://www.genetics.org/content/155/2/945.abstract</a></p>
 </div>
 </div>
 </div>
@@ -745,7 +775,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

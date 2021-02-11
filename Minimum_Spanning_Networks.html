@@ -20,6 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -30,12 +33,21 @@
   gtag('config', 'UA-107144798-3');
 </script>
 
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -45,14 +57,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -61,9 +75,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { background-color: #f8f8f8; }
+  {  background-color: #f8f8f8; }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -437,28 +451,53 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Workshop
+    Workshops
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="workshop.html">Workshop</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">ICPP</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_icpp.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+        <li>
+          <a href="analysis_of_genome.html">Analysis of genome data</a>
+        </li>
+      </ul>
     </li>
-    <li>
-      <a href="intro_vcf.html">Introduction</a>
-    </li>
-    <li>
-      <a href="reading_vcf.html">VCF data</a>
-    </li>
-    <li>
-      <a href="quality_control.html">Quality control</a>
-    </li>
-    <li>
-      <a href="gbs_analysis.html">Analysis of GBS data</a>
-    </li>
-    <li>
-      <a href="analysis_of_genome.html">Analysis of genome data</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">APS Southern Division</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="workshop_southernAPS.html">Preparation</a>
+        </li>
+        <li>
+          <a href="intro_vcf.html">Introduction</a>
+        </li>
+        <li>
+          <a href="reading_vcf.html">VCF data</a>
+        </li>
+        <li>
+          <a href="quality_control.html">Quality control</a>
+        </li>
+        <li>
+          <a href="gbs_analysis.html">Analysis of GBS data</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </li>
@@ -549,11 +588,11 @@ $(document).ready(function () {
 <li>To what degree do the Blossom Blight (BB) samples contribute to the FR?</li>
 </ol>
 <p>Let’s load the data:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">data</span>(monpop)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">splitStrata</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree<span class="op">/</span>Year<span class="op">/</span>Symptom</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">summary</span>(monpop)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">data</span>(monpop)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">splitStrata</span>(monpop) &lt;-<span class="st"> </span><span class="er">~</span>Tree<span class="op">/</span>Year<span class="op">/</span>Symptom</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">summary</span>(monpop)</span></code></pre></div>
 <pre><code>## 
 ## // Number of individuals: 694
 ## // Group sizes: 23 41 132 73 5 13 1 64 85 130 30 97
@@ -562,8 +601,8 @@ $(document).ready(function () {
 ## // Percentage of missing data: 0.51 %
 ## // Observed heterozygosity: 0</code></pre>
 <p>We notice that tree number 26 is the only one to have been sampled for all three years. Let’s use it as an example.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">t26 &lt;-<span class="st"> </span>monpop <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">setPop</span>(<span class="op">~</span>Tree) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">popsub</span>(<span class="st">&quot;26&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">setPop</span>(<span class="op">~</span>Year<span class="op">/</span>Symptom)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">t26</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>t26 &lt;-<span class="st"> </span>monpop <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">setPop</span>(<span class="op">~</span>Tree) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">popsub</span>(<span class="st">&quot;26&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">setPop</span>(<span class="op">~</span>Year<span class="op">/</span>Symptom)</span>
+<span id="cb3-2"><a href="#cb3-2"></a>t26</span></code></pre></div>
 <pre><code>## 
 ## This is a genclone object
 ## -------------------------
@@ -578,20 +617,20 @@ $(document).ready(function () {
 ##      3 strata - Tree, Year, Symptom
 ##      6 populations defined - 9_BB, 9_FR, 10_BB, 10_FR, 11_BB, 11_FR</code></pre>
 <p>Now that we have our tree, let’s calculate a MSN using Bruvo’s distance <span class="citation">(Bruvo et al., 2004)</span>. Remember that this distance is based on a stepwise mutation model, so we have to first specify what kind of repeats units we have in our data (eg. dinucleotide = 2, trinucleotide = 3, etc.):</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># Set up our repeat lengths and populations to analyze</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">reps &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">CHMFc4 =</span> <span class="dv">7</span>, <span class="dt">CHMFc5 =</span> <span class="dv">2</span>, <span class="dt">CHMFc12 =</span> <span class="dv">4</span>,</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">          <span class="dt">SEA =</span> <span class="dv">4</span>, <span class="dt">SED =</span> <span class="dv">4</span>, <span class="dt">SEE =</span> <span class="dv">2</span>, <span class="dt">SEG =</span> <span class="dv">6</span>,</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">          <span class="dt">SEI =</span> <span class="dv">3</span>, <span class="dt">SEL =</span> <span class="dv">4</span>, <span class="dt">SEN =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">          <span class="dt">SEP =</span> <span class="dv">4</span>, <span class="dt">SEQ =</span> <span class="dv">2</span>, <span class="dt">SER =</span> <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">sub9 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;9_BB&quot;</span>, <span class="st">&quot;9_FR&quot;</span>)</a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co"># Calculate the MSN</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10">t26<span class="fl">.9</span>msn &lt;-<span class="st"> </span><span class="kw">bruvo.msn</span>(t26, <span class="dt">replen =</span> reps, <span class="dt">sublist =</span> sub9, <span class="dt">showplot =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
-<p>The minimum spanning network is calculated via <code>bruvo.msn</code>. We have set the argument <code>showplot = FALSE</code> because we want to use the more powerful function <code>plot_poppr_msn</code> to view the MSN. I am telling it to label none of the samples, color populations using the “cm.colors” palette and scale the size of the nodes to <span class="math inline">\(log_{1.25}\)</span>. If you want to know what other things this function can do, simply type <code>help(&quot;plot_poppr_msn&quot;)</code></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># Visualize the network</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">120</span>)</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw">plot_poppr_msn</span>(t26, t26<span class="fl">.9</span>msn, <span class="dt">inds =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">palette =</span> cm.colors, <span class="dt">nodebase =</span> <span class="fl">1.25</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Set up our repeat lengths and populations to analyze</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>reps &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">CHMFc4 =</span> <span class="dv">7</span>, <span class="dt">CHMFc5 =</span> <span class="dv">2</span>, <span class="dt">CHMFc12 =</span> <span class="dv">4</span>,</span>
+<span id="cb5-3"><a href="#cb5-3"></a>          <span class="dt">SEA =</span> <span class="dv">4</span>, <span class="dt">SED =</span> <span class="dv">4</span>, <span class="dt">SEE =</span> <span class="dv">2</span>, <span class="dt">SEG =</span> <span class="dv">6</span>,</span>
+<span id="cb5-4"><a href="#cb5-4"></a>          <span class="dt">SEI =</span> <span class="dv">3</span>, <span class="dt">SEL =</span> <span class="dv">4</span>, <span class="dt">SEN =</span> <span class="dv">2</span>,</span>
+<span id="cb5-5"><a href="#cb5-5"></a>          <span class="dt">SEP =</span> <span class="dv">4</span>, <span class="dt">SEQ =</span> <span class="dv">2</span>, <span class="dt">SER =</span> <span class="dv">4</span>)</span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a>sub9 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;9_BB&quot;</span>, <span class="st">&quot;9_FR&quot;</span>)</span>
+<span id="cb5-8"><a href="#cb5-8"></a></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co"># Calculate the MSN</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a>t26<span class="fl">.9</span>msn &lt;-<span class="st"> </span><span class="kw">bruvo.msn</span>(t26, <span class="dt">replen =</span> reps, <span class="dt">sublist =</span> sub9, <span class="dt">showplot =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<p>The minimum spanning network is calculated via <code>bruvo.msn</code>. We have set the argument <code>showplot = FALSE</code> because we want to use the more powerful function <code>plot_poppr_msn</code> to view the MSN. I am telling it to label none of the samples, color populations using the “cm.colors” palette and scale the size of the nodes to <span class="math inline">\(log_{1.25}\)</span>. If you want to know what other things this function can do, simply type <code>help("plot_poppr_msn")</code></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Visualize the network</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">set.seed</span>(<span class="dv">120</span>)</span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">plot_poppr_msn</span>(t26, t26<span class="fl">.9</span>msn, <span class="dt">inds =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">palette =</span> cm.colors, <span class="dt">nodebase =</span> <span class="fl">1.25</span>)</span></code></pre></div>
 <p><img src="Minimum_Spanning_Networks_files/figure-html/visualize_msn-1.png" width="700px" /></p>
 <p>We can see that the Blossom Blight in the tree (pink pie slices) heavily contributed to the major groups of MLGs found in the Fruit Rot (blue pie pieces).</p>
 <blockquote>
@@ -602,59 +641,68 @@ $(document).ready(function () {
 <div id="interactive-viewer" class="section level1">
 <h1>Interactive viewer</h1>
 <p>Creating a customized, publishable MSN is somewhat daunting as the <code>plot_poppr_msn</code> function has a whole lot arguments:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">args</span>(plot_poppr_msn)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">args</span>(plot_poppr_msn)</span></code></pre></div>
 <pre><code>## function (x, poppr_msn, gscale = TRUE, gadj = 3, mlg.compute = &quot;original&quot;, 
-##     glim = c(0, 0.8), gweight = 1, wscale = TRUE, nodebase = 1.15, 
-##     nodelab = 2, inds = &quot;ALL&quot;, mlg = FALSE, quantiles = TRUE, 
-##     cutoff = NULL, palette = NULL, layfun = layout.auto, beforecut = FALSE, 
-##     pop.leg = TRUE, scale.leg = TRUE, ...) 
+##     glim = c(0, 0.8), gweight = 1, wscale = TRUE, nodescale = 10, 
+##     nodebase = NULL, nodelab = 2, inds = &quot;ALL&quot;, mlg = FALSE, 
+##     quantiles = TRUE, cutoff = NULL, palette = NULL, layfun = layout.auto, 
+##     beforecut = FALSE, pop.leg = TRUE, size.leg = TRUE, scale.leg = TRUE, 
+##     ...) 
 ## NULL</code></pre>
 <p>We created the interactive tool <code>imsn()</code> to facilitate interactive plotting. This function will be able to create minimum spanning networks from all genind objects in your current R session. In this section, we will recreate the plot above. First we will make sure that we have all the data we need and then we will run <code>imsn()</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">ls</span>() <span class="co"># Show all the data we have in our workspace</span></a></code></pre></div>
-<pre><code>##  [1] &quot;Aeutamova&quot;           &quot;Aeutamovacc&quot;         &quot;Aeutccsignif&quot;       
-##  [4] &quot;Aeut.new&quot;            &quot;Aeut.new.amova&quot;      &quot;Aeut.new.amova.test&quot;
-##  [7] &quot;Aeutsignif&quot;          &quot;alpha&quot;               &quot;bib&quot;                
-## [10] &quot;chrom&quot;               &quot;cols&quot;                &quot;contrib&quot;            
-## [13] &quot;dapc.H3N2&quot;           &quot;dapc.results&quot;        &quot;dapc.x&quot;             
-## [16] &quot;dna&quot;                 &quot;dna_file&quot;            &quot;dp&quot;                 
-## [19] &quot;dp2&quot;                 &quot;dpf&quot;                 &quot;freq399&quot;            
-## [22] &quot;freq906&quot;             &quot;gac&quot;                 &quot;gff&quot;                
-## [25] &quot;gff_file&quot;            &quot;gi.rubi&quot;             &quot;gl.rubi&quot;            
-## [28] &quot;grp&quot;                 &quot;gt&quot;                  &quot;H3N2&quot;               
-## [31] &quot;html&quot;                &quot;i&quot;                   &quot;iPinf&quot;              
-## [34] &quot;lambda&quot;              &quot;mat&quot;                 &quot;min_sample&quot;         
-## [37] &quot;miss&quot;                &quot;monpop&quot;              &quot;monpop_diversity&quot;   
-## [40] &quot;mon.tab&quot;             &quot;MX&quot;                  &quot;MXia&quot;               
-## [43] &quot;mxpair&quot;              &quot;myIndex&quot;             &quot;myLevels&quot;           
-## [46] &quot;myList&quot;              &quot;myPlots&quot;             &quot;myRegex&quot;            
-## [49] &quot;myRows&quot;              &quot;N&quot;                   &quot;nan1&quot;               
-## [52] &quot;nancycats&quot;           &quot;nanhwe.full&quot;         &quot;nanhwe.mat&quot;         
-## [55] &quot;nanhwe.pop&quot;          &quot;nanmean&quot;             &quot;nanzero&quot;            
-## [58] &quot;newmat&quot;              &quot;node.size&quot;           &quot;p&quot;                  
-## [61] &quot;Pinf&quot;                &quot;pinflt&quot;              &quot;Pinf.ploidy&quot;        
-## [64] &quot;plotrange&quot;           &quot;pnw.dapc&quot;            &quot;pop.data&quot;           
-## [67] &quot;Pram&quot;                &quot;pramx&quot;               &quot;P.tab&quot;              
-## [70] &quot;quants&quot;              &quot;reps&quot;                &quot;rubi.dist&quot;          
-## [73] &quot;rubi.msn&quot;            &quot;rubi.pca&quot;            &quot;rubi.pca.scores&quot;    
-## [76] &quot;rubi.VCF&quot;            &quot;SA&quot;                  &quot;SAia&quot;               
-## [79] &quot;samps_per_row&quot;       &quot;sapair&quot;              &quot;snp399&quot;             
-## [82] &quot;snp906&quot;              &quot;sub9&quot;                &quot;t26&quot;                
-## [85] &quot;t26.9msn&quot;            &quot;temp&quot;                &quot;tree&quot;               
-## [88] &quot;vcf&quot;                 &quot;vcf_file&quot;            &quot;x&quot;                  
-## [91] &quot;X&quot;                   &quot;x.dist&quot;              &quot;x.msn&quot;              
-## [94] &quot;x.msn2&quot;              &quot;x.tree&quot;              &quot;xval&quot;</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">ls</span>() <span class="co"># Show all the data we have in our workspace</span></span></code></pre></div>
+<pre><code>##   [1] &quot;Aeut.new&quot;            &quot;Aeut.new.amova&quot;      &quot;Aeut.new.amova.test&quot;
+##   [4] &quot;Aeutamova&quot;           &quot;Aeutamovacc&quot;         &quot;Aeutccsignif&quot;       
+##   [7] &quot;Aeutsignif&quot;          &quot;alpha&quot;               &quot;alphabet&quot;           
+##  [10] &quot;bib&quot;                 &quot;ca_or_gl&quot;            &quot;chrom&quot;              
+##  [13] &quot;cols&quot;                &quot;contrib&quot;             &quot;dapc_l&quot;             
+##  [16] &quot;dapc.H3N2&quot;           &quot;dapc.results&quot;        &quot;dapc.x&quot;             
+##  [19] &quot;dna&quot;                 &quot;dna_file&quot;            &quot;dp&quot;                 
+##  [22] &quot;dp2&quot;                 &quot;dpf&quot;                 &quot;freq399&quot;            
+##  [25] &quot;freq906&quot;             &quot;gac&quot;                 &quot;gff&quot;                
+##  [28] &quot;gff_file&quot;            &quot;gl_rubi&quot;             &quot;gl.rubi&quot;            
+##  [31] &quot;grp&quot;                 &quot;grp_l&quot;               &quot;grp.labs&quot;           
+##  [34] &quot;gt&quot;                  &quot;H3N2&quot;                &quot;html&quot;               
+##  [37] &quot;i&quot;                   &quot;iPinf&quot;               &quot;lambda&quot;             
+##  [40] &quot;mat&quot;                 &quot;maxK&quot;                &quot;min_sample&quot;         
+##  [43] &quot;miss&quot;                &quot;mon.tab&quot;             &quot;monpop&quot;             
+##  [46] &quot;monpop_diversity&quot;    &quot;MX&quot;                  &quot;MXia&quot;               
+##  [49] &quot;mxpair&quot;              &quot;my_df&quot;               &quot;my_k&quot;               
+##  [52] &quot;my_means&quot;            &quot;my_pal&quot;              &quot;my_pca&quot;             
+##  [55] &quot;my_scores&quot;           &quot;myDiff&quot;              &quot;myIndex&quot;            
+##  [58] &quot;myLevels&quot;            &quot;myList&quot;              &quot;myMat&quot;              
+##  [61] &quot;myPlots&quot;             &quot;myRegex&quot;             &quot;myRows&quot;             
+##  [64] &quot;N&quot;                   &quot;nan1&quot;                &quot;nancycats&quot;          
+##  [67] &quot;nanhwe.full&quot;         &quot;nanhwe.mat&quot;          &quot;nanhwe.pop&quot;         
+##  [70] &quot;nanmean&quot;             &quot;nanzero&quot;             &quot;newmat&quot;             
+##  [73] &quot;node.size&quot;           &quot;p&quot;                   &quot;P.tab&quot;              
+##  [76] &quot;p1&quot;                  &quot;p2&quot;                  &quot;p3&quot;                 
+##  [79] &quot;Pinf&quot;                &quot;Pinf.ploidy&quot;         &quot;pinflt&quot;             
+##  [82] &quot;plotrange&quot;           &quot;pnw.dapc&quot;            &quot;pop&quot;                
+##  [85] &quot;pop.data&quot;            &quot;Pram&quot;                &quot;pramx&quot;              
+##  [88] &quot;quants&quot;              &quot;reps&quot;                &quot;rubi.dist&quot;          
+##  [91] &quot;rubi.gl.subset&quot;      &quot;rubi.msn&quot;            &quot;rubi.pca&quot;           
+##  [94] &quot;rubi.pca.scores&quot;     &quot;rubi.trees&quot;          &quot;rubi.variant.subset&quot;
+##  [97] &quot;rubi.VCF&quot;            &quot;rubi.VCF.sub1&quot;       &quot;rubi.VCF.sub2&quot;      
+## [100] &quot;SA&quot;                  &quot;SAia&quot;                &quot;samps_per_row&quot;      
+## [103] &quot;sapair&quot;              &quot;snp399&quot;              &quot;snp906&quot;             
+## [106] &quot;sub9&quot;                &quot;subset.1&quot;            &quot;subset.2&quot;           
+## [109] &quot;t26&quot;                 &quot;t26.9msn&quot;            &quot;temp&quot;               
+## [112] &quot;tmp&quot;                 &quot;tree&quot;                &quot;vcf&quot;                
+## [115] &quot;vcf_file&quot;            &quot;x&quot;                   &quot;X&quot;                  
+## [118] &quot;xval&quot;</code></pre>
 <blockquote>
 <p>Note: you will not be able to access your R console after running this function until you close the pop-up app.</p>
 </blockquote>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">imsn</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">imsn</span>()</span></code></pre></div>
 <p>(Note: you probably will not see the whole screen like this, but you can still scroll down)</p>
 <div class="figure">
-<img src="images/imsn_initial.png" alt="Intial view of imsn" />
+<img src="images/imsn_initial.png" alt="" />
 <p class="caption">Intial view of imsn</p>
 </div>
 <p>We can see that there are five tabs and a sidebar. For now, we’ll explain what is on the sidebar.</p>
 <div class="figure">
-<img src="images/imsn_status.png" alt="status view" />
+<img src="images/imsn_status.png" alt="" />
 <p class="caption">status view</p>
 </div>
 <p>The first thing you see is a green bar that says “ready”. This means that there are no processes going on in the background and that it’s waiting for input. Below that are three buttons: <strong>Go!</strong>, <strong>reData</strong>, and <strong>reGraph</strong>. These tell the program that you are ready render your graphs.</p>
@@ -691,7 +739,7 @@ $(document).ready(function () {
 <h3>Plot</h3>
 <p>This is the tab you see immediately. It has nothing in it because we haven’t told <code>imsn()</code> to do anything. Let’s hit <strong>Go!</strong> with our default parameters and see what happens.</p>
 <div class="figure">
-<img src="images/imsn_go.png" alt="minimum spanning network of partial_clone" />
+<img src="images/imsn_go.png" alt="" />
 <p class="caption">minimum spanning network of partial_clone</p>
 </div>
 <p>We now have a minimum spanning network of partial clone based a dissimilarity distance (“diss.dist”) where the distance is represented as counts of dissimilar alleles.</p>
@@ -699,7 +747,7 @@ $(document).ready(function () {
 <div id="data" class="section level3">
 <h3>Data</h3>
 <div class="figure">
-<img src="images/imsn_data.png" alt="partial_clone output" />
+<img src="images/imsn_data.png" alt="" />
 <p class="caption">partial_clone output</p>
 </div>
 <p>This is the output of your data set. You can use this to confirm that your data is what you expect.</p>
@@ -707,26 +755,26 @@ $(document).ready(function () {
 <div id="command" class="section level3">
 <h3>Command</h3>
 <div class="figure">
-<img src="images/imsn_command.png" alt="partial_clone command" />
+<img src="images/imsn_command.png" alt="" />
 <p class="caption">partial_clone command</p>
 </div>
 <p>If you copy and paste this command into your R console, you can recreate the minimum spanning network. This is important to make sure that your figure is reproducible.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&quot;partial_clone&quot;</span>) <span class="co"># Don&#39;t forget to load the data</span></a>
-<a class="sourceLine" id="cb12-2" data-line-number="2">partial_clone_sub &lt;-<span class="st"> </span><span class="kw">popsub</span>(partial_clone, <span class="dt">blacklist =</span> <span class="kw">character</span>(<span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb12-3" data-line-number="3">partial_clone_dist &lt;-<span class="st"> </span><span class="kw">diss.dist</span>(partial_clone_sub, <span class="dt">percent =</span> <span class="ot">FALSE</span>, <span class="dt">mat =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb12-4" data-line-number="4">min_span_net &lt;-<span class="st"> </span><span class="kw">poppr.msn</span>(partial_clone_sub, partial_clone_dist, <span class="dt">showplot =</span> <span class="ot">FALSE</span>, <span class="dt">include.ties =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb12-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="kw">set.seed</span>(<span class="dv">69</span>)</a>
-<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="kw">plot_poppr_msn</span>(partial_clone,</a>
-<a class="sourceLine" id="cb12-8" data-line-number="8">           min_span_net,</a>
-<a class="sourceLine" id="cb12-9" data-line-number="9">           <span class="dt">inds =</span> <span class="st">&quot;ALL&quot;</span>,</a>
-<a class="sourceLine" id="cb12-10" data-line-number="10">           <span class="dt">mlg =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb12-11" data-line-number="11">           <span class="dt">gadj =</span> <span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb12-12" data-line-number="12">           <span class="dt">nodebase =</span> <span class="fl">1.15</span>,</a>
-<a class="sourceLine" id="cb12-13" data-line-number="13">           <span class="dt">palette =</span> rainbow,</a>
-<a class="sourceLine" id="cb12-14" data-line-number="14">           <span class="dt">cutoff =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb12-15" data-line-number="15">           <span class="dt">quantiles =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb12-16" data-line-number="16">           <span class="dt">beforecut =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">data</span>(<span class="st">&quot;partial_clone&quot;</span>) <span class="co"># Don&#39;t forget to load the data</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>partial_clone_sub &lt;-<span class="st"> </span><span class="kw">popsub</span>(partial_clone, <span class="dt">blacklist =</span> <span class="kw">character</span>(<span class="dv">0</span>))</span>
+<span id="cb12-3"><a href="#cb12-3"></a>partial_clone_dist &lt;-<span class="st"> </span><span class="kw">diss.dist</span>(partial_clone_sub, <span class="dt">percent =</span> <span class="ot">FALSE</span>, <span class="dt">mat =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb12-4"><a href="#cb12-4"></a>min_span_net &lt;-<span class="st"> </span><span class="kw">poppr.msn</span>(partial_clone_sub, partial_clone_dist, <span class="dt">showplot =</span> <span class="ot">FALSE</span>, <span class="dt">include.ties =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb12-5"><a href="#cb12-5"></a></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="kw">set.seed</span>(<span class="dv">69</span>)</span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="kw">plot_poppr_msn</span>(partial_clone,</span>
+<span id="cb12-8"><a href="#cb12-8"></a>           min_span_net,</span>
+<span id="cb12-9"><a href="#cb12-9"></a>           <span class="dt">inds =</span> <span class="st">&quot;ALL&quot;</span>,</span>
+<span id="cb12-10"><a href="#cb12-10"></a>           <span class="dt">mlg =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb12-11"><a href="#cb12-11"></a>           <span class="dt">gadj =</span> <span class="dv">3</span>,</span>
+<span id="cb12-12"><a href="#cb12-12"></a>           <span class="dt">nodebase =</span> <span class="fl">1.15</span>,</span>
+<span id="cb12-13"><a href="#cb12-13"></a>           <span class="dt">palette =</span> rainbow,</span>
+<span id="cb12-14"><a href="#cb12-14"></a>           <span class="dt">cutoff =</span> <span class="ot">NULL</span>,</span>
+<span id="cb12-15"><a href="#cb12-15"></a>           <span class="dt">quantiles =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb12-16"><a href="#cb12-16"></a>           <span class="dt">beforecut =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p><img src="Minimum_Spanning_Networks_files/figure-html/partial_clone_reproduce-1.png" width="700px" /></p>
 </div>
 <div id="save-plot" class="section level3">
@@ -751,11 +799,11 @@ $(document).ready(function () {
 <p><img src="images/imsn_monpop_bruvo.png" /></p>
 <p>Notice how the options have now changed. This is because bruvo’s distance is a special distance that is parametric. Don’t worry about the model for missing data, but in the SSR repeat lengths section, type “reps” (we defined this earlier):</p>
 <p><img src="images/imsn_monpop_bruvo_opts.png" /></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">reps <span class="co"># our previous definition of &quot;reps&quot;</span></a></code></pre></div>
-<pre><code>##  CHMFc4  CHMFc5 CHMFc12     SEA     SED     SEE     SEG     SEI     SEL 
-##       7       2       4       4       4       2       6       3       4 
-##     SEN     SEP     SEQ     SER 
-##       2       4       2       4</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>reps <span class="co"># our previous definition of &quot;reps&quot;</span></span></code></pre></div>
+<pre><code>##  CHMFc4  CHMFc5 CHMFc12     SEA     SED     SEE     SEG     SEI     SEL     SEN 
+##       7       2       4       4       4       2       6       3       4       2 
+##     SEP     SEQ     SER 
+##       4       2       4</code></pre>
 <p>Now, modify the following graphical parameters:</p>
 <ul>
 <li>Node Size Scale: <strong>1.25</strong> (this is the option <code>nodebase</code>)</li>
@@ -772,8 +820,8 @@ $(document).ready(function () {
 <div id="load-the-data" class="section level3">
 <h3>Load the data</h3>
 <p>Exit the <code>imsn()</code> graphical window and execute the following statements:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&quot;Pram&quot;</span>)</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2">Pram</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">data</span>(<span class="st">&quot;Pram&quot;</span>)</span>
+<span id="cb15-2"><a href="#cb15-2"></a>Pram</span></code></pre></div>
 <pre><code>## 
 ## This is a genclone object
 ## -------------------------
@@ -789,10 +837,10 @@ $(document).ready(function () {
 ##      9 populations defined - 
 ## Nursery_CA, Nursery_OR, JHallCr_OR, ..., Winchuck_OR, ChetcoMain_OR, PistolRSF_OR</code></pre>
 <p>This data has a few things in the “other” slot that we need. First is the repeat lengths called “REPLEN” and the other is a vector of hexadecimal colors for each population called “comparePal”.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">other</span>(Pram)<span class="op">$</span>REPLEN</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">other</span>(Pram)<span class="op">$</span>REPLEN</span></code></pre></div>
 <pre><code>##  PrMS6A1  Pr9C3A1 PrMS39A1 PrMS45A1 PrMS43A1 
 ##  3.00000  2.00000  4.00001  4.00000  4.00000</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">other</span>(Pram)<span class="op">$</span>comparePal</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">other</span>(Pram)<span class="op">$</span>comparePal</span></code></pre></div>
 <pre><code>##    Nursery_CA    Nursery_OR    JHallCr_OR NFChetHigh_OR      Coast_OR 
 ##     &quot;#000000&quot;     &quot;#808080&quot;     &quot;#A6CEE3&quot;     &quot;#99CD91&quot;     &quot;#B89B74&quot; 
 ##   HunterCr_OR   Winchuck_OR ChetcoMain_OR  PistolRSF_OR 
@@ -824,16 +872,16 @@ $(document).ready(function () {
 <h1>References</h1>
 <div id="refs" class="references">
 <div id="ref-bruvo2004simple">
-<p>Bruvo R., Michiels NK., D’Souza TG., Schulenburg H. 2004. A simple method for the calculation of microsatellite genotype distances irrespective of ploidy level. <em>Molecular Ecology</em> 13:2101–2106. Available at: <a href="http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x" class="uri">http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x</a></p>
+<p>Bruvo R., Michiels NK., D’Souza TG., Schulenburg H. 2004. A simple method for the calculation of microsatellite genotype distances irrespective of ploidy level. <em>Molecular Ecology</em> 13:2101–2106. Available at: <a href="http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x">http://dx.doi.org/10.1111/j.1365-294X.2004.02209.x</a></p>
 </div>
 <div id="ref-everhart2014finescale">
-<p>Everhart S., Scherm H. 2015. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> 105:542–549. Available at: <a href="https://doi.org/10.1094/PHYTO-03-14-0088-R" class="uri">https://doi.org/10.1094/PHYTO-03-14-0088-R</a></p>
+<p>Everhart S., Scherm H. 2015. Fine-scale genetic structure of <em>Monilinia fructicola</em> during brown rot epidemics within individual peach tree canopies. <em>Phytopathology</em> 105:542–549. Available at: <a href="https://doi.org/10.1094/PHYTO-03-14-0088-R">https://doi.org/10.1094/PHYTO-03-14-0088-R</a></p>
 </div>
 <div id="ref-goss2009population">
-<p>Goss EM., Larsen M., Chastagner GA., Givens DR., Grünwald NJ. 2009. Population genetic analysis infers migration pathways of phytophthora ramorum in us nurseries. <em>PLoS Pathog</em> 5:e1000583. Available at: <a href="http://dx.doi.org/10.1371/journal.ppat.1000583" class="uri">http://dx.doi.org/10.1371/journal.ppat.1000583</a></p>
+<p>Goss EM., Larsen M., Chastagner GA., Givens DR., Grünwald NJ. 2009. Population genetic analysis infers migration pathways of phytophthora ramorum in us nurseries. <em>PLoS Pathog</em> 5:e1000583. Available at: <a href="http://dx.doi.org/10.1371/journal.ppat.1000583">http://dx.doi.org/10.1371/journal.ppat.1000583</a></p>
 </div>
 <div id="ref-kamvar2015spatial">
-<p>Kamvar Z., Larsen M., Kanaskie A., Hansen E., Grünwald N. 2015. Spatial and temporal analysis of populations of the sudden oak death pathogen in oregon forests. <em>Phytopathology</em> 105:982–989. Available at: <a href="http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI" class="uri">http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI</a></p>
+<p>Kamvar Z., Larsen M., Kanaskie A., Hansen E., Grünwald N. 2015. Spatial and temporal analysis of populations of the sudden oak death pathogen in oregon forests. <em>Phytopathology</em> 105:982–989. Available at: <a href="http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI">http://dx.doi.org/10.1094/PHYTO-12-14-0350-FI</a></p>
 </div>
 </div>
 </div>
@@ -847,7 +895,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
