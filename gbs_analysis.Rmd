@@ -64,6 +64,7 @@ library(vcfR)
 library(poppr)
 library(ape)
 library(RColorBrewer)
+library(heattree)
 ```
 
 Make sure you are in the right folder with the downloaded files available. 
@@ -165,20 +166,15 @@ We will reconstruct a distance tree based on the UPGMA algorithm, with 100 boots
 tree <- aboot(gl.rubi, tree = "upgma", distance = bitwise.dist, sample = 100, showtree = F, cutoff = 50, quiet = T)
 ```
 
-Next, we will color the tips of the tree based on the population of origin of the samples, and draw conclusions from what we observe in the tree:
+Next, we will color and plot the tips of the tree based on the population of origin of the samples, and draw conclusions from what we observe in the tree using the `heat_tree()` function from `heattree` [@foster2026heattree]:
 
 
 ```{r}
 cols <- brewer.pal(n = nPop(gl.rubi), name = "Dark2")
-plot.phylo(tree, cex = 0.8, font = 2, adj = 0, tip.color =  cols[pop(gl.rubi)])
-nodelabels(tree$node.label, adj = c(1.3, -0.5), frame = "n", cex = 0.8,font = 3, xpd = TRUE)
-#legend(35,10,c("CA","OR","WA"),cols, border = FALSE, bty = "n")
-legend('topleft', legend = c("CA","OR","WA"), fill = cols, border = FALSE, bty = "n", cex = 2)
-axis(side = 1)
-title(xlab = "Genetic distance (proportion of loci that are different)")
+heat_tree(tree = tree, metadata = pop.data, aesthetics = c(tipLabelColor = 'State'), height = 800)
 ```
 
-We observe that samples do not cluster exclusively by region (e.g., CA, OR and WA). Instead, we observe a cluster with mainly CA samples (Green), but also containing a few WA (purple) and two OR (red) samples. The second, lower cluster contains predominantly samples for OR (red) and WA (purple). 
+We observe that samples do not cluster exclusively by region (e.g., CA, OR and WA). Instead, we observe a cluster with mainly CA samples (teal), but also containing a few WA (purple) and two OR (green) samples. The second, lower cluster contains predominantly samples for OR (green) and WA (purple). 
 
 ### Minimum spanning networks
 

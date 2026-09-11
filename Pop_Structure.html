@@ -13,16 +13,27 @@
 
 <title>Population structure: G_{ST}, genetic distance, and clustering</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<meta name="exports" content="heatTree" />
+<script src="site_libs/heat-tree-0.3.1/heat-tree.umd.min.js"></script>
+<script src="site_libs/heat_tree-binding-0.3.1/heat_tree.js"></script>
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107144798-3"></script>
 <script>
@@ -43,21 +54,30 @@
     </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -77,15 +97,15 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {  background-color: #f8f8f8; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #c4a000; } /* Attribute */
+code span.at { color: #204a87; } /* Attribute */
 code span.bn { color: #0000cf; } /* BaseN */
 code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #000000; } /* Constant */
+code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #8f5902; font-style: italic; } /* Comment */
 code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
 code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
@@ -94,14 +114,14 @@ code span.dv { color: #0000cf; } /* DecVal */
 code span.er { color: #a40000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #000000; } /* Function */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
 code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
 code span.ot { color: #8f5902; } /* Other */
 code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #000000; } /* SpecialChar */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
 code span.ss { color: #4e9a06; } /* SpecialString */
 code span.st { color: #4e9a06; } /* String */
 code span.va { color: #000000; } /* Variable */
@@ -116,13 +136,20 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -130,39 +157,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -173,10 +170,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -193,40 +186,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 61px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 66px;
-  margin-top: -66px;
-}
-.section h2 {
-  padding-top: 66px;
-  margin-top: -66px;
-}
-.section h3 {
-  padding-top: 66px;
-  margin-top: -66px;
-}
-.section h4 {
-  padding-top: 66px;
-  margin-top: -66px;
-}
-.section h5 {
-  padding-top: 66px;
-  margin-top: -66px;
-}
-.section h6 {
-  padding-top: 66px;
-  margin-top: -66px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -254,7 +223,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -266,7 +235,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -276,11 +245,28 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.parent().addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -292,13 +278,12 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -306,16 +291,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -359,7 +337,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -372,7 +350,7 @@ $(document).ready(function () {
   <a href="TOC.html">Table of contents</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Part I
      
     <span class="caret"></span>
@@ -387,7 +365,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Part II
      
     <span class="caret"></span>
@@ -426,7 +404,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Part III
      
     <span class="caret"></span>
@@ -450,14 +428,14 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Workshops
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">ICPP</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">ICPP</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="workshop_icpp.html">Preparation</a>
@@ -480,7 +458,7 @@ $(document).ready(function () {
       </ul>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">APS Southern Division</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">APS Southern Division</a>
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="workshop_southernAPS.html">Preparation</a>
@@ -502,7 +480,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     About
      
     <span class="caret"></span>
@@ -514,7 +492,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Appendices
      
     <span class="caret"></span>
@@ -545,24 +523,55 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
-<h1 class="title toc-ignore">Population structure: <span class="math inline">\(G_{ST}\)</span>, genetic distance, and clustering</h1>
-<h3 class="subtitle"><em>ZN Kamvar, SE Everhart and NJ Grünwald</em></h3>
+<h1 class="title toc-ignore">Population structure: <span
+class="math inline">\(G_{ST}\)</span>, genetic distance, and
+clustering</h1>
+<h3 class="subtitle"><em>ZN Kamvar, SE Everhart and NJ
+Grünwald</em></h3>
 
 </div>
 
 
-<p>In this chapter we explore various ways of assessing if population are structured (e.g., differentiated). You can think of population structure as identifying clusters or groups of more closely related individuals resulting from reduced gene flow among these groups. Populations can be studied to determine if they are structured by using, for example, population differentiation summary statistics (e.g. <span class="math inline">\(G_{ST}\)</span>), clustering or <a href="Minimum_Spanning_Networks.html">minimum spanning networks</a>. Note, that this chapter will utilize many data sets due to the unique features offered by each. Let’s first look at an example of population differentiation based on <span class="math inline">\(G_{ST}\)</span>.</p>
+<pre><code>## Warning: package &#39;knitcitations&#39; was built under R version 4.4.3</code></pre>
+<pre><code>## Warning: package &#39;knitr&#39; was built under R version 4.4.3</code></pre>
+<p>In this chapter we explore various ways of assessing if population
+are structured (e.g., differentiated). You can think of population
+structure as identifying clusters or groups of more closely related
+individuals resulting from reduced gene flow among these groups.
+Populations can be studied to determine if they are structured by using,
+for example, population differentiation summary statistics (e.g. <span
+class="math inline">\(G_{ST}\)</span>), clustering or <a
+href="Minimum_Spanning_Networks.html">minimum spanning networks</a>.
+Note, that this chapter will utilize many data sets due to the unique
+features offered by each. Let’s first look at an example of population
+differentiation based on <span
+class="math inline">\(G_{ST}\)</span>.</p>
 <div id="g_st-an-example-with-felis-catus-data." class="section level2">
-<h2><span class="math inline">\(G_{ST}\)</span> an example with <em>Felis catus</em> data.</h2>
-<p>Assessing genetic diversity almost always starts with an analysis of a parameter such as <span class="math inline">\(G_{ST}\)</span>. There are <a href="http://www.molecularecologist.com/2011/03/should-i-use-fst-gst-or-d-2/">lengthy debates</a> as to what measure of differentiation is better <span class="citation">(Meirmans &amp; Hedrick, 2011)</span>. Instead of going into that lengthy debate, it would be more worthwhile to point you into the direction of a package dedicated to Modern Methods of Differentiation called <em>mmod</em>. We will use the data set <em>nancycats</em> containing 17 colonies of cats collected from Nancy, France. As cats tend to stay within small groups, we expect to see some population differentiation. In terms of these diversity measures, an index of <span class="math inline">\(G_{ST} = 0\)</span> indicates no differentiation, whereas <span class="math inline">\(G_{ST} = 1\)</span> indicates that populations are segregating for differing alleles.</p>
+<h2><span class="math inline">\(G_{ST}\)</span> an example with
+<em>Felis catus</em> data.</h2>
+<p>Assessing genetic diversity almost always starts with an analysis of
+a parameter such as <span class="math inline">\(G_{ST}\)</span>. There
+are <a
+href="http://www.molecularecologist.com/2011/03/should-i-use-fst-gst-or-d-2/">lengthy
+debates</a> as to what measure of differentiation is better <span
+class="citation">[@meirmans2011assessing]</span>. Instead of going into
+that lengthy debate, it would be more worthwhile to point you into the
+direction of a package dedicated to Modern Methods of Differentiation
+called <em>mmod</em>. We will use the data set <em>nancycats</em>
+containing 17 colonies of cats collected from Nancy, France. As cats
+tend to stay within small groups, we expect to see some population
+differentiation. In terms of these diversity measures, an index of <span
+class="math inline">\(G_{ST} = 0\)</span> indicates no differentiation,
+whereas <span class="math inline">\(G_{ST} = 1\)</span> indicates that
+populations are segregating for differing alleles.</p>
 <p>Let’s load the package and the example data set:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(<span class="st">&quot;mmod&quot;</span>)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">data</span>(<span class="st">&quot;nancycats&quot;</span>)</span>
-<span id="cb1-3"><a href="#cb1-3"></a>nancycats</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;mmod&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;nancycats&quot;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>nancycats</span></code></pre></div>
 <pre><code>## /// GENIND OBJECT /////////
 ## 
 ##  // 237 individuals; 9 loci; 108 alleles; size: 150.5 Kb
@@ -579,8 +588,11 @@ $(document).ready(function () {
 ##  // Optional content
 ##    @pop: population of each individual (group size range: 9-23)
 ##    @other: a list containing: xy</code></pre>
-<p>Now we will use Hendrick’s standardized <span class="math inline">\(G_{ST}\)</span> to assess population structure among these populations <span class="citation">(Hedrick, 2005)</span>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">Gst_Hedrick</span>(nancycats)</span></code></pre></div>
+<p>Now we will use Hendrick’s standardized <span
+class="math inline">\(G_{ST}\)</span> to assess population structure
+among these populations <span
+class="citation">[@hedrick2005standardized]</span>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">Gst_Hedrick</span>(nancycats)</span></code></pre></div>
 <pre><code>## $per.locus
 ##      fca8     fca23     fca43     fca45     fca77     fca78     fca90     fca96 
 ## 0.4750445 0.2956688 0.2675766 0.2653163 0.4855829 0.1933327 0.3807578 0.3913924 
@@ -590,11 +602,17 @@ $(document).ready(function () {
 ## $global
 ## [1] 0.3084895</code></pre>
 <p>What does this output tell us?</p>
-<p>Next we will look at genetic distance to find related groups of individuals.</p>
+<p>Next we will look at genetic distance to find related groups of
+individuals.</p>
 </div>
 <div id="genetic-distance" class="section level2">
 <h2>Genetic Distance</h2>
-<p>If we wanted to analyze the relationship between individuals or populations, we would use genetic distance measures which calculate the “distance” between samples based on their genetic profile. These distances can be visualized with heatmaps, dendrograms, or minimum spanning networks. In the package <em>poppr</em>, there are several distances available:</p>
+<p>If we wanted to analyze the relationship between individuals or
+populations, we would use genetic distance measures which calculate the
+“distance” between samples based on their genetic profile. These
+distances can be visualized with heatmaps, dendrograms, or minimum
+spanning networks. In the package <em>poppr</em>, there are several
+distances available:</p>
 <table>
 <thead>
 <tr class="header">
@@ -657,15 +675,23 @@ $(document).ready(function () {
 </tr>
 </tbody>
 </table>
-<p>One common way to visualize a genetic distance is with a dendrogram. For this example, we will use the <em>microbov</em> data set <span class="citation">(Laloe et al., 2007)</span>. This contains information on 704 cattle from both Africa and France over several different breeds. We can create a dendrogram over all 704 samples, but that would be difficult to visualize. For our purposes, let’s take ten random samples and calculate Provesti’s distance, which will return the fraction of the number of differences between samples:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">library</span>(<span class="st">&quot;ape&quot;</span>) <span class="co"># To visualize the tree using the &quot;nj&quot; function</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">library</span>(<span class="st">&quot;magrittr&quot;</span>)</span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="kw">data</span>(microbov)</span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="kw">set.seed</span>(<span class="dv">10</span>)</span>
-<span id="cb5-6"><a href="#cb5-6"></a>ten_samples &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nInd</span>(microbov), <span class="dv">10</span>)</span>
-<span id="cb5-7"><a href="#cb5-7"></a>mic10       &lt;-<span class="st"> </span>microbov[ten_samples]</span>
-<span id="cb5-8"><a href="#cb5-8"></a>(micdist    &lt;-<span class="st"> </span><span class="kw">provesti.dist</span>(mic10))</span></code></pre></div>
+<p>One common way to visualize a genetic distance is with a dendrogram.
+For this example, we will use the <em>microbov</em> data set <span
+class="citation">[@laloe2007consensus]</span>. This contains information
+on 704 cattle from both Africa and France over several different breeds.
+We can create a dendrogram over all 704 samples, but that would be
+difficult to visualize. For our purposes, let’s take ten random samples
+and calculate Provesti’s distance, which will return the fraction of the
+number of differences between samples:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;poppr&quot;</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;ape&quot;</span>) <span class="co"># To visualize the tree using the &quot;nj&quot; function</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;magrittr&quot;</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;heattree&quot;</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="fu">data</span>(microbov)</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>ten_samples <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nInd</span>(microbov), <span class="dv">10</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>mic10       <span class="ot">&lt;-</span> microbov[ten_samples]</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>(micdist    <span class="ot">&lt;-</span> <span class="fu">provesti.dist</span>(mic10))</span></code></pre></div>
 <pre><code>##              FRBTGAS9057 FRBTMBE1540 FRBTBDA29852 FRBTBDA35267 FRBTCHA26798
 ## FRBTMBE1540    0.6000000                                                   
 ## FRBTBDA29852   0.6166667   0.5666667                                       
@@ -686,30 +712,37 @@ $(document).ready(function () {
 ## FRBTCHA26011    0.4166667   0.5833333                          
 ## FRBTCHA15985    0.4333333   0.6000000    0.4166667             
 ## FRBTGAS9186     0.4000000   0.7000000    0.5500000    0.5833333</code></pre>
-<p>The above represents the pairwise distances between these 10 samples. We will use this distance matrix to create a neighbor-joining tree.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>theTree &lt;-<span class="st"> </span>micdist <span class="op">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="st">  </span><span class="kw">nj</span>() <span class="op">%&gt;%</span><span class="st">    </span><span class="co"># calculate neighbor-joining tree</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="st">  </span><span class="kw">ladderize</span>() <span class="co"># organize branches by clade</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="kw">plot</span>(theTree)</span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="kw">add.scale.bar</span>(<span class="dt">length =</span> <span class="fl">0.05</span>) <span class="co"># add a scale bar showing 5% difference.</span></span></code></pre></div>
-<p><img src="Pop_Structure_files/figure-html/cattleplot-1.png" width="700px" /></p>
-<p>Notice that the sample names start with either “AF” or “FR”. This indicates their country of origin and we are seeing that the populations cluster correspondingly. Of course, a tree is a hypothesis and one way of generating support is to bootstrap loci. This can be achieved with the <em>poppr</em> function <code>aboot</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">set.seed</span>(<span class="dv">999</span>)</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="kw">aboot</span>(mic10, <span class="dt">dist =</span> provesti.dist, <span class="dt">sample =</span> <span class="dv">200</span>, <span class="dt">tree =</span> <span class="st">&quot;nj&quot;</span>, <span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="Pop_Structure_files/figure-html/cattleboot-1.png" width="700px" /></p>
-<pre><code>## 
-## Phylogenetic tree with 10 tips and 8 internal nodes.
-## 
-## Tip labels:
-##   FRBTGAS9057, FRBTMBE1540, FRBTBDA29852, FRBTBDA35267, FRBTCHA26798, FRBTCHA26014, ...
-## Node labels:
-##   100, NA, NA, NA, NA, NA, ...
-## 
-## Unrooted; includes branch lengths.</code></pre>
-<p>The bootstrap value of 100 on the node separating the French and African samples gives support that the country of origin is a factor in how these breeds are structured. If we wanted to analyze all of the breeds against one another, it would be better to create a bootstrapped dendrogram based on a genetic distance. To do this, we will add 3 stratifications to the microbov data set: Country, Breed, and Species. We will then set the population to Country by Breed, convert the data to a genpop object and then create a tree using <code>aboot</code> with Nei’s genetic distance.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Setting up the data</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="kw">strata</span>(microbov) &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">other</span>(microbov))</span>
-<span id="cb10-3"><a href="#cb10-3"></a>microbov</span></code></pre></div>
+<p>The above represents the pairwise distances between these 10 samples.
+We will use this distance matrix to create a neighbor-joining tree.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>theTree <span class="ot">&lt;-</span> micdist <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="fu">nj</span>() <span class="sc">%&gt;%</span>    <span class="co"># calculate neighbor-joining tree</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="fu">ladderize</span>() <span class="co"># organize branches by clade</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co"># Plot the tree with a scale bar showing 5% difference</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="fu">heat_tree</span>(<span class="at">tree =</span> theTree, <span class="at">branchLengthScale =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div id="htmlwidget-d2570e8ea9c649a1170c" style="width:100%;height:70vh;" class="heat_tree html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d2570e8ea9c649a1170c">{"x":{"trees":[{"name":"tree 1","tree":"((((FRBTMA25418:0.3625,FRBTCHA15985:0.2375):0.01428571429,FRBTCHA26011:0.1857142857):0.02291666667,(FRBTMBE1540:0.2270833333,FRBTCHA26798:0.1729166667):0.02291666667):0.02864583333,((FRBTBDA29852:0.2965277778,FRBTBDA35267:0.2701388889):0.01041666667,FRBTGAS9186:0.2645833333):0.006770833333,(FRBTGAS9057:0.30859375,FRBTCHA26014:0.14140625):0.01614583333);"}],"options":{"branchLengthScale":2}},"evals":[],"jsHooks":[]}</script>
+<p>Notice that the sample names start with either “AF” or “FR”. This
+indicates their country of origin and we are seeing that the populations
+cluster correspondingly. Of course, a tree is a hypothesis and one way
+of generating support is to bootstrap loci. This can be achieved with
+the <em>poppr</em> function <code>aboot</code>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">999</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>bootTree <span class="ot">&lt;-</span> <span class="fu">aboot</span>(mic10, <span class="at">dist =</span> provesti.dist, <span class="at">sample =</span> <span class="dv">200</span>, <span class="at">tree =</span> <span class="st">&quot;nj&quot;</span>, <span class="at">cutoff =</span> <span class="dv">50</span>, <span class="at">showtree =</span> <span class="cn">FALSE</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="fu">heat_tree</span>(<span class="at">tree =</span> bootTree)</span></code></pre></div>
+<div id="htmlwidget-0a76bd7fa91859712b64" style="width:100%;height:70vh;" class="heat_tree html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0a76bd7fa91859712b64">{"x":{"trees":[{"name":"tree 1","tree":"(FRBTMBE1540:0.2616923983,((FRBTCHA26798:0.1868200231,FRBTCHA26011:0.230541088)53.5:0.04061535494,FRBTCHA26014:0.2149402006)NA:0.02145905671,(((FRBTBDA29852:0.298494337,FRBTBDA35267:0.2848389964)NA:0.0103608631,FRBTGAS9186:0.2590835813)NA:0.01661861359,((FRBTMA25418:0.3661848073,FRBTCHA15985:0.2338151927)54:0.0440625,FRBTGAS9057:0.3346412037)NA:0.02111286789)NA:0.005552972057)NA;"}],"options":[]},"evals":[],"jsHooks":[]}</script>
+<p>The bootstrap value of 100 on the node separating the French and
+African samples gives support that the country of origin is a factor in
+how these breeds are structured. If we wanted to analyze all of the
+breeds against one another, it would be better to create a bootstrapped
+dendrogram based on a genetic distance. To do this, we will add 3
+stratifications to the microbov data set: Country, Breed, and Species.
+We will then set the population to Country by Breed, convert the data to
+a genpop object and then create a tree using <code>aboot</code> with
+Nei’s genetic distance.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># Setting up the data</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="fu">strata</span>(microbov) <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">other</span>(microbov))</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>microbov</span></code></pre></div>
 <pre><code>## /// GENIND OBJECT /////////
 ## 
 ##  // 704 individuals; 30 loci; 373 alleles; size: 1.1 Mb
@@ -727,28 +760,26 @@ $(document).ready(function () {
 ##    @pop: population of each individual (group size range: 30-61)
 ##    @strata: a data frame with 3 columns ( coun, breed, spe )
 ##    @other: a list containing: coun  breed  spe</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">nameStrata</span>(microbov) &lt;-<span class="st"> </span><span class="er">~</span>Country<span class="op">/</span>Breed<span class="op">/</span>Species</span>
-<span id="cb12-2"><a href="#cb12-2"></a></span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="co"># Analysis</span></span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="kw">set.seed</span>(<span class="dv">999</span>)</span>
-<span id="cb12-5"><a href="#cb12-5"></a>microbov <span class="op">%&gt;%</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="st">  </span><span class="kw">genind2genpop</span>(<span class="dt">pop =</span> <span class="op">~</span>Country<span class="op">/</span>Breed) <span class="op">%&gt;%</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a><span class="st">  </span><span class="kw">aboot</span>(<span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>, <span class="dt">sample =</span> <span class="dv">1000</span>, <span class="dt">distance =</span> nei.dist)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">nameStrata</span>(microbov) <span class="ot">&lt;-</span> <span class="er">~</span>Country<span class="sc">/</span>Breed<span class="sc">/</span>Species</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="co"># Analysis</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">999</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>stratBootTree <span class="ot">&lt;-</span> microbov <span class="sc">%&gt;%</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>  <span class="fu">genind2genpop</span>(<span class="at">pop =</span> <span class="sc">~</span>Country<span class="sc">/</span>Breed) <span class="sc">%&gt;%</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>  <span class="fu">aboot</span>(<span class="at">cutoff =</span> <span class="dv">50</span>, , <span class="at">showtree =</span> <span class="cn">FALSE</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>, <span class="at">sample =</span> <span class="dv">1000</span>, <span class="at">distance =</span> nei.dist)</span></code></pre></div>
 <pre><code>## 
 ##  Converting data from a genind to a genpop object... 
 ## 
 ## ...done.</code></pre>
-<p><img src="Pop_Structure_files/figure-html/cattlepopboot-1.png" width="700px" /></p>
-<pre><code>## 
-## Phylogenetic tree with 15 tips and 14 internal nodes.
-## 
-## Tip labels:
-##   AF_Borgou, AF_Zebu, AF_Lagunaire, AF_NDama, AF_Somba, FR_Aubrac, ...
-## Node labels:
-##   100, 100, 99.8, 91.2, 91.1, 65.5, ...
-## 
-## Rooted; includes branch lengths.</code></pre>
-<p>Now we can see that, in all 1,000 bootstrapped trees, the African and French samples were each in separate clades. Of course, dendrograms are only one type of analysis you can use genetic distances for. Below is a table describing some of the different analyses for which you can utilize genetic distance:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># Plotting</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="fu">heat_tree</span>(<span class="at">tree =</span> stratBootTree, <span class="at">branchLengthScale =</span> <span class="fl">0.4</span>)</span></code></pre></div>
+<div id="htmlwidget-a1d089e80bb819834829" style="width:100%;height:70vh;" class="heat_tree html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a1d089e80bb819834829">{"x":{"trees":[{"name":"tree 1","tree":"((FR_MaineAnjou:0.1364238648,(FR_Bazadais:0.09948962755,(FR_Montbeliard:0.09394866964,((FR_BretPieNoire:0.06654698965,FR_Charolais:0.06654698965)55.4:0.01697172825,(FR_Gascon:0.07262397673,((FR_BlondeAquitaine:0.03212652907,FR_Limousin:0.03212652907)93.9:0.02729202919,(FR_Aubrac:0.04461599495,FR_Salers:0.04461599495)63.1:0.0148025633)NA:0.01320541848)NA:0.01089474117)NA:0.01042995174)NA:0.005540957908)65.5:0.03693423724)100:0.1376481815,((AF_Borgou:0.06783701818,AF_Zebu:0.06783701818)91.2:0.1061411607,(AF_Lagunaire:0.08390962408,(AF_NDama:0.04273955007,AF_Somba:0.04273955007)99.6:0.04117007401)91.1:0.09006855486)99.8:0.1000938673)100;"}],"options":{"branchLengthScale":0.4}},"evals":[],"jsHooks":[]}</script>
+<p>Now we can see that, in all 1,000 bootstrapped trees, the African and
+French samples were each in separate clades. Of course, dendrograms are
+only one type of analysis you can use genetic distances for. Below is a
+table describing some of the different analyses for which you can
+utilize genetic distance:</p>
 <table>
 <colgroup>
 <col width="23%" />
@@ -790,7 +821,8 @@ $(document).ready(function () {
 <td>Convert to matrix with <code>as.matrix</code></td>
 </tr>
 <tr class="odd">
-<td><a href="Minimum_Spanning_Networks.html">Minimum Spanning Networks</a></td>
+<td><a href="Minimum_Spanning_Networks.html">Minimum Spanning
+Networks</a></td>
 <td><code>poppr.msn</code></td>
 <td><em>poppr</em></td>
 <td>requires a distance matrix; cannot handle genpop</td>
@@ -800,10 +832,20 @@ $(document).ready(function () {
 </div>
 <div id="k-means-hierarchical-clustering" class="section level2">
 <h2>K-means hierarchical clustering</h2>
-<p>A recent study reported that the origin of the potato late blight pathogen <em>Phytophthora infestans</em> lies in Mexico as opposed to South America <span class="citation">(Goss et al., 2014)</span>. We saw in the previous chapter that South American populations showed signatures of clonal reproduction while Mexican populations showed no evidence rejecting the null hypothesis of random mating. In this section, we will use K-means clustering in combination with bootstrapped dendrograms to see how well this pattern holds up. Clonal populations should have short terminal branch lengths and should cluster according to those branches. Panmictic populations will show no clear pattern. Let’s look at the data:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">library</span>(<span class="st">&quot;poppr&quot;</span>)</span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="kw">data</span>(<span class="st">&quot;Pinf&quot;</span>)</span>
-<span id="cb15-3"><a href="#cb15-3"></a>Pinf</span></code></pre></div>
+<p>A recent study reported that the origin of the potato late blight
+pathogen <em>Phytophthora infestans</em> lies in Mexico as opposed to
+South America <span class="citation">[@goss2014irish]</span>. We saw in
+the previous chapter that South American populations showed signatures
+of clonal reproduction while Mexican populations showed no evidence
+rejecting the null hypothesis of random mating. In this section, we will
+use K-means clustering in combination with bootstrapped dendrograms to
+see how well this pattern holds up. Clonal populations should have short
+terminal branch lengths and should cluster according to those branches.
+Panmictic populations will show no clear pattern. Let’s look at the
+data:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;poppr&quot;</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;Pinf&quot;</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>Pinf</span></code></pre></div>
 <pre><code>## 
 ## This is a genclone object
 ## -------------------------
@@ -818,25 +860,37 @@ $(document).ready(function () {
 ##     2 strata - Continent, Country
 ##     2 populations defined - South America, North America</code></pre>
 <p>First, we will perform a cluster analysis:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>MX &lt;-<span class="st"> </span><span class="kw">popsub</span>(Pinf, <span class="st">&quot;North America&quot;</span>)</span>
-<span id="cb17-2"><a href="#cb17-2"></a>MXclust &lt;-<span class="st"> </span><span class="kw">find.clusters</span>(MX)</span></code></pre></div>
-<div class="figure">
-<img src="Pop_Structure_files/figure-html/MXPCA.png" alt="" />
-<p class="caption">MX_PCA</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>MX <span class="ot">&lt;-</span> <span class="fu">popsub</span>(Pinf, <span class="st">&quot;North America&quot;</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>MXclust <span class="ot">&lt;-</span> <span class="fu">find.clusters</span>(MX)</span></code></pre></div>
+<div class="float">
+<img src="Pop_Structure_files/figure-html/MXPCA.png" alt="MX_PCA" />
+<div class="figcaption">MX_PCA</div>
 </div>
 <pre><code>## Choose the number PCs to retain (&gt;=1):</code></pre>
 <pre><code>&gt; 50</code></pre>
-<p>PC stands for principal components, which are unit-less transformations of your data that explain the variance observed. For the purposes of <code>find.clusters</code>, we can keep as many as we want.</p>
-<div class="figure">
-<img src="Pop_Structure_files/figure-html/MXCLUST.png" alt="" />
-<p class="caption">MX_CLUSTER</p>
+<p>PC stands for principal components, which are unit-less
+transformations of your data that explain the variance observed. For the
+purposes of <code>find.clusters</code>, we can keep as many as we
+want.</p>
+<div class="float">
+<img src="Pop_Structure_files/figure-html/MXCLUST.png"
+alt="MX_CLUSTER" />
+<div class="figcaption">MX_CLUSTER</div>
 </div>
 <pre><code>## Choose the number clusters (&gt;=2):</code></pre>
 <pre><code>&gt; 3</code></pre>
-<p>BIC stands for “Bayesian Information Criterion”. The lower the BIC value, the better. On the x axis are the number of clusters. We see that there is a bend at 3 clusters, indicating that the data clusters optimally into three groups.</p>
-<p>Note that the function <code>find.clusters()</code> includes the parameter <code>max.n.clust</code> which specifies the maximum number of clusters to explore. The default value is <code>round(sample_size/10)</code>. If you would like to explore a higher level of groups relative to your sample size you should consider reparameterizing this value.</p>
+<p>BIC stands for “Bayesian Information Criterion”. The lower the BIC
+value, the better. On the x axis are the number of clusters. We see that
+there is a bend at 3 clusters, indicating that the data clusters
+optimally into three groups.</p>
+<p>Note that the function <code>find.clusters()</code> includes the
+parameter <code>max.n.clust</code> which specifies the maximum number of
+clusters to explore. The default value is
+<code>round(sample_size/10)</code>. If you would like to explore a
+higher level of groups relative to your sample size you should consider
+reparameterizing this value.</p>
 <p>And now we can see the cluster assignments:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>MXclust</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>MXclust</span></code></pre></div>
 <pre><code>## $Kstat
 ## NULL
 ## 
@@ -858,65 +912,70 @@ $(document).ready(function () {
 ## 
 ## $size
 ## [1] 16 15 17</code></pre>
-<p>We will go through the same procedure for the South American population.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>SA &lt;-<span class="st"> </span><span class="kw">popsub</span>(Pinf, <span class="st">&quot;South America&quot;</span>)</span>
-<span id="cb24-2"><a href="#cb24-2"></a>SAclust &lt;-<span class="st"> </span><span class="kw">find.clusters</span>(SA)</span></code></pre></div>
-<div class="figure">
-<img src="Pop_Structure_files/figure-html/SAPCA.png" alt="" />
-<p class="caption">SA_PCA</p>
+<p>We will go through the same procedure for the South American
+population.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>SA <span class="ot">&lt;-</span> <span class="fu">popsub</span>(Pinf, <span class="st">&quot;South America&quot;</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>SAclust <span class="ot">&lt;-</span> <span class="fu">find.clusters</span>(SA)</span></code></pre></div>
+<div class="float">
+<img src="Pop_Structure_files/figure-html/SAPCA.png" alt="SA_PCA" />
+<div class="figcaption">SA_PCA</div>
 </div>
 <pre><code>## Choose the number PCs to retain (&gt;=1):</code></pre>
 <pre><code>&gt; 30</code></pre>
-<div class="figure">
-<img src="Pop_Structure_files/figure-html/SACLUST.png" alt="" />
-<p class="caption">SA_CLUSTER</p>
+<div class="float">
+<img src="Pop_Structure_files/figure-html/SACLUST.png"
+alt="SA_CLUSTER" />
+<div class="figcaption">SA_CLUSTER</div>
 </div>
 <pre><code>## Choose the number clusters (&gt;=2):</code></pre>
 <pre><code>&gt; 4</code></pre>
-<p>Notice here that there is no local minimum in the curve. This indicates that there <a href="http://lists.r-forge.r-project.org/pipermail/adegenet-forum/2011-June/000303.html">might not be enough information in the data set to properly cluster</a>, or that you might have more clusters than the default value (in which case you may wish to include n.max.clust as an argument to the find.clusters function, and specify a higher value than the default). We will go ahead by choosing the highest number of clusters:</p>
+<p>Notice here that there is no local minimum in the curve. This
+indicates that there <a
+href="http://lists.r-forge.r-project.org/pipermail/adegenet-forum/2011-June/000303.html">might
+not be enough information in the data set to properly cluster</a>, or
+that you might have more clusters than the default value (in which case
+you may wish to include n.max.clust as an argument to the find.clusters
+function, and specify a higher value than the default). We will go ahead
+by choosing the highest number of clusters:</p>
 <div id="trees" class="section level3">
 <h3>Trees</h3>
-<p>Now we will build trees. We are using Bruvo’s distance since polyploids bias calculation of other distances:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>pinfreps &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>)</span>
-<span id="cb29-2"><a href="#cb29-2"></a>MXtree &lt;-<span class="st"> </span><span class="kw">bruvo.boot</span>(MX, <span class="dt">replen =</span> pinfreps, <span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="Pop_Structure_files/figure-html/trees-1.png" width="700px" /></p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>SAtree &lt;-<span class="st"> </span><span class="kw">bruvo.boot</span>(SA, <span class="dt">replen =</span> pinfreps, <span class="dt">cutoff =</span> <span class="dv">50</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="Pop_Structure_files/figure-html/trees-2.png" width="700px" /></p>
-<p>We see very long terminal branches in the MX tree. Let’s see how the groups we found with the clustering algorithm match up:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="kw">library</span>(<span class="st">&quot;ape&quot;</span>)</span>
-<span id="cb31-2"><a href="#cb31-2"></a>cols &lt;-<span class="st"> </span><span class="kw">rainbow</span>(<span class="dv">4</span>)</span>
-<span id="cb31-3"><a href="#cb31-3"></a><span class="kw">plot.phylo</span>(MXtree, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">font =</span> <span class="dv">2</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">tip.color =</span> cols[MXclust<span class="op">$</span>grp],</span>
-<span id="cb31-4"><a href="#cb31-4"></a>           <span class="dt">label.offset =</span> <span class="fl">0.0125</span>)</span>
-<span id="cb31-5"><a href="#cb31-5"></a><span class="kw">nodelabels</span>(MXtree<span class="op">$</span>node.label, <span class="dt">adj =</span> <span class="kw">c</span>(<span class="fl">1.3</span>, <span class="fl">-0.5</span>), <span class="dt">frame =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>,</span>
-<span id="cb31-6"><a href="#cb31-6"></a>           <span class="dt">font =</span> <span class="dv">3</span>, <span class="dt">xpd =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb31-7"><a href="#cb31-7"></a><span class="kw">axisPhylo</span>(<span class="dv">3</span>)</span></code></pre></div>
-<p><img src="Pop_Structure_files/figure-html/grouptree-1.png" width="700px" /></p>
-<p>You can see that the assigned clusters don’t necessarily group with the dendrogram clusters. Let’s see what happens when we view this with the South American population:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">plot.phylo</span>(SAtree, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">font =</span> <span class="dv">2</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">tip.color =</span> cols[SAclust<span class="op">$</span>grp],</span>
-<span id="cb32-2"><a href="#cb32-2"></a>           <span class="dt">label.offset =</span> <span class="fl">0.0125</span>)</span>
-<span id="cb32-3"><a href="#cb32-3"></a><span class="kw">nodelabels</span>(SAtree<span class="op">$</span>node.label, <span class="dt">adj =</span> <span class="kw">c</span>(<span class="fl">1.3</span>, <span class="fl">-0.5</span>), <span class="dt">frame =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>,</span>
-<span id="cb32-4"><a href="#cb32-4"></a>           <span class="dt">font =</span> <span class="dv">3</span>, <span class="dt">xpd =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb32-5"><a href="#cb32-5"></a><span class="kw">axisPhylo</span>(<span class="dv">3</span>)</span></code></pre></div>
-<p><img src="Pop_Structure_files/figure-html/grouptreeSA-1.png" width="700px" /></p>
-<p>Everything clusters together nicely, further supporting a non-panmictic population.</p>
+<p>Now we will build trees <span
+class="citation">[@foster2026heattree]</span>. We are using Bruvo’s
+distance since polyploids bias calculation of other distances:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>pinfreps <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>MXtree <span class="ot">&lt;-</span> <span class="fu">bruvo.boot</span>(MX, <span class="at">replen =</span> pinfreps, <span class="at">cutoff =</span> <span class="dv">50</span>, <span class="at">showtree =</span> <span class="cn">FALSE</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a><span class="fu">heat_tree</span>(<span class="at">tree =</span> MXtree, <span class="at">height =</span> <span class="dv">750</span>)</span></code></pre></div>
+<div id="htmlwidget-64778d25a6fa90d399f5" style="width:100%;height:750px;" class="heat_tree html-widget"></div>
+<script type="application/json" data-for="htmlwidget-64778d25a6fa90d399f5">{"x":{"trees":[{"name":"tree 1","tree":"((PiMXT04:0.1443819724,(PiMXt48:0.02083333333,PiMXt68:0.02083333333)91:0.1235486391)NA:0.0637691807,(PiMX29:0.1961131988,(((PiMXT07:0.13515625,(PiMXT03:0.07244318182,PiMXT06:0.07244318182)54:0.06271306818)NA:0.04905998891,(PiMX21:0.1516083611,PiMXT05:0.1516083611)NA:0.03260787778)NA:0.00780493167,((PiMX03:0.05113636364,PiMX04:0.05113636364)81:0.1366353254,(((PiMX06:0.1281249998,(PiMX05:0.03977272727,PiMX07:0.03977272727)81:0.08835227252)NA:0.0307432037,((PiMX12:0.1171874837,(PiMX18:0.1079545455,PiMX19:0.1079545455)NA:0.00923293829)NA:0.02739894717,(PiMX20:0.1303208077,PiMX25:0.1303208077)NA:0.01426562317)NA:0.01428177258)NA:0.0127668018,(((PiMX23:0.1022671779,PiMX42:0.1022671779)NA:0.04449974853,(PiMXT01:0.1032182139,(PiMX01:0.09052734375,PiMXT02:0.09052734375)NA:0.01269087019)NA:0.04354871254)NA:0.01342328127,(((PiMX10:0.1051136309,PiMX30:0.1051136309)NA:0.03208376184,(PiMX16:0.1337869774,(PiMX27:0.08344182824,(PiMX50:0,(PiMX48:0,PiMX49:0)NA:0)97:0.08344182824)NA:0.05034514916)NA:0.003410415388)NA:0.02179485368,(PiMX28:0.1556517656,((PiMX02:0.1329900456,(PiMX15:0.06249999851,PiMX41:0.06249999851)51:0.07049004713)NA:0.006729891953,(((PiMX43:0.02272727205,(PiMX47:0,(PiMX46:0,(PiMX44:0,PiMX45:0)NA:0)NA:0)72:0.02272727205)90:0.09312155345,((PiMX17:0.06865234375,PiMX26:0.06865234375)NA:0.03838365343,(PiMX13:0.0734375,PiMX24:0.0734375)NA:0.03359849718)NA:0.008812828326)NA:0.01866532816,(PiMX22:0.1186536847,(PiMX40:0.09211643392,(PiMX11:0.0484375,PiMX14:0.0484375)NA:0.04367893392)NA:0.02653725075)NA:0.01586046899)NA:0.005205783931)NA:0.01593182801)NA:0.003340480854)NA:0.001197961286)NA:0.01144479755)NA:0.0161366837)NA:0.004249481578)NA:0.00409202819)NA:0.01203795431)100;"}],"options":[]},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>SAtree <span class="ot">&lt;-</span> <span class="fu">bruvo.boot</span>(SA, <span class="at">replen =</span> pinfreps, <span class="at">cutoff =</span> <span class="dv">50</span>, <span class="at">showtree =</span> <span class="cn">FALSE</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a><span class="fu">heat_tree</span>(<span class="at">tree =</span> SAtree, <span class="at">height =</span> <span class="dv">750</span>)</span></code></pre></div>
+<div id="htmlwidget-9adde01f8c47ce7ec431" style="width:100%;height:750px;" class="heat_tree html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9adde01f8c47ce7ec431">{"x":{"trees":[{"name":"tree 1","tree":"(((PiEC07:0.02840909091,PiEC08:0.02840909091)99:0.1023054686,((PiEC06:0.04008838365,(PiEC10:0.01704545455,PiEC11:0.01704545455)74:0.0230429291)84:0.04043427214,(PiPE27:0.05779883302,((PiPE23:0.03598484848,(PiPE25:0,(PiPE22:0,PiPE24:0)NA:0)60:0.03598484848)NA:0.008418163928,((PiEC12:0.0237926016,(PiEC13:0,PiEC14:0)54:0.0237926016)NA:0.01323127907,(PiPE20:0.03125,PiPE21:0.03125)NA:0.005773880666)NA:0.007379131747)NA:0.01339582061)72:0.02272382277)86:0.05019190372)71:0.02907855807,((PiPE01:0.01254734848,(PiPE13:0.004734848485,(PiPE14:0,(PiPE11:0,PiPE12:0)NA:0)56:0.004734848485)65:0.0078125)96:0.1234276959,((PiPE07:0.04332386364,(PiPE06:0.03409090909,(PiPE10:0,PiPE26:0)64:0.03409090909)67:0.009232954545)100:0.06990027926,(PiCO05:0.1095569473,(PiPE03:0.04193300189,(((PiEC03:0.01094933712,(PiCO04:0,(PiCO01:0,PiCO03:0)NA:0)NA:0.01094933712)50:0.01238458807,(PiEC02:0.01136363636,PiPE04:0.01136363636)60:0.01197028883)NA:0.003942418981,((PiCO02:0.01136363636,PiPE05:0.01136363636)56:0.01421934186,((PiPE02:0,PiPE08:0)75:0.02275686553,(PiEC01:0.02130681818,PiPE09:0.02130681818)NA:0.001450047348)NA:0.002826112689)NA:0.001693365951)57:0.01465665772)85:0.06762394538)NA:0.003667195619)NA:0.02275090144)55:0.02381807324)100;"}],"options":[]},"evals":[],"jsHooks":[]}</script>
+<p>We see very long terminal branches in the MX tree. Let’s see how the
+groups we found with the clustering algorithm match up:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>cluster_groups <span class="ot">=</span> <span class="fu">sort</span>(MXclust<span class="sc">$</span>grp)</span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>MXmeta <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(cluster_groups)</span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a>MXmeta<span class="sc">$</span>cluster_groups <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">&#39;c&#39;</span>, <span class="fu">as.character</span>(MXmeta<span class="sc">$</span>cluster_groups))</span>
+<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a><span class="fu">heat_tree</span>(<span class="at">tree =</span> MXtree, <span class="at">metadata =</span> MXmeta, <span class="at">aesthetics =</span> <span class="fu">c</span>(<span class="at">tipLabelColor =</span> <span class="st">&#39;cluster_groups&#39;</span>), <span class="at">scaleBranchLength =</span> <span class="fl">0.5</span>, <span class="at">height =</span> <span class="dv">750</span>)</span></code></pre></div>
+<div id="htmlwidget-d4ffea82d04635994dd3" style="width:100%;height:750px;" class="heat_tree html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d4ffea82d04635994dd3">{"x":{"trees":[{"name":"tree 1","tree":"((PiMXT04:0.1443819724,(PiMXt48:0.02083333333,PiMXt68:0.02083333333)91:0.1235486391)NA:0.0637691807,(PiMX29:0.1961131988,(((PiMXT07:0.13515625,(PiMXT03:0.07244318182,PiMXT06:0.07244318182)54:0.06271306818)NA:0.04905998891,(PiMX21:0.1516083611,PiMXT05:0.1516083611)NA:0.03260787778)NA:0.00780493167,((PiMX03:0.05113636364,PiMX04:0.05113636364)81:0.1366353254,(((PiMX06:0.1281249998,(PiMX05:0.03977272727,PiMX07:0.03977272727)81:0.08835227252)NA:0.0307432037,((PiMX12:0.1171874837,(PiMX18:0.1079545455,PiMX19:0.1079545455)NA:0.00923293829)NA:0.02739894717,(PiMX20:0.1303208077,PiMX25:0.1303208077)NA:0.01426562317)NA:0.01428177258)NA:0.0127668018,(((PiMX23:0.1022671779,PiMX42:0.1022671779)NA:0.04449974853,(PiMXT01:0.1032182139,(PiMX01:0.09052734375,PiMXT02:0.09052734375)NA:0.01269087019)NA:0.04354871254)NA:0.01342328127,(((PiMX10:0.1051136309,PiMX30:0.1051136309)NA:0.03208376184,(PiMX16:0.1337869774,(PiMX27:0.08344182824,(PiMX50:0,(PiMX48:0,PiMX49:0)NA:0)97:0.08344182824)NA:0.05034514916)NA:0.003410415388)NA:0.02179485368,(PiMX28:0.1556517656,((PiMX02:0.1329900456,(PiMX15:0.06249999851,PiMX41:0.06249999851)51:0.07049004713)NA:0.006729891953,(((PiMX43:0.02272727205,(PiMX47:0,(PiMX46:0,(PiMX44:0,PiMX45:0)NA:0)NA:0)72:0.02272727205)90:0.09312155345,((PiMX17:0.06865234375,PiMX26:0.06865234375)NA:0.03838365343,(PiMX13:0.0734375,PiMX24:0.0734375)NA:0.03359849718)NA:0.008812828326)NA:0.01866532816,(PiMX22:0.1186536847,(PiMX40:0.09211643392,(PiMX11:0.0484375,PiMX14:0.0484375)NA:0.04367893392)NA:0.02653725075)NA:0.01586046899)NA:0.005205783931)NA:0.01593182801)NA:0.003340480854)NA:0.001197961286)NA:0.01144479755)NA:0.0161366837)NA:0.004249481578)NA:0.00409202819)NA:0.01203795431)100;","metadata":[{"name":"metadata 1","data":"cluster_groups\trow_names\tformatted_ids\nc1\tPiMX04\tPiMX04\nc1\tPiMX05\tPiMX05\nc1\tPiMX06\tPiMX06\nc1\tPiMX07\tPiMX07\nc1\tPiMX12\tPiMX12\nc1\tPiMX18\tPiMX18\nc1\tPiMX19\tPiMX19\nc1\tPiMX20\tPiMX20\nc1\tPiMX25\tPiMX25\nc1\tPiMX29\tPiMX29\nc1\tPiMXT03\tPiMXT03\nc1\tPiMXT04\tPiMXT04\nc1\tPiMXT06\tPiMXT06\nc1\tPiMXT07\tPiMXT07\nc1\tPiMXt48\tPiMXt48\nc1\tPiMXt68\tPiMXt68\nc2\tPiMX03\tPiMX03\nc2\tPiMX10\tPiMX10\nc2\tPiMX11\tPiMX11\nc2\tPiMX13\tPiMX13\nc2\tPiMX14\tPiMX14\nc2\tPiMX16\tPiMX16\nc2\tPiMX22\tPiMX22\nc2\tPiMX24\tPiMX24\nc2\tPiMX27\tPiMX27\nc2\tPiMX28\tPiMX28\nc2\tPiMX30\tPiMX30\nc2\tPiMX40\tPiMX40\nc2\tPiMX48\tPiMX48\nc2\tPiMX49\tPiMX49\nc2\tPiMX50\tPiMX50\nc3\tPiMX01\tPiMX01\nc3\tPiMX02\tPiMX02\nc3\tPiMX15\tPiMX15\nc3\tPiMX17\tPiMX17\nc3\tPiMX21\tPiMX21\nc3\tPiMX23\tPiMX23\nc3\tPiMX26\tPiMX26\nc3\tPiMX41\tPiMX41\nc3\tPiMX42\tPiMX42\nc3\tPiMX43\tPiMX43\nc3\tPiMX44\tPiMX44\nc3\tPiMX45\tPiMX45\nc3\tPiMX46\tPiMX46\nc3\tPiMX47\tPiMX47\nc3\tPiMXT01\tPiMXT01\nc3\tPiMXT02\tPiMXT02\nc3\tPiMXT05\tPiMXT05"}],"aesthetics":{"tipLabelColor":"cluster_groups","tipLabelText":"formatted_ids"}}],"options":{"scaleBranchLength":0.5}},"evals":[],"jsHooks":[]}</script>
+<p>You can see that the assigned clusters don’t necessarily group with
+the dendrogram clusters. Let’s see what happens when we view this with
+the South American population:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>cluster_groups <span class="ot">=</span> <span class="fu">sort</span>(SAclust<span class="sc">$</span>grp)</span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>SAmeta <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(cluster_groups)</span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>SAmeta<span class="sc">$</span>cluster_groups <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">&#39;c&#39;</span>, <span class="fu">as.character</span>(SAmeta<span class="sc">$</span>cluster_groups))</span>
+<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a><span class="fu">heat_tree</span>(<span class="at">tree =</span> SAtree, <span class="at">metadata =</span> SAmeta, <span class="at">aesthetics =</span> <span class="fu">c</span>(<span class="at">tipLabelColor =</span> <span class="st">&#39;cluster_groups&#39;</span>), <span class="at">height =</span> <span class="dv">750</span>)</span></code></pre></div>
+<div id="htmlwidget-73c643dadf24afe30177" style="width:100%;height:750px;" class="heat_tree html-widget"></div>
+<script type="application/json" data-for="htmlwidget-73c643dadf24afe30177">{"x":{"trees":[{"name":"tree 1","tree":"(((PiEC07:0.02840909091,PiEC08:0.02840909091)99:0.1023054686,((PiEC06:0.04008838365,(PiEC10:0.01704545455,PiEC11:0.01704545455)74:0.0230429291)84:0.04043427214,(PiPE27:0.05779883302,((PiPE23:0.03598484848,(PiPE25:0,(PiPE22:0,PiPE24:0)NA:0)60:0.03598484848)NA:0.008418163928,((PiEC12:0.0237926016,(PiEC13:0,PiEC14:0)54:0.0237926016)NA:0.01323127907,(PiPE20:0.03125,PiPE21:0.03125)NA:0.005773880666)NA:0.007379131747)NA:0.01339582061)72:0.02272382277)86:0.05019190372)71:0.02907855807,((PiPE01:0.01254734848,(PiPE13:0.004734848485,(PiPE14:0,(PiPE11:0,PiPE12:0)NA:0)56:0.004734848485)65:0.0078125)96:0.1234276959,((PiPE07:0.04332386364,(PiPE06:0.03409090909,(PiPE10:0,PiPE26:0)64:0.03409090909)67:0.009232954545)100:0.06990027926,(PiCO05:0.1095569473,(PiPE03:0.04193300189,(((PiEC03:0.01094933712,(PiCO04:0,(PiCO01:0,PiCO03:0)NA:0)NA:0.01094933712)50:0.01238458807,(PiEC02:0.01136363636,PiPE04:0.01136363636)60:0.01197028883)NA:0.003942418981,((PiCO02:0.01136363636,PiPE05:0.01136363636)56:0.01421934186,((PiPE02:0,PiPE08:0)75:0.02275686553,(PiEC01:0.02130681818,PiPE09:0.02130681818)NA:0.001450047348)NA:0.002826112689)NA:0.001693365951)57:0.01465665772)85:0.06762394538)NA:0.003667195619)NA:0.02275090144)55:0.02381807324)100;","metadata":[{"name":"metadata 1","data":"cluster_groups\trow_names\tformatted_ids\nc1\tPiPE01\tPiPE01\nc1\tPiPE11\tPiPE11\nc1\tPiPE12\tPiPE12\nc1\tPiPE13\tPiPE13\nc1\tPiPE14\tPiPE14\nc2\tPiCO01\tPiCO01\nc2\tPiCO02\tPiCO02\nc2\tPiCO03\tPiCO03\nc2\tPiCO04\tPiCO04\nc2\tPiCO05\tPiCO05\nc2\tPiEC01\tPiEC01\nc2\tPiEC02\tPiEC02\nc2\tPiEC03\tPiEC03\nc2\tPiPE02\tPiPE02\nc2\tPiPE03\tPiPE03\nc2\tPiPE04\tPiPE04\nc2\tPiPE05\tPiPE05\nc2\tPiPE08\tPiPE08\nc2\tPiPE09\tPiPE09\nc3\tPiEC06\tPiEC06\nc3\tPiEC07\tPiEC07\nc3\tPiEC08\tPiEC08\nc3\tPiEC10\tPiEC10\nc3\tPiEC11\tPiEC11\nc3\tPiEC12\tPiEC12\nc3\tPiEC13\tPiEC13\nc3\tPiEC14\tPiEC14\nc3\tPiPE20\tPiPE20\nc3\tPiPE21\tPiPE21\nc3\tPiPE22\tPiPE22\nc3\tPiPE23\tPiPE23\nc3\tPiPE24\tPiPE24\nc3\tPiPE25\tPiPE25\nc3\tPiPE27\tPiPE27\nc4\tPiPE06\tPiPE06\nc4\tPiPE07\tPiPE07\nc4\tPiPE10\tPiPE10\nc4\tPiPE26\tPiPE26"}],"aesthetics":{"tipLabelColor":"cluster_groups","tipLabelText":"formatted_ids"}}],"options":[]},"evals":[],"jsHooks":[]}</script>
+<p>Everything clusters together nicely, further supporting a
+non-panmictic population.</p>
 </div>
 </div>
-<div id="references" class="section level2 unnumbered">
+<div id="references" class="section level2">
 <h2>References</h2>
-<div id="refs" class="references">
-<div id="ref-goss2014irish">
-<p>Goss EM., Tabima JF., Cooke DEL., Restrepo S., Fry WE., Forbes GA., Fieland VJ., Cardenas M., Grünwald NJ. 2014. The Irish potato famine pathogen <em>phytophthora infestans</em> originated in central mexico rather than the andes. <em>Proceedings of the National Academy of Sciences</em> 111:8791–8796. Available at: <a href="http://www.pnas.org/content/early/2014/05/29/1401884111.abstract">http://www.pnas.org/content/early/2014/05/29/1401884111.abstract</a></p>
-</div>
-<div id="ref-hedrick2005standardized">
-<p>Hedrick PW. 2005. A standardized genetic differentiation measure. <em>Evolution</em> 59:1633–1638. Available at: <a href="http://dx.doi.org/10.1111/j.0014-3820.2005.tb01814.x">http://dx.doi.org/10.1111/j.0014-3820.2005.tb01814.x</a></p>
-</div>
-<div id="ref-laloe2007consensus">
-<p>Laloe D., Jombart T., Dufour A-B., Moazami-Goudarzi K. 2007. Consensus genetic structuring and typological value of markers using multiple co-inertia analysis. <em>Genetics Selection Evolution</em> 39:545–567. Available at: <a href="http://dx.doi.org/10.1051/gse:2007021">http://dx.doi.org/10.1051/gse:2007021</a></p>
-</div>
-<div id="ref-meirmans2011assessing">
-<p>Meirmans PG., Hedrick PW. 2011. Assessing population structure: <span class="math inline">\(F_{ST}\)</span> and related measures. <em>Molecular Ecology Resources</em> 11:5–18. Available at: <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full">http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02927.x/full</a></p>
-</div>
-</div>
 </div>
 
 
@@ -946,7 +1005,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
