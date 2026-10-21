@@ -178,7 +178,7 @@ Useful resources to learn R
 *Introductory*
 
  - [Swirl](http://swirlstats.com/) is a very well thought out R package that teaches you interactively.
- - [Code School Try R](https://www.codeschool.com/courses/try-r) is a nice interactive tutorial. 
+ - [Coddy R course](https://coddy.tech/landing/r) is a nice interactive tutorial. 
  - [Quick R](http://www.statmethods.net/interface/help.html)
  - [R reference card](http://cran.r-project.org/doc/contrib/Short-refcard.pdf)
  - A very nice, short [introduction to R](http://ateucher.github.io/rcourse_site/index.html)
